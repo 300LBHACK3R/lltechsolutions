@@ -56,11 +56,13 @@ function Card({
   title,
   eyebrow,
   highlight,
+  className = "",
   children,
 }: {
   title: string;
   eyebrow?: string;
   highlight?: boolean;
+  className?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -71,6 +73,7 @@ function Card({
         "shadow-[0_14px_70px_rgba(0,0,0,0.55)]",
         "transition-transform duration-300 hover:-translate-y-1",
         highlight ? "ring-1 ring-white/15 border-white/20" : "",
+        className,
       ].join(" ")}
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
