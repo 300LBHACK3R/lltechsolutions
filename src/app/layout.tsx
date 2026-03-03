@@ -13,89 +13,65 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lltechsolutions.ca"),
-
-  applicationName: "L&L Tech Solutions",
-  category: "technology",
-
   title: {
-    default: "L&L Tech Solutions | One & Only Tech Partner",
+    default: "L&L Tech Solutions | Business Technology Partner",
     template: "%s | L&L Tech Solutions",
   },
-
   description:
-    "Websites, IT support, cybersecurity, automation, and business technology solutions.",
-
+    "L&L Tech Solutions provides cybersecurity, IT support, AI automation, web development, and business technology solutions for modern companies across Canada.",
   keywords: [
-    "L&L Tech Solutions",
-    "IT support",
-    "Cybersecurity",
-    "Network security",
-    "Managed IT",
+    "IT support Canada",
+    "Cybersecurity services",
     "Business automation",
+    "Web development services",
+    "Managed IT services",
     "AI automation",
-    "Web development",
+    "Network security",
     "Technology consulting",
-    "Canada",
   ],
-
   authors: [{ name: "L&L Tech Solutions" }],
   creator: "L&L Tech Solutions",
   publisher: "L&L Tech Solutions",
-
   alternates: {
     canonical: "https://lltechsolutions.ca",
   },
-
-  referrer: "origin-when-cross-origin",
-
-  formatDetection: {
-    telephone: false,
-    email: false,
-    address: false,
-  },
-
-  icons: {
-    icon: [{ url: "/favicon.ico" }, { url: "/icon.png", type: "image/png" }],
-    apple: [{ url: "/apple-touch-icon.png" }],
-  },
-
   openGraph: {
     type: "website",
     locale: "en_CA",
     url: "https://lltechsolutions.ca",
     siteName: "L&L Tech Solutions",
-    title: "L&L Tech Solutions | One & Only Tech Partner",
+    title: "L&L Tech Solutions | Business Technology Partner",
     description:
-      "Websites, IT support, cybersecurity, automation, and business technology solutions.",
+      "Cybersecurity, IT support, automation, and web development — handled under one trusted technology partner.",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "L&L Tech Solutions",
+        alt: "L&L Tech Solutions – Business Technology Partner",
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
-    title: "L&L Tech Solutions | One & Only Tech Partner",
+    title: "L&L Tech Solutions | Business Technology Partner",
     description:
-      "Websites, IT support, cybersecurity, automation, and business technology solutions.",
+      "Cybersecurity, IT support, automation, and web development — handled under one trusted technology partner.",
     images: ["/og.png"],
   },
-
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
-      "max-video-preview": -1,
     },
   },
+  category: "technology",
 };
 
 const NAV: NavItem[] = [
@@ -208,7 +184,10 @@ export default function RootLayout({
           </div>
         </header>
 
-        <main className="relative">{children}</main>
+        {/* ✅ IMPORTANT: this padding prevents the mobile StickyCTA from covering content */}
+        <main className="relative pb-[calc(84px+env(safe-area-inset-bottom))]">
+          {children}
+        </main>
 
         <footer className="border-t border-white/10">
           <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-10 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
