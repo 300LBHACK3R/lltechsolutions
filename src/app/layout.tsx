@@ -95,13 +95,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050814] text-white selection:bg-white/20`}
       >
-        {/* ===== Premium Background ===== */}
+        {/* Premium Background. */}
         <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
           <div className="absolute -top-52 left-[-260px] h-[760px] w-[760px] rounded-full bg-fuchsia-500/18 blur-3xl" />
           <div className="absolute top-[120px] right-[-260px] h-[820px] w-[820px] rounded-full bg-cyan-400/12 blur-3xl" />
           <div className="absolute bottom-[-320px] left-[15%] h-[820px] w-[820px] rounded-full bg-indigo-500/10 blur-3xl" />
 
-          {/* subtle grid */}
+          {/* Subtle Grid. */}
           <div
             className="absolute inset-0 opacity-[0.06]"
             style={{
@@ -111,7 +111,7 @@ export default function RootLayout({
             }}
           />
 
-          {/* subtle noise */}
+          {/* Subtle Noise. */}
           <div
             className="absolute inset-0 opacity-[0.10]"
             style={{
@@ -123,28 +123,33 @@ export default function RootLayout({
           <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/35 to-black/75" />
         </div>
 
-        {/* ===== Navbar ===== */}
-        <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050814]/55 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-            <Link href="/" className="flex min-w-0 items-center gap-3">
-              <Image
-                src="/logo.png"
-                alt="L&L Tech Solutions"
-                width={40}
-                height={40}
-                priority
-                className="h-9 w-auto object-contain drop-shadow-[0_0_16px_rgba(168,85,247,0.35)]"
-              />
-              <span className="hidden sm:block truncate font-semibold tracking-tight text-white/90">
-                L&L Tech Solutions
-              </span>
+        {/* Navbar. */}
+        <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050814]/70 backdrop-blur-xl transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.25)]">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-3">
+              <div className="relative">
+                {/* Subtle glow frame */}
+                <div className="absolute -inset-2 rounded-full bg-fuchsia-500/15 blur-xl" />
+
+                <Image
+                  src="/logo.png"
+                  alt="L&L Tech Solutions"
+                  width={180}
+                  height={180}
+                  priority
+                  className="relative h-13 w-auto object-contain md:h-15 drop-shadow-[0_0_18px_rgba(168,85,247,0.35)]"
+                />
+              </div>
             </Link>
 
+            {/* Desktop Nav */}
             <ScrollSpyNav
-              className="hidden md:flex items-center gap-8"
+              className="hidden md:flex items-center gap-6 lg:gap-8"
               items={NAV}
             />
 
+            {/* CTA */}
             <div className="flex items-center gap-3">
               <a
                 href="#contact"
@@ -153,7 +158,7 @@ export default function RootLayout({
                 Free Tech Audit
               </a>
 
-              {/* Mobile menu */}
+              {/* Mobile Menu */}
               <details className="relative md:hidden">
                 <summary className="list-none cursor-pointer rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white/80 hover:bg-white/10 transition">
                   Menu
@@ -184,7 +189,7 @@ export default function RootLayout({
           </div>
         </header>
 
-        {/* ✅ IMPORTANT: this padding prevents the mobile StickyCTA from covering content */}
+        {/**** NOTE TO SELF LOL: prevents the mobile StickyCTA from covering content. ****/}
         <main className="relative pb-[calc(84px+env(safe-area-inset-bottom))]">
           {children}
         </main>
@@ -206,7 +211,7 @@ export default function RootLayout({
           </div>
         </footer>
 
-        {/* Anchor offset for sticky header */}
+        {/* Anchor Offset, Sticky Head. */}
         <style>{`section[id]{scroll-margin-top:96px;}`}</style>
       </body>
     </html>
