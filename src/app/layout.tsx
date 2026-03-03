@@ -1,4 +1,3 @@
-};
 import ScrollSpyNav, { type NavItem } from "@/components/ScrollSpyNav";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -13,9 +12,90 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "L&L Tech Solutions | One & Only Tech Partner",
+  metadataBase: new URL("https://lltechsolutions.ca"),
+
+  applicationName: "L&L Tech Solutions",
+  category: "technology",
+
+  title: {
+    default: "L&L Tech Solutions | One & Only Tech Partner",
+    template: "%s | L&L Tech Solutions",
+  },
+
   description:
     "Websites, IT support, cybersecurity, automation, and business technology solutions.",
+
+  keywords: [
+    "L&L Tech Solutions",
+    "IT support",
+    "Cybersecurity",
+    "Network security",
+    "Managed IT",
+    "Business automation",
+    "AI automation",
+    "Web development",
+    "Technology consulting",
+    "Canada",
+  ],
+
+  authors: [{ name: "L&L Tech Solutions" }],
+  creator: "L&L Tech Solutions",
+  publisher: "L&L Tech Solutions",
+
+  alternates: {
+    canonical: "https://lltechsolutions.ca",
+  },
+
+  referrer: "origin-when-cross-origin",
+
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
+  },
+
+  icons: {
+    icon: [{ url: "/favicon.ico" }, { url: "/icon.png", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png" }],
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "en_CA",
+    url: "https://lltechsolutions.ca",
+    siteName: "L&L Tech Solutions",
+    title: "L&L Tech Solutions | One & Only Tech Partner",
+    description:
+      "Websites, IT support, cybersecurity, automation, and business technology solutions.",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "L&L Tech Solutions",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "L&L Tech Solutions | One & Only Tech Partner",
+    description:
+      "Websites, IT support, cybersecurity, automation, and business technology solutions.",
+    images: ["/og.png"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 const NAV: NavItem[] = [
@@ -127,53 +207,6 @@ export default function RootLayout({
             </div>
           </div>
         </header>
-
-        export const metadata: Metadata = {
-  metadataBase: new URL("https://lltechsolutions.ca"),
-  title: {
-    default: "L&L Tech Solutions | One & Only Tech Partner",
-    template: "%s | L&L Tech Solutions",
-  },
-  description:
-    "Websites, IT support, cybersecurity, automation, and business technology solutions.",
-  alternates: {
-    canonical: "https://lltechsolutions.ca",
-  },
-  openGraph: {
-    type: "website",
-    url: "https://lltechsolutions.ca",
-    title: "L&L Tech Solutions | One & Only Tech Partner",
-    description:
-      "Websites, IT support, cybersecurity, automation, and business technology solutions.",
-    siteName: "L&L Tech Solutions",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "L&L Tech Solutions",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "L&L Tech Solutions | One & Only Tech Partner",
-    description:
-      "Websites, IT support, cybersecurity, automation, and business technology solutions.",
-    images: ["/og.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-};
 
         <main className="relative">{children}</main>
 
