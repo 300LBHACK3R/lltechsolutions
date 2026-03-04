@@ -55,14 +55,17 @@ export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
   );
-
   const [errorMsg, setErrorMsg] = useState("");
+
+  const subjectLine = useMemo(() => {
+    const n = form.name?.trim() || "Unknown";
+    return `New L&L Tech Solutions Lead — ${form.need} (${form.priority}) — ${n}`;
+  }, [form.name, form.need, form.priority]);
 
   const mailtoHref = useMemo(() => {
     const subject = encodeURIComponent(
       `L&L Tech Solutions — ${form.need} (${form.priority})`,
     );
-
     const body = encodeURIComponent(
       `
 Name: ${form.name}
@@ -88,10 +91,7 @@ ${form.message}
         HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
       >,
     ) => {
-      setForm((prev) => ({
-        ...prev,
-        [key]: e.target.value as FormState[K],
-      }));
+      setForm((prev) => ({ ...prev, [key]: e.target.value as FormState[K] }));
     };
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -100,7 +100,7 @@ ${form.message}
 
     if (status === "sending") return;
 
-    // Honeypot protection
+    // Honeypot protection: bots often fill hidden fields. Humans won't.
     if (form.company.trim().length > 0) {
       setStatus("sent");
       return;
@@ -115,10 +115,12 @@ ${form.message}
         fd.append(key, value);
       });
 
-      fd.append(
-        "_subject",
-        `New Lead: ${form.need} (${form.priority}) — ${form.name}`,
-      );
+      // Formspree helpers
+      fd.append("_subject", subjectLine);
+
+      // Reply-to: Formspree will usually use `email` automatically,
+      // but `_replyto` is a reliable fallback.
+      if (form.email.trim()) fd.append("_replyto", form.email.trim());
 
       const res = await fetch(FORMSPREE_ACTION, {
         method: "POST",
@@ -130,9 +132,7 @@ ${form.message}
         let message = "Failed to send form.";
         try {
           const data = await res.json();
-          if (data?.errors?.[0]?.message) {
-            message = data.errors[0].message;
-          }
+          if (data?.errors?.[0]?.message) message = data.errors[0].message;
         } catch {}
         throw new Error(message);
       }
@@ -151,15 +151,12 @@ ${form.message}
         company: "",
       });
 
-      // Auto reset success banner after 6 seconds
-      setTimeout(() => {
-        setStatus("idle");
-      }, 6000);
+      setTimeout(() => setStatus("idle"), 6000);
     } catch (err: any) {
       setStatus("error");
       setErrorMsg(
         err?.message ||
-          "Network blocked. If using an adblocker, allow formspree.io.",
+          "Network blocked. If using an adblocker, allow formspree.io and try again.",
       );
     }
   }
@@ -205,7 +202,11 @@ ${form.message}
           method="POST"
           className="mt-6 grid gap-4"
         >
-          {/* Honeypot */}
+          {/* Formspree hidden helpers (also works if JS fails and it submits normally) */}
+          <input type="hidden" name="_subject" value={subjectLine} />
+          <input type="hidden" name="_replyto" value={form.email} />
+
+          {/* Honeypot (anti-spam) */}
           <label className="absolute left-[-9999px] opacity-0 pointer-events-none">
             <input
               name="company"
