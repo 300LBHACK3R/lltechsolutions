@@ -136,7 +136,8 @@ summary {
     border-color 0.22s ease,
     box-shadow 0.22s ease,
     transform 0.22s ease,
-    opacity 0.22s ease;
+    opacity 0.22s ease,
+    filter 0.22s ease;
 }
 
 :focus-visible {
@@ -256,6 +257,17 @@ summary {
   );
 }
 
+.section-divider-soft {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(212, 175, 55, 0.25),
+    transparent
+  );
+}
+
 /* =========================
    SURFACES / CARDS
 ========================= */
@@ -281,17 +293,18 @@ summary {
   background:
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.025) 0%,
-      rgba(255, 255, 255, 0.01) 100%
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.012) 100%
     ),
-    rgba(11, 11, 11, 0.9);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-soft);
+    rgba(10, 10, 10, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
   transition:
-    transform 0.28s ease,
-    border-color 0.28s ease,
-    box-shadow 0.28s ease,
-    background 0.28s ease;
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .card-premium::before {
@@ -311,8 +324,10 @@ summary {
 
 .card-premium:hover {
   transform: translateY(-4px);
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-premium), var(--shadow-gold);
+  border-color: rgba(212, 175, 55, 0.32);
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(212, 175, 55, 0.12);
 }
 
 .card-soft {
@@ -324,6 +339,30 @@ summary {
 .card-outline-gold {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
+}
+
+.edge-gold {
+  position: relative;
+}
+
+.edge-gold::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(212, 175, 55, 0.35),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.edge-gold:hover::after {
+  opacity: 1;
 }
 
 /* =========================
@@ -372,23 +411,29 @@ summary {
   justify-content: center;
   gap: 0.6rem;
   min-height: 48px;
-  padding: 0.82rem 1.25rem;
-  border: 1px solid rgba(255, 223, 128, 0.2);
+  padding: 0.85rem 1.3rem;
   border-radius: 999px;
+  border: 1px solid rgba(255, 223, 128, 0.22);
   background: linear-gradient(180deg, #f5d77a 0%, #d4af37 55%, #b88f23 100%);
   color: #090909;
   font-weight: 700;
   letter-spacing: 0.01em;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 10px 26px rgba(212, 175, 55, 0.22);
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 12px 40px rgba(212, 175, 55, 0.28);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .btn-gold:hover {
   transform: translateY(-2px);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.38),
-    0 14px 34px rgba(212, 175, 55, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 18px 48px rgba(212, 175, 55, 0.35);
+  filter: brightness(1.03);
 }
 
 .btn-gold:active {
@@ -399,6 +444,7 @@ summary {
   cursor: not-allowed;
   opacity: 0.6;
   transform: none;
+  filter: none;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     0 6px 16px rgba(212, 175, 55, 0.12);
@@ -410,19 +456,20 @@ summary {
   justify-content: center;
   gap: 0.6rem;
   min-height: 48px;
-  padding: 0.82rem 1.25rem;
+  padding: 0.85rem 1.3rem;
   border-radius: 999px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(212, 175, 55, 0.18);
   background: rgba(255, 255, 255, 0.02);
-  color: var(--gold-soft);
+  color: rgba(255, 255, 255, 0.78);
   font-weight: 600;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
 .btn-ghost-gold:hover {
-  border-color: var(--border-strong);
+  border-color: rgba(212, 175, 55, 0.38);
   background: rgba(212, 175, 55, 0.06);
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -509,10 +556,11 @@ summary {
 ========================= */
 
 .nav-premium {
-  background: rgba(6, 6, 6, 0.72);
+  background: rgba(6, 6, 6, 0.78);
   border-bottom: 1px solid rgba(212, 175, 55, 0.12);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 }
 
 .glass-gold {
@@ -540,6 +588,24 @@ summary {
     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+}
+
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(212, 175, 55, 0.08),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(245, 215, 122, 0.05),
+      transparent 40%
+    );
+  z-index: -1;
 }
 
 /* =========================

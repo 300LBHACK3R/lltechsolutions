@@ -102,33 +102,33 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[var(--bg-main)] font-sans text-white antialiased`}
       >
         <div className="page-shell">
-          {/* Background atmosphere */}
           <div
             aria-hidden="true"
             className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.08),transparent_32%)]" />
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(212,175,55,0.3)] to-transparent" />
             <div className="absolute left-[-180px] top-[-180px] h-[420px] w-[420px] rounded-full bg-[rgba(212,175,55,0.08)] blur-3xl" />
             <div className="absolute right-[-180px] top-[10%] h-[320px] w-[320px] rounded-full bg-[rgba(245,215,122,0.05)] blur-3xl" />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60" />
           </div>
 
-          <header className="nav-premium sticky top-0 z-50 shadow-[0_8px_30px_rgba(0,0,0,0.28)]">
-            <div className="container-premium flex items-center justify-between gap-4 py-3">
+          <header className="nav-premium sticky top-0 z-50 border-b border-[rgba(212,175,55,0.12)] bg-[rgba(5,5,5,0.75)] shadow-[0_10px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+            <div className="container-premium flex items-center justify-between gap-4 py-4">
               <Link
                 href="/"
                 aria-label="L and L Tech Solutions home"
                 className="group flex shrink-0 items-center gap-3"
               >
-                <div className="relative">
-                  <div className="absolute -inset-2 rounded-full bg-[rgba(212,175,55,0.08)] blur-xl transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="relative flex items-center justify-center rounded-full border border-[rgba(212,175,55,0.12)] bg-[rgba(212,175,55,0.04)] px-3 py-1.5">
+                  <div className="absolute -inset-3 rounded-full bg-[rgba(212,175,55,0.08)] blur-xl opacity-70" />
                   <Image
                     src="/brand/logo.png"
                     alt="L&L Tech Solutions"
-                    width={180}
-                    height={180}
+                    width={240}
+                    height={240}
                     priority
-                    className="relative h-[50px] w-auto object-contain md:h-[58px]"
+                    className="relative h-[64px] w-auto object-contain drop-shadow-[0_0_18px_rgba(212,175,55,0.25)] md:h-[78px]"
                   />
                 </div>
               </Link>
