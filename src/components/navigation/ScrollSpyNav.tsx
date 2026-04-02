@@ -20,7 +20,9 @@ export default function ScrollSpyNav({ items, className }: Props) {
   const [active, setActive] = useState<string>(items[0]?.href ?? "");
 
   const ids = useMemo(() => {
-    return items.map((i) => i.href.replace("#", "")).filter(Boolean);
+    return items
+      .map((item) => item.href.replace("#", "").trim())
+      .filter(Boolean);
   }, [items]);
 
   useEffect(() => {
@@ -34,28 +36,40 @@ export default function ScrollSpyNav({ items, className }: Props) {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort(
-            (a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0),
-          )[0];
+        const visibleEntries = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => {
+            const aRatio = a.intersectionRatio ?? 0;
+            const bRatio = b.intersectionRatio ?? 0;
+            return bRatio - aRatio;
+          });
 
-        const id = visible?.target?.id;
-        if (id) setActive(`#${id}`);
+        const topVisible = visibleEntries[0];
+        const id = topVisible?.target?.id;
+
+        if (id) {
+          setActive(`#${id}`);
+        }
       },
       {
         root: null,
-        rootMargin: "-20% 0px -70% 0px",
-        threshold: [0.1, 0.25, 0.5],
+        rootMargin: "-18% 0px -62% 0px",
+        threshold: [0.15, 0.3, 0.5, 0.7],
       },
     );
 
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      observer.disconnect();
+    };
   }, [ids]);
 
   return (
-    <nav className={cx("items-center", className)}>
+    <nav
+      aria-label="Section navigation"
+      className={cx("flex items-center gap-1.5", className)}
+    >
       {items.map((item) => {
         const isActive = active === item.href;
 
@@ -63,22 +77,33 @@ export default function ScrollSpyNav({ items, className }: Props) {
           <a
             key={item.href}
             href={item.href}
+            aria-current={isActive ? "page" : undefined}
             className={cx(
-              "text-sm transition",
-              isActive ? "text-white" : "text-white/65 hover:text-white",
+              "group relative inline-flex items-center rounded-full px-3 py-2 text-[0.92rem] font-medium tracking-[0.01em] transition-all duration-200",
+              isActive ? "text-[#f5d77a]" : "text-white/62 hover:text-white/92",
             )}
           >
-            <span className="relative">
-              {item.label}
-              <span
-                className={cx(
-                  "absolute left-0 -bottom-2 h-[2px] w-full rounded-full transition-opacity",
-                  isActive
-                    ? "opacity-100 bg-white/70"
-                    : "opacity-0 bg-white/30",
-                )}
-              />
-            </span>
+            <span className="relative z-[1]">{item.label}</span>
+
+            <span
+              aria-hidden="true"
+              className={cx(
+                "absolute inset-0 rounded-full border transition-all duration-200",
+                isActive
+                  ? "border-[rgba(212,175,55,0.22)] bg-[rgba(212,175,55,0.08)]"
+                  : "border-transparent bg-transparent group-hover:border-[rgba(212,175,55,0.1)] group-hover:bg-white/[0.03]",
+              )}
+            />
+
+            <span
+              aria-hidden="true"
+              className={cx(
+                "absolute left-3 right-3 bottom-[0.38rem] h-px origin-left rounded-full transition-all duration-200",
+                isActive
+                  ? "scale-x-100 bg-[linear-gradient(90deg,rgba(212,175,55,0),rgba(212,175,55,0.95),rgba(245,215,122,0.9),rgba(212,175,55,0))]"
+                  : "scale-x-0 bg-[linear-gradient(90deg,rgba(212,175,55,0),rgba(212,175,55,0.55),rgba(212,175,55,0))] group-hover:scale-x-100",
+              )}
+            />
           </a>
         );
       })}

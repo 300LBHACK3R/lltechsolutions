@@ -7,7 +7,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -89,108 +93,108 @@ const NAV: NavItem[] = [
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050505] text-white selection:bg-[#d4af37] selection:text-black`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[var(--bg-main)] font-sans text-white antialiased`}
       >
-        <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="page-shell">
+          {/* Background atmosphere */}
           <div
-            className="absolute inset-0 opacity-[0.05]"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, rgba(212,175,55,0.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(212,175,55,0.15) 1px, transparent 1px)",
-              backgroundSize: "80px 80px",
-            }}
-          />
-          <div className="absolute top-[-200px] left-[-200px] h-[500px] w-[500px] rounded-full bg-[#d4af37]/10 blur-3xl" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/40 to-black/90" />
+            aria-hidden="true"
+            className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.08),transparent_32%)]" />
+            <div className="absolute left-[-180px] top-[-180px] h-[420px] w-[420px] rounded-full bg-[rgba(212,175,55,0.08)] blur-3xl" />
+            <div className="absolute right-[-180px] top-[10%] h-[320px] w-[320px] rounded-full bg-[rgba(245,215,122,0.05)] blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60" />
+          </div>
+
+          <header className="nav-premium sticky top-0 z-50 shadow-[0_8px_30px_rgba(0,0,0,0.28)]">
+            <div className="container-premium flex items-center justify-between gap-4 py-3">
+              <Link
+                href="/"
+                aria-label="L and L Tech Solutions home"
+                className="group flex shrink-0 items-center gap-3"
+              >
+                <div className="relative">
+                  <div className="absolute -inset-2 rounded-full bg-[rgba(212,175,55,0.08)] blur-xl transition-opacity duration-300 group-hover:opacity-100" />
+                  <Image
+                    src="/brand/logo.png"
+                    alt="L&L Tech Solutions"
+                    width={180}
+                    height={180}
+                    priority
+                    className="relative h-[50px] w-auto object-contain md:h-[58px]"
+                  />
+                </div>
+              </Link>
+
+              <ScrollSpyNav className="hidden md:flex" items={NAV} />
+
+              <div className="flex items-center gap-3">
+                <a href="#contact" className="btn-gold hidden sm:inline-flex">
+                  Free Tech Audit
+                </a>
+
+                <details className="relative md:hidden">
+                  <summary className="list-none cursor-pointer rounded-full border border-[rgba(212,175,55,0.14)] bg-white/[0.03] px-4 py-2 text-sm font-medium text-white/85 transition hover:border-[rgba(212,175,55,0.24)] hover:bg-white/[0.05]">
+                    Menu
+                  </summary>
+
+                  <div className="absolute right-0 mt-3 w-72 overflow-hidden rounded-2xl border border-[rgba(212,175,55,0.14)] bg-[rgba(10,10,10,0.96)] shadow-[0_20px_70px_rgba(0,0,0,0.58)] backdrop-blur-xl">
+                    <div className="p-2">
+                      {NAV.map(({ label, href }) => (
+                        <a
+                          key={href}
+                          href={href}
+                          className="block rounded-xl px-3 py-2.5 text-sm text-white/78 transition hover:bg-[rgba(212,175,55,0.06)] hover:text-[#f5d77a]"
+                        >
+                          {label}
+                        </a>
+                      ))}
+
+                      <a href="#contact" className="btn-gold mt-2 flex w-full">
+                        Free Tech Audit
+                      </a>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </header>
+
+          <main className="relative pb-[calc(84px+env(safe-area-inset-bottom))]">
+            {children}
+          </main>
+
+          <footer className="border-t border-[rgba(212,175,55,0.12)]">
+            <div className="container-premium flex flex-col gap-4 py-10 text-sm text-muted md:flex-row md:items-center md:justify-between">
+              <div>© {new Date().getFullYear()} L&amp;L Tech Solutions</div>
+
+              <div className="flex flex-wrap gap-4">
+                <a className="transition hover:text-white" href="#services">
+                  Services
+                </a>
+                <a className="transition hover:text-white" href="#packages">
+                  Packages
+                </a>
+                <a className="transition hover:text-white" href="#contact">
+                  Contact
+                </a>
+              </div>
+            </div>
+          </footer>
         </div>
 
-        <header className="sticky top-0 z-50 border-b border-[#d4af3720] bg-[#050505]/80 backdrop-blur-xl transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="relative">
-                <div className="absolute -inset-2 rounded-full bg-[#d4af37]/10 blur-xl" />
-                <Image
-                  src="/brand/logo.png"
-                  alt="L&L Tech Solutions"
-                  width={180}
-                  height={180}
-                  priority
-                  className="relative h-[52px] w-auto object-contain md:h-[60px] drop-shadow-[0_0_20px_rgba(212,175,55,0.35)]"
-                />
-              </div>
-            </Link>
-
-            <ScrollSpyNav
-              className="hidden md:flex items-center gap-6 lg:gap-8"
-              items={NAV}
-            />
-
-            <div className="flex items-center gap-3">
-              <a
-                href="#contact"
-                className="hidden sm:inline-flex rounded-xl bg-gradient-to-r from-[#d4af37] to-[#f5d77a] px-4 py-2 text-sm font-semibold text-black shadow-[0_8px_30px_rgba(212,175,55,0.25)] hover:scale-[1.02] transition"
-              >
-                Free Tech Audit
-              </a>
-
-              <details className="relative md:hidden">
-                <summary className="list-none cursor-pointer rounded-xl border border-[#d4af3720] bg-white/5 px-3 py-2 text-sm text-white/80 hover:bg-white/10 transition">
-                  Menu
-                </summary>
-
-                <div className="absolute right-0 mt-3 w-72 overflow-hidden rounded-2xl border border-[#d4af3720] bg-[#070707]/95 backdrop-blur-xl shadow-[0_20px_70px_rgba(0,0,0,0.60)]">
-                  <div className="p-2">
-                    {NAV.map(({ label, href }) => (
-                      <a
-                        key={href}
-                        href={href}
-                        className="block rounded-xl px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white transition"
-                      >
-                        {label}
-                      </a>
-                    ))}
-
-                    <a
-                      href="#contact"
-                      className="mt-2 block rounded-xl bg-gradient-to-r from-[#d4af37] to-[#f5d77a] px-3 py-2 text-center text-sm font-semibold text-black"
-                    >
-                      Free Tech Audit
-                    </a>
-                  </div>
-                </div>
-              </details>
-            </div>
-          </div>
-        </header>
-
-        <main className="relative pb-[calc(84px+env(safe-area-inset-bottom))]">
-          {children}
-        </main>
-
-        <footer className="border-t border-[#d4af3720]">
-          <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-10 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
-            <div>© {new Date().getFullYear()} L&L Tech Solutions</div>
-            <div className="flex gap-4">
-              <a className="hover:text-white transition" href="#services">
-                Services
-              </a>
-              <a className="hover:text-white transition" href="#packages">
-                Packages
-              </a>
-              <a className="hover:text-white transition" href="#contact">
-                Contact
-              </a>
-            </div>
-          </div>
-        </footer>
-
-        <style>{`section[id]{scroll-margin-top:96px;}`}</style>
+        <style>{`
+          section[id] {
+            scroll-margin-top: 110px;
+          }
+        `}</style>
       </body>
     </html>
   );
