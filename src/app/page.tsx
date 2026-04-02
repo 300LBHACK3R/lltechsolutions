@@ -1,6 +1,6 @@
-import ContactForm from "@/components/ContactForm";
-import Reveal from "@/components/Reveal";
-import StickyCTA from "@/components/StickyCTA";
+import ContactForm from "@/components/forms/ContactForm";
+import Reveal from "@/components/ui/Reveal";
+import StickyCTA from "@/components/ui/StickyCTA";
 import type { ReactNode } from "react";
 
 /* -------------------------------------------------------

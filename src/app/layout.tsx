@@ -1,9 +1,11 @@
-import ScrollSpyNav, { type NavItem } from "@/components/ScrollSpyNav";
+import ScrollSpyNav, {
+  type NavItem,
+} from "@/components/navigation/ScrollSpyNav";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -93,78 +95,56 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050814] text-white selection:bg-white/20`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#050505] text-white selection:bg-[#d4af37] selection:text-black`}
       >
-        {/* Premium Background. */}
         <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-          <div className="absolute -top-52 left-[-260px] h-[760px] w-[760px] rounded-full bg-fuchsia-500/18 blur-3xl" />
-          <div className="absolute top-[120px] right-[-260px] h-[820px] w-[820px] rounded-full bg-cyan-400/12 blur-3xl" />
-          <div className="absolute bottom-[-320px] left-[15%] h-[820px] w-[820px] rounded-full bg-indigo-500/10 blur-3xl" />
-
-          {/* Subtle Grid. */}
           <div
-            className="absolute inset-0 opacity-[0.06]"
+            className="absolute inset-0 opacity-[0.05]"
             style={{
               backgroundImage:
-                "linear-gradient(to right, rgba(255,255,255,0.14) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.14) 1px, transparent 1px)",
-              backgroundSize: "76px 76px",
+                "linear-gradient(to right, rgba(212,175,55,0.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(212,175,55,0.15) 1px, transparent 1px)",
+              backgroundSize: "80px 80px",
             }}
           />
-
-          {/* Subtle Noise. */}
-          <div
-            className="absolute inset-0 opacity-[0.10]"
-            style={{
-              backgroundImage:
-                "url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.75%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22200%22 height=%22200%22 filter=%22url(%23n)%22 opacity=%220.35%22/></svg>')",
-            }}
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/35 to-black/75" />
+          <div className="absolute top-[-200px] left-[-200px] h-[500px] w-[500px] rounded-full bg-[#d4af37]/10 blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/40 to-black/90" />
         </div>
 
-        {/* Navbar. */}
-        <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050814]/70 backdrop-blur-xl transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.25)]">
+        <header className="sticky top-0 z-50 border-b border-[#d4af3720] bg-[#050505]/80 backdrop-blur-xl transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-            {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
               <div className="relative">
-                {/* Subtle glow frame */}
-                <div className="absolute -inset-2 rounded-full bg-fuchsia-500/15 blur-xl" />
-
+                <div className="absolute -inset-2 rounded-full bg-[#d4af37]/10 blur-xl" />
                 <Image
-                  src="/logo.png"
+                  src="/brand/logo.png"
                   alt="L&L Tech Solutions"
                   width={180}
                   height={180}
                   priority
-                  className="relative h-13 w-auto object-contain md:h-15 drop-shadow-[0_0_18px_rgba(168,85,247,0.35)]"
+                  className="relative h-[52px] w-auto object-contain md:h-[60px] drop-shadow-[0_0_20px_rgba(212,175,55,0.35)]"
                 />
               </div>
             </Link>
 
-            {/* Desktop Nav */}
             <ScrollSpyNav
               className="hidden md:flex items-center gap-6 lg:gap-8"
               items={NAV}
             />
 
-            {/* CTA */}
             <div className="flex items-center gap-3">
               <a
                 href="#contact"
-                className="hidden sm:inline-flex rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-[0_12px_40px_rgba(255,255,255,0.10)] hover:bg-white/90 transition"
+                className="hidden sm:inline-flex rounded-xl bg-gradient-to-r from-[#d4af37] to-[#f5d77a] px-4 py-2 text-sm font-semibold text-black shadow-[0_8px_30px_rgba(212,175,55,0.25)] hover:scale-[1.02] transition"
               >
                 Free Tech Audit
               </a>
 
-              {/* Mobile Menu */}
               <details className="relative md:hidden">
-                <summary className="list-none cursor-pointer rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white/80 hover:bg-white/10 transition">
+                <summary className="list-none cursor-pointer rounded-xl border border-[#d4af3720] bg-white/5 px-3 py-2 text-sm text-white/80 hover:bg-white/10 transition">
                   Menu
                 </summary>
 
-                <div className="absolute right-0 mt-3 w-72 overflow-hidden rounded-2xl border border-white/10 bg-[#070b1a]/95 backdrop-blur-xl shadow-[0_20px_70px_rgba(0,0,0,0.50)]">
+                <div className="absolute right-0 mt-3 w-72 overflow-hidden rounded-2xl border border-[#d4af3720] bg-[#070707]/95 backdrop-blur-xl shadow-[0_20px_70px_rgba(0,0,0,0.60)]">
                   <div className="p-2">
                     {NAV.map(({ label, href }) => (
                       <a
@@ -178,7 +158,7 @@ export default function RootLayout({
 
                     <a
                       href="#contact"
-                      className="mt-2 block rounded-xl bg-white px-3 py-2 text-center text-sm font-semibold text-slate-900 hover:bg-white/90 transition"
+                      className="mt-2 block rounded-xl bg-gradient-to-r from-[#d4af37] to-[#f5d77a] px-3 py-2 text-center text-sm font-semibold text-black"
                     >
                       Free Tech Audit
                     </a>
@@ -189,12 +169,11 @@ export default function RootLayout({
           </div>
         </header>
 
-        {/**** NOTE TO SELF LOL: prevents the mobile StickyCTA from covering content. ****/}
         <main className="relative pb-[calc(84px+env(safe-area-inset-bottom))]">
           {children}
         </main>
 
-        <footer className="border-t border-white/10">
+        <footer className="border-t border-[#d4af3720]">
           <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-10 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
             <div>© {new Date().getFullYear()} L&L Tech Solutions</div>
             <div className="flex gap-4">
@@ -211,7 +190,6 @@ export default function RootLayout({
           </div>
         </footer>
 
-        {/* Anchor Offset, Sticky Head. */}
         <style>{`section[id]{scroll-margin-top:96px;}`}</style>
       </body>
     </html>
