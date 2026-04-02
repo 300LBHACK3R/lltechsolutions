@@ -79,19 +79,55 @@ function Card({
   return (
     <div
       className={cn(
-        "card-premium p-6",
-        highlight && "border-[rgba(212,175,55,0.35)]",
+        "card-premium edge-gold p-6",
+        highlight && "border-[rgba(212,175,55,0.34)]",
         className,
       )}
     >
       {eyebrow ? (
-        <div className="text-xs font-semibold tracking-[0.14em] uppercase text-[#f5d77a]/80">
+        <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f5d77a]/80">
           {eyebrow}
         </div>
       ) : null}
 
       <h3 className="mt-1 text-lg font-semibold tracking-tight">{title}</h3>
       <div className="mt-4">{children}</div>
+    </div>
+  );
+}
+
+function ImageServiceCard({
+  title,
+  eyebrow,
+  description,
+  bullets,
+}: {
+  title: string;
+  eyebrow: string;
+  description: string;
+  bullets: string[];
+}) {
+  return (
+    <div className="image-card min-h-[320px]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(212,175,55,0.14),transparent_35%)]" />
+      <div className="relative z-[2] flex h-full flex-col justify-end p-6">
+        <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f5d77a]/85">
+          {eyebrow}
+        </div>
+        <h3 className="mt-2 text-2xl font-semibold tracking-tight">{title}</h3>
+        <p className="mt-3 max-w-md text-sm text-white/72">{description}</p>
+
+        <ul className="mt-4 space-y-2 text-sm text-white/82">
+          {bullets.map((item) => (
+            <li key={item} className="flex gap-2">
+              <span aria-hidden className="text-[#f5d77a]">
+                •
+              </span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
@@ -122,7 +158,7 @@ function InfoGridCard({
   description: string;
 }) {
   return (
-    <div className="card-premium p-5">
+    <div className="card-premium edge-gold p-5">
       <div className="text-lg font-semibold">{title}</div>
       <p className="mt-2 text-sm text-muted">{description}</p>
     </div>
@@ -289,7 +325,8 @@ function Metric({
 function SampleDashboard() {
   return (
     <div className="relative">
-      <div className="card-premium rounded-[1.75rem] p-5">
+      <div className="hero-glow" />
+      <div className="card-premium edge-gold rounded-[1.75rem] border-[rgba(212,175,55,0.18)] p-5 shadow-[0_25px_80px_rgba(0,0,0,0.6)]">
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="text-sm font-semibold">Sample Tech Audit</div>
@@ -325,6 +362,59 @@ function SampleDashboard() {
           <Pill>Fast response</Pill>
           <Pill>Remote + On-site</Pill>
           <Pill>Monthly options</Pill>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProcessStep({
+  number,
+  title,
+  description,
+}: {
+  number: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="card-premium edge-gold p-6">
+      <div className="badge-gold">{number}</div>
+      <h3 className="mt-4 text-lg font-semibold">{title}</h3>
+      <p className="mt-2 text-sm text-muted">{description}</p>
+    </div>
+  );
+}
+
+function ProofCard({
+  title,
+  before,
+  after,
+}: {
+  title: string;
+  before: string;
+  after: string;
+}) {
+  return (
+    <div className="card-premium edge-gold p-6">
+      <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f5d77a]/80">
+        Real improvement
+      </div>
+      <h3 className="mt-2 text-lg font-semibold">{title}</h3>
+
+      <div className="mt-5 grid gap-3 md:grid-cols-2">
+        <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-4">
+          <div className="text-xs font-semibold uppercase tracking-[0.12em] text-white/45">
+            Before
+          </div>
+          <p className="mt-2 text-sm text-muted">{before}</p>
+        </div>
+
+        <div className="rounded-2xl border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.04)] p-4">
+          <div className="text-xs font-semibold uppercase tracking-[0.12em] text-[#f5d77a]/80">
+            After
+          </div>
+          <p className="mt-2 text-sm text-white/82">{after}</p>
         </div>
       </div>
     </div>
@@ -378,10 +468,6 @@ export default function Page() {
     ],
   ];
 
-  const packageCardBase = "border-[rgba(212,175,55,0.16)]";
-  const packageCardFeatured =
-    "border-[rgba(212,175,55,0.35)] shadow-[0_18px_60px_rgba(0,0,0,0.45),0_10px_30px_rgba(212,175,55,0.14)] md:scale-[1.02]";
-
   const plans = [
     {
       title: "Essential Care",
@@ -408,7 +494,6 @@ export default function Page() {
         },
       ],
       note: "No long-term contracts required.",
-      className: packageCardBase,
       featured: false,
     },
     {
@@ -436,7 +521,6 @@ export default function Page() {
         },
       ],
       note: "Upgrade anytime as your needs evolve.",
-      className: packageCardFeatured,
       featured: true,
     },
     {
@@ -464,7 +548,6 @@ export default function Page() {
         },
       ],
       note: "Flexible plans — adjust anytime.",
-      className: packageCardBase,
       featured: false,
     },
   ] as const;
@@ -477,6 +560,8 @@ export default function Page() {
       <Section className="pt-14 md:pt-20">
         <Reveal>
           <div className="relative">
+            <div className="hero-glow" />
+
             <div className="grid gap-10 md:grid-cols-2 md:items-center">
               <div>
                 <Badge>
@@ -484,13 +569,15 @@ export default function Page() {
                   Canada Wide • Business Technology Partner
                 </Badge>
 
-                <h1 className="mt-6 text-4xl font-bold leading-[1.02] tracking-tight md:text-6xl">
+                <h1 className="mt-6 text-4xl font-bold leading-[0.98] tracking-tight md:text-6xl">
                   Premium Technology Support
                   <br />
                   For Modern Businesses
                 </h1>
 
-                <p className="mt-4 max-w-xl text-muted">
+                <div className="mt-4 h-[2px] w-16 rounded-full bg-[linear-gradient(90deg,#d4af37,#f5d77a)]" />
+
+                <p className="mt-5 max-w-xl text-white/70">
                   Websites, automation, cybersecurity, repairs, and ongoing IT
                   support — handled properly by one reliable partner.
                 </p>
@@ -507,7 +594,14 @@ export default function Page() {
                   </Button>
                 </div>
 
-                <div className="mt-8 flex flex-wrap items-center gap-2 text-xs text-muted">
+                <div className="mt-8 flex flex-wrap items-center gap-6 text-xs text-white/50">
+                  <span>✔ Canada Wide</span>
+                  <span>✔ Fast Response</span>
+                  <span>✔ 5-Star Rated</span>
+                  <span>✔ Business Trusted</span>
+                </div>
+
+                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-muted">
                   <Pill>Fast response</Pill>
                   <Pill>Remote + On-site</Pill>
                   <Pill>Clear monthly options</Pill>
@@ -526,6 +620,8 @@ export default function Page() {
                 <SampleDashboard />
               </Reveal>
             </div>
+
+            <div className="mt-16 section-divider-soft" />
           </div>
         </Reveal>
       </Section>
@@ -539,11 +635,11 @@ export default function Page() {
           <div className="flex items-end justify-between gap-6">
             <div>
               <h2 className="section-title text-[clamp(1.75rem,4vw,2.4rem)]">
-                Everything Your Business Needs — One Technology Partner
+                Services Built To Solve Real Business Problems
               </h2>
               <p className="mt-2 section-subtitle max-w-2xl">
-                From websites and marketing to IT support and cybersecurity, we
-                handle technology so you can focus on growth.
+                Premium support, structured systems, and clean execution across
+                websites, IT, security, automation, and business technology.
               </p>
             </div>
 
@@ -553,105 +649,182 @@ export default function Page() {
           </div>
         </Reveal>
 
-        <Reveal delayMs={90}>
-          <div className="mt-8 grid gap-4 md:grid-cols-3 md:items-stretch">
+        <Reveal delayMs={80}>
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            <ImageServiceCard
+              eyebrow="Online Growth"
+              title="Websites & Online Presence"
+              description="Sharper websites, better mobile performance, stronger trust, and clearer lead flow."
+              bullets={[
+                "Website builds & redesigns",
+                "SEO and speed improvements",
+                "Google Business profile cleanup",
+              ]}
+            />
+
+            <ImageServiceCard
+              eyebrow="Technical Support"
+              title="IT Support & Repairs"
+              description="Fast fixes, proactive maintenance, and cleaner systems without the usual vendor runaround."
+              bullets={[
+                "Remote and on-site support",
+                "Troubleshooting and optimization",
+                "Business and home tech help",
+              ]}
+            />
+
+            <ImageServiceCard
+              eyebrow="Protection"
+              title="Security & Recovery"
+              description="Practical protection for devices, networks, accounts, and critical business data."
+              bullets={[
+                "Cybersecurity checks",
+                "Backup and recovery setup",
+                "Network and WiFi hardening",
+              ]}
+            />
+          </div>
+        </Reveal>
+
+        <Reveal delayMs={130}>
+          <div className="mt-5 grid gap-5 lg:grid-cols-2">
             <Card
-              title="Websites & Online Growth"
-              eyebrow="Get found online and turn visitors into customers"
+              title="Automation & AI Systems"
+              eyebrow="Save time, capture leads, reduce busywork"
+              highlight
             >
+              <p className="text-sm text-muted">
+                Build smart follow-up systems that request reviews, answer
+                leads, organize inquiries, and remove repetitive admin.
+              </p>
+
               <FeatureList
                 items={[
-                  "Website builds & optimization",
-                  "SEO basics + speed improvements",
-                  "Google Business profile upgrades",
-                  "Booking/contact systems",
-                  "Review request automation",
+                  "Lead capture automation",
+                  "Review request and follow-up systems",
+                  "AI-assisted customer replies",
+                  "CRM and workflow automation",
+                  "Trade and service business process systems",
                 ]}
               />
             </Card>
 
-            <div className="relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="badge-gold shadow-[0_8px_25px_rgba(212,175,55,0.18)]">
-                  Most Requested
-                </span>
+            <Card
+              title="Home & Office Setup"
+              eyebrow="Clean, reliable, professional installs"
+            >
+              <p className="text-sm text-muted">
+                Premium setup work for desks, displays, networking, TVs, cable
+                management, and business environments that need to look sharp.
+              </p>
+
+              <FeatureList
+                items={[
+                  "Desk and workspace setups",
+                  "TV mounting and clean cable routing",
+                  "Monitor arms and office installations",
+                  "Network and device setup",
+                  "Small business equipment optimization",
+                ]}
+              />
+            </Card>
+          </div>
+        </Reveal>
+
+        <Reveal delayMs={170}>
+          <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-[1.5rem] border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.04)] p-5 md:flex-row md:items-center">
+            <div>
+              <div className="text-sm font-semibold text-white/90">
+                Not sure where to start?
               </div>
-
-              <Card
-                title="IT Support That Just Works"
-                eyebrow="Fast fixes, proactive maintenance, zero tech headaches"
-                highlight
-              >
-                <FeatureList
-                  items={[
-                    "Remote assistance",
-                    "On-site support",
-                    "Device cleanup & optimization",
-                    "Troubleshooting & fixes",
-                    "Home & personal technology support",
-                    "Mounting + setups (as requested)",
-                  ]}
-                />
-              </Card>
+              <p className="mt-1 text-sm text-muted">
+                Most clients begin with a free audit or one focused fix, then
+                expand into a longer-term technology partner relationship.
+              </p>
             </div>
 
-            <Card
-              title="Business Security & Protection"
-              eyebrow="Protect your data, devices, and network from real threats"
-            >
-              <FeatureList
-                items={[
-                  "Cybersecurity risk assessments",
-                  "Virus & malware protection",
-                  "Backup & recovery setup",
-                  "Network & WiFi security",
-                  "Password & breach exposure checks",
-                  "Email & network setup",
-                ]}
-              />
-            </Card>
+            <Button href="#audit" variant="primary">
+              Start With A Free Audit
+            </Button>
           </div>
         </Reveal>
+      </Section>
 
-        <Reveal delayMs={140}>
-          <div className="mt-6 flex justify-center">
-            <div className="w-full max-w-4xl">
-              <Card
-                title="Automation & AI Systems"
-                eyebrow="Automate follow-ups, capture leads, and save hours every week"
-                highlight
-              >
-                <p className="mb-4 text-sm text-muted">
-                  Automations that capture leads, follow up, request reviews,
-                  and reduce busywork.
-                </p>
-
-                <ul className="grid gap-y-2 text-sm text-muted md:grid-cols-2 md:gap-x-10">
-                  <li>• AI workflow setup</li>
-                  <li>• AI customer replies</li>
-                  <li>• Lead capture automation</li>
-                  <li>• Review + follow-up automation</li>
-                  <li>• CRM automation</li>
-                  <li>• Trade business systems</li>
-                </ul>
-              </Card>
-            </div>
-          </div>
+      {/* PROCESS */}
+      <Section id="process" className="border-t border-[rgba(212,175,55,0.12)]">
+        <Reveal>
+          <h2 className="section-title text-[clamp(1.75rem,4vw,2.4rem)]">
+            How It Works
+          </h2>
+          <p className="mt-2 section-subtitle">
+            Clear process. No confusion. No tech chaos.
+          </p>
         </Reveal>
 
-        <p className="mt-8 text-center text-sm text-muted">
-          <strong className="text-white/90">
-            Most clients start with one service and transition into a full
-            Technology Partner relationship as their business grows.
-          </strong>
-        </p>
+        <Reveal delayMs={80}>
+          <div className="mt-8 grid gap-4 md:grid-cols-4">
+            <ProcessStep
+              number="01"
+              title="Audit"
+              description="We review the current problem, weak points, opportunities, and what actually matters first."
+            />
+            <ProcessStep
+              number="02"
+              title="Plan"
+              description="You get a simple path forward with priority order, scope, and realistic next steps."
+            />
+            <ProcessStep
+              number="03"
+              title="Build / Fix"
+              description="The work gets done properly — cleaner systems, stronger setup, better performance."
+            />
+            <ProcessStep
+              number="04"
+              title="Support"
+              description="Ongoing help, maintenance, and future improvements when you need them."
+            />
+          </div>
+        </Reveal>
+      </Section>
+
+      {/* PROOF */}
+      <Section id="proof" className="border-t border-[rgba(212,175,55,0.12)]">
+        <Reveal>
+          <h2 className="section-title text-[clamp(1.75rem,4vw,2.4rem)]">
+            Proof, Not Just Promises
+          </h2>
+          <p className="mt-2 section-subtitle">
+            The goal is not vague “tech help.” The goal is cleaner systems,
+            fewer problems, and better business outcomes.
+          </p>
+        </Reveal>
+
+        <Reveal delayMs={90}>
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            <ProofCard
+              title="Website performance and trust"
+              before="Slow pages, weak mobile experience, outdated presentation, unclear calls to action."
+              after="Stronger structure, faster load path, more premium presentation, clearer lead flow."
+            />
+            <ProofCard
+              title="Business tech cleanup"
+              before="Random issues, scattered support, recurring downtime, no clear accountability."
+              after="One reliable point of contact, cleaner systems, faster fixes, better organization."
+            />
+            <ProofCard
+              title="Follow-up and review growth"
+              before="Leads went cold, reviews depended on memory, follow-up was inconsistent."
+              after="Structured automation, better response flow, more consistent review generation."
+            />
+          </div>
+        </Reveal>
       </Section>
 
       {/* RESULTS */}
       <Section id="results" className="border-t border-[rgba(212,175,55,0.12)]">
         <Reveal>
           <h2 className="section-title text-[clamp(1.75rem,4vw,2.4rem)]">
-            Results you can expect
+            Results You Can Expect
           </h2>
           <p className="mt-2 section-subtitle">
             Clear outcomes, not vague tech talk.
@@ -695,53 +868,24 @@ export default function Page() {
         <Reveal delayMs={90}>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             <ReviewCard
-              quote="L&L Tech solutions is absolutely top notch. They fixed our computer issues fast, repaired the network correctly and set it up properly, and had everything running smoothly. Our technician was Professional, reliable, and incredibly knowledgeable. Five stars all the way 😉"
+              quote="L&L Tech solutions is absolutely top notch. They fixed our computer issues fast, repaired the network correctly and set it up properly, and had everything running smoothly. Our technician was Professional, reliable, and incredibly knowledgeable. Five stars all the way."
               name="M.B"
               meta="MAPS Movers • BC & AB"
               rating={5}
               highlight
             />
             <ReviewCard
-              quote="I've got three words for Tate @ L&L Tech Solutions, Secure, Reliable and a Technically Sound Service Provider. Very professional and efficient with the level of service offered. I will definitely keep in touch, and I 100% recommend to others. Thank you L&L for your help."
+              quote="I've got three words for Tate @ L&L Tech Solutions, Secure, Reliable and a Technically Sound Service Provider. Very professional and efficient with the level of service offered."
               name="K.S."
               meta="Accountant • Alberta"
               rating={5}
             />
             <ReviewCard
-              quote="Professional, organized, SUPER knowledgeable and actually cares about doing it right. Would recommend L&L Tech Solutions anytime for any service."
+              quote="Professional, organized, super knowledgeable and actually cares about doing it right. Would recommend L&L Tech Solutions anytime for any service."
               name="R.P."
               meta="Dentist • Saskatchewan"
               rating={5}
             />
-          </div>
-        </Reveal>
-
-        <Reveal delayMs={140}>
-          <div className="mt-6">
-            <Card
-              title="Want more 5-star reviews automatically?"
-              eyebrow="Automation"
-              highlight
-            >
-              <p className="text-sm text-muted">
-                Turn happy customers into consistent reviews with automated
-                follow-ups and reply templates — no chasing people.
-              </p>
-
-              <div className="mt-5 flex flex-wrap gap-3">
-                <Button href="#contact" variant="primary">
-                  Automate My Reviews
-                </Button>
-                <Button href="#audit" variant="secondary">
-                  See Audit Details
-                </Button>
-              </div>
-
-              <p className="mt-5 text-center text-xs text-muted">
-                Trusted by small businesses, trades, and growing teams across
-                Canada.
-              </p>
-            </Card>
           </div>
         </Reveal>
       </Section>
@@ -753,7 +897,7 @@ export default function Page() {
       >
         <Reveal>
           <h2 className="section-title text-[clamp(1.75rem,4vw,2.4rem)]">
-            I understand your business workflow.
+            I Understand Your Business Workflow
           </h2>
           <p className="mt-2 section-subtitle">
             Technology solutions tailored to how real businesses actually
@@ -797,7 +941,11 @@ export default function Page() {
                 title={plan.title}
                 eyebrow={plan.eyebrow}
                 highlight={plan.featured}
-                className={plan.className}
+                className={
+                  plan.featured
+                    ? "shadow-[0_22px_60px_rgba(0,0,0,0.6),0_0_40px_rgba(212,175,55,0.12)] md:scale-[1.02]"
+                    : undefined
+                }
               >
                 <PriceTag
                   label="Starting at"
@@ -827,10 +975,6 @@ export default function Page() {
           <p className="mt-6 text-sm text-muted">
             Packages are customizable based on needs, team size, and complexity.
           </p>
-          <p className="mt-2 text-sm text-muted">
-            Not sure which plan fits? Start with Essential — most clients
-            upgrade as their needs grow.
-          </p>
         </Reveal>
       </Section>
 
@@ -838,7 +982,7 @@ export default function Page() {
       <Section id="audit" className="border-t border-[rgba(212,175,55,0.12)]">
         <Reveal>
           <h2 className="section-title text-[clamp(1.75rem,4vw,2.4rem)]">
-            What the Free Tech Audit includes
+            What The Free Tech Audit Includes
           </h2>
           <p className="mt-2 section-subtitle">
             You’ll get clear wins + a plan, not fluff.
@@ -880,7 +1024,6 @@ export default function Page() {
             <Card
               title="Cyber Risk Snapshot"
               eyebrow="Paid mini-audit (easy starter)"
-              className={packageCardBase}
             >
               <p className="text-sm text-muted">
                 Focused cybersecurity check with a simple 1-page PDF report and
@@ -908,51 +1051,6 @@ export default function Page() {
 
               <p className="mt-4 text-xs text-muted">
                 Best for: businesses that want a quick security baseline.
-              </p>
-            </Card>
-          </div>
-
-          <p className="mt-6 text-sm text-muted">
-            Not sure which one you need? Start with the Free Audit — it’s the
-            fastest way to identify the right next step.
-          </p>
-        </Reveal>
-
-        <Reveal delayMs={140}>
-          <div className="mt-6">
-            <Card
-              title="High-trust proposals"
-              eyebrow="Closes deals faster"
-              highlight
-            >
-              <p className="text-sm text-muted">
-                After the audit, you’ll receive a clean 1-page proposal
-                outlining scope, timeline, pricing, and next steps — so
-                decisions are simple and projects move forward quickly.
-              </p>
-
-              <FeatureList
-                items={[
-                  "Clear scope & deliverables",
-                  "Transparent pricing",
-                  "Realistic timelines",
-                  "Priority recommendations",
-                  "Simple next-step approval",
-                ]}
-              />
-
-              <div className="mt-5 flex flex-wrap gap-3">
-                <Button href="#contact" variant="primary">
-                  Get My Plan
-                </Button>
-                <Button href="#contact" variant="secondary">
-                  Ask Questions
-                </Button>
-              </div>
-
-              <p className="mt-4 text-xs text-muted">
-                Designed to remove confusion and help businesses move forward
-                with confidence.
               </p>
             </Card>
           </div>
@@ -994,16 +1092,8 @@ export default function Page() {
                 "One reliable point of contact for website, systems, security basics, automation, and ongoing support.",
               ],
               [
-                "Do you help businesses with good websites already?",
-                "Yes — strong websites still need IT support, security, backups, automation, performance tuning, and maintenance.",
-              ],
-              [
                 "Is cybersecurity included?",
                 "Yes — practical business security including risk checks, backups, WiFi/network hardening, and protection basics.",
-              ],
-              [
-                "What if I only need a quick fix?",
-                "That’s completely fine. Start with a one-time service and upgrade later only if it makes sense.",
               ],
             ].map(([q, a]) => (
               <Card key={q} title={q}>
@@ -1011,13 +1101,6 @@ export default function Page() {
               </Card>
             ))}
           </div>
-        </Reveal>
-
-        <Reveal delayMs={140}>
-          <p className="mt-8 text-center text-sm text-muted">
-            Still unsure? Start with a free tech audit — you’ll get clear
-            answers and a practical next step.
-          </p>
         </Reveal>
       </Section>
 
