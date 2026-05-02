@@ -1,6 +1,3 @@
-import ScrollSpyNav, {
-  type NavItem,
-} from "@/components/navigation/ScrollSpyNav";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -27,254 +24,94 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-
-  applicationName: siteName,
-  title: {
-    default: siteTitle,
-    template: `%s | ${siteName}`,
-  },
+  title: siteTitle,
   description: siteDescription,
-
-  keywords: [
-    "custom website development Canada",
-    "React website development",
-    "Next.js web design",
-    "Tailwind CSS websites",
-    "business website design",
-    "website SEO optimization",
-    "Google Business setup",
-    "Facebook business page setup",
-    "business IT support Canada",
-    "remote tech support",
-    "managed tech support",
-    "business automation",
-    "AI automation setup",
-    "technical infrastructure",
-    "network rack cleanup",
-    "structured cabling",
-    "patch panel setup",
-    "CCTV setup",
-    "network switch setup",
-    "small business technology partner",
-  ],
-
-  authors: [{ name: siteName, url: siteUrl }],
-  creator: siteName,
-  publisher: siteName,
-  category: "technology",
-  classification: "Business Technology Services",
-
-  alternates: {
-    canonical: siteUrl,
-    languages: {
-      "en-CA": siteUrl,
-    },
-  },
-
-  openGraph: {
-    type: "website",
-    locale: "en_CA",
-    url: siteUrl,
-    siteName,
-    title: siteTitle,
-    description: siteDescription,
-    images: [
-      {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "L&L Tech Solutions – Custom Websites, IT Support and Infrastructure",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: siteTitle,
-    description: siteDescription,
-    images: ["/opengraph-image.png"],
-  },
-
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
-    ],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
-  },
-
-  manifest: "/manifest.webmanifest",
-
-  appleWebApp: {
-    capable: true,
-    title: siteName,
-    statusBarStyle: "black-translucent",
-  },
-
-  formatDetection: {
-    telephone: true,
-    email: true,
-    address: false,
-  },
-
-  referrer: "origin-when-cross-origin",
-
-  other: {
-    "theme-color": "#050505",
-    "color-scheme": "dark",
-    "mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-title": siteName,
-    "msapplication-TileColor": "#050505",
-    "business:contact_data:locality": "Calgary",
-    "business:contact_data:region": "Alberta",
-    "business:contact_data:country_name": "Canada",
-  },
 };
 
-const NAV: NavItem[] = [
+const NAV = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Projects", href: "#projects" },
-  { label: "Results", href: "#results" },
   { label: "Packages", href: "#packages" },
   { label: "Contact", href: "#contact" },
 ];
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": `${siteUrl}/#business`,
-  name: siteName,
-  url: siteUrl,
-  image: `${siteUrl}/opengraph-image.png`,
-  logo: `${siteUrl}/icon.png`,
-  description: siteDescription,
-  areaServed: ["Canada", "Alberta", "Calgary"],
-  priceRange: "$$",
-  sameAs: ["https://www.facebook.com/LLTechSolutions"],
-  makesOffer: [
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Custom Website Design and Development",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Business IT Support and Remote Tech Support",
-      },
-    },
-    {
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: "Technical Infrastructure, Networks, CCTV and Rack Cleanup",
-      },
-    },
-  ],
-};
-
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en-CA" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[var(--bg-main)] font-sans text-white antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[var(--bg-main)] text-white antialiased`}
       >
-        <script
-          type="application/ld+json"
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
-
         <div className="page-shell">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.08),transparent_32%)]" />
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(212,175,55,0.3)] to-transparent" />
-            <div className="absolute left-[-180px] top-[-180px] h-[420px] w-[420px] rounded-full bg-[rgba(212,175,55,0.08)] blur-3xl" />
-            <div className="absolute right-[-180px] top-[10%] h-[320px] w-[320px] rounded-full bg-[rgba(245,215,122,0.05)] blur-3xl" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60" />
-          </div>
-
-          <header className="nav-premium sticky top-0 z-50 border-b border-[rgba(212,175,55,0.12)] bg-[rgba(5,5,5,0.75)] shadow-[0_10px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl">
-            <div className="container-premium flex items-center justify-between gap-4 py-3">
-              <Link
-                href="/"
-                aria-label="L and L Tech Solutions home"
-                className="group flex shrink-0 items-center gap-3"
-              >
-                <div className="relative flex items-center justify-center rounded-full border border-[rgba(212,175,55,0.16)] bg-[rgba(212,175,55,0.03)] px-2.5 py-1.5">
-                  <div className="absolute -inset-3 rounded-full bg-[rgba(212,175,55,0.08)] blur-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
-                  <Image
-                    src="/brand/logo.png"
-                    alt="L&L Tech Solutions"
-                    width={240}
-                    height={240}
-                    priority
-                    className="relative h-[64px] w-auto object-contain drop-shadow-[0_0_18px_rgba(212,175,55,0.25)] md:h-[78px]"
-                  />
-                </div>
+          {/* HEADER */}
+          <header className="sticky top-0 z-50 border-b border-[rgba(212,175,55,0.14)] bg-black/85 shadow-[0_10px_40px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+            <div className="container-premium flex items-center justify-between gap-6 py-3">
+              {/* LOGO */}
+              <Link href="/" className="flex shrink-0 items-center">
+                <Image
+                  src="/brand/logo.png"
+                  alt="L&L Tech Solutions"
+                  width={240}
+                  height={240}
+                  priority
+                  className="h-[64px] w-auto object-contain md:h-[76px]"
+                />
               </Link>
 
-              <ScrollSpyNav className="hidden md:flex" items={NAV} />
+              {/* DESKTOP NAV */}
+              <nav className="hidden items-center text-sm font-bold uppercase tracking-[0.05em] text-white/90 md:flex">
+                {[{ label: "Home", href: "#home" }, ...NAV].map(
+                  (item, index, arr) => (
+                    <div key={item.href} className="flex items-center">
+                      <a
+                        href={item.href}
+                        className="px-3 py-2 transition hover:text-[#f5d77a]"
+                      >
+                        {item.label}
+                      </a>
 
+                      {index < arr.length - 1 && (
+                        <span className="mx-1 h-4 w-px bg-white/40" />
+                      )}
+                    </div>
+                  ),
+                )}
+              </nav>
+
+              {/* CTA + MOBILE */}
               <div className="flex items-center gap-3">
                 <a
-                  href="#services"
-                  className="btn-ghost-gold hidden lg:inline-flex"
+                  href="#contact"
+                  className="hidden rounded-full border-2 border-[#f5d77a] px-5 py-2 text-sm font-black uppercase tracking-[0.05em] text-white transition hover:bg-[#f5d77a] hover:text-black sm:inline-flex"
                 >
-                  Services
-                </a>
-
-                <a href="#contact" className="btn-gold hidden sm:inline-flex">
-                  Free Tech Audit
+                  Request A Quote
                 </a>
 
                 <details className="relative md:hidden">
-                  <summary className="list-none cursor-pointer rounded-full border border-[rgba(212,175,55,0.14)] bg-white/[0.03] px-4 py-2 text-sm font-medium text-white/85 transition hover:border-[rgba(212,175,55,0.24)] hover:bg-white/[0.05]">
+                  <summary className="list-none cursor-pointer rounded-full border border-[rgba(212,175,55,0.2)] px-4 py-2 text-sm">
                     Menu
                   </summary>
 
-                  <div className="absolute right-0 mt-3 w-72 overflow-hidden rounded-2xl border border-[rgba(212,175,55,0.14)] bg-[rgba(10,10,10,0.96)] shadow-[0_20px_70px_rgba(0,0,0,0.58)] backdrop-blur-xl">
+                  <div className="absolute right-0 mt-3 w-72 rounded-2xl border border-[rgba(212,175,55,0.14)] bg-black shadow-xl">
                     <div className="p-2">
-                      {NAV.map(({ label, href }) => (
-                        <a
-                          key={href}
-                          href={href}
-                          className="block rounded-xl px-3 py-2.5 text-sm text-white/78 transition hover:bg-[rgba(212,175,55,0.06)] hover:text-[#f5d77a]"
-                        >
-                          {label}
-                        </a>
-                      ))}
+                      {[{ label: "Home", href: "#home" }, ...NAV].map(
+                        (item) => (
+                          <a
+                            key={item.href}
+                            href={item.href}
+                            className="block px-3 py-2 text-sm uppercase text-white/80 hover:text-[#f5d77a]"
+                          >
+                            {item.label}
+                          </a>
+                        ),
+                      )}
 
-                      <a href="#contact" className="btn-gold mt-2 flex w-full">
-                        Free Tech Audit
+                      <a href="#contact" className="btn-gold mt-2 w-full">
+                        Request A Quote
                       </a>
                     </div>
                   </div>
@@ -283,26 +120,12 @@ export default function RootLayout({
             </div>
           </header>
 
-          <main className="relative pb-[calc(84px+env(safe-area-inset-bottom))]">
-            {children}
-          </main>
+          {/* CONTENT */}
+          <main>{children}</main>
 
-          <footer className="border-t border-[rgba(212,175,55,0.12)]">
-            <div className="container-premium flex flex-col gap-4 py-10 text-sm text-muted md:flex-row md:items-center md:justify-between">
-              <div>© {new Date().getFullYear()} L&amp;L Tech Solutions</div>
-
-              <div className="flex flex-wrap gap-4">
-                {NAV.map((item) => (
-                  <a
-                    key={item.href}
-                    className="transition hover:text-white"
-                    href={item.href}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
-            </div>
+          {/* FOOTER */}
+          <footer className="border-t border-[rgba(212,175,55,0.12)] py-10 text-center text-sm text-muted">
+            © {new Date().getFullYear()} L&amp;L Tech Solutions
           </footer>
         </div>
 
