@@ -149,6 +149,7 @@ export const metadata: Metadata = {
 const NAV: NavItem[] = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
+  { label: "Projects", href: "#projects" },
   { label: "Results", href: "#results" },
   { label: "Packages", href: "#packages" },
   { label: "Contact", href: "#contact" },
