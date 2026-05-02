@@ -41,8 +41,8 @@ export default function Process() {
 
         <div className="mt-10 grid gap-5 md:grid-cols-4">
           {steps.map(([num, title, desc], index) => (
-            <Reveal key={title} delayMs={index * 80}>
-              <div className="card-premium edge-gold h-full p-6">
+            <Reveal key={title} delayMs={index * 90}>
+              <div className="card-premium edge-gold h-full p-6 transition-transform duration-300 hover:scale-[1.01]">
                 <span className="badge-gold">{num}</span>
                 <h3 className="mt-5 text-lg font-semibold">{title}</h3>
                 <p className="mt-3 text-sm leading-6 text-muted">{desc}</p>

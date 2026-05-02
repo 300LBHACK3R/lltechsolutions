@@ -23,7 +23,7 @@ export default function ContactSection() {
           <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_0.85fr]">
             <ContactForm />
 
-            <div className="card-premium edge-gold p-6">
+            <div className="card-premium edge-gold p-6 transition-transform duration-300 hover:scale-[1.01]">
               <h3 className="text-xl font-semibold">Best info to include</h3>
 
               <ul className="mt-5 space-y-3 text-sm text-muted">
@@ -39,6 +39,17 @@ export default function ContactSection() {
                   Best starting point: request a free audit so we can identify
                   the fastest path to results.
                 </p>
+              </div>
+
+              <div className="mt-6 grid gap-3 text-sm text-muted">
+                <div className="card-soft p-4">
+                  Custom websites, support, automation, infrastructure, and
+                  ongoing management are all quoted based on scope.
+                </div>
+                <div className="card-soft p-4">
+                  Clear scope, clean communication, and practical next steps
+                  before work begins.
+                </div>
               </div>
             </div>
           </div>

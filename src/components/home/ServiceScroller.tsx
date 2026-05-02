@@ -23,8 +23,8 @@ export default function ServiceScroller() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {servicePillars.map((service, index) => (
-            <Reveal key={service.title} delayMs={index * 90}>
-              <article className="card-premium edge-gold flex h-full flex-col p-7">
+            <Reveal key={service.title} delayMs={index * 100}>
+              <article className="card-premium edge-gold flex h-full flex-col p-7 transition-transform duration-300 hover:scale-[1.01]">
                 <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#f5d77a]/80">
                   {service.eyebrow}
                 </div>
@@ -54,7 +54,7 @@ export default function ServiceScroller() {
           ))}
         </div>
 
-        <Reveal delayMs={280}>
+        <Reveal delayMs={300}>
           <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-[1.5rem] border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.04)] p-6 md:flex-row md:items-center">
             <div>
               <h3 className="text-lg font-semibold">

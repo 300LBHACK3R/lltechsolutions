@@ -6,7 +6,7 @@ function Pill({ children }: { children: React.ReactNode }) {
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-8 pb-20 md:pt-12 md:pb-28">
+    <section className="relative overflow-hidden pt-6 pb-20 md:pt-10 md:pb-28">
       <div className="hero-glow" />
 
       <div className="container-premium">
@@ -53,8 +53,8 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delayMs={120}>
-            <div className="card-premium edge-gold p-6 md:p-8">
-              <div className="flex items-center justify-between">
+            <div className="card-premium edge-gold p-6 transition-transform duration-300 hover:scale-[1.01] md:p-8">
+              <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-sm font-semibold text-white">
                     Technology Partner Snapshot
@@ -95,6 +95,13 @@ export default function Hero() {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              <div className="mt-6 rounded-2xl border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.05)] p-4">
+                <p className="text-sm text-white/82">
+                  Built for businesses that want one reliable partner for
+                  websites, systems, support, and infrastructure.
+                </p>
               </div>
             </div>
           </Reveal>

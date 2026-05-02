@@ -11,7 +11,7 @@ export const servicePillars: ServicePillar[] = [
     eyebrow: "Web & Growth Systems",
     title: "Custom Websites Built To Convert",
     description:
-      "Premium websites built from scratch with clean React, Next.js, Tailwind, SEO structure, performance, and lead generation in mind.",
+      "Premium websites built from scratch with modern React, Next.js, Tailwind, clean SEO structure, performance, and lead generation in mind.",
     highlight: "No templates. No drag-and-drop junk. Built properly.",
     services: [
       "Custom website design & development",
@@ -25,9 +25,9 @@ export const servicePillars: ServicePillar[] = [
   },
   {
     eyebrow: "IT Support & Business Systems",
-    title: "Remote Tech Support For Businesses",
+    title: "Remote Tech Support That Keeps Businesses Moving",
     description:
-      "Fast, reliable remote support for businesses that need their systems running clean, secure, and organized.",
+      "Reliable remote support for businesses that need systems running clean, secure, organized, and professionally managed.",
     highlight: "One reliable partner instead of scattered tech help.",
     services: [
       "Remote troubleshooting and support",
