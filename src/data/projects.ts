@@ -89,7 +89,7 @@ export const projects: Project[] = [
       "Cable organization",
       "Switch setup",
     ],
-    image: "/images/projects/rack-cleanup.jpg",
+    image: "/images/projects/rack-cleanup.png",
   },
   {
     title: "CCTV & Network System Setup",
@@ -108,7 +108,7 @@ export const projects: Project[] = [
       "Structured cabling",
       "System setup",
     ],
-    image: "/images/projects/cctv-network.jpg",
+    image: "/images/projects/cctv-network.png",
   },
   {
     title: "Website Optimization & SEO Cleanup",
