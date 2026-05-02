@@ -7,68 +7,94 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 
+const siteUrl = "https://lltechsolutions.ca";
+const siteName = "L&L Tech Solutions";
+const siteTitle = "L&L Tech Solutions | Custom Websites, IT & Infrastructure";
+const siteDescription =
+  "L&L Tech Solutions builds custom websites, manages business IT systems, and installs clean technical infrastructure for modern companies across Canada.";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lltechsolutions.ca"),
+  metadataBase: new URL(siteUrl),
+
+  applicationName: siteName,
   title: {
-    default: "L&L Tech Solutions | Custom Websites, IT & Infrastructure",
-    template: "%s | L&L Tech Solutions",
+    default: siteTitle,
+    template: `%s | ${siteName}`,
   },
-  description:
-    "L&L Tech Solutions builds custom websites, manages business IT systems, and installs clean technical infrastructure for modern companies across Canada.",
+  description: siteDescription,
+
   keywords: [
     "custom website development Canada",
     "React website development",
     "Next.js web design",
+    "Tailwind CSS websites",
+    "business website design",
+    "website SEO optimization",
+    "Google Business setup",
+    "Facebook business page setup",
     "business IT support Canada",
     "remote tech support",
+    "managed tech support",
+    "business automation",
+    "AI automation setup",
     "technical infrastructure",
     "network rack cleanup",
     "structured cabling",
+    "patch panel setup",
     "CCTV setup",
-    "business automation",
-    "SEO website optimization",
-    "Google Business setup",
+    "network switch setup",
+    "small business technology partner",
   ],
-  authors: [{ name: "L&L Tech Solutions" }],
-  creator: "L&L Tech Solutions",
-  publisher: "L&L Tech Solutions",
+
+  authors: [{ name: siteName, url: siteUrl }],
+  creator: siteName,
+  publisher: siteName,
+  category: "technology",
+  classification: "Business Technology Services",
+
   alternates: {
-    canonical: "https://lltechsolutions.ca",
+    canonical: siteUrl,
+    languages: {
+      "en-CA": siteUrl,
+    },
   },
+
   openGraph: {
     type: "website",
     locale: "en_CA",
-    url: "https://lltechsolutions.ca",
-    siteName: "L&L Tech Solutions",
-    title: "L&L Tech Solutions | Custom Websites, IT & Infrastructure",
-    description:
-      "Custom websites, business IT support, automation, and clean technical infrastructure — handled under one trusted technology partner.",
+    url: siteUrl,
+    siteName,
+    title: siteTitle,
+    description: siteDescription,
     images: [
       {
-        url: "/og.png",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "L&L Tech Solutions – Custom Websites, IT & Infrastructure",
+        alt: "L&L Tech Solutions – Custom Websites, IT Support and Infrastructure",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "L&L Tech Solutions | Custom Websites, IT & Infrastructure",
-    description:
-      "Custom websites, business IT support, automation, and clean technical infrastructure — handled under one trusted technology partner.",
-    images: ["/og.png"],
+    title: siteTitle,
+    description: siteDescription,
+    images: ["/opengraph-image.png"],
   },
+
   robots: {
     index: true,
     follow: true,
@@ -76,12 +102,48 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
   },
-  category: "technology",
+
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+
+  manifest: "/manifest.webmanifest",
+
+  appleWebApp: {
+    capable: true,
+    title: siteName,
+    statusBarStyle: "black-translucent",
+  },
+
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: false,
+  },
+
+  referrer: "origin-when-cross-origin",
+
+  other: {
+    "theme-color": "#050505",
+    "color-scheme": "dark",
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-title": siteName,
+    "msapplication-TileColor": "#050505",
+    "business:contact_data:locality": "Calgary",
+    "business:contact_data:region": "Alberta",
+    "business:contact_data:country_name": "Canada",
+  },
 };
 
 const NAV: NavItem[] = [
@@ -92,16 +154,61 @@ const NAV: NavItem[] = [
   { label: "Contact", href: "#contact" },
 ];
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${siteUrl}/#business`,
+  name: siteName,
+  url: siteUrl,
+  image: `${siteUrl}/opengraph-image.png`,
+  logo: `${siteUrl}/icon.png`,
+  description: siteDescription,
+  areaServed: ["Canada", "Alberta", "Calgary"],
+  priceRange: "$$",
+  sameAs: ["https://www.facebook.com/LLTechSolutions"],
+  makesOffer: [
+    {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: "Custom Website Design and Development",
+      },
+    },
+    {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: "Business IT Support and Remote Tech Support",
+      },
+    },
+    {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: "Technical Infrastructure, Networks, CCTV and Rack Cleanup",
+      },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en-CA" className="scroll-smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[var(--bg-main)] font-sans text-white antialiased`}
       >
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+
         <div className="page-shell">
           <div
             aria-hidden="true"
@@ -123,7 +230,6 @@ export default function RootLayout({
               >
                 <div className="relative flex items-center justify-center rounded-full border border-[rgba(212,175,55,0.16)] bg-[rgba(212,175,55,0.03)] px-2.5 py-1.5">
                   <div className="absolute -inset-3 rounded-full bg-[rgba(212,175,55,0.08)] blur-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
-
                   <Image
                     src="/brand/logo.png"
                     alt="L&L Tech Solutions"
@@ -185,21 +291,15 @@ export default function RootLayout({
               <div>© {new Date().getFullYear()} L&amp;L Tech Solutions</div>
 
               <div className="flex flex-wrap gap-4">
-                <a className="transition hover:text-white" href="#services">
-                  Services
-                </a>
-                <a className="transition hover:text-white" href="#process">
-                  Process
-                </a>
-                <a className="transition hover:text-white" href="#results">
-                  Results
-                </a>
-                <a className="transition hover:text-white" href="#packages">
-                  Packages
-                </a>
-                <a className="transition hover:text-white" href="#contact">
-                  Contact
-                </a>
+                {NAV.map((item) => (
+                  <a
+                    key={item.href}
+                    className="transition hover:text-white"
+                    href={item.href}
+                  >
+                    {item.label}
+                  </a>
+                ))}
               </div>
             </div>
           </footer>
