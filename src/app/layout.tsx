@@ -20,20 +20,24 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://lltechsolutions.ca"),
   title: {
-    default: "L&L Tech Solutions | Business Technology Partner",
+    default: "L&L Tech Solutions | Custom Websites, IT & Infrastructure",
     template: "%s | L&L Tech Solutions",
   },
   description:
-    "L&L Tech Solutions provides cybersecurity, IT support, AI automation, web development, and business technology solutions for modern companies across Canada.",
+    "L&L Tech Solutions builds custom websites, manages business IT systems, and installs clean technical infrastructure for modern companies across Canada.",
   keywords: [
-    "IT support Canada",
-    "Cybersecurity services",
-    "Business automation",
-    "Web development services",
-    "Managed IT services",
-    "AI automation",
-    "Network security",
-    "Technology consulting",
+    "custom website development Canada",
+    "React website development",
+    "Next.js web design",
+    "business IT support Canada",
+    "remote tech support",
+    "technical infrastructure",
+    "network rack cleanup",
+    "structured cabling",
+    "CCTV setup",
+    "business automation",
+    "SEO website optimization",
+    "Google Business setup",
   ],
   authors: [{ name: "L&L Tech Solutions" }],
   creator: "L&L Tech Solutions",
@@ -46,23 +50,23 @@ export const metadata: Metadata = {
     locale: "en_CA",
     url: "https://lltechsolutions.ca",
     siteName: "L&L Tech Solutions",
-    title: "L&L Tech Solutions | Business Technology Partner",
+    title: "L&L Tech Solutions | Custom Websites, IT & Infrastructure",
     description:
-      "Cybersecurity, IT support, automation, and web development — handled under one trusted technology partner.",
+      "Custom websites, business IT support, automation, and clean technical infrastructure — handled under one trusted technology partner.",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "L&L Tech Solutions – Business Technology Partner",
+        alt: "L&L Tech Solutions – Custom Websites, IT & Infrastructure",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "L&L Tech Solutions | Business Technology Partner",
+    title: "L&L Tech Solutions | Custom Websites, IT & Infrastructure",
     description:
-      "Cybersecurity, IT support, automation, and web development — handled under one trusted technology partner.",
+      "Custom websites, business IT support, automation, and clean technical infrastructure — handled under one trusted technology partner.",
     images: ["/og.png"],
   },
   robots: {
@@ -82,12 +86,9 @@ export const metadata: Metadata = {
 
 const NAV: NavItem[] = [
   { label: "Services", href: "#services" },
+  { label: "Process", href: "#process" },
   { label: "Results", href: "#results" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Industries", href: "#industries" },
   { label: "Packages", href: "#packages" },
-  { label: "Audit", href: "#audit" },
-  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -114,14 +115,15 @@ export default function RootLayout({
           </div>
 
           <header className="nav-premium sticky top-0 z-50 border-b border-[rgba(212,175,55,0.12)] bg-[rgba(5,5,5,0.75)] shadow-[0_10px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl">
-            <div className="container-premium flex items-center justify-between gap-4 py-4">
+            <div className="container-premium flex items-center justify-between gap-4 py-3">
               <Link
                 href="/"
                 aria-label="L and L Tech Solutions home"
                 className="group flex shrink-0 items-center gap-3"
               >
-                <div className="relative flex items-center justify-center rounded-full border border-[rgba(212,175,55,0.12)] bg-[rgba(212,175,55,0.04)] px-3 py-1.5">
-                  <div className="absolute -inset-3 rounded-full bg-[rgba(212,175,55,0.08)] blur-xl opacity-70" />
+                <div className="relative flex items-center justify-center rounded-full border border-[rgba(212,175,55,0.16)] bg-[rgba(212,175,55,0.03)] px-2.5 py-1.5">
+                  <div className="absolute -inset-3 rounded-full bg-[rgba(212,175,55,0.08)] blur-xl opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
+
                   <Image
                     src="/brand/logo.png"
                     alt="L&L Tech Solutions"
@@ -136,6 +138,13 @@ export default function RootLayout({
               <ScrollSpyNav className="hidden md:flex" items={NAV} />
 
               <div className="flex items-center gap-3">
+                <a
+                  href="#services"
+                  className="btn-ghost-gold hidden lg:inline-flex"
+                >
+                  Services
+                </a>
+
                 <a href="#contact" className="btn-gold hidden sm:inline-flex">
                   Free Tech Audit
                 </a>
@@ -178,6 +187,12 @@ export default function RootLayout({
               <div className="flex flex-wrap gap-4">
                 <a className="transition hover:text-white" href="#services">
                   Services
+                </a>
+                <a className="transition hover:text-white" href="#process">
+                  Process
+                </a>
+                <a className="transition hover:text-white" href="#results">
+                  Results
                 </a>
                 <a className="transition hover:text-white" href="#packages">
                   Packages
