@@ -24,11 +24,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: siteTitle,
+  title: {
+    default: siteTitle,
+    template: `%s | ${siteName}`,
+  },
   description: siteDescription,
 };
 
 const NAV = [
+  { label: "Home", href: "#home" },
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Projects", href: "#projects" },
@@ -38,51 +42,52 @@ const NAV = [
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en-CA" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[var(--bg-main)] text-white antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[var(--bg-main)] font-sans text-white antialiased`}
       >
         <div className="page-shell">
-          {/* HEADER */}
           <header className="sticky top-0 z-50 border-b border-[rgba(212,175,55,0.14)] bg-black/85 shadow-[0_10px_40px_rgba(0,0,0,0.55)] backdrop-blur-xl">
             <div className="container-premium flex items-center justify-between gap-6 py-3">
-              {/* LOGO */}
-              <Link href="/" className="flex shrink-0 items-center">
+              <Link
+                href="/"
+                aria-label="L&L Tech Solutions home"
+                className="flex h-[72px] w-[210px] shrink-0 items-center overflow-visible sm:w-[235px] md:w-[255px]"
+              >
                 <Image
-                  src="/brand/logo.png"
+                  src="/brand/logo.jpg"
                   alt="L&L Tech Solutions"
-                  width={240}
-                  height={240}
+                  width={900}
+                  height={300}
                   priority
-                  className="h-[64px] w-auto object-contain md:h-[76px]"
+                  className="h-auto w-[210px] origin-left scale-[1.32] object-contain drop-shadow-[0_0_16px_rgba(212,175,55,0.24)] sm:w-[235px] sm:scale-[1.4] md:w-[255px] md:scale-[1.48]"
                 />
               </Link>
 
-              {/* DESKTOP NAV */}
               <nav className="hidden items-center text-sm font-bold uppercase tracking-[0.05em] text-white/90 md:flex">
-                {[{ label: "Home", href: "#home" }, ...NAV].map(
-                  (item, index, arr) => (
-                    <div key={item.href} className="flex items-center">
-                      <a
-                        href={item.href}
-                        className="px-3 py-2 transition hover:text-[#f5d77a]"
-                      >
-                        {item.label}
-                      </a>
+                {NAV.map((item, index) => (
+                  <div key={item.href} className="flex items-center">
+                    <a
+                      href={item.href}
+                      className="px-3 py-2 transition hover:text-[#f5d77a]"
+                    >
+                      {item.label}
+                    </a>
 
-                      {index < arr.length - 1 && (
-                        <span className="mx-1 h-4 w-px bg-white/40" />
-                      )}
-                    </div>
-                  ),
-                )}
+                    {index < NAV.length - 1 && (
+                      <span
+                        className="mx-1 h-4 w-px bg-white/40"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </div>
+                ))}
               </nav>
 
-              {/* CTA + MOBILE */}
               <div className="flex items-center gap-3">
                 <a
                   href="#contact"
@@ -92,25 +97,23 @@ export default function RootLayout({
                 </a>
 
                 <details className="relative md:hidden">
-                  <summary className="list-none cursor-pointer rounded-full border border-[rgba(212,175,55,0.2)] px-4 py-2 text-sm">
+                  <summary className="list-none cursor-pointer rounded-full border border-[rgba(212,175,55,0.2)] px-4 py-2 text-sm font-semibold text-white/85">
                     Menu
                   </summary>
 
                   <div className="absolute right-0 mt-3 w-72 rounded-2xl border border-[rgba(212,175,55,0.14)] bg-black shadow-xl">
                     <div className="p-2">
-                      {[{ label: "Home", href: "#home" }, ...NAV].map(
-                        (item) => (
-                          <a
-                            key={item.href}
-                            href={item.href}
-                            className="block px-3 py-2 text-sm uppercase text-white/80 hover:text-[#f5d77a]"
-                          >
-                            {item.label}
-                          </a>
-                        ),
-                      )}
+                      {NAV.map((item) => (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          className="block rounded-xl px-3 py-2.5 text-sm font-semibold uppercase tracking-[0.05em] text-white/80 transition hover:bg-[rgba(212,175,55,0.06)] hover:text-[#f5d77a]"
+                        >
+                          {item.label}
+                        </a>
+                      ))}
 
-                      <a href="#contact" className="btn-gold mt-2 w-full">
+                      <a href="#contact" className="btn-gold mt-2 flex w-full">
                         Request A Quote
                       </a>
                     </div>
@@ -120,10 +123,8 @@ export default function RootLayout({
             </div>
           </header>
 
-          {/* CONTENT */}
           <main>{children}</main>
 
-          {/* FOOTER */}
           <footer className="border-t border-[rgba(212,175,55,0.12)] py-10 text-center text-sm text-muted">
             © {new Date().getFullYear()} L&amp;L Tech Solutions
           </footer>
@@ -131,7 +132,7 @@ export default function RootLayout({
 
         <style>{`
           section[id] {
-            scroll-margin-top: 110px;
+            scroll-margin-top: 120px;
           }
         `}</style>
       </body>
