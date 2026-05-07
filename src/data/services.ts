@@ -4,6 +4,7 @@ export type ServicePillar = {
   description: string;
   highlight: string;
   services: string[];
+  outcome: string;
 };
 
 export const servicePillars: ServicePillar[] = [
@@ -11,8 +12,9 @@ export const servicePillars: ServicePillar[] = [
     eyebrow: "Web & Growth Systems",
     title: "Custom Websites Built To Convert",
     description:
-      "Premium websites built from scratch with modern React, Next.js, Tailwind, clean SEO structure, performance, and lead generation in mind.",
+      "Premium websites built from scratch with modern React, Next.js, Tailwind, SEO structure, performance, and lead generation in mind.",
     highlight: "No templates. No drag-and-drop junk. Built properly.",
+    outcome: "Stronger online presence, better trust, and cleaner lead flow.",
     services: [
       "Custom website design & development",
       "React / Next.js / Tailwind builds",
@@ -29,6 +31,7 @@ export const servicePillars: ServicePillar[] = [
     description:
       "Reliable remote support for businesses that need systems running clean, secure, organized, and professionally managed.",
     highlight: "One reliable partner instead of scattered tech help.",
+    outcome: "Fewer tech issues, faster support, and better daily operation.",
     services: [
       "Remote troubleshooting and support",
       "Computer cleanup and optimization",
@@ -45,6 +48,8 @@ export const servicePillars: ServicePillar[] = [
     description:
       "Professional on-site technical services for networks, CCTV, racks, cabling, systems, and business environments.",
     highlight: "Clean installs. Organized systems. Proper documentation.",
+    outcome:
+      "Cleaner infrastructure, easier troubleshooting, and stronger control.",
     services: [
       "Network rack setup and cleanup",
       "Structured cabling and terminations",

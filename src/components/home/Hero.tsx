@@ -1,12 +1,6 @@
 import Reveal from "@/components/ui/Reveal";
 import Image from "next/image";
 
-const metrics = [
-  ["Web Builds", "Custom React / Next.js websites built properly"],
-  ["Business Tech", "Remote support, cleanup, setup, and systems"],
-  ["Infrastructure", "Networks, CCTV, racks, cabling, and installs"],
-];
-
 const trustItems = [
   "Custom builds",
   "SEO-ready",
@@ -14,19 +8,34 @@ const trustItems = [
   "On-site systems",
 ];
 
+const stackItems = [
+  {
+    title: "Web Builds",
+    text: "Custom React / Next.js websites built properly",
+  },
+  {
+    title: "Business Tech",
+    text: "Remote support, cleanup, setup, and systems",
+  },
+  {
+    title: "Infrastructure",
+    text: "Networks, CCTV, racks, cabling, and installs",
+  },
+];
+
 export default function Hero() {
   return (
     <>
       <section
         id="home"
-        className="tech-hero-bg relative min-h-[720px] overflow-hidden border-b border-[rgba(212,175,55,0.12)]"
+        className="tech-hero-bg relative overflow-hidden border-b border-[rgba(212,175,55,0.12)]"
       >
-        <div className="absolute inset-0 bg-black/58" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.24),transparent_42%)]" />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_35%,rgba(212,175,55,0.24),transparent_38%)]" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(245,215,122,0.55)] to-transparent" />
 
-        <div className="container-premium relative z-10 flex min-h-[720px] items-center py-20">
-          <div className="grid w-full gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <div className="container-premium relative z-10 flex min-h-[calc(100vh-96px)] items-center py-14 md:min-h-[760px] md:py-20">
+          <div className="grid w-full gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <Reveal>
               <div className="max-w-3xl">
                 <span className="badge-gold">
@@ -34,7 +43,7 @@ export default function Hero() {
                   Canada Wide • Premium Technology Partner
                 </span>
 
-                <h1 className="mt-7 text-5xl font-black leading-[0.92] tracking-[-0.065em] md:text-7xl">
+                <h1 className="mt-7 text-5xl font-black leading-[0.9] tracking-[-0.07em] md:text-7xl xl:text-8xl">
                   Websites,
                   <br />
                   Support &
@@ -43,7 +52,7 @@ export default function Hero() {
                   <span className="text-[#f5d77a]">.</span>
                 </h1>
 
-                <p className="mt-6 max-w-2xl text-lg leading-8 text-white/76">
+                <p className="mt-6 max-w-2xl text-base leading-8 text-white/76 md:text-lg">
                   L&amp;L Tech Solutions builds custom websites, manages
                   business technology, and installs clean technical systems for
                   companies that want things done properly.
@@ -72,8 +81,8 @@ export default function Hero() {
               <div className="relative">
                 <div className="absolute -inset-8 rounded-[2.5rem] bg-[rgba(212,175,55,0.10)] blur-3xl" />
 
-                <div className="card-premium edge-gold relative overflow-hidden rounded-[2rem] p-6 shadow-[0_30px_100px_rgba(0,0,0,0.72)] md:p-8">
-                  <div className="flex items-center justify-between gap-4">
+                <div className="card-premium edge-gold relative overflow-hidden rounded-[2rem] p-5 shadow-[0_30px_100px_rgba(0,0,0,0.72)] md:p-8">
+                  <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-sm font-semibold text-white">
                         L&amp;L Technology Stack
@@ -83,7 +92,7 @@ export default function Hero() {
                       </p>
                     </div>
 
-                    <span className="badge-gold">Project Ready</span>
+                    <span className="badge-gold shrink-0">Project Ready</span>
                   </div>
 
                   <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-[rgba(212,175,55,0.14)] bg-black/40">
@@ -93,25 +102,27 @@ export default function Hero() {
                       width={1400}
                       height={900}
                       priority
-                      className="h-[260px] w-full object-cover opacity-85 md:h-[340px]"
+                      className="h-[230px] w-full object-cover md:h-[340px]"
                     />
                   </div>
 
                   <div className="mt-6 grid gap-3">
-                    {metrics.map(([title, text]) => (
+                    {stackItems.map((item) => (
                       <div
-                        key={title}
+                        key={item.title}
                         className="rounded-2xl border border-white/8 bg-white/[0.025] p-4"
                       >
                         <div className="flex items-center justify-between gap-4">
                           <div>
                             <p className="text-sm font-semibold text-white">
-                              {title}
+                              {item.title}
                             </p>
-                            <p className="mt-1 text-xs text-muted">{text}</p>
+                            <p className="mt-1 text-xs text-muted">
+                              {item.text}
+                            </p>
                           </div>
 
-                          <div className="h-2 w-16 rounded-full bg-[linear-gradient(90deg,#d4af37,#f5d77a)]" />
+                          <div className="h-2 w-16 shrink-0 rounded-full bg-[linear-gradient(90deg,#d4af37,#f5d77a)]" />
                         </div>
                       </div>
                     ))}
