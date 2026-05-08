@@ -95,32 +95,6 @@ export default function ServiceScroller() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal delayMs={320}>
-          <div className="mt-10 overflow-hidden rounded-[1.75rem] border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.045)] p-6 md:p-8">
-            <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#f5d77a]/80">
-                  Not sure where to start?
-                </p>
-
-                <h3 className="mt-2 text-2xl font-black tracking-[-0.04em]">
-                  Start with a free audit and we’ll map the smartest next move.
-                </h3>
-
-                <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">
-                  We’ll look at your website, systems, support needs, or
-                  infrastructure and give you a clear plan before anything moves
-                  forward.
-                </p>
-              </div>
-
-              <a href="#contact" className="btn-gold shrink-0">
-                Request Free Audit
-              </a>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

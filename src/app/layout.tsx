@@ -32,12 +32,12 @@ export const metadata: Metadata = {
 };
 
 const NAV = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Projects", href: "#projects" },
-  { label: "Packages", href: "#packages" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#home" },
+  { label: "Services", href: "/services" },
+  { label: "Process", href: "/#process" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Packages", href: "/#packages" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function RootLayout({
@@ -51,8 +51,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[var(--bg-main)] font-sans text-white antialiased`}
       >
         <div className="page-shell">
-          <header className="sticky top-0 z-50 border-b border-[rgba(212,175,55,0.14)] bg-black/85 shadow-[0_10px_40px_rgba(0,0,0,0.55)] backdrop-blur-xl">
-            <div className="container-premium flex items-center justify-between gap-6 py-3">
+          <header className="nav-shell">
+            <div className="container-premium flex items-center justify-between gap-6 py-2">
               <Link
                 href="/"
                 aria-label="L&L Tech Solutions home"
@@ -71,12 +71,12 @@ export default function RootLayout({
               <nav className="hidden items-center text-sm font-bold uppercase tracking-[0.05em] text-white/90 md:flex">
                 {NAV.map((item, index) => (
                   <div key={item.href} className="flex items-center">
-                    <a
+                    <Link
                       href={item.href}
                       className="px-3 py-2 transition hover:text-[#f5d77a]"
                     >
                       {item.label}
-                    </a>
+                    </Link>
 
                     {index < NAV.length - 1 && (
                       <span
@@ -89,12 +89,12 @@ export default function RootLayout({
               </nav>
 
               <div className="flex items-center gap-3">
-                <a
-                  href="#contact"
-                  className="hidden rounded-full border-2 border-[#f5d77a] px-5 py-2 text-sm font-black uppercase tracking-[0.05em] text-white transition hover:bg-[#f5d77a] hover:text-black sm:inline-flex"
+                <Link
+                  href="/#contact"
+                  className="btn-outline-gold hidden sm:inline-flex"
                 >
                   Request A Quote
-                </a>
+                </Link>
 
                 <details className="relative md:hidden">
                   <summary className="list-none cursor-pointer rounded-full border border-[rgba(212,175,55,0.2)] px-4 py-2 text-sm font-semibold text-white/85">
@@ -104,22 +104,32 @@ export default function RootLayout({
                   <div className="absolute right-0 mt-3 w-72 rounded-2xl border border-[rgba(212,175,55,0.14)] bg-black shadow-xl">
                     <div className="p-2">
                       {NAV.map((item) => (
-                        <a
+                        <Link
                           key={item.href}
                           href={item.href}
                           className="block rounded-xl px-3 py-2.5 text-sm font-semibold uppercase tracking-[0.05em] text-white/80 transition hover:bg-[rgba(212,175,55,0.06)] hover:text-[#f5d77a]"
                         >
                           {item.label}
-                        </a>
+                        </Link>
                       ))}
 
-                      <a href="#contact" className="btn-gold mt-2 flex w-full">
+                      <Link
+                        href="/#contact"
+                        className="btn-gold mt-2 flex w-full"
+                      >
                         Request A Quote
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </details>
               </div>
+            </div>
+
+            <div className="nav-data-line" aria-hidden="true">
+              <span className="nav-data-pulse" />
+              <span className="nav-data-node nav-data-node-one" />
+              <span className="nav-data-node nav-data-node-two" />
+              <span className="nav-data-node nav-data-node-three" />
             </div>
           </header>
 

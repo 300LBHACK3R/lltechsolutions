@@ -4,7 +4,6 @@ import Packages from "@/components/home/Packages";
 import Process from "@/components/home/Process";
 import Projects from "@/components/home/Projects";
 import Proof from "@/components/home/Proof";
-import ServiceScroller from "@/components/home/ServiceScroller";
 import StickyCTA from "@/components/ui/StickyCTA";
 
 export default function Page() {
@@ -12,7 +11,6 @@ export default function Page() {
     <>
       <StickyCTA />
       <Hero />
-      <ServiceScroller />
       <Process />
       <Projects />
       <Proof />
