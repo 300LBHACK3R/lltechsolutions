@@ -1,23 +1,42 @@
 import Reveal from "@/components/ui/Reveal";
 import { projects, type ProjectCategory } from "@/data/projects";
 import Image from "next/image";
+import Link from "next/link";
 
-const categoryLabels: Record<ProjectCategory, string> = {
-  "Web Build": "Web Build",
-  "Tech Support": "Tech Support",
-  Infrastructure: "Infrastructure",
-};
-
-const categoryAccent: Record<ProjectCategory, string> = {
-  "Web Build": "Custom Digital Build",
-  "Tech Support": "Business Systems",
-  Infrastructure: "On-Site Infrastructure",
-};
+const projectGroups: {
+  category: ProjectCategory;
+  eyebrow: string;
+  title: string;
+  description: string;
+  image: string;
+}[] = [
+  {
+    category: "Web Build",
+    eyebrow: "Websites & Digital Growth",
+    title: "Custom Web Builds",
+    description:
+      "Premium websites, SEO structure, Google/Facebook setup, social media support, ads, and lead-focused digital systems.",
+    image: "/images/projects/tow-n-go.jpg",
+  },
+  {
+    category: "Tech Support",
+    eyebrow: "Business Technology Support",
+    title: "Remote Tech Support",
+    description:
+      "Computer cleanup, troubleshooting, software setup, account support, business systems, maintenance, and ongoing technical help.",
+    image: "/images/projects/tech-support.jpg",
+  },
+  {
+    category: "Infrastructure",
+    eyebrow: "On-Site Technical Systems",
+    title: "Infrastructure & Field Work",
+    description:
+      "Network racks, cabling, CCTV, switches, patch panels, RJ45 work, system setup, and clean on-site technical installs.",
+    image: "/images/projects/rack-cleanup.jpg",
+  },
+];
 
 export default function Projects() {
-  const featuredProjects = projects.filter((project) => project.featured);
-  const standardProjects = projects.filter((project) => !project.featured);
-
   return (
     <section
       id="projects"
@@ -28,209 +47,87 @@ export default function Projects() {
       <div className="container-premium relative z-10">
         <Reveal>
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <div className="max-w-3xl">
+            <div className="max-w-4xl">
               <span className="section-eyebrow">Selected Work</span>
 
               <h2 className="section-title mt-5">
-                Case Studies That Show The Work Behind The Results.
+                Explore The Work By Service Category.
               </h2>
 
               <p className="section-subtitle mt-5">
-                Web builds, support work, and technical infrastructure projects
-                presented with the problem, solution, and business outcome.
+                View real project examples across custom websites, business tech
+                support, and on-site infrastructure work.
               </p>
             </div>
 
-            <a href="#contact" className="btn-ghost-gold">
-              Start Your Project
-            </a>
+            <Link href="/services" className="btn-ghost-gold">
+              View Services
+            </Link>
           </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-6">
-          {featuredProjects.map((project, index) => (
-            <Reveal key={project.title} delayMs={index * 100}>
-              <article className="card-premium edge-gold hover-lift overflow-hidden">
-                <div className="grid gap-0 lg:grid-cols-[1.08fr_0.92fr]">
-                  <div className="relative min-h-[340px] overflow-hidden bg-black lg:min-h-[520px]">
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          {projectGroups.map((group, index) => {
+            const count = projects.filter(
+              (project) => project.category === group.category,
+            ).length;
+
+            return (
+              <Reveal key={group.category} delayMs={index * 100}>
+                <article className="card-premium edge-gold hover-lift group flex h-full flex-col overflow-hidden">
+                  <div className="relative h-72 overflow-hidden bg-black">
                     <Image
-                      src={project.image}
-                      alt={project.title}
+                      src={group.image}
+                      alt={group.title}
                       fill
-                      sizes="(max-width: 1024px) 100vw, 55vw"
-                      className="object-cover opacity-80 transition duration-700 hover:scale-105 hover:opacity-95"
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      className="object-cover transition duration-700 group-hover:scale-[1.04]"
                     />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(212,175,55,0.20),transparent_42%)]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
 
-                    <div className="absolute left-5 top-5 flex flex-wrap gap-2">
-                      <span className="badge-gold">
-                        {categoryLabels[project.category]}
-                      </span>
-                      <span className="badge-dark">
-                        {categoryAccent[project.category]}
-                      </span>
+                    <div className="absolute left-5 top-5">
+                      <span className="badge-gold">{group.category}</span>
                     </div>
 
                     <div className="absolute bottom-5 left-5 right-5">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#f5d77a]/80">
-                        Featured Case Study
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#f5d77a]/85">
+                        {group.eyebrow}
                       </p>
-                      <h3 className="mt-2 max-w-2xl text-3xl font-black tracking-[-0.04em] md:text-4xl">
-                        {project.title}
+
+                      <h3 className="mt-2 text-3xl font-black tracking-[-0.045em]">
+                        {group.title}
                       </h3>
                     </div>
                   </div>
 
-                  <div className="flex flex-col justify-between p-6 md:p-8">
-                    <div>
-                      <p className="text-sm leading-7 text-muted">
-                        {project.description}
-                      </p>
+                  <div className="flex flex-1 flex-col p-6">
+                    <p className="text-sm leading-7 text-muted">
+                      {group.description}
+                    </p>
 
-                      <div className="mt-6 grid gap-4">
-                        <CaseStudyBlock
-                          title="Challenge"
-                          text={project.challenge}
-                        />
-                        <CaseStudyBlock
-                          title="Solution"
-                          text={project.solution}
-                        />
-                        <CaseStudyBlock
-                          title="Result"
-                          text={project.result}
-                          highlight
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mt-7">
+                    <div className="mt-6 rounded-2xl border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.045)] p-4">
                       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f5d77a]/80">
-                        Services Used
+                        Available Project Examples
                       </p>
+                      <p className="mt-2 text-sm text-white/82">
+                        {count} project{count === 1 ? "" : "s"} available in
+                        this category.
+                      </p>
+                    </div>
 
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {project.services.map((service) => (
-                          <span key={service} className="badge-dark">
-                            {service}
-                          </span>
-                        ))}
-                      </div>
+                    <div className="mt-auto pt-7">
+                      <Link href="/services" className="btn-ghost-gold w-full">
+                        View Jobs
+                      </Link>
                     </div>
                   </div>
-                </div>
-              </article>
-            </Reveal>
-          ))}
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
-
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {standardProjects.map((project, index) => (
-            <Reveal key={project.title} delayMs={index * 80}>
-              <article className="card-premium edge-gold hover-lift flex h-full flex-col overflow-hidden">
-                <div className="relative h-56 overflow-hidden bg-black">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                    className="object-cover opacity-75 transition duration-700 hover:scale-105 hover:opacity-95"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-
-                  <span className="badge-gold absolute left-4 top-4">
-                    {categoryLabels[project.category]}
-                  </span>
-                </div>
-
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f5d77a]/80">
-                    {categoryAccent[project.category]}
-                  </p>
-
-                  <h3 className="mt-2 text-xl font-bold tracking-tight">
-                    {project.title}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-7 text-muted">
-                    {project.description}
-                  </p>
-
-                  <div className="mt-5 rounded-2xl border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.05)] p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f5d77a]/80">
-                      Result
-                    </p>
-                    <p className="mt-2 text-sm text-white/82">
-                      {project.result}
-                    </p>
-                  </div>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {project.services.slice(0, 3).map((service) => (
-                      <span key={service} className="badge-dark">
-                        {service}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal delayMs={280}>
-          <div className="mt-10 overflow-hidden rounded-[1.75rem] border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.04)] p-6 md:p-8">
-            <div className="flex flex-col justify-between gap-5 md:flex-row md:items-center">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#f5d77a]/80">
-                  Your project next
-                </p>
-                <h3 className="mt-2 text-2xl font-black tracking-[-0.04em]">
-                  Need a website, support cleanup, or infrastructure project
-                  handled properly?
-                </h3>
-                <p className="mt-2 max-w-3xl text-sm leading-7 text-muted">
-                  Send the details and we’ll map out the best next step, whether
-                  that is a fresh build, tech support, CCTV setup, network rack
-                  cleanup, or ongoing technology support.
-                </p>
-              </div>
-
-              <a href="#contact" className="btn-gold shrink-0">
-                Start A Project
-              </a>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
-  );
-}
-
-function CaseStudyBlock({
-  title,
-  text,
-  highlight = false,
-}: {
-  title: string;
-  text: string;
-  highlight?: boolean;
-}) {
-  return (
-    <div
-      className={
-        highlight
-          ? "rounded-2xl border border-[rgba(212,175,55,0.18)] bg-[rgba(212,175,55,0.06)] p-4"
-          : "rounded-2xl border border-white/8 bg-white/[0.025] p-4"
-      }
-    >
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f5d77a]/80">
-        {title}
-      </p>
-      <p className="mt-2 text-sm leading-6 text-white/78">{text}</p>
-    </div>
   );
 }

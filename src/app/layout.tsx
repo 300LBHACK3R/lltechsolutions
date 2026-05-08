@@ -40,11 +40,20 @@ const NAV = [
   { label: "Contact", href: "/#contact" },
 ];
 
+const FOOTER_LINKS = [
+  { label: "Services", href: "/services" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Packages", href: "/#packages" },
+  { label: "Contact", href: "/#contact" },
+];
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const year = new Date().getFullYear();
+
   return (
     <html lang="en-CA" className="scroll-smooth">
       <body
@@ -135,8 +144,24 @@ export default function RootLayout({
 
           <main>{children}</main>
 
-          <footer className="border-t border-[rgba(212,175,55,0.12)] py-10 text-center text-sm text-muted">
-            © {new Date().getFullYear()} L&amp;L Tech Solutions
+          <footer className="border-t border-[rgba(212,175,55,0.12)] bg-black py-5">
+            <div className="container-premium flex flex-col items-center justify-between gap-3 text-center text-xs text-muted md:flex-row md:text-left">
+              <p>© {year} L&amp;L Tech Solutions. All rights reserved.</p>
+
+              <div className="flex flex-wrap justify-center gap-3">
+                {FOOTER_LINKS.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="text-white/55 transition hover:text-[#f5d77a]"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
+              <p className="text-white/45">Canada Wide • Remote + On-Site</p>
+            </div>
           </footer>
         </div>
 
