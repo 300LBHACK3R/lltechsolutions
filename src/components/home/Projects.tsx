@@ -9,6 +9,7 @@ const projectGroups: {
   title: string;
   description: string;
   image: string;
+  href: string;
 }[] = [
   {
     category: "Web Build",
@@ -17,6 +18,7 @@ const projectGroups: {
     description:
       "Premium websites, SEO structure, Google/Facebook setup, social media support, ads, and lead-focused digital systems.",
     image: "/images/projects/tow-n-go.jpg",
+    href: "/projects/web-builds",
   },
   {
     category: "Tech Support",
@@ -25,6 +27,7 @@ const projectGroups: {
     description:
       "Computer cleanup, troubleshooting, software setup, account support, business systems, maintenance, and ongoing technical help.",
     image: "/images/projects/tech-support.jpg",
+    href: "/projects/tech-support",
   },
   {
     category: "Infrastructure",
@@ -33,6 +36,7 @@ const projectGroups: {
     description:
       "Network racks, cabling, CCTV, switches, patch panels, RJ45 work, system setup, and clean on-site technical installs.",
     image: "/images/projects/rack-cleanup.jpg",
+    href: "/projects/infrastructure",
   },
 ];
 
@@ -55,13 +59,13 @@ export default function Projects() {
               </h2>
 
               <p className="section-subtitle mt-5">
-                View real project examples across custom websites, business tech
-                support, and on-site infrastructure work.
+                Choose the type of work you want to see and open a dedicated
+                project page for that category.
               </p>
             </div>
 
-            <Link href="/services" className="btn-ghost-gold">
-              View Services
+            <Link href="/projects" className="btn-ghost-gold">
+              View All Projects
             </Link>
           </div>
         </Reveal>
@@ -111,13 +115,12 @@ export default function Projects() {
                         Available Project Examples
                       </p>
                       <p className="mt-2 text-sm text-white/82">
-                        {count} project{count === 1 ? "" : "s"} available in
-                        this category.
+                        {count} project{count === 1 ? "" : "s"} available.
                       </p>
                     </div>
 
                     <div className="mt-auto pt-7">
-                      <Link href="/services" className="btn-ghost-gold w-full">
+                      <Link href={group.href} className="btn-ghost-gold w-full">
                         View Jobs
                       </Link>
                     </div>

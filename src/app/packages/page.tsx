@@ -1,12 +1,18 @@
-import PackagesSection from "@/components/home/PackagesSection";
+import ContactSection from "@/components/home/ContactSection";
+import Packages from "@/components/home/Packages";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Packages | L&L Tech Solutions",
   description:
-    "Explore website, support, infrastructure, and ongoing business technology packages from L&L Tech Solutions.",
+    "Explore L&L Tech Solutions starting points for website builds, tech support, and monthly technology partner plans.",
 };
 
 export default function PackagesPage() {
-  return <PackagesSection />;
+  return (
+    <>
+      <Packages />
+      <ContactSection />
+    </>
+  );
 }

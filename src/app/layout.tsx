@@ -32,26 +32,24 @@ export const metadata: Metadata = {
 };
 
 const NAV = [
-  { label: "Home", href: "/#home" },
+  { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "Process", href: "/#process" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Packages", href: "/#packages" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Process", href: "/process" },
+  { label: "Projects", href: "/projects" },
+  { label: "Packages", href: "/packages" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const FOOTER_LINKS = [
   { label: "Services", href: "/services" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Packages", href: "/#packages" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Projects", href: "/projects" },
+  { label: "Packages", href: "/packages" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const year = new Date().getFullYear();
 
   return (
@@ -99,7 +97,7 @@ export default function RootLayout({
 
               <div className="flex items-center gap-3">
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="btn-outline-gold hidden sm:inline-flex"
                 >
                   Request A Quote
@@ -123,7 +121,7 @@ export default function RootLayout({
                       ))}
 
                       <Link
-                        href="/#contact"
+                        href="/contact"
                         className="btn-gold mt-2 flex w-full"
                       >
                         Request A Quote
@@ -164,12 +162,6 @@ export default function RootLayout({
             </div>
           </footer>
         </div>
-
-        <style>{`
-          section[id] {
-            scroll-margin-top: 120px;
-          }
-        `}</style>
       </body>
     </html>
   );

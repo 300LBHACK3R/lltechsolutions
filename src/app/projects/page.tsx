@@ -1,12 +1,12 @@
-import ProjectsSection from "@/components/home/ProjectsSection";
+import Projects from "@/components/home/Projects";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Projects | L&L Tech Solutions",
   description:
-    "View real projects completed by L&L Tech Solutions including websites, infrastructure, networking, and technical systems.",
+    "Explore L&L Tech Solutions project categories including custom web builds, remote tech support, and infrastructure work.",
 };
 
 export default function ProjectsPage() {
-  return <ProjectsSection />;
+  return <Projects />;
 }
