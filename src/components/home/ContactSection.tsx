@@ -1,4 +1,7 @@
+"use client";
+
 import Reveal from "@/components/ui/Reveal";
+import { useState } from "react";
 
 const infoItems = [
   "Business name and location",
@@ -23,7 +26,95 @@ const trustNotes = [
   },
 ];
 
+const serviceOptions = [
+  "Free Tech Audit",
+  "Custom Website Build",
+  "SEO / Google / Facebook Setup",
+  "Social Media / Ads Support",
+  "Remote Tech Support",
+  "Infrastructure / Network / CCTV",
+  "Ongoing Monthly Partner",
+];
+
+const timelineOptions = [
+  "This week",
+  "Within 2 weeks",
+  "This month",
+  "Flexible / planning ahead",
+];
+
+type Status = "idle" | "loading" | "success" | "error";
+
+type FormState = {
+  name: string;
+  business: string;
+  email: string;
+  phone: string;
+  website: string;
+  service: string;
+  timeline: string;
+  message: string;
+  companyWebsite: string;
+};
+
+const initialFormState: FormState = {
+  name: "",
+  business: "",
+  email: "",
+  phone: "",
+  website: "",
+  service: "Free Tech Audit",
+  timeline: "This week",
+  message: "",
+  companyWebsite: "",
+};
+
 export default function ContactSection() {
+  const [form, setForm] = useState<FormState>(initialFormState);
+  const [status, setStatus] = useState<Status>("idle");
+  const [notice, setNotice] = useState("");
+
+  function updateField(name: keyof FormState, value: string) {
+    setForm((current) => ({
+      ...current,
+      [name]: value,
+    }));
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setStatus("loading");
+    setNotice("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const result = (await response.json()) as { message?: string };
+
+      if (!response.ok) {
+        throw new Error(result.message || "Something went wrong.");
+      }
+
+      setStatus("success");
+      setNotice(result.message || "Message sent successfully.");
+      setForm(initialFormState);
+    } catch (error) {
+      setStatus("error");
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.",
+      );
+    }
+  }
+
   return (
     <section
       id="contact"
@@ -62,7 +153,23 @@ export default function ContactSection() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
           <Reveal delayMs={100}>
-            <form className="card-premium edge-gold overflow-hidden p-6 md:p-8">
+            <form
+              onSubmit={handleSubmit}
+              className="card-premium edge-gold overflow-hidden p-6 md:p-8"
+            >
+              <input
+                type="text"
+                name="companyWebsite"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.companyWebsite}
+                onChange={(event) =>
+                  updateField("companyWebsite", event.target.value)
+                }
+                className="hidden"
+                aria-hidden="true"
+              />
+
               <div className="flex flex-col justify-between gap-4 border-b border-[rgba(212,175,55,0.12)] pb-6 md:flex-row md:items-start">
                 <div>
                   <p className="text-2xl font-black tracking-[-0.035em]">
@@ -78,33 +185,53 @@ export default function ContactSection() {
               </div>
 
               <div className="mt-7 grid gap-5 md:grid-cols-2">
-                <Field label="Your name" name="name" />
-                <Field label="Business name" name="business" />
-                <Field label="Email" name="email" type="email" />
-                <Field label="Phone (optional)" name="phone" type="tel" />
-                <Field label="Website (optional)" name="website" />
+                <Field
+                  label="Your name"
+                  name="name"
+                  value={form.name}
+                  required
+                  onChange={(value) => updateField("name", value)}
+                />
+                <Field
+                  label="Business name"
+                  name="business"
+                  value={form.business}
+                  onChange={(value) => updateField("business", value)}
+                />
+                <Field
+                  label="Email"
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  required
+                  onChange={(value) => updateField("email", value)}
+                />
+                <Field
+                  label="Phone (optional)"
+                  name="phone"
+                  type="tel"
+                  value={form.phone}
+                  onChange={(value) => updateField("phone", value)}
+                />
+                <Field
+                  label="Website (optional)"
+                  name="website"
+                  value={form.website}
+                  onChange={(value) => updateField("website", value)}
+                />
                 <SelectField
                   label="What do you need?"
                   name="service"
-                  options={[
-                    "Free Tech Audit",
-                    "Custom Website Build",
-                    "SEO / Google / Facebook Setup",
-                    "Social Media / Ads Support",
-                    "Remote Tech Support",
-                    "Infrastructure / Network / CCTV",
-                    "Ongoing Monthly Partner",
-                  ]}
+                  value={form.service}
+                  options={serviceOptions}
+                  onChange={(value) => updateField("service", value)}
                 />
                 <SelectField
                   label="Timeline"
                   name="timeline"
-                  options={[
-                    "This week",
-                    "Within 2 weeks",
-                    "This month",
-                    "Flexible / planning ahead",
-                  ]}
+                  value={form.timeline}
+                  options={timelineOptions}
+                  onChange={(value) => updateField("timeline", value)}
                 />
               </div>
 
@@ -115,17 +242,39 @@ export default function ContactSection() {
                 <textarea
                   name="message"
                   rows={5}
+                  required
+                  value={form.message}
+                  onChange={(event) =>
+                    updateField("message", event.target.value)
+                  }
                   placeholder="Tell us what you need built, fixed, cleaned up, or improved..."
                   className="mt-3 w-full resize-none rounded-2xl border border-white/10 bg-black/35 px-4 py-4 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-[rgba(245,215,122,0.5)] focus:ring-2 focus:ring-[rgba(245,215,122,0.12)]"
                 />
               </div>
 
+              {notice && (
+                <div
+                  className={[
+                    "mt-5 rounded-2xl border px-4 py-3 text-sm",
+                    status === "success"
+                      ? "border-emerald-400/25 bg-emerald-400/10 text-emerald-200"
+                      : "border-red-400/25 bg-red-400/10 text-red-200",
+                  ].join(" ")}
+                >
+                  {notice}
+                </div>
+              )}
+
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-end">
-                <a href="#packages" className="btn-ghost-gold">
+                <a href="/packages" className="btn-ghost-gold">
                   View Packages
                 </a>
-                <button type="submit" className="btn-gold">
-                  Send Request
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="btn-gold disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {status === "loading" ? "Sending..." : "Send Request"}
                 </button>
               </div>
             </form>
@@ -187,10 +336,16 @@ function Field({
   label,
   name,
   type = "text",
+  value,
+  required = false,
+  onChange,
 }: {
   label: string;
   name: string;
   type?: string;
+  value: string;
+  required?: boolean;
+  onChange: (value: string) => void;
 }) {
   return (
     <label className="block">
@@ -198,6 +353,9 @@ function Field({
       <input
         name={name}
         type={type}
+        value={value}
+        required={required}
+        onChange={(event) => onChange(event.target.value)}
         className="mt-3 w-full rounded-2xl border border-white/10 bg-black/35 px-4 py-4 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-[rgba(245,215,122,0.5)] focus:ring-2 focus:ring-[rgba(245,215,122,0.12)]"
       />
     </label>
@@ -207,17 +365,23 @@ function Field({
 function SelectField({
   label,
   name,
+  value,
   options,
+  onChange,
 }: {
   label: string;
   name: string;
+  value: string;
   options: string[];
+  onChange: (value: string) => void;
 }) {
   return (
     <label className="block">
       <span className="text-sm font-semibold text-white/80">{label}</span>
       <select
         name={name}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
         className="mt-3 w-full rounded-2xl border border-white/10 bg-black/35 px-4 py-4 text-sm text-white outline-none transition focus:border-[rgba(245,215,122,0.5)] focus:ring-2 focus:ring-[rgba(245,215,122,0.12)]"
       >
         {options.map((option) => (
