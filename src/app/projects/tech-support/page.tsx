@@ -2,18 +2,11 @@ import ProjectCategoryPage from "@/components/projects/ProjectCategoryPage";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tech Support Projects | L&L Tech Solutions",
+  title: "Tech Support Projects",
   description:
-    "View remote tech support, cleanup, account setup, and business technology support projects by L&L Tech Solutions.",
+    "Business tech support, system cleanup, troubleshooting, optimization, and support work by L&L Tech Solutions.",
 };
 
-export default function TechSupportPage() {
-  return (
-    <ProjectCategoryPage
-      category="Tech Support"
-      eyebrow="Business Technology Support"
-      title="Remote Tech Support"
-      description="Remote troubleshooting, computer cleanup, account setup, system optimization, maintenance, and practical business support."
-    />
-  );
+export default function TechSupportProjectsPage() {
+  return <ProjectCategoryPage category="Tech Support" />;
 }
