@@ -1,16 +1,4 @@
-export type ProjectCategory = "Web Build" | "Tech Support" | "Infrastructure";
-
-export type ProjectMediaImage = {
-  title: string;
-  src?: string;
-  alt: string;
-};
-
-export type ProjectMediaVideo = {
-  title: string;
-  src?: string;
-  poster?: string;
-};
+﻿export type ProjectCategory = "Web Build" | "Tech Support" | "Infrastructure";
 
 export type ProjectStat = {
   label: string;
@@ -30,10 +18,6 @@ export type Project = {
   liveUrl?: string;
   featured?: boolean;
   stats?: ProjectStat[];
-  media?: {
-    images: ProjectMediaImage[];
-    video?: ProjectMediaVideo;
-  };
 };
 
 export const projects: Project[] = [
@@ -63,25 +47,6 @@ export const projects: Project[] = [
       { label: "Focus", value: "Rental Leads" },
       { label: "Status", value: "Live" },
     ],
-    media: {
-      images: [
-        {
-          title: "Homepage / Quote Flow",
-          src: "",
-          alt: "Tow-N-Go homepage and quote flow screenshot",
-        },
-        {
-          title: "Mobile / Fleet Layout",
-          src: "",
-          alt: "Tow-N-Go mobile and trailer fleet layout screenshot",
-        },
-      ],
-      video: {
-        title: "Website Walkthrough",
-        src: "",
-        poster: "",
-      },
-    },
   },
   {
     title: "Crestline Painting Website",
@@ -109,25 +74,6 @@ export const projects: Project[] = [
       { label: "Focus", value: "Commercial Trust" },
       { label: "Status", value: "Live" },
     ],
-    media: {
-      images: [
-        {
-          title: "Service Page System",
-          src: "",
-          alt: "Crestline Painting service page screenshot",
-        },
-        {
-          title: "Quote / Project Flow",
-          src: "",
-          alt: "Crestline Painting quote flow screenshot",
-        },
-      ],
-      video: {
-        title: "Website Walkthrough",
-        src: "",
-        poster: "",
-      },
-    },
   },
   {
     title: "Website Optimization & SEO Cleanup",
@@ -148,25 +94,6 @@ export const projects: Project[] = [
       { label: "Focus", value: "SEO + Speed" },
       { label: "Status", value: "Delivered" },
     ],
-    media: {
-      images: [
-        {
-          title: "Before / After Structure",
-          src: "",
-          alt: "Website cleanup before and after screenshot",
-        },
-        {
-          title: "Google / Metadata Setup",
-          src: "",
-          alt: "Website SEO metadata setup screenshot",
-        },
-      ],
-      video: {
-        title: "Optimization Walkthrough",
-        src: "",
-        poster: "",
-      },
-    },
   },
   {
     title: "Business Tech Support Cleanup",
@@ -192,25 +119,6 @@ export const projects: Project[] = [
       { label: "Focus", value: "Cleanup" },
       { label: "Status", value: "Delivered" },
     ],
-    media: {
-      images: [
-        {
-          title: "System Cleanup",
-          src: "",
-          alt: "Business computer cleanup screenshot",
-        },
-        {
-          title: "Account / Setup Work",
-          src: "",
-          alt: "Business account and setup work screenshot",
-        },
-      ],
-      video: {
-        title: "Support Walkthrough",
-        src: "",
-        poster: "",
-      },
-    },
   },
   {
     title: "Network Rack Cleanup",
@@ -236,25 +144,6 @@ export const projects: Project[] = [
       { label: "Focus", value: "Cable Cleanup" },
       { label: "Status", value: "Delivered" },
     ],
-    media: {
-      images: [
-        {
-          title: "Before Cleanup",
-          src: "",
-          alt: "Network rack before cleanup photo",
-        },
-        {
-          title: "After Cleanup",
-          src: "",
-          alt: "Network rack after cleanup photo",
-        },
-      ],
-      video: {
-        title: "Rack Walkthrough",
-        src: "",
-        poster: "",
-      },
-    },
   },
   {
     title: "CCTV & Network System Setup",
@@ -280,25 +169,6 @@ export const projects: Project[] = [
       { label: "Focus", value: "Security + Network" },
       { label: "Status", value: "Delivered" },
     ],
-    media: {
-      images: [
-        {
-          title: "Camera Setup",
-          src: "",
-          alt: "CCTV camera setup photo",
-        },
-        {
-          title: "Network Configuration",
-          src: "",
-          alt: "Network configuration setup photo",
-        },
-      ],
-      video: {
-        title: "System Walkthrough",
-        src: "",
-        poster: "",
-      },
-    },
   },
 ];
 
