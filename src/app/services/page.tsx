@@ -4,33 +4,33 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Web Development, Remote IT & Network Infrastructure",
   description:
-    "Explore L&L Tech Solutions services including custom websites, SEO, Google and Facebook setup, social media management, ads, remote tech support, networking, CCTV, rack cleanup, and infrastructure.",
+    "Explore L&L Tech Solutions services: custom websites and software, SEO and social media, remote IT and cybersecurity, Cat6 cabling, Ethernet activation, racks, Wi-Fi, CCTV, and low-voltage infrastructure.",
 };
 
 const serviceJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Service",
-  name: "L&L Tech Solutions Services",
-  provider: {
-    "@type": "LocalBusiness",
-    name: "L&L Tech Solutions",
-    url: "https://lltechsolutions.ca",
-  },
-  areaServed: "Canada",
-  serviceType: [
-    "Custom Website Development",
-    "SEO",
-    "Google Business Setup",
-    "Facebook Setup",
-    "Social Media Management",
-    "Ads and Lead Generation",
-    "Remote Tech Support",
-    "Network Infrastructure",
-    "CCTV Setup",
-    "Rack Cleanup",
-  ],
+  "@type": "ItemList",
+  name: "L&L Tech Solutions Service Divisions",
+  itemListElement: servicePillars.map((service, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Service",
+      name: service.title,
+      description: service.description,
+      provider: {
+        "@type": "ProfessionalService",
+        name: "L&L Tech Solutions",
+        url: "https://lltechsolutions.ca",
+      },
+      areaServed:
+        service.id === "network-infrastructure"
+          ? "Calgary and surrounding communities"
+          : "Canada",
+    },
+  })),
 };
 
 export default function ServicesPage() {
@@ -48,27 +48,30 @@ export default function ServicesPage() {
 
         <div className="container-premium relative z-10">
           <Reveal>
-            <div className="mx-auto max-w-5xl text-center">
+            <div className="mx-auto max-w-6xl text-center">
               <span className="section-eyebrow">
                 L&amp;L Tech Solutions Services
               </span>
 
               <h1 className="mt-6 text-5xl font-black leading-[0.92] tracking-[-0.07em] md:text-7xl">
-                Websites, Marketing, IT Support & Infrastructure.
+                Build The Platform.
+                <br />
+                Support The People.
+                <br />
+                Connect The Infrastructure.
               </h1>
 
               <p className="mx-auto mt-6 max-w-4xl text-base leading-8 text-muted md:text-xl md:leading-9">
-                One technology partner for custom websites, SEO, Google and
-                Facebook setup, social media management, ads, remote tech
-                support, networks, CCTV, rack cleanup, and on-site technical
-                systems.
+                Three focused service divisions covering custom development and
+                digital growth, remote IT and cybersecurity, and professional
+                network infrastructure and low-voltage systems.
               </p>
 
               <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <Link href="/#contact" className="btn-gold">
-                  Request A Quote
+                <Link href="/contact" className="btn-gold">
+                  Start A Project
                 </Link>
-                <Link href="/#projects" className="btn-ghost-gold">
+                <Link href="/projects" className="btn-ghost-gold">
                   View Our Work
                 </Link>
               </div>
@@ -79,55 +82,89 @@ export default function ServicesPage() {
 
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="container-premium">
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-8">
             {servicePillars.map((service, index) => (
-              <Reveal key={service.title} delayMs={index * 100}>
-                <article className="card-premium edge-gold hover-lift flex h-full flex-col overflow-hidden">
-                  <div className="border-b border-[rgba(212,175,55,0.12)] bg-[linear-gradient(135deg,rgba(212,175,55,0.12),rgba(255,255,255,0.015))] p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#f5d77a]/80">
-                          {service.eyebrow}
-                        </p>
+              <Reveal key={service.id} delayMs={index * 80}>
+                <article
+                  id={service.id}
+                  className="card-premium edge-gold scroll-mt-32 overflow-hidden"
+                >
+                  <div className="grid lg:grid-cols-[0.8fr_1.2fr]">
+                    <div className="border-b border-[rgba(212,175,55,0.12)] bg-[linear-gradient(145deg,rgba(212,175,55,0.16),rgba(255,255,255,0.015))] p-7 lg:border-b-0 lg:border-r lg:p-10">
+                      <div className="flex items-start justify-between gap-5">
+                        <div>
+                          <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d77a]/82">
+                            {service.eyebrow}
+                          </p>
+                          <h2 className="mt-5 text-4xl font-black leading-[0.98] tracking-[-0.055em] md:text-5xl">
+                            {service.title}
+                          </h2>
+                        </div>
 
-                        <h2 className="mt-4 text-2xl font-black leading-tight tracking-[-0.035em]">
-                          {service.title}
-                        </h2>
+                        <span className="rounded-full border border-[rgba(212,175,55,0.2)] bg-black/35 px-3 py-1 text-xs font-black text-[#f5d77a]">
+                          0{index + 1}
+                        </span>
                       </div>
 
-                      <span className="rounded-full border border-[rgba(212,175,55,0.18)] bg-black/35 px-3 py-1 text-xs font-bold text-[#f5d77a]">
-                        0{index + 1}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-1 flex-col p-6">
-                    <p className="text-sm leading-7 text-muted">
-                      {service.description}
-                    </p>
-
-                    <div className="mt-5 rounded-2xl border border-[rgba(212,175,55,0.16)] bg-[rgba(212,175,55,0.055)] p-4">
-                      <p className="text-sm font-semibold text-white/90">
-                        {service.highlight}
+                      <p className="mt-6 text-base leading-8 text-white/72">
+                        {service.description}
                       </p>
-                      <p className="mt-2 text-sm leading-6 text-muted">
-                        {service.outcome}
+
+                      <div className="mt-7 rounded-2xl border border-[rgba(212,175,55,0.16)] bg-black/30 p-5">
+                        <p className="text-sm font-black text-white/92">
+                          {service.highlight}
+                        </p>
+                        <p className="mt-2 text-sm leading-7 text-muted">
+                          {service.outcome}
+                        </p>
+                      </div>
+
+                      <p className="mt-6 text-sm leading-7 text-white/52">
+                        {service.availability}
                       </p>
+
+                      <div className="mt-8">
+                        <Link href="/contact" className="btn-gold">
+                          Ask About This Division
+                        </Link>
+                      </div>
                     </div>
 
-                    <ul className="mt-6 grid gap-3 text-sm text-white/76">
-                      {service.services.map((item) => (
-                        <li key={item} className="flex gap-3">
-                          <span className="mt-[2px] text-[#f5d77a]">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="p-7 lg:p-10">
+                      <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d77a]/82">
+                        Services & Capabilities
+                      </p>
 
-                    <div className="mt-auto pt-7">
-                      <Link href="/#contact" className="btn-ghost-gold w-full">
-                        Ask About This
-                      </Link>
+                      <ul className="mt-6 grid gap-4 md:grid-cols-2">
+                        {service.services.map((item) => (
+                          <li
+                            key={item}
+                            className="rounded-2xl border border-[rgba(212,175,55,0.12)] bg-[rgba(212,175,55,0.04)] p-5"
+                          >
+                            <div className="flex gap-3">
+                              <span className="mt-[2px] text-[#f5d77a]">•</span>
+                              <span className="text-sm leading-7 text-white/80">
+                                {item}
+                              </span>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {service.id === "network-infrastructure" ? (
+                        <div className="mt-7 rounded-2xl border border-amber-300/20 bg-amber-300/5 p-5">
+                          <p className="text-sm font-black text-amber-100">
+                            Low-voltage scope
+                          </p>
+                          <p className="mt-2 text-sm leading-7 text-white/58">
+                            Electrical outlet installation, circuit
+                            modification, and regulated electrical work are not
+                            included. RJ11-to-RJ45 conversion depends on the
+                            existing cable type, topology, condition, and
+                            available wire pairs.
+                          </p>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 </article>
@@ -140,30 +177,29 @@ export default function ServicesPage() {
       <section className="border-y border-[rgba(212,175,55,0.12)] bg-[rgba(212,175,55,0.035)] py-16 md:py-20">
         <div className="container-premium">
           <Reveal>
-            <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-              <div>
-                <span className="section-eyebrow">How We Fit In</span>
-                <h2 className="mt-5 text-4xl font-black leading-[0.95] tracking-[-0.055em] md:text-6xl">
-                  Built For Businesses That Need More Than A Basic Website.
+            <div className="grid gap-8 lg:grid-cols-2">
+              <div className="rounded-[2rem] border border-[rgba(212,175,55,0.14)] bg-black/35 p-7 md:p-9">
+                <span className="section-eyebrow">Canada-Wide</span>
+                <h2 className="mt-5 text-3xl font-black tracking-[-0.045em]">
+                  Digital Projects & Remote Support
                 </h2>
+                <p className="mt-4 text-sm leading-7 text-muted">
+                  Website development, web applications, SEO, Google Business,
+                  social media, content editing, remote IT, Microsoft 365,
+                  cloud support, VPNs, and cybersecurity guidance.
+                </p>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-2">
-                {[
-                  "You need a stronger online presence.",
-                  "You need better Google and Facebook setup.",
-                  "You need social media, ads, and lead generation cleaned up.",
-                  "You need remote tech support without chasing random help.",
-                  "You need networking, CCTV, cabling, or rack work done properly.",
-                  "You want one reliable partner managing the technical side.",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-[rgba(212,175,55,0.14)] bg-black/35 p-5"
-                  >
-                    <p className="text-sm leading-7 text-white/82">{item}</p>
-                  </div>
-                ))}
+              <div className="rounded-[2rem] border border-[rgba(212,175,55,0.14)] bg-black/35 p-7 md:p-9">
+                <span className="section-eyebrow">Calgary Area</span>
+                <h2 className="mt-5 text-3xl font-black tracking-[-0.045em]">
+                  On-Site Networks & Content Production
+                </h2>
+                <p className="mt-4 text-sm leading-7 text-muted">
+                  Cat6 cabling, Ethernet activation, switches, Wi-Fi, network
+                  racks, CCTV, on-site assessments, and professional photo and
+                  video sessions.
+                </p>
               </div>
             </div>
           </Reveal>
@@ -174,21 +210,20 @@ export default function ServicesPage() {
         <div className="container-premium">
           <Reveal>
             <div className="rounded-[2rem] border border-[rgba(212,175,55,0.16)] bg-[rgba(10,10,10,0.88)] p-8 text-center shadow-[0_30px_90px_rgba(0,0,0,0.55)] md:p-12">
-              <span className="section-eyebrow">Start Properly</span>
+              <span className="section-eyebrow">Start With The Right Scope</span>
 
               <h2 className="mx-auto mt-5 max-w-4xl text-4xl font-black leading-[0.95] tracking-[-0.055em] md:text-6xl">
-                Tell Us What You Need Built, Fixed, Cleaned Up, Or Managed.
+                Tell Us What Needs To Be Built, Supported, Secured, Or Connected.
               </h2>
 
               <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-muted md:text-lg">
-                We’ll help map the smartest next step — whether that is a new
-                website, SEO cleanup, social media support, ads, remote tech
-                support, or on-site infrastructure work.
+                We will identify the correct starting point, define the scope,
+                and provide the clearest next step for the project.
               </p>
 
               <div className="mt-8 flex justify-center">
-                <Link href="/#contact" className="btn-gold">
-                  Request A Quote
+                <Link href="/contact" className="btn-gold">
+                  Start A Conversation
                 </Link>
               </div>
             </div>

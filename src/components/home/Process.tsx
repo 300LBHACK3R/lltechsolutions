@@ -3,28 +3,31 @@ import Reveal from "@/components/ui/Reveal";
 const steps = [
   {
     number: "01",
-    title: "Audit",
-    text: "We review your website, systems, support needs, and technical environment.",
-    detail: "Website, SEO, Google/Facebook, support, infrastructure.",
+    title: "Assess",
+    text: "We review the business goal, current technology, risks, users, content, and physical environment.",
+    detail:
+      "Digital project, remote-support request, or on-site network assessment.",
   },
   {
     number: "02",
-    title: "Plan",
-    text: "You get clear priorities, realistic scope, pricing, and next steps.",
-    detail: "No guessing. No messy scope. No scattered direction.",
+    title: "Architect",
+    text: "You receive a clear scope, recommended solution, pricing, responsibilities, and realistic next steps.",
+    detail:
+      "No vague promises, hidden scope, or disconnected technical decisions.",
   },
   {
     number: "03",
-    title: "Build / Fix",
-    text: "We execute cleanly across websites, support, systems, and infrastructure.",
+    title: "Build & Deploy",
+    text: "We design, configure, test, document, and launch the approved solution properly.",
     detail:
-      "Custom builds, support cleanup, setup, installs, and optimization.",
+      "Websites, software, remote systems, security, cabling, racks, or CCTV.",
   },
   {
     number: "04",
-    title: "Maintain",
-    text: "Ongoing support, updates, SEO, monitoring, and future improvements.",
-    detail: "Keep the business running cleaner after the project is done.",
+    title: "Manage & Support",
+    text: "Ongoing maintenance, SEO, content, monitoring, IT support, and future improvements remain available.",
+    detail:
+      "The relationship can continue after launch instead of ending at handoff.",
   },
 ];
 
@@ -40,27 +43,29 @@ export default function Process() {
         <Reveal>
           <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
             <div>
-              <span className="section-eyebrow">Process</span>
+              <span className="section-eyebrow">How We Work</span>
 
               <h2 className="mt-5 max-w-4xl text-5xl font-black leading-[0.92] tracking-[-0.065em] md:text-7xl">
-                Clean Process.
+                Clear Scope.
                 <br />
-                Clear Outcomes.
+                Clean Execution.
+                <br />
+                Ongoing Support.
               </h2>
             </div>
 
             <div className="max-w-2xl lg:justify-self-end">
               <p className="text-base leading-8 text-muted md:text-lg">
-                No confusion, no scattered vendors, no guessing. Just a clean
-                technical process that moves from audit to execution to ongoing
-                improvement.
+                Every service starts by defining the real problem. That keeps
+                the quote accurate, the work organized, and the final system
+                easier to maintain.
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2">
-                <span className="badge-dark">Clear Scope</span>
-                <span className="badge-dark">Clean Execution</span>
-                <span className="badge-dark">Documented Work</span>
-                <span className="badge-dark">Ongoing Support</span>
+                <span className="badge-dark">Documented Scope</span>
+                <span className="badge-dark">Professional Testing</span>
+                <span className="badge-dark">Clear Ownership</span>
+                <span className="badge-dark">Long-Term Support</span>
               </div>
             </div>
           </div>
