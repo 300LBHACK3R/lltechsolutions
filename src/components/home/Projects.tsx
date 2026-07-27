@@ -1,5 +1,5 @@
 import Reveal from "@/components/ui/Reveal";
-import { projects, type ProjectCategory } from "@/data/projects";
+import { projects, type ProjectCategory } from "@/lib/projects";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,28 +13,28 @@ const projectGroups: {
 }[] = [
   {
     category: "Web Build",
-    eyebrow: "Websites & Digital Growth",
-    title: "Custom Web Builds",
+    eyebrow: "Web, Software & Digital Growth",
+    title: "Websites, Apps & Managed Growth",
     description:
-      "Premium websites, SEO structure, Google/Facebook setup, social media support, ads, and lead-focused digital systems.",
+      "Explore custom websites, web applications, SEO foundations, booking and inquiry systems, Google Business, social media, content, and ongoing digital partnerships.",
     image: "/images/projects/tow-n-go.jpg",
     href: "/projects/web-builds",
   },
   {
     category: "Tech Support",
-    eyebrow: "Business Technology Support",
-    title: "Remote Tech Support",
+    eyebrow: "Remote IT & Cybersecurity",
+    title: "Business Technology Support",
     description:
-      "Computer cleanup, troubleshooting, software setup, account support, business systems, maintenance, and ongoing technical help.",
+      "Remote troubleshooting, Microsoft 365, accounts, cloud systems, security improvements, cleanup, and practical ongoing business support.",
     image: "/images/projects/tech-support.jpg",
     href: "/projects/tech-support",
   },
   {
     category: "Infrastructure",
-    eyebrow: "On-Site Technical Systems",
-    title: "Infrastructure & Field Work",
+    eyebrow: "Network Infrastructure & Low-Voltage",
+    title: "Networks, Racks, Cabling & CCTV",
     description:
-      "Network racks, cabling, CCTV, switches, patch panels, RJ45 work, system setup, and clean on-site technical installs.",
+      "Cat5e and Cat6, Ethernet activation, rack cleanup, switches, Wi-Fi, CCTV, testing, labelling, and clean on-site technical systems.",
     image: "/images/projects/rack-cleanup.jpg",
     href: "/projects/infrastructure",
   },
@@ -55,12 +55,13 @@ export default function Projects() {
               <span className="section-eyebrow">Selected Work</span>
 
               <h2 className="section-title mt-5">
-                Explore The Work By Service Category.
+                Real Projects Across Every L&amp;L Division.
               </h2>
 
               <p className="section-subtitle mt-5">
-                Choose the type of work you want to see and open a dedicated
-                project page for that category.
+                Open each category for detailed project cards, live websites,
+                connected social channels, managed services, project outcomes,
+                and the technology behind the work.
               </p>
             </div>
 
@@ -112,16 +113,16 @@ export default function Projects() {
 
                     <div className="mt-6 rounded-2xl border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.045)] p-4">
                       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f5d77a]/80">
-                        Available Project Examples
+                        Published Project Cards
                       </p>
                       <p className="mt-2 text-sm text-white/82">
-                        {count} project{count === 1 ? "" : "s"} available.
+                        {count} {count === 1 ? "project" : "projects"} available.
                       </p>
                     </div>
 
                     <div className="mt-auto pt-7">
                       <Link href={group.href} className="btn-ghost-gold w-full">
-                        View Jobs
+                        View Projects
                       </Link>
                     </div>
                   </div>
