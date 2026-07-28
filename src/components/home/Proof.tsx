@@ -1,119 +1,103 @@
 import Reveal from "@/components/ui/Reveal";
-
-const pillars = [
-  {
-    title: "Custom Web Builds",
-    description:
-      "Modern websites built from scratch with responsive layouts, SEO foundations, clean metadata, performance structure, and conversion-focused pages.",
-    points: [
-      "React / Next.js builds",
-      "SEO-ready structure",
-      "Lead-focused pages",
-    ],
-  },
-  {
-    title: "Business Tech Support",
-    description:
-      "Remote support, cleanup, optimization, account setup, systems management, troubleshooting, and practical ongoing technical help.",
-    points: ["Remote troubleshooting", "System cleanup", "Ongoing support"],
-  },
-  {
-    title: "Infrastructure Work",
-    description:
-      "Rack cleanup, structured cabling, switches, patch panels, CCTV, network setup, and clean on-site technical systems.",
-    points: ["Networks & CCTV", "Rack cleanup", "Structured cabling"],
-  },
-];
+import { servicePillars } from "@/data/services";
+import Link from "next/link";
 
 export default function Proof() {
   return (
     <section
-      id="proof"
+      id="solutions"
       className="relative overflow-hidden border-y border-[rgba(212,175,55,0.12)] py-20 md:py-28"
     >
       <div className="hero-glow" />
 
       <div className="container-premium relative z-10">
         <Reveal>
-          <div className="max-w-5xl">
-            <span className="section-eyebrow">Why It Works</span>
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div className="max-w-5xl">
+              <span className="section-eyebrow">Three Connected Divisions</span>
 
-            <h2 className="mt-5 text-5xl font-black leading-[0.92] tracking-[-0.065em] md:text-7xl">
-              We Don’t Just Do Tech.
-              <br />
-              We Build Systems That Make Businesses Look And Operate Better.
-            </h2>
+              <h2 className="mt-5 text-5xl font-black leading-[0.92] tracking-[-0.065em] md:text-7xl">
+                One Technology Partner.
+                <br />
+                Three Clear Ways To Work Together.
+              </h2>
+            </div>
 
-            <p className="mt-6 max-w-3xl text-base leading-8 text-muted md:text-lg">
-              The goal is simple: stronger presentation, cleaner systems, fewer
-              technical problems, and a better customer experience from first
-              impression to daily operation.
-            </p>
+            <div className="max-w-2xl lg:justify-self-end">
+              <p className="text-base leading-8 text-muted md:text-lg">
+                Build the digital platform, support the people using it, and
+                connect the physical infrastructure underneath it—all with one
+                organized technical partner.
+              </p>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                <span className="badge-dark">Build</span>
+                <span className="badge-dark">Secure</span>
+                <span className="badge-dark">Connect</span>
+                <span className="badge-dark">Manage</span>
+              </div>
+            </div>
           </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {pillars.map((pillar, index) => (
-            <Reveal key={pillar.title} delayMs={index * 100}>
-              <article className="card-premium edge-gold hover-lift h-full overflow-hidden p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <h3 className="text-2xl font-black tracking-[-0.035em]">
-                    {pillar.title}
-                  </h3>
+        <div className="mt-12 grid gap-6 xl:grid-cols-3">
+          {servicePillars.map((pillar, index) => (
+            <Reveal key={pillar.id} delayMs={index * 100}>
+              <article className="card-premium edge-gold hover-lift flex h-full flex-col overflow-hidden">
+                <div className="border-b border-[rgba(212,175,55,0.12)] bg-[linear-gradient(135deg,rgba(212,175,55,0.14),rgba(255,255,255,0.015))] p-6 md:p-7">
+                  <div className="flex items-start justify-between gap-5">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d77a]/82">
+                        {pillar.eyebrow}
+                      </p>
+                      <h3 className="mt-4 text-3xl font-black leading-[1.02] tracking-[-0.045em]">
+                        {pillar.title}
+                      </h3>
+                    </div>
 
-                  <span className="rounded-full border border-[rgba(212,175,55,0.18)] bg-[rgba(212,175,55,0.07)] px-3 py-1 text-xs font-black text-[#f5d77a]">
-                    0{index + 1}
-                  </span>
+                    <span className="rounded-full border border-[rgba(212,175,55,0.2)] bg-black/35 px-3 py-1 text-xs font-black text-[#f5d77a]">
+                      0{index + 1}
+                    </span>
+                  </div>
                 </div>
 
-                <p className="mt-5 text-sm leading-7 text-muted">
-                  {pillar.description}
-                </p>
+                <div className="flex flex-1 flex-col p-6 md:p-7">
+                  <p className="text-sm leading-7 text-muted">
+                    {pillar.description}
+                  </p>
 
-                <div className="mt-6 grid gap-3">
-                  {pillar.points.map((point) => (
-                    <div
-                      key={point}
-                      className="rounded-2xl border border-[rgba(212,175,55,0.12)] bg-[rgba(212,175,55,0.04)] px-4 py-3"
-                    >
-                      <p className="text-sm font-semibold text-white/86">
-                        {point}
-                      </p>
-                    </div>
-                  ))}
+                  <div className="mt-6 rounded-2xl border border-[rgba(212,175,55,0.16)] bg-[rgba(212,175,55,0.055)] p-5">
+                    <p className="text-sm font-black text-white/92">
+                      {pillar.highlight}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-muted">
+                      {pillar.outcome}
+                    </p>
+                  </div>
+
+                  <ul className="mt-6 grid gap-3 text-sm text-white/78">
+                    {pillar.services.slice(0, 6).map((service) => (
+                      <li key={service} className="flex gap-3">
+                        <span className="mt-[2px] text-[#f5d77a]">•</span>
+                        <span>{service}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="mt-6 border-t border-white/8 pt-5 text-xs leading-6 text-white/52">
+                    {pillar.availability}
+                  </p>
+
+                  <div className="mt-auto pt-7">
+                    <Link href={pillar.href} className="btn-ghost-gold w-full">
+                      {pillar.cta}
+                    </Link>
+                  </div>
                 </div>
               </article>
             </Reveal>
           ))}
         </div>
-
-        <Reveal delayMs={260}>
-          <div className="mt-10 rounded-[2rem] border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.04)] p-6 md:p-8">
-            <div className="grid gap-6 md:grid-cols-3">
-              {[
-                [
-                  "One Partner",
-                  "Websites, support, and infrastructure handled together.",
-                ],
-                [
-                  "Cleaner Execution",
-                  "Organized scope, cleaner delivery, better documentation.",
-                ],
-                [
-                  "Business Focused",
-                  "Everything is built around trust, leads, and operations.",
-                ],
-              ].map(([title, text]) => (
-                <div key={title}>
-                  <p className="text-sm font-black uppercase tracking-[0.14em] text-[#f5d77a]/85">
-                    {title}
-                  </p>
-                  <p className="mt-2 text-sm leading-7 text-muted">{text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

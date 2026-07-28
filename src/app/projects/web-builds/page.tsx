@@ -2,9 +2,9 @@ import ProjectCategoryPage from "@/components/projects/ProjectCategoryPage";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Web Build Projects",
+  title: "Web, Software & Digital Growth Projects",
   description:
-    "Custom website builds, SEO cleanup, mobile-first layouts, and conversion-focused web projects by L&L Tech Solutions.",
+    "Explore custom websites, web applications, SEO foundations, booking and inquiry systems, Google Business management, social media, content, and ongoing digital partnerships by L&L Tech Solutions.",
 };
 
 export default function WebBuildProjectsPage() {

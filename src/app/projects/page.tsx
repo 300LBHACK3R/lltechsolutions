@@ -8,9 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Projects & Case Studies",
   description:
-    "Explore L&L Tech Solutions project categories, including custom web builds, tech support, and infrastructure work.",
+    "Explore L&L Tech Solutions projects across custom websites, web applications, SEO and managed digital growth, remote IT support, network infrastructure, Cat6 cabling, racks, and CCTV.",
 };
 
 const categories: ProjectCategory[] = [
@@ -35,14 +35,14 @@ export default function ProjectsPage() {
 
       <section className="container-premium">
         <div className="mx-auto max-w-5xl text-center">
-          <span className="section-eyebrow">Projects</span>
+          <span className="section-eyebrow">Projects & Case Studies</span>
           <h1 className="mt-5 text-5xl font-black leading-[0.95] tracking-[-0.06em] md:text-7xl">
-            Real Work, Organized By Service Category.
+            Real Platforms, Support Work & Connected Systems.
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-muted md:text-lg">
-            Explore custom websites, business tech support, and infrastructure
-            projects with clear proof, live links, screenshots, and project
-            breakdowns.
+            Explore live websites, custom applications, managed digital
+            channels, remote-support work, and on-site network infrastructure
+            with project scope, outcomes, and direct links.
           </p>
         </div>
 
@@ -79,10 +79,10 @@ export default function ProjectsPage() {
                   </p>
                   <h2 className="mt-4 text-3xl font-black leading-none tracking-[-0.045em]">
                     {category === "Web Build"
-                      ? "Custom Web Builds"
+                      ? "Web, Software & Digital Growth"
                       : category === "Tech Support"
-                        ? "Business Tech Support"
-                        : "Infrastructure & Field Work"}
+                        ? "Remote IT & Cybersecurity"
+                        : "Network Infrastructure & Low-Voltage"}
                   </h2>
                   <p className="mt-4 text-sm leading-7 text-muted">
                     {meta.description}

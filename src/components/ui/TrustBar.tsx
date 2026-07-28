@@ -1,12 +1,12 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 const trustItems = [
-  "Custom Websites",
-  "SEO Foundations",
-  "Remote Support",
-  "Infrastructure",
+  "Custom Development",
+  "SEO & Content",
+  "Remote IT",
+  "Cybersecurity",
+  "Cat6 & CCTV",
   "Calgary + Canada-Wide",
-  "Fast Response",
 ];
 
 type TrustBarProps = {
@@ -31,8 +31,8 @@ export default function TrustBar({ cta = false }: TrustBarProps) {
 
           {cta ? (
             <div className="flex justify-center lg:justify-end">
-              <Link href="/free-tech-audit" className="btn-gold">
-                Get A Free Tech Audit
+              <Link href="/contact" className="btn-gold">
+                Start A Project
               </Link>
             </div>
           ) : null}

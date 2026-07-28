@@ -1,4 +1,4 @@
-﻿import Hero from "@/components/home/Hero";
+import Hero from "@/components/home/Hero";
 import Process from "@/components/home/Process";
 import Projects from "@/components/home/Projects";
 import Proof from "@/components/home/Proof";
@@ -15,9 +15,9 @@ export default function Page() {
       <StickyCTA />
       <Hero />
       <TrustBar cta />
-      <Process />
-      <Projects />
       <Proof />
+      <Projects />
+      <Process />
       <Packages />
       <TrustBar />
       <ContactSection />
