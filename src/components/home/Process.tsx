@@ -3,110 +3,91 @@ import Reveal from "@/components/ui/Reveal";
 const steps = [
   {
     number: "01",
-    title: "Assess",
-    text: "We review the business goal, current technology, risks, users, content, and physical environment.",
+    title: "Discover & Define",
+    text: "We clarify the audience, business objective, current assets, required functionality, content needs, constraints, and what success should look like.",
     detail:
-      "Digital project, remote-support request, or on-site network assessment.",
+      "A clear scope, priorities, responsibilities, customer journey, and delivery plan.",
   },
   {
     number: "02",
-    title: "Architect",
-    text: "You receive a clear scope, recommended solution, pricing, responsibilities, and realistic next steps.",
+    title: "Design The Experience",
+    text: "We shape the information architecture, interface, visual direction, content hierarchy, responsive behaviour, and conversion paths before final development.",
     detail:
-      "No vague promises, hidden scope, or disconnected technical decisions.",
+      "A considered experience designed around the business and the people it serves.",
   },
   {
     number: "03",
-    title: "Build & Deploy",
-    text: "We design, configure, test, document, and launch the approved solution properly.",
+    title: "Develop, Test & Launch",
+    text: "We build the approved system, integrate the required services, test across representative devices and browsers, optimize performance, and prepare a controlled launch.",
     detail:
-      "Websites, software, remote systems, security, cabling, racks, or CCTV.",
+      "Custom code, integrations, SEO foundations, analytics, quality assurance, and deployment.",
   },
   {
     number: "04",
-    title: "Manage & Support",
-    text: "Ongoing maintenance, SEO, content, monitoring, IT support, and future improvements remain available.",
+    title: "Support & Improve",
+    text: "After launch, we can continue developing the product, maintaining the website, publishing content, managing channels, and refining performance over time.",
     detail:
-      "The relationship can continue after launch instead of ending at handoff.",
+      "A long-term digital partnership instead of an abrupt handoff.",
   },
-];
+] as const;
 
 export default function Process() {
   return (
-    <section
-      id="process"
-      className="relative overflow-hidden border-y border-[rgba(212,175,55,0.12)] py-20 md:py-28"
-    >
-      <div className="hero-glow" />
+    <section className="section-ivory relative overflow-hidden py-20 md:py-28">
+      <div className="ivory-blue-orb ivory-blue-orb-left" />
+      <div className="ivory-gold-orb" />
 
       <div className="container-premium relative z-10">
         <Reveal>
-          <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
             <div>
-              <span className="section-eyebrow">How We Work</span>
+              <span className="section-eyebrow section-eyebrow-dark">
+                The L&amp;L Process
+              </span>
 
-              <h2 className="mt-5 max-w-4xl text-5xl font-black leading-[0.92] tracking-[-0.065em] md:text-7xl">
-                Clear Scope.
-                <br />
-                Clean Execution.
-                <br />
-                Ongoing Support.
+              <h2 className="font-editorial mt-7 text-5xl font-semibold leading-[0.9] tracking-[-0.045em] text-[#10243a] md:text-7xl">
+                Deliberate from
+                <span className="block italic text-[#17477f]">
+                  first conversation to launch.
+                </span>
               </h2>
             </div>
 
-            <div className="max-w-2xl lg:justify-self-end">
-              <p className="text-base leading-8 text-muted md:text-lg">
-                Every service starts by defining the real problem. That keeps
-                the quote accurate, the work organized, and the final system
-                easier to maintain.
-              </p>
-
-              <div className="mt-5 flex flex-wrap gap-2">
-                <span className="badge-dark">Documented Scope</span>
-                <span className="badge-dark">Professional Testing</span>
-                <span className="badge-dark">Clear Ownership</span>
-                <span className="badge-dark">Long-Term Support</span>
-              </div>
-            </div>
+            <p className="max-w-xl text-base leading-8 text-[#31465e]/62 md:text-lg lg:justify-self-end">
+              Strong execution is not only visual. It comes from clear scope,
+              informed decisions, careful testing, direct communication, and a
+              plan for what happens after launch.
+            </p>
           </div>
         </Reveal>
 
-        <div className="relative mt-14">
-          <div className="absolute left-0 right-0 top-8 hidden h-px bg-gradient-to-r from-transparent via-[rgba(245,215,122,0.28)] to-transparent lg:block" />
+        <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {steps.map((step, index) => (
+            <Reveal key={step.title} delayMs={index * 80}>
+              <article className="process-corporate-card">
+                <div className="flex items-center justify-between">
+                  <span className="font-editorial text-5xl font-semibold text-[#2f6fbb]/28">
+                    {step.number}
+                  </span>
+                  <span className="h-2 w-2 rounded-full bg-[#2f6fbb]" />
+                </div>
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {steps.map((step, index) => (
-              <Reveal key={step.title} delayMs={index * 90}>
-                <article className="card-premium edge-gold hover-lift relative h-full overflow-hidden p-6">
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(245,215,122,0.45)] to-transparent" />
+                <h3 className="font-editorial mt-7 text-3xl font-semibold leading-[0.96] tracking-[-0.035em] text-[#10243a]">
+                  {step.title}
+                </h3>
 
-                  <div className="relative z-10">
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(212,175,55,0.2)] bg-[rgba(212,175,55,0.08)] text-sm font-black text-[#f5d77a] shadow-[0_0_25px_rgba(212,175,55,0.12)]">
-                        {step.number}
-                      </span>
+                <p className="mt-5 text-sm leading-7 text-[#31465e]/62">
+                  {step.text}
+                </p>
 
-                      <span className="h-2 w-14 rounded-full bg-[linear-gradient(90deg,#d4af37,#f5d77a)] opacity-80" />
-                    </div>
-
-                    <h3 className="mt-8 text-2xl font-black tracking-[-0.035em]">
-                      {step.title}
-                    </h3>
-
-                    <p className="mt-4 text-sm leading-7 text-white/78">
-                      {step.text}
-                    </p>
-
-                    <div className="mt-6 rounded-2xl border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.045)] p-4">
-                      <p className="text-sm leading-6 text-muted">
-                        {step.detail}
-                      </p>
-                    </div>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+                <div className="mt-7 border-t border-black/10 pt-5">
+                  <p className="text-xs leading-6 text-[#10243a]/42">
+                    {step.detail}
+                  </p>
+                </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

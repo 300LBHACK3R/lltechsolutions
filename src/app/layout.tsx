@@ -1,15 +1,15 @@
 import "@/styles/globals.css";
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import Image from "next/image";
-import Link from "next/link";
-
-const siteUrl = "https://lltechsolutions.ca";
-const siteName = "L&L Tech Solutions";
-const siteTitle =
-  "L&L Tech Solutions | Custom Development, Remote IT & Network Infrastructure";
-const siteDescription =
-  "Calgary-based technology partner for custom websites and software, SEO and digital growth, remote IT and cybersecurity, Cat6 cabling, Ethernet activation, network racks, Wi-Fi, and CCTV.";
+import SiteFooter from "@/components/layout/SiteFooter";
+import SiteHeader from "@/components/layout/SiteHeader";
+import { BusinessStructuredData } from "@/components/seo/StructuredData";
+import StickyCTA from "@/components/ui/StickyCTA";
+import { absoluteUrl, siteConfig } from "@/config/site";
+import type { Metadata, Viewport } from "next";
+import {
+  Cormorant_Garamond,
+  Geist,
+  Geist_Mono,
+} from "next/font/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,181 +23,125 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const siteTitle =
+  "Calgary Web Design, Software & Social Media | L&L Tech Solutions";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteTitle,
-    template: `%s | ${siteName}`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: siteDescription,
-  applicationName: siteName,
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
   category: "technology",
-  keywords: [
-    "Calgary web development",
-    "custom website development",
-    "web application development",
-    "remote IT support Canada",
-    "small business cybersecurity",
-    "Cat6 cabling Calgary",
-    "Ethernet port activation Calgary",
-    "network rack cleanup Calgary",
-    "CCTV installation Calgary",
-    "SEO and Google Business management",
+  keywords: [...siteConfig.keywords],
+  authors: [
+    {
+      name: "Tate Byers",
+      url: "https://tatebyers.ca",
+    },
   ],
+  creator: "Tate Byers",
+  publisher: siteConfig.name,
+  alternates: {
+    canonical: siteConfig.url,
+    languages: {
+      "en-CA": siteConfig.url,
+    },
+  },
+  manifest: "/manifest.webmanifest",
+  formatDetection: {
+    address: false,
+    email: false,
+    telephone: false,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
+  },
   openGraph: {
     type: "website",
-    locale: "en_CA",
-    url: siteUrl,
-    siteName,
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     title: siteTitle,
-    description: siteDescription,
+    description: siteConfig.description,
+    images: [
+      {
+        url: absoluteUrl(siteConfig.openGraphImage),
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} digital studio`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
-    description: siteDescription,
+    description: siteConfig.description,
+    images: [absoluteUrl("/twitter-image.jpg")],
   },
 };
 
-const NAV = [
-  { label: "Home", href: "/" },
-  { label: "Solutions", href: "/services" },
-  { label: "Projects", href: "/projects" },
-  { label: "Remote Support", href: "/services#remote-it" },
-  {
-    label: "Network Infrastructure",
-    href: "/services#network-infrastructure",
-  },
-  { label: "Contact", href: "/contact" },
-];
-
-const FOOTER_LINKS = [
-  { label: "Web & Software", href: "/services#web-software" },
-  { label: "Remote IT", href: "/services#remote-it" },
-  {
-    label: "Network Infrastructure",
-    href: "/services#network-infrastructure",
-  },
-  { label: "Projects", href: "/projects" },
-  { label: "Contact", href: "/contact" },
-];
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  colorScheme: "dark light",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#071522" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f9fc" },
+  ],
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const year = new Date().getFullYear();
-
   return (
-    <html lang="en-CA" className="scroll-smooth">
+    <html lang={siteConfig.language}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-[var(--bg-main)] font-sans text-white antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} min-h-screen bg-[var(--bg-main)] font-sans text-white antialiased`}
       >
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
+
+        <BusinessStructuredData />
+
         <div className="page-shell">
-          <header className="nav-shell">
-            <div className="container-premium flex items-center justify-between gap-6 py-2">
-              <Link
-                href="/"
-                aria-label="L&L Tech Solutions home"
-                className="flex h-[72px] w-[210px] shrink-0 items-center overflow-visible sm:w-[235px] md:w-[255px]"
-              >
-                <Image
-                  src="/brand/logo.jpg"
-                  alt="L&L Tech Solutions"
-                  width={900}
-                  height={300}
-                  priority
-                  className="h-auto w-[210px] origin-left scale-[1.32] object-contain drop-shadow-[0_0_16px_rgba(212,175,55,0.24)] sm:w-[235px] sm:scale-[1.4] md:w-[255px] md:scale-[1.48]"
-                />
-              </Link>
+          <SiteHeader />
 
-              <nav className="hidden items-center text-sm font-bold uppercase tracking-[0.05em] text-white/90 xl:flex">
-                {NAV.map((item, index) => (
-                  <div key={item.href} className="flex items-center">
-                    <Link
-                      href={item.href}
-                      className="px-3 py-2 transition hover:text-[#f5d77a]"
-                    >
-                      {item.label}
-                    </Link>
+          <main id="main-content" tabIndex={-1}>
+            {children}
+          </main>
 
-                    {index < NAV.length - 1 && (
-                      <span
-                        className="mx-1 h-4 w-px bg-white/40"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </div>
-                ))}
-              </nav>
-
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/contact"
-                  className="btn-outline-gold hidden sm:inline-flex"
-                >
-                  Start A Project
-                </Link>
-
-                <details className="relative xl:hidden">
-                  <summary className="list-none cursor-pointer rounded-full border border-[rgba(212,175,55,0.2)] px-4 py-2 text-sm font-semibold text-white/85">
-                    Menu
-                  </summary>
-
-                  <div className="absolute right-0 mt-3 w-80 rounded-2xl border border-[rgba(212,175,55,0.14)] bg-black shadow-xl">
-                    <div className="p-2">
-                      {NAV.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className="block rounded-xl px-3 py-2.5 text-sm font-semibold uppercase tracking-[0.05em] text-white/80 transition hover:bg-[rgba(212,175,55,0.06)] hover:text-[#f5d77a]"
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-
-                      <Link
-                        href="/contact"
-                        className="btn-gold mt-2 flex w-full"
-                      >
-                        Start A Project
-                      </Link>
-                    </div>
-                  </div>
-                </details>
-              </div>
-            </div>
-
-            <div className="nav-data-line" aria-hidden="true">
-              <span className="nav-data-pulse" />
-              <span className="nav-data-node nav-data-node-one" />
-              <span className="nav-data-node nav-data-node-two" />
-              <span className="nav-data-node nav-data-node-three" />
-            </div>
-          </header>
-
-          <main>{children}</main>
-
-          <footer className="border-t border-[rgba(212,175,55,0.12)] bg-black py-6">
-            <div className="container-premium grid gap-5 text-center text-xs text-muted lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:text-left">
-              <p>© {year} L&amp;L Tech Solutions. All rights reserved.</p>
-
-              <div className="flex flex-wrap justify-center gap-3">
-                {FOOTER_LINKS.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="text-white/55 transition hover:text-[#f5d77a]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-
-              <p className="text-white/45 lg:text-right">
-                Calgary On-Site • Canada-Wide Digital & Remote
-              </p>
-            </div>
-          </footer>
+          <SiteFooter />
+          <StickyCTA />
         </div>
       </body>
     </html>

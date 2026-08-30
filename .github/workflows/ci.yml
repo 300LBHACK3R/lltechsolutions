@@ -1,0 +1,55 @@
+name: Quality
+
+on:
+  push:
+    branches:
+      - main
+      - "revamp/**"
+      - "release/**"
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate project structure
+        run: npm run validate
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=critical
+
+      - name: Production build
+        run: npm run build
+        env:
+          RESEND_API_KEY: re_ci_placeholder
+          CONTACT_TO_EMAIL: ci@example.com
+          CONTACT_FROM_EMAIL: "L&L Tech Solutions <onboarding@resend.dev>"

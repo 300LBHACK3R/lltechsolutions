@@ -2,37 +2,47 @@
 /node_modules
 /.pnp
 .pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
 
-# Build / framework output
-/.next
-/out
+# Next.js
+/.next/
+/out/
+
+# Production
 /build
+/dist
+
+# Testing and reports
 /coverage
+*.lcov
+lighthouse-*.html
 
-# Environment files
-.env*
+# Environment variables
+.env
+.env.*
+!.env.example
 
-# App / platform
+# Vercel
 .vercel
 
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
 
-# Editor / OS / misc
-.vscode/
-.history/
-.DS_Store
-*.pem
-*.zip
-
-# Debug logs
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
+
+# Editors and operating systems
+.history/
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Local backups and installers
+*_Backup_*
+*.bak
+*.tmp

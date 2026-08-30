@@ -1,12 +1,12 @@
+import StudioMark from "@/components/ui/StudioMark";
 import Link from "next/link";
 
-const trustItems = [
-  "Custom Development",
-  "SEO & Content",
-  "Remote IT",
-  "Cybersecurity",
-  "Cat6 & CCTV",
-  "Calgary + Canada-Wide",
+const clients = [
+  "Tow-N-Go Trailers",
+  "Crestline Painting",
+  "McKenzie House Massage",
+  "Tate's TV",
+  "TateByers.ca",
 ];
 
 type TrustBarProps = {
@@ -15,26 +15,33 @@ type TrustBarProps = {
 
 export default function TrustBar({ cta = false }: TrustBarProps) {
   return (
-    <section className="border-y border-[rgba(212,175,55,0.12)] bg-black/45 py-5">
+    <section className="trust-bar-corporate">
       <div className="container-premium">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-wrap justify-center gap-2 lg:justify-start">
-            {trustItems.map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-[rgba(212,175,55,0.18)] bg-[rgba(212,175,55,0.045)] px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white/76"
-              >
-                {item}
-              </span>
-            ))}
+        <div className="flex flex-col gap-6 xl:flex-row xl:items-center xl:justify-between">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center">
+            <StudioMark compact />
+
+            <span className="hidden h-8 w-px bg-[#10243a]/10 lg:block" />
+
+            <div className="flex flex-wrap gap-x-7 gap-y-3">
+              {clients.map((client) => (
+                <span
+                  key={client}
+                  className="text-xs font-semibold tracking-[0.01em] text-[#10243a]/52"
+                >
+                  {client}
+                </span>
+              ))}
+            </div>
           </div>
 
           {cta ? (
-            <div className="flex justify-center lg:justify-end">
-              <Link href="/contact" className="btn-gold">
-                Start A Project
-              </Link>
-            </div>
+            <Link
+              href="/projects"
+              className="text-xs font-black uppercase tracking-[0.15em] text-[#245fa4] transition hover:text-[#10243a]"
+            >
+              Explore selected work →
+            </Link>
           ) : null}
         </div>
       </div>

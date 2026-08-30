@@ -1,93 +1,98 @@
+export type ServiceId =
+  | "website-design"
+  | "software-development"
+  | "social-media";
+
 export type ServicePillar = {
-  id: string;
+  id: ServiceId;
   eyebrow: string;
   title: string;
   description: string;
   highlight: string;
-  services: string[];
   outcome: string;
   availability: string;
   href: string;
   cta: string;
+  services: readonly string[];
 };
 
-export const servicePillars: ServicePillar[] = [
+export const servicePillars: readonly ServicePillar[] = [
   {
-    id: "web-software",
-    eyebrow: "Web, Software & Digital Growth",
-    title: "Custom Development Built Around Your Business",
+    id: "website-design",
+    eyebrow: "Website Design & Development",
+    title: "A digital presence worthy of the business behind it.",
     description:
-      "Custom-coded websites, web applications, business systems, SEO, Google Business, social media, advertising, and original photo and video content.",
+      "We design and develop custom business websites around the way your customers evaluate, trust, and contact your company. Every build is responsive, accessible, search-ready, and structured to grow with the business.",
     highlight:
-      "Design, development, launch, content, and ongoing growth under one partner.",
+      "Strategy, interface design, development, content structure, technical SEO, launch, and long-term support are handled as one connected project.",
     outcome:
-      "A stronger digital presence, cleaner customer journeys, better search visibility, and technology that can grow with the business.",
+      "A polished, high-performance website that communicates value clearly and gives visitors a confident path to take action.",
     availability:
-      "Available across Canada for digital projects, remote collaboration, content editing, and ongoing management.",
-    href: "/services#web-software",
-    cta: "Explore Digital Solutions",
+      "Available across Canada for new websites, strategic redesigns, e-commerce, booking experiences, landing pages, and ongoing website management.",
+    href: "/services#website-design",
+    cta: "Explore Website Services",
     services: [
-      "Custom website design and development",
-      "React, Next.js, TypeScript, JavaScript, and Tailwind CSS",
-      "Web applications, portals, dashboards, and business tools",
-      "E-commerce, booking, payments, forms, and API integrations",
-      "Technical SEO, metadata, structured data, and performance",
-      "Google Business Profile setup and management",
-      "Facebook, Instagram, TikTok, and YouTube content",
-      "Photography, video production, editing, and advertising creative",
-      "Website maintenance, analytics, and monthly growth support",
+      "Website strategy, user experience, and interface design",
+      "Custom React, Next.js, and TypeScript development",
+      "Business websites, landing pages, and service platforms",
+      "E-commerce, booking, payments, forms, and integrations",
+      "Responsive design for mobile, tablet, desktop, and large displays",
+      "Accessibility, performance, and technical SEO foundations",
+      "Analytics, Search Console, and Google Business connections",
+      "Content structure, photography, video, and launch assets",
+      "Maintenance, reporting, and continuous improvement",
     ],
   },
   {
-    id: "remote-it",
-    eyebrow: "Remote IT & Cybersecurity",
-    title: "Secure Support That Keeps People Working",
+    id: "software-development",
+    eyebrow: "Software Design & Development",
+    title: "Software shaped around the way your business actually works.",
     description:
-      "Remote troubleshooting, Microsoft 365, business email, cloud services, backups, VPNs, password management, and practical cybersecurity support.",
+      "We design and build web applications, customer portals, dashboards, internal tools, automation, and digital products that solve a specific operational or customer-experience problem.",
     highlight:
-      "Fast technical help without chasing random providers every time something breaks.",
+      "Discovery, product architecture, interface design, development, testing, deployment, and continued iteration remain connected from beginning to end.",
     outcome:
-      "Less downtime, safer accounts, cleaner systems, and a reliable support path for day-to-day technology.",
+      "A focused digital system that reduces friction, improves consistency, and gives the business room to operate and scale on its own terms.",
     availability:
-      "Remote support is available across Canada. Priority business support plans are available by scope.",
-    href: "/services#remote-it",
-    cta: "Explore Remote IT",
+      "Available across Canada for custom web applications, progressive web apps, portals, workflow systems, product development, and software modernization.",
+    href: "/services#software-development",
+    cta: "Explore Software Services",
     services: [
-      "Remote computer and software troubleshooting",
-      "Microsoft 365, business email, OneDrive, and cloud support",
-      "User setup, permissions, onboarding, and offboarding",
-      "Account recovery guidance and multi-factor authentication",
-      "Password manager and secure-access setup",
-      "VPN configuration and secure remote access",
-      "Backup planning, file synchronization, and recovery guidance",
-      "Device hardening, security reviews, and phishing awareness",
-      "Ongoing small-business IT support and documentation",
+      "Product discovery, requirements, and technical architecture",
+      "Custom web applications and progressive web apps",
+      "Customer portals, dashboards, and administrative systems",
+      "Booking, rental, scheduling, intake, and workflow tools",
+      "Authentication, user roles, permissions, and secure account flows",
+      "Databases, structured content, APIs, and third-party integrations",
+      "Automation, notifications, forms, and operational workflows",
+      "Responsive interface design, testing, and deployment",
+      "Ongoing development, maintenance, and product expansion",
     ],
   },
   {
-    id: "network-infrastructure",
-    eyebrow: "Network Infrastructure & Low-Voltage",
-    title: "Connected Systems Installed, Tested & Documented",
+    id: "social-media",
+    eyebrow: "Social Media Management & Content",
+    title: "A consistent brand presence that stays active after launch.",
     description:
-      "Cat5e and Cat6 cabling, Ethernet activation, network racks, switches, Wi-Fi, CCTV, cable tracing, cleanups, testing, labelling, and documentation.",
+      "We manage the planning, creation, editing, publishing, and refinement required to keep a business visible across the channels its customers use every day.",
     highlight:
-      "Low-voltage work completed with a clear scope, clean installation, and proper verification.",
+      "Your website, Google presence, social profiles, photography, video, and campaigns are planned as one brand system instead of separate pieces.",
     outcome:
-      "Reliable wired connections, organized infrastructure, easier troubleshooting, and stronger control over the network.",
+      "A clearer and more recognizable presence with consistent messaging, professional content, and stronger pathways from attention to inquiry.",
     availability:
-      "On-site infrastructure work is currently focused on Calgary and surrounding communities.",
-    href: "/services#network-infrastructure",
-    cta: "Explore Network Services",
+      "Available Canada-wide for strategy, account management, editing, and publishing, with Calgary-area photography and video production available by scope.",
+    href: "/services#social-media",
+    cta: "Explore Social Management",
     services: [
-      "Cat5e and Cat6 cable testing, tracing, and identification",
-      "RJ45 connectors, keystones, wall plates, and patch panels",
-      "Ethernet wall-port activation",
-      "RJ11-to-RJ45 conversion where suitable cabling is present",
-      "New low-voltage cable runs and structured cabling",
-      "Network switch, router, and wireless access-point setup",
-      "Network rack cleanup, cable management, and port labelling",
-      "IP camera, NVR, and network-connected CCTV setup",
-      "Testing, documentation, and practical network-security improvements",
+      "Facebook, Instagram, TikTok, LinkedIn, and YouTube management",
+      "Content strategy, monthly calendars, captions, and publishing",
+      "Short-form video for Reels, TikTok, and YouTube Shorts",
+      "Photography, videography, editing, graphics, and ad creative",
+      "Google Business Profile posts and connected local content",
+      "Campaign planning, promotions, launches, and seasonal offers",
+      "Comment, message, and community-management workflows",
+      "Performance reporting and content refinement",
+      "Website, SEO, social, and content managed as one system",
     ],
   },
-];
+] as const;

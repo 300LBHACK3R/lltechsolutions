@@ -1,12 +1,18 @@
 import ProjectCategoryPage from "@/components/projects/ProjectCategoryPage";
-import type { Metadata } from "next";
+import { createMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Web, Software & Digital Growth Projects",
+export const metadata = createMetadata({
+  title: "Website Design & Development Case Studies",
   description:
-    "Explore custom websites, web applications, SEO foundations, booking and inquiry systems, Google Business management, social media, content, and ongoing digital partnerships by L&L Tech Solutions.",
-};
+    "Explore custom business websites, responsive interfaces, booking and inquiry systems, technical SEO, and ongoing website partnerships by L&L Tech Solutions.",
+  path: "/projects/web-builds",
+  keywords: [
+    "Calgary website case studies",
+    "custom website design portfolio Canada",
+    "Next.js website portfolio",
+  ],
+});
 
-export default function WebBuildProjectsPage() {
-  return <ProjectCategoryPage category="Web Build" />;
+export default function WebsiteProjectsPage() {
+  return <ProjectCategoryPage category="Website Design" />;
 }

@@ -1,81 +1,76 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
-type Props = {
+type RevealProps = {
   children: ReactNode;
   className?: string;
   delayMs?: number;
-  y?: number;
+  distance?: number;
 };
 
-function cx(...parts: Array<string | false | null | undefined>) {
-  return parts.filter(Boolean).join(" ");
-}
-
-function getPrefersReducedMotion() {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function joinClasses(...values: Array<string | false | null | undefined>) {
+  return values.filter(Boolean).join(" ");
 }
 
 export default function Reveal({
   children,
-  className = "",
+  className,
   delayMs = 0,
-  y = 18,
-}: Props) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [shown, setShown] = useState(false);
+  distance = 18,
+}: RevealProps) {
+  const elementRef = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (getPrefersReducedMotion()) {
-      setShown(true);
+    const element = elementRef.current;
+
+    if (!element) {
       return;
     }
 
-    const el = ref.current;
-    if (!el) return;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      const frame = window.requestAnimationFrame(() => setVisible(true));
+      return () => window.cancelAnimationFrame(frame);
+    }
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-
+      ([entry]) => {
         if (entry?.isIntersecting) {
-          setShown(true);
-          observer.unobserve(el);
+          setVisible(true);
           observer.disconnect();
         }
       },
       {
-        root: null,
-        rootMargin: "0px 0px -10% 0px",
-        threshold: 0.14,
+        rootMargin: "0px 0px -8% 0px",
+        threshold: 0.12,
       },
     );
 
-    observer.observe(el);
+    observer.observe(element);
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
+
+  const style = {
+    "--reveal-delay": `${Math.max(0, delayMs)}ms`,
+    "--reveal-distance": `${Math.max(0, distance)}px`,
+  } as CSSProperties;
 
   return (
     <div
-      ref={ref}
-      className={cx(
-        "will-change-transform will-change-opacity motion-reduce:transform-none motion-reduce:transition-none",
+      ref={elementRef}
+      className={joinClasses(
+        "reveal",
+        visible && "is-visible",
         className,
       )}
-      style={{
-        opacity: shown ? 1 : 0,
-        transform: shown ? "translate3d(0, 0, 0)" : `translate3d(0, ${y}px, 0)`,
-        transitionProperty: "opacity, transform",
-        transitionDuration: shown ? "700ms" : "700ms",
-        transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-        transitionDelay: `${delayMs}ms`,
-      }}
+      style={style}
     >
       {children}
     </div>

@@ -1,155 +1,203 @@
 import Reveal from "@/components/ui/Reveal";
+import Link from "next/link";
 
-const packages = [
+const engagements = [
   {
-    label: "Most Popular",
-    title: "Website Build",
+    label: "Website Design & Development",
+    title: "Custom Website",
     price: "$499+",
+    note: "Launch sites from",
     description:
-      "Custom-coded business websites, landing pages, SEO setup, Google/Facebook setup, and professional online presence.",
-    features: [
-      "Custom React / Next.js build",
-      "Mobile-first responsive design",
-      "SEO metadata foundation",
-      "Google-facing page structure",
-      "Contact flow and conversion setup",
+      "A custom-coded website planned around the brand, customer journey, content, conversion goals, and the functionality the business actually needs.",
+    tiers: [
+      "Launch • $499+",
+      "Business • $899+",
+      "Advanced • $1,499+",
     ],
+    features: [
+      "Strategy, UX, UI design, and development",
+      "Responsive custom-coded implementation",
+      "Technical SEO and analytics foundations",
+      "Contact, booking, payment, or inquiry workflows",
+      "Launch support and continued-management options",
+    ],
+    accent: "gold",
   },
   {
-    label: "Fast Start",
-    title: "Tech Support",
-    price: "$50+",
+    label: "Software Design & Development",
+    title: "Custom Software / Web App",
+    price: "$1,500+",
+    note: "Focused pilots from",
     description:
-      "Remote troubleshooting, cleanup, optimization, account setup, and practical business tech support.",
-    features: [
-      "Remote computer support",
-      "System cleanup and optimization",
-      "Account, email, and software setup",
-      "Small business troubleshooting",
-      "Clear next-step recommendations",
+      "Purpose-built software, portals, dashboards, workflow tools, and web applications scoped around a defined operational or customer problem.",
+    tiers: [
+      "Focused Pilot • $1,500+",
+      "Business Tool • $2,500+",
+      "Larger Platform • Custom",
     ],
-    featured: true,
+    features: [
+      "Discovery and product architecture",
+      "Interface and workflow design",
+      "Custom application development",
+      "Accounts, data, APIs, and integrations",
+      "Testing, deployment, and continued iteration",
+    ],
+    accent: "blue",
   },
   {
-    label: "Best For Growth",
-    title: "Monthly Partner",
-    price: "$199+/mo",
+    label: "Social Media Management",
+    title: "Managed Social Presence",
+    price: "$299+/mo",
+    note: "Monthly management from",
     description:
-      "Ongoing website updates, SEO, support, management, improvements, and technical direction.",
-    features: [
-      "Website updates and maintenance",
-      "SEO and Google-facing improvements",
-      "Ongoing support and optimization",
-      "Digital presence improvements",
-      "Priority planning and guidance",
+      "Consistent strategy, editing, publishing, content coordination, channel management, campaigns, and reporting without the overhead of a large agency.",
+    tiers: [
+      "Starter • $299/mo",
+      "Growth • $499/mo",
+      "Managed • $799/mo",
     ],
+    features: [
+      "Content strategy and monthly planning",
+      "Platform-specific editing and publishing",
+      "Captions, graphics, photography, and video",
+      "Campaign and promotional support",
+      "Reporting, refinement, and website coordination",
+    ],
+    accent: "dark",
   },
-];
+] as const;
 
 export default function Packages() {
   return (
-    <section
-      id="packages"
-      className="relative overflow-hidden border-y border-[rgba(212,175,55,0.12)] py-20 md:py-28"
-    >
-      <div className="hero-glow" />
+    <section className="section-white relative overflow-hidden py-20 md:py-28">
+      <div className="testimonial-gold-orb" />
+      <div className="ivory-blue-orb ivory-blue-orb-right" />
 
       <div className="container-premium relative z-10">
         <Reveal>
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
             <div>
-              <span className="section-eyebrow">Starting Points</span>
+              <span className="section-eyebrow section-eyebrow-dark">
+                Investment
+              </span>
 
-              <h2 className="mt-5 text-5xl font-black leading-[0.92] tracking-[-0.065em] md:text-7xl">
-                Simple Ways
-                <br />
-                To Start.
+              <h2 className="font-editorial mt-7 text-5xl font-semibold leading-[0.9] tracking-[-0.045em] text-[#10243a] md:text-7xl">
+                Competitive starting points.
+                <span className="block italic text-[#17477f]">
+                  Serious work without agency overhead.
+                </span>
               </h2>
             </div>
 
-            <div className="max-w-2xl lg:justify-self-end">
-              <p className="text-base leading-8 text-muted md:text-lg">
-                Start with a custom build, technical cleanup, or ongoing
-                technology partner plan. Every project is scoped properly before
-                work begins.
+            <div className="max-w-xl lg:justify-self-end">
+              <p className="text-base leading-8 text-[#31465e]/62 md:text-lg">
+                We keep entry pricing lean by staying focused on three services
+                and scoping the work properly. Final pricing depends on pages,
+                functionality, integrations, content volume, and ongoing
+                management requirements.
               </p>
 
-              <div className="mt-5 flex flex-wrap gap-2">
-                <span className="badge-dark">Clear Pricing</span>
-                <span className="badge-dark">Professional Scope</span>
-                <span className="badge-dark">No Template Work</span>
-                <span className="badge-dark">Business Focused</span>
-              </div>
+              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#10243a]/42">
+                All pricing shown in CAD • Third-party fees and ad spend are separate unless included in writing
+              </p>
             </div>
           </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {packages.map((item, index) => (
-            <Reveal key={item.title} delayMs={index * 100}>
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          {engagements.map((item, index) => (
+            <Reveal key={item.title} delayMs={index * 90}>
               <article
                 className={[
-                  "card-premium edge-gold hover-lift flex h-full flex-col overflow-hidden p-6 md:p-7",
-                  item.featured
-                    ? "border-[rgba(245,215,122,0.35)] shadow-[0_0_70px_rgba(212,175,55,0.12)]"
-                    : "",
+                  "investment-card",
+                  `investment-card-${item.accent}`,
                 ].join(" ")}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <span className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d77a]/80">
-                      {item.label}
-                    </span>
+                <div className="investment-card-rail" />
 
-                    <h3 className="mt-4 text-2xl font-black tracking-[-0.035em]">
+                <div className="flex items-start justify-between gap-5">
+                  <div>
+                    <p className="text-[0.62rem] font-black uppercase tracking-[0.2em] text-[#9b762c]">
+                      {item.label}
+                    </p>
+
+                    <h3 className="font-editorial mt-4 text-3xl font-semibold leading-[0.95] tracking-[-0.035em] text-[#10243a]">
                       {item.title}
                     </h3>
                   </div>
 
-                  <span className="rounded-full border border-[rgba(212,175,55,0.18)] bg-[rgba(212,175,55,0.07)] px-3 py-1 text-xs font-black text-[#f5d77a]">
-                    0{index + 1}
+                  <span className="font-editorial text-5xl font-semibold text-[#2f6fbb]/20">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
 
-                <p className="mt-6 text-5xl font-black tracking-[-0.06em] text-[#f5d77a]">
-                  {item.price}
-                </p>
+                <div className="mt-8 border-y border-black/10 py-5">
+                  <p className="text-[0.6rem] font-black uppercase tracking-[0.16em] text-[#10243a]/34">
+                    {item.note}
+                  </p>
 
-                <p className="mt-5 text-sm leading-7 text-muted">
+                  <p className="mt-2 text-4xl font-black tracking-[-0.05em] text-[#10243a]">
+                    {item.price}
+                  </p>
+                </div>
+
+                <p className="mt-6 text-sm leading-7 text-[#31465e]/60">
                   {item.description}
                 </p>
 
-                <div className="mt-6 rounded-2xl border border-[rgba(212,175,55,0.14)] bg-[rgba(212,175,55,0.045)] p-5">
-                  <p className="text-xs font-black uppercase tracking-[0.14em] text-[#f5d77a]/80">
-                    Includes
-                  </p>
-
-                  <ul className="mt-4 grid gap-3 text-sm text-white/78">
-                    {item.features.map((feature) => (
-                      <li key={feature} className="flex gap-3">
-                        <span className="mt-[2px] text-[#f5d77a]">•</span>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="mt-6 grid gap-2">
+                  {item.tiers.map((tier) => (
+                    <div
+                      key={tier}
+                      className="rounded-xl border border-[#10243a]/10 bg-[#eef4fb] px-4 py-3 text-xs font-black text-[#17477f]"
+                    >
+                      {tier}
+                    </div>
+                  ))}
                 </div>
 
-                <div className="mt-auto pt-7">
-                  <a
-                    href="#contact"
+                <ul className="mt-7 grid gap-4">
+                  {item.features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex gap-3 border-t border-black/[0.08] pt-4 text-sm text-[#222]/66"
+                    >
+                      <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#2f6fbb]" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-auto pt-9">
+                  <Link
+                    href="/contact"
                     className={
-                      item.featured
-                        ? "btn-gold w-full"
-                        : "btn-ghost-gold w-full"
+                      item.accent === "blue"
+                        ? "btn-blue w-full"
+                        : "btn-dark-outline w-full"
                     }
                   >
-                    Ask About This
-                  </a>
+                    Get A Scoped Quote
+                  </Link>
                 </div>
               </article>
             </Reveal>
           ))}
         </div>
+
+        <Reveal delayMs={300}>
+          <div className="mt-8 rounded-[1.5rem] border border-[#9b762c]/16 bg-[#f5efe2] p-6 text-center md:p-8">
+            <p className="text-sm leading-7 text-[#31465e]/66">
+              Need more than one service? Website development, custom software,
+              and social media management can be combined into one coordinated
+              scope with one point of contact.
+            </p>
+
+            <Link href="/contact" className="btn-gold mt-6">
+              Discuss A Combined Scope
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 export type ProjectCategory =
-  | "Web Build"
-  | "Tech Support"
-  | "Infrastructure";
+  | "Website Design"
+  | "Software Development"
+  | "Social Media Management";
 
 export type ProjectStat = {
   label: string;
@@ -25,64 +25,266 @@ export type ProjectLink = {
 export type ProjectManagement = {
   title: string;
   description: string;
-  services: string[];
-};
-
-export type ProjectVisual = {
-  eyebrow: string;
-  title: string;
-  subtitle: string;
-  tone: "gold-red" | "neon" | "green";
+  services: readonly string[];
 };
 
 export type Project = {
   title: string;
   category: ProjectCategory;
-  relationship?: string;
+  relationship: string;
   description: string;
   challenge: string;
   solution: string;
   result: string;
-  services: string[];
-  image?: string;
-  imageAlt?: string;
-  visual?: ProjectVisual;
+  services: readonly string[];
+  image: string;
+  imageAlt: string;
   liveUrl?: string;
-  links?: ProjectLink[];
+  links?: readonly ProjectLink[];
   management?: ProjectManagement;
   featured?: boolean;
-  stats?: ProjectStat[];
+  stats: readonly ProjectStat[];
 };
 
-export const projects: Project[] = [
+export const projects: readonly Project[] = [
   {
-    title: "Tow-N-Go Trailers",
-    category: "Web Build",
-    relationship: "Ongoing Digital Partner",
+    title: "Tow-N-Go Trailers Website",
+    category: "Website Design",
+    relationship: "Custom Website & Ongoing Digital Partner",
     description:
-      "A premium trailer-rental platform and ongoing digital-growth system built for Tow-N-Go Trailers across Kelowna and the Okanagan.",
+      "A custom trailer-rental platform that organizes the fleet, answers real customer questions, supports local discovery, and creates a direct path into rental inquiries.",
     challenge:
-      "Tow-N-Go needed more than a brochure website. The business required a professional fleet presentation, clear rental pathways, local search structure, customer trust signals, and an online presence that could keep growing with the company.",
+      "Tow-N-Go needed more than a brochure website. Customers had to understand the fleet, compare trailers, review pricing and add-ons, build trust, and submit a useful inquiry from any device.",
     solution:
-      "Designed and developed a custom rental website with fleet and trailer-detail pages, pricing, add-ons, customer reviews, inquiry workflows, mobile-first layouts, metadata, structured SEO foundations, and clear calls to action. L&L also supports the brand across Google Business, Facebook, TikTok, website updates, content, and ongoing digital management.",
+      "L&L designed and developed a responsive rental website with fleet architecture, trailer-detail pages, pricing, add-ons, customer reviews, inquiry workflows, metadata, local-search foundations, and clear conversion paths.",
     result:
-      "A polished, high-performance rental platform that gives customers a clearer path from Google or social media to the right trailer, rental information, and inquiry form—while giving Tow-N-Go one connected system for its website and managed channels.",
+      "Tow-N-Go now has a professional digital destination that guides customers from search or social content to the right trailer and a clear rental inquiry.",
     services: [
-      "Custom website design & development",
+      "Website strategy, UX, UI, and development",
       "Fleet and trailer-detail architecture",
-      "Rental inquiry system",
+      "Rental inquiry workflow",
+      "Responsive mobile and desktop design",
       "Technical SEO and local-search structure",
-      "Google Business Profile management",
-      "Facebook management",
-      "TikTok content and management",
-      "Website maintenance and ongoing growth",
+      "Reviews, trust signals, and calls to action",
+      "Website maintenance and continued improvement",
     ],
-    image: "/images/projects/tow-n-go.jpg",
-    imageAlt: "Tow-N-Go Trailers custom rental website showcase",
+    image: "/images/projects/tow-n-go.webp",
+    imageAlt: "Tow-N-Go Trailers custom rental website displayed in a browser",
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [
       {
         label: "Live Website",
+        href: "https://www.towandgotrailers.ca/",
+        kind: "website",
+      },
+    ],
+    featured: true,
+    stats: [
+      { label: "Scope", value: "Website + Fleet" },
+      { label: "Focus", value: "Rentals + Local Search" },
+      { label: "Status", value: "Live + Managed" },
+    ],
+  },
+  {
+    title: "Crestline Painting",
+    category: "Website Design",
+    relationship: "Corporate Contractor Website",
+    description:
+      "A professional contractor website created to present Crestline clearly across commercial, multi-family, strata, custom-home, and residential work.",
+    challenge:
+      "The company needed an online presence that reflected the scale and quality of its work while giving property managers, builders, strata clients, and homeowners the information required to move forward.",
+    solution:
+      "L&L built a custom service and portfolio website with dedicated industry pages, structured project galleries, quote pathways, responsive layouts, search-focused content, metadata, and clear contact flows.",
+    result:
+      "Crestline now has a clean, corporate digital presence that communicates capability and gives higher-value prospects a credible place to evaluate the business.",
+    services: [
+      "Website strategy and interface design",
+      "Custom Next.js development",
+      "Commercial and residential service architecture",
+      "Project portfolio system",
+      "Quote and contact pathways",
+      "Responsive design and performance",
+      "Technical SEO foundations",
+      "Brand positioning",
+    ],
+    image: "/images/projects/crestline.webp",
+    imageAlt: "Crestline Painting corporate website displayed in a browser",
+    liveUrl: "https://www.crestlinepainting.ca/",
+    links: [
+      {
+        label: "Live Website",
+        href: "https://www.crestlinepainting.ca/",
+        kind: "website",
+      },
+    ],
+    featured: true,
+    stats: [
+      { label: "Scope", value: "Website + Portfolio" },
+      { label: "Focus", value: "Commercial Credibility" },
+      { label: "Status", value: "Live" },
+    ],
+  },
+  {
+    title: "McKenzie House Massage",
+    category: "Website Design",
+    relationship: "Brand, Website & Booking Journey",
+    description:
+      "A calm, polished massage-therapy website built around trust, clear service information, local discovery, and an easy path into online booking.",
+    challenge:
+      "The business needed a complete digital identity that felt professional and welcoming while explaining the experience, services, pricing, frequently asked questions, and booking options without overwhelming the client.",
+    solution:
+      "L&L developed the visual direction and responsive website, organized the service and trust content, connected ClinicSense booking, established local-search foundations, and planned coordinated photo and video content.",
+    result:
+      "McKenzie House Massage now has a cohesive client journey connecting the brand, website, booking platform, Google presence, and future content.",
+    services: [
+      "Brand direction and visual system",
+      "Custom website design and development",
+      "ClinicSense booking connection",
+      "Service, pricing, FAQ, and trust content",
+      "Local SEO foundations",
+      "Google Business connection",
+      "Photo and video content planning",
+    ],
+    image: "/images/projects/mckenzie-house.webp",
+    imageAlt: "McKenzie House Massage website displayed in a browser",
+    liveUrl: "https://mckenziehousemassage.ca/",
+    links: [
+      {
+        label: "Live Website",
+        href: "https://mckenziehousemassage.ca/",
+        kind: "website",
+      },
+      {
+        label: "Online Booking",
+        href: "https://mckenziehousemassage.clinicsense.com/",
+        kind: "booking",
+      },
+    ],
+    featured: true,
+    stats: [
+      { label: "Scope", value: "Brand + Website" },
+      { label: "Focus", value: "Bookings + Local Search" },
+      { label: "Status", value: "Live" },
+    ],
+  },
+  {
+    title: "TateByers.ca",
+    category: "Website Design",
+    relationship: "Personal Brand & Portfolio Hub",
+    description:
+      "A polished personal website connecting owned brands, commissioned client work, professional positioning, and public social channels in one clear destination.",
+    challenge:
+      "The founder needed one credible place to present several businesses and projects without confusing visitors or mixing commissioned client work with personal brands and future concepts.",
+    solution:
+      "L&L designed and developed a responsive portfolio hub with clear content groups, brand and project cards, live links, professional profile information, social pathways, and a maintainable data-driven structure.",
+    result:
+      "TateByers.ca now gives clients, collaborators, and employers a concise overview of the work, the businesses behind it, and the live platforms available to explore.",
+    services: [
+      "Personal-brand strategy and information architecture",
+      "Custom website design and development",
+      "Owned-brand and client-project presentation",
+      "Responsive portfolio card system",
+      "Live-project and social-link integration",
+      "SEO and social-sharing foundations",
+      "Maintainable content architecture",
+    ],
+    image: "/images/projects/tate-byers.webp",
+    imageAlt: "Tate Byers personal brand and client portfolio website preview",
+    liveUrl: "https://www.tatebyers.ca/",
+    links: [
+      {
+        label: "Open Portfolio",
+        href: "https://www.tatebyers.ca/",
+        kind: "website",
+      },
+    ],
+    featured: true,
+    stats: [
+      { label: "Scope", value: "Personal Brand Hub" },
+      { label: "Focus", value: "Brands + Client Work" },
+      { label: "Status", value: "Live + Evolving" },
+    ],
+  },
+  {
+    title: "Tate's TV",
+    category: "Software Development",
+    relationship: "Custom Streaming Web Application",
+    description:
+      "A custom live-TV simulation and media platform with 23 channels, scheduled programming, a live guide, interactive controls, and responsive playback experiences.",
+    challenge:
+      "The product required scheduled media, persistent channel state, live progression, channel navigation, guide data, remote controls, responsive layouts, and an architecture that could continue expanding.",
+    solution:
+      "L&L designed and developed the broadcast engine, channel architecture, live guide, quick tune, remote control, channel branding, media-library workflows, responsive views, and continued product-management foundation.",
+    result:
+      "Tate's TV demonstrates L&L's ability to architect and maintain a complex interactive product—not only a conventional business website.",
+    services: [
+      "Product strategy and interface design",
+      "Custom web application development",
+      "Streaming and media interface architecture",
+      "23-channel platform system",
+      "Live guide and scheduling",
+      "Interactive remote controls",
+      "Responsive television-style interface",
+      "Media-library workflows",
+      "Ongoing product development",
+    ],
+    image: "/images/projects/tates-tv.webp",
+    imageAlt: "Tate's TV custom streaming application displayed in a browser",
+    liveUrl: "https://www.tatestv.ca/",
+    links: [
+      {
+        label: "Open Tate's TV",
+        href: "https://www.tatestv.ca/",
+        kind: "website",
+      },
+    ],
+    management: {
+      title: "Built, managed, and maintained by L&L",
+      description:
+        "L&L continues to develop the product, maintain the live experience, manage its media architecture, and expand the software over time.",
+      services: [
+        "Custom Software",
+        "Media Platform",
+        "Live Guide",
+        "Channel Systems",
+        "Ongoing Development",
+      ],
+    },
+    featured: true,
+    stats: [
+      { label: "Scope", value: "Custom Web App" },
+      { label: "Focus", value: "Streaming + Media" },
+      { label: "Status", value: "Live + Managed" },
+    ],
+  },
+  {
+    title: "Tow-N-Go Digital Management",
+    category: "Social Media Management",
+    relationship: "Website, Google, Facebook & TikTok",
+    description:
+      "An ongoing digital partnership connecting Tow-N-Go's website, Google presence, Facebook page, TikTok content, promotional graphics, local messaging, and rental campaigns.",
+    challenge:
+      "A strong website alone would not keep the brand visible. Tow-N-Go needed consistent publishing, platform-specific content, connected calls to action, local-search support, and a partner who understood the rental business.",
+    solution:
+      "L&L established a connected management system across the website, Google Business Profile, Facebook, TikTok, promotional graphics, captions, content planning, local keyword structure, and recurring campaigns.",
+    result:
+      "The brand now maintains more consistent messaging across customer touchpoints and a clearer route from content discovery to trailer-rental inquiry.",
+    services: [
+      "Social-media strategy",
+      "Facebook page management",
+      "TikTok content and management",
+      "Google Business Profile management",
+      "Captions and publishing",
+      "Promotional graphics",
+      "Website updates",
+      "Local SEO coordination",
+      "Ongoing campaign support",
+    ],
+    image: "/images/projects/tow-n-go.webp",
+    imageAlt: "Tow-N-Go Trailers digital management project preview",
+    links: [
+      {
+        label: "Website",
         href: "https://www.towandgotrailers.ca/",
         kind: "website",
       },
@@ -103,90 +305,52 @@ export const projects: Project[] = [
       },
     ],
     management: {
-      title: "Website + Google + Facebook + TikTok",
+      title: "Ongoing multi-platform management",
       description:
-        "L&L continues to manage and improve Tow-N-Go's connected digital presence instead of treating the website as a one-time handoff.",
+        "The website, Google presence, Facebook activity, TikTok content, campaign graphics, and local messaging are managed as one digital system.",
       services: [
-        "Website Maintenance",
+        "Website",
         "Google Business",
         "Facebook",
         "TikTok",
-        "SEO & Content",
+        "SEO",
+        "Content",
       ],
     },
     featured: true,
     stats: [
-      { label: "Scope", value: "Web + Growth" },
-      { label: "Focus", value: "Rentals + Local SEO" },
-      { label: "Status", value: "Live + Managed" },
+      { label: "Scope", value: "Multi-Platform" },
+      { label: "Focus", value: "Content + Rentals" },
+      { label: "Status", value: "Ongoing" },
     ],
   },
   {
-    title: "Crestline Painting",
-    category: "Web Build",
-    relationship: "Custom Business Website",
+    title: "McKenzie House Massage Digital Launch",
+    category: "Social Media Management",
+    relationship: "Brand Launch & Content System",
     description:
-      "A professional painting-contractor website designed to position Crestline for commercial, multi-family, strata, custom-home, and high-value residential work across British Columbia.",
+      "A coordinated launch bringing together the website, booking platform, Google presence, local messaging, visual brand, photography, and short-form content planning.",
     challenge:
-      "Crestline needed a more established online presence that could communicate its full service range, showcase real project environments, and build confidence with property managers, builders, strata clients, and homeowners.",
+      "The business needed every customer-facing channel to feel consistent, explain the experience clearly, build trust, and direct prospective clients toward booking.",
     solution:
-      "Built a custom service and portfolio website with dedicated industry pages, structured project galleries, quote pathways, responsive layouts, professional visual hierarchy, search-focused content, metadata, and clear contact flows.",
+      "L&L coordinated the website, ClinicSense connection, Google support, local-search foundations, brand messaging, photo and video planning, service content, promotional assets, and future social campaigns.",
     result:
-      "A clean, corporate-grade website that presents Crestline as an organized, versatile painting contractor and gives higher-value prospects a professional destination to review services, projects, and next steps.",
+      "McKenzie House Massage now has a professional foundation for local discovery and ongoing content, with the website, booking journey, and brand direction aligned from launch.",
     services: [
-      "Custom website design & development",
-      "Commercial and residential service architecture",
-      "Project portfolio system",
-      "Quote and contact pathways",
-      "Mobile optimization",
-      "Technical SEO foundations",
-      "Brand positioning",
-    ],
-    image: "/images/projects/crestline.jpg",
-    imageAlt: "Crestline Painting custom business website showcase",
-    liveUrl: "https://www.crestlinepainting.ca/",
-    links: [
-      {
-        label: "Live Website",
-        href: "https://www.crestlinepainting.ca/",
-        kind: "website",
-      },
-    ],
-    featured: true,
-    stats: [
-      { label: "Scope", value: "Website + Portfolio" },
-      { label: "Focus", value: "Commercial Trust" },
-      { label: "Status", value: "Live" },
-    ],
-  },
-  {
-    title: "McKenzie House Massage",
-    category: "Web Build",
-    relationship: "Brand, Website & Launch System",
-    description:
-      "A calm, premium massage-therapy website and launch system built around trust, clear communication, local discovery, and an easy path into online booking.",
-    challenge:
-      "The business needed a complete digital identity that felt professional and welcoming while clearly explaining its services, client-led approach, frequently asked questions, booking options, and local Calgary positioning.",
-    solution:
-      "Created the brand direction and a custom responsive website with premium green-and-gold styling, service and experience sections, FAQs, trust content, ClinicSense booking connections, local SEO foundations, Google Business support, and a coordinated plan for original photo and video content.",
-    result:
-      "A cohesive wellness presence that connects the brand, website, booking platform, Google visibility, and future content into one professional client journey.",
-    services: [
-      "Brand direction and visual system",
-      "Custom website design & development",
-      "ClinicSense booking connection",
-      "Service, pricing, FAQ, and trust content",
-      "Local SEO foundations",
+      "Digital launch strategy",
+      "Brand messaging",
       "Google Business support",
-      "Photo and video content planning",
-      "Launch and ongoing growth support",
+      "Local SEO coordination",
+      "Photo and video planning",
+      "Short-form content planning",
+      "Promotional assets",
+      "Website and booking alignment",
     ],
-    image: "/images/projects/mckenzie-house.jpg",
-    imageAlt: "McKenzie House Massage premium website showcase",
-    liveUrl: "https://mckenziehousemassage.ca/",
+    image: "/images/projects/mckenzie-house.webp",
+    imageAlt: "McKenzie House Massage digital launch and content project preview",
     links: [
       {
-        label: "Live Website",
+        label: "Website",
         href: "https://mckenziehousemassage.ca/",
         kind: "website",
       },
@@ -197,196 +361,26 @@ export const projects: Project[] = [
       },
     ],
     management: {
-      title: "Website + Booking + Local Launch",
+      title: "Website, booking, local search, and content",
       description:
-        "The project connects the website, ClinicSense booking, Google presence, local SEO, and original photo/video content into one launch and growth system.",
+        "The project aligns the website, booking journey, Google presence, local discovery, brand content, and future production sessions.",
       services: [
         "Website",
         "ClinicSense",
-        "Local SEO",
         "Google Business",
+        "Local SEO",
         "Photo & Video",
+        "Content Strategy",
       ],
     },
     featured: true,
     stats: [
-      { label: "Scope", value: "Brand + Website" },
-      { label: "Focus", value: "Bookings + Local SEO" },
-      { label: "Status", value: "Live" },
+      { label: "Scope", value: "Launch System" },
+      { label: "Focus", value: "Bookings + Trust" },
+      { label: "Status", value: "Live + Growing" },
     ],
   },
-  {
-    title: "Tate's TV",
-    category: "Web Build",
-    relationship: "Custom Web Application",
-    description:
-      "A fully custom retro live-TV simulator and media platform with 23 channels, real-time programming, a premium channel guide, interactive remote controls, and responsive playback experiences.",
-    challenge:
-      "The project required far more than a normal website: scheduled media, persistent channel state, live progression, a television-style interface, remote controls, channel navigation, guide data, responsive layouts, and a platform that could keep expanding.",
-    solution:
-      "Designed and developed a custom web application with a retro broadcast engine, 23-channel architecture, live guide, quick tune, remote control, channel branding, media-library workflows, theme controls, responsive mobile views, and ongoing platform management.",
-    result:
-      "A distinctive entertainment product that demonstrates L&L's ability to architect and maintain complex, interactive software—not just standard brochure websites.",
-    services: [
-      "Custom web application development",
-      "Streaming and media interface design",
-      "23-channel platform architecture",
-      "Live guide and scheduling system",
-      "Interactive remote controls",
-      "Responsive television-style UI",
-      "Media-library workflows",
-      "Ongoing platform management",
-    ],
-    image: "/images/projects/tates-tv.jpg",
-    imageAlt: "Tate's TV custom streaming web application showcase",
-    liveUrl: "https://www.tatestv.ca/",
-    links: [
-      {
-        label: "Open Tate's TV",
-        href: "https://www.tatestv.ca/",
-        kind: "website",
-      },
-    ],
-    management: {
-      title: "Built, Managed & Maintained By L&L",
-      description:
-        "L&L continues to develop the platform, manage its media architecture, maintain the live experience, and expand the software over time.",
-      services: [
-        "Custom Software",
-        "Media Platform",
-        "Live Guide",
-        "Channel Systems",
-        "Ongoing Development",
-      ],
-    },
-    featured: true,
-    stats: [
-      { label: "Scope", value: "Custom Web App" },
-      { label: "Focus", value: "Streaming + Media" },
-      { label: "Status", value: "Live + Managed" },
-    ],
-  },
-  {
-    title: "TateByers.ca",
-    category: "Web Build",
-    relationship: "Developer Portfolio Experience",
-    description:
-      "An experimental personal portfolio that combines a Matrix-inspired entry experience, terminal-style interaction, and a Windows XP-inspired desktop interface.",
-    challenge:
-      "A conventional portfolio would not accurately represent the developer behind the work. The project needed to feel interactive, memorable, technically ambitious, and completely different from a standard résumé website.",
-    solution:
-      "Designed a custom portfolio experience with themed entry states, terminal interaction, operating-system-inspired navigation, desktop windows, project access, social links, and a flexible foundation for future demos and personal work.",
-    result:
-      "A distinctive portfolio product that demonstrates interface design, front-end architecture, animation, creative development, and the ability to turn an unusual concept into a functional web experience.",
-    services: [
-      "Creative website design",
-      "Custom front-end development",
-      "Matrix and terminal-style interaction",
-      "Windows XP-inspired interface",
-      "Animation and interaction systems",
-      "Responsive portfolio architecture",
-      "Project and social-link integration",
-    ],
-    visual: {
-      eyebrow: "Tate Byers",
-      title: "Developer Portfolio",
-      subtitle: "Matrix Entry • Terminal Interface • XP Desktop",
-      tone: "gold-red",
-    },
-    liveUrl: "https://www.tatebyers.ca/",
-    links: [
-      {
-        label: "Open Portfolio",
-        href: "https://www.tatebyers.ca/",
-        kind: "website",
-      },
-    ],
-    featured: true,
-    stats: [
-      { label: "Scope", value: "Creative Portfolio" },
-      { label: "Focus", value: "Interactive UX" },
-      { label: "Status", value: "Live / Evolving" },
-    ],
-  },
-  {
-    title: "Business Tech Support Cleanup",
-    category: "Tech Support",
-    relationship: "Remote & On-Site Support",
-    description:
-      "Remote and on-site support for business systems, computer cleanup, account setup, troubleshooting, and practical optimization.",
-    challenge:
-      "The client had recurring system issues, scattered setup problems, and no clear technical direction.",
-    solution:
-      "Reviewed the environment, cleaned up systems, resolved priority issues, improved organization, and provided clear next steps.",
-    result:
-      "Cleaner systems, faster operation, fewer recurring issues, and better confidence in daily business technology.",
-    services: [
-      "Remote support",
-      "System cleanup",
-      "Troubleshooting",
-      "Optimization",
-    ],
-    image: "/images/projects/tech-support.jpg",
-    imageAlt: "Business tech support cleanup showcase",
-    stats: [
-      { label: "Scope", value: "Support" },
-      { label: "Focus", value: "Cleanup" },
-      { label: "Status", value: "Delivered" },
-    ],
-  },
-  {
-    title: "Network Rack Cleanup",
-    category: "Infrastructure",
-    relationship: "Network Infrastructure",
-    description:
-      "Rack organization, patch-panel planning, cable cleanup, switch layout, labelling, and technical infrastructure improvement.",
-    challenge:
-      "The network area was messy, difficult to troubleshoot, and lacked clean organization.",
-    solution:
-      "Cleaned the rack layout, organized cabling, improved patching structure, labelled key runs, and simplified future maintenance.",
-    result:
-      "Cleaner infrastructure, easier troubleshooting, better presentation, and more reliable technical organization.",
-    services: [
-      "Rack cleanup",
-      "Patch-panel planning",
-      "Cable organization",
-      "Switch setup",
-    ],
-    image: "/images/projects/rack-cleanup.jpg",
-    imageAlt: "Network rack cleanup showcase",
-    stats: [
-      { label: "Scope", value: "Infrastructure" },
-      { label: "Focus", value: "Cable Cleanup" },
-      { label: "Status", value: "Delivered" },
-    ],
-  },
-  {
-    title: "CCTV & Network System Setup",
-    category: "Infrastructure",
-    relationship: "Low-Voltage & Network Systems",
-    description:
-      "CCTV installation, network configuration, structured cabling, and technical system setup for business environments.",
-    challenge:
-      "The client needed a cleaner, more reliable camera and network setup with proper configuration.",
-    solution:
-      "Installed and configured CCTV and network components, organized connections, and improved system reliability.",
-    result:
-      "More reliable visibility, cleaner setup, and stronger control over the technical environment.",
-    services: [
-      "CCTV setup",
-      "Network configuration",
-      "Structured cabling",
-      "System setup",
-    ],
-    image: "/images/projects/cctv-network.png",
-    imageAlt: "CCTV and network system setup showcase",
-    stats: [
-      { label: "Scope", value: "Install" },
-      { label: "Focus", value: "Security + Network" },
-      { label: "Status", value: "Delivered" },
-    ],
-  },
-];
+] as const;
 
 export const projectCategoryMeta: Record<
   ProjectCategory,
@@ -398,29 +392,29 @@ export const projectCategoryMeta: Record<
     emptyMessage: string;
   }
 > = {
-  "Web Build": {
+  "Website Design": {
     slug: "web-builds",
-    eyebrow: "Web, Software & Digital Growth",
-    title: "Custom Websites, Web Applications & Managed Digital Growth.",
+    eyebrow: "Website Design & Development",
+    title: "Websites built to make the business easier to trust.",
     description:
-      "Explore real custom websites, interactive web applications, SEO foundations, booking and inquiry systems, Google Business support, social-media management, content production, and ongoing digital partnerships.",
-    emptyMessage: "More website and software case studies are being prepared.",
+      "Custom business websites, booking and inquiry systems, responsive interfaces, search foundations, brand presentation, and ongoing website partnerships.",
+    emptyMessage: "Additional website case studies are being prepared.",
   },
-  "Tech Support": {
-    slug: "tech-support",
-    eyebrow: "Remote IT & Cybersecurity",
-    title: "Business Technology Support That Cleans Up The Mess.",
+  "Software Development": {
+    slug: "software-development",
+    eyebrow: "Software Design & Development",
+    title: "Digital products built around real operational needs.",
     description:
-      "Remote and on-site support for systems, accounts, devices, troubleshooting, optimization, security, and practical business technology problems.",
-    emptyMessage: "More remote IT and support examples are being prepared.",
+      "Interactive applications, portals, workflows, dashboards, integrations, media platforms, and software products designed and developed by L&L.",
+    emptyMessage: "Additional software case studies are being prepared.",
   },
-  Infrastructure: {
-    slug: "infrastructure",
-    eyebrow: "Network Infrastructure & Low-Voltage",
-    title: "Clean Networks, Cabling, Racks, CCTV & Connected Systems.",
+  "Social Media Management": {
+    slug: "social-media-management",
+    eyebrow: "Social Media Management & Content",
+    title: "Managed brands with one consistent digital direction.",
     description:
-      "Rack cleanup, Cat5e and Cat6 cabling, Ethernet activation, camera systems, network layout, testing, labelling, and on-site systems that look and operate better.",
-    emptyMessage: "More network and low-voltage examples are being prepared.",
+      "Social strategy, content systems, Google and platform management, photography, video, publishing, campaigns, and ongoing digital partnerships.",
+    emptyMessage: "Additional social-management case studies are being prepared.",
   },
 };
 
