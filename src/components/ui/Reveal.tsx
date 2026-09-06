@@ -1,82 +1,51 @@
 "use client";
+import { useEffect, useRef, type ReactNode } from "react";
 
-import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
-
-type Props = {
-  children: ReactNode;
-  className?: string;
-  delayMs?: number;
-  y?: number;
-};
-
-function cx(...parts: Array<string | false | null | undefined>) {
-  return parts.filter(Boolean).join(" ");
-}
-
-function getPrefersReducedMotion() {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
+/** Content is visible without JS. Motion only enhances sections below the fold. */
 export default function Reveal({
   children,
   className = "",
-  delayMs = 0,
-  y = 18,
-}: Props) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [shown, setShown] = useState(false);
-
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (getPrefersReducedMotion()) {
-      setShown(true);
-      return;
-    }
-
     const el = ref.current;
-    if (!el) return;
-
+    if (!el || !window.IntersectionObserver) return;
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (preference.matches) return;
     const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-
+      ([entry]) => {
         if (entry?.isIntersecting) {
-          setShown(true);
-          observer.unobserve(el);
+          el.animate(
+            [
+              { opacity: 0.5, transform: "translateY(16px)" },
+              { opacity: 1, transform: "translateY(0)" },
+            ],
+            { duration: 500, easing: "ease-out" },
+          );
           observer.disconnect();
         }
       },
-      {
-        root: null,
-        rootMargin: "0px 0px -10% 0px",
-        threshold: 0.14,
-      },
+      { threshold: 0.08 },
     );
-
-    observer.observe(el);
-
+    if (el.getBoundingClientRect().top > window.innerHeight) observer.observe(el);
+    const stop = () => {
+      if (preference.matches) {
+        observer.disconnect();
+        el.getAnimations().forEach((animation) => animation.cancel());
+      }
+    };
+    preference.addEventListener("change", stop);
     return () => {
       observer.disconnect();
+      preference.removeEventListener("change", stop);
+      el.getAnimations().forEach((animation) => animation.cancel());
     };
   }, []);
-
   return (
-    <div
-      ref={ref}
-      className={cx(
-        "will-change-transform will-change-opacity motion-reduce:transform-none motion-reduce:transition-none",
-        className,
-      )}
-      style={{
-        opacity: shown ? 1 : 0,
-        transform: shown ? "translate3d(0, 0, 0)" : `translate3d(0, ${y}px, 0)`,
-        transitionProperty: "opacity, transform",
-        transitionDuration: shown ? "700ms" : "700ms",
-        transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-        transitionDelay: `${delayMs}ms`,
-      }}
-    >
+    <div ref={ref} className={className}>
       {children}
     </div>
   );
