@@ -45,6 +45,10 @@ export default function Page() {
         <section>
           <h2>Cookies and external links</h2>
           <p>
+            Your animation preference is stored locally in your browser so the website can remember
+            whether you paused motion. This preference is not sent to us or used for advertising.
+          </p>
+          <p>
             This release does not add advertising pixels or optional analytics scripts. Hosting and
             security services may process essential technical information. Client projects, social
             profiles and booking platforms linked from this site have their own privacy practices.

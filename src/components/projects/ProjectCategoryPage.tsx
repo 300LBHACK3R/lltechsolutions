@@ -3,8 +3,7 @@ import Link from "next/link";
 import { projects, projectCategories, type ProjectCategory } from "@/data/projects";
 import PageIntro from "@/components/ui/PageIntro";
 import ProjectCTA from "@/components/ui/ProjectCTA";
-import JsonLd from "@/components/seo/JsonLd";
-import { absoluteUrl } from "@/config/site";
+import ProjectCollection from "@/components/seo/ProjectCollection";
 export default function ProjectCategoryPage({ category }: { category: ProjectCategory }) {
   const meta = projectCategories.find((item) => item.slug === category)!;
   const selected = projects.filter((project) => project.category === category);
@@ -47,7 +46,7 @@ export default function ProjectCategoryPage({ category }: { category: ProjectCat
                     alt={project.imageAlt ?? `${project.title} website interface`}
                     width={1800}
                     height={1013}
-                    sizes="(min-width: 1440px) 1320px, 94vw"
+                    sizes="(min-width: 2560px) 2080px, (min-width: 1900px) 1760px, (min-width: 1520px) 1440px, 94vw"
                   />
                 </a>
               )}
@@ -89,28 +88,7 @@ export default function ProjectCategoryPage({ category }: { category: ProjectCat
           ))}
         </div>
       </div>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          name: meta.title,
-          url: absoluteUrl(`/projects/${category}`),
-          mainEntity: {
-            "@type": "ItemList",
-            itemListElement: selected.map((project, index) => ({
-              "@type": "ListItem",
-              position: index + 1,
-              item: {
-                "@type": "CreativeWork",
-                name: project.title,
-                url: absoluteUrl(`/projects/${category}#${project.id}`),
-                description: project.description,
-                creator: { "@id": absoluteUrl("/#organization") },
-              },
-            })),
-          },
-        }}
-      />
+      <ProjectCollection title={meta.title} path={`/projects/${category}`} projects={selected} />
       <ProjectCTA />
     </>
   );

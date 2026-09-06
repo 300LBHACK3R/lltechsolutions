@@ -63,6 +63,17 @@ try {
     );
     const title = html.match(/<title>(.*?)<\/title>/)?.[1];
     assert.ok(title && !titles.has(title), `${route}: unique title`);
+    assert.ok(title.endsWith(" | L&amp;L Tech Solutions"), `${route}: complete branded title`);
+    assert.ok(html.includes('lang="en-CA"'), `${route}: Canadian English language`);
+    assert.ok(
+      html.includes('name="viewport" content="width=device-width, initial-scale=1"'),
+      `${route}: zoomable responsive viewport`,
+    );
+    assert.ok(html.includes('property="og:locale" content="en_CA"'), `${route}: social locale`);
+    assert.ok(
+      html.includes('name="twitter:card" content="summary_large_image"'),
+      `${route}: social image card`,
+    );
     titles.add(title);
     for (const match of html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs))
       JSON.parse(match[1]);
@@ -73,8 +84,28 @@ try {
     assert.ok(!res.headers.has("x-powered-by"));
     const csp = res.headers.get("content-security-policy");
     assert.ok(csp?.includes("frame-ancestors 'none'") && !csp.includes("unsafe-eval"));
+    assert.equal(res.headers.get("x-content-type-options"), "nosniff");
+    assert.equal(res.headers.get("x-frame-options"), "DENY");
+    assert.equal(res.headers.get("referrer-policy"), "strict-origin-when-cross-origin");
+    assert.ok(res.headers.get("strict-transport-security")?.includes("max-age=31536000"));
     checks++;
   }
+  const home = htmlByRoute.get("/");
+  const tabTags = [...home.matchAll(/<button\b[^>]*role="tab"[^>]*>/g)].map((match) => match[0]);
+  assert.equal(tabTags.length, 6, "project and service tabs are present in server HTML");
+  for (const tag of tabTags) {
+    const id = tag.match(/\bid="([^"]+)"/)?.[1];
+    const panel = tag.match(/aria-controls="([^"]+)"/)?.[1];
+    assert.ok(
+      id && panel && home.includes(`id="${panel}"`) && home.includes(`aria-labelledby="${id}"`),
+      "tabs identify their labelled panels",
+    );
+  }
+  assert.equal(
+    tabTags.filter((tag) => tag.includes('aria-selected="true"')).length,
+    2,
+    "one selected tab per group",
+  );
   for (const [source, html] of htmlByRoute) {
     for (const match of html.matchAll(/href="(\/[^"?]*)(?:\?[^"#]*)?"/g)) {
       const href = match[1];
@@ -126,6 +157,7 @@ try {
     const json = await res.json();
     assert.ok(json.message && json.requestId, label);
     assert.equal(res.headers.get("cache-control"), "no-store");
+    assert.ok(res.headers.get("x-robots-tag")?.includes("noindex"), label);
     checks++;
   }
   await post(

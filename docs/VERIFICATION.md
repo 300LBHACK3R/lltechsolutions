@@ -1,27 +1,34 @@
 # Verification and release status
 
-Date: September 6, 2026.
+Date: September 6, 2026. Release: Interactive Black & Gold Studio.
 
-## Verified
+## Source and scope
 
-- Source baseline matches remote main commit `55b9d7bd573ad70bc35bc8926a4a3fd23606f764` and the observed live site.
-- Complete pre-change Git history preserved in a backup bundle; edits made on `refactor/black-gold-digital-studio`.
-- TypeScript and ESLint pass with zero warnings.
-- Eight focused contact tests cover validation, unsafe URLs, malformed types, honeypot handling, origin matching, streamed body limits, throttling and internal URL normalization.
-- Production build passes and generates all intended routes.
-- Twenty-nine HTTP checks pass, including 13 public pages, one H1/main per page, distinct titles, canonical URLs, JSON-LD parsing, internal links/anchors, retired-route redirects, 404, metadata/image endpoints, headers and contact rejection paths.
-- Contact smoke checks deliberately omit the Resend key. Missing configuration returns 503 rather than claiming delivery.
-- Dependency audit reports zero known vulnerabilities following compatible dependency updates.
-- Original public assets totalled 18,680,100 bytes. Retained optimized brand/project assets are approximately 712 KB on disk. This is asset storage reduction, not a measured loading-speed or Lighthouse claim.
+- Starts from production main `5304cc16ede9e1e4d95806f0427a82faeb64f21a`, after the user merged the previous corporate release.
+- Complete pre-change Git history is preserved in a backup bundle. Changes are isolated on `refactor/interactive-black-gold-studio`.
+- Retains the exact brand asset, three disciplines, six-section homepage, approved hero language, current pricing and verbatim Heather testimonial.
+- Adds a layered project stage, interactive service study, fine-pointer tilt, gold circuit motion, project crossfades, visitor motion controls, revised project frames and a gold final CTA.
+- Fresh real McKenzie and Tow-N-Go homepage captures replace older project images. No client images or performance results were invented.
 
-## Not verified or not performed
+## Verified automatically
 
-- The remote browser inspected the live original site but could not open the revised local preview. Its network/file policy prevented visual QA of the changed site. No revised screenshot, cross-browser pass, mobile pass or Lighthouse score is claimed.
-- Actual email delivery was not attempted. Production credentials and inbox receipt require a separate authorized check.
-- The connected GitHub integration rejected branch creation with HTTP 403, `Resource not accessible by integration`. No branch, pull request or deployment was published by this session.
-- The Windows PowerShell helper was reviewed but could not be executed here because PowerShell is unavailable. Equivalent Git bundle/worktree operations are checked separately when packaging.
-- The earlier premium release ZIP and any uncommitted Windows source were not inspected or overwritten. This work is based on the confirmed live repository.
+- Source imports and local asset references validate.
+- TypeScript, ESLint with zero-warning enforcement, and eight focused contact tests pass.
+- Production build completes with all intended routes.
+- Twenty-nine production HTTP checks pass: public pages, one H1/main, unique branded titles, canonical URLs, Canadian language/locale, responsive viewport, social cards, JSON-LD parsing, tab/panel identifiers, internal links/anchors, retired routes, 404, metadata/image endpoints, security headers and rejected contact requests.
+- Dependency audit reports zero known vulnerabilities. This is not a security guarantee or penetration test.
+- Contact checks remove the mail key and never send external email. Missing configuration returns 503 instead of claiming delivery.
 
-## Required next step
+## Responsive implementation and verification limits
 
-Use the included review script to create a separate worktree, run the quality gates and start the local preview. Complete the browser checklist in `docs/RELEASE_CHECKLIST.md` before pushing/merging. Publish advertising that references the new site only after the final reviewed release is actually live.
+Responsive rules cover narrow phones, tablets, laptops, desktops, ultrawide displays and 4K layouts. They include fluid containers/type, touch controls, a scrollable small-screen menu, single-column forms, 16 px form inputs, short-landscape handling, reduced motion, keyboard operation and forced-color fallbacks. These are implementation facts, not browser-test results.
+
+The browser inspected the deployed L&L site and the public client homepages. Access to the new local preview is blocked in this environment; an earlier protected Vercel preview also lacked authorized browser access. The redesigned site has not been visually verified across browsers or physical devices. No new Lighthouse score, universal device compatibility, actual email delivery or production deployment is claimed.
+
+GitHub write access remains unavailable to this session. The included PowerShell workflow uses the user's authenticated Git installation to create and optionally push a separate review branch after local checks. Visual review and a green check for that exact commit must precede the next production merge.
+
+## Windows review workflow
+
+The package contains the source, a baseline-bound Git bundle and a PowerShell review helper. It preserves the original checkout and uncommitted work, requires Node 22+, verifies the repository and bundle checksum, checks the current remote baseline, creates a separate worktree and runs the documented quality gates. `-Push` publishes only its new review branch. It never merges production main or copies secrets.
+
+Complete the browser/device checklist in `docs/RELEASE_CHECKLIST.md` using the local build and Vercel preview before approving the design for production. The helper's packaging validation is documented separately in `PACKAGE-VERIFICATION.txt`.

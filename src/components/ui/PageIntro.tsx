@@ -1,3 +1,5 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
+
 export default function PageIntro({
   eyebrow,
   title,
@@ -9,6 +11,7 @@ export default function PageIntro({
 }) {
   return (
     <section className="page-intro">
+      <SignalArtwork className="intro-signals" />
       <div className="container">
         <p className="eyebrow">{eyebrow}</p>
         <h1>{title}</h1>

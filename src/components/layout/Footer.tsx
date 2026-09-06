@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { navigation, siteConfig } from "@/config/site";
+import MotionControl from "@/components/ui/MotionControl";
 
 export default function Footer() {
   return (
@@ -38,6 +39,7 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} L&L Tech Solutions. All rights reserved.</p>
+          <MotionControl />
           <div>
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>

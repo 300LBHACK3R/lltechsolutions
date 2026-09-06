@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, type ReactNode } from "react";
+import { useMotion } from "@/lib/use-motion";
 
 /** Content is visible without JS. Motion only enhances sections below the fold. */
 export default function Reveal({
@@ -10,14 +11,22 @@ export default function Reveal({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const revealed = useRef(false);
+  const motion = useMotion();
   useEffect(() => {
     const el = ref.current;
-    if (!el || !window.IntersectionObserver) return;
-    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (preference.matches) return;
+    if (
+      !el ||
+      !window.IntersectionObserver ||
+      !el.animate ||
+      motion !== "running" ||
+      revealed.current
+    )
+      return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
+          revealed.current = true;
           el.animate(
             [
               { opacity: 0.5, transform: "translateY(16px)" },
@@ -31,19 +40,11 @@ export default function Reveal({
       { threshold: 0.08 },
     );
     if (el.getBoundingClientRect().top > window.innerHeight) observer.observe(el);
-    const stop = () => {
-      if (preference.matches) {
-        observer.disconnect();
-        el.getAnimations().forEach((animation) => animation.cancel());
-      }
-    };
-    preference.addEventListener("change", stop);
     return () => {
       observer.disconnect();
-      preference.removeEventListener("change", stop);
       el.getAnimations().forEach((animation) => animation.cancel());
     };
-  }, []);
+  }, [motion]);
   return (
     <div ref={ref} className={className}>
       {children}

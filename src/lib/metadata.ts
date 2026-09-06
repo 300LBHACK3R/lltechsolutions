@@ -4,7 +4,7 @@ import { absoluteUrl, siteConfig } from "@/config/site";
 export function pageMetadata(title: string, description: string, path: string): Metadata {
   const socialTitle = `${title} | ${siteConfig.name}`;
   return {
-    title,
+    title: { absolute: socialTitle },
     description,
     alternates: { canonical: absoluteUrl(path) },
     openGraph: {

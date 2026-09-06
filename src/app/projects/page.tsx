@@ -4,6 +4,7 @@ import ProjectCTA from "@/components/ui/ProjectCTA";
 import ProjectPreview from "@/components/projects/ProjectPreview";
 import { projects, projectCategories } from "@/data/projects";
 import { pageMetadata } from "@/lib/metadata";
+import ProjectCollection from "@/components/seo/ProjectCollection";
 export const metadata = pageMetadata(
   "Selected Work & Client Projects",
   "Explore L&L’s custom websites, software applications and managed digital partnerships, including Tow-N-Go, Crestline and McKenzie House Massage.",
@@ -31,6 +32,11 @@ export default function ProjectsPage() {
           ))}
         </div>
       </div>
+      <ProjectCollection
+        title="Selected Work & Client Projects"
+        path="/projects"
+        projects={projects}
+      />
       <ProjectCTA />
     </>
   );

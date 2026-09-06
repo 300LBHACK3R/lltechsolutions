@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-CA">
+    <html lang="en-CA" data-motion="paused">
       <body className={`${sans.variable} ${editorial.variable}`}>
         <a href="#main-content" className="skip-link">
           Skip to content
@@ -50,13 +50,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             "@context": "https://schema.org",
             "@graph": [
               {
-                "@type": "Organization",
+                "@type": ["Organization", "ProfessionalService"],
                 "@id": absoluteUrl("/#organization"),
                 name: siteConfig.name,
                 url: siteConfig.url,
                 logo: absoluteUrl(siteConfig.logo),
                 email: siteConfig.email,
-                telephone: "+17782158483",
+                telephone: siteConfig.telephone.replace("tel:", ""),
+                address: { "@type": "PostalAddress", ...siteConfig.address },
                 description: siteConfig.description,
                 areaServed: siteConfig.areaServed,
                 sameAs: siteConfig.socialLinks.map((link) => link.href),

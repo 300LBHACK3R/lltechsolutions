@@ -12,7 +12,7 @@ The App Router owns page composition, metadata and the contact endpoint. Compone
 
 ## Client boundaries
 
-The header supplies active navigation and Escape handling. The project showcase has manually selected tabs with arrow/Home/End keyboard handling and no auto-rotation. The contact form handles submission, duplicate-click prevention, persistent failures and a timeout. Reveal only enhances already-visible server content and respects reduced motion.
+The header supplies active navigation and Escape handling. The project showcase and compact service explorer use manually selected tabs with arrow/Home/End keyboard handling and no auto-rotation. Both receive only the required fields from canonical server data. InteractiveSurface adds a bounded, event-driven pointer tilt only for fine mouse pointers; it cancels pending frames on leave, cancellation, page visibility changes and cleanup. The contact form handles submission, duplicate-click prevention, persistent failures and a timeout. Reveal only enhances already-visible server content. A shared external motion preference respects the operating system, persists visitor pause choices locally and stops both CSS and Web Animations effects. Static content and ordinary links remain available without animation. No animation package, video background or third-party tracking script is loaded.
 
 ## Inquiry flow
 
@@ -22,8 +22,14 @@ The email SDK is initialized only after validated input and configuration checks
 
 ## SEO
 
-Each page declares its own title, description and canonical URL. The root provides Organization and WebSite JSON-LD; services and category pages describe their visible content. The sitemap lists only current public routes. Preview deployments are noindex. There are no fabricated review aggregates or ranking guarantees.
+Each page declares its own title, description and canonical URL. The root provides Organization/ProfessionalService and WebSite JSON-LD; services and category pages describe their visible content. The sitemap lists only current public routes. Preview deployments are noindex. There are no fabricated review aggregates or ranking guarantees.
 
 ## Retired routes
 
 `/projects/tech-support` and `/projects/infrastructure` redirect permanently to `/projects`. The legacy `/free-tech-audit` URL remains, with Free Digital Audit branding. The public navigation labels `/packages` as Investment.
+
+## Styles and asset provenance
+
+`base.css` owns tokens and primitives; `layout.css` owns navigation/footer; `home.css` owns the homepage composition and shared project/CTA surfaces; `pages.css` owns interior layouts; `services-explorer.css` owns the illustrative service study; `motion.css` owns effects and motion preferences; `responsive.css` owns content-fit breakpoints. Removed selectors are not retained as obsolete override layers.
+
+The McKenzie House Massage and Tow-N-Go screenshots were refreshed from their public homepages on September 6, 2026. They are real page captures converted to WebP, with no generated client imagery or invented performance figures. The service illustrations are abstract L&L design studies, not client screenshots or product promises.

@@ -10,6 +10,7 @@ export const siteConfig = {
     "L&L Tech Solutions is a Calgary-based digital studio specializing in custom website design and development, purpose-built software, and social media management for businesses across Canada.",
   tagline: "Digital systems built to carry the weight of your business.",
   areaServed: ["Calgary", "Alberta", "British Columbia", "Canada"],
+  address: { addressLocality: "Calgary", addressRegion: "AB", addressCountry: "CA" },
   socialLinks: [
     { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61557129795810" },
     { label: "TikTok", href: "https://www.tiktok.com/@lltechsolutions" },

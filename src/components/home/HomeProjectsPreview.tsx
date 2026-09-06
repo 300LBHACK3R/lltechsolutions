@@ -16,7 +16,7 @@ export default function HomeProjectsPreview() {
               Explore all projects <span aria-hidden="true">↗</span>
             </Link>
           </div>
-          <div className="project-grid">
+          <div className="project-grid home-project-grid">
             {projects
               .filter((project) => ["tow-n-go", "mckenzie-house"].includes(project.id))
               .map((project) => (

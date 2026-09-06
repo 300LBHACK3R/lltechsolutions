@@ -1,7 +1,18 @@
 /* Interior pages */
 .page-intro {
-  padding: 85px 0 58px;
-  background: linear-gradient(135deg, #151515, #080808 70%);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 90px 0 65px;
+  border-bottom: 1px solid #3b382d;
+  background: linear-gradient(125deg, #22221f, #080808 75%);
+}
+.intro-signals {
+  width: 50%;
+  left: auto;
+  right: -8%;
+  opacity: 0.6;
+  z-index: -1;
 }
 .page-intro h1 {
   max-width: 960px;
@@ -142,9 +153,10 @@ dd {
   padding: 40px 0;
 }
 .process-step > span {
-  font-family: var(--font-editorial), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.07em;
   color: var(--gold-light);
-  font-size: 48px;
+  font-size: 54px;
   line-height: 1;
 }
 .process-step h2 {
@@ -238,9 +250,9 @@ dd {
   border-radius: 3px;
   background: #0c0c0c;
   padding: 12px;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text);
-  min-height: 47px;
+  min-height: 48px;
 }
 .form-fields input::placeholder,
 .form-fields textarea::placeholder {
@@ -342,14 +354,4 @@ dd {
   text-decoration: underline;
   color: var(--gold-light);
   overflow-wrap: anywhere;
-}
-@keyframes crossfade {
-  from {
-    opacity: 0.4;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
