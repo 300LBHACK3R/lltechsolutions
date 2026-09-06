@@ -1,0 +1,355 @@
+/* Interior pages */
+.page-intro {
+  padding: 85px 0 58px;
+  background: linear-gradient(135deg, #151515, #080808 70%);
+}
+.page-intro h1 {
+  max-width: 960px;
+  font-size: clamp(38px, 5vw, 64px);
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  margin-top: 22px;
+  font-weight: 550;
+}
+.intro-description {
+  max-width: 700px;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 16px;
+}
+.service-detail {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 100px;
+  padding: 64px 0;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 110px;
+}
+.service-detail h2 {
+  font-size: 37px;
+  margin-top: 20px;
+}
+.service-detail p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 24px;
+}
+.service-detail h3,
+.case-body h3 {
+  font-weight: 500;
+  font-size: 16px;
+}
+.capability-list {
+  list-style: none;
+  padding: 0;
+  margin: 22px 0 0;
+}
+.capability-list li {
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.6;
+  color: #c9c9c2;
+}
+.category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 30px;
+  border-block: 1px solid var(--line);
+  padding: 16px 0;
+}
+.category-nav a {
+  padding: 10px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.category-nav a:hover,
+.category-nav a[aria-current="page"] {
+  color: var(--gold-light);
+}
+.project-directory {
+  padding: 54px 0 90px;
+}
+.case-study {
+  padding: 60px 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 100px;
+}
+.case-heading {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.case-heading h2 {
+  margin-top: 14px;
+}
+.case-image {
+  display: block;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  border-radius: 4px;
+}
+.case-image img {
+  width: 100%;
+  height: auto;
+  max-height: 660px;
+  object-fit: cover;
+  object-position: top;
+}
+.case-body {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 90px;
+  margin-top: 42px;
+}
+.case-description {
+  font-size: 22px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+dl {
+  margin: 30px 0 0;
+}
+dt {
+  margin-top: 22px;
+  color: var(--gold-light);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+dd {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.case-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 24px;
+}
+.process-list {
+  padding-bottom: 50px;
+}
+.process-step {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr;
+  gap: 45px;
+  border-top: 1px solid var(--line);
+  padding: 40px 0;
+}
+.process-step > span {
+  font-family: var(--font-editorial), Georgia, serif;
+  color: var(--gold-light);
+  font-size: 48px;
+  line-height: 1;
+}
+.process-step h2 {
+  font-size: 30px;
+}
+.process-step p {
+  color: var(--muted);
+  font-size: 14px;
+}
+.process-step small {
+  display: block;
+  color: var(--gold-light);
+  margin-top: 15px;
+}
+.investment-row {
+  padding: 38px 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1.1fr 1.1fr 0.65fr;
+  gap: 50px;
+}
+.investment-row h2 {
+  font-size: 28px;
+  margin-top: 12px;
+}
+.investment-row p {
+  color: var(--muted);
+  font-size: 13px;
+}
+.investment-price {
+  font-size: 35px !important;
+  color: var(--gold-light) !important;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+.investment-price small {
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.investment-action {
+  text-align: right;
+}
+.investment-note {
+  padding: 28px;
+  margin: 18px 0 40px;
+  background: var(--charcoal);
+  color: var(--muted);
+  font-size: 13px;
+  border-left: 2px solid var(--gold);
+}
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 90px;
+  padding-bottom: 90px;
+  align-items: start;
+}
+.contact-form {
+  padding: 32px;
+  border: 1px solid var(--line);
+  background: var(--charcoal);
+  border-radius: 5px;
+}
+.contact-form h2 {
+  font-size: 25px;
+}
+.contact-form .form-intro {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.form-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 28px;
+}
+.form-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: #deded7;
+}
+.form-fields input,
+.form-fields select,
+.form-fields textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #4b4b44;
+  border-radius: 3px;
+  background: #0c0c0c;
+  padding: 12px;
+  font-size: 14px;
+  color: var(--text);
+  min-height: 47px;
+}
+.form-fields input::placeholder,
+.form-fields textarea::placeholder {
+  color: #97978f;
+}
+.form-fields textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+.field-full {
+  grid-column: 1 / -1;
+}
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  margin-top: 26px;
+}
+.form-footer p {
+  color: var(--muted);
+  font-size: 11px;
+  max-width: 290px;
+}
+.form-footer a {
+  text-decoration: underline;
+}
+.form-message {
+  margin-top: 20px;
+  color: var(--gold-light);
+  font-size: 14px;
+}
+.form-message.error {
+  color: #ffcfb3;
+}
+.contact-aside {
+  padding-top: 20px;
+}
+.contact-aside h2 {
+  font-size: 29px;
+  margin: 18px 0;
+}
+.contact-aside p {
+  color: var(--muted);
+  font-size: 14px;
+}
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 28px 0;
+}
+.contact-methods a {
+  overflow-wrap: anywhere;
+  font-size: 15px;
+  color: var(--gold-light);
+}
+.contact-aside ul {
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+}
+.audit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 70px;
+  padding-bottom: 45px;
+}
+.audit-grid section {
+  border-top: 1px solid var(--line);
+  padding-top: 25px;
+}
+.audit-grid h2 {
+  font-size: 25px;
+}
+.audit-grid p {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.prose {
+  max-width: 820px;
+  padding-bottom: 70px;
+}
+.prose section {
+  margin-top: 35px;
+}
+.prose h2 {
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+.prose p {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 12px 0;
+}
+.prose a {
+  text-decoration: underline;
+  color: var(--gold-light);
+  overflow-wrap: anywhere;
+}
+@keyframes crossfade {
+  from {
+    opacity: 0.4;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

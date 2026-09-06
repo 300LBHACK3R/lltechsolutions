@@ -1,15 +1,11 @@
-﻿import type { MetadataRoute } from "next";
-import { siteConfig } from "@/config/site";
-
+import type { MetadataRoute } from "next";
+import { absoluteUrl } from "@/config/site";
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-      },
-    ],
-    sitemap: `${siteConfig.url}/sitemap.xml`,
-    host: siteConfig.url,
+    rules:
+      process.env.VERCEL_ENV === "preview"
+        ? { userAgent: "*", disallow: "/" }
+        : { userAgent: "*", allow: "/", disallow: "/api/" },
+    sitemap: absoluteUrl("/sitemap.xml"),
   };
 }

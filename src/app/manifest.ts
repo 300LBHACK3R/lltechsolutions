@@ -1,29 +1,17 @@
 import type { MetadataRoute } from "next";
-
+import { siteConfig } from "@/config/site";
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "L&L Tech Solutions",
-    short_name: "L&L Tech",
-    description:
-      "Custom websites, business IT support, automation, and clean technical infrastructure.",
+    name: siteConfig.name,
+    short_name: siteConfig.shortName,
+    description: siteConfig.description,
     start_url: "/",
-    scope: "/",
     display: "standalone",
-    background_color: "#050505",
-    theme_color: "#050505",
-    orientation: "portrait",
-    categories: ["business", "productivity", "technology"],
+    background_color: "#080808",
+    theme_color: "#080808",
     icons: [
-      {
-        src: "/icon.png",
-        sizes: "512x512",
-        type: "image/png",
-      },
-      {
-        src: "/apple-icon.png",
-        sizes: "180x180",
-        type: "image/png",
-      },
+      { src: "/brand/icon.png", sizes: "512x512", type: "image/png" },
+      { src: "/brand/apple-icon.png", sizes: "180x180", type: "image/png" },
     ],
   };
 }

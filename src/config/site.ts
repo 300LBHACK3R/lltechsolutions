@@ -1,36 +1,47 @@
-﻿export const siteConfig = {
+export const siteConfig = {
   name: "L&L Tech Solutions",
   shortName: "L&L Tech",
-  legalName: "L&L Tech Solutions",
-  domain: "lltechsolutions.ca",
   url: "https://lltechsolutions.ca",
   email: "LandLTechSolutions@protonmail.com",
-  logo: "/brand/logo.jpg",
+  phone: "778-215-8483",
+  telephone: "tel:+17782158483",
+  logo: "/brand/logo-mark.webp",
   description:
-    "L&L Tech Solutions helps small businesses, contractors, and local service companies with custom websites, SEO foundations, remote tech support, and clean on-site infrastructure.",
-  areaServed: [
-    "Calgary",
-    "Airdrie",
-    "Chestermere",
-    "Cochrane",
-    "Okotoks",
-    "Alberta",
-    "Canada",
+    "L&L Tech Solutions is a Calgary-based digital studio specializing in custom website design and development, purpose-built software, and social media management for businesses across Canada.",
+  tagline: "Digital systems built to carry the weight of your business.",
+  areaServed: ["Calgary", "Alberta", "British Columbia", "Canada"],
+  socialLinks: [
+    { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61557129795810" },
+    { label: "TikTok", href: "https://www.tiktok.com/@lltechsolutions" },
+    { label: "YouTube", href: "https://youtube.com/@LLTechSolutions/videos" },
   ],
-  services: [
-    "Custom Websites",
-    "SEO Foundations",
-    "Google Business Profile Setup",
-    "Facebook Business Setup",
-    "Remote Tech Support",
-    "Network Cleanup",
-    "CCTV Setup",
-    "Business Technology Support",
-  ],
-  socialLinks: [] as string[],
-};
+} as const;
+
+export const navigation = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Selected Work", href: "/projects" },
+  { label: "Process", href: "/process" },
+  { label: "Investment", href: "/packages" },
+  { label: "Contact", href: "/contact" },
+] as const;
+
+export const publicRoutes = [
+  "/",
+  "/services",
+  "/projects",
+  "/projects/web-builds",
+  "/projects/software-development",
+  "/projects/social-media-management",
+  "/process",
+  "/packages",
+  "/contact",
+  "/free-tech-audit",
+  "/privacy",
+  "/terms",
+  "/security",
+] as const;
 
 export function absoluteUrl(path = "/") {
-  const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  return `${siteConfig.url}${cleanPath}`;
+  return new URL(path, siteConfig.url).toString();
 }

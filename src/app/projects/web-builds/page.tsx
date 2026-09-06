@@ -1,12 +1,10 @@
 import ProjectCategoryPage from "@/components/projects/ProjectCategoryPage";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Web, Software & Digital Growth Projects",
-  description:
-    "Explore custom websites, web applications, SEO foundations, booking and inquiry systems, Google Business management, social media, content, and ongoing digital partnerships by L&L Tech Solutions.",
-};
-
-export default function WebBuildProjectsPage() {
-  return <ProjectCategoryPage category="Web Build" />;
+import { pageMetadata } from "@/lib/metadata";
+export const metadata = pageMetadata(
+  "Custom Website Projects",
+  "Explore custom business websites for Tow-N-Go Trailers, Crestline Painting, McKenzie House Massage and Tate Byers.",
+  "/projects/web-builds",
+);
+export default function Page() {
+  return <ProjectCategoryPage category="web-builds" />;
 }
