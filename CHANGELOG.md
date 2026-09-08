@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.1 — Compact footer and production handoff
+
+- Reduced footer padding and logo size, removed the repeated large statement and replaced vertical navigation with compact desktop links and a mobile grid.
+- Preserved contact details, social links, legal pages, home navigation and motion controls.
+- Rechecked current framework versions, dependency audit, live security headers and non-delivery contact validation.
+- Documented Resend/Vercel setup and the separate inbox-delivery check.
+- Added an explicit `-Deploy` publication workflow that preserves the original checkout, validates an isolated worktree, waits for exact-commit Quality and uses a normal main push with concurrency guards.
+
 ## 1.2.0 — Client showcase, reviews and investment
 
 - Preserved the interactive black/gold studio design and shortened the homepage to five sections.

@@ -5,37 +5,25 @@ import MotionControl from "@/components/ui/MotionControl";
 
 export default function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer footer-compact">
       <div className="container">
         <div className="footer-main">
-          <div>
+          <div className="footer-identity">
             <Link href="/" aria-label="L&L Tech Solutions home" className="footer-brand">
               <Image
                 src={siteConfig.logo}
                 alt="L&L Tech Solutions"
                 width={1000}
                 height={293}
-                sizes="220px"
+                sizes="180px"
               />
             </Link>
-            <p className="footer-statement">
-              Built with intention.
-              <br />
-              Managed with care.
-            </p>
-            <p className="muted">Calgary-based · Canada-wide</p>
+            <p className="footer-location">Calgary-based · Canada-wide</p>
           </div>
-          <nav aria-label="Footer navigation">
-            {navigation
-              .filter((item) => item.href !== "/")
-              .map((item) => (
-                <Link key={item.href} href={item.href}>
-                  {item.label}
-                </Link>
-              ))}
-          </nav>
           <div className="footer-contact">
-            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+            <a className="footer-email" href={`mailto:${siteConfig.email}`}>
+              {siteConfig.email}
+            </a>
             <a href={siteConfig.telephone}>{siteConfig.phone}</a>
             <div className="social-links">
               {siteConfig.socialLinks.map((item) => (
@@ -45,15 +33,24 @@ export default function Footer() {
               ))}
             </div>
           </div>
+          <nav className="footer-nav" aria-label="Footer navigation">
+            {navigation
+              .filter((item) => item.href !== "/")
+              .map((item) => (
+                <Link key={item.href} href={item.href}>
+                  {item.label}
+                </Link>
+              ))}
+          </nav>
         </div>
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} L&L Tech Solutions. All rights reserved.</p>
           <MotionControl />
-          <div>
+          <nav className="footer-legal" aria-label="Legal information">
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
             <Link href="/security">Security</Link>
-          </div>
+          </nav>
         </div>
       </div>
     </footer>
