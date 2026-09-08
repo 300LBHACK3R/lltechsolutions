@@ -1,6 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { projects, projectCategories, type ProjectCategory } from "@/data/projects";
+import {
+  projects,
+  projectCategories,
+  getProject,
+  projectPath,
+  type ProjectCategory,
+} from "@/data/projects";
 import PageIntro from "@/components/ui/PageIntro";
 import ProjectCTA from "@/components/ui/ProjectCTA";
 import ProjectCollection from "@/components/seo/ProjectCollection";
@@ -70,6 +76,14 @@ export default function ProjectCategoryPage({ category }: { category: ProjectCat
                     ))}
                   </ul>
                   <div className="case-links">
+                    {project.relatedWork && (
+                      <Link
+                        href={projectPath(getProject(project.relatedWork.projectId))}
+                        className="text-link"
+                      >
+                        {project.relatedWork.label} ↗
+                      </Link>
+                    )}
                     {project.links?.map((link) => (
                       <a
                         key={link.href}

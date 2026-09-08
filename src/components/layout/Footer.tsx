@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { navigation, siteConfig } from "@/config/site";
 import MotionControl from "@/components/ui/MotionControl";
 
@@ -8,7 +9,15 @@ export default function Footer() {
       <div className="container">
         <div className="footer-main">
           <div>
-            <p className="eyebrow">L&L Tech Solutions</p>
+            <Link href="/" aria-label="L&L Tech Solutions home" className="footer-brand">
+              <Image
+                src={siteConfig.logo}
+                alt="L&L Tech Solutions"
+                width={1000}
+                height={293}
+                sizes="220px"
+              />
+            </Link>
             <p className="footer-statement">
               Built with intention.
               <br />

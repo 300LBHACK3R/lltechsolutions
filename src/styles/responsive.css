@@ -46,7 +46,7 @@
     font-size: 15px;
     max-width: 520px;
   }
-  .project-preview > p {
+  .project-preview-copy > p {
     font-size: 16px;
   }
   .page-intro h1 {
@@ -132,12 +132,9 @@
   .project-preview h3 {
     font-size: 34px;
   }
-  .project-preview > p {
+  .project-preview-copy > p {
     font-size: 18px;
     max-width: 850px;
-  }
-  blockquote {
-    font-size: 50px;
   }
 }
 @media (max-width: 1199px) {
@@ -276,13 +273,6 @@
   .home-project-grid {
     gap: 30px;
   }
-  .home-project-grid > :nth-child(2) {
-    margin-top: 70px;
-  }
-  .testimonial-inner {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
   .cta-inner {
     align-items: flex-start;
     flex-direction: column;
@@ -347,9 +337,6 @@
     grid-template-columns: 1fr;
     gap: 42px;
   }
-  .home-project-grid > :nth-child(2) {
-    margin-top: 0;
-  }
   .case-body {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -371,7 +358,7 @@
   .trust-inner > p span {
     margin-left: 6px;
   }
-  .trust-inner > div {
+  .client-links {
     flex-wrap: wrap;
     gap: 16px 25px;
     font-size: 15px;
@@ -539,14 +526,6 @@
   }
   .project-status {
     font-size: 9px;
-  }
-  .testimonial {
-    padding: 50px 0;
-  }
-  figcaption {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 7px;
   }
   .cta-inner {
     padding: 30px 23px;

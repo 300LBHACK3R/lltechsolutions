@@ -34,6 +34,8 @@ Browser QA and actual inbox delivery are separate release checks. A passing buil
 | Business details, social links and navigation | `src/config/site.ts`                                  |
 | Three service disciplines                     | `src/data/services.ts`                                |
 | Client projects and portfolio details         | `src/data/projects.ts`                                |
+| Exact supplied client testimonials            | `src/data/reviews.ts`                                 |
+| Public starting prices and pricing metadata   | `src/data/investments.ts`                             |
 | Shared metadata                               | `src/lib/metadata.ts`                                 |
 | Form options and validation                   | `src/lib/contact-validation.ts`                       |
 | Request size, origin and rate handling        | `src/lib/contact-security.ts`                         |
@@ -44,4 +46,4 @@ See `docs/ARCHITECTURE.md`, `docs/RELEASE_CHECKLIST.md`, `docs/CONTENT_PLAN.md` 
 
 ## Release provenance
 
-This cleanup starts from the inspected live repository commit `55b9d7bd573ad70bc35bc8926a4a3fd23606f764`. It is not an import of the uninspected earlier premium release ZIP. Uncommitted work on Tate's Windows computer has not been accessed or altered. The provided review-worktree script preserves that distinction.
+The original corporate cleanup started at `55b9d7bd` and was merged into production at `5304cc16`. This review carries forward the interactive studio revision `9968e5ba` and adds the client showcase, dedicated Reviews page and revised public starting prices. It is not an import of the earlier navy/white premium release ZIP. Uncommitted work on Tate's Windows computer has not been accessed or altered; the review-worktree installer preserves that separation.

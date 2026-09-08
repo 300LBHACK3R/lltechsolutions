@@ -3,6 +3,7 @@ export type Project = {
   id: string;
   title: string;
   category: ProjectCategory;
+  ownership: "client" | "studio";
   relationship?: string;
   status: string;
   description: string;
@@ -13,18 +14,21 @@ export type Project = {
   image?: string;
   imageAlt?: string;
   liveUrl?: string;
+  relatedWork?: { projectId: string; label: string };
   links?: { label: string; href: string; kind?: string }[];
 };
 
 export const projects: Project[] = [
   {
     id: "tow-n-go",
+    ownership: "client",
+    relatedWork: { projectId: "tow-n-go-digital", label: "Explore the monthly partnership" },
     title: "Tow-N-Go Trailers",
     category: "web-builds",
-    relationship: "Ongoing Digital Partner",
+    relationship: "Website & Monthly Digital Partner",
     status: "Live + Managed",
     description:
-      "A custom rental website and ongoing digital partnership for a growing Okanagan trailer business.",
+      "A custom rental website with monthly social media management, original content and ongoing website support for an Okanagan trailer business.",
     challenge:
       "Tow-N-Go needed more than a brochure website. The business required a professional fleet presentation, clear rental pathways, local search structure, customer trust signals, and an online presence that could keep growing with the company.",
     solution:
@@ -64,6 +68,7 @@ export const projects: Project[] = [
   },
   {
     id: "crestline",
+    ownership: "client",
     title: "Crestline Painting",
     category: "web-builds",
     relationship: "Custom Business Website",
@@ -98,6 +103,7 @@ export const projects: Project[] = [
   },
   {
     id: "mckenzie-house",
+    ownership: "client",
     title: "McKenzie House Massage",
     category: "web-builds",
     relationship: "Brand, Website & Launch System",
@@ -136,9 +142,10 @@ export const projects: Project[] = [
   },
   {
     id: "tates-tv",
+    ownership: "studio",
     title: "Tate's TV",
     category: "software-development",
-    relationship: "Custom Web Application",
+    relationship: "Our Own Software Product",
     status: "Live + Managed",
     description:
       "A custom media application with channel navigation, a live programme guide and interactive television controls.",
@@ -169,9 +176,10 @@ export const projects: Project[] = [
   },
   {
     id: "tate-byers",
+    ownership: "studio",
     title: "TateByers.ca",
     category: "web-builds",
-    relationship: "Developer Portfolio Experience",
+    relationship: "Our Founder’s Portfolio",
     status: "Live + Evolving",
     description:
       "A personal portfolio exploring custom interfaces, creative development and interactive navigation.",
@@ -198,16 +206,17 @@ export const projects: Project[] = [
   },
   {
     id: "tow-n-go-digital",
+    ownership: "client",
     title: "Tow-N-Go Digital Management",
     category: "social-media-management",
-    relationship: "Ongoing Digital Partner",
+    relationship: "Monthly Social Media & Content Partner",
     status: "Live + Managed",
     description:
-      "Website, Google Business, Facebook and TikTok brought together through ongoing content and management.",
+      "An ongoing monthly partnership connecting Facebook management, TikTok and short-form video, Google Business content and website maintenance.",
     challenge:
       "The business needed its website and social channels to communicate the same services consistently.",
     solution:
-      "Coordinate website updates, Google Business content, Facebook campaigns and short-form video around the real fleet and available services.",
+      "Plan and produce content around the real fleet and available services, manage Facebook and TikTok publishing, adapt campaigns for Google Business and keep the website current. Each month's work is coordinated as one brand presence.",
     result:
       "A consistent customer journey from social content and local discovery to the fleet and inquiry form.",
     services: [
@@ -240,10 +249,11 @@ export const projects: Project[] = [
   },
   {
     id: "mckenzie-digital-launch",
+    ownership: "client",
     title: "McKenzie House Massage Digital Launch",
     category: "social-media-management",
     relationship: "Website, Content & Google Launch",
-    status: "Live",
+    status: "Launch Delivered",
     description:
       "Original photography, service video and a coordinated digital launch for Heather’s massage practice.",
     challenge:
@@ -275,6 +285,26 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+export const clientWebsiteProjects = projects.filter(
+  (project) => project.ownership === "client" && project.category === "web-builds",
+);
+
+export const studioProjects = projects.filter((project) => project.ownership === "studio");
+
+export const contentProjects = projects.filter(
+  (project) => project.category === "social-media-management",
+);
+
+export function projectPath(project: Pick<Project, "category" | "id">) {
+  return `/projects/${project.category}#${project.id}`;
+}
+
+export function getProject(id: string) {
+  const project = projects.find((item) => item.id === id);
+  if (!project) throw new Error(`Unknown portfolio project: ${id}`);
+  return project;
+}
 
 export const projectCategories = [
   {

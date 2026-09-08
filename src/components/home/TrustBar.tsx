@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { clientWebsiteProjects, projectPath } from "@/data/projects";
+
 export default function TrustBar() {
   return (
     <section className="trust-strip" aria-label="Selected client partnerships">
@@ -5,13 +8,18 @@ export default function TrustBar() {
         <p>
           Real businesses.
           <br />
-          <span>Lasting partnerships.</span>
+          <span>Work you can explore.</span>
         </p>
-        <div>
-          <span>Tow-N-Go Trailers</span>
-          <span>Crestline Painting</span>
-          <span>McKenzie House Massage</span>
-        </div>
+        <nav className="client-links" aria-label="Our clients">
+          {clientWebsiteProjects.map((project) => (
+            <Link key={project.id} href={projectPath(project)}>
+              {project.title}
+            </Link>
+          ))}
+        </nav>
+        <Link href="/reviews" className="trust-review-link">
+          Client reviews <span aria-hidden="true">↗</span>
+        </Link>
       </div>
     </section>
   );

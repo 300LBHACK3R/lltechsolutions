@@ -3,7 +3,7 @@
 ## Before review
 
 - Use an isolated worktree or branch and preserve existing local work.
-- Confirm the live-source baseline is still appropriate; this release starts at `5304cc16`.
+- Confirm the live-source baseline is still appropriate; production was `5304cc16` when inspected. This release includes the unmerged interactive revision `9968e5ba` and the subsequent client/reviews/pricing refinements.
 - Run `npm ci`, formatting, `npm run check`, dependency audit, production build and `npm run smoke`.
 - Review the diff, including deleted files. Originals are recoverable from Git history.
 
@@ -15,6 +15,7 @@
 - Check contact service preselection, native validation, failure messaging and retained input.
 - Check OS reduced motion, the visitor motion switch, persistence across pages, blocked local storage, no hover-only actions and usable content with JavaScript unavailable. Changing motion preferences should stop active effects without hiding content.
 - Inspect every page for overflow, missing images, unreadable type and console errors.
+- Check all seven navigation destinations, both home logos, the three client website previews, Tow-N-Go's monthly partnership link and the dedicated Reviews layout. Confirm starting prices of $399+ CAD and $149+ CAD/month on Investment.
 
 ## Before production
 

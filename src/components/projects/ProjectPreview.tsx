@@ -1,16 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Project } from "@/data/projects";
-export default function ProjectPreview({ project }: { project: Project }) {
+import { getProject, projectPath, type Project } from "@/data/projects";
+export default function ProjectPreview({
+  project,
+  featured = false,
+}: {
+  project: Project;
+  featured?: boolean;
+}) {
   return (
-    <article className="project-preview">
+    <article className={`project-preview${featured ? " project-featured" : ""}`}>
       <div className="project-frame">
         <div className="project-frame-label" aria-hidden="true">
           <span>Selected work / L&L</span>
           <span>↗</span>
         </div>
         <Link
-          href={`/projects/${project.category}#${project.id}`}
+          href={projectPath(project)}
           className="project-image"
           aria-label={`Explore ${project.title}`}
         >
@@ -30,16 +36,26 @@ export default function ProjectPreview({ project }: { project: Project }) {
           )}
         </Link>
       </div>
-      <div className="project-preview-heading">
-        <div>
-          <p className="eyebrow">{project.relationship}</p>
-          <h3>
-            <Link href={`/projects/${project.category}#${project.id}`}>{project.title}</Link>
-          </h3>
+      <div className="project-preview-copy">
+        <div className="project-preview-heading">
+          <div>
+            <p className="eyebrow">{project.relationship}</p>
+            <h3>
+              <Link href={projectPath(project)}>{project.title}</Link>
+            </h3>
+          </div>
+          <span className="project-status">{project.status}</span>
         </div>
-        <span className="project-status">{project.status}</span>
+        <p className="muted">{project.description}</p>
+        {project.relatedWork && (
+          <Link
+            href={projectPath(getProject(project.relatedWork.projectId))}
+            className="text-link project-related-link"
+          >
+            {project.relatedWork.label} <span aria-hidden="true">↗</span>
+          </Link>
+        )}
       </div>
-      <p className="muted">{project.description}</p>
     </article>
   );
 }

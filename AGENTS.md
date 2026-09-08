@@ -12,7 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 - Preserve the approved black/gold identity. Use neutral charcoal for section separation.
 - Keep exactly three public disciplines: website development, software development, and social media/content.
-- Keep the homepage concise: hero, client strip, service preview, project preview, testimonial and final CTA.
+- Keep the homepage concise: hero, client strip, service preview, all three client website previews and final CTA. Full client testimonials live on /reviews; complete case studies, process, investment and contact have dedicated pages.
 - Use the existing logo and real project assets. Do not manufacture client identities, testimonials or performance results.
 - Heather's quoted testimonial must stay verbatim.
 - Business details and project data each have one canonical source. Do not recreate duplicate datasets/forms.

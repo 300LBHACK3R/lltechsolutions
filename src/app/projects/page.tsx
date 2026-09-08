@@ -2,21 +2,31 @@ import Link from "next/link";
 import PageIntro from "@/components/ui/PageIntro";
 import ProjectCTA from "@/components/ui/ProjectCTA";
 import ProjectPreview from "@/components/projects/ProjectPreview";
-import { projects, projectCategories } from "@/data/projects";
+import Reveal from "@/components/ui/Reveal";
+import {
+  projects,
+  projectCategories,
+  clientWebsiteProjects,
+  contentProjects,
+  studioProjects,
+  projectPath,
+} from "@/data/projects";
 import { pageMetadata } from "@/lib/metadata";
 import ProjectCollection from "@/components/seo/ProjectCollection";
+
 export const metadata = pageMetadata(
   "Selected Work & Client Projects",
-  "Explore L&L’s custom websites, software applications and managed digital partnerships, including Tow-N-Go, Crestline and McKenzie House Massage.",
+  "Explore websites for Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage, monthly social media partnerships and L&L’s own software projects.",
   "/projects",
 );
+
 export default function ProjectsPage() {
   return (
     <>
       <PageIntro
         eyebrow="Selected work"
-        title="Real businesses. Considered work."
-        description="Client websites, our own software products, and the content and management that connect them. Explore the work and the thinking behind it."
+        title="Real businesses. Work with purpose."
+        description="Explore our client websites, content partnerships and the software we build in our own studio. Every project has a different brief—and a clear reason behind the work."
       />
       <div className="container">
         <nav className="category-nav" aria-label="Project categories">
@@ -26,10 +36,85 @@ export default function ProjectsPage() {
             </Link>
           ))}
         </nav>
-        <div className="project-grid project-directory">
-          {projects.map((project) => (
-            <ProjectPreview key={project.id} project={project} />
-          ))}
+        <section className="portfolio-section" aria-labelledby="client-websites-title">
+          <Reveal>
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">01 / Client websites</p>
+                <h2 id="client-websites-title">Meet the businesses.</h2>
+              </div>
+              <p>
+                Distinct businesses. Individual design. Clear paths from a first visit to the next
+                step.
+              </p>
+            </div>
+          </Reveal>
+          <div className="project-grid client-project-grid">
+            {clientWebsiteProjects.map((project, index) => (
+              <ProjectPreview key={project.id} project={project} featured={index === 0} />
+            ))}
+          </div>
+        </section>
+        <section
+          className="portfolio-section portfolio-partnerships"
+          aria-labelledby="content-work-title"
+        >
+          <Reveal>
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">02 / Social media & content</p>
+                <h2 id="content-work-title">The presence around the website.</h2>
+              </div>
+              <p>
+                Original content, coordinated launches and ongoing support—with the scope of each
+                relationship made clear.
+              </p>
+            </div>
+          </Reveal>
+          <div className="partnership-list">
+            {contentProjects.map((project) => (
+              <article key={project.id} className="partnership-row">
+                <div>
+                  <p className="eyebrow">{project.relationship}</p>
+                  <h3>
+                    <Link href={projectPath(project)}>{project.title}</Link>
+                  </h3>
+                  <span className="partnership-status">{project.status}</span>
+                </div>
+                <div>
+                  <p>{project.description}</p>
+                  <Link href={projectPath(project)} className="text-link">
+                    Explore the partnership <span aria-hidden="true">↗</span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="portfolio-section" aria-labelledby="studio-projects-title">
+          <Reveal>
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">03 / Our own projects</p>
+                <h2 id="studio-projects-title">Built in our studio.</h2>
+              </div>
+              <p>
+                Our media application and founder’s portfolio show another side of the software and
+                interface work we do.
+              </p>
+            </div>
+          </Reveal>
+          <div className="project-grid">
+            {studioProjects.map((project) => (
+              <ProjectPreview key={project.id} project={project} />
+            ))}
+          </div>
+        </section>
+        <div className="portfolio-review-link">
+          <p>The working relationship matters too.</p>
+          <Link href="/reviews" className="text-link">
+            Read client reviews <span aria-hidden="true">↗</span>
+          </Link>
         </div>
       </div>
       <ProjectCollection

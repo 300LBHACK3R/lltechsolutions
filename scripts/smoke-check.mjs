@@ -37,6 +37,7 @@ try {
     "/projects/web-builds",
     "/projects/software-development",
     "/projects/social-media-management",
+    "/reviews",
     "/process",
     "/packages",
     "/contact",
@@ -91,6 +92,48 @@ try {
     checks++;
   }
   const home = htmlByRoute.get("/");
+  const homeMain = home.match(/<main\b[^>]*>(.*?)<\/main>/s)?.[1];
+  assert.ok(homeMain, "homepage content is present");
+  assert.ok(!homeMain.includes("<blockquote"), "full testimonials live on Reviews");
+  for (const clientId of ["tow-n-go", "crestline", "mckenzie-house"]) {
+    assert.ok(
+      homeMain.includes(`href="/projects/web-builds#${clientId}"`),
+      `homepage links to the ${clientId} client project`,
+    );
+  }
+  assert.ok(
+    homeMain.includes('href="/projects/social-media-management#tow-n-go-digital"'),
+    "homepage exposes Tow-N-Go’s monthly partnership",
+  );
+  const reviews = htmlByRoute.get("/reviews");
+  const approvedQuote =
+    "Tate has been a joy to work with. I am blown away by his professionalism and care. His communication has made me feel understood and heard each step of the way. Money well spent, especially on a complicated web project—I know it is in good hands with Tate.";
+  assert.ok(reviews.includes(approvedQuote), "Heather’s supplied testimonial remains verbatim");
+  assert.ok(reviews.includes("Heather Knorr"), "testimonial retains its attribution");
+  assert.ok(!reviews.includes("AggregateRating"), "no self-serving aggregate rating schema");
+  const investment = htmlByRoute.get("/packages");
+  assert.ok(investment.includes("$399+") && investment.includes("$149+"), "revised entry prices");
+  assert.ok(!/\$(?:499|199)/.test(investment), "retired starting prices are removed");
+  const investmentMetadata = investment.match(/name="description" content="([^"]+)"/)?.[1];
+  assert.ok(
+    investmentMetadata?.includes("$399") && investmentMetadata.includes("$149"),
+    "search description agrees with visible pricing",
+  );
+  for (const [route, html] of htmlByRoute) {
+    const logoLinks = [
+      ...html.matchAll(/<a\b[^>]*aria-label="L&amp;L Tech Solutions home"[^>]*>/g),
+    ];
+    assert.equal(logoLinks.length, 2, `${route}: header and footer logo links`);
+    for (const link of logoLinks)
+      assert.ok(link[0].includes('href="/"'), `${route}: logo goes home`);
+    assert.ok(html.includes('href="/reviews"'), `${route}: reviews navigation`);
+    for (const social of [
+      "https://www.facebook.com/profile.php?id=61557129795810",
+      "https://www.tiktok.com/@lltechsolutions",
+      "https://youtube.com/@LLTechSolutions/videos",
+    ])
+      assert.ok(html.includes(`href="${social}"`), `${route}: official social link ${social}`);
+  }
   const tabTags = [...home.matchAll(/<button\b[^>]*role="tab"[^>]*>/g)].map((match) => match[0]);
   assert.equal(tabTags.length, 6, "project and service tabs are present in server HTML");
   for (const tag of tabTags) {
@@ -143,7 +186,17 @@ try {
     "/opengraph-image",
     "/_next/image?url=%2Fbrand%2Flogo-mark.webp&w=256&q=75",
   ]) {
-    assert.equal((await fetch(origin + route)).status, 200, route);
+    const res = await fetch(origin + route);
+    assert.equal(res.status, 200, route);
+    if (route === "/sitemap.xml") {
+      const sitemap = await res.text();
+      for (const path of routes) {
+        assert.ok(
+          sitemap.includes(`<loc>${new URL(path, "https://lltechsolutions.ca").href}</loc>`),
+          `sitemap includes ${path}`,
+        );
+      }
+    }
     checks++;
   }
   let client = 0;

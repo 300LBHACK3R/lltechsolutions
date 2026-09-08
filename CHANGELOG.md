@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0 — Client showcase, reviews and investment
+
+- Preserved the interactive black/gold studio design and shortened the homepage to five sections.
+- Featured all three client websites, with a prominent link to Tow-N-Go's monthly social media/content partnership.
+- Grouped the work directory into client websites, content partnerships and studio-owned projects.
+- Moved Heather Knorr's exact testimonial to `/reviews`, with project context, unique metadata, breadcrumbs and sitemap/navigation entries.
+- Retained the header's home link and added a linked footer logo with larger footer touch targets.
+- Centralized website and social starting prices at $399+ CAD and $149+ CAD/month respectively. Software remains quoted after discovery; signed client agreements are unaffected.
+- Removed the replaced homepage testimonial component and styles; added focused portfolio/review styles with mobile, large-screen and reduced-motion handling.
+- Extended production checks for client links, exact testimonial wording, revised pricing, logo navigation, official social links and sitemap coverage.
+
 ## 1.1.0 — Interactive black and gold studio review
 
 - Rebuilt the hero around a layered real-project stage, stronger technology-focused typography and manual keyboard-accessible project selection.

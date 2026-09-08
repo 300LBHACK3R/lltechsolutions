@@ -14,6 +14,9 @@
   min-height: 96px;
 }
 .brand {
+  display: block;
+  position: relative;
+  z-index: 1;
   flex: 0 0 224px;
 }
 .brand img {
@@ -22,7 +25,7 @@
 }
 .desktop-nav {
   display: flex;
-  gap: 23px;
+  gap: 20px;
   align-items: center;
 }
 .desktop-nav a {
@@ -88,7 +91,10 @@
   color: var(--muted);
 }
 .footer-main a {
-  padding-block: 5px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-block: 8px;
   overflow-wrap: anywhere;
 }
 .footer-main a:hover {
@@ -112,4 +118,12 @@
 .footer-bottom div {
   display: flex;
   gap: 24px;
+}
+
+.footer-brand {
+  width: min(220px, 100%);
+}
+.footer-brand img {
+  width: 100%;
+  height: auto;
 }

@@ -301,9 +301,9 @@
 }
 .trust-inner {
   display: flex;
-  gap: 60px;
+  gap: 35px;
   align-items: center;
-  padding-block: 34px;
+  padding-block: 28px;
 }
 .trust-inner > p {
   color: #e6e6df;
@@ -314,7 +314,7 @@
 .trust-inner > p span {
   color: var(--muted);
 }
-.trust-inner > div {
+.client-links {
   display: flex;
   flex: 1;
   justify-content: space-between;
@@ -362,13 +362,54 @@ h2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 64px 38px;
 }
-.home-project-grid {
-  grid-template-columns: 1.12fr 0.88fr;
-  gap: 50px;
-  align-items: start;
+/* A single wide feature followed by two client previews. */
+.home-project-grid,
+.client-project-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 42px;
 }
-.home-project-grid > :nth-child(2) {
-  margin-top: 100px;
+.project-featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 55px;
+  align-items: center;
+  padding-bottom: 42px;
+  border-bottom: 1px solid var(--line);
+}
+.project-featured .project-preview-heading {
+  margin-top: 0;
+  flex-direction: column;
+  gap: 14px;
+}
+.project-featured h3 {
+  font-size: clamp(28px, 3vw, 43px);
+}
+.project-featured .project-preview-copy > p {
+  font-size: 15px;
+  max-width: 470px;
+}
+.project-related-link {
+  color: var(--gold-light);
+  margin-top: 15px;
+  font-size: 12px;
+}
+.client-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.client-links a:hover {
+  color: var(--gold-light);
+}
+.trust-review-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--gold-light);
+  font-size: 11px;
+  white-space: nowrap;
 }
 .project-frame {
   padding: 15px;
@@ -424,10 +465,13 @@ h2 {
   font-weight: 500;
   letter-spacing: -0.04em;
 }
-.project-preview > p {
+.project-preview-copy > p {
   font-size: 13px;
   margin-top: 13px;
   max-width: 560px;
+}
+.project-preview-copy {
+  min-width: 0;
 }
 .project-status {
   font-size: 10px;
@@ -452,40 +496,6 @@ h2 {
 }
 .project-placeholder small {
   margin-top: 12px;
-  color: var(--muted);
-}
-.testimonial {
-  position: relative;
-  padding: 90px 0;
-  background: linear-gradient(115deg, #22221f, #141413);
-  border-block: 1px solid #484535;
-}
-.testimonial-inner {
-  display: grid;
-  grid-template-columns: 0.65fr 2fr;
-  gap: 90px;
-}
-.testimonial-stars {
-  color: var(--gold-light);
-  letter-spacing: 0.2em;
-  font-size: 16px;
-  margin-top: 18px;
-}
-blockquote {
-  margin: 0;
-  font-family: var(--font-editorial), Georgia, serif;
-  font-size: clamp(28px, 2.9vw, 42px);
-  line-height: 1.35;
-  font-weight: 500;
-}
-figcaption {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-top: 28px;
-  font-size: 12px;
-}
-figcaption span {
   color: var(--muted);
 }
 .final-cta {

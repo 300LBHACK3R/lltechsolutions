@@ -2,40 +2,12 @@ import Link from "next/link";
 import PageIntro from "@/components/ui/PageIntro";
 import ProjectCTA from "@/components/ui/ProjectCTA";
 import { pageMetadata } from "@/lib/metadata";
+import { investments, investmentDescription } from "@/data/investments";
 export const metadata = pageMetadata(
   "Investment & Starting Prices",
-  "Custom business websites from $499, scoped software development and social management from $199 per month. Every engagement is quoted around its requirements.",
+  investmentDescription,
   "/packages",
 );
-const investments = [
-  {
-    title: "Custom Business Website",
-    label: "Starting point",
-    price: "$499+",
-    period: "",
-    description:
-      "For a focused business website with a clear scope. Content, page count, integrations and custom features shape the final quote.",
-    service: "Website Design & Development",
-  },
-  {
-    title: "Custom Software / Web App",
-    label: "Quoted after discovery",
-    price: "Scoped",
-    period: "",
-    description:
-      "For portals, dashboards, customer experiences and business tools. Workflows, users, integrations and ongoing needs define the investment.",
-    service: "Custom Software / Web Application",
-  },
-  {
-    title: "Social Management Partner",
-    label: "Starting point",
-    price: "$199+",
-    period: "/month",
-    description:
-      "For a consistent managed presence. Channels, posting cadence, original content and reporting are agreed in your monthly scope.",
-    service: "Social Media Management",
-  },
-];
 export default function InvestmentPage() {
   return (
     <>
@@ -54,7 +26,7 @@ export default function InvestmentPage() {
             <p>{item.description}</p>
             <div className="investment-action">
               <p className="investment-price">
-                {item.price}
+                {item.amount === null ? "Scoped" : `$${item.amount}+`}
                 <small>{item.period}</small>
               </p>
               <Link
