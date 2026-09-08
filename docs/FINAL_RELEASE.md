@@ -1,10 +1,14 @@
-# Compact footer and production release
+# Client previews, compact footer and production release
 
 Prepared September 8, 2026, following Tate's approval of the rest of the site and request to publish.
 
 ## Changes
 
-The footer uses a smaller linked logo, short location line, inline desktop navigation and a three-column phone navigation grid. Large repeated tagline text, the tall navigation column and surplus padding were removed. Email, telephone, all three social links, legal pages and motion preferences remain accessible. The rest of the approved interactive design is unchanged.
+The footer uses a smaller linked logo, short location line, inline desktop navigation and a three-column phone navigation grid. Large repeated tagline text, the tall navigation column and surplus padding were removed. Email, telephone, all three social links, legal pages and motion preferences remain accessible.
+
+The navigation is now Our Clients. The retired personal website was removed from the canonical project data and therefore from public portfolio content and structured data; Tate’s TV remains clearly labelled as L&L’s own software. Each of the six project examples now includes an inline, visitor-controlled MP4 preview. Three client websites have real captured scroll previews, Tate’s TV has a guide/remote interface tour, and the two content projects use Tate-supplied creative. No autoplay or third-party embed was added. See `PORTFOLIO_MEDIA.md` for source, accessibility and playback details.
+
+Additional relevant Google reviews were requested, but the saved source images could not be read in full. Heather’s exact supplied testimonial remains. No quotation was invented from search summaries; see `REVIEW_SOURCES.md` for the pending sources.
 
 ## Security and SEO review
 
@@ -25,7 +29,7 @@ The source includes `scripts/Publish-LandL.ps1`. The downloadable package places
 3. Install locked dependencies and run formatting, validation, lint, TypeScript, tests, audit, build and smoke checks.
 4. Push a release branch and wait for the Quality workflow for its exact commit.
 5. Recheck that main and the validated worktree have not changed. Push the tested commit to main using a normal fast-forward push. No force push or branch-protection bypass is used.
-6. Poll the public domain for the compact footer, Reviews, Investment and Contact pages and expected headers. This checks visible release content, not the exact internal Vercel deployment ID or inbox delivery.
+6. Poll the public domain for the compact footer, Our Clients navigation, six project videos, Reviews, Investment and Contact pages and expected headers. Check retired references are absent. This checks visible release content, not the exact internal Vercel deployment ID or inbox delivery.
 
 The original working directory, local main and uncommitted work are preserved. No stash is popped or credentials copied. The script stops if a required quality check cannot be confirmed. If GitHub requires a pull request, the main push will be rejected normally; use the printed PR link and repository-required workflow.
 

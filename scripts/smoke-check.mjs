@@ -82,6 +82,11 @@ try {
       !/Remote IT|CCTV|Network Infrastructure|Cat6/.test(html),
       `${route}: obsolete positioning`,
     );
+    assert.ok(
+      !/tate.?byers\.ca|tate-byers|Selected Work/i.test(html),
+      `${route}: retired public references`,
+    );
+    assert.ok(html.includes(">Our Clients</a>"), `${route}: current client navigation`);
     assert.ok(!res.headers.has("x-powered-by"));
     const csp = res.headers.get("content-security-policy");
     assert.ok(csp?.includes("frame-ancestors 'none'") && !csp.includes("unsafe-eval"));
@@ -155,6 +160,7 @@ try {
       if (
         href.startsWith("/_next/") ||
         href.startsWith("/brand/") ||
+        href.startsWith("/media/") ||
         href.startsWith("/favicon") ||
         href.startsWith("/manifest")
       )
@@ -167,6 +173,42 @@ try {
           `${source}: missing anchor ${href}`,
         );
     }
+  }
+  const mediaAssets = new Set();
+  for (const [route, expectedVideos] of [
+    ["/projects/web-builds", 3],
+    ["/projects/software-development", 1],
+    ["/projects/social-media-management", 2],
+  ]) {
+    const html = htmlByRoute.get(route);
+    const videos = [...html.matchAll(/<video\b[^>]*>/g)].map((match) => match[0]);
+    assert.equal(videos.length, expectedVideos, `${route}: every project has an inline preview`);
+    for (const video of videos) {
+      assert.ok(
+        video.includes('preload="none"') && !/autoplay/i.test(video),
+        `${route}: previews wait for visitor playback`,
+      );
+      assert.ok(
+        video.includes('controls=""') && video.includes('playsInline=""'),
+        `${route}: native controls and inline playback`,
+      );
+      assert.ok(video.includes("aria-describedby="), `${route}: equivalent visual description`);
+    }
+    for (const match of html.matchAll(/(?:src|poster)="(\/media\/[^\"]+)"/g))
+      mediaAssets.add(match[1]);
+  }
+  assert.equal(mediaAssets.size, 18, "six complete previews with posters and descriptions");
+  for (const asset of mediaAssets) {
+    const response = await fetch(origin + asset, { method: "HEAD" });
+    assert.equal(response.status, 200, asset);
+    assert.ok(Number(response.headers.get("content-length")) > 0, `${asset}: nonempty`);
+    if (asset.endsWith(".mp4")) {
+      assert.ok(response.headers.get("content-type")?.includes("video/mp4"), `${asset}: MIME type`);
+      const partial = await fetch(origin + asset, { headers: { Range: "bytes=0-31" } });
+      assert.equal(partial.status, 206, `${asset}: seeking supported`);
+      assert.equal((await partial.arrayBuffer()).byteLength, 32, `${asset}: byte range`);
+    }
+    checks++;
   }
   for (const [route, status] of [
     ["/projects/infrastructure", 308],

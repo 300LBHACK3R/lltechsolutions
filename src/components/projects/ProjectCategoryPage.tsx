@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import ProjectVideo from "@/components/projects/ProjectVideo";
 import {
   projects,
   projectCategories,
@@ -18,7 +18,7 @@ export default function ProjectCategoryPage({ category }: { category: ProjectCat
       <PageIntro eyebrow={meta.label} title={meta.title} description={meta.description} />
       <div className="container">
         <nav className="category-nav" aria-label="Project categories">
-          <Link href="/projects">All work</Link>
+          <Link href="/projects">Our clients & projects</Link>
           {projectCategories.map((item) => (
             <Link
               key={item.slug}
@@ -39,23 +39,7 @@ export default function ProjectCategoryPage({ category }: { category: ProjectCat
                 </div>
                 <span className="project-status">{project.status}</span>
               </div>
-              {project.image && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="case-image"
-                  aria-label={`Visit ${project.title} (opens in new tab)`}
-                >
-                  <Image
-                    src={project.image}
-                    alt={project.imageAlt ?? `${project.title} website interface`}
-                    width={1800}
-                    height={1013}
-                    sizes="(min-width: 2560px) 2080px, (min-width: 1900px) 1760px, (min-width: 1520px) 1440px, 94vw"
-                  />
-                </a>
-              )}
+              <ProjectVideo video={project.video} projectId={project.id} />
               <div className="case-body">
                 <div>
                   <p className="case-description">{project.description}</p>

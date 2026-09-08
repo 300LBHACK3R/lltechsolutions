@@ -15,7 +15,7 @@ import { pageMetadata } from "@/lib/metadata";
 import ProjectCollection from "@/components/seo/ProjectCollection";
 
 export const metadata = pageMetadata(
-  "Selected Work & Client Projects",
+  "Our Clients & Studio Projects",
   "Explore websites for Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage, monthly social media partnerships and L&L’s own software projects.",
   "/projects",
 );
@@ -24,7 +24,7 @@ export default function ProjectsPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Selected work"
+        eyebrow="Our clients"
         title="Real businesses. Work with purpose."
         description="Explore our client websites, content partnerships and the software we build in our own studio. Every project has a different brief—and a clear reason behind the work."
       />
@@ -84,7 +84,7 @@ export default function ProjectsPage() {
                 <div>
                   <p>{project.description}</p>
                   <Link href={projectPath(project)} className="text-link">
-                    Explore the partnership <span aria-hidden="true">↗</span>
+                    Watch the content & explore the partnership <span aria-hidden="true">↗</span>
                   </Link>
                 </div>
               </article>
@@ -95,18 +95,18 @@ export default function ProjectsPage() {
           <Reveal>
             <div className="section-heading">
               <div>
-                <p className="eyebrow">03 / Our own projects</p>
+                <p className="eyebrow">03 / Our own software</p>
                 <h2 id="studio-projects-title">Built in our studio.</h2>
               </div>
               <p>
-                Our media application and founder’s portfolio show another side of the software and
-                interface work we do.
+                Tate’s TV brings our software and interface work together in a media application we
+                continue to develop and manage.
               </p>
             </div>
           </Reveal>
           <div className="project-grid">
             {studioProjects.map((project) => (
-              <ProjectPreview key={project.id} project={project} />
+              <ProjectPreview key={project.id} project={project} featured />
             ))}
           </div>
         </section>
@@ -118,7 +118,7 @@ export default function ProjectsPage() {
         </div>
       </div>
       <ProjectCollection
-        title="Selected Work & Client Projects"
+        title="Our Clients & Studio Projects"
         path="/projects"
         projects={projects}
       />

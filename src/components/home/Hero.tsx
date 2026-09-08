@@ -31,7 +31,7 @@ export default function Hero() {
                 Start A Project <span aria-hidden="true">↗</span>
               </Link>
               <Link href="/projects" className="text-link">
-                Explore Selected Work <span aria-hidden="true">→</span>
+                Meet Our Clients <span aria-hidden="true">→</span>
               </Link>
             </div>
           </div>

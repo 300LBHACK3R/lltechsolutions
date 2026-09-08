@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0 — Client video previews
+
+- Rename Selected Work navigation to Our Clients and remove the personal website from public project content.
+- Add six inline previews using real public website captures and supplied client content, with native controls, no autoplay, local posters and visual descriptions.
+- Keep Tate’s TV distinct as studio software, and present its guide/remote interface without claiming verified streaming playback.
+- Extend asset and HTTP checks to all media files, seek support and retired-reference removal; update production publication checks.
+- Document pending Google-review sources without inventing quotations from unreadable screenshots.
+
 ## 1.2.1 — Compact footer and production handoff
 
 - Reduced footer padding and logo size, removed the repeated large statement and replaced vertical navigation with compact desktop links and a mobile grid.

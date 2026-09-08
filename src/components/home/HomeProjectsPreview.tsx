@@ -13,7 +13,7 @@ export default function HomeProjectsPreview() {
               <h2 id="home-work-title">Built for real businesses.</h2>
             </div>
             <Link className="text-link" href="/projects">
-              Explore all projects <span aria-hidden="true">↗</span>
+              Meet our clients <span aria-hidden="true">↗</span>
             </Link>
           </div>
           <div className="project-grid home-project-grid">

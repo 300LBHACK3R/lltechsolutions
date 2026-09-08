@@ -73,7 +73,7 @@ export default function ReviewsPage() {
           <p>Get a feel for the work—and how we work together.</p>
           <nav aria-label="Explore working with L&L">
             <Link href="/projects" className="text-link">
-              Selected work ↗
+              Our clients ↗
             </Link>
             <Link href="/process" className="text-link">
               Our process ↗

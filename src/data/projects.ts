@@ -1,4 +1,15 @@
 export type ProjectCategory = "web-builds" | "software-development" | "social-media-management";
+export type ProjectVideo = {
+  src: string;
+  poster: string;
+  title: string;
+  description: string;
+  descriptionTrack: string;
+  durationLabel: string;
+  width: number;
+  height: number;
+  portrait?: boolean;
+};
 export type Project = {
   id: string;
   title: string;
@@ -11,6 +22,7 @@ export type Project = {
   solution: string;
   result: string;
   services: string[];
+  video: ProjectVideo;
   image?: string;
   imageAlt?: string;
   liveUrl?: string;
@@ -46,6 +58,17 @@ export const projects: Project[] = [
       "Website maintenance and ongoing growth",
     ],
     image: "/images/projects/tow-n-go.webp",
+    video: {
+      src: "/media/projects/tow-n-go-website.mp4",
+      poster: "/media/projects/tow-n-go-website.webp",
+      title: "Tow-N-Go website walkthrough",
+      description:
+        "A scroll preview of the homepage, fleet presentation, services and rental inquiry pathway, captured from the public website. Explore the monthly partnership below for an example of our social content.",
+      descriptionTrack: "/media/projects/tow-n-go-website.vtt",
+      durationLabel: "26 sec",
+      width: 1280,
+      height: 880,
+    },
     imageAlt: "Tow-N-Go Trailers custom rental website showcase",
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [
@@ -91,6 +114,17 @@ export const projects: Project[] = [
       "Brand positioning",
     ],
     image: "/images/projects/crestline.webp",
+    video: {
+      src: "/media/projects/crestline-website.mp4",
+      poster: "/media/projects/crestline-website.webp",
+      title: "Crestline website walkthrough",
+      description:
+        "A scroll preview of Crestline’s service presentation, company introduction, real project gallery and quote pathway, captured from the public website.",
+      descriptionTrack: "/media/projects/crestline-website.vtt",
+      durationLabel: "26 sec",
+      width: 1280,
+      height: 880,
+    },
     imageAlt: "Crestline Painting custom business website showcase",
     liveUrl: "https://www.crestlinepainting.ca/",
     links: [
@@ -125,6 +159,17 @@ export const projects: Project[] = [
       "Google Business launch support",
     ],
     image: "/images/projects/mckenzie-house.webp",
+    video: {
+      src: "/media/projects/mckenzie-website.mp4",
+      poster: "/media/projects/mckenzie-website.webp",
+      title: "McKenzie House website walkthrough",
+      description:
+        "A scroll preview of the treatment-space imagery, service presentation, client information and ClinicSense booking pathway, captured from the public website.",
+      descriptionTrack: "/media/projects/mckenzie-website.vtt",
+      durationLabel: "26 sec",
+      width: 1280,
+      height: 880,
+    },
     imageAlt: "McKenzie House Massage premium website showcase",
     liveUrl: "https://mckenziehousemassage.ca/",
     links: [
@@ -164,42 +209,23 @@ export const projects: Project[] = [
       "Ongoing development",
     ],
     image: "/images/projects/tates-tv.webp",
+    video: {
+      src: "/media/projects/tates-tv-interface.mp4",
+      poster: "/media/projects/tates-tv-interface.webp",
+      title: "Tate’s TV guide & controls",
+      description:
+        "A visual tour of the programme guide and on-screen remote, using captured application screens. This preview focuses on interface design; programme availability changes on the live application.",
+      descriptionTrack: "/media/projects/tates-tv-interface.vtt",
+      durationLabel: "16 sec",
+      width: 1280,
+      height: 880,
+    },
     imageAlt: "Tate's TV custom streaming web application showcase",
     liveUrl: "https://www.tatestv.ca/",
     links: [
       {
         label: "Open Tate's TV",
         href: "https://www.tatestv.ca/",
-        kind: "website",
-      },
-    ],
-  },
-  {
-    id: "tate-byers",
-    ownership: "studio",
-    title: "TateByers.ca",
-    category: "web-builds",
-    relationship: "Our Founder’s Portfolio",
-    status: "Live + Evolving",
-    description:
-      "A personal portfolio exploring custom interfaces, creative development and interactive navigation.",
-    challenge:
-      "A conventional portfolio would not accurately represent the developer behind the work. The project needed to feel interactive, memorable, technically ambitious, and completely different from a standard résumé website.",
-    solution:
-      "Developed custom interface states, project navigation and social-link integration, with an evolving creative direction.",
-    result:
-      "A distinctive portfolio product that demonstrates interface design, front-end architecture, animation, creative development, and the ability to turn an unusual concept into a functional web experience.",
-    services: [
-      "Creative website design",
-      "Custom front-end development",
-      "Interactive navigation",
-      "Portfolio and social links",
-    ],
-    liveUrl: "https://www.tatebyers.ca/",
-    links: [
-      {
-        label: "Open Portfolio",
-        href: "https://www.tatebyers.ca/",
         kind: "website",
       },
     ],
@@ -227,6 +253,18 @@ export const projects: Project[] = [
       "Website maintenance",
     ],
     image: "/images/projects/tow-n-go.webp",
+    video: {
+      src: "/media/projects/tow-n-go-content.mp4",
+      poster: "/media/projects/tow-n-go-content.webp",
+      title: "Tow-N-Go social content",
+      description:
+        "A fleet education Reel from the monthly content partnership. On-screen labels introduce enclosed-trailer components before the branded booking message. Rental customers load their cargo; Tow-N-Go’s transport service hauls prepared loads.",
+      descriptionTrack: "/media/projects/tow-n-go-content.vtt",
+      durationLabel: "23 sec",
+      width: 720,
+      height: 1280,
+      portrait: true,
+    },
     imageAlt: "Tow-N-Go Trailers custom rental website showcase",
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [
@@ -269,6 +307,17 @@ export const projects: Project[] = [
       "Google Business launch",
     ],
     image: "/images/projects/mckenzie-house.webp",
+    video: {
+      src: "/media/projects/mckenzie-launch.mp4",
+      poster: "/media/projects/mckenzie-launch.webp",
+      title: "McKenzie House launch showcase",
+      description:
+        "A before-and-after showcase comparing the previous website with the custom green-and-cream design, treatment content and booking journey. This is a completed launch project.",
+      descriptionTrack: "/media/projects/mckenzie-launch.vtt",
+      durationLabel: "33 sec",
+      width: 1280,
+      height: 598,
+    },
     imageAlt: "McKenzie House Massage premium website showcase",
     liveUrl: "https://mckenziehousemassage.ca/",
     links: [

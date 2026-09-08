@@ -55,8 +55,8 @@ function Test-PublicRelease {
     do {
         try {
             $Page = Invoke-WebRequest -Uri "https://lltechsolutions.ca/?release=$Commit" -UseBasicParsing -Headers $Headers -TimeoutSec 20
-            if ($Page.StatusCode -eq 200 -and $Page.Content -match 'footer-compact') {
-                foreach ($Route in @('/reviews', '/packages', '/contact')) {
+            if ($Page.StatusCode -eq 200 -and $Page.Content -match 'footer-compact' -and $Page.Content -match '>Our Clients</a>') {
+                foreach ($Route in @('/reviews', '/packages', '/contact', '/projects/web-builds', '/projects/software-development', '/projects/social-media-management')) {
                     $Check = Invoke-WebRequest -Uri "https://lltechsolutions.ca${Route}?release=$Commit" -UseBasicParsing -Headers $Headers -TimeoutSec 20
                     if ($Check.StatusCode -ne 200 -or $Check.Content -notmatch 'footer-compact') {
                         throw "The updated $Route page is not yet available."
@@ -70,9 +70,21 @@ function Test-PublicRelease {
                     if ($Route -eq '/packages' -and ($Check.Content -notmatch '\$399\+' -or $Check.Content -notmatch '\$149\+')) {
                         throw 'The new starting prices are not visible yet.'
                     }
+                    if ($Check.Content -match 'tate.?byers\.ca|tate-byers|Selected Work') {
+                        throw "Retired portfolio references are still present on $Route."
+                    }
+                    if ($Route -like '/projects/*' -and $Check.Content -notmatch 'data-project-video') {
+                        throw "The inline previews are not visible on $Route yet."
+                    }
+                }
+                foreach ($Video in @('tow-n-go-website', 'crestline-website', 'mckenzie-website', 'tates-tv-interface', 'tow-n-go-content', 'mckenzie-launch')) {
+                    $Media = Invoke-WebRequest -Uri "https://lltechsolutions.ca/media/projects/${Video}.mp4?release=$Commit" -Method Head -UseBasicParsing -Headers $Headers -TimeoutSec 20
+                    if ($Media.StatusCode -ne 200 -or $Media.Headers['Content-Type'] -notmatch 'video/mp4') {
+                        throw "The $Video preview is not available yet."
+                    }
                 }
                 Write-Host 'LIVE SITE CHECKS PASSED: https://lltechsolutions.ca' -ForegroundColor Green
-                Write-Host 'The compact footer, Reviews, Investment and Contact pages are available. Inbox delivery still needs a real enquiry and receipt check.'
+                Write-Host 'The compact footer, Our Clients navigation, six preview videos, Reviews, Investment and Contact pages are available. Inbox delivery still needs a real enquiry and receipt check.'
                 return
             }
         } catch {

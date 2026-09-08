@@ -12,7 +12,7 @@ export default function ProjectPreview({
     <article className={`project-preview${featured ? " project-featured" : ""}`}>
       <div className="project-frame">
         <div className="project-frame-label" aria-hidden="true">
-          <span>Selected work / L&L</span>
+          <span>{project.ownership === "client" ? "Client project" : "Studio project"} / L&L</span>
           <span>↗</span>
         </div>
         <Link
@@ -47,6 +47,9 @@ export default function ProjectPreview({
           <span className="project-status">{project.status}</span>
         </div>
         <p className="muted">{project.description}</p>
+        <Link href={projectPath(project)} className="text-link project-watch-link">
+          Watch the project preview <span aria-hidden="true">↗</span>
+        </Link>
         {project.relatedWork && (
           <Link
             href={projectPath(getProject(project.relatedWork.projectId))}

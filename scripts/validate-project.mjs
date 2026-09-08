@@ -14,7 +14,7 @@ walk("src");
 const errors = [];
 for (const name of files.filter((name) => /\.(tsx?|css)$/.test(name))) {
   const text = fs.readFileSync(name, "utf8");
-  for (const [, asset] of text.matchAll(/["'`](\/(?:images|brand)\/[^"'`\s]+)["'`]/g)) {
+  for (const [, asset] of text.matchAll(/["'`](\/(?:images|brand|media)\/[^"'`\s]+)["'`]/g)) {
     if (!fs.existsSync(path.join("public", asset))) errors.push(`${name}: missing asset ${asset}`);
   }
   if (!/\.tsx?$/.test(name)) continue;

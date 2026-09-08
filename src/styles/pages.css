@@ -96,19 +96,6 @@
 .case-heading h2 {
   margin-top: 14px;
 }
-.case-image {
-  display: block;
-  border: 1px solid var(--line);
-  overflow: hidden;
-  border-radius: 4px;
-}
-.case-image img {
-  width: 100%;
-  height: auto;
-  max-height: 660px;
-  object-fit: cover;
-  object-position: top;
-}
 .case-body {
   display: grid;
   grid-template-columns: 1.4fr 1fr;

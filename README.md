@@ -23,7 +23,7 @@ npm run build
 npm run smoke
 ```
 
-`check` verifies local imports/assets, ESLint, route types/TypeScript and contact security tests. `smoke` starts a separate production server on port 3198 and checks pages, canonical URLs, internal links, anchors, headers, redirects, metadata assets and contact rejection paths. Its child server has the Resend key removed, so it cannot deliver external email.
+`check` verifies local imports/assets, ESLint, route types/TypeScript and contact security tests. `smoke` starts a separate production server on port 3198 and checks pages, canonical URLs, internal links, anchors, headers, redirects, metadata assets, inline media/range responses and contact rejection paths. Its child server has the Resend key removed, so it cannot deliver external email.
 
 Browser QA and actual inbox delivery are separate release checks. A passing build does not establish either.
 
@@ -44,7 +44,7 @@ Browser QA and actual inbox delivery are separate release checks. A passing buil
 
 See `docs/ARCHITECTURE.md`, `docs/RELEASE_CHECKLIST.md`, `docs/CONTENT_PLAN.md` and `docs/VERIFICATION.md`.
 
-For the compact footer release and publication workflow, see `docs/FINAL_RELEASE.md`. Email configuration and receipt testing are covered in `docs/CONTACT_SETUP.md`.
+For the compact footer, client previews and publication workflow, see `docs/FINAL_RELEASE.md`. Email configuration and receipt testing are covered in `docs/CONTACT_SETUP.md`. Media provenance and replacement instructions are in `docs/PORTFOLIO_MEDIA.md`; review source requirements are in `docs/REVIEW_SOURCES.md`.
 
 ## Release provenance
 

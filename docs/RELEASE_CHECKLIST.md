@@ -16,6 +16,8 @@
 - Check OS reduced motion, the visitor motion switch, persistence across pages, blocked local storage, no hover-only actions and usable content with JavaScript unavailable. Changing motion preferences should stop active effects without hiding content.
 - Inspect every page for overflow, missing images, unreadable type and console errors.
 - Check all seven navigation destinations, both home logos, the three client website previews, Tow-N-Go's monthly partnership link and the dedicated Reviews layout. Confirm starting prices of $399+ CAD and $149+ CAD/month on Investment.
+- Check all six inline previews: play/pause, seeking, full screen, portrait orientation, browser back, native keyboard controls and failure fallback. Confirm there is no autoplay or cross-tab launch when selecting a project preview.
+- Confirm Our Clients navigation and the absence of the retired personal website in public copy and structured data. Review any new Google quotations against their original source; pending sources are documented in `REVIEW_SOURCES.md`.
 
 ## Before production
 
