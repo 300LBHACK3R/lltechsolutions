@@ -118,7 +118,43 @@
 .portfolio-review-link .text-link {
   color: var(--gold-light);
 }
+.case-body > *,
+.case-sidebar {
+  min-width: 0;
+}
+.case-body dd {
+  max-width: 70ch;
+}
+.case-implementation {
+  margin-top: 32px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+.case-implementation h3 {
+  margin: 0 0 12px;
+}
+.case-implementation h3:not(:first-child) {
+  margin-top: 26px;
+}
+.case-implementation p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.case-implementation .case-tools {
+  color: var(--gold-light);
+  font-size: 13px;
+}
+
 @media (min-width: 1900px) {
+  .case-implementation p {
+    font-size: 16px;
+  }
+  .case-implementation .case-tools {
+    font-size: 15px;
+  }
   .project-featured {
     gap: 80px;
   }

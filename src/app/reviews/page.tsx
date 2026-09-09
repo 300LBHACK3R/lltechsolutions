@@ -11,7 +11,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
   "Client Reviews & Testimonials",
-  "Read client feedback about working with L&L Tech Solutions, including Heather Knorr of McKenzie House Massage. Explore the work behind the testimonial.",
+  "Read feedback from Heather Knorr of McKenzie House Massage and Chad Muxlow of Tow-N-Go Trailers about L&L’s website and digital work.",
   "/reviews",
 );
 
@@ -21,16 +21,19 @@ export default function ReviewsPage() {
       <PageIntro
         eyebrow="Client reviews"
         title="Good work starts with a good working relationship."
-        description="Communication, care and attention to the business behind the brief. Here’s what working with L&L has meant to a client."
+        description="Communication, care and attention to the business behind the brief. Hear from the clients behind the websites and ongoing partnerships."
       />
       <div className="container review-directory">
         {clientReviews.map((review) => {
           const project = getProject(review.projectId);
           return (
-            <Reveal key={review.id}>
-              <article className="client-review" aria-labelledby={`review-${review.id}`}>
+            <Reveal key={review.id} className="review-entry">
+              <article
+                className={`client-review${review.quote.length > 450 ? " client-review-detailed" : ""}`}
+                aria-labelledby={`review-${review.id}`}
+              >
                 <div className="review-quote-panel">
-                  <p className="eyebrow">In our client’s words</p>
+                  <p className="eyebrow">{review.sourceLabel}</p>
                   <p className="review-stars" aria-label={`${review.rating} out of 5 stars`}>
                     ★★★★★
                   </p>

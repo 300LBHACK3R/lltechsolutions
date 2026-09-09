@@ -9,6 +9,9 @@
   border-radius: 6px;
   overflow: hidden;
 }
+.review-entry + .review-entry {
+  margin-top: 32px;
+}
 .review-quote-panel {
   padding: clamp(30px, 4vw, 65px);
   background: linear-gradient(130deg, #25251f, #151512);
@@ -28,6 +31,11 @@
   font-size: clamp(29px, 2.8vw, 45px);
   line-height: 1.35;
   font-weight: 500;
+  white-space: pre-line;
+}
+.client-review.client-review-detailed blockquote {
+  font-size: clamp(23px, 2.1vw, 34px);
+  line-height: 1.5;
 }
 .client-review figcaption {
   display: flex;

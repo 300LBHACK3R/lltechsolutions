@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { ProjectVideo as ProjectVideoData } from "@/data/projects";
+import type { ProjectVideo as ProjectVideoData } from "@/data/project-videos";
 
 export default function ProjectVideo({
   video,
@@ -17,7 +17,9 @@ export default function ProjectVideo({
     <figure className={`project-video${video.portrait ? " project-video-portrait" : ""}`}>
       <div className="project-video-heading">
         <span>{video.title}</span>
-        <span>{video.durationLabel} · Silent preview</span>
+        <span>
+          {video.durationLabel} · {video.hasAudio ? "Video preview" : "Silent preview"}
+        </span>
       </div>
       <video
         controls
@@ -47,6 +49,9 @@ export default function ProjectVideo({
           srcLang="en"
           label="Visual description"
         />
+        {video.captionsTrack && (
+          <track kind="captions" src={video.captionsTrack} srcLang="en" label="English captions" />
+        )}
         Your browser does not support embedded video. Use the video link below.
       </video>
       <figcaption id={captionId}>

@@ -1,6 +1,6 @@
 # Portfolio preview media
 
-Prepared September 8, 2026. Every project entry points to one local MP4, one WebP poster and one WebVTT visual-description track in `public/media/projects`. `src/data/projects.ts` is the canonical mapping. No third-party player, iframe, tracker or API key is required.
+Media prepared September 8, 2026; replacement workflow updated September 9. Every project entry points to one local MP4, one WebP poster and one WebVTT visual-description track in `public/media/projects`. `src/data/project-videos.ts` is the canonical media mapping. No third-party player, iframe, tracker or API key is required.
 
 ## Sources and editorial treatment
 
@@ -30,6 +30,8 @@ During the public Tate’s TV capture, the browser showed a video-format playbac
 
 ## Updating a preview
 
-Use real approved footage. Replace the corresponding MP4, poster and description track together, update the typed dimensions, duration and copy in `src/data/projects.ts`, and rerun the quality gates. Keep paths stable only when the content is intended to replace that exact preview. For clips with narration, retain the original audio and add a captions track before publishing.
+Use real approved footage. Replace the corresponding MP4, poster and description track together, update the typed dimensions, duration and copy in `src/data/project-videos.ts`, and rerun the quality gates. Keep paths stable only when the content is intended to replace that exact preview. Narrated replacements can set `hasAudio: true` and provide an accurate `captionsTrack`.
 
-`npm run validate` checks local media references. `npm run smoke` checks all six players, no autoplay, native controls, equivalent descriptions, all 18 media assets and MP4 range requests. Codec, duration, fast-start layout and representative frames were checked with FFmpeg/ffprobe during preparation. Actual browser playback on the new build still needs device review; local and protected preview browsing was unavailable in this environment.
+See [Replacing your portfolio videos](REPLACING_PROJECT_VIDEOS.md) for all six filenames, configuration instructions and suggested page-by-page recordings. The September 9 update retains the existing media: new interior-page captures could not be transferred for video export, so no fuller click-through recording is included.
+
+`npm run validate` checks local media references. `npm run smoke` checks all six players, no autoplay, native controls, equivalent descriptions, all 18 current media assets and MP4 range requests. It also checks any captions files added to the rendered players. Codec, duration, fast-start layout and representative frames were checked with FFmpeg/ffprobe during preparation. Actual browser playback on the new build still needs device review; local and protected preview browsing was unavailable in this environment.

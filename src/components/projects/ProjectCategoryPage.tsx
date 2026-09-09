@@ -52,13 +52,23 @@ export default function ProjectCategoryPage({ category }: { category: ProjectCat
                     <dd>{project.result}</dd>
                   </dl>
                 </div>
-                <aside>
+                <aside className="case-sidebar">
                   <h3>Project scope</h3>
                   <ul className="capability-list">
                     {project.services.map((service) => (
                       <li key={service}>{service}</li>
                     ))}
                   </ul>
+                  <section
+                    className="case-implementation"
+                    aria-labelledby={`${project.id}-implementation`}
+                  >
+                    <h3 id={`${project.id}-implementation`}>{project.implementation.label}</h3>
+                    <p className="case-tools">{project.implementation.tools.join(" / ")}</p>
+                    <p>{project.implementation.summary}</p>
+                    <h3>{project.implementation.operationsLabel}</h3>
+                    <p>{project.implementation.operations}</p>
+                  </section>
                   <div className="case-links">
                     {project.relatedWork && (
                       <Link

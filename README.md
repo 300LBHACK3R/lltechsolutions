@@ -34,6 +34,7 @@ Browser QA and actual inbox delivery are separate release checks. A passing buil
 | Business details, social links and navigation | `src/config/site.ts`                                  |
 | Three service disciplines                     | `src/data/services.ts`                                |
 | Client projects and portfolio details         | `src/data/projects.ts`                                |
+| Preview files, dimensions and captions        | `src/data/project-videos.ts`                          |
 | Exact supplied client testimonials            | `src/data/reviews.ts`                                 |
 | Public starting prices and pricing metadata   | `src/data/investments.ts`                             |
 | Shared metadata                               | `src/lib/metadata.ts`                                 |
@@ -44,7 +45,7 @@ Browser QA and actual inbox delivery are separate release checks. A passing buil
 
 See `docs/ARCHITECTURE.md`, `docs/RELEASE_CHECKLIST.md`, `docs/CONTENT_PLAN.md` and `docs/VERIFICATION.md`.
 
-For the compact footer, client previews and publication workflow, see `docs/FINAL_RELEASE.md`. Email configuration and receipt testing are covered in `docs/CONTACT_SETUP.md`. Media provenance and replacement instructions are in `docs/PORTFOLIO_MEDIA.md`; review source requirements are in `docs/REVIEW_SOURCES.md`.
+For the expanded project details and new review, see `docs/PROJECT_DETAIL_UPDATE.md`. The compact footer and publication workflow are covered in `docs/FINAL_RELEASE.md`. Email configuration and receipt testing are in `docs/CONTACT_SETUP.md`. Media provenance is documented in `docs/PORTFOLIO_MEDIA.md`; the step-by-step replacement guide is `docs/REPLACING_PROJECT_VIDEOS.md`. Review sources are in `docs/REVIEW_SOURCES.md`.
 
 ## Release provenance
 

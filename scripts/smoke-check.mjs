@@ -116,6 +116,41 @@ try {
   assert.ok(reviews.includes(approvedQuote), "Heather’s supplied testimonial remains verbatim");
   assert.ok(reviews.includes("Heather Knorr"), "testimonial retains its attribution");
   assert.ok(!reviews.includes("AggregateRating"), "no self-serving aggregate rating schema");
+  const approvedChadQuote =
+    "I have recently had the pleasure of working with Tate from L&L Tech Solutions and the experience has been nothing short of exceptional. He has worked with our small start-up creating a website that very much aligns with our vision.\n\nHe has been highly professional throughout, completing the work ahead of schedule, maintaining consistent communication, and delivering a quality product.\n\nWe are continuing to work with Tate and are super excited to see what Phase 2 of creating our brand looks like.";
+  assert.ok(
+    reviews.replaceAll("&amp;", "&").includes(approvedChadQuote),
+    "Chad’s supplied review remains complete and verbatim",
+  );
+  assert.ok(
+    reviews.includes("Chad Muxlow") && reviews.includes("Google review"),
+    "Chad retains author and source attribution",
+  );
+  assert.ok(
+    !homeMain.replaceAll("&amp;", "&").includes(approvedChadQuote),
+    "the full new review stays on its dedicated page",
+  );
+  for (const [route, expected] of [
+    ["/projects/web-builds", 3],
+    ["/projects/software-development", 1],
+    ["/projects/social-media-management", 2],
+  ]) {
+    const page = htmlByRoute.get(route);
+    assert.equal(
+      (page.match(/class="case-implementation"/g) || []).length,
+      expected,
+      "each project explains its implementation",
+    );
+  }
+  assert.ok(
+    htmlByRoute.get("/projects/web-builds").includes("ClinicSense"),
+    "booking platform is explained",
+  );
+  assert.ok(
+    htmlByRoute.get("/projects/software-development").includes("Cloudflare R2"),
+    "software media architecture is explained",
+  );
+
   const investment = htmlByRoute.get("/packages");
   assert.ok(investment.includes("$399+") && investment.includes("$149+"), "revised entry prices");
   assert.ok(!/\$(?:499|199)/.test(investment), "retired starting prices are removed");
@@ -181,7 +216,7 @@ try {
     ["/projects/social-media-management", 2],
   ]) {
     const html = htmlByRoute.get(route);
-    const videos = [...html.matchAll(/<video\b[^>]*>/g)].map((match) => match[0]);
+    const videos = [...html.matchAll(/<video\b[^>]*>[\s\S]*?<\/video>/g)].map((match) => match[0]);
     assert.equal(videos.length, expectedVideos, `${route}: every project has an inline preview`);
     for (const video of videos) {
       assert.ok(
@@ -193,11 +228,15 @@ try {
         `${route}: native controls and inline playback`,
       );
       assert.ok(video.includes("aria-describedby="), `${route}: equivalent visual description`);
+      assert.ok(
+        /<track\b[^>]*kind="descriptions"[^>]*src="\/media\/[^\"]+\.vtt"/.test(video),
+        `${route}: every preview has a visual-description track`,
+      );
     }
     for (const match of html.matchAll(/(?:src|poster)="(\/media\/[^\"]+)"/g))
       mediaAssets.add(match[1]);
   }
-  assert.equal(mediaAssets.size, 18, "six complete previews with posters and descriptions");
+  assert.ok(mediaAssets.size >= 18, "six complete previews, with room for optional captions");
   for (const asset of mediaAssets) {
     const response = await fetch(origin + asset, { method: "HEAD" });
     assert.equal(response.status, 200, asset);

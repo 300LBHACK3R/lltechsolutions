@@ -73,6 +73,12 @@ function Test-PublicRelease {
                     if ($Check.Content -match 'tate.?byers\.ca|tate-byers|Selected Work') {
                         throw "Retired portfolio references are still present on $Route."
                     }
+                    if ($Route -eq '/reviews' -and $Check.Content -notmatch 'Chad Muxlow') {
+                        throw 'The new Chad Muxlow review is not visible yet.'
+                    }
+                    if ($Route -like '/projects/*' -and $Check.Content -notmatch 'case-implementation') {
+                        throw "The project implementation details are not visible on $Route yet."
+                    }
                     if ($Route -like '/projects/*' -and $Check.Content -notmatch 'data-project-video') {
                         throw "The inline previews are not visible on $Route yet."
                     }
@@ -84,7 +90,7 @@ function Test-PublicRelease {
                     }
                 }
                 Write-Host 'LIVE SITE CHECKS PASSED: https://lltechsolutions.ca' -ForegroundColor Green
-                Write-Host 'The compact footer, Our Clients navigation, six preview videos, Reviews, Investment and Contact pages are available. Inbox delivery still needs a real enquiry and receipt check.'
+                Write-Host 'The expanded client details, Chad Muxlow review, six preview videos and existing production pages are available. Inbox delivery still needs a real enquiry and receipt check.'
                 return
             }
         } catch {
@@ -124,7 +130,7 @@ try {
     $ReleaseDirectory = (Resolve-Path -LiteralPath $ReleaseDirectory).ProviderPath
     foreach ($RequiredFile in @('release.json', 'landl-final-release.bundle')) {
         if (-not (Test-Path -LiteralPath (Join-Path $ReleaseDirectory $RequiredFile) -PathType Leaf)) {
-            throw "Missing $RequiredFile in $ReleaseDirectory. Pass -ReleaseDirectory with the extracted LL_Final_Production_Release folder."
+            throw "Missing $RequiredFile in $ReleaseDirectory. Pass -ReleaseDirectory with the extracted release folder."
         }
     }
     Write-Host "Project folder: $ProjectPath"

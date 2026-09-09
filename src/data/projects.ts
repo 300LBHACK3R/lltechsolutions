@@ -1,15 +1,6 @@
+import { projectVideos, type ProjectVideo } from "@/data/project-videos";
+
 export type ProjectCategory = "web-builds" | "software-development" | "social-media-management";
-export type ProjectVideo = {
-  src: string;
-  poster: string;
-  title: string;
-  description: string;
-  descriptionTrack: string;
-  durationLabel: string;
-  width: number;
-  height: number;
-  portrait?: boolean;
-};
 export type Project = {
   id: string;
   title: string;
@@ -22,6 +13,13 @@ export type Project = {
   solution: string;
   result: string;
   services: string[];
+  implementation: {
+    label: string;
+    tools: string[];
+    summary: string;
+    operationsLabel: string;
+    operations: string;
+  };
   video: ProjectVideo;
   image?: string;
   imageAlt?: string;
@@ -34,7 +32,10 @@ export const projects: Project[] = [
   {
     id: "tow-n-go",
     ownership: "client",
-    relatedWork: { projectId: "tow-n-go-digital", label: "Explore the monthly partnership" },
+    relatedWork: {
+      projectId: "tow-n-go-digital",
+      label: "Explore the monthly partnership",
+    },
     title: "Tow-N-Go Trailers",
     category: "web-builds",
     relationship: "Website & Monthly Digital Partner",
@@ -42,11 +43,11 @@ export const projects: Project[] = [
     description:
       "A custom rental website with monthly social media management, original content and ongoing website support for an Okanagan trailer business.",
     challenge:
-      "Tow-N-Go needed more than a brochure website. The business required a professional fleet presentation, clear rental pathways, local search structure, customer trust signals, and an online presence that could keep growing with the company.",
+      "Tow-N-Go needed a website that could explain the fleet as clearly as a conversation with the owner. Visitors needed to compare enclosed, dump and flatdeck trailers, understand the difference between a rental and delivery or transport, and send enough information for a useful availability response. The presentation also needed to support a growing Okanagan business beyond its initial launch.",
     solution:
-      "Designed a custom fleet presentation, trailer details, rental inquiry flow and local-search foundations. Clear pathways distinguish self-towed rentals, trailer delivery and collection, and transport of customer-loaded cargo.",
+      "We designed and developed the black-and-gold website, organized the fleet into rental categories, and built trailer pages with photo galleries, specifications, common uses and relevant add-ons. Trailer-specific enquiry links carry the selected equipment into the contact journey. Dedicated service information, About, Reviews and a searchable FAQ help visitors answer practical questions before getting in touch. Metadata, page structure and local service wording support discovery.",
     result:
-      "Customers can explore the fleet, understand the available services and send a rental inquiry from one connected website.",
+      "The delivered site connects browsing, comparison and enquiry in one customer journey. Customers can identify a suitable trailer and request availability; the owner confirms the booking and arrangements. Our monthly partnership continues with website updates, Google Business content and social publishing as the fleet and business develop.",
     services: [
       "Custom website design & development",
       "Fleet and trailer-detail architecture",
@@ -58,17 +59,7 @@ export const projects: Project[] = [
       "Website maintenance and ongoing growth",
     ],
     image: "/images/projects/tow-n-go.webp",
-    video: {
-      src: "/media/projects/tow-n-go-website.mp4",
-      poster: "/media/projects/tow-n-go-website.webp",
-      title: "Tow-N-Go website walkthrough",
-      description:
-        "A scroll preview of the homepage, fleet presentation, services and rental inquiry pathway, captured from the public website. Explore the monthly partnership below for an example of our social content.",
-      descriptionTrack: "/media/projects/tow-n-go-website.vtt",
-      durationLabel: "26 sec",
-      width: 1280,
-      height: 880,
-    },
+    video: projectVideos["tow-n-go"],
     imageAlt: "Tow-N-Go Trailers custom rental website showcase",
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [
@@ -88,6 +79,15 @@ export const projects: Project[] = [
         kind: "tiktok",
       },
     ],
+    implementation: {
+      label: "Built with",
+      tools: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      summary:
+        "Reusable page and interface components keep fleet information consistent and make new trailer additions easier to maintain. The enquiry endpoint uses Resend for email delivery.",
+      operationsLabel: "Hosting & ongoing care",
+      operations:
+        "Hosted on Vercel with source code managed in GitHub. Ongoing work covers fleet, service and content updates, website maintenance and the connected monthly digital partnership.",
+    },
   },
   {
     id: "crestline",
@@ -99,11 +99,11 @@ export const projects: Project[] = [
     description:
       "A professional service and portfolio website presenting commercial, strata, multi-family and custom-home painting.",
     challenge:
-      "Crestline needed a more established online presence that could communicate its full service range, showcase real project environments, and build confidence with property managers, builders, strata clients, and homeowners.",
+      "Crestline’s website needed to speak to builders, property managers, strata clients and homeowners with different project requirements. The brief was to present the company’s experience with the care expected on larger commercial and residential jobs, while making its custom-home work easy to find and assess.",
     solution:
-      "Built a custom service and portfolio website with dedicated industry pages, structured project galleries, quote pathways, responsive layouts, professional visual hierarchy, search-focused content, metadata, and clear contact flows.",
+      "We built a custom website with dedicated service pages and a portfolio organized around Custom Homes, Multi-Family, Strata and Commercial projects. Project descriptions, locations and supporting galleries give visitors context for the real work. Clear navigation connects those examples to the relevant service and quote pathways. Responsive layouts, image presentation, metadata and search-focused page content complete the public-facing build.",
     result:
-      "A clean, corporate-grade website that presents Crestline as an organized, versatile painting contractor and gives higher-value prospects a professional destination to review services, projects, and next steps.",
+      "Crestline has a structured digital portfolio that prospects can review before a call or quotation. A visitor can choose the type of project, explore relevant examples and reach the business with a clearer understanding of its work. The reusable service and project structure supports future additions without rebuilding each page from scratch.",
     services: [
       "Custom website design & development",
       "Commercial and residential service architecture",
@@ -114,17 +114,7 @@ export const projects: Project[] = [
       "Brand positioning",
     ],
     image: "/images/projects/crestline.webp",
-    video: {
-      src: "/media/projects/crestline-website.mp4",
-      poster: "/media/projects/crestline-website.webp",
-      title: "Crestline website walkthrough",
-      description:
-        "A scroll preview of Crestline’s service presentation, company introduction, real project gallery and quote pathway, captured from the public website.",
-      descriptionTrack: "/media/projects/crestline-website.vtt",
-      durationLabel: "26 sec",
-      width: 1280,
-      height: 880,
-    },
+    video: projectVideos["crestline"],
     imageAlt: "Crestline Painting custom business website showcase",
     liveUrl: "https://www.crestlinepainting.ca/",
     links: [
@@ -134,6 +124,15 @@ export const projects: Project[] = [
         kind: "website",
       },
     ],
+    implementation: {
+      label: "Built with",
+      tools: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      summary:
+        "Shared service and gallery components create a consistent experience across the portfolio. Structured project data keeps titles, categories, descriptions and imagery organized.",
+      operationsLabel: "Hosting & delivery",
+      operations:
+        "The website is hosted on Vercel, with its source maintained in GitHub. Its component-based structure provides a clear foundation for later project, photography and service updates.",
+    },
   },
   {
     id: "mckenzie-house",
@@ -145,11 +144,11 @@ export const projects: Project[] = [
     description:
       "A boutique massage website connecting real photography, service information, local discovery and ClinicSense booking.",
     challenge:
-      "The business needed a complete digital identity that felt professional and welcoming while clearly explaining its services, client-led approach, frequently asked questions, booking options, and local Calgary positioning.",
+      "Heather needed the website to communicate the warmth and professionalism of her practice before someone booked. Visitors needed clear treatment explanations, appointment lengths, pricing before GST, direct-billing information and reassurance about the experience. The design also needed to feel personal through real treatment-space imagery and client stories.",
     solution:
-      "Built the custom website, service and pricing pages, FAQ and ClinicSense booking journey. Original on-site photography and video, technical SEO and Google Business launch support complete the presentation.",
+      "We built the custom green-and-cream website around dedicated treatment pages for Massage, Sensory Massage, Seasonal Body Renewal and Cup & Buff. Each connects service information, pricing and treatment previews to ClinicSense booking. The work also includes Pricing, About, Reviews, Contact and FAQ pages, client-submitted photo stories, and original on-site photography and video. Local-search content, metadata and Google Business launch support connect the website with discovery.",
     result:
-      "A cohesive wellness presence that connects the brand, website, booking platform, Google visibility, and future content into one professional client journey.",
+      "The completed launch gives visitors a connected path from learning about a treatment to reviewing prices, reading client experiences and opening booking. ClinicSense continues to handle availability, intake and appointment scheduling. Heather received a website and set of real visual assets that present the same practice consistently across its digital presence.",
     services: [
       "Custom website design & development",
       "ClinicSense booking integration",
@@ -159,17 +158,7 @@ export const projects: Project[] = [
       "Google Business launch support",
     ],
     image: "/images/projects/mckenzie-house.webp",
-    video: {
-      src: "/media/projects/mckenzie-website.mp4",
-      poster: "/media/projects/mckenzie-website.webp",
-      title: "McKenzie House website walkthrough",
-      description:
-        "A scroll preview of the treatment-space imagery, service presentation, client information and ClinicSense booking pathway, captured from the public website.",
-      descriptionTrack: "/media/projects/mckenzie-website.vtt",
-      durationLabel: "26 sec",
-      width: 1280,
-      height: 880,
-    },
+    video: projectVideos["mckenzie-house"],
     imageAlt: "McKenzie House Massage premium website showcase",
     liveUrl: "https://mckenziehousemassage.ca/",
     links: [
@@ -184,6 +173,15 @@ export const projects: Project[] = [
         kind: "booking",
       },
     ],
+    implementation: {
+      label: "Built with",
+      tools: ["Next.js", "React", "TypeScript", "Tailwind CSS", "ClinicSense"],
+      summary:
+        "Reusable treatment-page components keep services and pricing consistent. Optimized imagery and native treatment video support the design; booking links connect visitors to Heather’s existing ClinicSense platform.",
+      operationsLabel: "Hosting & booking",
+      operations:
+        "The website is hosted on Vercel, with source code managed in GitHub. Appointment scheduling and client intake stay within ClinicSense, separate from the public marketing website.",
+    },
   },
   {
     id: "tates-tv",
@@ -195,11 +193,11 @@ export const projects: Project[] = [
     description:
       "A custom media application with channel navigation, a live programme guide and interactive television controls.",
     challenge:
-      "The project required far more than a normal website: scheduled media, persistent channel state, live progression, a television-style interface, remote controls, channel navigation, guide data, responsive layouts, and a platform that could keep expanding.",
+      "Our own software project explores a television-style experience in the browser: viewers choose channels and see what is on now and next, rather than browse a conventional video catalogue. That requires the guide, channel selection, programme timing and controls to work from a shared model while leaving room for continued product development.",
     solution:
-      "Developed channel architecture, guide and scheduling workflows, interactive remote controls and responsive media interfaces, with ongoing platform development.",
+      "We developed the custom React interface, channel navigation, programme guide, on-screen remote and scheduling workflows. The architecture separates the viewer interface, programming data and media storage so each part can evolve independently. Reusable controls and state management support channel changes and presentation preferences across the application.",
     result:
-      "A distinctive entertainment product that demonstrates L&L's ability to architect and maintain complex, interactive software—not just standard brochure websites.",
+      "Tate’s TV is an ongoing studio product demonstrating application architecture, interface design and connected data workflows. The portfolio preview focuses on the guide and controls. Media compatibility, programming and interface improvements remain ongoing product work.",
     services: [
       "Custom web application",
       "Media interface design",
@@ -209,17 +207,7 @@ export const projects: Project[] = [
       "Ongoing development",
     ],
     image: "/images/projects/tates-tv.webp",
-    video: {
-      src: "/media/projects/tates-tv-interface.mp4",
-      poster: "/media/projects/tates-tv-interface.webp",
-      title: "Tate’s TV guide & controls",
-      description:
-        "A visual tour of the programme guide and on-screen remote, using captured application screens. This preview focuses on interface design; programme availability changes on the live application.",
-      descriptionTrack: "/media/projects/tates-tv-interface.vtt",
-      durationLabel: "16 sec",
-      width: 1280,
-      height: 880,
-    },
+    video: projectVideos["tates-tv"],
     imageAlt: "Tate's TV custom streaming web application showcase",
     liveUrl: "https://www.tatestv.ca/",
     links: [
@@ -229,6 +217,15 @@ export const projects: Project[] = [
         kind: "website",
       },
     ],
+    implementation: {
+      label: "Built with",
+      tools: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Zustand"],
+      summary:
+        "Zustand manages interactive interface state. Supabase supports programming data, while Cloudflare R2 stores media separately from the application code.",
+      operationsLabel: "Hosting & product development",
+      operations:
+        "The application is hosted on Vercel with GitHub-managed source. Programming data and media have dedicated services, allowing the interface, schedule workflows and content library to develop separately.",
+    },
   },
   {
     id: "tow-n-go-digital",
@@ -240,11 +237,11 @@ export const projects: Project[] = [
     description:
       "An ongoing monthly partnership connecting Facebook management, TikTok and short-form video, Google Business content and website maintenance.",
     challenge:
-      "The business needed its website and social channels to communicate the same services consistently.",
+      "Tow-N-Go needed a consistent presence between rental enquiries, not just a website at launch. Customers discovering the business through a Reel, a Facebook post or Google needed to see the same fleet, service options and contact information. Content also needed to explain practical uses for the equipment in a recognizable local voice.",
     solution:
-      "Plan and produce content around the real fleet and available services, manage Facebook and TikTok publishing, adapt campaigns for Google Business and keep the website current. Each month's work is coordinated as one brand presence.",
+      "Our monthly work connects content planning, captions, branded creative, short-form video and publishing across Facebook, TikTok and Google Business. Campaigns draw on the real fleet, equipment features, seasonal jobs and rental questions, with the core idea adapted for each channel. Website updates keep the destination behind those posts aligned with current services and enquiries. Delivery and transport copy clearly distinguishes hauling from customer loading.",
     result:
-      "A consistent customer journey from social content and local discovery to the fleet and inquiry form.",
+      "Tow-N-Go has a continuing content and website partnership rather than a one-off batch of launch assets. Prospects can move from an educational or promotional post to the relevant fleet information and enquiry pathway. Publishing and site updates remain connected as the owner adds equipment, changes services or plans the next campaign.",
     services: [
       "Social media management",
       "Short-form video",
@@ -253,18 +250,7 @@ export const projects: Project[] = [
       "Website maintenance",
     ],
     image: "/images/projects/tow-n-go.webp",
-    video: {
-      src: "/media/projects/tow-n-go-content.mp4",
-      poster: "/media/projects/tow-n-go-content.webp",
-      title: "Tow-N-Go social content",
-      description:
-        "A fleet education Reel from the monthly content partnership. On-screen labels introduce enclosed-trailer components before the branded booking message. Rental customers load their cargo; Tow-N-Go’s transport service hauls prepared loads.",
-      descriptionTrack: "/media/projects/tow-n-go-content.vtt",
-      durationLabel: "23 sec",
-      width: 720,
-      height: 1280,
-      portrait: true,
-    },
+    video: projectVideos["tow-n-go-digital"],
     imageAlt: "Tow-N-Go Trailers custom rental website showcase",
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [
@@ -284,6 +270,15 @@ export const projects: Project[] = [
         kind: "tiktok",
       },
     ],
+    implementation: {
+      label: "Channels & content",
+      tools: ["Facebook", "TikTok", "Google Business Profile", "Short-form video"],
+      summary:
+        "A shared campaign plan connects platform-specific captions, vertical video, branded graphics and website updates. Core creative is adapted for each channel rather than treated as unrelated campaigns.",
+      operationsLabel: "Website & monthly management",
+      operations:
+        "The partnership supports the Next.js website hosted on Vercel alongside ongoing social and Google Business publishing. Website source is managed in GitHub; the work is coordinated around the business’s approved services and current fleet.",
+    },
   },
   {
     id: "mckenzie-digital-launch",
@@ -295,10 +290,11 @@ export const projects: Project[] = [
     description:
       "Original photography, service video and a coordinated digital launch for Heather’s massage practice.",
     challenge:
-      "The digital presence needed to reflect the warmth and professionalism of the real treatment experience.",
+      "Heather’s launch needed recognizable, real content that matched the experience inside her practice. A new website alone would not communicate the treatment space, individual services and personal approach. The brief connected on-site production with website content, local discovery and a clear route to existing online booking.",
     solution:
-      "Produced on-site photos and service footage, integrated approved content into the website, connected the ClinicSense journey and supported the Google Business launch.",
-    result: "A cohesive set of real brand assets and connected discovery and booking pathways.",
+      "We photographed the treatment environment and produced service footage on location, then edited and prepared the material for the website and launch creative. Real imagery supports the treatment pages, while the before-and-after showcase explains the website transformation. The launch work also connected Google Business information, service content and ClinicSense booking so visitors encountered a consistent practice across those touchpoints.",
+    result:
+      "This completed project delivered an integrated website launch and a reusable set of photography, service video and promotional content. Heather’s digital presence reflects her actual space and approved services, with clear paths to learn more and book. This project covers the completed launch and original content production.",
     services: [
       "On-site photography",
       "Videography and editing",
@@ -307,17 +303,7 @@ export const projects: Project[] = [
       "Google Business launch",
     ],
     image: "/images/projects/mckenzie-house.webp",
-    video: {
-      src: "/media/projects/mckenzie-launch.mp4",
-      poster: "/media/projects/mckenzie-launch.webp",
-      title: "McKenzie House launch showcase",
-      description:
-        "A before-and-after showcase comparing the previous website with the custom green-and-cream design, treatment content and booking journey. This is a completed launch project.",
-      descriptionTrack: "/media/projects/mckenzie-launch.vtt",
-      durationLabel: "33 sec",
-      width: 1280,
-      height: 598,
-    },
+    video: projectVideos["mckenzie-digital-launch"],
     imageAlt: "McKenzie House Massage premium website showcase",
     liveUrl: "https://mckenziehousemassage.ca/",
     links: [
@@ -332,6 +318,15 @@ export const projects: Project[] = [
         kind: "booking",
       },
     ],
+    implementation: {
+      label: "Content & connected platforms",
+      tools: ["On-site photography", "Service video", "Google Business Profile", "ClinicSense"],
+      summary:
+        "Original photography and edited footage were prepared for the custom Next.js website and launch content. Google Business information and booking links connect discovery with the treatment pages.",
+      operationsLabel: "Website & launch delivery",
+      operations:
+        "The accompanying website runs on Vercel with GitHub-managed source. ClinicSense remains the booking platform. This scope covers the delivered launch and its content assets.",
+    },
   },
 ];
 

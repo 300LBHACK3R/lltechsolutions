@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0 — Project details and client proof
+
+- Expand all six case studies with concrete briefs, work and delivery, plus verified technologies, hosting and platform responsibilities.
+- Add Chad Muxlow's complete five-star Google review from the supplied September 9 screenshot; preserve Heather's testimonial and keep full reviews on their dedicated page.
+- Consolidate video settings in one typed mapping, with optional audio labels and captions tracks for Tate's own recordings. Preserve all existing media assets and document exact replacement filenames and suggested tours.
+- Extend production checks for the new review and implementation content. Retain the approved layout, prices, contact handling and release safeguards.
+
 ## 1.3.1 — Publisher path handling
 
 - Resolve project and release directory defaults inside the publisher body; accept an explicit release folder when running a separately downloaded repair script.
