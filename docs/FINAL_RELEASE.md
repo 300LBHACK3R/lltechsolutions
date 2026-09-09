@@ -20,6 +20,20 @@ Additional relevant Google reviews were requested, but the saved source images c
 
 These findings establish specific checks, not a penetration-test result, guaranteed rankings or universal browser compatibility. The new local footer cannot be visually inspected from the restricted preview environment here. The user has approved the surrounding design; real-device review remains useful after publication.
 
+## Publisher path repair — September 9, 2026
+
+The reported Windows invocation stopped with an empty `LiteralPath` error before bundle validation. The release-directory default is the likely cause, but the log did not include the internal failing line. Defaults now resolve inside the script body, and directory/asset checks report the relevant path before any Git operations.
+
+For an already-extracted package, supply both paths explicitly. A repaired publisher downloaded separately can use the same existing bundle without downloading the videos again:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\Publish-LandL-Fixed.ps1" -ProjectPath "C:\Users\techn\landl-tech" -ReleaseDirectory "$env:USERPROFILE\Downloads\LL_Final_Production_Release" -Deploy
+```
+
+The separately downloaded publisher validates and publishes the commit from that package's manifest. The refreshed full ZIP also includes this script fix in its bundled source. Never mix manifests and bundles from different package versions.
+
+`powershell -NoProfile -File scripts/Test-PublishPaths.ps1` runs isolated startup checks with Git and Node mocked; it makes no network requests or pushes. Eleven startup cases and the existing eight publication guard checks passed in PowerShell 7.4.7 on Linux. Windows PowerShell 5.1 execution has not been performed here. The website source and its previously documented build/HTTP verification are unchanged by this repair.
+
 ## Publication
 
 The source includes `scripts/Publish-LandL.ps1`. The downloadable package places a copy beside its verified Git bundle and manifest. Run that packaged copy with `-Deploy` to authorize this sequence:

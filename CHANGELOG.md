@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1 — Publisher path handling
+
+- Resolve project and release directory defaults inside the publisher body; accept an explicit release folder when running a separately downloaded repair script.
+- Check for missing directories and release assets before Git operations, with named paths in the error messages.
+- Add 11 isolated startup regression checks covering empty/omitted paths, separate download locations, spaces/brackets, missing assets and checksum rejection. Deployment guards remain unchanged.
+
 ## 1.3.0 — Client video previews
 
 - Rename Selected Work navigation to Our Clients and remove the personal website from public project content.

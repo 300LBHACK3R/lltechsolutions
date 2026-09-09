@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
-    [string]$ProjectPath = (Join-Path $env:USERPROFILE 'landl-tech'),
-    [string]$ReleaseDirectory = $PSScriptRoot,
+    [string]$ProjectPath,
+    [string]$ReleaseDirectory,
     [switch]$Deploy
 )
 
@@ -97,13 +97,43 @@ function Test-PublicRelease {
 
 $OriginalLocation = Get-Location
 try {
+    # Resolve defaults during execution, rather than depending on invocation-time
+    # automatic variables in the param block. Explicit paths also work from any cwd.
+    if ([string]::IsNullOrWhiteSpace($ProjectPath)) {
+        if ([string]::IsNullOrWhiteSpace($env:USERPROFILE)) {
+            throw 'Cannot determine the project folder. Pass -ProjectPath with the full landl-tech folder path.'
+        }
+        $ProjectPath = Join-Path $env:USERPROFILE 'landl-tech'
+    }
+    if ([string]::IsNullOrWhiteSpace($ReleaseDirectory)) {
+        $ReleaseDirectory = $PSScriptRoot
+        if ([string]::IsNullOrWhiteSpace($ReleaseDirectory) -and -not [string]::IsNullOrWhiteSpace($PSCommandPath)) {
+            $ReleaseDirectory = Split-Path -Parent $PSCommandPath
+        }
+        if ([string]::IsNullOrWhiteSpace($ReleaseDirectory)) {
+            throw 'Cannot determine the release folder. Pass -ReleaseDirectory with the folder containing release.json and landl-final-release.bundle.'
+        }
+    }
+    if (-not (Test-Path -LiteralPath $ProjectPath -PathType Container)) {
+        throw "Project folder does not exist: $ProjectPath"
+    }
+    if (-not (Test-Path -LiteralPath $ReleaseDirectory -PathType Container)) {
+        throw "Release folder does not exist: $ReleaseDirectory"
+    }
+    $ProjectPath = (Resolve-Path -LiteralPath $ProjectPath).ProviderPath
+    $ReleaseDirectory = (Resolve-Path -LiteralPath $ReleaseDirectory).ProviderPath
+    foreach ($RequiredFile in @('release.json', 'landl-final-release.bundle')) {
+        if (-not (Test-Path -LiteralPath (Join-Path $ReleaseDirectory $RequiredFile) -PathType Leaf)) {
+            throw "Missing $RequiredFile in $ReleaseDirectory. Pass -ReleaseDirectory with the extracted LL_Final_Production_Release folder."
+        }
+    }
+    Write-Host "Project folder: $ProjectPath"
+    Write-Host "Release folder: $ReleaseDirectory"
     foreach ($Program in @('git', 'node', 'npm.cmd')) {
         if (-not (Get-Command $Program -ErrorAction SilentlyContinue)) { throw "Required command not found: $Program" }
     }
     $NodeVersion = (& node --version).Trim()
     if ($LASTEXITCODE -ne 0 -or [int]($NodeVersion.TrimStart('v').Split('.')[0]) -lt 22) { throw 'Node.js 22 or newer is required.' }
-    $ProjectPath = (Resolve-Path -LiteralPath $ProjectPath).Path
-    $ReleaseDirectory = (Resolve-Path -LiteralPath $ReleaseDirectory).Path
     $Package = Get-Content -LiteralPath (Join-Path $ProjectPath 'package.json') -Raw | ConvertFrom-Json
     if ($Package.name -ne 'landl-tech') { throw 'This is not the landl-tech project.' }
     $Remote = (& git -C $ProjectPath remote get-url origin).Trim()
