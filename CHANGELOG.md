@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.1 — Software showcase, pricing and footer
+
+- Surface Tate’s TV alongside the three client websites on the homepage and Our Clients directory, labelled as studio-owned software design and development. Retain its existing inline preview and detailed case study.
+- Rename Investment to Pricing in navigation, page metadata and visible wording; keep the existing `/packages` URL and approved prices.
+- Simplify the footer to essential navigation, a smaller home-linked logo, phone and email links, official socials, legal pages and the motion control. Remove the superseded footer and featured-project styles.
+- Build on the latest GitHub main, including Tate’s replacement Tow-N-Go and McKenzie videos; no media, contact API or dependency changes.
+
 ## 1.4.0 — Project details and client proof
 
 - Expand all six case studies with concrete briefs, work and delivery, plus verified technologies, hosting and platform responsibilities.

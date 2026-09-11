@@ -17,7 +17,7 @@ export const investments = [
     amount: null,
     period: "",
     description:
-      "Portals, dashboards, customer experiences and business tools. Workflows, users, integrations and ongoing needs define the investment.",
+      "Portals, dashboards, customer experiences and business tools. Workflows, users, integrations and ongoing needs define the price.",
     service: "Custom Software / Web Application",
   },
   {

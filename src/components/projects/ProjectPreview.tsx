@@ -1,15 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getProject, projectPath, type Project } from "@/data/projects";
-export default function ProjectPreview({
-  project,
-  featured = false,
-}: {
-  project: Project;
-  featured?: boolean;
-}) {
+export default function ProjectPreview({ project }: { project: Project }) {
   return (
-    <article className={`project-preview${featured ? " project-featured" : ""}`}>
+    <article className="project-preview">
       <div className="project-frame">
         <div className="project-frame-label" aria-hidden="true">
           <span>{project.ownership === "client" ? "Client project" : "Studio project"} / L&L</span>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { clientWebsiteProjects } from "@/data/projects";
+import { showcaseProjects } from "@/data/projects";
 import ProjectPreview from "@/components/projects/ProjectPreview";
 import Reveal from "@/components/ui/Reveal";
 export default function HomeProjectsPreview() {
@@ -9,16 +9,16 @@ export default function HomeProjectsPreview() {
         <Reveal>
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Client work</p>
-              <h2 id="home-work-title">Built for real businesses.</h2>
+              <p className="eyebrow">Websites & software</p>
+              <h2 id="home-work-title">See what we build.</h2>
             </div>
             <Link className="text-link" href="/projects">
               Meet our clients <span aria-hidden="true">↗</span>
             </Link>
           </div>
           <div className="project-grid home-project-grid">
-            {clientWebsiteProjects.map((project, index) => (
-              <ProjectPreview key={project.id} project={project} featured={index === 0} />
+            {showcaseProjects.map((project) => (
+              <ProjectPreview key={project.id} project={project} />
             ))}
           </div>
         </Reveal>

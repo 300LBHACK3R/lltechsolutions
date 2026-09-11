@@ -4,10 +4,10 @@ The App Router owns page composition, metadata and the contact endpoint. Compone
 
 ## Content and presentation
 
-- Homepage: five focused sections—hero, linked client strip, compact service explorer, three client website previews and final CTA. Full reviews, process, investment and the inquiry form have dedicated routes.
-- Projects: one typed dataset in `src/data/projects.ts`, grouped by client websites, content partnerships and studio-owned work in the directory, with three discipline pages for detailed case studies. Each case study has an addressable anchor, real supplied imagery, a brief/work/delivery narrative and verified implementation and hosting details. Related work links connect Tow-N-Go's website to its monthly social/content partnership. The separate `src/data/project-videos.ts` mapping owns media paths, dimensions, descriptions and optional narration/captions settings; each project references it once.
+- Homepage: five focused sections—hero, linked client strip, compact service explorer, three client website previews plus Tate’s TV software and final CTA. Full reviews, process, pricing and the inquiry form have dedicated routes.
+- Projects: one typed dataset in `src/data/projects.ts`, grouped into a shared website/software showcase and content partnerships in the directory, with studio ownership clearly labelled, with three discipline pages for detailed case studies. Each case study has an addressable anchor, real supplied imagery, a brief/work/delivery narrative and verified implementation and hosting details. Related work links connect Tow-N-Go's website to its monthly social/content partnership. The separate `src/data/project-videos.ts` mapping owns media paths, dimensions, descriptions and optional narration/captions settings; each project references it once.
 - Reviews: the exact supplied Heather Knorr testimonial and Chad Muxlow Google review are stored once in `src/data/reviews.ts` and linked to the corresponding projects. The page uses WebPage and breadcrumb schema, with no aggregate rating claims.
-- Investment: public starting prices and their metadata come from `src/data/investments.ts`. These entry points do not alter any existing client agreement.
+- Pricing: public starting prices and their metadata come from `src/data/investments.ts`. These entry points do not alter any existing client agreement.
 - Tate's TV is identified as studio-owned software, separately from client engagements. The retired personal portfolio is not public project content.
 - Header, footer, page introductions, project previews and final CTA are reusable components.
 - Black, charcoal, gold, white and muted gray are defined as CSS tokens. Breakpoints handle narrow phones, tablets, desktop and wide displays without scaling the entire interface.
@@ -28,7 +28,7 @@ Each page declares its own title, description and canonical URL. The root provid
 
 ## Retired routes
 
-`/projects/tech-support` and `/projects/infrastructure` redirect permanently to `/projects`. The legacy `/free-tech-audit` URL remains, with Free Digital Audit branding. The public navigation labels `/packages` as Investment.
+`/projects/tech-support` and `/projects/infrastructure` redirect permanently to `/projects`. The legacy `/free-tech-audit` URL remains, with Free Digital Audit branding. The public navigation labels `/packages` as Pricing. The established URL remains unchanged.
 
 ## Styles and asset provenance
 

@@ -155,10 +155,6 @@
   .case-implementation .case-tools {
     font-size: 15px;
   }
-  .project-featured {
-    gap: 80px;
-  }
-  .project-featured .project-preview-copy > p,
   .partnership-row > div > p:not(.eyebrow) {
     font-size: 19px;
     max-width: 650px;
@@ -178,9 +174,6 @@
   .trust-review-link {
     margin-left: auto;
   }
-  .project-featured {
-    gap: 30px;
-  }
 }
 @media (max-width: 699px) {
   .project-video figcaption {
@@ -190,17 +183,6 @@
   .project-video-heading,
   .project-video figcaption {
     padding: 14px;
-  }
-  .project-featured {
-    display: block;
-    padding-bottom: 0;
-    border-bottom: 0;
-  }
-  .project-featured .project-preview-heading {
-    margin-top: 24px;
-  }
-  .project-featured h3 {
-    font-size: 27px;
   }
   .client-project-grid {
     grid-template-columns: 1fr;

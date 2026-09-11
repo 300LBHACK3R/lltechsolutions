@@ -64,79 +64,74 @@
 .mobile-nav {
   display: none;
 }
+/* Compact footer: essential links, contact and utilities without a second site map. */
 .site-footer {
   border-top: 1px solid var(--line);
   background: #0a0a0a;
+  color: var(--muted);
+  font-size: 12px;
 }
 .footer-main {
-  display: grid;
-  grid-template-columns: minmax(180px, 1fr) minmax(0, 3fr);
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px 32px;
-  padding: 28px 0 16px;
+  justify-content: space-between;
+  gap: 8px 28px;
+  padding: 20px 0;
+}
+.footer-brand {
+  width: min(148px, 100%);
+}
+.footer-brand img {
+  width: 100%;
+  height: auto;
 }
 .footer-location {
-  margin-top: 3px;
+  margin-top: 2px;
   font-size: 11px;
-  color: var(--muted);
 }
 .footer-nav,
-.footer-contact {
+.footer-contact,
+.footer-socials,
+.footer-legal,
+.footer-utilities {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0 24px;
-  font-size: 12px;
-  color: var(--muted);
-}
-.footer-nav {
-  grid-column: 1 / -1;
+  gap: 0 20px;
+  min-width: 0;
 }
 .footer-contact {
-  justify-content: flex-end;
-  gap: 0 20px;
+  gap: 0 16px;
 }
-.footer-main a {
+.site-footer a {
   display: inline-flex;
   align-items: center;
+  gap: 5px;
   min-height: 44px;
-  padding-block: 8px;
+  padding-block: 6px;
   overflow-wrap: anywhere;
 }
-.footer-main a:hover {
+.site-footer a:hover {
   color: var(--gold-light);
-}
-.social-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
 }
 .footer-bottom {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 6px 24px;
-  padding: 10px 0;
+  gap: 0 24px;
+  padding: 6px 0;
   border-top: 1px solid var(--line);
-  color: var(--muted);
   font-size: 11px;
 }
+.footer-copyright {
+  margin: 0;
+}
+.footer-socials,
 .footer-legal {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
+  gap: 0 16px;
 }
-.footer-legal a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-}
-
-.footer-brand {
-  width: min(180px, 100%);
-}
-.footer-brand img {
-  width: 100%;
-  height: auto;
+.footer-utilities {
+  gap: 0 24px;
 }

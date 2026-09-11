@@ -188,10 +188,10 @@ export const projects: Project[] = [
     ownership: "studio",
     title: "Tate's TV",
     category: "software-development",
-    relationship: "Our Own Software Product",
+    relationship: "Software Design & Development",
     status: "Live + Managed",
     description:
-      "A custom media application with channel navigation, a live programme guide and interactive television controls.",
+      "Designed, developed and managed by L&L. Our own media application brings together a custom interface, channel navigation, programme scheduling and interactive television controls.",
     challenge:
       "Our own software project explores a television-style experience in the browser: viewers choose channels and see what is on now and next, rather than browse a conventional video catalogue. That requires the guide, channel selection, programme timing and controls to work from a shared model while leaving room for continued product development.",
     solution:
@@ -334,7 +334,10 @@ export const clientWebsiteProjects = projects.filter(
   (project) => project.ownership === "client" && project.category === "web-builds",
 );
 
-export const studioProjects = projects.filter((project) => project.ownership === "studio");
+/** Website and software examples share the main showcase; ownership stays explicit on each preview. */
+export const showcaseProjects = projects.filter(
+  (project) => project.category === "web-builds" || project.category === "software-development",
+);
 
 export const contentProjects = projects.filter(
   (project) => project.category === "social-media-management",

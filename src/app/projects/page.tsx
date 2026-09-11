@@ -6,9 +6,8 @@ import Reveal from "@/components/ui/Reveal";
 import {
   projects,
   projectCategories,
-  clientWebsiteProjects,
+  showcaseProjects,
   contentProjects,
-  studioProjects,
   projectPath,
 } from "@/data/projects";
 import { pageMetadata } from "@/lib/metadata";
@@ -16,7 +15,7 @@ import ProjectCollection from "@/components/seo/ProjectCollection";
 
 export const metadata = pageMetadata(
   "Our Clients & Studio Projects",
-  "Explore websites for Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage, monthly social media partnerships and L&L’s own software projects.",
+  "Explore websites for Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage, Tate’s TV software design and development, and monthly social media partnerships.",
   "/projects",
 );
 
@@ -36,22 +35,22 @@ export default function ProjectsPage() {
             </Link>
           ))}
         </nav>
-        <section className="portfolio-section" aria-labelledby="client-websites-title">
+        <section className="portfolio-section" aria-labelledby="showcase-title">
           <Reveal>
             <div className="section-heading">
               <div>
-                <p className="eyebrow">01 / Client websites</p>
-                <h2 id="client-websites-title">Meet the businesses.</h2>
+                <p className="eyebrow">01 / Websites & software</p>
+                <h2 id="showcase-title">From business websites to custom software.</h2>
               </div>
               <p>
-                Distinct businesses. Individual design. Clear paths from a first visit to the next
-                step.
+                Explore three client websites and Tate’s TV, our own software product. See the
+                design, development and ongoing work behind each project.
               </p>
             </div>
           </Reveal>
           <div className="project-grid client-project-grid">
-            {clientWebsiteProjects.map((project, index) => (
-              <ProjectPreview key={project.id} project={project} featured={index === 0} />
+            {showcaseProjects.map((project) => (
+              <ProjectPreview key={project.id} project={project} />
             ))}
           </div>
         </section>
@@ -88,25 +87,6 @@ export default function ProjectsPage() {
                   </Link>
                 </div>
               </article>
-            ))}
-          </div>
-        </section>
-        <section className="portfolio-section" aria-labelledby="studio-projects-title">
-          <Reveal>
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">03 / Our own software</p>
-                <h2 id="studio-projects-title">Built in our studio.</h2>
-              </div>
-              <p>
-                Tate’s TV brings our software and interface work together in a media application we
-                continue to develop and manage.
-              </p>
-            </div>
-          </Reveal>
-          <div className="project-grid">
-            {studioProjects.map((project) => (
-              <ProjectPreview key={project.id} project={project} featured />
             ))}
           </div>
         </section>

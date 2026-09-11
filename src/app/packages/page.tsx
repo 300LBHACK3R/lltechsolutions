@@ -4,15 +4,15 @@ import ProjectCTA from "@/components/ui/ProjectCTA";
 import { pageMetadata } from "@/lib/metadata";
 import { investments, investmentDescription } from "@/data/investments";
 export const metadata = pageMetadata(
-  "Investment & Starting Prices",
+  "Pricing & Project Options",
   investmentDescription,
   "/packages",
 );
-export default function InvestmentPage() {
+export default function PricingPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Investment"
+        eyebrow="Pricing"
         title="A clear starting point."
         description="Every project has different requirements. These starting points help frame the conversation; your proposal defines exactly what is included."
       />

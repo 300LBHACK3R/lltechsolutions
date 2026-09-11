@@ -14,7 +14,7 @@ const steps = [
   },
   {
     title: "Define the right scope.",
-    copy: "We agree on the deliverables, responsibilities, investment and timeline. Design direction and required content are planned before implementation begins.",
+    copy: "We agree on the deliverables, responsibilities, pricing and timeline. Design direction and required content are planned before implementation begins.",
     delivery: "Written scope and a clear plan",
   },
   {

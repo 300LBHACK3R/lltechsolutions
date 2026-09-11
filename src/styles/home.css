@@ -362,32 +362,11 @@ h2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 64px 38px;
 }
-/* A single wide feature followed by two client previews. */
+/* Paired website and software previews; collapse to one column on phones. */
 .home-project-grid,
 .client-project-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 42px;
-}
-.project-featured {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 55px;
-  align-items: center;
-  padding-bottom: 42px;
-  border-bottom: 1px solid var(--line);
-}
-.project-featured .project-preview-heading {
-  margin-top: 0;
-  flex-direction: column;
-  gap: 14px;
-}
-.project-featured h3 {
-  font-size: clamp(28px, 3vw, 43px);
-}
-.project-featured .project-preview-copy > p {
-  font-size: 15px;
-  max-width: 470px;
 }
 .project-related-link {
   color: var(--gold-light);
