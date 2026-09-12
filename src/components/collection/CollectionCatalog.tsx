@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import DesignCover from "@/components/collection/DesignCover";
 import {
+  availableDesigns,
   collectionInquiryHref,
   collectionIndustries,
   collectionTiers,
+  designHref,
+  designPrice,
   filterDesigns,
   type CollectionQuery,
   type WebsiteDesign,
@@ -20,19 +24,22 @@ export default function CollectionCatalog({
   const industry = collectionIndustries.find((item) => item.id === query.industry);
   const tier = collectionTiers.find((item) => item.id === query.tier);
   const inquiryHref = collectionInquiryHref({ industry: industry?.id, tier: tier?.id });
-  const selectionLabel = [industry?.name, tier?.name].filter(Boolean).join(" · ");
   const value = (key: string, allowed: readonly string[]) =>
     typeof query[key] === "string" && allowed.includes(query[key]) ? query[key] : "";
   return (
     <section className="collection-section" id="designs" aria-labelledby="collection-designs-title">
       <div className="collection-heading">
         <div>
-          <p className="eyebrow">The design library</p>
-          <h2 id="collection-designs-title">Find your starting point.</h2>
+          <p className="eyebrow">01 / Find your starting point</p>
+          <h2 id="collection-designs-title">
+            A small collection.
+            <br />
+            Room to make it yours.
+          </h2>
         </div>
         <p>
-          Find your industry, then compare collection levels and budget. Each design will make its
-          price and included work clear before you enquire.
+          Start with a look you like. Explore it here, then tell us what your business needs.
+          Concepts are clearly labelled; your finished scope and price are agreed before booking.
         </p>
       </div>
       <form
@@ -52,45 +59,48 @@ export default function CollectionCatalog({
             ))}
           </select>
         </label>
-        <label>
-          Collection
-          <select
-            name="tier"
-            defaultValue={value(
-              "tier",
-              collectionTiers.map((tier) => tier.id),
+        <details className="collection-extra-filters" open={!!(tier || query.budget || query.sort)}>
+          <summary>More filters</summary>
+          <div>
+            <label>
+              Collection
+              <select name="tier" defaultValue={tier?.id ?? ""}>
+                <option value="">All collections</option>
+                {collectionTiers.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            {designs.some((design) => design.startingPriceCad !== null) && (
+              <>
+                <label>
+                  Starting price
+                  <select
+                    name="budget"
+                    defaultValue={value("budget", ["under-500", "under-1000", "under-2000"])}
+                  >
+                    <option value="">Any budget</option>
+                    <option value="under-500">Under $500 CAD</option>
+                    <option value="under-1000">Under $1,000 CAD</option>
+                    <option value="under-2000">Under $2,000 CAD</option>
+                  </select>
+                </label>
+                <label>
+                  Sort by
+                  <select
+                    name="sort"
+                    defaultValue={value("sort", ["price-low", "price-high"]) || "price-low"}
+                  >
+                    <option value="price-low">Price: low to high</option>
+                    <option value="price-high">Price: high to low</option>
+                  </select>
+                </label>
+              </>
             )}
-          >
-            <option value="">All collections</option>
-            {collectionTiers.map((tier) => (
-              <option key={tier.id} value={tier.id}>
-                {tier.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Starting price
-          <select
-            name="budget"
-            defaultValue={value("budget", ["under-500", "under-1000", "under-2000"])}
-          >
-            <option value="">Any budget</option>
-            <option value="under-500">Under $500 CAD</option>
-            <option value="under-1000">Under $1,000 CAD</option>
-            <option value="under-2000">Under $2,000 CAD</option>
-          </select>
-        </label>
-        <label>
-          Sort by
-          <select
-            name="sort"
-            defaultValue={value("sort", ["price-low", "price-high"]) || "price-low"}
-          >
-            <option value="price-low">Price: low to high</option>
-            <option value="price-high">Price: high to low</option>
-          </select>
-        </label>
+          </div>
+        </details>
         <button className="button button-outline" type="submit">
           Apply filters
         </button>
@@ -98,102 +108,74 @@ export default function CollectionCatalog({
           Clear filters
         </Link>
       </form>
-      {selectionLabel && (
+      <div className="collection-result-line">
         <p className="collection-result-count">
-          Your selection: <strong>{selectionLabel}</strong>
+          {filtered.length} {filtered.length === 1 ? "design" : "designs"}
+          {industry ? ` · ${industry.name}` : " to explore"}
+          {tier ? ` · ${tier.name}` : ""}
         </p>
-      )}
-      {designs.length === 0 ? (
-        <div className="collection-opening">
-          <div className="collection-opening-mark" aria-hidden="true">
-            01<span>In the making</span>
-          </div>
-          <div>
-            <p className="eyebrow">The collection is taking shape</p>
-            <h3>Our first designs are being prepared.</h3>
-            <p>
-              We’re building a considered selection of original L&L designs. Working demos,
-              individual prices and included features will appear here as each design is ready. Tell
-              us what your business needs in the meantime.
-            </p>
-            <Link className="button button-gold" href={inquiryHref}>
-              Discuss a collection website <span aria-hidden="true">↗</span>
-            </Link>
-          </div>
+        {availableDesigns(designs).length >= 2 && (
+          <Link href="/website-collection/compare" className="text-link">
+            Compare designs ↗
+          </Link>
+        )}
+      </div>
+      {filtered.length === 0 ? (
+        <div className="collection-no-results">
+          <h3>We can help you find a direction.</h3>
+          <p>
+            No design matches those filters yet. Try a different selection, or tell us about your
+            business.
+          </p>
+          <Link className="text-link" href={inquiryHref}>
+            Talk with L&L ↗
+          </Link>
         </div>
       ) : (
-        <>
-          <p className="collection-result-count">
-            {filtered.length} {filtered.length === 1 ? "design" : "designs"} shown. Starting prices
-            in CAD; final scope and separate costs are confirmed before purchase.
-          </p>
-          {filtered.length === 0 ? (
-            <div className="collection-no-results">
-              <h3>No designs match those filters yet.</h3>
-              <p>Try another collection or tell us what you’re looking for.</p>
-              <Link className="text-link" href={inquiryHref}>
-                Talk with L&L ↗
-              </Link>
-            </div>
-          ) : (
-            <div className="collection-design-grid">
-              {filtered.map((design) => (
-                <article className="collection-design" id={`design-${design.id}`} key={design.id}>
+        <div className="collection-design-grid">
+          {filtered.map((design) => (
+            <article className="collection-design" id={`design-${design.id}`} key={design.id}>
+              <Link
+                href={designHref(design)}
+                aria-label={`Explore the ${design.name} website design`}
+              >
+                {design.preview ? (
                   <Image
                     src={design.preview.src}
                     alt={design.preview.alt}
                     width={design.preview.width}
                     height={design.preview.height}
-                    sizes="(max-width: 699px) 100vw, (max-width: 1899px) 50vw, 900px"
+                    sizes="(max-width: 699px) 100vw, (max-width: 1100px) 50vw, 33vw"
                   />
-                  <div className="collection-design-copy">
-                    <p className="eyebrow">
-                      {collectionTiers.find((tier) => tier.id === design.tier)?.name} ·{" "}
-                      {collectionIndustries.find((item) => item.id === design.industry)?.name}
-                    </p>
-                    <h3>{design.name}</h3>
-                    <p>{design.description}</p>
-                    <p className="collection-design-price">
-                      From ${design.startingPriceCad.toLocaleString("en-CA")} CAD{" "}
-                      <span>Personalization & launch</span>
-                    </p>
-                    <details>
-                      <summary>What’s included</summary>
-                      <p>
-                        {design.pageCount} {design.pageCount === 1 ? "page" : "pages"} ·{" "}
-                        {design.deliveryWindow}
-                      </p>
-                      <ul>
-                        {design.included.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </details>
-                    <div className="button-row">
-                      <a
-                        href={design.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="button button-outline"
-                      >
-                        View demo{" "}
-                        <span className="sr-only">for {design.name} (opens a new tab)</span>
-                        <span aria-hidden="true">↗</span>
-                      </a>
-                      <Link
-                        className="text-link"
-                        href={collectionInquiryHref({ design: design.id })}
-                      >
-                        Choose this design <span className="sr-only">— {design.name}</span>↗
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </>
+                ) : (
+                  <DesignCover design={design} />
+                )}
+              </Link>
+              <div className="collection-design-copy">
+                <p className="eyebrow">
+                  {collectionTiers.find((item) => item.id === design.tier)?.name}
+                  {design.status === "concept" ? " · Design concept" : ""}
+                </p>
+                <h3>{design.name}</h3>
+                <p>{design.description}</p>
+                <p className="collection-design-price">
+                  {designPrice(design)}
+                  <span>{design.pageCount} page structures · Personalized with L&L</span>
+                </p>
+                <Link className="button button-outline" href={designHref(design)}>
+                  Explore {design.name} ↗
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
       )}
+      <p className="collection-fineprint">
+        Not sure what fits?{" "}
+        <Link className="text-link" href={inquiryHref}>
+          Let Tate help you choose ↗
+        </Link>
+      </p>
     </section>
   );
 }

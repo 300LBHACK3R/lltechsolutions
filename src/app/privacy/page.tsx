@@ -43,6 +43,20 @@ export default function Page() {
           </p>
         </section>
         <section>
+          <h2>Your optional content brief</h2>
+          <p>
+            The Website Collection content guide does not submit or upload your entries. If you
+            choose Save draft, your notes are stored in this browser until you clear them or clear
+            the site’s browser data. They are not shared across devices. You can download the notes
+            as a text file and choose to send them to us in your project correspondence.
+          </p>
+          <p>
+            On a shared device, clear the saved draft when you finish. Keep passwords, payment
+            details and sensitive customer records out of the brief; any account access needed for
+            your project is arranged separately.
+          </p>
+        </section>
+        <section>
           <h2>Cookies and external links</h2>
           <p>
             Your animation preference is stored locally in your browser so the website can remember

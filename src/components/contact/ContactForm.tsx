@@ -7,10 +7,12 @@ export default function ContactForm({
   initialService = "",
   initialMessage = "",
   collectionSummary,
+  messagePrefix = "",
 }: {
   initialService?: string;
   initialMessage?: string;
   collectionSummary?: string;
+  messagePrefix?: string;
 }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -21,6 +23,7 @@ export default function ContactForm({
     pending.current = true;
     const form = event.currentTarget;
     const payload = Object.fromEntries(new FormData(form).entries());
+    if (messagePrefix) payload.message = `${messagePrefix}\n\n${String(payload.message ?? "")}`;
     setStatus("sending");
     setMessage("");
     try {
@@ -60,8 +63,8 @@ export default function ContactForm({
           <strong>Your website enquiry</strong>
           {collectionSummary}
           <span>
-            Your selection is included below. Add your business details and any questions; this is
-            an enquiry, with no payment or commitment.
+            Your choices are included with your enquiry. Add your business details and any questions
+            below; no payment or commitment is required.
           </span>
         </p>
       )}
@@ -133,7 +136,10 @@ export default function ContactForm({
             name="message"
             defaultValue={initialMessage}
             required
-            maxLength={fieldLimits.message}
+            maxLength={Math.max(
+              1,
+              fieldLimits.message - (messagePrefix ? messagePrefix.length + 2 : 0),
+            )}
             placeholder="What does your business need, and what would a successful project help you do?"
           />
         </label>

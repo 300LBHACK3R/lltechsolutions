@@ -34,6 +34,12 @@ try {
     "/",
     "/services",
     "/website-collection",
+    "/website-collection/pigment",
+    "/website-collection/structure",
+    "/website-collection/still",
+    "/website-collection/start",
+    "/website-collection/compare",
+    "/website-collection/brief",
     "/projects",
     "/projects/web-builds",
     "/projects/software-development",
@@ -47,6 +53,11 @@ try {
     "/terms",
     "/security",
   ];
+  const privateUtilityRoutes = new Set([
+    "/website-collection/start",
+    "/website-collection/compare",
+    "/website-collection/brief",
+  ]);
   const htmlByRoute = new Map();
   const titles = new Set();
   let checks = 0;
@@ -63,6 +74,11 @@ try {
       new URL(route, "https://lltechsolutions.ca").href,
       `${route}: canonical`,
     );
+    if (privateUtilityRoutes.has(route))
+      assert.ok(
+        html.includes('name="robots" content="noindex, follow"'),
+        `${route}: utility is not indexed`,
+      );
     const title = html.match(/<title>(.*?)<\/title>/)?.[1];
     assert.ok(title && !titles.has(title), `${route}: unique title`);
     assert.ok(title.endsWith(" | L&amp;L Tech Solutions"), `${route}: complete branded title`);
@@ -110,6 +126,58 @@ try {
   assert.ok(
     homeMain.includes('href="/projects/social-media-management#tow-n-go-digital"'),
     "homepage exposes Tow-N-Go’s monthly partnership",
+  );
+  for (const id of ["pigment", "structure", "still"]) {
+    const html = htmlByRoute.get(`/website-collection/${id}`);
+    assert.ok(html.includes('"@type":"CreativeWork"'), `${id}: design schema`);
+    assert.ok(
+      (html.includes('id="preview"') && html.includes("Design concept")) ||
+        html.includes("Interactive design concept"),
+      `${id}: labelled concept preview`,
+    );
+    assert.ok(
+      html.includes("Quoted after a conversation") && !html.includes("$0"),
+      `${id}: unpriced concept is never free`,
+    );
+    assert.ok(html.includes("No published performance measurements"), `${id}: no invented score`);
+    assert.ok(
+      html.includes(`href="/website-collection/start?design=${id}"`),
+      `${id}: guided enquiry starts with design`,
+    );
+    assert.ok(
+      html.includes('aria-pressed="true"') && html.includes('aria-current="page"'),
+      `${id}: initial preview controls are accessible`,
+    );
+    const response = await fetch(`${origin}/website-collection/start?design=${id}`);
+    assert.equal(response.status, 200);
+    const journey = await response.text();
+    assert.ok(
+      journey.includes('aria-current="step"') &&
+        journey.includes("What would make this easier for you?"),
+      `${id}: clear first step`,
+    );
+    assert.ok(
+      journey.includes('name="message"'),
+      `${id}: existing enquiry form is retained across steps`,
+    );
+    assert.ok(journey.includes("Review &amp; enquire"), `${id}: a review step precedes enquiry`);
+    checks++;
+  }
+  const comparison = await fetch(
+    `${origin}/website-collection/compare?design=pigment&design=still&design=pigment&design=private-draft`,
+  );
+  assert.equal(comparison.status, 200);
+  const comparisonHtml = await comparison.text();
+  assert.ok(comparisonHtml.includes('class="design-comparison"'));
+  assert.ok(!comparisonHtml.match(/<main\b[^>]*>(.*?)<\/main>/s)?.[1].includes("private-draft"));
+  checks++;
+  const unknownDesign = await fetch(`${origin}/website-collection/private-draft`);
+  assert.equal(unknownDesign.status, 404, "unknown and draft designs have no detail page");
+  checks++;
+  const brief = htmlByRoute.get("/website-collection/brief");
+  assert.ok(brief.includes("Nothing is submitted or uploaded") && !brief.includes('type="file"'));
+  assert.ok(
+    brief.includes("Restore saved draft") && brief.includes("I’d like help with this section."),
   );
   const reviews = htmlByRoute.get("/reviews");
   const collection = htmlByRoute.get("/website-collection");
@@ -411,7 +479,7 @@ try {
     assert.equal(res.status, 200, route);
     if (route === "/sitemap.xml") {
       const sitemap = await res.text();
-      for (const path of routes) {
+      for (const path of routes.filter((path) => !privateUtilityRoutes.has(path))) {
         assert.ok(
           sitemap.includes(`<loc>${new URL(path, "https://lltechsolutions.ca").href}</loc>`),
           `sitemap includes ${path}`,

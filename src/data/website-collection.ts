@@ -102,42 +102,211 @@ export type CollectionCareId = (typeof collectionCarePlans)[number]["id"];
 
 export type WebsiteDesign = {
   id: string;
-  status: "draft" | "published";
+  status: "draft" | "concept" | "published";
   name: string;
   tier: CollectionTierId;
   industry: CollectionIndustryId;
   description: string;
-  startingPriceCad: number;
+  startingPriceCad: number | null;
   pageCount: number;
   deliveryWindow: string;
-  preview: { src: string; alt: string; width: number; height: number };
+  preview?: { src: string; alt: string; width: number; height: number };
   demoUrl: string;
   included: readonly string[];
+  customization?: readonly string[];
+  additionalIndustries?: readonly CollectionIndustryId[];
+  concept?: {
+    theme: "pigment" | "structure" | "still";
+    brands: readonly [string, string];
+    headlines: readonly [string, string];
+    subcopy: string;
+    services: readonly { name: string; description: string }[];
+    approach: string;
+  };
+  walkthrough?: CollectionVideo;
+  performance?: readonly PerformanceEvidence[];
 };
 
-// Add original, tested designs here as they become available. No sample products are sold.
-export const websiteDesigns: readonly WebsiteDesign[] = [];
+export type CollectionVideo = {
+  src: string;
+  poster: string;
+  captions: string;
+  transcript: string;
+};
+
+export type PerformanceEvidence = {
+  url: string;
+  measuredAt: string;
+  device: "Mobile" | "Desktop";
+  conditions: string;
+  lighthouseVersion: string;
+  reportUrl: string;
+  scores: { performance: number; accessibility: number; bestPractices: number; seo: number };
+};
+
+// Set only when Tate supplies a real, captioned recording. No substitute persona or stock clip.
+export const developerIntroduction: CollectionVideo | null = null;
+
+// These are original interactive concepts, not client sites or priced, finished products.
+// Change a concept to published only after approving the full scope, price and demo checks.
+export const websiteDesigns: readonly WebsiteDesign[] = [
+  {
+    id: "pigment",
+    status: "concept",
+    name: "Pigment",
+    tier: "signature",
+    industry: "painting",
+    description:
+      "An expressive painting website with bold colour, clear services and room for the work to speak.",
+    startingPriceCad: null,
+    pageCount: 4,
+    deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
+    demoUrl: "/website-collection/pigment#preview",
+    included: [
+      "Home, services, project showcase and contact page structures",
+      "Your logo, colour palette, supplied photography and copy",
+      "An estimate enquiry journey with service-area information",
+      "Responsive implementation, metadata, form validation and launch checks",
+    ],
+    customization: [
+      "Brand colours and type treatment",
+      "Painting services and service areas",
+      "Real project photos and descriptions",
+      "Estimate enquiry wording and contact details",
+    ],
+    concept: {
+      theme: "pigment",
+      brands: ["PAINT STUDIO", "COLOUR HOUSE"],
+      headlines: ["A fresh perspective. In every coat.", "Good colour. Beautifully applied."],
+      subcopy:
+        "A confident home for your painting business. Show the finish, explain the care, and make the next conversation easy.",
+      services: [
+        {
+          name: "Interior painting",
+          description:
+            "Explain the rooms you work in, your preparation process and how you protect the space.",
+        },
+        {
+          name: "Exterior painting",
+          description:
+            "Show the surfaces you handle, your approach to preparation and the locations you serve.",
+        },
+        {
+          name: "Commercial spaces",
+          description:
+            "Describe how you coordinate a commercial project around the business and its schedule.",
+        },
+      ],
+      approach:
+        "From the first conversation to the final walkthrough: introduce your team, explain the preparation and show clients what to expect.",
+    },
+  },
+  {
+    id: "structure",
+    status: "concept",
+    name: "Structure",
+    tier: "premier",
+    industry: "construction",
+    additionalIndustries: ["plumbing"],
+    description:
+      "A precise, architectural direction for contractors and plumbing businesses with substantial work to show.",
+    startingPriceCad: null,
+    pageCount: 4,
+    deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
+    demoUrl: "/website-collection/structure#preview",
+    included: [
+      "Home, services, project showcase and contact page structures",
+      "Your business identity, supplied project content and service areas",
+      "A clear project enquiry journey",
+      "Responsive implementation, metadata, form validation and launch checks",
+    ],
+    customization: [
+      "Construction or plumbing service content",
+      "Your brand palette and business identity",
+      "Project stories and supplied photography",
+      "Project enquiry fields within the agreed scope",
+    ],
+    concept: {
+      theme: "structure",
+      brands: ["BUILD STUDIO", "PLUMBING STUDIO"],
+      headlines: ["Considered work. Solid foundations.", "Well planned. Expertly connected."],
+      subcopy:
+        "Give customers a clear view of your work, your process and the people responsible for getting the details right.",
+      services: [
+        {
+          name: "Project planning",
+          description:
+            "Explain the kinds of projects you take on and how you turn an initial conversation into a clear scope.",
+        },
+        {
+          name: "Installation & improvements",
+          description:
+            "Describe the services your team actually provides, supported by real project examples.",
+        },
+        {
+          name: "Ongoing projects",
+          description:
+            "Help residential or commercial clients understand how you coordinate schedules and communicate progress.",
+        },
+      ],
+      approach:
+        "A clear brief, an agreed scope and useful updates. Explain the practical steps that help customers feel comfortable from the start.",
+    },
+  },
+  {
+    id: "still",
+    status: "concept",
+    name: "Still",
+    tier: "essential",
+    industry: "massage-wellness",
+    description:
+      "A warm, unhurried website for massage and wellness practices, with a clear path from services to booking.",
+    startingPriceCad: null,
+    pageCount: 3,
+    deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
+    demoUrl: "/website-collection/still#preview",
+    included: [
+      "Home, services and contact page structures",
+      "Your supplied practice information, branding and room photography",
+      "A link to your existing booking provider",
+      "Responsive implementation, metadata, form validation and launch checks",
+    ],
+    customization: [
+      "Your practice name, palette and supplied photography",
+      "Approved treatment descriptions and rates",
+      "Your biography and approach",
+      "Booking provider link and arrival information",
+    ],
+    concept: {
+      theme: "still",
+      brands: ["STILL STUDIO", "SAGE STUDIO"],
+      headlines: ["A little space. Just for you.", "Care begins with feeling welcome."],
+      subcopy:
+        "A quieter introduction to your practice. Help visitors understand your services, meet the practitioner and find their way to an appointment.",
+      services: [
+        {
+          name: "Your treatments",
+          description:
+            "Introduce your approved services in plain language, with clear duration and pricing information.",
+        },
+        {
+          name: "Your approach",
+          description:
+            "Explain what matters to you as a practitioner and what a new visitor can expect.",
+        },
+        {
+          name: "Planning a visit",
+          description: "Make booking, arrival details and contact information easy to find.",
+        },
+      ],
+      approach:
+        "Introduce the real person behind the practice, with your own biography, qualifications and approach. Keep the first visit easy to understand.",
+    },
+  },
+];
 
 export const collectionDescription =
   "Explore L&L’s custom-coded Website Collection: four design levels, business personalization, technical SEO, launch support and optional monthly website care across Canada.";
-
-export const collectionBenefits = [
-  {
-    title: "Your business stays your focus.",
-    description:
-      "Look after your customers, your team and your next opportunity. We handle the website work, so you do not need to learn a site builder, hosting setup or integrations to get started.",
-  },
-  {
-    title: "A considered starting point.",
-    description:
-      "Choose a design direction you can see. Reusing an existing L&L codebase reduces the design and development work needed to reach a personalized launch.",
-  },
-  {
-    title: "A real person behind the work.",
-    description:
-      "Work directly with Tate at L&L. You have someone to ask, someone to implement the details and a clear route to ongoing support.",
-  },
-] as const;
 
 export const collectionStandards = [
   {
@@ -191,7 +360,7 @@ export const collectionQuestions = [
   {
     question: "How will pricing work?",
     answer:
-      "Each published design will show its own starting price in CAD and what it includes. We confirm the launch scope, revisions, timeline, applicable taxes and any separate costs before you pay a project deposit. Collection level describes the design’s scope; it is not a universal fixed-price package.",
+      "Priced designs show an approved starting price in CAD. Concepts awaiting a price are clearly marked “Quoted after a conversation”. We confirm the launch scope, revisions, timeline, applicable taxes and any separate costs before you pay a project deposit. Collection level describes the design’s scope; it is not a universal fixed-price package.",
   },
   {
     question: "Do I need a monthly plan?",
@@ -211,6 +380,20 @@ export function publishedDesigns(designs: readonly WebsiteDesign[] = websiteDesi
   return designs.filter((design) => design.status === "published");
 }
 
+export function availableDesigns(designs: readonly WebsiteDesign[] = websiteDesigns) {
+  return designs.filter((design) => design.status !== "draft");
+}
+
+export function designHref(design: Pick<WebsiteDesign, "id">) {
+  return `/website-collection/${design.id}`;
+}
+
+export function designPrice(design: Pick<WebsiteDesign, "startingPriceCad">) {
+  return design.startingPriceCad === null
+    ? "Quoted after a conversation"
+    : `From $${design.startingPriceCad.toLocaleString("en-CA")} CAD`;
+}
+
 export function filterDesigns(designs: readonly WebsiteDesign[], query: CollectionQuery) {
   const tier = collectionTiers.find((item) => item.id === query.tier)?.id;
   const industry = collectionIndustries.find((item) => item.id === query.industry)?.id;
@@ -220,17 +403,21 @@ export function filterDesigns(designs: readonly WebsiteDesign[], query: Collecti
     ["under-2000", 2000],
   ]);
   const budget = typeof query.budget === "string" ? budgets.get(query.budget) : undefined;
-  const result = publishedDesigns(designs).filter(
+  const result = availableDesigns(designs).filter(
     (design) =>
       (!tier || design.tier === tier) &&
-      (!industry || design.industry === industry) &&
-      (!budget || design.startingPriceCad < budget),
+      (!industry ||
+        design.industry === industry ||
+        design.additionalIndustries?.includes(industry)) &&
+      (!budget || (design.startingPriceCad !== null && design.startingPriceCad < budget)),
   );
-  return [...result].sort((a, b) =>
-    query.sort === "price-high"
+  return [...result].sort((a, b) => {
+    if (a.startingPriceCad === null) return b.startingPriceCad === null ? 0 : 1;
+    if (b.startingPriceCad === null) return -1;
+    return query.sort === "price-high"
       ? b.startingPriceCad - a.startingPriceCad
-      : a.startingPriceCad - b.startingPriceCad,
-  );
+      : a.startingPriceCad - b.startingPriceCad;
+  });
 }
 
 export function collectionInquiryHref(
@@ -258,7 +445,7 @@ export function collectionInquiry(
   designs: readonly WebsiteDesign[] = websiteDesigns,
 ) {
   if (query.collection !== "website") return null;
-  const design = publishedDesigns(designs).find((item) => item.id === query.design);
+  const design = availableDesigns(designs).find((item) => item.id === query.design);
   const tier = collectionTiers.find((item) => item.id === (design?.tier ?? query.tier));
   const industry = collectionIndustries.find(
     (item) => item.id === (design?.industry ?? query.industry),
@@ -279,5 +466,57 @@ export function collectionInquiry(
     summary:
       [design?.name, industry?.name, tier?.name, care?.name].filter(Boolean).join(" · ") ||
       "Website Collection",
+  };
+}
+
+export const collectionExtras = [
+  {
+    id: "copy",
+    name: "Help with website wording",
+    description: "Turn your business information into clear website copy.",
+  },
+  {
+    id: "photos",
+    name: "Photography or video",
+    description: "Discuss the real images and footage your website needs.",
+  },
+  {
+    id: "pages",
+    name: "Additional pages",
+    description: "Make room for more services, locations or project stories.",
+  },
+  {
+    id: "booking",
+    name: "Booking or payments",
+    description: "Connect an appropriate provider, with fees explained in your proposal.",
+  },
+] as const;
+export type CollectionExtraId = (typeof collectionExtras)[number]["id"];
+
+export function selectedExtras(ids: readonly string[]) {
+  return collectionExtras.filter((extra) => ids.includes(extra.id));
+}
+
+export function compareSelection(value: string | string[] | undefined) {
+  const ids = [...new Set((Array.isArray(value) ? value : value ? [value] : []).slice(0, 20))];
+  const designs = availableDesigns().filter((design) => ids.includes(design.id));
+  return { designs: designs.slice(0, 3), tooMany: designs.length > 3 };
+}
+
+export function journeyInquiry(design: WebsiteDesign, extras: readonly string[], careId: string) {
+  const care = collectionCarePlans.find((item) => item.id === careId);
+  const base = collectionInquiry({ collection: "website", design: design.id, care: care?.id })!;
+  const extraNames = selectedExtras(extras).map((item) => item.name);
+  const price = designPrice(design);
+  return {
+    ...base,
+    message: [
+      base.message.replace("\n\nAbout my business and what I need:", ""),
+      `Launch pricing: ${price}. Final scope and costs to be confirmed.`,
+      `Additional help: ${extraNames.length ? extraNames.join("; ") : "None selected yet"}`,
+      `Monthly support preference: ${care?.name ?? (careId === "none" ? "No monthly plan selected" : "Please help me decide")}`,
+      "",
+      "About my business and what I need:",
+    ].join("\n"),
   };
 }

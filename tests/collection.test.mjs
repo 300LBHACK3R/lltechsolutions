@@ -4,6 +4,12 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   websiteDesigns,
+  availableDesigns,
+  designPrice,
+  designHref,
+  journeyInquiry,
+  compareSelection,
+  developerIntroduction,
   collectionTiers,
   collectionIndustries,
   publishedDesigns,
@@ -102,37 +108,122 @@ test("collection choice travels through the existing validated inquiry payload",
   );
 });
 
-test("published catalogue entries have safe links, real assets and complete pricing before they can ship", () => {
+function asset(src, suffix) {
+  assert.match(src, new RegExp(`^/(?:images|media)/collection/[a-z0-9/_-]+\\.${suffix}$`, "i"));
+  assert.ok(fs.statSync(path.join("public", src)).isFile(), src);
+}
+function media(video) {
+  if (!video) return;
+  asset(video.src, "mp4");
+  asset(video.poster, "(?:webp|png|jpe?g)");
+  asset(video.captions, "vtt");
+  assert.ok(video.transcript.trim().length > 20, "real videos have readable transcripts");
+}
+
+test("collection distinguishes unpriced concepts from priced releases and keeps draft designs private", () => {
   const ids = new Set();
   for (const design of websiteDesigns) {
     assert.match(design.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+    assert.ok(!["start", "compare", "brief"].includes(design.id), "reserved route");
     assert.ok(!ids.has(design.id), `duplicate design id: ${design.id}`);
     ids.add(design.id);
-    assert.ok(["draft", "published"].includes(design.status));
+    assert.ok(["draft", "concept", "published"].includes(design.status));
   }
-  for (const design of publishedDesigns()) {
+  for (const design of availableDesigns()) {
     assert.ok(collectionTiers.some((tier) => tier.id === design.tier));
     assert.ok(collectionIndustries.some((industry) => industry.id === design.industry));
-    for (const value of [
-      design.name,
-      design.description,
-      design.industry,
-      design.deliveryWindow,
-      design.preview.alt,
-    ])
-      assert.ok(typeof value === "string" && value.trim().length > 0);
-    assert.ok(Number.isFinite(design.startingPriceCad) && design.startingPriceCad > 0);
+    for (const category of design.additionalIndustries ?? [])
+      assert.ok(collectionIndustries.some((item) => item.id === category));
+    for (const value of [design.name, design.description, design.deliveryWindow])
+      assert.ok(value.trim().length > 0);
+    if (design.status === "published")
+      assert.ok(
+        Number.isFinite(design.startingPriceCad) && design.startingPriceCad > 0,
+        "release needs an approved price",
+      );
+    else assert.ok(design.startingPriceCad === null || design.startingPriceCad > 0);
     assert.ok(Number.isInteger(design.pageCount) && design.pageCount > 0);
-    assert.ok(Number.isInteger(design.preview.width) && design.preview.width > 0);
-    assert.ok(Number.isInteger(design.preview.height) && design.preview.height > 0);
-    assert.match(design.preview.src, /^\/images\/collection\/[a-z0-9/_-]+\.(?:webp|png|jpe?g)$/i);
-    assert.ok(fs.statSync(path.join("public", design.preview.src)).isFile(), design.preview.src);
-    const demo = new URL(design.demoUrl);
-    assert.equal(demo.protocol, "https:");
-    assert.ok(!demo.username && !demo.password);
-    assert.ok(
-      design.included.length > 0 &&
-        design.included.every((item) => typeof item === "string" && item.trim().length > 0),
-    );
+    if (design.preview) {
+      asset(design.preview.src, "(?:webp|png|jpe?g)");
+      assert.ok(design.preview.alt && design.preview.width > 0 && design.preview.height > 0);
+    } else assert.ok(design.concept, "a usable visual preview exists");
+    if (design.concept) {
+      assert.ok(["pigment", "structure", "still"].includes(design.concept.theme));
+      assert.equal(design.concept.brands.length, 2);
+      assert.equal(design.concept.headlines.length, 2);
+      assert.ok(design.concept.services.length > 0);
+      assert.equal(design.demoUrl, `${designHref(design)}#preview`);
+    } else {
+      const demo = new URL(design.demoUrl);
+      assert.equal(demo.protocol, "https:");
+      assert.ok(!demo.username && !demo.password);
+    }
+    assert.ok(design.included.length > 0 && design.included.every((item) => item.trim()));
+    media(design.walkthrough);
+    for (const evidence of design.performance ?? []) {
+      for (const url of [evidence.url, evidence.reportUrl]) {
+        const parsed = new URL(url);
+        assert.equal(parsed.protocol, "https:");
+        assert.ok(!parsed.username && !parsed.password);
+      }
+      assert.match(evidence.measuredAt, /^\d{4}-\d{2}-\d{2}$/);
+      assert.ok(
+        Number.isFinite(Date.parse(evidence.measuredAt)) &&
+          Date.parse(evidence.measuredAt) <= Date.now(),
+      );
+      assert.ok(evidence.conditions.trim() && evidence.lighthouseVersion.trim());
+      assert.ok(["Mobile", "Desktop"].includes(evidence.device));
+      for (const score of Object.values(evidence.scores))
+        assert.ok(Number.isInteger(score) && score >= 0 && score <= 100);
+    }
   }
+  media(developerIntroduction);
+});
+
+test("unpriced concepts are never treated as free or as a match for a price ceiling", () => {
+  const concept = { ...fixture("concept", "signature", null), status: "concept" };
+  const all = [concept, ...designs];
+  assert.equal(availableDesigns(all).length, 4);
+  assert.equal(publishedDesigns(all).length, 3);
+  assert.ok(!filterDesigns(all, { budget: "under-500" }).includes(concept));
+  assert.equal(filterDesigns(all, { sort: "price-high" }).at(-1), concept);
+  assert.equal(designPrice(concept), "Quoted after a conversation");
+  assert.ok(
+    filterDesigns(websiteDesigns, { industry: "plumbing" }).some(
+      (design) => design.id === "structure",
+    ),
+  );
+});
+
+test("guided preferences retain their canonical labels through the validated enquiry", () => {
+  const design = websiteDesigns.find((item) => item.id === "pigment");
+  const inquiry = journeyInquiry(design, ["copy", "booking", "forged-extra", "copy"], "social");
+  assert.ok(
+    inquiry.message.includes("Website + Social") &&
+      inquiry.message.includes("Help with website wording"),
+  );
+  assert.ok(!inquiry.message.includes("forged-extra"));
+  assert.equal((inquiry.message.match(/Help with website wording/g) ?? []).length, 1);
+  assert.ok(inquiry.message.includes("Quoted after a conversation"));
+  assert.equal(
+    validateContact({
+      name: "Test",
+      email: "test@example.com",
+      service: inquiry.service,
+      timeline: "This month",
+      message: `${inquiry.message}\nI need a painting website.`,
+    }).ok,
+    true,
+  );
+  assert.ok(journeyInquiry(design, [], "none").message.includes("No monthly plan selected"));
+});
+
+test("comparison ignores unknown IDs and deduplicates a shortlist", () => {
+  const selected = compareSelection(["pigment", "pigment", "still", "private-draft", "<script>"]);
+  assert.equal(selected.tooMany, false);
+  assert.deepEqual(
+    selected.designs.map((item) => item.id),
+    ["pigment", "still"],
+  );
+  assert.equal(compareSelection(undefined).designs.length, 0);
 });

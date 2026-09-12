@@ -1,5 +1,15 @@
 # Changelog
 
+## Prepared update — Guided Website Collection
+
+- Put the design catalogue first and keep collection levels, launch details and monthly options behind optional disclosures.
+- Add three original, clearly labelled design concepts: Pigment (painting), Structure (construction/plumbing) and Still (massage/wellness), with inline page exploration, two sample identities and a phone-width preview.
+- Add dedicated design pages, a two-to-three-design comparison and a three-step preference-to-enquiry journey. Reuse the existing contact endpoint and preserve form entries when moving between steps.
+- Separate approved starting prices, unpriced concepts, extras, optional monthly services and provider charges. No checkout or invented prices.
+- Add a voluntary content handover with section help requests, explicit local draft saving, protected restore/clear actions and a downloadable text brief. Explain browser storage in Privacy.
+- Support real captioned walkthroughs, Tate’s supplied introduction recording and dated per-design performance evidence. Unprovided media and measurements are not fabricated.
+- Add design metadata and sitemap entries; keep planning, comparison and content utilities out of search indexing. Retain existing CSP and contact protections without new dependencies.
+
 ## 1.4.1 — Software showcase, pricing and footer
 
 - Surface Tate’s TV alongside the three client websites on the homepage and Our Clients directory, labelled as studio-owned software design and development. Retain its existing inline preview and detailed case study.
