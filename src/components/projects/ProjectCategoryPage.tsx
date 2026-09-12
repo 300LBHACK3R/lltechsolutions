@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ProjectVideo from "@/components/projects/ProjectVideo";
+import ProjectDesignOptions from "@/components/projects/ProjectDesignOptions";
 import {
   projects,
   projectCategories,
@@ -92,6 +93,9 @@ export default function ProjectCategoryPage({ category }: { category: ProjectCat
                   </div>
                 </aside>
               </div>
+              {project.designOptions && (
+                <ProjectDesignOptions projectId={project.id} options={project.designOptions} />
+              )}
             </article>
           ))}
         </div>

@@ -35,3 +35,24 @@ Use real approved footage. Replace the corresponding MP4, poster and description
 See [Replacing your portfolio videos](REPLACING_PROJECT_VIDEOS.md) for all six filenames, configuration instructions and suggested page-by-page recordings. The September 9 update retains the existing media: new interior-page captures could not be transferred for video export, so no fuller click-through recording is included.
 
 `npm run validate` checks local media references. `npm run smoke` checks all six players, no autoplay, native controls, equivalent descriptions, all 18 current media assets and MP4 range requests. It also checks any captions files added to the rendered players. Codec, duration, fast-start layout and representative frames were checked with FFmpeg/ffprobe during preparation. Actual browser playback on the new build still needs device review; local and protected preview browsing was unavailable in this environment.
+
+# Crestline: Other Design Options
+
+The compact gallery appears only within the Crestline case study on
+`/projects/web-builds#crestline`. It supplements the completed live-site example.
+Gallery labels describe visual options without claiming client approval or a
+sequence of client decisions.
+
+- `public/images/projects/crestline-options/architectural-home.jpg`: homepage
+  captured from `https://crestlinepreview.vercel.app/` on September 12, 2026.
+- `public/images/projects/crestline-options/architectural-services.jpg`: services
+  layout captured from `https://crestlinepreview.vercel.app/services` on the same date.
+- `public/images/projects/crestline-options/colour-and-craft.png`: AI-assisted
+  painting website design mockup created for this gallery. This is a studio
+  exploration, not a separate client, deployed site or delivered Crestline build.
+
+`src/data/projects.ts` owns the gallery descriptions, image paths, dimensions and
+alt text. Replace an image at its exact path and update its dimensions when needed.
+Images are lazy loaded in the gallery. Selecting one opens a native modal with
+Escape, a close button and focus restoration; without JavaScript, its link opens
+the original image. No third-party embed or gallery package is used.

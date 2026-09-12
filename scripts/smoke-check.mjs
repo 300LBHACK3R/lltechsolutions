@@ -189,9 +189,14 @@ try {
     2,
     "one selected tab per group",
   );
+  const designImages = new Set();
   for (const [source, html] of htmlByRoute) {
     for (const match of html.matchAll(/href="(\/[^"?]*)(?:\?[^"#]*)?"/g)) {
       const href = match[1];
+      if (/^\/images\/[^?#]+\.(?:jpe?g|png|webp)$/.test(href)) {
+        designImages.add(href);
+        continue;
+      }
       if (
         href.startsWith("/_next/") ||
         href.startsWith("/brand/") ||
@@ -208,6 +213,29 @@ try {
           `${source}: missing anchor ${href}`,
         );
     }
+  }
+  const webProjects = htmlByRoute.get("/projects/web-builds");
+  assert.equal(
+    (webProjects.match(/class="design-options"/g) || []).length,
+    1,
+    "one compact design-options gallery in website case studies",
+  );
+  assert.ok(!homeMain.includes('class="design-options"'), "gallery stays off the homepage");
+  assert.ok(
+    webProjects.includes('aria-labelledby="crestline-design-options"'),
+    "gallery is labelled as part of the Crestline case study",
+  );
+  assert.equal(
+    designImages.size,
+    3,
+    "three full-size image links remain usable without JavaScript",
+  );
+  for (const asset of designImages) {
+    const response = await fetch(origin + asset, { method: "HEAD" });
+    assert.equal(response.status, 200, `${asset}: image link works`);
+    assert.ok(response.headers.get("content-type")?.startsWith("image/"), `${asset}: image MIME`);
+    assert.ok(Number(response.headers.get("content-length")) > 0, `${asset}: nonempty image`);
+    checks++;
   }
   const mediaAssets = new Set();
   for (const [route, expectedVideos] of [

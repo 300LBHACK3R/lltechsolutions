@@ -1,6 +1,15 @@
 import { projectVideos, type ProjectVideo } from "@/data/project-videos";
 
 export type ProjectCategory = "web-builds" | "software-development" | "social-media-management";
+export type ProjectDesignOption = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+  width: number;
+  height: number;
+};
 export type Project = {
   id: string;
   title: string;
@@ -26,6 +35,7 @@ export type Project = {
   liveUrl?: string;
   relatedWork?: { projectId: string; label: string };
   links?: { label: string; href: string; kind?: string }[];
+  designOptions?: ProjectDesignOption[];
 };
 
 export const projects: Project[] = [
@@ -116,6 +126,37 @@ export const projects: Project[] = [
     image: "/images/projects/crestline.webp",
     video: projectVideos["crestline"],
     imageAlt: "Crestline Painting custom business website showcase",
+    designOptions: [
+      {
+        id: "architectural-home",
+        title: "Architectural & refined",
+        description: "A spacious homepage direction with blue accents and project photography.",
+        image: "/images/projects/crestline-options/architectural-home.jpg",
+        alt: "Alternative Crestline homepage with a white and grey layout, blue accents and a large multi-family project photograph",
+        width: 1348,
+        height: 926,
+      },
+      {
+        id: "architectural-services",
+        title: "A service-led layout",
+        description:
+          "A complementary services layout with a clear hierarchy and large visual details.",
+        image: "/images/projects/crestline-options/architectural-services.jpg",
+        alt: "Alternative Crestline services layout pairing a large architectural interior photograph with painting service information",
+        width: 1348,
+        height: 926,
+      },
+      {
+        id: "colour-and-craft",
+        title: "Colour & craft",
+        description:
+          "A painting-themed studio concept using bold colour, brush lettering and tactile details.",
+        image: "/images/projects/crestline-options/colour-and-craft.png",
+        alt: "Painting website design concept with cobalt blue brush lettering, a paint roller and yellow colour swatches on a white background",
+        width: 1536,
+        height: 1024,
+      },
+    ],
     liveUrl: "https://www.crestlinepainting.ca/",
     links: [
       {
