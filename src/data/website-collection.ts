@@ -56,6 +56,24 @@ export const collectionTiers = [
 
 export type CollectionTierId = (typeof collectionTiers)[number]["id"];
 
+/** Industry and collection level are independent: a painting design can belong to any level. */
+export const collectionIndustries = [
+  { id: "construction", name: "Construction & Contracting" },
+  { id: "painting", name: "Painting" },
+  { id: "plumbing", name: "Plumbing" },
+  { id: "electrical", name: "Electrical" },
+  { id: "landscaping", name: "Landscaping & Outdoor Services" },
+  { id: "massage-wellness", name: "Massage & Wellness" },
+  { id: "legal", name: "Legal Services" },
+  { id: "cleaning", name: "Cleaning" },
+  { id: "automotive", name: "Automotive & Detailing" },
+  { id: "food-hospitality", name: "Food & Hospitality" },
+  { id: "beauty", name: "Beauty & Personal Care" },
+  { id: "professional-services", name: "Professional Services" },
+] as const;
+
+export type CollectionIndustryId = (typeof collectionIndustries)[number]["id"];
+
 export const collectionCarePlans = [
   {
     id: "care",
@@ -87,7 +105,7 @@ export type WebsiteDesign = {
   status: "draft" | "published";
   name: string;
   tier: CollectionTierId;
-  industry: string;
+  industry: CollectionIndustryId;
   description: string;
   startingPriceCad: number;
   pageCount: number;
@@ -195,7 +213,7 @@ export function publishedDesigns(designs: readonly WebsiteDesign[] = websiteDesi
 
 export function filterDesigns(designs: readonly WebsiteDesign[], query: CollectionQuery) {
   const tier = collectionTiers.find((item) => item.id === query.tier)?.id;
-  const industry = typeof query.industry === "string" ? query.industry : "";
+  const industry = collectionIndustries.find((item) => item.id === query.industry)?.id;
   const budgets = new Map([
     ["under-500", 500],
     ["under-1000", 1000],
@@ -216,7 +234,12 @@ export function filterDesigns(designs: readonly WebsiteDesign[], query: Collecti
 }
 
 export function collectionInquiryHref(
-  selection: { tier?: CollectionTierId; design?: string; care?: CollectionCareId } = {},
+  selection: {
+    tier?: CollectionTierId;
+    design?: string;
+    care?: CollectionCareId;
+    industry?: CollectionIndustryId;
+  } = {},
 ) {
   const query = new URLSearchParams({
     service: "Website Design & Development",
@@ -225,6 +248,7 @@ export function collectionInquiryHref(
   if (selection.tier) query.set("tier", selection.tier);
   if (selection.design) query.set("design", selection.design);
   if (selection.care) query.set("care", selection.care);
+  if (selection.industry) query.set("industry", selection.industry);
   return `/contact?${query.toString()}`;
 }
 
@@ -236,10 +260,14 @@ export function collectionInquiry(
   if (query.collection !== "website") return null;
   const design = publishedDesigns(designs).find((item) => item.id === query.design);
   const tier = collectionTiers.find((item) => item.id === (design?.tier ?? query.tier));
+  const industry = collectionIndustries.find(
+    (item) => item.id === (design?.industry ?? query.industry),
+  );
   const care = collectionCarePlans.find((item) => item.id === query.care);
   const details = [
     "I’m interested in the L&L Website Collection.",
     ...(design ? [`Design: ${design.name}`] : []),
+    ...(industry ? [`Business type: ${industry.name}`] : []),
     ...(tier ? [`Collection: ${tier.name}`] : []),
     ...(care ? [`Optional monthly support: ${care.name}`] : []),
     "",
@@ -249,6 +277,7 @@ export function collectionInquiry(
     service: "Website Design & Development",
     message: details.join("\n"),
     summary:
-      [design?.name, tier?.name, care?.name].filter(Boolean).join(" · ") || "Website Collection",
+      [design?.name, industry?.name, tier?.name, care?.name].filter(Boolean).join(" · ") ||
+      "Website Collection",
   };
 }

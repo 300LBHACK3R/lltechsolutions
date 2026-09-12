@@ -5,6 +5,7 @@ The public collection lives at `/website-collection`. It is a website-service of
 ## Current release
 
 - Four collection levels: Essential, Signature, Premier and Flagship.
+- Twelve business categories, independent of tier: Construction & Contracting, Painting, Plumbing, Electrical, Landscaping & Outdoor Services, Massage & Wellness, Legal Services, Cleaning, Automotive & Detailing, Food & Hospitality, Beauty & Personal Care and Professional Services. Categories are editable in `collectionIndustries` in the same catalogue file. Industry choice carries through tier, care and catalogue enquiry links.
 - No designs are published yet. The page clearly says the first designs are being prepared. No placeholder price, fictitious product, checkout or unsupported score claim is displayed.
 - Every tier and optional monthly care option links to the existing contact form with its selection included in the editable project details. The API, mail handling, allowlists and security checks are reused.
 - Links appear in the main navigation, compact footer, Services, Pricing and a small line within the existing homepage services preview.
@@ -21,7 +22,7 @@ Each record needs:
 | ----------------------------- | ----------------------------------------------------------------------------------------------------- |
 | `id`                          | Unique lowercase slug, used in links and inquiry selection                                            |
 | `status`                      | `draft` while preparing; `published` only after checking the demo, content and offer                  |
-| `name`, `tier`, `industry`    | Public display name, one of the four tier IDs, consistent business-type label                         |
+| `name`, `tier`, `industry`    | Public display name, one of the four tier IDs, a canonical industry ID from `collectionIndustries`    |
 | `description`                 | What this particular design is suited to                                                              |
 | `startingPriceCad`            | Approved numeric starting price, greater than zero; personalization and launch scope must be explicit |
 | `pageCount`, `deliveryWindow` | Included page count and realistic timing conditions, including when the clock starts                  |
@@ -29,7 +30,7 @@ Each record needs:
 | `demoUrl`                     | Public HTTPS live demo; no credentials, private account links or customer data                        |
 | `included`                    | Concrete list covering pages, customization, revisions and any included features                      |
 
-The catalogue displays published records only. Adding the first published record automatically enables collection, industry and starting-budget filters, low/high price sorting, image previews, scope disclosures, demo links and “Choose this design” inquiry links. Filters use native GET forms and work without JavaScript. Prices are formatted in CAD. “Under” budget filters are strictly less than the displayed amount.
+The catalogue displays published records only. Business-type, collection and budget filters are available from the start. The page clearly shows the preparation state while no designs are published, and preserves the selected business type and tier in enquiry links. Adding the first published record populates matching image previews, individual prices, scope disclosures, demo links and “Choose this design” enquiry links. Filters and low/high price sorting then operate on the published records. Filters use native GET forms and work without JavaScript. Prices are formatted in CAD. “Under” budget filters are strictly less than the displayed amount.
 
 There is no automated payment collection in this release. “Choose this design” begins a scope enquiry. The agreed proposal and deposit follow once the customer’s requirements are understood.
 
@@ -49,6 +50,6 @@ Before publishing a design, open its real demo and verify every included page an
 
 ## Verification for this release
 
-On September 12, 2026: clean dependency installation, formatting, import/asset validation, ESLint with zero warnings, TypeScript, all 12 tests, dependency audit (zero reported vulnerabilities), production build and all 57 HTTP checks passed. No external email was sent. The supported browser returned `ERR_BLOCKED_BY_CLIENT` for the local preview, so visual device/browser verification is not claimed.
+On September 12, 2026: clean dependency installation, formatting, import/asset validation, ESLint with zero warnings, TypeScript, all 12 tests, dependency audit (zero reported vulnerabilities), production build and all 59 HTTP checks passed. No external email was sent. The supported browser returned `ERR_BLOCKED_BY_CLIENT` for the local preview, so visual device/browser verification is not claimed.
 
 The update is prepared on top of the Crestline Other Design Options change. Its Windows updater includes both changes if the gallery has not already been installed. The existing GitHub integration cannot write to this repository, so publication uses the owner’s authenticated local Git. The updater defaults to local review, requires a clean working tree, preserves a backup branch and waits for GitHub Quality before a requested production push. It does not confirm Vercel deployment success.

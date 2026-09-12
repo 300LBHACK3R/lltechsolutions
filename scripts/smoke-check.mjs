@@ -117,6 +117,63 @@ try {
     collection.includes('"@type":"CollectionPage"'),
     "collection has descriptive structured data",
   );
+  for (const industry of [
+    "construction",
+    "painting",
+    "plumbing",
+    "electrical",
+    "landscaping",
+    "massage-wellness",
+    "legal",
+    "cleaning",
+    "automotive",
+    "food-hospitality",
+    "beauty",
+    "professional-services",
+  ]) {
+    assert.ok(
+      collection.includes(`<option value="${industry}"`),
+      `${industry}: category is available`,
+    );
+  }
+  const categoryResponse = await fetch(
+    `${origin}/website-collection?industry=painting&tier=signature`,
+  );
+  assert.equal(categoryResponse.status, 200);
+  const categoryHtml = await categoryResponse.text();
+  assert.ok(
+    categoryHtml.includes('<option value="painting" selected="">Painting</option>'),
+    "industry filter retains its selection on the server",
+  );
+  assert.ok(
+    categoryHtml.includes('<option value="signature" selected="">Signature</option>'),
+    "tier and industry can be selected independently",
+  );
+  assert.ok(
+    categoryHtml.includes('method="get"'),
+    "catalogue filters work without client JavaScript",
+  );
+  const categoryCta = [...categoryHtml.matchAll(/href="([^\"]+)"/g)]
+    .map((match) => match[1].replaceAll("&amp;", "&"))
+    .find(
+      (href) =>
+        href.startsWith("/contact?") &&
+        href.includes("industry=painting") &&
+        href.includes("tier=signature"),
+    );
+  assert.ok(categoryCta, "industry and tier are retained in an inquiry link");
+  const categoryContactResponse = await fetch(origin + categoryCta);
+  assert.equal(categoryContactResponse.status, 200);
+  const categoryContactHtml = await categoryContactResponse.text();
+  const categoryMessage = categoryContactHtml.match(
+    /<textarea\b[^>]*name="message"[^>]*>(.*?)<\/textarea>/s,
+  )?.[1];
+  assert.ok(
+    categoryMessage?.includes("Business type: Painting") &&
+      categoryMessage.includes("Collection: Signature"),
+    "category choice reaches the editable inquiry",
+  );
+  checks += 2;
   for (const tier of ["essential", "signature", "premier", "flagship"]) {
     assert.ok(collection.includes(`id="collection-${tier}"`), `${tier}: public collection level`);
     const response = await fetch(`${origin}/contact?collection=website&tier=${tier}&care=care`);

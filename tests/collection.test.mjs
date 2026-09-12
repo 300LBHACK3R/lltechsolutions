@@ -5,6 +5,7 @@ import path from "node:path";
 import {
   websiteDesigns,
   collectionTiers,
+  collectionIndustries,
   publishedDesigns,
   filterDesigns,
   collectionInquiry,
@@ -13,7 +14,7 @@ import {
 import { validateContact } from "../src/lib/contact-validation.ts";
 
 // Test-only records: these are never imported into the site or offered for sale.
-const fixture = (id, tier, price, industry = "Trades", status = "published") => ({
+const fixture = (id, tier, price, industry = "painting", status = "published") => ({
   id,
   tier,
   startingPriceCad: price,
@@ -23,18 +24,18 @@ const fixture = (id, tier, price, industry = "Trades", status = "published") => 
 });
 const designs = [
   fixture("one", "essential", 300),
-  fixture("two", "signature", 800, "Wellness"),
+  fixture("two", "signature", 800, "massage-wellness"),
   fixture("three", "premier", 1600),
-  fixture("draft", "flagship", 2000, "Trades", "draft"),
+  fixture("draft", "flagship", 2000, "painting", "draft"),
 ];
 
 test("collection filters keep unpublished designs private and combine scope, industry and budget", () => {
   assert.equal(publishedDesigns(designs).length, 3);
   assert.deepEqual(
-    filterDesigns(designs, { industry: "Trades", budget: "under-1000" }).map((item) => item.id),
+    filterDesigns(designs, { industry: "painting", budget: "under-1000" }).map((item) => item.id),
     ["one"],
   );
-  assert.deepEqual(filterDesigns(designs, { tier: "signature", industry: "Trades" }), []);
+  assert.deepEqual(filterDesigns(designs, { tier: "signature", industry: "painting" }), []);
   assert.deepEqual(
     filterDesigns(designs, { sort: "price-high" }).map((item) => item.id),
     ["three", "two", "one"],
@@ -52,10 +53,20 @@ test("collection filters keep unpublished designs private and combine scope, ind
 
 test("collection inquiry uses catalogue identity rather than untrusted query text or price", () => {
   const selection = collectionInquiry(
-    { collection: "website", design: "two", tier: "flagship", care: "social", price: "1" },
+    {
+      collection: "website",
+      design: "two",
+      tier: "flagship",
+      care: "social",
+      industry: "legal",
+      price: "1",
+    },
     designs,
   );
-  assert.equal(selection.summary, "Test design two · Signature · Website + Social");
+  assert.equal(
+    selection.summary,
+    "Test design two · Massage & Wellness · Signature · Website + Social",
+  );
   assert.ok(selection.message.includes("Collection: Signature"));
   assert.ok(!selection.message.includes("Flagship"));
   const bad = collectionInquiry(
@@ -73,10 +84,10 @@ test("collection inquiry uses catalogue identity rather than untrusted query tex
 });
 
 test("collection choice travels through the existing validated inquiry payload", () => {
-  const href = collectionInquiryHref({ tier: "premier", care: "growth" });
+  const href = collectionInquiryHref({ tier: "premier", care: "growth", industry: "plumbing" });
   const query = Object.fromEntries(new URL(href, "https://example.test").searchParams);
   const inquiry = collectionInquiry(query);
-  assert.equal(inquiry.summary, "Premier · Website Growth");
+  assert.equal(inquiry.summary, "Plumbing · Premier · Website Growth");
   const result = validateContact({
     name: "Test Person",
     email: "test@example.com",
@@ -85,6 +96,7 @@ test("collection choice travels through the existing validated inquiry payload",
     message: `${inquiry.message}\nA business website enquiry.`,
   });
   assert.equal(result.ok, true);
+  assert.ok(result.value.message.includes("Business type: Plumbing"));
   assert.ok(
     result.value.message.includes("Premier") && result.value.message.includes("Website Growth"),
   );
@@ -100,6 +112,7 @@ test("published catalogue entries have safe links, real assets and complete pric
   }
   for (const design of publishedDesigns()) {
     assert.ok(collectionTiers.some((tier) => tier.id === design.tier));
+    assert.ok(collectionIndustries.some((industry) => industry.id === design.industry));
     for (const value of [
       design.name,
       design.description,

@@ -8,10 +8,12 @@ import {
   collectionCarePlans,
   collectionDescription,
   collectionInquiryHref,
+  collectionIndustries,
   collectionQuestions,
   collectionStandards,
   collectionTiers,
   publishedDesigns,
+  filterDesigns,
   type CollectionQuery,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
@@ -28,7 +30,10 @@ export default async function WebsiteCollectionPage({
   searchParams: Promise<CollectionQuery>;
 }) {
   const designs = publishedDesigns();
-  const query = designs.length > 0 ? await searchParams : {};
+  const query = await searchParams;
+  const listedDesigns = filterDesigns(designs, query);
+  const selectedIndustry = collectionIndustries.find((item) => item.id === query.industry);
+  const selectedTier = collectionTiers.find((item) => item.id === query.tier);
   return (
     <div className="website-collection">
       <section className="collection-hero" aria-labelledby="collection-title">
@@ -155,7 +160,10 @@ export default async function WebsiteCollectionPage({
                 </div>
                 <div className="collection-level-action">
                   <span>Priced per design</span>
-                  <Link href={collectionInquiryHref({ tier: tier.id })} className="text-link">
+                  <Link
+                    href={collectionInquiryHref({ tier: tier.id, industry: selectedIndustry?.id })}
+                    className="text-link"
+                  >
                     Discuss {tier.name} <span aria-hidden="true">↗</span>
                   </Link>
                 </div>
@@ -283,7 +291,14 @@ export default async function WebsiteCollectionPage({
                 <h3>{plan.name}</h3>
                 <p>{plan.description}</p>
                 <p>{plan.scope}</p>
-                <Link className="text-link" href={collectionInquiryHref({ care: plan.id })}>
+                <Link
+                  className="text-link"
+                  href={collectionInquiryHref({
+                    care: plan.id,
+                    tier: selectedTier?.id,
+                    industry: selectedIndustry?.id,
+                  })}
+                >
                   Discuss {plan.name} <span aria-hidden="true">↗</span>
                 </Link>
               </article>
@@ -335,7 +350,13 @@ export default async function WebsiteCollectionPage({
             </p>
           </div>
           <div>
-            <Link className="button button-gold" href={collectionInquiryHref()}>
+            <Link
+              className="button button-gold"
+              href={collectionInquiryHref({
+                tier: selectedTier?.id,
+                industry: selectedIndustry?.id,
+              })}
+            >
               Talk about your website <span aria-hidden="true">↗</span>
             </Link>
             <Link className="text-link" href="/services#website-development">
@@ -359,12 +380,12 @@ export default async function WebsiteCollectionPage({
             provider: { "@id": absoluteUrl("/#organization") },
             areaServed: "Canada",
           },
-          ...(designs.length
+          ...(listedDesigns.length
             ? {
                 mainEntity: {
                   "@type": "ItemList",
-                  numberOfItems: designs.length,
-                  itemListElement: designs.map((design, index) => ({
+                  numberOfItems: listedDesigns.length,
+                  itemListElement: listedDesigns.map((design, index) => ({
                     "@type": "ListItem",
                     position: index + 1,
                     name: design.name,
