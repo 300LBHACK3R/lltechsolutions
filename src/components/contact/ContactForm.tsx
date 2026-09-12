@@ -3,7 +3,15 @@ import { useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { fieldLimits, serviceOptions, timelineOptions } from "@/lib/contact-validation";
 
-export default function ContactForm({ initialService = "" }: { initialService?: string }) {
+export default function ContactForm({
+  initialService = "",
+  initialMessage = "",
+  collectionSummary,
+}: {
+  initialService?: string;
+  initialMessage?: string;
+  collectionSummary?: string;
+}) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [message, setMessage] = useState("");
   const pending = useRef(false);
@@ -47,6 +55,16 @@ export default function ContactForm({ initialService = "" }: { initialService?: 
       <p className="form-intro">
         A few details are enough to get started. Fields marked * are required.
       </p>
+      {collectionSummary && (
+        <p className="collection-contact-context">
+          <strong>Your website enquiry</strong>
+          {collectionSummary}
+          <span>
+            Your selection is included below. Add your business details and any questions; this is
+            an enquiry, with no payment or commitment.
+          </span>
+        </p>
+      )}
       <div hidden aria-hidden="true">
         <label>
           Leave this field empty
@@ -113,6 +131,7 @@ export default function ContactForm({ initialService = "" }: { initialService?: 
           Project details *
           <textarea
             name="message"
+            defaultValue={initialMessage}
             required
             maxLength={fieldLimits.message}
             placeholder="What does your business need, and what would a successful project help you do?"

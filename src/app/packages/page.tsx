@@ -43,6 +43,20 @@ export default function PricingPage() {
           and ongoing support affect the final quote. Your proposal will identify applicable taxes
           and any separate hosting, domain, platform, advertising or usage fees before approval.
         </p>
+        <section className="collection-pricing-link" aria-labelledby="pricing-collection-title">
+          <div>
+            <p className="eyebrow">Another way to get started</p>
+            <h2 id="pricing-collection-title">The Website Collection.</h2>
+            <p>
+              Choose an existing L&L design foundation and have it personalized and launched for
+              your business. Four levels of scope, with individual design pricing and optional
+              ongoing care as the collection grows.
+            </p>
+          </div>
+          <Link href="/website-collection" className="button button-outline">
+            Explore the collection ↗
+          </Link>
+        </section>
       </div>
       <ProjectCTA />
     </>

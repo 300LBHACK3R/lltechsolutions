@@ -1,6 +1,7 @@
 import { servicePillars } from "@/data/services";
 import Reveal from "@/components/ui/Reveal";
 import ServiceExplorer from "@/components/home/ServiceExplorer";
+import Link from "next/link";
 export default function HomeServicesPreview() {
   return (
     <section
@@ -32,6 +33,12 @@ export default function HomeServicesPreview() {
               title,
             }))}
           />
+          <div className="collection-discovery-link">
+            <p>A design you choose. A website we personalize and launch.</p>
+            <Link href="/website-collection" className="text-link">
+              Explore the Website Collection ↗
+            </Link>
+          </div>
         </Reveal>
       </div>
     </section>

@@ -33,6 +33,7 @@ try {
   const routes = [
     "/",
     "/services",
+    "/website-collection",
     "/projects",
     "/projects/web-builds",
     "/projects/software-development",
@@ -111,6 +112,60 @@ try {
     "homepage exposes Tow-N-Go’s monthly partnership",
   );
   const reviews = htmlByRoute.get("/reviews");
+  const collection = htmlByRoute.get("/website-collection");
+  assert.ok(
+    collection.includes('"@type":"CollectionPage"'),
+    "collection has descriptive structured data",
+  );
+  for (const tier of ["essential", "signature", "premier", "flagship"]) {
+    assert.ok(collection.includes(`id="collection-${tier}"`), `${tier}: public collection level`);
+    const response = await fetch(`${origin}/contact?collection=website&tier=${tier}&care=care`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    const textarea = html.match(/<textarea\b[^>]*name="message"[^>]*>(.*?)<\/textarea>/s)?.[1];
+    assert.ok(
+      textarea?.includes(`Collection: ${tier.charAt(0).toUpperCase() + tier.slice(1)}`),
+      `${tier}: selection reaches the editable message`,
+    );
+    assert.ok(textarea.includes("Website Care"), "monthly choice survives the inquiry link");
+    assert.ok(
+      /<option[^>]*selected=""[^>]*>Website Design &amp; Development<\/option>/.test(html),
+      "existing allowed website service is selected",
+    );
+    checks++;
+  }
+  for (const source of ["/", "/services", "/packages"]) {
+    const main = htmlByRoute.get(source).match(/<main\b[^>]*>(.*?)<\/main>/s)?.[1];
+    assert.ok(
+      main?.includes('href="/website-collection"'),
+      `${source}: collection is discoverable in page content`,
+    );
+  }
+  assert.ok(
+    !homeMain.includes('id="collection-essential"'),
+    "complete collection catalogue stays off the homepage",
+  );
+  assert.ok(
+    collection.includes("Our first designs are being prepared.") ||
+      collection.includes('class="collection-design"'),
+    "collection has an honest opening state or real designs",
+  );
+  for (const match of collection.matchAll(/href="#([^\"]+)"/g)) {
+    assert.ok(collection.includes(`id="${match[1]}"`), `collection jump link: ${match[1]}`);
+  }
+  const invalidSelection = await fetch(
+    `${origin}/contact?collection=website&tier=untrusted-tier&design=private-draft&care=untrusted-care`,
+  );
+  assert.equal(invalidSelection.status, 200);
+  const invalidHtml = await invalidSelection.text();
+  const invalidMessage = invalidHtml.match(
+    /<textarea\b[^>]*name="message"[^>]*>(.*?)<\/textarea>/s,
+  )?.[1];
+  assert.ok(
+    invalidMessage && !/untrusted|private-draft/.test(invalidMessage),
+    "untrusted URL selections never enter the message",
+  );
+  checks++;
   const approvedQuote =
     "Tate has been a joy to work with. I am blown away by his professionalism and care. His communication has made me feel understood and heard each step of the way. Money well spent, especially on a complicated web project—I know it is in good hands with Tate.";
   assert.ok(reviews.includes(approvedQuote), "Heather’s supplied testimonial remains verbatim");

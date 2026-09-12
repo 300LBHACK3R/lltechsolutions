@@ -22,7 +22,9 @@ export default function Footer() {
           </div>
           <nav className="footer-nav" aria-label="Footer navigation">
             {navigation
-              .filter((item) => ["/services", "/projects", "/packages"].includes(item.href))
+              .filter((item) =>
+                ["/services", "/website-collection", "/projects", "/packages"].includes(item.href),
+              )
               .map((item) => (
                 <Link key={item.href} href={item.href}>
                   {item.label}

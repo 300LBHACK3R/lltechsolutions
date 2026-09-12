@@ -3,6 +3,7 @@ import PageIntro from "@/components/ui/PageIntro";
 import { siteConfig } from "@/config/site";
 import { serviceOptions } from "@/lib/contact-validation";
 import { pageMetadata } from "@/lib/metadata";
+import { collectionInquiry, type CollectionQuery } from "@/data/website-collection";
 export const metadata = pageMetadata(
   "Start A Project",
   "Talk with L&L Tech Solutions about a custom website, software application, content production or ongoing social media partnership.",
@@ -11,10 +12,12 @@ export const metadata = pageMetadata(
 export default async function ContactPage({
   searchParams,
 }: {
-  searchParams: Promise<{ service?: string }>;
+  searchParams: Promise<CollectionQuery>;
 }) {
-  const { service } = await searchParams;
-  const selected = serviceOptions.find((option) => option === service) ?? "";
+  const query = await searchParams;
+  const collection = collectionInquiry(query);
+  const selected =
+    collection?.service ?? serviceOptions.find((option) => option === query.service) ?? "";
   return (
     <>
       <PageIntro
@@ -23,7 +26,12 @@ export default async function ContactPage({
         description="A new website, a better system, or a more consistent presence. Tell us what you have in mind, and we’ll help define the right next step."
       />
       <div className="container contact-layout">
-        <ContactForm initialService={selected} />
+        <ContactForm
+          key={`${selected}:${collection?.summary ?? ""}`}
+          initialService={selected}
+          initialMessage={collection?.message}
+          collectionSummary={collection?.summary}
+        />
         <aside className="contact-aside">
           <p className="eyebrow">Direct access</p>
           <h2>Let’s talk it through.</h2>

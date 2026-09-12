@@ -38,6 +38,17 @@ export default function ServicesPage() {
                   Related work →
                 </Link>
               </div>
+              {service.id === "website-development" && (
+                <div className="collection-discovery-link">
+                  <p>
+                    Prefer an existing design direction? Explore our custom-coded Website
+                    Collection, with personalization, launch and optional monthly care.
+                  </p>
+                  <Link href="/website-collection" className="text-link">
+                    Explore the Website Collection ↗
+                  </Link>
+                </div>
+              )}
             </div>
             <div>
               <h3>What we can help with</h3>

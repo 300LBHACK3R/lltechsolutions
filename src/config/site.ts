@@ -21,6 +21,7 @@ export const siteConfig = {
 export const navigation = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
+  { label: "Website Collection", href: "/website-collection" },
   { label: "Our Clients", href: "/projects" },
   { label: "Reviews", href: "/reviews" },
   { label: "Process", href: "/process" },
@@ -31,6 +32,7 @@ export const navigation = [
 export const publicRoutes = [
   "/",
   "/services",
+  "/website-collection",
   "/projects",
   "/projects/web-builds",
   "/projects/software-development",
