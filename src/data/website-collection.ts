@@ -80,6 +80,8 @@ export type TemplateCategory = {
   name: string;
   description: string;
   industries: readonly CollectionIndustryId[];
+  /** Decorative industry illustration; never represents a client's actual premises. */
+  image: string;
 };
 
 /** Business categories lead the browsing experience; tiers remain optional refinements. */
@@ -89,30 +91,35 @@ export const templateCategories: readonly TemplateCategory[] = [
     name: "Construction & Trades",
     description: "Construction companies, painters, plumbers and electricians.",
     industries: ["construction", "painting", "plumbing", "electrical"],
+    image: "/images/template-categories/construction-trades.webp",
   },
   {
     id: "health-wellness",
     name: "Health & Wellness",
     description: "Massage therapists, dental practices and personal care businesses.",
     industries: ["massage-wellness", "dental", "beauty"],
+    image: "/images/template-categories/health-wellness.webp",
   },
   {
     id: "legal-professional",
     name: "Legal & Professional",
     description: "Law firms, consultants and professional service businesses.",
     industries: ["legal", "professional-services"],
+    image: "/images/template-categories/legal-professional.webp",
   },
   {
     id: "home-property",
     name: "Home & Property",
     description: "Landscaping, cleaning and property care businesses.",
     industries: ["landscaping", "cleaning"],
+    image: "/images/template-categories/home-property.webp",
   },
   {
     id: "retail-hospitality",
     name: "Retail & Hospitality",
     description: "Food businesses, hospitality and automotive services.",
     industries: ["food-hospitality", "automotive"],
+    image: "/images/template-categories/retail-hospitality.webp",
   },
 ];
 

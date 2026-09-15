@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { categoryDesigns, categoryHref, templateCategories } from "@/data/website-collection";
 
@@ -22,19 +23,30 @@ export default function TemplateCategories() {
           const count = categoryDesigns(category).length;
           return (
             <Link className="template-category" href={categoryHref(category)} key={category.id}>
-              <span className="template-category-number" aria-hidden="true">
-                0{index + 1}
+              <span className="template-category-visual" aria-hidden="true">
+                <Image
+                  className="template-category-photo"
+                  src={category.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 2560px) 2080px, (min-width: 1900px) 1760px, (min-width: 1520px) 1440px, (max-width: 374px) calc(100vw - 32px), (max-width: 699px) calc(100vw - 40px), calc(100vw - 80px)"
+                />
               </span>
-              <div>
-                <h3>{category.name}</h3>
-                <p>{category.description}</p>
+              <div className="template-category-content">
+                <span className="template-category-number" aria-hidden="true">
+                  0{index + 1}
+                </span>
+                <div className="template-category-copy">
+                  <h3>{category.name}</h3>
+                  <p>{category.description}</p>
+                </div>
+                <span className="template-category-count">
+                  {count
+                    ? `${count} ${count === 1 ? "template" : "templates"} to explore`
+                    : "No templates added yet"}
+                  <span aria-hidden="true">↗</span>
+                </span>
               </div>
-              <span className="template-category-count">
-                {count
-                  ? `${count} ${count === 1 ? "template" : "templates"} to explore`
-                  : "No templates added yet"}
-                <span aria-hidden="true">↗</span>
-              </span>
             </Link>
           );
         })}

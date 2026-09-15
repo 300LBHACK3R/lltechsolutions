@@ -219,6 +219,22 @@ try {
       collection.includes(`href="/website-collection/category/${id}"`),
       `${id}: category is linked`,
     );
+    const imagePath = `/images/template-categories/${id}.webp`;
+    const categoryImage = [...collection.matchAll(/<img\b[^>]*>/g)].find(([tag]) =>
+      tag.includes(encodeURIComponent(imagePath)),
+    )?.[0];
+    assert.ok(categoryImage, `${id}: category photograph is rendered`);
+    assert.ok(
+      categoryImage.includes('alt=""') && categoryImage.includes('loading="lazy"'),
+      `${id}: decorative photo is lazy loaded`,
+    );
+    const imageUrl = categoryImage.match(/\bsrc="([^"]+)"/)?.[1].replaceAll("&amp;", "&");
+    assert.ok(imageUrl, `${id}: responsive image source is present`);
+    const imageResponse = await fetch(new URL(imageUrl, origin));
+    assert.equal(imageResponse.status, 200, `${id}: optimized image response`);
+    assert.match(imageResponse.headers.get("content-type") || "", /^image\//);
+    await imageResponse.arrayBuffer();
+    checks++;
     const gallery = htmlByRoute.get(`/website-collection/category/${id}`);
     assert.ok(gallery.includes('"@type":"BreadcrumbList"'), `${id}: category breadcrumbs`);
     if (["legal-professional", "home-property", "retail-hospitality"].includes(id)) {

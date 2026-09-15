@@ -4,7 +4,7 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 
 ## The visitor journey
 
-1. Open Website Templates after Our Clients in the navigation. The approved introduction explains the service; visitors choose a business category from clear, full-width rows.
+1. Open Website Templates after Our Clients in the navigation. The approved introduction explains the service; visitors choose a business category from wide photographic strips.
 2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Construction & Plumbing, and Massage Practice. Category filtering stays on the gallery page, not the landing page.
 3. Open a template to explore its inline pages and Phone/Fit screen views. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
 4. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
@@ -12,6 +12,8 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 No account, extra analytics, tracking pixels, new application dependencies or upload service is introduced. The contact form stays mounted while visitors move back through the guided steps, preserving their typed information. Selection context is appended to the final submitted message using the existing length limits and server validation. A normal enquiry link and direct contact details remain available.
 
 ## Current designs and truthfulness
+
+The category banners are generated industry illustrations, not photographs of client premises or completed projects. Their sources are documented in `docs/TEMPLATE_CATEGORY_IMAGES.md`. They load from local optimized WebP files through Next Image. Desktop strips use a shaded text area and a small hover zoom for a fine pointer; on mobile the panorama sits above the copy, preserving the range of subjects. Reduced-motion and forced-colour preferences are respected. The images are decorative because the adjacent heading and description provide the category's meaning.
 
 | Design                  | Main fit                              | Level     | Current status                             |
 | ----------------------- | ------------------------------------- | --------- | ------------------------------------------ |
@@ -89,6 +91,8 @@ The exported file is `My-LandL-Website-Brief.txt`. The visitor sends it through 
 Use `npm ci`, `npm run format:check`, `npm run check`, `npm audit --audit-level=moderate`, `npm run build` and `npm run smoke`.
 
 The September 15 industry-gallery update passed formatting, source/asset validation, ESLint without warnings, TypeScript, 19 tests, production build, compiled stylesheet verification and 86 HTTP checks. Tests cover category boundaries, draft exclusion, direct enquiry context, unknown categories, legacy filter redirects and empty-state metadata. The smoke server has no email key and sends no external email.
+
+The subsequent category-photo update passed the same checks and 91 HTTP checks, including an optimized image response for each of the five banners. The full-resolution WebP sources total 936,082 bytes; the browser receives responsive derivatives. No new dependencies, third-party image domains or security-policy exceptions were introduced. Rendered browser review is still required: the preview browser rejected access to the local server (`ERR_BLOCKED_BY_CLIENT`).
 
 Rendered review of this update remains outstanding: the supported browser cannot access the local server. After applying it, check category rows and galleries on phone, tablet and desktop, including keyboard selection, template previews and contact links. A successful main push is not a verified Vercel deployment.
 
