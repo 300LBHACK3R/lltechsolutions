@@ -4,9 +4,11 @@ import {
   categoryHref,
   collectionInquiryHref,
   collectionIndustries,
+  collectionPricingNote,
   collectionTiers,
   designHref,
   designPrice,
+  designPriceContext,
   designStatusLabel,
   designInquiryLabel,
   designScopeLabel,
@@ -68,6 +70,16 @@ export default function CollectionCatalog({
               ))}
             </select>
           </label>
+          <label>
+            Sort by price
+            <select
+              name="sort"
+              defaultValue={query.sort === "price-high" ? "price-high" : "price-low"}
+            >
+              <option value="price-low">Price: low to high</option>
+              <option value="price-high">Price: high to low</option>
+            </select>
+          </label>
           <details className="collection-extra-filters" open={!!tier}>
             <summary>Design level</summary>
             <label>
@@ -90,6 +102,7 @@ export default function CollectionCatalog({
           </Link>
         </form>
       )}
+      {designs.length > 0 && <p className="collection-result-count">{collectionPricingNote}</p>}
       {filtered.length === 0 ? (
         <div className="collection-no-results">
           <h3>
@@ -139,6 +152,7 @@ export default function CollectionCatalog({
                 <p>{design.description}</p>
                 <p className="collection-design-price">
                   {designPrice(design)}
+                  <span>{designPriceContext(design)}</span>
                   <span>{designScopeLabel(design)} · Personalized with L&L</span>
                 </p>
                 <div className="template-card-actions">

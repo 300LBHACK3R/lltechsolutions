@@ -3,9 +3,11 @@ import DesignCover from "@/components/collection/DesignCover";
 import {
   availableDesigns,
   collectionTiers,
+  collectionPricingNote,
   compareSelection,
   designHref,
   designPrice,
+  designPriceContext,
   designScopeLabel,
   designStatusLabel,
   type CollectionQuery,
@@ -34,6 +36,7 @@ export default async function ComparePage({
       <p className="eyebrow">A little clarity</p>
       <h1>Find your fit.</h1>
       <p>Compare two or three designs. Every level includes the same core launch checks.</p>
+      <p className="collection-fineprint">{collectionPricingNote}</p>
       <details className="compare-picker" open={!valid}>
         <summary>{valid ? "Change your shortlist" : "Choose two or three designs"}</summary>
         {selection.tooMany && (
@@ -76,7 +79,7 @@ export default async function ComparePage({
                   <dd>{collectionTiers.find((tier) => tier.id === design.tier)?.name}</dd>
                   <dt>Starting scope</dt>
                   <dd>{designScopeLabel(design)}</dd>
-                  <dt>Launch pricing</dt>
+                  <dt>{designPriceContext(design)}</dt>
                   <dd>{designPrice(design)}</dd>
                   <dt>Key inclusions</dt>
                   <dd>

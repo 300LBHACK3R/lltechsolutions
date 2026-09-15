@@ -23,7 +23,7 @@ The category banners are generated industry illustrations, not photographs of cl
 
 These are original coded design studies with sample text, generic sample identities and generated illustrative photography. They are not client projects, ready-made client assets or complete production business sites. Contact layouts within the concept do not collect information. The actual pages, content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
 
-Existing website/software/social pricing remains unchanged. No collection launch prices have been approved in this update. A concept with `startingPriceCad: null` reads “Quoted after a conversation”; it is never treated as free or included beneath a numeric budget ceiling. The finished offer can receive a price and published status once approved. Higher levels buy greater scope, not a different baseline of security or care.
+Existing website/software/social pricing remains unchanged. The starting-price schedule below applies to new template-based builds and is presented to Tate with the updater for review before publishing. A design with `startingPriceCad: null` reads “Quoted after a conversation”; it is never treated as free or included beneath a numeric budget ceiling. A starting price does not change a sample layout into a finished template or a client example into reusable client assets. Higher levels describe greater scope, not a different baseline of security or care.
 
 ## Canonical data and routes
 
@@ -45,7 +45,7 @@ Use the `WebsiteDesign` type in the catalogue. Give every design a unique slug, 
 - `draft`: private preparation; never rendered publicly.
 - `concept`: an explicitly labelled preview whose final offer may still require a quote.
 - `published`: approved offer with a positive, numeric `startingPriceCad` and a checked demo.
-- `client-example`: a real portfolio reference with a valid `clientProjectId`; launch price and page count stay unquoted until the prospect’s own scope is agreed.
+- `client-example`: a real portfolio reference with a valid `clientProjectId`; its optional starting price is for a similar new build; the final quote and page count depend on the prospect’s own agreed scope.
 
 Existing concepts have `concept` data used by `DesignPreview.tsx` and their own route anchor as `demoUrl`. Future externally hosted demos need a public HTTPS URL and a real screenshot under `public/images/collection/`, with alt text and the actual image dimensions. Inline concepts use a miniature HTML page layout built from their sample brand, headline and services. Supplied screenshots take precedence in gallery cards. These are preview layouts, not screenshots of a finished client site. A future original layout can extend the preview component; do not disguise a repeated layout as an exclusive bespoke client design.
 
@@ -103,7 +103,7 @@ The updater preserves a local backup, applies only this reviewed patch in a rele
 
 The Painting Company, Construction & Plumbing and Massage Practice concepts use photo-led previews and customer-facing sample copy. Visitors can try a business name locally in the preview; it is not stored or sent. Miniature typography scales against its card width to keep the title separate from the services strip. Massage has three page structures, with its approach included on Home.
 
-Transport & Logistics includes Calgary Hot Shot, the user-supplied live concept demo. Its card and scrollable detail preview use actual screenshots; the external link opens the interactive demo. It remains unpriced and explicitly labelled as a concept with placeholder business details. Do not represent it as an approved client or a production launch.
+Transport & Logistics includes Calgary Hot Shot, the user-supplied live concept demo. Its card and scrollable detail preview use actual screenshots; the external link opens the interactive demo. It remains explicitly labelled as a concept with placeholder business details; its starting price applies to a new personalization and launch. Do not represent it as an approved client or a production launch.
 
 Food & Restaurants has its own illustrated category and an honest empty state until a template is ready. Retail & Automotive is separate; the old retail-hospitality route redirects permanently. Food industry filters now resolve to Food & Restaurants. Empty categories remain noindex and outside the sitemap.
 
@@ -134,3 +134,25 @@ Crestline’s proposed starting scope focuses on service pages, project categori
 Adding these catalogue records uses the existing category, comparison, guided enquiry, metadata and sitemap paths. The production source change is confined to catalogue data; shared components, styles and contact protections are unchanged.
 
 Validation passed: formatting, local import/asset validation, zero-warning ESLint, TypeScript, 23 unit tests, the production build, stylesheet verification and 115 production HTTP checks. Dependency audit reported zero vulnerabilities. Checks confirm both category placements, actual optimized images, canonical videos with playback controls and description tracks, case-study links, sitemap inclusion and selected-client enquiry context. No external email was sent. The existing images were visually inspected; this update does not claim new browser/device rendering tests or a remote deployment.
+
+## Template starting prices and sorting
+
+This release prepares the following starting-price schedule for Tate to review with the updater. These figures are proposed commercial starting points, not inferred past client fees or externally benchmarked market rates. They exclude applicable taxes. Existing Custom Business Website ($399+) and Social Management Partner ($149/month+) entry points remain unchanged.
+
+| Design                           | Starting price (CAD) | Price applies to                                      |
+| -------------------------------- | -------------------: | ----------------------------------------------------- |
+| Massage Practice                 |                 $299 | New personalization and launch                        |
+| Calgary Hot Shot                 |                 $399 | New personalization and launch                        |
+| Painting Company                 |                 $499 | New personalization and launch                        |
+| Construction & Plumbing          |                 $699 | New personalization and launch                        |
+| Crestline Painting reference     |                 $799 | A similar new website with the prospect’s own content |
+| Tow-N-Go Trailers reference      |                 $899 | A similar new website with the prospect’s own content |
+| McKenzie House Massage reference |                 $999 | A similar new website with the prospect’s own content |
+
+The sole editable price field is `startingPriceCad` in `src/data/website-collection.ts`. Cards, design pages, comparison, the guided proposal summary and prefilled enquiries use that value. Prices remain starting points: final scope, optional extras, ongoing care, hosting, domains and provider charges are agreed separately. The client examples keep their real-client labels and original media; their brands, reviews and client-specific assets are not sold.
+
+Each populated business gallery has a labelled native **Sort by price** control. Low to high is the default; high to low is available. Press **Apply filters** to apply it together with business type and design level. The GET URL preserves the selection and works without JavaScript. Invalid or repeated sort parameters fall back to low to high. Unpriced future additions stay last in either order. Sorting does not mutate the catalogue; equal prices preserve their original order. The landing page retains category browsing.
+
+Category metadata keeps the clean category canonical URL. ItemList structured data follows the displayed order. No Product/Offer markup or ranking claims have been added. Enquiry prices come from catalogue data; arbitrary URL prices are ignored. Contact requests remain ordinary editable enquiries, not binding orders or payment submissions.
+
+Validation: formatting, source/asset validation, zero-warning ESLint, TypeScript, 24 unit tests, the production build, stylesheet checks and 129 production HTTP checks passed. Audit reported zero vulnerabilities. Added checks cover numeric ordering, equal and unknown prices, invalid sort parameters, combined filters, canonical URLs, structured-data order and tamper-resistant prefilled starting prices. The native controls retain the existing responsive layout; new rendered browser/device checks were not performed. No external email, remote push or Vercel deployment was performed while preparing this update.

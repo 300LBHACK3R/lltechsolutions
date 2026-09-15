@@ -1,5 +1,6 @@
 import {
   collectionCarePlans,
+  collectionPricingNote,
   designPrice,
   selectedExtras,
   type WebsiteDesign,
@@ -59,6 +60,7 @@ export default function CostSummary({
         No payment is taken here. We confirm the scope, revisions, timeline and all costs with you
         before work begins.
       </p>
+      <p>{collectionPricingNote}</p>
     </div>
   );
 }

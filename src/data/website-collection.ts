@@ -239,8 +239,8 @@ export type PerformanceEvidence = {
 // Set only when Tate supplies a real, captioned recording. No substitute persona or stock clip.
 export const developerIntroduction: CollectionVideo | null = null;
 
-// Concepts remain unpriced until their offer is approved. Client examples demonstrate
-// an approach; their identity, imagery and paid client-specific content are not for resale.
+// Starting prices cover a new personalization and launch within the agreed scope.
+// Client examples demonstrate an approach; their identities and client-specific assets are not for resale.
 export const websiteDesigns: readonly WebsiteDesign[] = [
   {
     id: "pigment",
@@ -250,7 +250,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "painting",
     description:
       "An expressive painting website with bold colour, clear services and room for the work to speak.",
-    startingPriceCad: null,
+    startingPriceCad: 499,
     pageCount: 4,
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
     demoUrl: "/website-collection/pigment#preview",
@@ -310,7 +310,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["plumbing"],
     description:
       "A precise, architectural direction for contractors and plumbing businesses with substantial work to show.",
-    startingPriceCad: null,
+    startingPriceCad: 699,
     pageCount: 4,
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
     demoUrl: "/website-collection/structure#preview",
@@ -369,7 +369,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "massage-wellness",
     description:
       "A warm, unhurried website for massage and wellness practices, with a clear path from services to booking.",
-    startingPriceCad: null,
+    startingPriceCad: 299,
     pageCount: 3,
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
     demoUrl: "/website-collection/still#preview",
@@ -429,7 +429,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["trailer-rentals"],
     description:
       "A corporate transport demo with a bold first impression, distinct rental and delivery pathways, and a clear route to a quote.",
-    startingPriceCad: null,
+    startingPriceCad: 399,
     pageCount: 1,
     deliveryWindow:
       "Your service scope, integrations and launch schedule are agreed before booking.",
@@ -470,7 +470,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["transport-logistics"],
     description:
       "A real black-and-gold client website with clear fleet categories, rental enquiries and delivery information, supported by an ongoing website and social content partnership.",
-    startingPriceCad: null,
+    startingPriceCad: 899,
     pageCount: null,
     deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
     preview: {
@@ -504,7 +504,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["construction"],
     description:
       "A real painting-company website with architectural imagery, dedicated services and project galleries for commercial, strata, multi-family and custom-home work.",
-    startingPriceCad: null,
+    startingPriceCad: 799,
     pageCount: null,
     deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
     preview: {
@@ -537,7 +537,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "massage-wellness",
     description:
       "A real boutique massage website pairing a warm green-and-cream design with treatment photography, clear service and pricing pages, client stories and ClinicSense booking links.",
-    startingPriceCad: null,
+    startingPriceCad: 999,
     pageCount: null,
     deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
     preview: {
@@ -618,7 +618,7 @@ export const collectionQuestions = [
   {
     question: "How will pricing work?",
     answer:
-      "Priced designs show an approved starting price in CAD. Concepts awaiting a price are clearly marked “Quoted after a conversation”. We confirm the launch scope, revisions, timeline, applicable taxes and any separate costs before you pay a project deposit. Collection level describes the design’s scope; it is not a universal fixed-price package.",
+      "Each design shows its starting price in CAD for personalization and launch, before applicable taxes. For a client example, this is the starting point for a similar new website with your own branding and content. Extra features, content production, monthly care and third-party fees are separate. We confirm the scope, revisions, timeline and full quote before a deposit. Unpriced additions are marked “Quoted after a conversation”.",
   },
   {
     question: "Do I need a monthly plan?",
@@ -631,6 +631,15 @@ export const collectionQuestions = [
       "Your business details, logo, service information, contact information and any photos or copy you want to use. We guide you through the checklist. If you need help creating content, we can include that in the scope.",
   },
 ] as const;
+
+export const collectionPricingNote =
+  "Starting prices are in CAD, before applicable taxes. Final scope is agreed before work begins. Optional extras, ongoing care, hosting, domains and provider fees are separate.";
+
+export function designPriceContext(design: Pick<WebsiteDesign, "status">) {
+  return design.status === "client-example"
+    ? "Starting point for a similar new website"
+    : "One-time personalization & launch";
+}
 
 export type CollectionQuery = Record<string, string | string[] | undefined>;
 
@@ -746,6 +755,11 @@ export function collectionInquiry(
         : []),
     ...(tier ? [`Collection: ${tier.name}`] : []),
     ...(care ? [`Optional monthly support: ${care.name}`] : []),
+    ...(design
+      ? [
+          `Launch pricing: ${designPrice(design)}. ${designPriceContext(design)}; final scope, taxes and separate costs to be confirmed.`,
+        ]
+      : []),
     "",
     "About my business and what I need:",
   ];
@@ -797,12 +811,10 @@ export function journeyInquiry(design: WebsiteDesign, extras: readonly string[],
   const care = collectionCarePlans.find((item) => item.id === careId);
   const base = collectionInquiry({ collection: "website", design: design.id, care: care?.id })!;
   const extraNames = selectedExtras(extras).map((item) => item.name);
-  const price = designPrice(design);
   return {
     ...base,
     message: [
       base.message.replace("\n\nAbout my business and what I need:", ""),
-      `Launch pricing: ${price}. Final scope and costs to be confirmed.`,
       `Additional help: ${extraNames.length ? extraNames.join("; ") : "None selected yet"}`,
       `Monthly support preference: ${care?.name ?? (careId === "none" ? "No monthly plan selected" : "Please help me decide")}`,
       "",

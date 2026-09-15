@@ -17,6 +17,7 @@ import {
   collectionTiers,
   designHref,
   designPrice,
+  designPriceContext,
   designStatusLabel,
   designInquiryLabel,
   designScopeLabel,
@@ -73,6 +74,9 @@ export default async function DesignPage({ params }: Props) {
           <p className="collection-hero-copy">{design.description}</p>
           <p className="collection-hero-note">
             {designStatusLabel(design)} · {designPrice(design)}
+          </p>
+          <p className="collection-fineprint">
+            {designPriceContext(design)} · Before applicable taxes.
           </p>
           <div className="button-row">
             <Link

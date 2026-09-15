@@ -81,6 +81,8 @@ test("collection inquiry uses catalogue identity rather than untrusted query tex
     "Test design two · Massage & Wellness · Signature · Website + Social",
   );
   assert.ok(selection.message.includes("Collection: Signature"));
+  assert.ok(selection.message.includes("Launch pricing: From $800 CAD"));
+  assert.ok(!selection.message.includes("From $1 CAD"), "query cannot forge a price");
   assert.ok(!selection.message.includes("Flagship"));
   const bad = collectionInquiry(
     {
@@ -127,7 +129,7 @@ function media(video) {
   assert.ok(video.transcript.trim().length > 20, "real videos have readable transcripts");
 }
 
-test("collection distinguishes unpriced concepts from priced releases and keeps draft designs private", () => {
+test("collection validates design status, scope and local preview assets", () => {
   const ids = new Set();
   for (const design of websiteDesigns) {
     assert.match(design.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
@@ -151,7 +153,7 @@ test("collection distinguishes unpriced concepts from priced releases and keeps 
     else assert.ok(design.startingPriceCad === null || design.startingPriceCad > 0);
     if (design.status === "client-example") {
       assert.match(design.clientProjectId, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
-      assert.equal(design.startingPriceCad, null);
+      assert.ok(Number.isFinite(design.startingPriceCad) && design.startingPriceCad > 0);
       assert.equal(design.pageCount, null);
     } else assert.ok(Number.isInteger(design.pageCount) && design.pageCount > 0);
     if (design.preview) {
@@ -231,7 +233,8 @@ test("guided preferences retain their canonical labels through the validated enq
   );
   assert.ok(!inquiry.message.includes("forged-extra"));
   assert.equal((inquiry.message.match(/Help with website wording/g) ?? []).length, 1);
-  assert.ok(inquiry.message.includes("Quoted after a conversation"));
+  assert.ok(inquiry.message.includes(designPrice(design)));
+  assert.equal((inquiry.message.match(/Launch pricing:/g) ?? []).length, 1);
   assert.equal(
     validateContact({
       name: "Test",
@@ -344,3 +347,32 @@ for (const [id, industry] of [
     );
   });
 }
+
+test("price sorting is numeric, stable and keeps unquoted options last in either direction", () => {
+  const entries = [
+    fixture("unquoted", "signature", null, "painting", "concept"),
+    fixture("large", "premier", 1000),
+    fixture("small", "essential", 99),
+    fixture("equal", "signature", 1000),
+    fixture("middle", "signature", 299),
+  ];
+  const original = entries.map((entry) => entry.id);
+  for (const sort of [undefined, "price-low", "unknown", ["price-high", "price-low"]]) {
+    assert.deepEqual(
+      filterDesigns(entries, { sort }).map((entry) => entry.id),
+      ["small", "middle", "large", "equal", "unquoted"],
+    );
+  }
+  assert.deepEqual(
+    filterDesigns(entries, { sort: "price-high" }).map((entry) => entry.id),
+    ["large", "equal", "middle", "small", "unquoted"],
+  );
+  assert.deepEqual(
+    entries.map((entry) => entry.id),
+    original,
+  );
+  assert.deepEqual(
+    filterDesigns(entries, { sort: "price-high", budget: "under-1000" }).map((entry) => entry.id),
+    ["middle", "small"],
+  );
+});

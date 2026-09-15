@@ -153,8 +153,8 @@ try {
       `${id}: labelled concept preview`,
     );
     assert.ok(
-      html.includes("Quoted after a conversation") && !html.includes("$0"),
-      `${id}: unpriced concept is never free`,
+      /From \$[1-9][0-9,]* CAD/.test(html) && !html.includes("$0"),
+      `${id}: scoped starting price is displayed`,
     );
     assert.ok(html.includes("No published performance measurements"), `${id}: no invented score`);
     assert.ok(
@@ -270,6 +270,81 @@ try {
       assert.ok(!gallery.includes('class="collection-design"'), `${id}: no invented templates`);
     }
   }
+  const templatePrices = [
+    ["still", "health-wellness", 299],
+    ["calgary-hot-shot", "transport-logistics", 399],
+    ["pigment", "construction-trades", 499],
+    ["structure", "construction-trades", 699],
+    ["crestline", "construction-trades", 799],
+    ["tow-n-go", "transport-logistics", 899],
+    ["mckenzie-house", "health-wellness", 999],
+  ];
+  for (const [id, category, price] of templatePrices) {
+    const label = `From $${price.toLocaleString("en-CA")} CAD`;
+    const detail = htmlByRoute.get(`/website-collection/${id}`);
+    assert.ok(detail.includes(label), `${id}: detail price`);
+    assert.ok(detail.includes("Before applicable taxes."), `${id}: tax basis`);
+    const gallery = htmlByRoute.get(`/website-collection/category/${category}`);
+    const card = gallery.match(
+      new RegExp(`<article[^>]*id="design-${id}"[^>]*>[\\s\\S]*?</article>`),
+    )?.[0];
+    assert.ok(card?.includes(label), `${id}: matching gallery price`);
+    const contact = await fetch(`${origin}/contact?collection=website&design=${id}&price=1`);
+    assert.equal(contact.status, 200);
+    const contactHtml = await contact.text();
+    assert.ok(contactHtml.includes(`Launch pricing: ${label}`), `${id}: canonical enquiry price`);
+    assert.ok(!contactHtml.includes("From $1 CAD"), `${id}: URL cannot change the price`);
+    checks++;
+  }
+  for (const category of ["construction-trades", "health-wellness", "transport-logistics"]) {
+    const path = `/website-collection/category/${category}`;
+    const expected = templatePrices.filter(([, id]) => id === category).map(([id]) => id);
+    const ids = (html) =>
+      [...html.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]);
+    const defaultGallery = htmlByRoute.get(path);
+    assert.deepEqual(ids(defaultGallery), expected, `${category}: default ascending order`);
+    assert.match(defaultGallery, /<select[^>]*name="sort"/, `${category}: visible sort control`);
+    for (const [sort, order] of [
+      ["price-low", expected],
+      ["price-high", [...expected].reverse()],
+    ]) {
+      const response = await fetch(`${origin}${path}?sort=${sort}`);
+      assert.equal(response.status, 200);
+      const html = await response.text();
+      assert.deepEqual(ids(html), order, `${category}: ${sort}`);
+      assert.match(
+        html,
+        new RegExp(`<option[^>]*value="${sort}"[^>]*selected`),
+        `${category}: selected sort remains visible`,
+      );
+      assert.ok(
+        html.includes(`rel="canonical" href="https://lltechsolutions.ca${path}"`),
+        `${category}: clean canonical for sorted view`,
+      );
+      const schemas = [
+        ...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g),
+      ].map((match) => JSON.parse(match[1]));
+      const list = schemas.find((schema) => schema["@type"] === "CollectionPage").mainEntity
+        .itemListElement;
+      assert.deepEqual(
+        list.map((item) => item.url.split("/").at(-1)),
+        order,
+        `${category}: schema follows visual order`,
+      );
+      checks++;
+    }
+  }
+  const sortedFilter = await fetch(
+    `${origin}/website-collection/category/construction-trades?industry=painting&tier=premier&sort=price-high`,
+  );
+  assert.equal(sortedFilter.status, 200);
+  const sortedFilterHtml = await sortedFilter.text();
+  assert.deepEqual(
+    [...sortedFilterHtml.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]),
+    ["crestline"],
+    "sorting combines with business type and design level",
+  );
+  checks++;
   const transport = htmlByRoute.get("/website-collection/category/transport-logistics");
   assert.ok(
     transport.includes('id="design-calgary-hot-shot"') &&

@@ -225,6 +225,7 @@
 }
 .collection-filters label {
   display: flex;
+  min-width: 0;
   flex: 1 1 170px;
   flex-direction: column;
   gap: 8px;
@@ -233,6 +234,7 @@
 }
 .collection-filters select {
   min-height: 48px;
+  min-width: 0;
   width: 100%;
   background: var(--charcoal);
   border: 1px solid #675735;
