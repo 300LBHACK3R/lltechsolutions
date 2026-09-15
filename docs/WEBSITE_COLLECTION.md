@@ -5,7 +5,7 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 ## The visitor journey
 
 1. Open Website Templates after Our Clients in the navigation. The approved introduction explains the service; visitors choose a business category from wide photographic strips.
-2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Construction & Plumbing, Massage Practice and Calgary Hot Shot. Category filtering stays on the gallery page, not the landing page.
+2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Construction & Plumbing, Massage Practice, Calgary Hot Shot and Tow-N-Go Trailers. Category filtering stays on the gallery page, not the landing page.
 3. Open a template to explore its inline pages and Phone/Fit screen views. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
 4. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
 
@@ -45,6 +45,7 @@ Use the `WebsiteDesign` type in the catalogue. Give every design a unique slug, 
 - `draft`: private preparation; never rendered publicly.
 - `concept`: an explicitly labelled preview whose final offer may still require a quote.
 - `published`: approved offer with a positive, numeric `startingPriceCad` and a checked demo.
+- `client-example`: a real portfolio reference with a valid `clientProjectId`; launch price and page count stay unquoted until the prospect’s own scope is agreed.
 
 Existing concepts have `concept` data used by `DesignPreview.tsx` and their own route anchor as `demoUrl`. Future externally hosted demos need a public HTTPS URL and a real screenshot under `public/images/collection/`, with alt text and the actual image dimensions. Inline concepts use a miniature HTML page layout built from their sample brand, headline and services. Supplied screenshots take precedence in gallery cards. These are preview layouts, not screenshots of a finished client site. A future original layout can extend the preview component; do not disguise a repeated layout as an exclusive bespoke client design.
 
@@ -113,3 +114,13 @@ To add a real example, extend `websiteDesigns` with its approved category, name,
 Formatting, local asset/import validation, zero-warning ESLint, TypeScript, 20 unit tests, production build, production stylesheet checks and 102 HTTP checks passed. Dependency audit reported zero vulnerabilities. HTTP checks cover new category pages and metadata, truthful empty states, the legacy category redirect, actual and generated image responses, enquiry context and security responses. No external email was sent.
 
 The public Calgary Hot Shot demo was visually inspected and captured with its revealed sections. The updated L&L UI has not received browser-level visual verification in this environment: the preview browser cannot access the local build. Review the three sample previews at phone/tablet/desktop widths, long business-name wrapping, keyboard navigation and the full-page screenshot after deployment. This package does not claim a remote push or a successful Vercel deployment.
+
+## Tow-N-Go client reference
+
+Transport & Logistics now includes Tow-N-Go Trailers as a **Live client example** alongside the Calgary Hot Shot concept demo. The catalogue uses its existing real website screenshot; the detail page resolves the original project and video from the canonical portfolio data. No media files or client records are duplicated. It links to the live website, full website case study and ongoing monthly digital partnership.
+
+The enquiry says “Build something like this” and carries a request for a similar website with the prospect’s own branding, content and business details. Tow-N-Go’s logo, fleet photography, reviews and client-specific materials are not offered for reuse. The original site remains a managed client project, not a generic template for sale. Page count and price are scoped for the new business; no Chad contract price is exposed or reused.
+
+The existing 26-second portfolio walkthrough is reused, with native controls, no autoplay and a visual-description track. Replacing its canonical project media updates the collection example too. The client site continues to evolve; the live link remains available for its current state.
+
+This addition passed formatting, import/asset validation, ESLint, TypeScript, 21 unit tests, the production build and 106 production HTTP checks. The checks cover the client-reference enquiry, category comparison, existing video controls and media responses, metadata and the unchanged contact protections. Dependency audit reported zero vulnerabilities. No external email was sent; browser/device review and deployment confirmation remain separate.

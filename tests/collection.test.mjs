@@ -10,6 +10,9 @@ import {
   categoryHref,
   availableDesigns,
   designPrice,
+  designStatusLabel,
+  designInquiryLabel,
+  designScopeLabel,
   designHref,
   journeyInquiry,
   compareSelection,
@@ -112,8 +115,8 @@ test("collection choice travels through the existing validated inquiry payload",
   );
 });
 
-function asset(src, suffix) {
-  assert.match(src, new RegExp(`^/(?:images|media)/collection/[a-z0-9/_-]+\\.${suffix}$`, "i"));
+function asset(src, suffix, directory = "collection") {
+  assert.match(src, new RegExp(`^/(?:images|media)/${directory}/[a-z0-9/_-]+\\.${suffix}$`, "i"));
   assert.ok(fs.statSync(path.join("public", src)).isFile(), src);
 }
 function media(video) {
@@ -131,7 +134,7 @@ test("collection distinguishes unpriced concepts from priced releases and keeps 
     assert.ok(!["start", "compare", "brief", "category"].includes(design.id), "reserved route");
     assert.ok(!ids.has(design.id), `duplicate design id: ${design.id}`);
     ids.add(design.id);
-    assert.ok(["draft", "concept", "published"].includes(design.status));
+    assert.ok(["draft", "concept", "published", "client-example"].includes(design.status));
   }
   for (const design of availableDesigns()) {
     assert.ok(collectionTiers.some((tier) => tier.id === design.tier));
@@ -146,9 +149,17 @@ test("collection distinguishes unpriced concepts from priced releases and keeps 
         "release needs an approved price",
       );
     else assert.ok(design.startingPriceCad === null || design.startingPriceCad > 0);
-    assert.ok(Number.isInteger(design.pageCount) && design.pageCount > 0);
+    if (design.status === "client-example") {
+      assert.match(design.clientProjectId, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+      assert.equal(design.startingPriceCad, null);
+      assert.equal(design.pageCount, null);
+    } else assert.ok(Number.isInteger(design.pageCount) && design.pageCount > 0);
     if (design.preview) {
-      asset(design.preview.src, "(?:webp|png|jpe?g)");
+      asset(
+        design.preview.src,
+        "(?:webp|png|jpe?g)",
+        design.status === "client-example" ? "projects" : "collection",
+      );
       assert.ok(design.preview.alt && design.preview.width > 0 && design.preview.height > 0);
     } else assert.ok(design.concept, "a usable visual preview exists");
     if (design.pagePreview) {
@@ -279,7 +290,7 @@ test("category and template enquiries preserve the selection without inventing a
     const url = new URL(collectionInquiryHref({ design: design.id }), "https://example.test");
     assert.ok(
       collectionInquiry(Object.fromEntries(url.searchParams)).message.includes(
-        `Design: ${design.name}`,
+        `${design.status === "client-example" ? "Client example" : "Design"}: ${design.name}`,
       ),
     );
   }
@@ -298,4 +309,32 @@ test("transport and restaurant enquiries preserve their category and real design
     const inquiry = collectionInquiry(Object.fromEntries(url.searchParams));
     assert.ok(inquiry.message.includes(expected));
   }
+});
+
+test("client references keep a distinct offer and enquiry instead of reselling client assets", () => {
+  const design = availableDesigns().find((item) => item.id === "tow-n-go");
+  assert.equal(design.status, "client-example");
+  assert.equal(design.clientProjectId, "tow-n-go");
+  assert.equal(designStatusLabel(design), "Live client example");
+  assert.equal(designInquiryLabel(design), "Build something like this");
+  assert.equal(designScopeLabel(design), "Pages scoped to your business");
+  assert.ok(!publishedDesigns().includes(design));
+  assert.ok(!filterDesigns([design], { budget: "under-500" }).includes(design));
+  assert.ok(categoryDesigns(categoryForIndustry("transport-logistics")).includes(design));
+  assert.ok(filterDesigns([design], { industry: "transport-logistics" }).includes(design));
+  const inquiry = journeyInquiry(design, [], "none");
+  assert.ok(inquiry.message.includes("Client example: Tow-N-Go Trailers"));
+  assert.ok(inquiry.message.includes("my own branding, content and business details"));
+  assert.ok(!inquiry.message.includes("$0"));
+  assert.equal(
+    validateContact({
+      name: "Casey",
+      business: "Example Transport",
+      email: "casey@example.com",
+      service: inquiry.service,
+      timeline: "Flexible / planning ahead",
+      message: inquiry.message,
+    }).ok,
+    true,
+  );
 });

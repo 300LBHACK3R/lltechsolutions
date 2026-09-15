@@ -41,7 +41,10 @@ export default function CollectionJourney({ design }: { design: WebsiteDesign })
         ))}
       </ol>
       <p className="journey-selection">
-        <strong>{design.name}</strong> is your starting point.{" "}
+        <strong>{design.name}</strong>{" "}
+        {design.status === "client-example"
+          ? "is your reference example."
+          : "is your starting point."}{" "}
         <Link href={designHref(design)}>Back to the design</Link>
       </p>
       <h2 tabIndex={-1} ref={heading}>

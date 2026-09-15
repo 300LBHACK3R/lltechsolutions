@@ -49,8 +49,8 @@ export default async function TemplateCategoryPage({ params, searchParams }: Pro
           <p className="eyebrow">Website Templates</p>
           <h1>{category.name}</h1>
           <p>
-            {category.description} Open a template to explore its pages and imagine it with your own
-            branding.
+            {category.description} Explore the designs, including clearly labelled client examples,
+            and picture a website shaped around your own business.
           </p>
         </div>
       </section>

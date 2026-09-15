@@ -42,7 +42,7 @@ export default function TemplateCategories() {
                 </div>
                 <span className="template-category-count">
                   {count
-                    ? `${count} ${count === 1 ? "template" : "templates"} to explore`
+                    ? `${count} ${count === 1 ? "design" : "designs"} to explore`
                     : "No templates added yet"}
                   <span aria-hidden="true">↗</span>
                 </span>

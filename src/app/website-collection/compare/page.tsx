@@ -6,6 +6,8 @@ import {
   compareSelection,
   designHref,
   designPrice,
+  designScopeLabel,
+  designStatusLabel,
   type CollectionQuery,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
@@ -65,6 +67,7 @@ export default async function ComparePage({
             <article key={design.id}>
               <DesignCover design={design} />
               <div>
+                <p className="eyebrow">{designStatusLabel(design)}</p>
                 <h2>{design.name}</h2>
                 <dl>
                   <dt>Design direction</dt>
@@ -72,7 +75,7 @@ export default async function ComparePage({
                   <dt>Collection</dt>
                   <dd>{collectionTiers.find((tier) => tier.id === design.tier)?.name}</dd>
                   <dt>Starting scope</dt>
-                  <dd>{design.pageCount} page structures</dd>
+                  <dd>{designScopeLabel(design)}</dd>
                   <dt>Launch pricing</dt>
                   <dd>{designPrice(design)}</dd>
                   <dt>Key inclusions</dt>

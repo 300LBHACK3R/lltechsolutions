@@ -21,7 +21,12 @@ export default function CostSummary({
       <h3>What your proposal will cover</h3>
       <dl>
         <div>
-          <dt>{design.name} · Personalization & launch</dt>
+          <dt>
+            {design.name} ·{" "}
+            {design.status === "client-example"
+              ? "Similar design & launch"
+              : "Personalization & launch"}
+          </dt>
           <dd>{designPrice(design)}</dd>
         </div>
         <div>

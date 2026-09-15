@@ -43,6 +43,7 @@ try {
     "/website-collection/category/transport-logistics",
     "/website-collection/category/food-restaurants",
     "/website-collection/calgary-hot-shot",
+    "/website-collection/tow-n-go",
     "/website-collection/pigment",
     "/website-collection/structure",
     "/website-collection/still",
@@ -145,7 +146,7 @@ try {
     const html = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(html.includes('"@type":"CreativeWork"'), `${id}: design schema`);
     assert.ok(
-      (html.includes('id="preview"') && html.includes("Design concept")) ||
+      (html.includes('id="preview"') && html.includes("Sample layout")) ||
         html.includes("Interactive design concept"),
       `${id}: labelled concept preview`,
     );
@@ -270,9 +271,55 @@ try {
   const transport = htmlByRoute.get("/website-collection/category/transport-logistics");
   assert.ok(
     transport.includes('id="design-calgary-hot-shot"') &&
+      transport.includes('id="design-tow-n-go"') &&
       !transport.includes('id="design-pigment"'),
-    "transport gallery shows its actual demo only",
+    "transport gallery shows its live demo and client example",
   );
+  const towExample = htmlByRoute.get("/website-collection/tow-n-go");
+  assert.ok(
+    towExample.includes("Live client example") && towExample.includes("Build something like this"),
+    "Tow-N-Go keeps its real-client status and distinct CTA",
+  );
+  assert.ok(
+    !towExample.includes("placeholder business details") && !towExample.includes("Made yours."),
+    "the live client is never labelled a placeholder template",
+  );
+  for (const href of [
+    "/projects/web-builds#tow-n-go",
+    "/projects/social-media-management#tow-n-go-digital",
+    "https://www.towandgotrailers.ca/",
+  ]) {
+    assert.ok(towExample.includes(`href="${href}"`), `Tow-N-Go links to ${href}`);
+  }
+  const towInquiryHref = [...towExample.matchAll(/href="([^"]+)"/g)]
+    .map((match) => match[1].replaceAll("&amp;", "&"))
+    .find(
+      (href) =>
+        href.startsWith("/contact?") &&
+        new URL(href, origin).searchParams.get("design") === "tow-n-go",
+    );
+  assert.ok(towInquiryHref, "client example has a selected-design enquiry");
+  const towContact = await fetch(origin + towInquiryHref);
+  assert.equal(towContact.status, 200);
+  const towContactHtml = await towContact.text();
+  assert.ok(
+    towContactHtml.includes("Client example: Tow-N-Go Trailers") &&
+      towContactHtml.includes("my own branding, content and business details"),
+    "client-reference enquiry is preserved in the contact page",
+  );
+  checks++;
+  const transportComparison = await fetch(
+    `${origin}/website-collection/compare?design=tow-n-go&design=calgary-hot-shot`,
+  );
+  assert.equal(transportComparison.status, 200);
+  const transportComparisonHtml = await transportComparison.text();
+  assert.ok(
+    transportComparisonHtml.includes("Live client example") &&
+      transportComparisonHtml.includes("Live design demo") &&
+      transportComparisonHtml.includes("Pages scoped to your business"),
+    "comparison preserves client/demo status and scoped pages",
+  );
+  checks++;
   const hotshot = htmlByRoute.get("/website-collection/calgary-hot-shot");
   assert.ok(
     hotshot.includes("Live design demo") && hotshot.includes("placeholder business details"),
@@ -556,6 +603,7 @@ try {
   const mediaAssets = new Set();
   for (const [route, expectedVideos] of [
     ["/projects/web-builds", 3],
+    ["/website-collection/tow-n-go", 1],
     ["/projects/software-development", 1],
     ["/projects/social-media-management", 2],
   ]) {

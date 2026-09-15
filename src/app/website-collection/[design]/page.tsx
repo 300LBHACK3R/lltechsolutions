@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import DesignPreview from "@/components/collection/DesignPreview";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import CostSummary from "@/components/collection/CostSummary";
+import ProjectVideo from "@/components/projects/ProjectVideo";
+import { projects, projectPath } from "@/data/projects";
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl } from "@/config/site";
 import {
@@ -15,6 +17,9 @@ import {
   collectionTiers,
   designHref,
   designPrice,
+  designStatusLabel,
+  designInquiryLabel,
+  designScopeLabel,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -37,6 +42,15 @@ export default async function DesignPage({ params }: Props) {
   const design = availableDesigns().find((item) => item.id === id);
   if (!design) notFound();
   const category = categoryForIndustry(design.industry);
+  const clientProject = design.clientProjectId
+    ? projects.find(
+        (project) => project.id === design.clientProjectId && project.ownership === "client",
+      )
+    : undefined;
+  if (design.status === "client-example" && !clientProject) notFound();
+  const relatedProject = clientProject?.relatedWork
+    ? projects.find((project) => project.id === clientProject.relatedWork?.projectId)
+    : undefined;
   return (
     <div className="website-collection">
       <section className="collection-hero">
@@ -54,23 +68,18 @@ export default async function DesignPage({ params }: Props) {
           <h1>
             {design.name}
             <br />
-            <em>Made yours.</em>
+            <em>{clientProject ? "Imagine your business here." : "Made yours."}</em>
           </h1>
           <p className="collection-hero-copy">{design.description}</p>
           <p className="collection-hero-note">
-            {design.status === "concept"
-              ? design.pagePreview
-                ? "Live design demo · "
-                : "Interactive design concept · "
-              : ""}
-            {designPrice(design)}
+            {designStatusLabel(design)} · {designPrice(design)}
           </p>
           <div className="button-row">
             <Link
               className="button button-gold"
               href={collectionInquiryHref({ design: design.id })}
             >
-              Make this my website ↗
+              {designInquiryLabel(design)} ↗
             </Link>
             <a href="#preview" className="text-link">
               Explore the design ↓
@@ -86,12 +95,45 @@ export default async function DesignPage({ params }: Props) {
               <h2 id="preview-title">See how it feels.</h2>
             </div>
             <p>
-              {design.concept
-                ? "Try your business name, switch to a phone width and explore the sample pages."
-                : "Scroll through the actual demo below, or open it to try the navigation and interactions."}
+              {clientProject
+                ? "Watch the existing website walkthrough here, then explore the live site or the full client story."
+                : design.concept
+                  ? "Try your business name, switch to a phone width and explore the sample pages."
+                  : "Scroll through the actual demo below, or open it to try the navigation and interactions."}
             </p>
           </div>
-          {design.concept ? (
+          {clientProject ? (
+            <>
+              <p className="collection-fineprint">
+                Built for {clientProject.title} · {clientProject.status}. This is a real client
+                example. We can create a similar direction using your own branding, imagery and
+                business content. The client’s logo, photos and client-specific materials stay with
+                their business.
+              </p>
+              <ProjectVideo
+                video={clientProject.video}
+                projectId={`collection-${clientProject.id}`}
+              />
+              <div className="button-row">
+                <a
+                  className="button button-outline"
+                  href={clientProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Visit the live website <span className="sr-only">in a new tab</span> ↗
+                </a>
+                <Link className="text-link" href={projectPath(clientProject)}>
+                  Explore the client story ↗
+                </Link>
+                {relatedProject && (
+                  <Link className="text-link" href={projectPath(relatedProject)}>
+                    {clientProject.relatedWork?.label} ↗
+                  </Link>
+                )}
+              </div>
+            </>
+          ) : design.concept ? (
             <DesignPreview design={design} />
           ) : (
             <div>
@@ -135,8 +177,7 @@ export default async function DesignPage({ params }: Props) {
             <p className="eyebrow">The proposed starting scope</p>
             <h2 id="scope-title">What we build with you.</h2>
             <p>
-              {design.pageCount} {design.pageCount === 1 ? "page structure" : "page structures"}.{" "}
-              {design.deliveryWindow}
+              {designScopeLabel(design)}. {design.deliveryWindow}
             </p>
             <ul>
               {design.included.map((item) => (
@@ -157,8 +198,9 @@ export default async function DesignPage({ params }: Props) {
               integrations and content responsibilities.
             </p>
             <p>
-              The design foundation is reusable. Your real identity and content make the finished
-              website yours; an exclusive bespoke layout can be scoped separately.
+              {clientProject
+                ? "The client website is a reference for the design direction and customer journey. Your version is separately scoped and built with your own brand and content; client-specific assets are not included."
+                : "The design foundation is reusable. Your real identity and content make the finished website yours; an exclusive bespoke layout can be scoped separately."}
             </p>
           </div>
         </section>
@@ -248,7 +290,7 @@ export default async function DesignPage({ params }: Props) {
             <p>Choose any extra help and support you want, then send a short enquiry.</p>
           </div>
           <Link className="button button-gold" href={collectionInquiryHref({ design: design.id })}>
-            Make this my website ↗
+            {designInquiryLabel(design)} ↗
           </Link>
         </section>
       </div>

@@ -7,6 +7,9 @@ import {
   collectionTiers,
   designHref,
   designPrice,
+  designStatusLabel,
+  designInquiryLabel,
+  designScopeLabel,
   filterDesigns,
   type CollectionQuery,
   type TemplateCategory,
@@ -118,38 +121,32 @@ export default function CollectionCatalog({
               <Link
                 className="template-preview-link"
                 href={`${designHref(design)}#preview`}
-                aria-label={`Preview ${design.name} website template`}
+                aria-label={`Preview ${design.name} website ${design.status === "client-example" ? "example" : "template"}`}
               >
                 <DesignCover design={design} />
                 <span className="template-preview-caption">
-                  View template <span aria-hidden="true">↗</span>
+                  {design.status === "client-example" ? "View client example" : "View template"}{" "}
+                  <span aria-hidden="true">↗</span>
                 </span>
               </Link>
               <div className="collection-design-copy">
                 <p className="eyebrow">
                   {collectionTiers.find((item) => item.id === design.tier)?.name}
-                  {design.status === "concept"
-                    ? design.pagePreview
-                      ? " · Live design demo"
-                      : " · Sample layout"
-                    : ""}
+                  {" · "}
+                  {designStatusLabel(design)}
                 </p>
                 <h3>{design.name}</h3>
                 <p>{design.description}</p>
                 <p className="collection-design-price">
                   {designPrice(design)}
-                  <span>
-                    {design.pageCount}{" "}
-                    {design.pageCount === 1 ? "page structure" : "page structures"} · Personalized
-                    with L&L
-                  </span>
+                  <span>{designScopeLabel(design)} · Personalized with L&L</span>
                 </p>
                 <div className="template-card-actions">
                   <Link className="button button-outline" href={designHref(design)}>
-                    View template ↗
+                    {design.status === "client-example" ? "View client example" : "View template"} ↗
                   </Link>
                   <Link className="text-link" href={collectionInquiryHref({ design: design.id })}>
-                    Make this my website ↗
+                    {designInquiryLabel(design)} ↗
                   </Link>
                 </div>
                 {designs.length >= 2 && (
@@ -160,7 +157,7 @@ export default function CollectionCatalog({
                       name="design"
                       value={design.id}
                     />{" "}
-                    Compare this template
+                    Compare this design
                   </label>
                 )}
               </div>

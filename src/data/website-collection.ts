@@ -187,13 +187,15 @@ export type CollectionCareId = (typeof collectionCarePlans)[number]["id"];
 
 export type WebsiteDesign = {
   id: string;
-  status: "draft" | "concept" | "published";
+  status: "draft" | "concept" | "published" | "client-example";
   name: string;
   tier: CollectionTierId;
   industry: CollectionIndustryId;
   description: string;
   startingPriceCad: number | null;
-  pageCount: number;
+  pageCount: number | null;
+  /** A real portfolio reference; its client-specific assets are not offered for reuse. */
+  clientProjectId?: string;
   deliveryWindow: string;
   preview?: { src: string; alt: string; width: number; height: number };
   /** Actual full-page capture of an external demo, kept separate from illustrative concepts. */
@@ -237,8 +239,8 @@ export type PerformanceEvidence = {
 // Set only when Tate supplies a real, captioned recording. No substitute persona or stock clip.
 export const developerIntroduction: CollectionVideo | null = null;
 
-// These are original interactive concepts, not client sites or priced, finished products.
-// Change a concept to published only after approving the full scope, price and demo checks.
+// Concepts remain unpriced until their offer is approved. Client examples demonstrate
+// an approach; their identity, imagery and paid client-specific content are not for resale.
 export const websiteDesigns: readonly WebsiteDesign[] = [
   {
     id: "pigment",
@@ -458,6 +460,40 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "Quote fields and contact workflow within the agreed scope",
     ],
   },
+  {
+    id: "tow-n-go",
+    status: "client-example",
+    clientProjectId: "tow-n-go",
+    name: "Tow-N-Go Trailers",
+    tier: "premier",
+    industry: "trailer-rentals",
+    additionalIndustries: ["transport-logistics"],
+    description:
+      "A real black-and-gold client website with clear fleet categories, rental enquiries and delivery information, supported by an ongoing website and social content partnership.",
+    startingPriceCad: null,
+    pageCount: null,
+    deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
+    preview: {
+      src: "/images/projects/tow-n-go.webp",
+      alt: "Tow-N-Go Trailers client website showing its black-and-gold homepage and enclosed trailer",
+      width: 1348,
+      height: 926,
+    },
+    demoUrl: "https://www.towandgotrailers.ca/",
+    included: [
+      "A similar visual direction shaped around your own brand and business",
+      "Fleet or equipment categories using your approved photos, specifications and information",
+      "Clear pathways for the rental, delivery or transport services you actually offer",
+      "An enquiry journey configured for your availability and quote process",
+      "Responsive implementation, metadata, form validation and launch checks",
+    ],
+    customization: [
+      "Your business name, logo, colours and photography",
+      "Your actual equipment, service areas and operating requirements",
+      "The pages, enquiry fields and integrations your business needs",
+      "Optional monthly website care, social management and content, scoped separately",
+    ],
+  },
 ];
 
 export const collectionDescription =
@@ -543,6 +579,22 @@ export function designHref(design: Pick<WebsiteDesign, "id">) {
   return `/website-collection/${design.id}`;
 }
 
+export function designStatusLabel(design: Pick<WebsiteDesign, "status" | "pagePreview">) {
+  if (design.status === "client-example") return "Live client example";
+  if (design.status === "concept") return design.pagePreview ? "Live design demo" : "Sample layout";
+  return design.status === "published" ? "Available design" : "In development";
+}
+
+export function designInquiryLabel(design: Pick<WebsiteDesign, "status">) {
+  return design.status === "client-example" ? "Build something like this" : "Make this my website";
+}
+
+export function designScopeLabel(design: Pick<WebsiteDesign, "pageCount">) {
+  return design.pageCount === null
+    ? "Pages scoped to your business"
+    : `${design.pageCount} ${design.pageCount === 1 ? "page structure" : "page structures"}`;
+}
+
 export function designPrice(design: Pick<WebsiteDesign, "startingPriceCad">) {
   return design.startingPriceCad === null
     ? "Quoted after a conversation"
@@ -612,7 +664,14 @@ export function collectionInquiry(
   const category = templateCategories.find((item) => item.id === query.category);
   const details = [
     "I’m interested in the L&L Website Templates.",
-    ...(design ? [`Design: ${design.name}`] : []),
+    ...(design
+      ? design.status === "client-example"
+        ? [
+            `Client example: ${design.name}`,
+            "I’d like a similar website with my own branding, content and business details.",
+          ]
+        : [`Design: ${design.name}`]
+      : []),
     ...(industry
       ? [`Business type: ${industry.name}`]
       : category
