@@ -311,30 +311,36 @@ test("transport and restaurant enquiries preserve their category and real design
   }
 });
 
-test("client references keep a distinct offer and enquiry instead of reselling client assets", () => {
-  const design = availableDesigns().find((item) => item.id === "tow-n-go");
-  assert.equal(design.status, "client-example");
-  assert.equal(design.clientProjectId, "tow-n-go");
-  assert.equal(designStatusLabel(design), "Live client example");
-  assert.equal(designInquiryLabel(design), "Build something like this");
-  assert.equal(designScopeLabel(design), "Pages scoped to your business");
-  assert.ok(!publishedDesigns().includes(design));
-  assert.ok(!filterDesigns([design], { budget: "under-500" }).includes(design));
-  assert.ok(categoryDesigns(categoryForIndustry("transport-logistics")).includes(design));
-  assert.ok(filterDesigns([design], { industry: "transport-logistics" }).includes(design));
-  const inquiry = journeyInquiry(design, [], "none");
-  assert.ok(inquiry.message.includes("Client example: Tow-N-Go Trailers"));
-  assert.ok(inquiry.message.includes("my own branding, content and business details"));
-  assert.ok(!inquiry.message.includes("$0"));
-  assert.equal(
-    validateContact({
-      name: "Casey",
-      business: "Example Transport",
-      email: "casey@example.com",
-      service: inquiry.service,
-      timeline: "Flexible / planning ahead",
-      message: inquiry.message,
-    }).ok,
-    true,
-  );
-});
+for (const [id, industry] of [
+  ["tow-n-go", "transport-logistics"],
+  ["crestline", "painting"],
+  ["mckenzie-house", "massage-wellness"],
+]) {
+  test(`${id}: client reference keeps its own scoped offer and enquiry`, () => {
+    const design = availableDesigns().find((item) => item.id === id);
+    assert.equal(design.status, "client-example");
+    assert.equal(design.clientProjectId, id);
+    assert.equal(designStatusLabel(design), "Live client example");
+    assert.equal(designInquiryLabel(design), "Build something like this");
+    assert.equal(designScopeLabel(design), "Pages scoped to your business");
+    assert.ok(!publishedDesigns().includes(design));
+    assert.ok(!filterDesigns([design], { budget: "under-500" }).includes(design));
+    assert.ok(categoryDesigns(categoryForIndustry(industry)).includes(design));
+    assert.ok(filterDesigns([design], { industry }).includes(design));
+    const inquiry = journeyInquiry(design, [], "none");
+    assert.ok(inquiry.message.includes(`Client example: ${design.name}`));
+    assert.ok(inquiry.message.includes("my own branding, content and business details"));
+    assert.ok(!inquiry.message.includes("$0"));
+    assert.equal(
+      validateContact({
+        name: "Casey",
+        business: "Example Business",
+        email: "casey@example.com",
+        service: inquiry.service,
+        timeline: "Flexible / planning ahead",
+        message: inquiry.message,
+      }).ok,
+      true,
+    );
+  });
+}

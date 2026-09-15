@@ -44,6 +44,8 @@ try {
     "/website-collection/category/food-restaurants",
     "/website-collection/calgary-hot-shot",
     "/website-collection/tow-n-go",
+    "/website-collection/crestline",
+    "/website-collection/mckenzie-house",
     "/website-collection/pigment",
     "/website-collection/structure",
     "/website-collection/still",
@@ -275,39 +277,93 @@ try {
       !transport.includes('id="design-pigment"'),
     "transport gallery shows its live demo and client example",
   );
-  const towExample = htmlByRoute.get("/website-collection/tow-n-go");
-  assert.ok(
-    towExample.includes("Live client example") && towExample.includes("Build something like this"),
-    "Tow-N-Go keeps its real-client status and distinct CTA",
-  );
-  assert.ok(
-    !towExample.includes("placeholder business details") && !towExample.includes("Made yours."),
-    "the live client is never labelled a placeholder template",
-  );
-  for (const href of [
-    "/projects/web-builds#tow-n-go",
-    "/projects/social-media-management#tow-n-go-digital",
-    "https://www.towandgotrailers.ca/",
+  for (const [id, name, category, liveUrl, videoSrc] of [
+    [
+      "tow-n-go",
+      "Tow-N-Go Trailers",
+      "transport-logistics",
+      "https://www.towandgotrailers.ca/",
+      "tow-n-go-website",
+    ],
+    [
+      "crestline",
+      "Crestline Painting",
+      "construction-trades",
+      "https://www.crestlinepainting.ca/",
+      "crestline-website",
+    ],
+    [
+      "mckenzie-house",
+      "McKenzie House Massage",
+      "health-wellness",
+      "https://mckenziehousemassage.ca/",
+      "mckenzie-website",
+    ],
   ]) {
-    assert.ok(towExample.includes(`href="${href}"`), `Tow-N-Go links to ${href}`);
-  }
-  const towInquiryHref = [...towExample.matchAll(/href="([^"]+)"/g)]
-    .map((match) => match[1].replaceAll("&amp;", "&"))
-    .find(
-      (href) =>
-        href.startsWith("/contact?") &&
-        new URL(href, origin).searchParams.get("design") === "tow-n-go",
+    const gallery = htmlByRoute.get(`/website-collection/category/${category}`);
+    assert.ok(gallery.includes(`id="design-${id}"`), `${id}: correct gallery`);
+    const otherCategory =
+      category === "health-wellness" ? "construction-trades" : "health-wellness";
+    assert.ok(
+      !htmlByRoute
+        .get(`/website-collection/category/${otherCategory}`)
+        .includes(`id="design-${id}"`),
+      `${id}: no unrelated category listing`,
     );
-  assert.ok(towInquiryHref, "client example has a selected-design enquiry");
-  const towContact = await fetch(origin + towInquiryHref);
-  assert.equal(towContact.status, 200);
-  const towContactHtml = await towContact.text();
+    const card = gallery.match(
+      new RegExp(`<article[^>]*id="design-${id}"[^>]*>[\\s\\S]*?</article>`),
+    )?.[0];
+    assert.ok(card?.includes("Live client example"), `${id}: gallery labels real client work`);
+    const imageTag = card?.match(/<img\b[^>]*>/)?.[0];
+    assert.ok(
+      imageTag?.includes(encodeURIComponent(`/images/projects/${id}.webp`)),
+      `${id}: real project image`,
+    );
+    const imageUrl = imageTag.match(/\bsrc="([^"]+)"/)[1].replaceAll("&amp;", "&");
+    const imageResponse = await fetch(new URL(imageUrl, origin));
+    assert.equal(imageResponse.status, 200, `${id}: optimized preview loads`);
+    assert.match(imageResponse.headers.get("content-type") || "", /^image\//);
+    await imageResponse.arrayBuffer();
+    checks++;
+    const example = htmlByRoute.get(`/website-collection/${id}`);
+    assert.ok(
+      example.includes("Live client example") && example.includes("Build something like this"),
+      `${id}: real-client status and distinct CTA`,
+    );
+    assert.ok(
+      !example.includes("placeholder business details") && !example.includes("Made yours."),
+      `${id}: not labelled a placeholder template`,
+    );
+    assert.ok(
+      example.includes(`src="/media/projects/${videoSrc}.mp4"`),
+      `${id}: correct canonical walkthrough`,
+    );
+    for (const href of [`/projects/web-builds#${id}`, liveUrl]) {
+      assert.ok(example.includes(`href="${href}"`), `${id}: links to ${href}`);
+    }
+    const inquiryHref = [...example.matchAll(/href="([^"]+)"/g)]
+      .map((match) => match[1].replaceAll("&amp;", "&"))
+      .find(
+        (href) =>
+          href.startsWith("/contact?") && new URL(href, origin).searchParams.get("design") === id,
+      );
+    assert.ok(inquiryHref, `${id}: selected-design enquiry`);
+    const contact = await fetch(origin + inquiryHref);
+    assert.equal(contact.status, 200);
+    const contactHtml = await contact.text();
+    assert.ok(
+      contactHtml.includes(`Client example: ${name}`) &&
+        contactHtml.includes("my own branding, content and business details"),
+      `${id}: own-brand enquiry preserved in the contact page`,
+    );
+    checks++;
+  }
   assert.ok(
-    towContactHtml.includes("Client example: Tow-N-Go Trailers") &&
-      towContactHtml.includes("my own branding, content and business details"),
-    "client-reference enquiry is preserved in the contact page",
+    htmlByRoute
+      .get("/website-collection/tow-n-go")
+      .includes('href="/projects/social-media-management#tow-n-go-digital"'),
+    "Tow-N-Go keeps its monthly partnership link",
   );
-  checks++;
   const transportComparison = await fetch(
     `${origin}/website-collection/compare?design=tow-n-go&design=calgary-hot-shot`,
   );
@@ -604,6 +660,8 @@ try {
   for (const [route, expectedVideos] of [
     ["/projects/web-builds", 3],
     ["/website-collection/tow-n-go", 1],
+    ["/website-collection/crestline", 1],
+    ["/website-collection/mckenzie-house", 1],
     ["/projects/software-development", 1],
     ["/projects/social-media-management", 2],
   ]) {

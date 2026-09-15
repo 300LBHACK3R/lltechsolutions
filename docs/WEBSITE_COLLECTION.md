@@ -5,7 +5,7 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 ## The visitor journey
 
 1. Open Website Templates after Our Clients in the navigation. The approved introduction explains the service; visitors choose a business category from wide photographic strips.
-2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Construction & Plumbing, Massage Practice, Calgary Hot Shot and Tow-N-Go Trailers. Category filtering stays on the gallery page, not the landing page.
+2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Construction & Plumbing, Massage Practice, Calgary Hot Shot, Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage. Category filtering stays on the gallery page, not the landing page.
 3. Open a template to explore its inline pages and Phone/Fit screen views. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
 4. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
 
@@ -124,3 +124,13 @@ The enquiry says “Build something like this” and carries a request for a sim
 The existing 26-second portfolio walkthrough is reused, with native controls, no autoplay and a visual-description track. Replacing its canonical project media updates the collection example too. The client site continues to evolve; the live link remains available for its current state.
 
 This addition passed formatting, import/asset validation, ESLint, TypeScript, 21 unit tests, the production build and 106 production HTTP checks. The checks cover the client-reference enquiry, category comparison, existing video controls and media responses, metadata and the unchanged contact protections. Dependency audit reported zero vulnerabilities. No external email was sent; browser/device review and deployment confirmation remain separate.
+
+## Crestline and McKenzie client references
+
+Construction & Trades includes **Crestline Painting**, also available through the Painting and Construction industry filters. Health & Wellness includes **McKenzie House Massage** under Massage & Wellness. Both use the existing **Live client example** presentation: the actual portfolio screenshot, canonical 26-second walkthrough, live website and full client story. No client media files are copied or replaced.
+
+Crestline’s proposed starting scope focuses on service pages, project categories, photography and quote enquiries. McKenzie’s focuses on treatment information, pricing, practice details and a booking pathway using the new business’s chosen provider. The examples demonstrate completed work; a new website uses the prospect’s own approved branding, content and imagery. Page count, launch price, additional production and care plans are scoped separately. No historical client fees or performance claims are used as an offer.
+
+Adding these catalogue records uses the existing category, comparison, guided enquiry, metadata and sitemap paths. The production source change is confined to catalogue data; shared components, styles and contact protections are unchanged.
+
+Validation passed: formatting, local import/asset validation, zero-warning ESLint, TypeScript, 23 unit tests, the production build, stylesheet verification and 115 production HTTP checks. Dependency audit reported zero vulnerabilities. Checks confirm both category placements, actual optimized images, canonical videos with playback controls and description tracks, case-study links, sitemap inclusion and selected-client enquiry context. No external email was sent. The existing images were visually inspected; this update does not claim new browser/device rendering tests or a remote deployment.

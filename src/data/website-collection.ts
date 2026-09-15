@@ -494,6 +494,73 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "Optional monthly website care, social management and content, scoped separately",
     ],
   },
+  {
+    id: "crestline",
+    status: "client-example",
+    clientProjectId: "crestline",
+    name: "Crestline Painting",
+    tier: "premier",
+    industry: "painting",
+    additionalIndustries: ["construction"],
+    description:
+      "A real painting-company website with architectural imagery, dedicated services and project galleries for commercial, strata, multi-family and custom-home work.",
+    startingPriceCad: null,
+    pageCount: null,
+    deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
+    preview: {
+      src: "/images/projects/crestline.webp",
+      alt: "Crestline Painting website with blue accents, architectural photography and commercial and residential painting services",
+      width: 1800,
+      height: 929,
+    },
+    demoUrl: "https://www.crestlinepainting.ca/",
+    included: [
+      "A similar visual direction shaped around your own painting or contracting business",
+      "Dedicated service pages organized around the work and customers you serve",
+      "Project categories and galleries using your approved photos and project descriptions",
+      "Clear service-area information and a quote enquiry journey for your business",
+      "Responsive implementation, metadata, form validation and launch checks",
+    ],
+    customization: [
+      "Your business name, logo, colours and photography",
+      "Your residential, commercial or specialist services and service areas",
+      "Project categories, descriptions and genuine client feedback supplied by you",
+      "Optional photography, copywriting and ongoing website care, scoped separately",
+    ],
+  },
+  {
+    id: "mckenzie-house",
+    status: "client-example",
+    clientProjectId: "mckenzie-house",
+    name: "McKenzie House Massage",
+    tier: "premier",
+    industry: "massage-wellness",
+    description:
+      "A real boutique massage website pairing a warm green-and-cream design with treatment photography, clear service and pricing pages, client stories and ClinicSense booking links.",
+    startingPriceCad: null,
+    pageCount: null,
+    deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
+    preview: {
+      src: "/images/projects/mckenzie-house.webp",
+      alt: "McKenzie House Massage website with deep green and warm gold details, treatment-room photography and a booking call to action",
+      width: 1348,
+      height: 926,
+    },
+    demoUrl: "https://mckenziehousemassage.ca/",
+    included: [
+      "A similar welcoming design shaped around your own practice and brand",
+      "Service pages with your approved treatment descriptions, appointment lengths and pricing",
+      "About, client feedback and practical visitor information using your own approved content",
+      "A clear booking pathway connected to your chosen scheduling platform within the agreed scope",
+      "Responsive implementation, metadata, form validation and launch checks",
+    ],
+    customization: [
+      "Your business name, logo, colours and treatment-space imagery",
+      "Your actual treatments, practitioner information, rates and tax wording",
+      "Your booking provider, contact details and relevant practice policies",
+      "Optional photography, service videos and ongoing website care, scoped separately",
+    ],
+  },
 ];
 
 export const collectionDescription =
