@@ -343,7 +343,8 @@ try {
     );
     checks++;
   }
-  for (const source of ["/", "/services", "/packages"]) {
+  // The homepage entry is in the navigation after its service preview was removed.
+  for (const source of ["/services", "/packages"]) {
     const main = htmlByRoute.get(source).match(/<main\b[^>]*>(.*?)<\/main>/s)?.[1];
     assert.ok(
       main?.includes('href="/website-collection"'),
@@ -435,7 +436,7 @@ try {
       assert.ok(html.includes(`href="${social}"`), `${route}: official social link ${social}`);
   }
   const tabTags = [...home.matchAll(/<button\b[^>]*role="tab"[^>]*>/g)].map((match) => match[0]);
-  assert.equal(tabTags.length, 6, "project and service tabs are present in server HTML");
+  assert.equal(tabTags.length, 3, "project showcase tabs are present in server HTML");
   for (const tag of tabTags) {
     const id = tag.match(/\bid="([^"]+)"/)?.[1];
     const panel = tag.match(/aria-controls="([^"]+)"/)?.[1];
@@ -446,8 +447,8 @@ try {
   }
   assert.equal(
     tabTags.filter((tag) => tag.includes('aria-selected="true"')).length,
-    2,
-    "one selected tab per group",
+    1,
+    "one selected project showcase tab",
   );
   const designImages = new Set();
   for (const [source, html] of htmlByRoute) {

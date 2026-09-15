@@ -1,6 +1,5 @@
 import Hero from "@/components/home/Hero";
 import TrustBar from "@/components/home/TrustBar";
-import HomeServicesPreview from "@/components/home/HomeServicesPreview";
 import HomeProjectsPreview from "@/components/home/HomeProjectsPreview";
 import ProjectCTA from "@/components/ui/ProjectCTA";
 import { pageMetadata } from "@/lib/metadata";
@@ -15,7 +14,6 @@ export default function HomePage() {
     <>
       <Hero />
       <TrustBar />
-      <HomeServicesPreview />
       <HomeProjectsPreview />
       <ProjectCTA />
     </>

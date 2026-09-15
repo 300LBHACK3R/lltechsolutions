@@ -163,7 +163,6 @@ h3 {
 
 main,
 .hero-copy,
-.service-options,
 .project-preview,
 .contact-layout > *,
 .footer-main > * {
@@ -172,11 +171,9 @@ main,
 @media (forced-colors: active) {
   .button,
   .round-link,
-  .service-options button,
   .showcase-tabs button {
     border: 1px solid ButtonText;
   }
-  .service-options button[aria-selected="true"],
   .showcase-tabs button[aria-selected="true"] {
     outline: 2px solid Highlight;
     outline-offset: -3px;

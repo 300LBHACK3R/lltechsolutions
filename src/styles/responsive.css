@@ -36,16 +36,6 @@
     font-size: 17px;
     max-width: 450px;
   }
-  .service-explorer {
-    gap: 95px;
-  }
-  .service-visual {
-    height: 400px;
-  }
-  .service-option-copy > span {
-    font-size: 15px;
-    max-width: 520px;
-  }
   .project-preview-copy > p {
     font-size: 16px;
   }
@@ -112,22 +102,6 @@
   }
   h2 {
     font-size: 62px;
-  }
-  .service-options button {
-    min-height: 175px;
-  }
-  .service-option-copy strong {
-    font-size: 34px;
-  }
-  .service-option-copy > span {
-    font-size: 17px;
-  }
-  .service-visual {
-    height: 430px;
-  }
-  .service-panel-footer p {
-    font-size: 22px;
-    max-width: 600px;
   }
   .project-preview h3 {
     font-size: 34px;
@@ -196,9 +170,6 @@
   .studio-edition {
     display: none;
   }
-  .service-explorer {
-    gap: 35px;
-  }
   .service-detail,
   .case-body {
     gap: 50px;
@@ -243,26 +214,6 @@
   }
   .hero-proof {
     margin-top: 38px;
-  }
-  .service-explorer {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .service-options button {
-    min-height: 115px;
-    padding-block: 25px;
-  }
-  .service-option-copy strong {
-    font-size: 26px;
-  }
-  .service-option-copy > span {
-    max-width: 600px;
-  }
-  .service-visual {
-    height: 350px;
-  }
-  .interface-type {
-    font-size: 45px;
   }
   .section-heading {
     align-items: flex-start;
@@ -478,35 +429,6 @@
   .final-cta {
     padding: 65px 0;
   }
-  .service-options button {
-    grid-template-columns: 22px 1fr 18px;
-    gap: 13px;
-    padding-right: 0;
-  }
-  .service-option-copy strong {
-    font-size: 23px;
-  }
-  .service-option-copy > span {
-    font-size: 12px;
-  }
-  .service-visual {
-    height: 320px;
-  }
-  .service-panel-footer {
-    padding: 23px;
-  }
-  .interface-type {
-    font-size: 37px;
-  }
-  .interface-body {
-    padding: 19px;
-  }
-  .content-frame {
-    padding: 17px;
-  }
-  .content-frame strong {
-    font-size: 26px;
-  }
   .project-preview-heading {
     gap: 12px;
   }
@@ -645,35 +567,6 @@
   }
   .hero-proof {
     gap: 12px;
-  }
-  .service-visual {
-    height: 295px;
-  }
-  .interface-composition {
-    width: 82%;
-  }
-  .interface-type {
-    font-size: 31px;
-  }
-  .interface-check {
-    padding-inline: 10px;
-    gap: 5px;
-    font-size: 7px;
-  }
-  .content-composition {
-    width: 86%;
-  }
-  .content-frame {
-    padding: 13px;
-  }
-  .content-frame strong {
-    font-size: 24px;
-  }
-  .workflow-composition {
-    width: 88%;
-  }
-  .workflow-core strong {
-    font-size: 22px;
   }
   .final-cta h2 {
     font-size: 29px;

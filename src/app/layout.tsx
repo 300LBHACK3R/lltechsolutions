@@ -6,7 +6,6 @@ import "@/styles/home.css";
 import "@/styles/pages.css";
 import "@/styles/portfolio.css";
 import "@/styles/reviews.css";
-import "@/styles/services-explorer.css";
 import "@/styles/collection.css";
 import "@/styles/collection-journey.css";
 import "@/styles/collection-previews.css";
