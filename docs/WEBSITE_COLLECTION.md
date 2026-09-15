@@ -5,7 +5,7 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 ## The visitor journey
 
 1. Open Website Templates after Our Clients in the navigation. The approved introduction explains the service; visitors choose a business category from wide photographic strips.
-2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Construction & Plumbing, and Massage Practice. Category filtering stays on the gallery page, not the landing page.
+2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Construction & Plumbing, Massage Practice and Calgary Hot Shot. Category filtering stays on the gallery page, not the landing page.
 3. Open a template to explore its inline pages and Phone/Fit screen views. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
 4. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
 
@@ -21,13 +21,13 @@ The category banners are generated industry illustrations, not photographs of cl
 | Construction & Plumbing | Construction, also shown for Plumbing | Premier   | Interactive concept; launch pricing quoted |
 | Massage Practice        | Massage & Wellness                    | Essential | Interactive concept; launch pricing quoted |
 
-These are original coded design studies with sample text, generic sample identities and CSS artwork. They are not client projects, ready-made client assets or complete production business sites. Contact layouts within the concept do not collect information. The actual pages, content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
+These are original coded design studies with sample text, generic sample identities and generated illustrative photography. They are not client projects, ready-made client assets or complete production business sites. Contact layouts within the concept do not collect information. The actual pages, content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
 
 Existing website/software/social pricing remains unchanged. No collection launch prices have been approved in this update. A concept with `startingPriceCad: null` reads “Quoted after a conversation”; it is never treated as free or included beneath a numeric budget ceiling. The finished offer can receive a price and published status once approved. Higher levels buy greater scope, not a different baseline of security or care.
 
 ## Canonical data and routes
 
-`src/data/website-collection.ts` is the catalogue and selection source. It holds tiers, thirteen industry tags grouped into five browsing categories, care choices, extras, design records and canonical inquiry helpers. `additionalIndustries` lets a design fit more than one relevant category. `src/data/collection-brief.ts` defines the content guide, bounded recovery format and text export.
+`src/data/website-collection.ts` is the catalogue and selection source. It holds tiers, industry tags grouped into seven browsing categories, care choices, extras, design records and canonical inquiry helpers. `additionalIndustries` lets a design fit more than one relevant category. `src/data/collection-brief.ts` defines the content guide, bounded recovery format and text export.
 
 - `/website-collection`: business category selection and service explanations. Legacy `?industry=` links redirect to the corresponding gallery, preserving filter context.
 - `/website-collection/category/[category]`: category-specific gallery, optional business/level filters, template previews, direct enquiry links and comparison selections.
@@ -97,3 +97,19 @@ The subsequent category-photo update passed the same checks and 91 HTTP checks, 
 Rendered review of this update remains outstanding: the supported browser cannot access the local server. After applying it, check category rows and galleries on phone, tablet and desktop, including keyboard selection, template previews and contact links. A successful main push is not a verified Vercel deployment.
 
 The updater preserves a local backup, applies only this reviewed patch in a release branch, and runs the quality gates. With `-Push`, it fast-forwards main to the validated commit and uses the owner’s authenticated Git to push. No force push, stash operation or environment-file copy is used.
+
+## Realistic previews and live examples
+
+The Painting Company, Construction & Plumbing and Massage Practice concepts use photo-led previews and customer-facing sample copy. Visitors can try a business name locally in the preview; it is not stored or sent. Miniature typography scales against its card width to keep the title separate from the services strip. Massage has three page structures, with its approach included on Home.
+
+Transport & Logistics includes Calgary Hot Shot, the user-supplied live concept demo. Its card and scrollable detail preview use actual screenshots; the external link opens the interactive demo. It remains unpriced and explicitly labelled as a concept with placeholder business details. Do not represent it as an approved client or a production launch.
+
+Food & Restaurants has its own illustrated category and an honest empty state until a template is ready. Retail & Automotive is separate; the old retail-hospitality route redirects permanently. Food industry filters now resolve to Food & Restaurants. Empty categories remain noindex and outside the sitemap.
+
+To add a real example, extend `websiteDesigns` with its approved category, name, scope, `preview`, optional `pagePreview` and actual HTTPS `demoUrl`. Images live in `public/images/collection/`; provenance is documented in `TEMPLATE_PREVIEW_IMAGES.md`. Do not mark a concept as published until its price and finished scope are approved.
+
+### Validation for this update
+
+Formatting, local asset/import validation, zero-warning ESLint, TypeScript, 20 unit tests, production build, production stylesheet checks and 102 HTTP checks passed. Dependency audit reported zero vulnerabilities. HTTP checks cover new category pages and metadata, truthful empty states, the legacy category redirect, actual and generated image responses, enquiry context and security responses. No external email was sent.
+
+The public Calgary Hot Shot demo was visually inspected and captured with its revealed sections. The updated L&L UI has not received browser-level visual verification in this environment: the preview browser cannot access the local build. Review the three sample previews at phone/tablet/desktop widths, long business-name wrapping, keyboard navigation and the full-page screenshot after deployment. This package does not claim a remote push or a successful Vercel deployment.

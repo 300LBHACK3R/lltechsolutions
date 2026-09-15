@@ -2,7 +2,7 @@
 
 These are generated photographic industry illustrations made with the built-in image-generation tool. They are not client project photographs, real business premises, engineering diagrams or representations of a specific installation. No actual client assets were changed.
 
-The original outputs were inspected, then converted to WebP at quality 82 without changing their composition. Every source is 2172 × 724. Next Image creates responsive derivatives and lazily loads these below-the-fold banners. The category data owns each public path; replace a corresponding image to update its banner.
+The original outputs were inspected, then converted to WebP at quality 82 without changing their composition. The four original sources below are 2172 × 724. Next Image creates responsive derivatives and lazily loads these below-the-fold banners. The category data owns each public path; replace a corresponding image to update its banner.
 
 ## construction-trades
 
@@ -36,10 +36,6 @@ Generation prompt:
 
 > Use case: photorealistic-natural. Asset: photographic category banner for a premium black-and-champagne-gold website design studio. Make one exceptionally polished wide panorama, 3:1 landscape. Editorial architectural photography style, natural real-world textures and correct scale, restrained charcoal, warm neutral stone, subtle brass and sunlight. A tasteful coherent photographic montage with three adjacent related scenes, softly integrated at transitions, no hard borders, no disconnected floating objects. Details mainly in the center and right, left third quieter and darker for white HTML heading added later. Keep images recognisable across a very wide horizontal crop. No text, letters, signage, branding, logos, watermark, people or faces. These represent industries, not an actual client or business. Not sci-fi, no excessive bokeh or glowing effects. Home and property care: an attractive contemporary house and entry walkway, professionally landscaped garden with trimmed hedges and healthy plants, and a spotless welcoming home interior glimpsed at the right with subtle neatly arranged home-care tools on a neutral stone surface. Realistic achievable residential architecture and maintained grounds, warm afternoon light, lush greenery against charcoal and stone.
 
-## retail-hospitality
+## Expanded categories
 
-Asset: `public/images/template-categories/retail-hospitality.webp`
-
-Generation prompt:
-
-> Use case: photorealistic-natural. Asset: photographic category banner for a premium black-and-champagne-gold website design studio. Make one exceptionally polished wide panorama, 3:1 landscape. Editorial architectural photography style, natural real-world textures and correct scale, restrained charcoal, warm neutral stone, subtle brass and sunlight. A tasteful coherent photographic montage with three adjacent related scenes, softly integrated at transitions, no hard borders, no disconnected floating objects. Details mainly in the center and right, left third quieter and darker for white HTML heading added later. Keep images recognisable across a very wide horizontal crop. No text, letters, signage, branding, logos, watermark, people or faces. These represent industries, not an actual client or business. Not sci-fi, no excessive bokeh or glowing effects. Retail, hospitality and local service businesses: an inviting modern independent cafe with a real espresso machine and polished wood counter; a tasteful boutique retail interior with simple unbranded goods on shelves; a subtle clean automotive detailing bay with a partial unbranded dark car at the far right. Coherent warm daylight and industrial charcoal architecture, well-proportioned authentic fixtures, no people, no text.
+Transport & Logistics, Food & Restaurants and Retail & Automotive use new banners documented in `TEMPLATE_PREVIEW_IMAGES.md`. The former combined Retail & Hospitality banner was removed after its category was separated.

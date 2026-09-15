@@ -18,7 +18,11 @@ const routes = new Map([
     "/website-collection/category/health-wellness",
     ["template-gallery-heading", "template-mini-hero"],
   ],
-  ["/website-collection/pigment", ["design-preview-viewport", "demo-hero"]],
+  [
+    "/website-collection/pigment",
+    ["design-preview-viewport", "demo-hero", "demo-photo", "design-name-field"],
+  ],
+  ["/website-collection/calgary-hot-shot", ["live-demo-scroll"]],
   ["/website-collection/start?design=pigment", ["journey-progress", "journey-options"]],
   ["/website-collection/compare?design=pigment&design=still", ["design-comparison"]],
   ["/website-collection/brief", ["brief-fields"]],

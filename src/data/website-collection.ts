@@ -68,7 +68,10 @@ export const collectionIndustries = [
   { id: "legal", name: "Legal Services" },
   { id: "cleaning", name: "Cleaning" },
   { id: "automotive", name: "Automotive & Detailing" },
-  { id: "food-hospitality", name: "Food & Hospitality" },
+  { id: "retail", name: "Retail & Shops" },
+  { id: "transport-logistics", name: "Transport & Logistics" },
+  { id: "trailer-rentals", name: "Trailer & Equipment Rentals" },
+  { id: "food-hospitality", name: "Food & Restaurants" },
   { id: "beauty", name: "Beauty & Personal Care" },
   { id: "professional-services", name: "Professional Services" },
 ] as const;
@@ -115,11 +118,25 @@ export const templateCategories: readonly TemplateCategory[] = [
     image: "/images/template-categories/home-property.webp",
   },
   {
-    id: "retail-hospitality",
-    name: "Retail & Hospitality",
-    description: "Food businesses, hospitality and automotive services.",
-    industries: ["food-hospitality", "automotive"],
-    image: "/images/template-categories/retail-hospitality.webp",
+    id: "transport-logistics",
+    name: "Transport & Logistics",
+    description: "Hot shot operators, delivery companies, freight services and trailer rentals.",
+    industries: ["transport-logistics", "trailer-rentals"],
+    image: "/images/template-categories/transport-logistics.webp",
+  },
+  {
+    id: "food-restaurants",
+    name: "Food & Restaurants",
+    description: "Restaurants, cafés, caterers, bakeries and food businesses.",
+    industries: ["food-hospitality"],
+    image: "/images/template-categories/food-restaurants.webp",
+  },
+  {
+    id: "retail-automotive",
+    name: "Retail & Automotive",
+    description: "Independent shops, showrooms, automotive services and detailing businesses.",
+    industries: ["retail", "automotive"],
+    image: "/images/template-categories/retail-automotive.webp",
   },
 ];
 
@@ -179,6 +196,8 @@ export type WebsiteDesign = {
   pageCount: number;
   deliveryWindow: string;
   preview?: { src: string; alt: string; width: number; height: number };
+  /** Actual full-page capture of an external demo, kept separate from illustrative concepts. */
+  pagePreview?: { src: string; alt: string; width: number; height: number };
   demoUrl: string;
   included: readonly string[];
   customization?: readonly string[];
@@ -188,6 +207,9 @@ export type WebsiteDesign = {
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
+    kicker: string;
+    action: string;
+    photo: { src: string; alt: string; width: number; height: number };
     services: readonly { name: string; description: string }[];
     approach: string;
   };
@@ -247,26 +269,34 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       brands: ["PAINT STUDIO", "COLOUR HOUSE"],
       headlines: ["A fresh perspective. In every coat.", "Good colour. Beautifully applied."],
       subcopy:
-        "A confident home for your painting business. Show the finish, explain the care, and make the next conversation easy.",
+        "Thoughtful colour, careful preparation and a finish that brings the room together. Let’s make your next space feel like yours.",
+      kicker: "Interior & exterior painting",
+      action: "Request an estimate",
+      photo: {
+        src: "/images/collection/painting-interior.webp",
+        alt: "Illustrative living room with freshly painted cream and sage walls",
+        width: 1536,
+        height: 1024,
+      },
       services: [
         {
           name: "Interior painting",
           description:
-            "Explain the rooms you work in, your preparation process and how you protect the space.",
+            "Walls, ceilings and trim, with surfaces prepared and furnishings protected before the first coat.",
         },
         {
           name: "Exterior painting",
           description:
-            "Show the surfaces you handle, your approach to preparation and the locations you serve.",
+            "A fresh look for siding, doors and exterior details, starting with the right preparation for each surface.",
         },
         {
           name: "Commercial spaces",
           description:
-            "Describe how you coordinate a commercial project around the business and its schedule.",
+            "Welcoming shops and professional workspaces, with the schedule planned around the way your business runs.",
         },
       ],
       approach:
-        "From the first conversation to the final walkthrough: introduce your team, explain the preparation and show clients what to expect.",
+        "The finish starts long before the paint. We talk through your colours, prepare the surfaces, protect the room and walk through the details with you when the work is complete.",
     },
   },
   {
@@ -299,26 +329,34 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       brands: ["BUILD STUDIO", "PLUMBING STUDIO"],
       headlines: ["Considered work. Solid foundations.", "Well planned. Expertly connected."],
       subcopy:
-        "Give customers a clear view of your work, your process and the people responsible for getting the details right.",
+        "Spaces built around the way you live. From an initial idea to the finishing details, start with a clear plan and a team that keeps you informed.",
+      kicker: "Building & renovation",
+      action: "Discuss your project",
+      photo: {
+        src: "/images/collection/construction-home.webp",
+        alt: "Illustrative contemporary home with charcoal siding, stone and timber entry details",
+        width: 1536,
+        height: 1024,
+      },
       services: [
         {
           name: "Project planning",
           description:
-            "Explain the kinds of projects you take on and how you turn an initial conversation into a clear scope.",
+            "Talk through the space, priorities and practical requirements before agreeing on the scope and next steps.",
         },
         {
           name: "Installation & improvements",
           description:
-            "Describe the services your team actually provides, supported by real project examples.",
+            "Thoughtful changes to kitchens, bathrooms and living spaces, with attention to the details you use every day.",
         },
         {
           name: "Ongoing projects",
           description:
-            "Help residential or commercial clients understand how you coordinate schedules and communicate progress.",
+            "A coordinated schedule and clear progress updates, so you understand what is happening and what comes next.",
         },
       ],
       approach:
-        "A clear brief, an agreed scope and useful updates. Explain the practical steps that help customers feel comfortable from the start.",
+        "Good work starts with understanding the brief. We plan around the property, agree on the scope and keep you involved as the project takes shape.",
     },
   },
   {
@@ -350,26 +388,75 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       brands: ["MASSAGE STUDIO", "WELLNESS PRACTICE"],
       headlines: ["A little space. Just for you.", "Care begins with feeling welcome."],
       subcopy:
-        "A quieter introduction to your practice. Help visitors understand your services, meet the practitioner and find their way to an appointment.",
+        "An unhurried welcome, a comfortable space and time to talk about what you need. Explore the treatments and find an appointment that fits your day.",
+      kicker: "Massage & personal care",
+      action: "Explore treatments",
+      photo: {
+        src: "/images/collection/massage-room.webp",
+        alt: "Illustrative massage treatment room with sage walls and ivory linens",
+        width: 1536,
+        height: 1024,
+      },
       services: [
         {
-          name: "Your treatments",
+          name: "Relaxation massage",
           description:
-            "Introduce your approved services in plain language, with clear duration and pricing information.",
+            "Set aside some time to settle in. Talk through your comfort preferences and enjoy an unhurried treatment.",
         },
         {
-          name: "Your approach",
+          name: "Focused treatment",
           description:
-            "Explain what matters to you as a practitioner and what a new visitor can expect.",
+            "Discuss the areas you would like attention to, with pressure and positioning adjusted to your comfort.",
         },
         {
           name: "Planning a visit",
-          description: "Make booking, arrival details and contact information easy to find.",
+          description:
+            "New to the practice? Ask a question before booking and learn what to expect at your first appointment.",
         },
       ],
       approach:
-        "Introduce the real person behind the practice, with your own biography, qualifications and approach. Keep the first visit easy to understand.",
+        "Your comfort shapes the appointment. There is time to talk before treatment, ask questions and share your preferences throughout your visit.",
     },
+  },
+  {
+    id: "calgary-hot-shot",
+    status: "concept",
+    name: "Calgary Hot Shot",
+    tier: "signature",
+    industry: "transport-logistics",
+    additionalIndustries: ["trailer-rentals"],
+    description:
+      "A corporate transport demo with a bold first impression, distinct rental and delivery pathways, and a clear route to a quote.",
+    startingPriceCad: null,
+    pageCount: 1,
+    deliveryWindow:
+      "Your service scope, integrations and launch schedule are agreed before booking.",
+    preview: {
+      src: "/images/collection/calgary-hot-shot-hero.webp",
+      alt: "Calgary Hot Shot demo homepage with the headline Local logistics. Handled properly.",
+      width: 1348,
+      height: 926,
+    },
+    pagePreview: {
+      src: "/images/collection/calgary-hot-shot-full.webp",
+      alt: "Full Calgary Hot Shot concept page showing service pathways, the booking process, applications and quote layout",
+      width: 1363,
+      height: 6753,
+    },
+    demoUrl: "https://calgary-hot-shot-corporate-live.vercel.app/",
+    included: [
+      "One-page website structure with service, process and enquiry sections",
+      "Distinct pathways for rentals, delivered rentals and transport, adapted to your actual services",
+      "Your approved branding, fleet photography, service areas and contact information",
+      "A quote journey configured and tested for your business before launch",
+      "Responsive implementation, metadata, form validation and launch checks",
+    ],
+    customization: [
+      "Transport services and equipment you actually offer",
+      "Real operating areas, fleet details and service requirements",
+      "Brand colours, photography and business identity",
+      "Quote fields and contact workflow within the agreed scope",
+    ],
   },
 ];
 

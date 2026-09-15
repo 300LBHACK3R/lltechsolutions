@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import DesignCover from "@/components/collection/DesignCover";
 import {
@@ -121,17 +120,7 @@ export default function CollectionCatalog({
                 href={`${designHref(design)}#preview`}
                 aria-label={`Preview ${design.name} website template`}
               >
-                {design.preview ? (
-                  <Image
-                    src={design.preview.src}
-                    alt={design.preview.alt}
-                    width={design.preview.width}
-                    height={design.preview.height}
-                    sizes="(max-width: 699px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                  />
-                ) : (
-                  <DesignCover design={design} />
-                )}
+                <DesignCover design={design} />
                 <span className="template-preview-caption">
                   View template <span aria-hidden="true">↗</span>
                 </span>
@@ -139,13 +128,21 @@ export default function CollectionCatalog({
               <div className="collection-design-copy">
                 <p className="eyebrow">
                   {collectionTiers.find((item) => item.id === design.tier)?.name}
-                  {design.status === "concept" ? " · Sample layout" : ""}
+                  {design.status === "concept"
+                    ? design.pagePreview
+                      ? " · Live design demo"
+                      : " · Sample layout"
+                    : ""}
                 </p>
                 <h3>{design.name}</h3>
                 <p>{design.description}</p>
                 <p className="collection-design-price">
                   {designPrice(design)}
-                  <span>{design.pageCount} page structures · Personalized with L&L</span>
+                  <span>
+                    {design.pageCount}{" "}
+                    {design.pageCount === 1 ? "page structure" : "page structures"} · Personalized
+                    with L&L
+                  </span>
                 </p>
                 <div className="template-card-actions">
                   <Link className="button button-outline" href={designHref(design)}>

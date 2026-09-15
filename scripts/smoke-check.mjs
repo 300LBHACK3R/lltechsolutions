@@ -39,7 +39,10 @@ try {
     "/website-collection/category/health-wellness",
     "/website-collection/category/legal-professional",
     "/website-collection/category/home-property",
-    "/website-collection/category/retail-hospitality",
+    "/website-collection/category/retail-automotive",
+    "/website-collection/category/transport-logistics",
+    "/website-collection/category/food-restaurants",
+    "/website-collection/calgary-hot-shot",
     "/website-collection/pigment",
     "/website-collection/structure",
     "/website-collection/still",
@@ -65,7 +68,8 @@ try {
     "/website-collection/brief",
     "/website-collection/category/legal-professional",
     "/website-collection/category/home-property",
-    "/website-collection/category/retail-hospitality",
+    "/website-collection/category/retail-automotive",
+    "/website-collection/category/food-restaurants",
   ]);
   const htmlByRoute = new Map();
   const titles = new Set();
@@ -158,6 +162,20 @@ try {
       html.includes('aria-pressed="true"') && html.includes('aria-current="page"'),
       `${id}: initial preview controls are accessible`,
     );
+    assert.ok(
+      html.includes("Try your business name") && html.includes('maxLength="64"'),
+      `${id}: bounded personalization control`,
+    );
+    const previewPhoto = [...html.matchAll(/<img\b[^>]*>/g)].find(([tag]) =>
+      tag.includes(encodeURIComponent("/images/collection/")),
+    )?.[0];
+    assert.ok(previewPhoto, `${id}: illustrative photo is rendered`);
+    const previewSource = previewPhoto.match(/\bsrc="([^"]+)"/)?.[1].replaceAll("&amp;", "&");
+    const previewResponse = await fetch(new URL(previewSource, origin));
+    assert.equal(previewResponse.status, 200, `${id}: optimized preview photo loads`);
+    assert.match(previewResponse.headers.get("content-type") || "", /^image\//);
+    await previewResponse.arrayBuffer();
+    checks++;
     const response = await fetch(`${origin}/website-collection/start?design=${id}`);
     assert.equal(response.status, 200);
     const journey = await response.text();
@@ -213,7 +231,9 @@ try {
     "health-wellness",
     "legal-professional",
     "home-property",
-    "retail-hospitality",
+    "retail-automotive",
+    "transport-logistics",
+    "food-restaurants",
   ]) {
     assert.ok(
       collection.includes(`href="/website-collection/category/${id}"`),
@@ -237,7 +257,9 @@ try {
     checks++;
     const gallery = htmlByRoute.get(`/website-collection/category/${id}`);
     assert.ok(gallery.includes('"@type":"BreadcrumbList"'), `${id}: category breadcrumbs`);
-    if (["legal-professional", "home-property", "retail-hospitality"].includes(id)) {
+    if (
+      ["legal-professional", "home-property", "retail-automotive", "food-restaurants"].includes(id)
+    ) {
       assert.ok(
         gallery.includes("No templates have been added here yet."),
         `${id}: truthful empty state`,
@@ -245,6 +267,39 @@ try {
       assert.ok(!gallery.includes('class="collection-design"'), `${id}: no invented templates`);
     }
   }
+  const transport = htmlByRoute.get("/website-collection/category/transport-logistics");
+  assert.ok(
+    transport.includes('id="design-calgary-hot-shot"') &&
+      !transport.includes('id="design-pigment"'),
+    "transport gallery shows its actual demo only",
+  );
+  const hotshot = htmlByRoute.get("/website-collection/calgary-hot-shot");
+  assert.ok(
+    hotshot.includes("Live design demo") && hotshot.includes("placeholder business details"),
+    "external concept status remains clear",
+  );
+  assert.ok(
+    hotshot.includes('href="https://calgary-hot-shot-corporate-live.vercel.app/"'),
+    "the supplied live demo is reachable from its page",
+  );
+  assert.ok(
+    hotshot.includes('class="live-demo-scroll"') && hotshot.includes('tabindex="0"'),
+    "actual page capture is keyboard scrollable",
+  );
+  const fullCapture = await fetch(`${origin}/images/collection/calgary-hot-shot-full.webp`);
+  assert.equal(fullCapture.status, 200, "actual full-page capture loads");
+  assert.match(fullCapture.headers.get("content-type") || "", /^image\/webp/);
+  await fullCapture.arrayBuffer();
+  checks++;
+  const legacyRetail = await fetch(`${origin}/website-collection/category/retail-hospitality`, {
+    redirect: "manual",
+  });
+  assert.equal(legacyRetail.status, 308, "old category has a permanent redirect");
+  assert.equal(
+    new URL(legacyRetail.headers.get("location"), origin).pathname,
+    "/website-collection/category/retail-automotive",
+  );
+  checks++;
   const trades = htmlByRoute.get("/website-collection/category/construction-trades");
   assert.ok(
     trades.includes('id="design-pigment"') &&

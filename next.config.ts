@@ -55,6 +55,11 @@ const config: NextConfig = {
   async redirects() {
     return [
       { source: "/projects/tech-support", destination: "/projects", permanent: true },
+      {
+        source: "/website-collection/category/retail-hospitality",
+        destination: "/website-collection/category/retail-automotive",
+        permanent: true,
+      },
       { source: "/projects/infrastructure", destination: "/projects", permanent: true },
     ];
   },

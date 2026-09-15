@@ -33,7 +33,7 @@
 ## Website Templates journey
 
 - Preview `/website-collection`, each `/website-collection/category/[category]` gallery, all three design pages, `/website-collection/compare`, `/website-collection/start?design=pigment` and `/website-collection/brief`.
-- In a design, try both sample identities, Phone/Fit screen and every page button. Ensure no pretend enquiry is sent by the demonstration. Add only real supplied walkthroughs and measured reports.
+- In a design, try a short and a long business name, Phone/Fit screen and every page button. Ensure no pretend enquiry is sent by the demonstration. Add only real supplied walkthroughs and measured reports.
 - Confirm navigation shows Our Clients before Website Templates. Landing-page categories should open distinct galleries, not a flat catalogue. Empty categories must have an honest message and noindex metadata.
 - In Construction & Trades, filter Painting + Signature, then Plumbing. Compare two and three designs. Open shared comparison links, clear selections and check an empty match. Concepts without a price must never show $0 or appear under a numeric price ceiling.
 - On the guided enquiry, choose extras and care, write contact details on Review, go Back to change a choice and return. Your typed contact details must remain. The sent message must contain the current preferences and the typed notes. Test failed delivery with details retained; verify actual inbox receipt separately.

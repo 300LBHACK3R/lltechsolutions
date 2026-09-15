@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useId, useRef, useState } from "react";
 import type { WebsiteDesign } from "@/data/website-collection";
 
 export default function DesignPreview({ design }: { design: WebsiteDesign }) {
-  const [brand, setBrand] = useState<0 | 1>(0);
+  const [businessName, setBusinessName] = useState("");
   const [screen, setScreen] = useState<"responsive" | "phone">("responsive");
   const [page, setPage] = useState("Home");
   const heading = useRef<HTMLHeadingElement>(null);
@@ -15,30 +16,22 @@ export default function DesignPreview({ design }: { design: WebsiteDesign }) {
     setPage(next);
     requestAnimationFrame(() => heading.current?.focus({ preventScroll: true }));
   };
-  const pages = [
-    "Home",
-    "Services",
-    concept.theme === "still" ? "Approach" : "Projects",
-    "Contact",
-  ];
+  const pages = ["Home", "Services", ...(concept.theme === "still" ? [] : ["Projects"]), "Contact"];
   return (
     <div className="design-preview">
       <div className="design-preview-toolbar">
-        <fieldset>
-          <legend>Make it yours — try a sample identity</legend>
-          <div className="journey-segment">
-            {concept.brands.map((name, index) => (
-              <button
-                key={name}
-                type="button"
-                aria-pressed={brand === index}
-                onClick={() => setBrand(index as 0 | 1)}
-              >
-                {name}
-              </button>
-            ))}
-          </div>
-        </fieldset>
+        <label className="design-name-field" htmlFor={`${id}-business-name`}>
+          Try your business name
+          <input
+            id={`${id}-business-name`}
+            type="text"
+            value={businessName}
+            maxLength={64}
+            placeholder={concept.brands[0]}
+            autoComplete="off"
+            onChange={(event) => setBusinessName(event.target.value)}
+          />
+        </label>
         <fieldset>
           <legend>Preview size</legend>
           <div className="journey-segment">
@@ -60,16 +53,14 @@ export default function DesignPreview({ design }: { design: WebsiteDesign }) {
         </fieldset>
       </div>
       <p className="collection-fineprint">
-        Sample identities and illustrative artwork. Explore the page buttons below; your own
-        branding, content and photography would replace these examples.
+        Sample design and illustrative imagery. Try the page buttons below; your real branding,
+        services and photography replace these examples.
       </p>
       <div className={`design-preview-viewport ${screen === "phone" ? "is-phone" : ""}`}>
-        <div
-          className={`design-canvas design-theme-${concept.theme} ${brand === 1 ? "design-alternate" : ""}`}
-        >
+        <div className={`design-canvas design-theme-${concept.theme}`}>
           <div className="demo-header">
             <span className="demo-brand">
-              {concept.brands[brand]}
+              {businessName.trim() || concept.brands[0]}
               <small>Website design concept</small>
             </span>
             <nav aria-label={`${design.name} concept pages`}>
@@ -90,33 +81,43 @@ export default function DesignPreview({ design }: { design: WebsiteDesign }) {
               <>
                 <div className="demo-hero">
                   <div className="demo-hero-copy">
-                    <p className="demo-kicker">The {design.name} design / Made personal</p>
+                    <p className="demo-kicker">{concept.kicker}</p>
                     <h3 ref={heading} id={`${id}-heading`} tabIndex={-1}>
-                      {concept.headlines[brand]}
+                      {concept.headlines[0]}
                     </h3>
                     <p>{concept.subcopy}</p>
                     <button
                       type="button"
                       className="demo-button"
-                      onClick={() => navigate("Services")}
+                      onClick={() => navigate(concept.theme === "still" ? "Services" : "Contact")}
                     >
-                      Explore the services <span aria-hidden="true">↗</span>
+                      {concept.action} <span aria-hidden="true">↗</span>
                     </button>
                   </div>
-                  <div className="design-art demo-art" aria-hidden="true">
-                    <i />
-                    <i />
-                    <i />
+                  <div className="demo-photo">
+                    <Image
+                      src={concept.photo.src}
+                      alt={concept.photo.alt}
+                      fill
+                      sizes="(max-width: 699px) 100vw, 50vw"
+                    />
                   </div>
                 </div>
                 <div className="demo-bottom-line">
-                  <span>Space for your story.</span>
-                  <span>Clarity for your customers.</span>
+                  {concept.services.map((service) => (
+                    <span key={service.name}>{service.name}</span>
+                  ))}
                 </div>
+                {concept.theme === "still" && (
+                  <div className="demo-home-approach">
+                    <h4>Care starts with listening.</h4>
+                    <p>{concept.approach}</p>
+                  </div>
+                )}
               </>
             ) : page === "Services" ? (
               <>
-                <p className="demo-kicker">What you do / Clearly explained</p>
+                <p className="demo-kicker">Our services</p>
                 <h3 ref={heading} id={`${id}-heading`} tabIndex={-1}>
                   The right service.
                   <br />
@@ -133,7 +134,7 @@ export default function DesignPreview({ design }: { design: WebsiteDesign }) {
                       <button
                         type="button"
                         onClick={() => navigate("Contact")}
-                        aria-label={`Explore the enquiry layout for ${service.name}`}
+                        aria-label={`Enquire about ${service.name} in this sample`}
                       >
                         Enquire ↗
                       </button>
@@ -151,9 +152,9 @@ export default function DesignPreview({ design }: { design: WebsiteDesign }) {
                 </h3>
                 <div className="demo-contact-layout">
                   <p>
-                    This space would introduce your contact details, service area and{" "}
-                    {concept.theme === "still" ? "booking link" : "project enquiry form"}. The
-                    finished version is configured for your real business.
+                    {concept.theme === "still"
+                      ? "Have a question before your first visit? Tell us what you would like to know, and we can help you plan an appointment."
+                      : "Tell us a little about the work you have in mind, where it is and when you would like to get started."}
                   </p>
                   <div
                     className="demo-form-sample"
@@ -168,26 +169,20 @@ export default function DesignPreview({ design }: { design: WebsiteDesign }) {
               </>
             ) : (
               <>
-                <p className="demo-kicker">
-                  {page === "Approach"
-                    ? "The person behind the practice"
-                    : "A place for your real work"}
-                </p>
+                <p className="demo-kicker">A closer look</p>
                 <h3 ref={heading} id={`${id}-heading`} tabIndex={-1}>
-                  {page === "Approach"
-                    ? "Care, with a personal touch."
-                    : "The details tell the story."}
+                  The details tell the story.
                 </h3>
                 <p className="demo-approach">{concept.approach}</p>
                 <div className="demo-project-plate">
-                  <div className="design-art" aria-hidden="true">
-                    <i />
-                    <i />
-                    <i />
-                  </div>
+                  <Image
+                    {...concept.photo}
+                    alt={concept.photo.alt}
+                    sizes="(max-width: 699px) 100vw, 60vw"
+                  />
                   <span>
-                    Illustrative layout · Your real{" "}
-                    {page === "Approach" ? "practice imagery" : "project photography"} belongs here
+                    Illustrative sample image. Your approved project photography and descriptions
+                    belong here.
                   </span>
                 </div>
               </>
@@ -200,8 +195,8 @@ export default function DesignPreview({ design }: { design: WebsiteDesign }) {
       </div>
       <noscript>
         <p className="collection-fineprint">
-          The initial design is shown here. Enable JavaScript to explore its pages and sample
-          identities, or ask Tate to walk you through it.
+          The initial design is shown here. Enable JavaScript to explore its pages and try your
+          business name, or ask Tate to walk you through it.
         </p>
       </noscript>
     </div>

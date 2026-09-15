@@ -151,11 +151,23 @@ test("collection distinguishes unpriced concepts from priced releases and keeps 
       asset(design.preview.src, "(?:webp|png|jpe?g)");
       assert.ok(design.preview.alt && design.preview.width > 0 && design.preview.height > 0);
     } else assert.ok(design.concept, "a usable visual preview exists");
+    if (design.pagePreview) {
+      asset(design.pagePreview.src, "(?:webp|png|jpe?g)");
+      assert.ok(
+        design.pagePreview.alt && design.pagePreview.width > 0 && design.pagePreview.height > 0,
+      );
+    }
     if (design.concept) {
       assert.ok(["pigment", "structure", "still"].includes(design.concept.theme));
       assert.equal(design.concept.brands.length, 2);
       assert.equal(design.concept.headlines.length, 2);
       assert.ok(design.concept.services.length > 0);
+      asset(design.concept.photo.src, "(?:webp|png|jpe?g)");
+      assert.ok(
+        design.concept.photo.alt &&
+          design.concept.photo.width > 0 &&
+          design.concept.photo.height > 0,
+      );
       assert.equal(design.demoUrl, `${designHref(design)}#preview`);
     } else {
       const demo = new URL(design.demoUrl);
@@ -270,5 +282,20 @@ test("category and template enquiries preserve the selection without inventing a
         `Design: ${design.name}`,
       ),
     );
+  }
+});
+
+test("transport and restaurant enquiries preserve their category and real design choice", () => {
+  const transport = categoryForIndustry("transport-logistics");
+  assert.equal(transport.name, "Transport & Logistics");
+  assert.ok(categoryDesigns(transport).some((design) => design.id === "calgary-hot-shot"));
+  assert.equal(categoryForIndustry("food-hospitality").id, "food-restaurants");
+  for (const [choice, expected] of [
+    [{ design: "calgary-hot-shot" }, "Calgary Hot Shot"],
+    [{ category: "food-restaurants" }, "Food & Restaurants"],
+  ]) {
+    const url = new URL(collectionInquiryHref(choice), "https://lltechsolutions.ca");
+    const inquiry = collectionInquiry(Object.fromEntries(url.searchParams));
+    assert.ok(inquiry.message.includes(expected));
   }
 });

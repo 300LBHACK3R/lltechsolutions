@@ -1,10 +1,23 @@
+import Image from "next/image";
 import type { WebsiteDesign } from "@/data/website-collection";
 
-/** A compact HTML view of the template's real sample identity, headline and service content. */
+/** Decorative miniature; the surrounding card supplies its accessible name and description. */
 export default function DesignCover({ design }: { design: WebsiteDesign }) {
   const concept = design.concept;
+  if (design.preview) {
+    return (
+      <div className="design-cover design-cover-capture" aria-hidden="true">
+        <Image
+          {...design.preview}
+          alt=""
+          sizes="(max-width: 699px) 100vw, (max-width: 1100px) 50vw, 33vw"
+        />
+      </div>
+    );
+  }
+  if (!concept) return null;
   return (
-    <div className={`design-cover design-theme-${concept?.theme ?? "pigment"}`} aria-hidden="true">
+    <div className={`design-cover design-theme-${concept.theme}`} aria-hidden="true">
       <div className="template-browser-bar">
         <i />
         <i />
@@ -12,30 +25,22 @@ export default function DesignCover({ design }: { design: WebsiteDesign }) {
         <span>Website preview</span>
       </div>
       <div className="template-mini-header">
-        <strong>{concept?.brands[0] ?? design.name}</strong>
+        <strong>{concept.brands[0]}</strong>
         <span>Home · Services · Contact</span>
       </div>
       <div className="template-mini-hero">
-        <div>
-          <span className="template-mini-kicker">Your business. Your website.</span>
-          <strong>{concept?.headlines[0] ?? design.name}</strong>
-          <span className="template-mini-copy">{concept?.subcopy ?? design.description}</span>
-          <span className="template-mini-button">Explore our services ↗</span>
+        <div className="template-mini-content">
+          <span className="template-mini-kicker">{concept.kicker}</span>
+          <strong>{concept.headlines[0]}</strong>
+          <span className="template-mini-button">{concept.action} ↗</span>
         </div>
-        <div className="design-art">
-          <i />
-          <i />
-          <i />
+        <div className="template-mini-photo">
+          <Image src={concept.photo.src} alt="" fill sizes="(max-width: 699px) 50vw, 25vw" />
         </div>
       </div>
       <div className="template-mini-services">
-        {concept?.services.slice(0, 3).map((service, index) => (
-          <div key={service.name}>
-            <span>0{index + 1}</span>
-            <strong>{service.name}</strong>
-            <i />
-            <i />
-          </div>
+        {concept.services.slice(0, 3).map((service) => (
+          <span key={service.name}>{service.name}</span>
         ))}
       </div>
     </div>

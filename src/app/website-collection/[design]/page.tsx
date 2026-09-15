@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import DesignPreview from "@/components/collection/DesignPreview";
@@ -57,7 +58,11 @@ export default async function DesignPage({ params }: Props) {
           </h1>
           <p className="collection-hero-copy">{design.description}</p>
           <p className="collection-hero-note">
-            {design.status === "concept" ? "Interactive design concept · " : ""}
+            {design.status === "concept"
+              ? design.pagePreview
+                ? "Live design demo · "
+                : "Interactive design concept · "
+              : ""}
             {designPrice(design)}
           </p>
           <div className="button-row">
@@ -81,21 +86,42 @@ export default async function DesignPage({ params }: Props) {
               <h2 id="preview-title">See how it feels.</h2>
             </div>
             <p>
-              Try two sample identities, switch to a phone width and explore the services and{" "}
-              {design.concept?.theme === "still" ? "approach" : "project"} layouts.
+              {design.concept
+                ? "Try your business name, switch to a phone width and explore the sample pages."
+                : "Scroll through the actual demo below, or open it to try the navigation and interactions."}
             </p>
           </div>
           {design.concept ? (
             <DesignPreview design={design} />
           ) : (
-            <a
-              href={design.demoUrl}
-              className="button button-outline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open the live demo <span className="sr-only">in a new tab</span> ↗
-            </a>
+            <div>
+              {design.pagePreview && (
+                <>
+                  <p className="collection-fineprint" id="live-demo-note">
+                    Live concept demo with placeholder business details. This is a captured page
+                    preview; open the demo to interact. Your own services, content and contact
+                    workflow are confirmed before launch.
+                  </p>
+                  <div
+                    className="live-demo-scroll"
+                    role="region"
+                    aria-label={`${design.name} scrollable page preview`}
+                    aria-describedby="live-demo-note"
+                    tabIndex={0}
+                  >
+                    <Image {...design.pagePreview} alt={design.pagePreview.alt} unoptimized />
+                  </div>
+                </>
+              )}
+              <a
+                href={design.demoUrl}
+                className="button button-outline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open the live demo <span className="sr-only">in a new tab</span> ↗
+              </a>
+            </div>
           )}
           {design.walkthrough && (
             <CollectionMedia
@@ -109,7 +135,8 @@ export default async function DesignPage({ params }: Props) {
             <p className="eyebrow">The proposed starting scope</p>
             <h2 id="scope-title">What we build with you.</h2>
             <p>
-              {design.pageCount} page structures. {design.deliveryWindow}
+              {design.pageCount} {design.pageCount === 1 ? "page structure" : "page structures"}.{" "}
+              {design.deliveryWindow}
             </p>
             <ul>
               {design.included.map((item) => (
@@ -125,8 +152,9 @@ export default async function DesignPage({ params }: Props) {
               ))}
             </ul>
             <p>
-              React, Next.js and TypeScript, with deployment through Vercel. Your proposal confirms
-              the finished pages, revisions, integrations and content responsibilities.
+              L&L personalizes and launches collection websites using React, Next.js and TypeScript,
+              with deployment through Vercel. Your proposal confirms the finished pages, revisions,
+              integrations and content responsibilities.
             </p>
             <p>
               The design foundation is reusable. Your real identity and content make the finished

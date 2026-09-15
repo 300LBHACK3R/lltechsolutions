@@ -496,12 +496,6 @@
 .template-preview-link {
   position: relative;
 }
-.template-preview-link > img {
-  width: 100%;
-  aspect-ratio: 1.45;
-  object-fit: cover;
-  object-position: top;
-}
 .template-preview-caption {
   display: flex;
   justify-content: space-between;
