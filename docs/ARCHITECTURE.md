@@ -32,6 +32,8 @@ Each page declares its own title, description and canonical URL. The root provid
 
 ## Styles and asset provenance
 
+`src/app/layout.tsx` imports all global stylesheets in cascade order, starting with Tailwind in `globals.css`. Keep these imports explicit so the build tracks each stylesheet directly. `collection.css`, `collection-journey.css` and `collection-previews.css` own the catalogue, guided enquiry and interactive design studies. The postbuild check verifies their compiled CSS; the smoke check also fetches the stylesheets linked by each collection route. After deploying, run `node scripts/check-collection-styles.mjs --url https://lltechsolutions.ca` and inspect the rendered page before claiming visual QA.
+
 `base.css` owns tokens and primitives; `layout.css` owns navigation/footer; `home.css` owns the homepage composition and shared project/CTA surfaces; `pages.css` owns general interior layouts; `portfolio.css` and `reviews.css` own their page-specific presentation and breakpoints; `services-explorer.css` owns the illustrative service study; `motion.css` owns effects and motion preferences; `responsive.css` owns shared content-fit breakpoints. Removed selectors are not retained as obsolete override layers.
 
 The McKenzie House Massage and Tow-N-Go screenshots were refreshed from their public homepages on September 6, 2026. They are real page captures converted to WebP, with no generated client imagery or invented performance figures. The service illustrations are abstract L&L design studies, not client screenshots or product promises.

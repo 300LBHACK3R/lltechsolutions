@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { once } from "node:events";
 import assert from "node:assert/strict";
+import { checkCollectionStyles } from "./check-collection-styles.mjs";
 
 // The child process has no mail key: this test must never deliver external email.
 const env = {
@@ -113,6 +114,7 @@ try {
     assert.ok(res.headers.get("strict-transport-security")?.includes("max-age=31536000"));
     checks++;
   }
+  checks += await checkCollectionStyles(origin);
   const home = htmlByRoute.get("/");
   const homeMain = home.match(/<main\b[^>]*>(.*?)<\/main>/s)?.[1];
   assert.ok(homeMain, "homepage content is present");
