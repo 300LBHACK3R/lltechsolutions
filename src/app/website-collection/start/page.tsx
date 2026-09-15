@@ -20,7 +20,7 @@ export default async function StartPage({
   const design = availableDesigns().find((item) => item.id === query.design);
   return (
     <div className="website-collection container journey-page">
-      <p className="eyebrow">Website Collection / Your next step</p>
+      <p className="eyebrow">Website Templates / Your next step</p>
       <h1>Let’s make this easy.</h1>
       {design ? (
         <CollectionJourney design={design} />

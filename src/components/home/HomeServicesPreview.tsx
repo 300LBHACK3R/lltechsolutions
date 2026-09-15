@@ -36,7 +36,7 @@ export default function HomeServicesPreview() {
           <div className="collection-discovery-link">
             <p>A design you choose. A website we personalize and launch.</p>
             <Link href="/website-collection" className="text-link">
-              Explore the Website Collection ↗
+              Explore the Website Templates ↗
             </Link>
           </div>
         </Reveal>

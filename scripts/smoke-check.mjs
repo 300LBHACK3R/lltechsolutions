@@ -35,6 +35,11 @@ try {
     "/",
     "/services",
     "/website-collection",
+    "/website-collection/category/construction-trades",
+    "/website-collection/category/health-wellness",
+    "/website-collection/category/legal-professional",
+    "/website-collection/category/home-property",
+    "/website-collection/category/retail-hospitality",
     "/website-collection/pigment",
     "/website-collection/structure",
     "/website-collection/still",
@@ -58,6 +63,9 @@ try {
     "/website-collection/start",
     "/website-collection/compare",
     "/website-collection/brief",
+    "/website-collection/category/legal-professional",
+    "/website-collection/category/home-property",
+    "/website-collection/category/retail-hospitality",
   ]);
   const htmlByRoute = new Map();
   const titles = new Set();
@@ -187,29 +195,87 @@ try {
     collection.includes('"@type":"CollectionPage"'),
     "collection has descriptive structured data",
   );
-  for (const industry of [
-    "construction",
-    "painting",
-    "plumbing",
-    "electrical",
-    "landscaping",
-    "massage-wellness",
-    "legal",
-    "cleaning",
-    "automotive",
-    "food-hospitality",
-    "beauty",
-    "professional-services",
+  assert.ok(
+    collection.includes('class="template-category-list"'),
+    "landing page starts with business categories",
+  );
+  assert.ok(
+    !collection.includes('class="collection-design"'),
+    "individual template cards live in category galleries",
+  );
+  const mainNav = collection.match(/<nav[^>]*aria-label="Main navigation"[^>]*>(.*?)<\/nav>/s)?.[1];
+  assert.ok(
+    mainNav && mainNav.indexOf(">Our Clients</a>") < mainNav.indexOf(">Website Templates</a>"),
+    "Our Clients precedes Website Templates",
+  );
+  for (const id of [
+    "construction-trades",
+    "health-wellness",
+    "legal-professional",
+    "home-property",
+    "retail-hospitality",
   ]) {
     assert.ok(
-      collection.includes(`<option value="${industry}"`),
-      `${industry}: category is available`,
+      collection.includes(`href="/website-collection/category/${id}"`),
+      `${id}: category is linked`,
     );
+    const gallery = htmlByRoute.get(`/website-collection/category/${id}`);
+    assert.ok(gallery.includes('"@type":"BreadcrumbList"'), `${id}: category breadcrumbs`);
+    if (["legal-professional", "home-property", "retail-hospitality"].includes(id)) {
+      assert.ok(
+        gallery.includes("No templates have been added here yet."),
+        `${id}: truthful empty state`,
+      );
+      assert.ok(!gallery.includes('class="collection-design"'), `${id}: no invented templates`);
+    }
   }
+  const trades = htmlByRoute.get("/website-collection/category/construction-trades");
+  assert.ok(
+    trades.includes('id="design-pigment"') &&
+      trades.includes('id="design-structure"') &&
+      !trades.includes('id="design-still"'),
+    "category gallery contains only matching templates",
+  );
+  assert.ok(
+    trades.includes('form="template-shortlist"') && trades.includes('id="template-shortlist"'),
+    "template cards can be selected for comparison",
+  );
+  for (const [id, name] of [
+    ["pigment", "Painting Company"],
+    ["structure", "Construction &amp; Plumbing"],
+    ["still", "Massage Practice"],
+  ]) {
+    const detail = htmlByRoute.get(`/website-collection/${id}`);
+    assert.ok(
+      detail.includes(name) && detail.includes("Make this my website"),
+      `${id}: plain template name and direct enquiry`,
+    );
+    const contactHref = [...detail.matchAll(/href="([^\"]+)"/g)]
+      .map((match) => match[1].replaceAll("&amp;", "&"))
+      .find((href) => href.startsWith("/contact?") && href.includes(`design=${id}`));
+    assert.ok(contactHref, `${id}: direct enquiry carries template`);
+    const response = await fetch(origin + contactHref);
+    assert.equal(response.status, 200);
+    const text = await response.text();
+    assert.ok(
+      text
+        .match(/<textarea\b[^>]*name="message"[^>]*>(.*?)<\/textarea>/s)?.[1]
+        .includes(`Design: ${name}`),
+      `${id}: chosen template reaches contact form`,
+    );
+    checks++;
+  }
+  const missingCategory = await fetch(`${origin}/website-collection/category/not-a-category`);
+  assert.equal(missingCategory.status, 404, "unknown category returns 404");
+  checks++;
   const categoryResponse = await fetch(
     `${origin}/website-collection?industry=painting&tier=signature`,
   );
   assert.equal(categoryResponse.status, 200);
+  assert.ok(
+    categoryResponse.url.includes("/category/construction-trades?"),
+    "old industry links lead to the matching gallery",
+  );
   const categoryHtml = await categoryResponse.text();
   assert.ok(
     categoryHtml.includes('<option value="painting" selected="">Painting</option>'),
@@ -272,11 +338,7 @@ try {
     !homeMain.includes('id="collection-essential"'),
     "complete collection catalogue stays off the homepage",
   );
-  assert.ok(
-    collection.includes("Our first designs are being prepared.") ||
-      collection.includes('class="collection-design"'),
-    "collection has an honest opening state or real designs",
-  );
+
   for (const match of collection.matchAll(/href="#([^\"]+)"/g)) {
     assert.ok(collection.includes(`id="${match[1]}"`), `collection jump link: ${match[1]}`);
   }

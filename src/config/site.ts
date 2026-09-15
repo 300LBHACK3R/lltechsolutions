@@ -21,8 +21,8 @@ export const siteConfig = {
 export const navigation = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "Website Collection", href: "/website-collection" },
   { label: "Our Clients", href: "/projects" },
+  { label: "Website Templates", href: "/website-collection" },
   { label: "Reviews", href: "/reviews" },
   { label: "Process", href: "/process" },
   { label: "Pricing", href: "/packages" },

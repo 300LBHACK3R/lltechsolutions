@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import DesignCover from "@/components/collection/DesignCover";
 import {
-  availableDesigns,
+  categoryHref,
   collectionInquiryHref,
   collectionIndustries,
   collectionTiers,
@@ -10,62 +10,68 @@ import {
   designPrice,
   filterDesigns,
   type CollectionQuery,
+  type TemplateCategory,
   type WebsiteDesign,
 } from "@/data/website-collection";
 
 export default function CollectionCatalog({
   designs,
   query,
+  category,
 }: {
   designs: readonly WebsiteDesign[];
   query: CollectionQuery;
+  category: TemplateCategory;
 }) {
   const filtered = filterDesigns(designs, query);
-  const industry = collectionIndustries.find((item) => item.id === query.industry);
+  const industries = collectionIndustries.filter((item) => category.industries.includes(item.id));
+  const industry = industries.find((item) => item.id === query.industry);
   const tier = collectionTiers.find((item) => item.id === query.tier);
-  const inquiryHref = collectionInquiryHref({ industry: industry?.id, tier: tier?.id });
-  const value = (key: string, allowed: readonly string[]) =>
-    typeof query[key] === "string" && allowed.includes(query[key]) ? query[key] : "";
+  const inquiryHref = collectionInquiryHref({
+    industry: industry?.id,
+    category: category.id,
+    tier: tier?.id,
+  });
+  const href = `${categoryHref(category)}#designs`;
   return (
-    <section className="collection-section" id="designs" aria-labelledby="collection-designs-title">
-      <div className="collection-heading">
+    <section
+      className="collection-section template-gallery"
+      id="designs"
+      aria-labelledby="template-gallery-title"
+    >
+      <div className="template-gallery-heading">
         <div>
-          <p className="eyebrow">01 / Find your starting point</p>
-          <h2 id="collection-designs-title">
-            A small collection.
-            <br />
-            Room to make it yours.
-          </h2>
+          <p className="eyebrow">Choose a look. We handle the rest.</p>
+          <h2 id="template-gallery-title">Explore the templates.</h2>
         </div>
         <p>
-          Start with a look you like. Explore it here, then tell us what your business needs.
-          Concepts are clearly labelled; your finished scope and price are agreed before booking.
+          {filtered.length} {filtered.length === 1 ? "template" : "templates"} to explore
         </p>
       </div>
-      <form
-        action="/website-collection#designs"
-        method="get"
-        className="collection-filters"
-        aria-label="Filter website designs"
-      >
-        <label>
-          Business type
-          <select name="industry" defaultValue={industry?.id ?? ""}>
-            <option value="">All business types</option>
-            {collectionIndustries.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <details className="collection-extra-filters" open={!!(tier || query.budget || query.sort)}>
-          <summary>More filters</summary>
-          <div>
+      {designs.length > 0 && (
+        <form
+          action={href}
+          method="get"
+          className="collection-filters"
+          aria-label="Filter website templates"
+        >
+          <label>
+            Business type
+            <select name="industry" defaultValue={industry?.id ?? ""}>
+              <option value="">All in {category.name}</option>
+              {industries.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <details className="collection-extra-filters" open={!!tier}>
+            <summary>Design level</summary>
             <label>
-              Collection
+              <span className="sr-only">Design level</span>
               <select name="tier" defaultValue={tier?.id ?? ""}>
-                <option value="">All collections</option>
+                <option value="">All levels</option>
                 {collectionTiers.map((item) => (
                   <option key={item.id} value={item.id}>
                     {item.name}
@@ -73,71 +79,47 @@ export default function CollectionCatalog({
                 ))}
               </select>
             </label>
-            {designs.some((design) => design.startingPriceCad !== null) && (
-              <>
-                <label>
-                  Starting price
-                  <select
-                    name="budget"
-                    defaultValue={value("budget", ["under-500", "under-1000", "under-2000"])}
-                  >
-                    <option value="">Any budget</option>
-                    <option value="under-500">Under $500 CAD</option>
-                    <option value="under-1000">Under $1,000 CAD</option>
-                    <option value="under-2000">Under $2,000 CAD</option>
-                  </select>
-                </label>
-                <label>
-                  Sort by
-                  <select
-                    name="sort"
-                    defaultValue={value("sort", ["price-low", "price-high"]) || "price-low"}
-                  >
-                    <option value="price-low">Price: low to high</option>
-                    <option value="price-high">Price: high to low</option>
-                  </select>
-                </label>
-              </>
-            )}
-          </div>
-        </details>
-        <button className="button button-outline" type="submit">
-          Apply filters
-        </button>
-        <Link className="text-link" href="/website-collection#designs">
-          Clear filters
-        </Link>
-      </form>
-      <div className="collection-result-line">
-        <p className="collection-result-count">
-          {filtered.length} {filtered.length === 1 ? "design" : "designs"}
-          {industry ? ` · ${industry.name}` : " to explore"}
-          {tier ? ` · ${tier.name}` : ""}
-        </p>
-        {availableDesigns(designs).length >= 2 && (
-          <Link href="/website-collection/compare" className="text-link">
-            Compare designs ↗
+          </details>
+          <button className="button button-outline" type="submit">
+            Apply filters
+          </button>
+          <Link className="text-link" href={href}>
+            Clear filters
           </Link>
-        )}
-      </div>
+        </form>
+      )}
       {filtered.length === 0 ? (
         <div className="collection-no-results">
-          <h3>We can help you find a direction.</h3>
+          <h3>
+            {designs.length
+              ? "No templates match those filters."
+              : "Your category is ready for its first templates."}
+          </h3>
           <p>
-            No design matches those filters yet. Try a different selection, or tell us about your
-            business.
+            {designs.length
+              ? "Try another selection, or tell us what you have in mind."
+              : "No templates have been added here yet. Tell us about your business and we can discuss a custom design."}
           </p>
-          <Link className="text-link" href={inquiryHref}>
-            Talk with L&L ↗
-          </Link>
+          <div className="button-row">
+            <Link className="button button-outline" href={inquiryHref}>
+              Talk about my website ↗
+            </Link>
+            <Link
+              className="text-link"
+              href={designs.length ? href : "/website-collection#designs"}
+            >
+              {designs.length ? "Clear filters" : "Browse other categories"}
+            </Link>
+          </div>
         </div>
       ) : (
         <div className="collection-design-grid">
           {filtered.map((design) => (
             <article className="collection-design" id={`design-${design.id}`} key={design.id}>
               <Link
-                href={designHref(design)}
-                aria-label={`Explore the ${design.name} website design`}
+                className="template-preview-link"
+                href={`${designHref(design)}#preview`}
+                aria-label={`Preview ${design.name} website template`}
               >
                 {design.preview ? (
                   <Image
@@ -150,11 +132,14 @@ export default function CollectionCatalog({
                 ) : (
                   <DesignCover design={design} />
                 )}
+                <span className="template-preview-caption">
+                  View template <span aria-hidden="true">↗</span>
+                </span>
               </Link>
               <div className="collection-design-copy">
                 <p className="eyebrow">
                   {collectionTiers.find((item) => item.id === design.tier)?.name}
-                  {design.status === "concept" ? " · Design concept" : ""}
+                  {design.status === "concept" ? " · Sample layout" : ""}
                 </p>
                 <h3>{design.name}</h3>
                 <p>{design.description}</p>
@@ -162,18 +147,48 @@ export default function CollectionCatalog({
                   {designPrice(design)}
                   <span>{design.pageCount} page structures · Personalized with L&L</span>
                 </p>
-                <Link className="button button-outline" href={designHref(design)}>
-                  Explore {design.name} ↗
-                </Link>
+                <div className="template-card-actions">
+                  <Link className="button button-outline" href={designHref(design)}>
+                    View template ↗
+                  </Link>
+                  <Link className="text-link" href={collectionInquiryHref({ design: design.id })}>
+                    Make this my website ↗
+                  </Link>
+                </div>
+                {designs.length >= 2 && (
+                  <label className="template-shortlist-choice">
+                    <input
+                      form="template-shortlist"
+                      type="checkbox"
+                      name="design"
+                      value={design.id}
+                    />{" "}
+                    Compare this template
+                  </label>
+                )}
               </div>
             </article>
           ))}
         </div>
       )}
+      {designs.length >= 2 && filtered.length > 0 && (
+        <form
+          id="template-shortlist"
+          action="/website-collection/compare"
+          method="get"
+          className="template-shortlist"
+        >
+          <p>Like more than one? Select up to three templates to compare their scope.</p>
+          <button className="button button-outline" type="submit">
+            Compare selected templates ↗
+          </button>
+        </form>
+      )}
       <p className="collection-fineprint">
-        Not sure what fits?{" "}
+        Your business details, branding and agreed features are added by L&L. Scope and pricing are
+        confirmed before booking.{" "}
         <Link className="text-link" href={inquiryHref}>
-          Let Tate help you choose ↗
+          Ask about your website ↗
         </Link>
       </p>
     </section>

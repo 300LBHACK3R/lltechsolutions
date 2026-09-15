@@ -45,7 +45,7 @@ export default function ServicesPage() {
                     Collection, with personalization, launch and optional monthly care.
                   </p>
                   <Link href="/website-collection" className="text-link">
-                    Explore the Website Collection ↗
+                    Explore the Website Templates ↗
                   </Link>
                 </div>
               )}

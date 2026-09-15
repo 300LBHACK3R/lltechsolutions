@@ -45,7 +45,7 @@ export default function Page() {
         <section>
           <h2>Your optional content brief</h2>
           <p>
-            The Website Collection content guide does not submit or upload your entries. If you
+            The Website Templates content guide does not submit or upload your entries. If you
             choose Save draft, your notes are stored in this browser until you clear them or clear
             the site’s browser data. They are not shared across devices. You can download the notes
             as a text file and choose to send them to us in your project correspondence.

@@ -7,6 +7,9 @@ import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl } from "@/config/site";
 import {
   availableDesigns,
+  categoryForIndustry,
+  categoryHref,
+  collectionInquiryHref,
   collectionIndustries,
   collectionTiers,
   designHref,
@@ -32,12 +35,16 @@ export default async function DesignPage({ params }: Props) {
   const { design: id } = await params;
   const design = availableDesigns().find((item) => item.id === id);
   if (!design) notFound();
+  const category = categoryForIndustry(design.industry);
   return (
     <div className="website-collection">
       <section className="collection-hero">
         <div className="container">
-          <Link className="text-link" href="/website-collection#designs">
-            ← Website Collection
+          <Link
+            className="text-link"
+            href={category ? `${categoryHref(category)}#designs` : "/website-collection#designs"}
+          >
+            ← {category?.name ?? "Website Templates"}
           </Link>
           <p className="eyebrow">
             {collectionTiers.find((tier) => tier.id === design.tier)?.name} /{" "}
@@ -45,7 +52,8 @@ export default async function DesignPage({ params }: Props) {
           </p>
           <h1>
             {design.name}
-            <em>. Made yours.</em>
+            <br />
+            <em>Made yours.</em>
           </h1>
           <p className="collection-hero-copy">{design.description}</p>
           <p className="collection-hero-note">
@@ -55,9 +63,9 @@ export default async function DesignPage({ params }: Props) {
           <div className="button-row">
             <Link
               className="button button-gold"
-              href={`/website-collection/start?design=${design.id}`}
+              href={collectionInquiryHref({ design: design.id })}
             >
-              Make this my starting point ↗
+              Make this my website ↗
             </Link>
             <a href="#preview" className="text-link">
               Explore the design ↓
@@ -188,6 +196,13 @@ export default async function DesignPage({ params }: Props) {
             </p>
           </details>
           <details>
+            <summary>Optional extras & ongoing support</summary>
+            <p>Want to consider content help or monthly care before getting in touch?</p>
+            <Link className="text-link" href={`/website-collection/start?design=${design.id}`}>
+              Explore support options ↗
+            </Link>
+          </details>
+          <details>
             <summary>What happens after booking?</summary>
             <p>
               Once the scope is agreed, we guide you through your business details, content and
@@ -204,11 +219,8 @@ export default async function DesignPage({ params }: Props) {
             <h2>Like this direction?</h2>
             <p>Choose any extra help and support you want, then send a short enquiry.</p>
           </div>
-          <Link
-            className="button button-gold"
-            href={`/website-collection/start?design=${design.id}`}
-          >
-            Personalize my enquiry ↗
+          <Link className="button button-gold" href={collectionInquiryHref({ design: design.id })}>
+            Make this my website ↗
           </Link>
         </section>
       </div>

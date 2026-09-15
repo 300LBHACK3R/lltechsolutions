@@ -1,23 +1,23 @@
-# Website Collection
+# Website Templates
 
 This is a prepared source update, not a claim of a GitHub push or live Vercel deployment. It preserves L&L’s black, gold and charcoal identity and its three public disciplines.
 
 ## The visitor journey
 
-1. Browse the small collection. Business type is the first filter; additional filters stay optional. Collection levels, launch standards and monthly options use native disclosures.
-2. Open a design. Explore its inline pages, switch between two clearly labelled sample identities, and use Fit screen or Phone. Compare two or three designs if helpful.
-3. Select additional help, then a support preference. Review the separate cost categories and submit an enquiry through the existing contact form. No payment is collected, and no paid support plan is preselected.
-4. After the project is agreed, use the optional content guide. Enter public business information a section at a time, flag where help is needed, and download a text brief to attach to the existing project email.
+1. Open Website Templates after Our Clients in the navigation. The approved introduction explains the service; visitors choose a business category from clear, full-width rows.
+2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Construction & Plumbing, and Massage Practice. Category filtering stays on the gallery page, not the landing page.
+3. Open a template to explore its inline pages and Phone/Fit screen views. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
+4. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
 
 No account, extra analytics, tracking pixels, new application dependencies or upload service is introduced. The contact form stays mounted while visitors move back through the guided steps, preserving their typed information. Selection context is appended to the final submitted message using the existing length limits and server validation. A normal enquiry link and direct contact details remain available.
 
 ## Current designs and truthfulness
 
-| Design    | Main fit                              | Level     | Current status                             |
-| --------- | ------------------------------------- | --------- | ------------------------------------------ |
-| Pigment   | Painting                              | Signature | Interactive concept; launch pricing quoted |
-| Structure | Construction, also shown for Plumbing | Premier   | Interactive concept; launch pricing quoted |
-| Still     | Massage & Wellness                    | Essential | Interactive concept; launch pricing quoted |
+| Design                  | Main fit                              | Level     | Current status                             |
+| ----------------------- | ------------------------------------- | --------- | ------------------------------------------ |
+| Painting Company        | Painting                              | Signature | Interactive concept; launch pricing quoted |
+| Construction & Plumbing | Construction, also shown for Plumbing | Premier   | Interactive concept; launch pricing quoted |
+| Massage Practice        | Massage & Wellness                    | Essential | Interactive concept; launch pricing quoted |
 
 These are original coded design studies with sample text, generic sample identities and CSS artwork. They are not client projects, ready-made client assets or complete production business sites. Contact layouts within the concept do not collect information. The actual pages, content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
 
@@ -25,25 +25,26 @@ Existing website/software/social pricing remains unchanged. No collection launch
 
 ## Canonical data and routes
 
-`src/data/website-collection.ts` is the catalogue and selection source. It holds tiers, twelve industry categories, care choices, extras, design records and canonical inquiry helpers. `additionalIndustries` lets a design fit more than one relevant category. `src/data/collection-brief.ts` defines the content guide, bounded recovery format and text export.
+`src/data/website-collection.ts` is the catalogue and selection source. It holds tiers, thirteen industry tags grouped into five browsing categories, care choices, extras, design records and canonical inquiry helpers. `additionalIndustries` lets a design fit more than one relevant category. `src/data/collection-brief.ts` defines the content guide, bounded recovery format and text export.
 
-- `/website-collection`: discovery, filters and service explanations.
+- `/website-collection`: business category selection and service explanations. Legacy `?industry=` links redirect to the corresponding gallery, preserving filter context.
+- `/website-collection/category/[category]`: category-specific gallery, optional business/level filters, template previews, direct enquiry links and comparison selections.
 - `/website-collection/[design]`: individual detail page, interactive preview, scope, optional video, pricing explanation and performance evidence.
 - `/website-collection/start?design=pigment`: three-step guided enquiry.
 - `/website-collection/compare?design=pigment&design=still`: shareable comparison.
 - `/website-collection/brief`: optional client content guide, after booking.
 
-Design pages use server-generated metadata, canonical URLs and CreativeWork structured data. The catalogue has CollectionPage/ItemList schema reflecting the filtered results. Design pages are added to the sitemap from the same catalogue. Start, Compare and Brief are noindex utilities and are not in the sitemap. Draft designs are excluded from cards, details, inquiries and comparisons. Reserve the slugs `start`, `compare` and `brief`.
+Design pages use server-generated metadata, canonical URLs and CreativeWork structured data. The landing page lists category links in its CollectionPage/ItemList schema. Category pages have unique metadata, breadcrumbs and an ItemList matching their displayed templates. Only categories with available templates enter the sitemap; empty categories are noindex and say that no templates have been added yet. Design pages are added to the sitemap from the same catalogue. Start, Compare and Brief are noindex utilities and are not in the sitemap. Draft designs are excluded from cards, details, inquiries and comparisons. Reserve the slugs `start`, `compare`, `brief` and `category`. Internal template IDs and existing URLs remain stable even when display names change.
 
 ## Adding and publishing designs
 
-Use the `WebsiteDesign` type in the catalogue. Give every design a unique slug, name, tier, industry, description, page count, realistic delivery wording, scope and customization list.
+Use the `WebsiteDesign` type in the catalogue. Give every design a unique slug, a plain business-facing name, tier, industry, description, page count, realistic delivery wording, scope and customization list. Assign an existing industry tag and it automatically appears in the correct gallery. If adding an industry tag, assign it to exactly one `templateCategories` group. Put real thumbnail images under `public/images/collection/<design-id>/preview.webp` and set the `preview` source, alt text and actual dimensions in the record. An image alone does not make a template available: include a working inline concept or a checked public demo.
 
 - `draft`: private preparation; never rendered publicly.
 - `concept`: an explicitly labelled preview whose final offer may still require a quote.
 - `published`: approved offer with a positive, numeric `startingPriceCad` and a checked demo.
 
-Existing concepts have `concept` data used by `DesignPreview.tsx` and their own route anchor as `demoUrl`. Future externally hosted demos need a public HTTPS URL and a real screenshot under `public/images/collection/`, with alt text and the actual image dimensions. Generic cover artwork is used only when an inline concept exists. A future original layout can extend the preview component; do not disguise a repeated layout as an exclusive bespoke client design.
+Existing concepts have `concept` data used by `DesignPreview.tsx` and their own route anchor as `demoUrl`. Future externally hosted demos need a public HTTPS URL and a real screenshot under `public/images/collection/`, with alt text and the actual image dimensions. Inline concepts use a miniature HTML page layout built from their sample brand, headline and services. Supplied screenshots take precedence in gallery cards. These are preview layouts, not screenshots of a finished client site. A future original layout can extend the preview component; do not disguise a repeated layout as an exclusive bespoke client design.
 
 Confirm scope, revision allowance, content responsibilities, completion timing, usage/handover terms, taxes and provider fees before accepting a deposit. Monthly care remains optional and separately scoped.
 
@@ -87,8 +88,8 @@ The exported file is `My-LandL-Website-Brief.txt`. The visitor sends it through 
 
 Use `npm ci`, `npm run format:check`, `npm run check`, `npm audit --audit-level=moderate`, `npm run build` and `npm run smoke`.
 
-On September 12, 2026, the guided-collection implementation passed formatting, source/asset validation, ESLint without warnings, TypeScript, 17 tests, a dependency audit with zero reported vulnerabilities, production build and 70 HTTP checks. The mail key is deliberately absent from smoke testing: no external email was sent.
+The September 15 industry-gallery update passed formatting, source/asset validation, ESLint without warnings, TypeScript, 19 tests, production build, compiled stylesheet verification and 86 HTTP checks. Tests cover category boundaries, draft exclusion, direct enquiry context, unknown categories, legacy filter redirects and empty-state metadata. The smoke server has no email key and sends no external email.
 
-The supported browser returned `ERR_BLOCKED_BY_CLIENT` for the local preview. Rendered browser/device validation and real inbox receipt remain unverified. Follow the focused Website Collection section in `docs/RELEASE_CHECKLIST.md` before production promotion. Test normal and enlarged text, keyboard access, touch, reduced motion, phone/tablet/desktop layouts and the actual browsers/devices you support.
+Rendered review of this update remains outstanding: the supported browser cannot access the local server. After applying it, check category rows and galleries on phone, tablet and desktop, including keyboard selection, template previews and contact links. A successful main push is not a verified Vercel deployment.
 
-The Windows updater includes the pending Crestline design-options gallery, the collection and this journey. It defaults to local review, preserves a backup branch, checks the exact file scope, waits for GitHub Quality on the release commit and uses a normal non-force main push when `-Push` is requested. The existing GitHub integration cannot write this repo; the updater runs through the owner’s locally authenticated Git. A successful main push is not a verified Vercel deployment.
+The updater preserves a local backup, applies only this reviewed patch in a release branch, and runs the quality gates. With `-Push`, it fast-forwards main to the validated commit and uses the owner’s authenticated Git to push. No force push, stash operation or environment-file copy is used.

@@ -13,7 +13,7 @@ export default function BriefPage() {
   return (
     <div className="website-collection container journey-page">
       <Link href="/website-collection" className="text-link">
-        ← Website Collection
+        ← Website Templates
       </Link>
       <p className="eyebrow">After booking / Your content handover</p>
       <h1>A little at a time.</h1>

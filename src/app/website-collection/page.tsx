@@ -1,10 +1,13 @@
 import Link from "next/link";
-import CollectionCatalog from "@/components/collection/CollectionCatalog";
+import { redirect } from "next/navigation";
+import TemplateCategories from "@/components/collection/TemplateCategories";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl } from "@/config/site";
 import {
-  availableDesigns,
+  categoryForIndustry,
+  categoryHref,
+  templateCategories,
   collectionCarePlans,
   collectionDescription,
   collectionInquiryHref,
@@ -13,14 +16,12 @@ import {
   collectionStandards,
   collectionTiers,
   developerIntroduction,
-  designHref,
-  filterDesigns,
   type CollectionQuery,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
-  "Website Collection & Managed Launch",
+  "Website Templates & Managed Launch",
   collectionDescription,
   "/website-collection",
 );
@@ -29,9 +30,16 @@ export default async function WebsiteCollectionPage({
 }: {
   searchParams: Promise<CollectionQuery>;
 }) {
-  const designs = availableDesigns();
   const query = await searchParams;
-  const listed = filterDesigns(designs, query);
+  const category = categoryForIndustry(query.industry);
+  if (category) {
+    const filters = new URLSearchParams();
+    for (const key of ["industry", "tier", "budget", "sort"]) {
+      const value = query[key];
+      if (typeof value === "string" && value.length < 80) filters.set(key, value);
+    }
+    redirect(`${categoryHref(category)}?${filters.toString()}#designs`);
+  }
   const industry = collectionIndustries.find((item) => item.id === query.industry);
   const tier = collectionTiers.find((item) => item.id === query.tier);
   return (
@@ -39,7 +47,7 @@ export default async function WebsiteCollectionPage({
       <section className="collection-hero" aria-labelledby="collection-title">
         <div className="container collection-hero-grid">
           <div>
-            <p className="eyebrow">L&L / Website Collection</p>
+            <p className="eyebrow">L&L / Website Templates</p>
             <h1 id="collection-title">
               A design you love.
               <br />
@@ -51,7 +59,7 @@ export default async function WebsiteCollectionPage({
             </p>
             <div className="button-row">
               <a href="#designs" className="button button-gold">
-                Explore the designs ↓
+                Browse by business type ↓
               </a>
               <a href="#how-it-works" className="text-link">
                 How it works ↓
@@ -95,7 +103,7 @@ export default async function WebsiteCollectionPage({
         </div>
       </section>
       <div className="container">
-        <CollectionCatalog designs={designs} query={query} />
+        <TemplateCategories />
         <section
           className="collection-section journey-disclosures"
           id="collections"
@@ -287,7 +295,7 @@ export default async function WebsiteCollectionPage({
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: "L&L Website Collection",
+          name: "L&L Website Templates",
           description: collectionDescription,
           url: absoluteUrl("/website-collection"),
           inLanguage: "en-CA",
@@ -298,20 +306,16 @@ export default async function WebsiteCollectionPage({
             provider: { "@id": absoluteUrl("/#organization") },
             areaServed: "Canada",
           },
-          ...(listed.length
-            ? {
-                mainEntity: {
-                  "@type": "ItemList",
-                  numberOfItems: listed.length,
-                  itemListElement: listed.map((design, index) => ({
-                    "@type": "ListItem",
-                    position: index + 1,
-                    name: design.name,
-                    url: absoluteUrl(designHref(design)),
-                  })),
-                },
-              }
-            : {}),
+          mainEntity: {
+            "@type": "ItemList",
+            numberOfItems: templateCategories.length,
+            itemListElement: templateCategories.map((category, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: category.name,
+              url: absoluteUrl(categoryHref(category)),
+            })),
+          },
         }}
       />
     </div>

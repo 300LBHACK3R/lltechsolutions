@@ -27,7 +27,7 @@ export default async function ComparePage({
   return (
     <div className="website-collection container journey-page">
       <Link className="text-link" href="/website-collection#designs">
-        ← Back to the collection
+        ← All business categories
       </Link>
       <p className="eyebrow">A little clarity</p>
       <h1>Find your fit.</h1>

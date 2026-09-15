@@ -64,6 +64,7 @@ export const collectionIndustries = [
   { id: "electrical", name: "Electrical" },
   { id: "landscaping", name: "Landscaping & Outdoor Services" },
   { id: "massage-wellness", name: "Massage & Wellness" },
+  { id: "dental", name: "Dental Practices" },
   { id: "legal", name: "Legal Services" },
   { id: "cleaning", name: "Cleaning" },
   { id: "automotive", name: "Automotive & Detailing" },
@@ -73,6 +74,66 @@ export const collectionIndustries = [
 ] as const;
 
 export type CollectionIndustryId = (typeof collectionIndustries)[number]["id"];
+
+export type TemplateCategory = {
+  id: string;
+  name: string;
+  description: string;
+  industries: readonly CollectionIndustryId[];
+};
+
+/** Business categories lead the browsing experience; tiers remain optional refinements. */
+export const templateCategories: readonly TemplateCategory[] = [
+  {
+    id: "construction-trades",
+    name: "Construction & Trades",
+    description: "Construction companies, painters, plumbers and electricians.",
+    industries: ["construction", "painting", "plumbing", "electrical"],
+  },
+  {
+    id: "health-wellness",
+    name: "Health & Wellness",
+    description: "Massage therapists, dental practices and personal care businesses.",
+    industries: ["massage-wellness", "dental", "beauty"],
+  },
+  {
+    id: "legal-professional",
+    name: "Legal & Professional",
+    description: "Law firms, consultants and professional service businesses.",
+    industries: ["legal", "professional-services"],
+  },
+  {
+    id: "home-property",
+    name: "Home & Property",
+    description: "Landscaping, cleaning and property care businesses.",
+    industries: ["landscaping", "cleaning"],
+  },
+  {
+    id: "retail-hospitality",
+    name: "Retail & Hospitality",
+    description: "Food businesses, hospitality and automotive services.",
+    industries: ["food-hospitality", "automotive"],
+  },
+];
+
+export function categoryHref(category: Pick<TemplateCategory, "id">) {
+  return `/website-collection/category/${category.id}`;
+}
+
+export function categoryForIndustry(industry: unknown) {
+  return templateCategories.find((category) => category.industries.some((id) => id === industry));
+}
+
+export function categoryDesigns(
+  category: TemplateCategory,
+  designs: readonly WebsiteDesign[] = websiteDesigns,
+) {
+  return availableDesigns(designs).filter((design) =>
+    category.industries.some(
+      (industry) => design.industry === industry || design.additionalIndustries?.includes(industry),
+    ),
+  );
+}
 
 export const collectionCarePlans = [
   {
@@ -153,7 +214,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
   {
     id: "pigment",
     status: "concept",
-    name: "Pigment",
+    name: "Painting Company",
     tier: "signature",
     industry: "painting",
     description:
@@ -204,7 +265,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
   {
     id: "structure",
     status: "concept",
-    name: "Structure",
+    name: "Construction & Plumbing",
     tier: "premier",
     industry: "construction",
     additionalIndustries: ["plumbing"],
@@ -256,7 +317,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
   {
     id: "still",
     status: "concept",
-    name: "Still",
+    name: "Massage Practice",
     tier: "essential",
     industry: "massage-wellness",
     description:
@@ -279,7 +340,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     ],
     concept: {
       theme: "still",
-      brands: ["STILL STUDIO", "SAGE STUDIO"],
+      brands: ["MASSAGE STUDIO", "WELLNESS PRACTICE"],
       headlines: ["A little space. Just for you.", "Care begins with feeling welcome."],
       subcopy:
         "A quieter introduction to your practice. Help visitors understand your services, meet the practitioner and find their way to an appointment.",
@@ -306,7 +367,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
 ];
 
 export const collectionDescription =
-  "Explore L&L’s custom-coded Website Collection: four design levels, business personalization, technical SEO, launch support and optional monthly website care across Canada.";
+  "Browse custom-coded website templates by business type. Choose a design, then let L&L personalize your content, handle the launch and provide optional ongoing care across Canada.";
 
 export const collectionStandards = [
   {
@@ -426,6 +487,7 @@ export function collectionInquiryHref(
     design?: string;
     care?: CollectionCareId;
     industry?: CollectionIndustryId;
+    category?: string;
   } = {},
 ) {
   const query = new URLSearchParams({
@@ -436,6 +498,8 @@ export function collectionInquiryHref(
   if (selection.design) query.set("design", selection.design);
   if (selection.care) query.set("care", selection.care);
   if (selection.industry) query.set("industry", selection.industry);
+  if (templateCategories.some((item) => item.id === selection.category))
+    query.set("category", selection.category!);
   return `/contact?${query.toString()}`;
 }
 
@@ -451,10 +515,15 @@ export function collectionInquiry(
     (item) => item.id === (design?.industry ?? query.industry),
   );
   const care = collectionCarePlans.find((item) => item.id === query.care);
+  const category = templateCategories.find((item) => item.id === query.category);
   const details = [
-    "I’m interested in the L&L Website Collection.",
+    "I’m interested in the L&L Website Templates.",
     ...(design ? [`Design: ${design.name}`] : []),
-    ...(industry ? [`Business type: ${industry.name}`] : []),
+    ...(industry
+      ? [`Business type: ${industry.name}`]
+      : category
+        ? [`Business category: ${category.name}`]
+        : []),
     ...(tier ? [`Collection: ${tier.name}`] : []),
     ...(care ? [`Optional monthly support: ${care.name}`] : []),
     "",
@@ -464,8 +533,9 @@ export function collectionInquiry(
     service: "Website Design & Development",
     message: details.join("\n"),
     summary:
-      [design?.name, industry?.name, tier?.name, care?.name].filter(Boolean).join(" · ") ||
-      "Website Collection",
+      [design?.name, industry?.name ?? category?.name, tier?.name, care?.name]
+        .filter(Boolean)
+        .join(" · ") || "Website Templates",
   };
 }
 

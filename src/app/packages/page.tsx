@@ -46,7 +46,7 @@ export default function PricingPage() {
         <section className="collection-pricing-link" aria-labelledby="pricing-collection-title">
           <div>
             <p className="eyebrow">Another way to get started</p>
-            <h2 id="pricing-collection-title">The Website Collection.</h2>
+            <h2 id="pricing-collection-title">The Website Templates.</h2>
             <p>
               Choose an existing L&L design foundation and have it personalized and launched for
               your business. Four levels of scope, with individual design pricing and optional

@@ -30,12 +30,14 @@
 - Merge/publish only after the review and authorization. Do not pop an old stash over the release.
 - After launch, confirm the production commit and repeat the critical link and inquiry checks before advertising the new site.
 
-## Website Collection journey
+## Website Templates journey
 
-- Preview `/website-collection`, all three design pages, `/website-collection/compare`, `/website-collection/start?design=pigment` and `/website-collection/brief`.
+- Preview `/website-collection`, each `/website-collection/category/[category]` gallery, all three design pages, `/website-collection/compare`, `/website-collection/start?design=pigment` and `/website-collection/brief`.
 - In a design, try both sample identities, Phone/Fit screen and every page button. Ensure no pretend enquiry is sent by the demonstration. Add only real supplied walkthroughs and measured reports.
-- Filter Painting + Signature, then Plumbing. Compare two and three designs. Open shared comparison links, clear selections and check an empty match. Concepts without a price must never show $0 or appear under a numeric price ceiling.
+- Confirm navigation shows Our Clients before Website Templates. Landing-page categories should open distinct galleries, not a flat catalogue. Empty categories must have an honest message and noindex metadata.
+- In Construction & Trades, filter Painting + Signature, then Plumbing. Compare two and three designs. Open shared comparison links, clear selections and check an empty match. Concepts without a price must never show $0 or appear under a numeric price ceiling.
 - On the guided enquiry, choose extras and care, write contact details on Review, go Back to change a choice and return. Your typed contact details must remain. The sent message must contain the current preferences and the typed notes. Test failed delivery with details retained; verify actual inbox receipt separately.
 - In the brief, fill a section, request help, advance/back, save, reload and explicitly restore. Check cancellation of restore and clear actions, restricted/private browser storage, export filename, line breaks and no network submission. Check that unsupplied fields say To discuss.
-- Utility pages must be noindex and absent from the sitemap. Design detail pages must have unique metadata, a canonical URL, CreativeWork schema and sitemap entries.
+- “Make this my website” must reach Contact with the chosen template name in the editable message. Category-only enquiries must preserve the broad category without guessing a specific business type.
+- Utility pages and empty categories must be noindex and absent from the sitemap. Design detail pages must have unique metadata, a canonical URL, CreativeWork schema and sitemap entries.
 - Visual review remains necessary: the supported browser blocked this environment’s local preview. Automated HTTP checks do not establish rendered layout or inbox delivery.

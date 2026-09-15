@@ -38,52 +38,136 @@
   --design-soft: #806851;
   --design-wash: #ded2c4;
 }
+/* Miniature website layouts use the same palette and content as the interactive preview. */
 .design-cover {
-  position: relative;
-  isolation: isolate;
   overflow: hidden;
-  aspect-ratio: 1.3;
+  aspect-ratio: 1.45;
   background: var(--design-paper);
   color: var(--design-ink);
-  padding: 25px;
   display: flex;
   flex-direction: column;
+  font-size: clamp(5px, 0.65vw, 10px);
+  text-align: left;
+}
+.template-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 9px 12px;
+  color: #c4c4c4;
+  background: #232323;
+  font:
+    9px/1.2 Arial,
+    sans-serif;
+}
+.template-browser-bar i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #777;
+}
+.template-browser-bar span {
+  margin-left: 7px;
+}
+.template-mini-header {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 8px;
+  padding: 1.8em 2.4em;
+  border-bottom: 1px solid color-mix(in srgb, var(--design-ink) 18%, transparent);
 }
-.design-cover-label,
-.design-cover-foot {
-  font-size: 10px;
-  letter-spacing: 0.1em;
+.template-mini-header strong {
+  font-size: 1.1em;
+  letter-spacing: 0.06em;
+}
+.template-mini-header > span {
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+.template-mini-hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2em;
+  padding: 2.5em 2.4em;
+  flex: 1;
+  min-height: 0;
+}
+.template-mini-hero > div:first-child {
+  align-self: center;
+}
+.template-mini-kicker {
+  font-size: 0.75em;
   text-transform: uppercase;
-  position: relative;
-  z-index: 1;
+  letter-spacing: 0.07em;
 }
-.design-cover strong {
-  font-family: var(--font-editorial), Georgia, serif;
-  font-size: clamp(40px, 4vw, 68px);
-  letter-spacing: -0.04em;
-  font-weight: 600;
-  line-height: 1;
-  position: relative;
-  z-index: 1;
-}
-.design-cover strong span {
-  font-family: var(--font-sans), Arial, sans-serif;
-  font-size: 13px;
+.template-mini-hero strong {
   display: block;
-  line-height: 1.5;
-  margin-top: 18px;
-  letter-spacing: 0;
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: 3.7em;
+  line-height: 1;
   font-weight: 500;
+  margin: 0.25em 0;
+  letter-spacing: -0.04em;
 }
-.design-cover .design-art {
-  position: absolute;
-  top: 25%;
-  right: -12%;
-  width: 60%;
-  height: 80%;
-  opacity: 0.65;
+.template-mini-copy {
+  font-size: 0.85em;
+  line-height: 1.6;
+  margin: 1em 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
+.template-mini-button {
+  display: inline-block;
+  padding: 0.75em 1em;
+  font-size: 0.85em;
+  background: var(--design-ink);
+  color: var(--design-paper);
+}
+.template-mini-hero .design-art {
+  min-height: 0;
+}
+.template-mini-services {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.8em;
+  padding: 1.8em 2.4em;
+  border-top: 1px solid color-mix(in srgb, var(--design-ink) 18%, transparent);
+}
+.template-mini-services > div {
+  min-width: 0;
+}
+.template-mini-services strong {
+  display: block;
+  font-size: 1.05em;
+  margin: 0.4em 0 0.7em;
+}
+.template-mini-services span {
+  font-size: 0.8em;
+}
+.template-mini-services i {
+  display: block;
+  background: currentColor;
+  opacity: 0.15;
+  height: 2px;
+  margin-top: 3px;
+}
+.template-mini-services i:last-child {
+  width: 70%;
+}
+@media (max-width: 1100px) {
+  .design-cover {
+    font-size: clamp(6px, 0.85vw, 10px);
+  }
+}
+@media (max-width: 699px) {
+  .design-cover {
+    font-size: clamp(5px, 1.65vw, 10px);
+  }
+}
+
 .design-art {
   position: relative;
   isolation: isolate;

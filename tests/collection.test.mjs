@@ -4,6 +4,10 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   websiteDesigns,
+  templateCategories,
+  categoryDesigns,
+  categoryForIndustry,
+  categoryHref,
   availableDesigns,
   designPrice,
   designHref,
@@ -84,7 +88,7 @@ test("collection inquiry uses catalogue identity rather than untrusted query tex
     },
     designs,
   );
-  assert.equal(bad.summary, "Website Collection");
+  assert.equal(bad.summary, "Website Templates");
   assert.ok(!bad.message.includes("draft") && !bad.message.includes("<script>"));
   assert.equal(collectionInquiry({ collection: ["website", "website"], tier: "essential" }), null);
 });
@@ -124,7 +128,7 @@ test("collection distinguishes unpriced concepts from priced releases and keeps 
   const ids = new Set();
   for (const design of websiteDesigns) {
     assert.match(design.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
-    assert.ok(!["start", "compare", "brief"].includes(design.id), "reserved route");
+    assert.ok(!["start", "compare", "brief", "category"].includes(design.id), "reserved route");
     assert.ok(!ids.has(design.id), `duplicate design id: ${design.id}`);
     ids.add(design.id);
     assert.ok(["draft", "concept", "published"].includes(design.status));
@@ -226,4 +230,45 @@ test("comparison ignores unknown IDs and deduplicates a shortlist", () => {
     ["pigment", "still"],
   );
   assert.equal(compareSelection(undefined).designs.length, 0);
+});
+
+test("business galleries retain all industry mappings and exclude unrelated or draft templates", () => {
+  assert.equal(
+    new Set(templateCategories.map((category) => category.id)).size,
+    templateCategories.length,
+  );
+  for (const industry of collectionIndustries) {
+    const matches = templateCategories.filter((category) =>
+      category.industries.includes(industry.id),
+    );
+    assert.equal(matches.length, 1, `${industry.id} belongs to one browsing category`);
+  }
+  const trades = categoryForIndustry("painting");
+  assert.equal(categoryHref(trades), "/website-collection/category/construction-trades");
+  assert.deepEqual(
+    categoryDesigns(trades, designs).map((design) => design.id),
+    ["one", "three"],
+  );
+  assert.equal(categoryForIndustry(["painting", "legal"]), undefined);
+  assert.equal(categoryDesigns(categoryForIndustry("legal")).length, 0);
+  for (const design of availableDesigns())
+    assert.ok(categoryDesigns(categoryForIndustry(design.industry)).includes(design));
+});
+
+test("category and template enquiries preserve the selection without inventing a business type", () => {
+  const href = collectionInquiryHref({ category: "legal-professional" });
+  const inquiry = collectionInquiry(
+    Object.fromEntries(new URL(href, "https://example.test").searchParams),
+  );
+  assert.ok(inquiry.message.includes("Business category: Legal & Professional"));
+  assert.ok(!inquiry.message.includes("Business type:"));
+  assert.ok(!collectionInquiryHref({ category: "forged-category" }).includes("forged-category"));
+  for (const design of availableDesigns()) {
+    const url = new URL(collectionInquiryHref({ design: design.id }), "https://example.test");
+    assert.ok(
+      collectionInquiry(Object.fromEntries(url.searchParams)).message.includes(
+        `Design: ${design.name}`,
+      ),
+    );
+  }
 });
