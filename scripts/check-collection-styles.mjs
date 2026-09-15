@@ -8,7 +8,16 @@ import { pathToFileURL } from "node:url";
 const routes = new Map([
   [
     "/website-collection",
-    ["collection-hero", "collection-roadmap", "template-category-list", "template-category-photo"],
+    [
+      "collection-hero",
+      "collection-visual-grid",
+      "collection-showcase-panel",
+      "collection-showcase-option",
+      "collection-process-strip",
+      "collection-roadmap",
+      "template-category-list",
+      "template-category-photo",
+    ],
   ],
   [
     "/website-collection/category/construction-trades",

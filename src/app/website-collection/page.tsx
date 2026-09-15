@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import TemplateCategories from "@/components/collection/TemplateCategories";
+import CollectionShowcase from "@/components/collection/CollectionShowcase";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl } from "@/config/site";
@@ -44,9 +45,12 @@ export default async function WebsiteCollectionPage({
   const tier = collectionTiers.find((item) => item.id === query.tier);
   return (
     <div className="website-collection">
-      <section className="collection-hero" aria-labelledby="collection-title">
-        <div className="container collection-hero-grid">
-          <div>
+      <section
+        className="collection-hero collection-visual-hero"
+        aria-labelledby="collection-title"
+      >
+        <div className="container collection-visual-grid">
+          <div className="collection-visual-copy">
             <p className="eyebrow">L&L / Website Templates</p>
             <h1 id="collection-title">
               A design you love.
@@ -54,52 +58,62 @@ export default async function WebsiteCollectionPage({
               <em>The details, handled.</em>
             </h1>
             <p className="collection-hero-copy">
-              Choose an original L&L design. We personalize the code, handle the launch and offer
-              ongoing care. You stay focused on your customers, your team and what comes next.
+              Start with a design that feels right for your business. We tailor the code, bring your
+              brand into it, and handle the launch.
             </p>
             <div className="button-row">
               <a href="#designs" className="button button-gold">
-                Browse by business type ↓
+                Find your design <span aria-hidden="true">↗</span>
               </a>
               <a href="#how-it-works" className="text-link">
                 How it works ↓
               </a>
             </div>
-            <p className="collection-hero-note">
-              Custom-coded foundations · A real person to help · Canada-wide
-            </p>
+            <div className="collection-visual-signoff">
+              <span aria-hidden="true">&lt;/&gt;</span>
+              <p>
+                Custom-coded. Personally handled.<span>Calgary-based · Canada-wide</span>
+              </p>
+            </div>
           </div>
-          <div className="collection-edition collection-roadmap" id="how-it-works">
-            <p className="eyebrow">One easy step at a time</p>
-            <ol>
-              <li>
-                <span>01</span>
-                <div>
-                  <strong>Find your design.</strong>
-                  <p>Explore the look and layout.</p>
-                </div>
-              </li>
-              <li>
-                <span>02</span>
-                <div>
-                  <strong>Make it personal.</strong>
-                  <p>Choose any extra help you need.</p>
-                </div>
-              </li>
-              <li>
-                <span>03</span>
-                <div>
-                  <strong>Let’s talk it through.</strong>
-                  <p>Agree the scope and costs before booking.</p>
-                </div>
-              </li>
-            </ol>
-            <p>
-              You do not need to know the technology.
-              <br />
-              <span>That part is ours to handle.</span>
+          <CollectionShowcase />
+        </div>
+      </section>
+      <section
+        className="collection-process-strip collection-roadmap"
+        id="how-it-works"
+        aria-labelledby="collection-process-title"
+      >
+        <div className="container">
+          <div className="collection-process-heading">
+            <p className="eyebrow" id="collection-process-title">
+              One easy step at a time
             </p>
+            <p>You focus on your business. We handle the website.</p>
           </div>
+          <ol>
+            <li>
+              <span>01</span>
+              <div>
+                <strong>Find your design.</strong>
+                <p>Explore the look and layout.</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>Make it personal.</strong>
+                <p>Choose any extra help you need.</p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>Let’s talk it through.</strong>
+                <p>Agree the scope and costs before booking.</p>
+              </div>
+            </li>
+          </ol>
         </div>
       </section>
       <div className="container">

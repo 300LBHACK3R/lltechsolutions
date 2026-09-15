@@ -9,12 +9,6 @@
   border-bottom: 1px solid var(--line);
   padding-block: clamp(50px, 6vw, 95px);
 }
-.collection-hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr);
-  gap: clamp(36px, 6vw, 110px);
-  align-items: center;
-}
 .collection-hero h1 {
   font-size: clamp(40px, 4.9vw, 76px);
   letter-spacing: -0.045em;
@@ -38,31 +32,6 @@
   color: #c1bcae;
   margin-top: 28px;
   font-size: 12px;
-}
-.collection-edition {
-  padding: clamp(22px, 3vw, 44px);
-  border: 1px solid #675735;
-  border-radius: 3px;
-  background: linear-gradient(135deg, #26231c, #111110 85%);
-  box-shadow: 0 18px 65px #0004;
-}
-.collection-edition ol {
-  list-style: none;
-  padding: 0;
-  margin: 26px 0;
-}
-.collection-edition li + li {
-  border-top: 1px solid #514630;
-}
-.collection-edition strong {
-  font-weight: 450;
-  font-size: clamp(22px, 2vw, 32px);
-}
-.collection-edition > p:last-child {
-  font-size: 14px;
-}
-.collection-edition > p:last-child span {
-  color: var(--muted);
 }
 .collection-section {
   padding-block: var(--collection-space);
@@ -314,13 +283,6 @@
   }
 }
 @media (max-width: 999px) {
-  .collection-hero-grid {
-    grid-template-columns: 1fr;
-  }
-  .collection-edition {
-    max-width: 680px;
-    width: 100%;
-  }
   .collection-heading {
     align-items: start;
     flex-direction: column;
@@ -361,7 +323,6 @@
   }
 }
 @media (forced-colors: active) {
-  .collection-edition,
   .collection-questions details {
     border: 1px solid CanvasText;
   }

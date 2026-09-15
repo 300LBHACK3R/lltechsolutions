@@ -4,7 +4,7 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 
 ## The visitor journey
 
-1. Open Website Templates after Our Clients in the navigation. The approved introduction explains the service; visitors choose a business category from wide photographic strips.
+1. Open Website Templates after Our Clients in the navigation. The introduction pairs the approved headline with selectable real-client previews. A compact process strip explains the next steps, followed by wide photographic business-category links.
 2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Construction & Plumbing, Massage Practice, Calgary Hot Shot, Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage. Category filtering stays on the gallery page, not the landing page.
 3. Open a template to explore its inline pages and Phone/Fit screen views. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
 4. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
@@ -156,3 +156,15 @@ Each populated business gallery has a labelled native **Sort by price** control.
 Category metadata keeps the clean category canonical URL. ItemList structured data follows the displayed order. No Product/Offer markup or ranking claims have been added. Enquiry prices come from catalogue data; arbitrary URL prices are ignored. Contact requests remain ordinary editable enquiries, not binding orders or payment submissions.
 
 Validation: formatting, source/asset validation, zero-warning ESLint, TypeScript, 24 unit tests, the production build, stylesheet checks and 129 production HTTP checks passed. Audit reported zero vulnerabilities. Added checks cover numeric ordering, equal and unknown prices, invalid sort parameters, combined filters, canonical URLs, structured-data order and tamper-resistant prefilled starting prices. The native controls retain the existing responsive layout; new rendered browser/device checks were not performed. No external email, remote push or Vercel deployment was performed while preparing this update.
+
+## Visual collection opening
+
+The landing-page hero now pairs the approved “A design you love. The details, handled.” headline with a large real website preview and three thumbnail choices: McKenzie House Massage, Tow-N-Go Trailers and Crestline Painting. The preview’s image, title, category, starting price and detail link come from the existing catalogue records. The live client examples remain references for a similar new build with the prospect’s own brand and content; displayed prices are before tax.
+
+`CollectionShowcase.tsx` is a Server Component. A native radio group selects its adjacent preview through CSS, with visible labels, a legend, associated preview regions and focus outlines. There is no carousel timer, autoplay, third-party widget, new JavaScript state or dependency. Native radio keyboard behaviour and preview links remain available without JavaScript. The first main preview receives high fetch priority; other full previews load lazily. Thumbnails use small responsive derivatives.
+
+The three-step explanation is now a compact charcoal strip below the hero. Desktop uses a split composition and a horizontal process row; narrower viewports stack the content and steps. The new stylesheet is explicitly imported in the root layout and included in delivered-CSS validation. The obsolete sidebar and grid styles were removed. Category galleries, prices, sorting and enquiry routes remain intact.
+
+Selection reveal and fine-pointer image zoom are gated by both the existing motion setting and prefers-reduced-motion. Content is readable with animation paused. Motion consists of a short 8px/opacity reveal and a 2% hover zoom; there is no continuously moving background.
+
+Validation passed: source/asset checks, zero-warning ESLint, TypeScript, 24 tests, production build, compiled/delivered CSS checks and 132 production HTTP checks. Dependency audit reported zero vulnerabilities. Added HTTP checks verify the three native radio/label/region associations, one default selection, real optimized image responses, loading priorities, walkthrough links and the relocated process anchor. No external email was sent. This environment’s supported browser previously blocked local preview access; fresh rendered browser/device verification remains outstanding. No remote push or deployment is claimed by this source update.
