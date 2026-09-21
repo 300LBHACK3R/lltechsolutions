@@ -144,6 +144,36 @@ try {
     homeMain.includes('href="/projects/social-media-management#tow-n-go-digital"'),
     "homepage exposes Tow-N-Go’s monthly partnership",
   );
+  const painting = htmlByRoute.get("/website-collection/pigment");
+  assert.ok(painting.includes("From $499 CAD"), "painting: agreed starting price");
+  assert.match(
+    painting,
+    /class="paint-site" data-tone="ochre"/,
+    "painting: server-rendered initial design",
+  );
+  assert.match(
+    painting,
+    /<nav class="paint-nav"[\s\S]*?Home[\s\S]*?Services[\s\S]*?Projects[\s\S]*?Contact[\s\S]*?<\/nav>/,
+    "painting: all four sample destinations are available",
+  );
+  assert.ok(
+    painting.includes("paint-hero-photo") && painting.includes("paint-approach"),
+    "painting: full initial content without waiting for hydration",
+  );
+  assert.ok(
+    painting.includes("Preview accent colour") &&
+      painting.includes("Warm ochre") &&
+      painting.includes("Soft sage") &&
+      painting.includes("Terracotta"),
+    "painting: named accent controls",
+  );
+  const paintingGallery = htmlByRoute.get("/website-collection/category/construction-trades");
+  assert.match(
+    paintingGallery,
+    /id="design-pigment"[\s\S]*?class="design-cover paint-cover"/,
+    "painting: matching gallery cover",
+  );
+  checks++;
   for (const id of ["pigment", "structure", "still"]) {
     const html = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(html.includes('"@type":"CreativeWork"'), `${id}: design schema`);

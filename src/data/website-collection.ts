@@ -249,7 +249,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     tier: "signature",
     industry: "painting",
     description:
-      "An expressive painting website with bold colour, clear services and room for the work to speak.",
+      "An editorial painting website with immersive room photography, brush-drawn navigation and a clear path from inspiration to an estimate.",
     startingPriceCad: 499,
     pageCount: 4,
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",

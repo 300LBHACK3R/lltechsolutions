@@ -1,11 +1,4 @@
 /* Original design studies. Scoped tokens keep sample branding outside the L&L identity. */
-.design-theme-pigment {
-  --design-paper: #f4efde;
-  --design-ink: #172a44;
-  --design-accent: #eead30;
-  --design-soft: #2e587e;
-  --design-wash: #dcd5bf;
-}
 .design-theme-structure {
   --design-paper: #e9e8e1;
   --design-ink: #172b33;
@@ -287,7 +280,6 @@
   max-width: 900px;
   overflow-wrap: anywhere;
 }
-.design-theme-pigment .demo-content h3,
 .design-theme-still .demo-content h3 {
   font-family: var(--font-editorial), Georgia, serif;
   font-weight: 500;

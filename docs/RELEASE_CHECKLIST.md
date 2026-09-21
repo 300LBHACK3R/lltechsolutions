@@ -33,6 +33,7 @@
 ## Website Templates journey
 
 - Preview `/website-collection`, each `/website-collection/category/[category]` gallery, all three design pages, `/website-collection/compare`, `/website-collection/start?design=pigment` and `/website-collection/brief`.
+- For Painting Company, check the brush underline on Home/Services/Projects/Contact, the three accent colours and service selection carried into the sample estimate. Confirm the real L&L enquiry opens with Painting Company selected.
 - In a design, try a short and a long business name, Phone/Fit screen and every page button. Ensure no pretend enquiry is sent by the demonstration. Add only real supplied walkthroughs and measured reports.
 - Confirm navigation shows Our Clients before Website Templates. Landing-page categories should open distinct galleries, not a flat catalogue. Empty categories must have an honest message and noindex metadata.
 - On the Website Templates hero, select all three client previews with mouse/touch and native radio arrow keys; follow each walkthrough link. Confirm a visible focus outline, one visible preview, and no layout overflow at phone/tablet/desktop widths. Repeat with JavaScript disabled and reduced motion enabled. Check the horizontal process strip stacks on a phone.

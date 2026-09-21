@@ -21,7 +21,13 @@ const routes = new Map([
   ],
   [
     "/website-collection/category/construction-trades",
-    ["template-gallery-hero", "collection-design-grid", "design-cover", "template-mini-hero"],
+    [
+      "template-gallery-hero",
+      "collection-design-grid",
+      "design-cover",
+      "template-mini-hero",
+      "paint-cover",
+    ],
   ],
   [
     "/website-collection/category/health-wellness",
@@ -29,7 +35,13 @@ const routes = new Map([
   ],
   [
     "/website-collection/pigment",
-    ["design-preview-viewport", "demo-hero", "demo-photo", "design-name-field"],
+    [
+      "design-preview-viewport",
+      "paint-hero",
+      "paint-nav-effect",
+      "paint-swatches",
+      "design-name-field",
+    ],
   ],
   ["/website-collection/calgary-hot-shot", ["live-demo-scroll"]],
   ["/website-collection/tow-n-go", ["project-video", "design-detail-scope"]],

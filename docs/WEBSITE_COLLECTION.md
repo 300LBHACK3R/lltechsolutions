@@ -168,3 +168,13 @@ The three-step explanation is now a compact charcoal strip below the hero. Deskt
 Selection reveal and fine-pointer image zoom are gated by both the existing motion setting and prefers-reduced-motion. Content is readable with animation paused. Motion consists of a short 8px/opacity reveal and a 2% hover zoom; there is no continuously moving background.
 
 Validation passed: source/asset checks, zero-warning ESLint, TypeScript, 24 tests, production build, compiled/delivered CSS checks and 132 production HTTP checks. Dependency audit reported zero vulnerabilities. Added HTTP checks verify the three native radio/label/region associations, one default selection, real optimized image responses, loading priorities, walkthrough links and the relocated process anchor. No external email was sent. This environment’s supported browser previously blocked local preview access; fresh rendered browser/device verification remains outstanding. No remote push or deployment is claimed by this source update.
+
+## Painting Company / Pigment demo
+
+The $499 CAD starting point and four page structures remain unchanged. The painting preview now has its own scoped components and stylesheet: `PaintingTemplate`, `PaintingCover`, `PaintMarks` and `painting-template.css`. The cover represents the actual demo; other concepts keep the shared `DesignPreview` layout.
+
+Home, Services, Projects and Contact are interactive sample views. Visitors can try a business name and three accent colours without storage or requests. The brush draws a navigation underline once on selection, keyboard focus or pointer hover. OS reduced motion and the existing L&L motion switch disable animation while preserving a static selected underline.
+
+Contact is explicitly a non-interactive estimate layout; selecting a service carries its name into that layout. “Make this my website” opens the existing L&L enquiry with Pigment selected. No painting enquiry is collected or delivered by this sample. The two spaces use existing illustrative collection imagery, not claims of completed painting work.
+
+Before publishing, review all four views, long business names, accent selection and Phone/Fit screen at narrow and wide widths. Check keyboard focus after changing views, motion paused/reduced and the real L&L enquiry handoff. The production smoke and delivered-CSS checks include the painting preview and matching category cover.
