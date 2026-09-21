@@ -40,6 +40,8 @@ const routes = new Map([
       "paint-hero",
       "paint-nav-effect",
       "paint-swatches",
+      "template-showcase-actions",
+      "template-screenshot-main",
       "design-name-field",
     ],
   ],

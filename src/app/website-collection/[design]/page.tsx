@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import DesignPreview from "@/components/collection/DesignPreview";
+import PaintingShowcase from "@/components/collection/PaintingShowcase";
+import paintingDemo from "@/data/painting-demo.json";
+import { readTemplateShowcase } from "@/lib/template-showcase";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import CostSummary from "@/components/collection/CostSummary";
 import ProjectVideo from "@/components/projects/ProjectVideo";
@@ -42,6 +45,7 @@ export default async function DesignPage({ params }: Props) {
   const { design: id } = await params;
   const design = availableDesigns().find((item) => item.id === id);
   if (!design) notFound();
+  const painting = design.id === "pigment" ? readTemplateShowcase(paintingDemo) : null;
   const category = categoryForIndustry(design.industry);
   const clientProject = design.clientProjectId
     ? projects.find(
@@ -85,6 +89,16 @@ export default async function DesignPage({ params }: Props) {
             >
               {designInquiryLabel(design)} ↗
             </Link>
+            {painting?.url && (
+              <a
+                className="button button-outline"
+                href={painting.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View live demo <span className="sr-only">in a new tab</span>↗
+              </a>
+            )}
             <a href="#preview" className="text-link">
               Explore the design ↓
             </a>
@@ -95,18 +109,26 @@ export default async function DesignPage({ params }: Props) {
         <section id="preview" className="collection-section" aria-labelledby="preview-title">
           <div className="collection-heading">
             <div>
-              <p className="eyebrow">Look around, right here</p>
-              <h2 id="preview-title">See how it feels.</h2>
+              <p className="eyebrow">
+                {painting ? "The design, in detail" : "Look around, right here"}
+              </p>
+              <h2 id="preview-title">
+                {painting ? "Picture your business here." : "See how it feels."}
+              </h2>
             </div>
             <p>
-              {clientProject
-                ? "Watch the existing website walkthrough here, then explore the live site or the full client story."
-                : design.concept
-                  ? "Try your business name, switch to a phone width and explore the sample pages."
-                  : "Scroll through the actual demo below, or open it to try the navigation and interactions."}
+              {painting
+                ? "Explore the design, look through the available screenshots and try the demo before we make it yours."
+                : clientProject
+                  ? "Watch the existing website walkthrough here, then explore the live site or the full client story."
+                  : design.concept
+                    ? "Try your business name, switch to a phone width and explore the sample pages."
+                    : "Scroll through the actual demo below, or open it to try the navigation and interactions."}
             </p>
           </div>
-          {clientProject ? (
+          {painting ? (
+            <PaintingShowcase design={design} media={painting} />
+          ) : clientProject ? (
             <>
               <p className="collection-fineprint">
                 Built for {clientProject.title} · {clientProject.status}. This is a real client

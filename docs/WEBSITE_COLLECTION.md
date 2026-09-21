@@ -178,3 +178,24 @@ Home, Services, Projects and Contact are interactive sample views. Visitors can 
 Contact is explicitly a non-interactive estimate layout; selecting a service carries its name into that layout. “Make this my website” opens the existing L&L enquiry with Pigment selected. No painting enquiry is collected or delivered by this sample. The two spaces use existing illustrative collection imagery, not claims of completed painting work.
 
 Before publishing, review all four views, long business names, accent selection and Phone/Fit screen at narrow and wide widths. Check keyboard focus after changing views, motion paused/reduced and the real L&L enquiry handoff. The production smoke and delivered-CSS checks include the painting preview and matching category cover.
+
+## Painting showcase and standalone demo
+
+The Painting Company title, cover and View template button all open `/website-collection/pigment` from the beginning. The detail page offers the price, scope, a screenshot gallery and the enquiry handoff. Until actual screenshots are supplied, a labelled design preview occupies the gallery area. The inline interactive preview remains available below it.
+
+Configure the real public demo URL and screenshots in `src/data/painting-demo.json`. Add screenshot files under `public/images/templates/pigment/`; the README in that folder includes an example with dimensions and accessible descriptions. Empty URL configuration uses the working inline preview instead of a dead external button. Test validation rejects unsafe URLs, invalid dimensions, duplicate paths and missing files. This is a developer-managed gallery, not a public upload form.
+
+The standalone painting site reuses `PaintingTemplate`, its imagery and stylesheet. Maintained hosting files live in `templates/painting-demo/`. Its Home, Services, Projects and Contact are real routes; each has one main heading. The sample contact layout does not collect information. Its L&L enquiry link carries Painting Company into the existing form. Demo pages are noindex to keep this sample business separate from real contractors.
+
+Build the separate static demo:
+
+```powershell
+node scripts/prepare-painting-demo.mjs
+npm --prefix build/painting-demo ci
+npm --prefix build/painting-demo run build
+node scripts/check-painting-demo.mjs
+```
+
+The generator replaces only `build/painting-demo`, which is ignored by Git. Deploy its `out` folder as a separate static Vercel project, with the copied `vercel.json` headers. Do not deploy the parent L&L app as the demo. The supplied publisher verifies the actual public URL before recording it in the gallery config. It never invents a Vercel address. A successful L&L Git push still requires a Ready Vercel production deployment before the link appears on the live catalogue.
+
+September 21 verification: root formatting, import validation, lint, TypeScript, 27 unit tests, production build and 133 HTTP checks passed. The static demo exported all four pages with checked navigation, asset references, noindex and headers. Browser rendering and real device behaviour remain unverified because the supported browser could not open the local preview; repeat the release checklist on the deployed demo.

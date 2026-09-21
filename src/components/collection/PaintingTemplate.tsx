@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { collectionInquiryHref, type WebsiteDesign } from "@/data/website-collection";
 import { PaintBrush, PaintStroke, PaintingHeadline } from "@/components/collection/PaintMarks";
+import PaintingAction from "@/components/collection/PaintingAction";
+import { paintingPages as pages, type PaintingPage as Page } from "@/data/painting-pages";
 
-const pages = ["Home", "Services", "Projects", "Contact"] as const;
-type Page = (typeof pages)[number];
 const tones = [
   { id: "ochre", name: "Warm ochre" },
   { id: "sage", name: "Soft sage" },
@@ -18,11 +18,17 @@ type Tone = (typeof tones)[number]["id"];
 export default function PaintingTemplate({
   design,
   businessName,
+  standalonePage,
+  enquiryHref,
 }: {
   design: WebsiteDesign;
   businessName: string;
+  standalonePage?: Page;
+  enquiryHref?: string;
 }) {
-  const [page, setPage] = useState<Page>("Home");
+  const [previewPage, setPage] = useState<Page>("Home");
+  const page = standalonePage ?? previewPage;
+  const standalone = standalonePage !== undefined;
   const [tone, setTone] = useState<Tone>("ochre");
   const [service, setService] = useState("");
   const heading = useRef<HTMLHeadingElement>(null);
@@ -49,11 +55,18 @@ export default function PaintingTemplate({
     navigate("Contact");
   };
   const titleProps = { ref: heading, id: `${id}-heading`, tabIndex: -1 };
+  const Heading = standalone ? "h1" : "h3";
+  const Subheading = standalone ? "h2" : "h4";
 
   return (
     <div className="paint-site" data-tone={tone}>
       <div className="paint-header">
-        <button className="paint-brand" type="button" onClick={() => navigate("Home")}>
+        <PaintingAction
+          className="paint-brand"
+          standalone={standalone}
+          to="Home"
+          onPreview={() => navigate("Home")}
+        >
           <span className="paint-brand-mark" aria-hidden="true">
             <PaintBrush />
           </span>
@@ -62,14 +75,15 @@ export default function PaintingTemplate({
             <small>Painting & finishing</small>
           </span>
           <span className="sr-only"> — sample home</span>
-        </button>
+        </PaintingAction>
         <nav className="paint-nav" aria-label="Painting Company concept pages">
           {pages.map((item) => (
-            <button
+            <PaintingAction
               key={item}
-              type="button"
-              aria-current={page === item ? "page" : undefined}
-              onClick={() => navigate(item)}
+              standalone={standalone}
+              to={item}
+              current={page === item}
+              onPreview={() => navigate(item)}
             >
               {item}
               <span className="paint-nav-effect" aria-hidden="true">
@@ -78,7 +92,7 @@ export default function PaintingTemplate({
                   <PaintBrush />
                 </span>
               </span>
-            </button>
+            </PaintingAction>
           ))}
         </nav>
       </div>
@@ -89,21 +103,27 @@ export default function PaintingTemplate({
             <div className="paint-hero">
               <div className="paint-hero-copy">
                 <p className="paint-kicker">{concept.kicker}</p>
-                <h3 {...titleProps}>
+                <Heading {...titleProps}>
                   <PaintingHeadline text={concept.headlines[0]} />
-                </h3>
+                </Heading>
                 <p className="paint-intro">{concept.subcopy}</p>
-                <button className="paint-button" type="button" onClick={() => enquire()}>
+                <PaintingAction
+                  standalone={standalone}
+                  to="Contact"
+                  className="paint-button"
+                  onPreview={() => enquire()}
+                >
                   {concept.action}
                   <span aria-hidden="true">↗</span>
-                </button>
-                <button
+                </PaintingAction>
+                <PaintingAction
+                  standalone={standalone}
+                  to="Projects"
                   className="paint-text-link"
-                  type="button"
-                  onClick={() => navigate("Projects")}
+                  onPreview={() => navigate("Projects")}
                 >
                   Explore the finishes <span aria-hidden="true">→</span>
-                </button>
+                </PaintingAction>
               </div>
               <figure className="paint-hero-photo">
                 <Image
@@ -124,21 +144,26 @@ export default function PaintingTemplate({
             </div>
             <div className="paint-service-strip" aria-label="Explore painting services">
               {concept.services.map((item, index) => (
-                <button type="button" key={item.name} onClick={() => navigate("Services")}>
+                <PaintingAction
+                  standalone={standalone}
+                  to="Services"
+                  key={item.name}
+                  onPreview={() => navigate("Services")}
+                >
                   <span>0{index + 1}</span>
                   {item.name}
                   <span aria-hidden="true">↗</span>
-                </button>
+                </PaintingAction>
               ))}
             </div>
             <div className="paint-approach">
               <div>
                 <p className="paint-kicker">The care behind the colour</p>
-                <h4>
+                <Subheading>
                   A beautiful finish.
                   <br />
                   <em>A thoughtful process.</em>
-                </h4>
+                </Subheading>
               </div>
               <div>
                 <p>{concept.approach}</p>
@@ -154,11 +179,11 @@ export default function PaintingTemplate({
           <div className="paint-inner">
             <div className="paint-page-heading">
               <p className="paint-kicker">What we paint</p>
-              <h3 {...titleProps}>
+              <Heading {...titleProps}>
                 Every surface.
                 <br />
                 <em>Considered.</em>
-              </h3>
+              </Heading>
               <p>
                 From the room you use every day to the first impression outside, the right
                 preparation makes the difference.
@@ -168,16 +193,17 @@ export default function PaintingTemplate({
               {concept.services.map((item, index) => (
                 <article key={item.name}>
                   <span className="paint-service-number">0{index + 1}</span>
-                  <h4>{item.name}</h4>
+                  <Subheading>{item.name}</Subheading>
                   <p>{item.description}</p>
-                  <button
-                    type="button"
+                  <PaintingAction
+                    standalone={standalone}
+                    to="Contact"
                     className="paint-text-link"
-                    onClick={() => enquire(item.name)}
+                    onPreview={() => enquire(item.name)}
                   >
                     Discuss your project<span aria-hidden="true">↗</span>
                     <span className="sr-only">: {item.name}</span>
-                  </button>
+                  </PaintingAction>
                 </article>
               ))}
             </div>
@@ -193,11 +219,11 @@ export default function PaintingTemplate({
           <div className="paint-inner">
             <div className="paint-page-heading">
               <p className="paint-kicker">The possibilities</p>
-              <h3 {...titleProps}>
+              <Heading {...titleProps}>
                 Spaces with
                 <br />
                 <em>a fresh perspective.</em>
-              </h3>
+              </Heading>
               <p>
                 Imagine your own work here. These illustrative spaces show how your project
                 photography can tell the story.
@@ -212,7 +238,7 @@ export default function PaintingTemplate({
                 />
                 <figcaption>
                   <span>01 / Interior inspiration</span>
-                  <h4>Warm light. Quiet colour.</h4>
+                  <Subheading>Warm light. Quiet colour.</Subheading>
                   <p>Soft neutrals and a sage accent bring a living space together.</p>
                 </figcaption>
               </figure>
@@ -226,7 +252,7 @@ export default function PaintingTemplate({
                 />
                 <figcaption>
                   <span>02 / Exterior inspiration</span>
-                  <h4>A considered first impression.</h4>
+                  <Subheading>A considered first impression.</Subheading>
                   <p>Deep exterior tones set against natural materials and clean lines.</p>
                 </figcaption>
               </figure>
@@ -235,19 +261,24 @@ export default function PaintingTemplate({
               Illustrative images, not completed painting projects. Your approved photos and project
               details replace these examples.
             </p>
-            <button type="button" className="paint-button" onClick={() => enquire()}>
+            <PaintingAction
+              standalone={standalone}
+              to="Contact"
+              className="paint-button"
+              onPreview={() => enquire()}
+            >
               Plan your next project<span aria-hidden="true">↗</span>
-            </button>
+            </PaintingAction>
           </div>
         ) : (
           <div className="paint-inner paint-contact">
             <div className="paint-page-heading">
               <p className="paint-kicker">Start with a conversation</p>
-              <h3 {...titleProps}>
+              <Heading {...titleProps}>
                 Your space.
                 <br />
                 <em>Its next chapter.</em>
-              </h3>
+              </Heading>
               <p>
                 A room refresh, a whole home or a workspace. An estimate begins with what you have
                 in mind.
@@ -284,7 +315,10 @@ export default function PaintingTemplate({
                 </div>
               </div>
               <p className="paint-sample-note">Preview only — no information collected or sent.</p>
-              <Link className="paint-button" href={collectionInquiryHref({ design: design.id })}>
+              <Link
+                className="paint-button"
+                href={enquiryHref ?? collectionInquiryHref({ design: design.id })}
+              >
                 Make this my website<span aria-hidden="true">↗</span>
               </Link>
             </div>

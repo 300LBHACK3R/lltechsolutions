@@ -11,6 +11,7 @@ import "@/styles/collection-journey.css";
 import "@/styles/collection-previews.css";
 import "@/styles/collection-showcase.css";
 import "@/styles/painting-template.css";
+import "@/styles/template-showcase.css";
 import "@/styles/motion.css";
 import "@/styles/responsive.css";
 import type { Metadata, Viewport } from "next";

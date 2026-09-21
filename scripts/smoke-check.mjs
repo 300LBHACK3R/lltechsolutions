@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { once } from "node:events";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { checkCollectionStyles } from "./check-collection-styles.mjs";
 
 // The child process has no mail key: this test must never deliver external email.
@@ -168,6 +169,28 @@ try {
     "painting: named accent controls",
   );
   const paintingGallery = htmlByRoute.get("/website-collection/category/construction-trades");
+  assert.match(
+    paintingGallery,
+    /<h3><a href="\/website-collection\/pigment">Painting Company<\/a><\/h3>/,
+    "painting: the name opens the detail page without jumping past it",
+  );
+  const paintingMedia = JSON.parse(
+    await readFile(new URL("../src/data/painting-demo.json", import.meta.url), "utf8"),
+  );
+  assert.ok(painting.includes("Picture your business here."), "painting: dedicated showcase");
+  if (paintingMedia.url) {
+    assert.ok(painting.includes(`href="${paintingMedia.url}"`), "painting: configured live demo");
+    assert.ok(painting.includes("View live demo"), "painting: live demo button");
+  } else {
+    assert.ok(painting.includes("Explore interactive preview"), "painting: working local fallback");
+  }
+  if (paintingMedia.screenshots.length) {
+    assert.ok(painting.includes("template-screenshot-main"), "painting: uploaded gallery");
+    assert.ok(
+      painting.includes(paintingMedia.screenshots[0].caption),
+      "painting: first screenshot",
+    );
+  }
   assert.match(
     paintingGallery,
     /id="design-pigment"[\s\S]*?class="design-cover paint-cover"/,

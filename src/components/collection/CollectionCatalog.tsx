@@ -133,7 +133,7 @@ export default function CollectionCatalog({
             <article className="collection-design" id={`design-${design.id}`} key={design.id}>
               <Link
                 className="template-preview-link"
-                href={`${designHref(design)}#preview`}
+                href={designHref(design)}
                 aria-label={`Preview ${design.name} website ${design.status === "client-example" ? "example" : "template"}`}
               >
                 <DesignCover design={design} />
@@ -148,7 +148,9 @@ export default function CollectionCatalog({
                   {" · "}
                   {designStatusLabel(design)}
                 </p>
-                <h3>{design.name}</h3>
+                <h3>
+                  <Link href={designHref(design)}>{design.name}</Link>
+                </h3>
                 <p>{design.description}</p>
                 <p className="collection-design-price">
                   {designPrice(design)}
