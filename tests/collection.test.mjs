@@ -184,7 +184,9 @@ test("collection validates design status, scope and local preview assets", () =>
     }
     if (design.concept) {
       assert.ok(
-        ["pigment", "structure", "still", "earthworks", "lawncare"].includes(design.concept.theme),
+        ["pigment", "structure", "still", "earthworks", "lawncare", "horizon"].includes(
+          design.concept.theme,
+        ),
       );
       assert.equal(design.concept.brands.length, 2);
       assert.equal(design.concept.headlines.length, 2);
@@ -422,21 +424,22 @@ test("earthworks is a seven-page $1000 starting scope discoverable in trades and
   );
 });
 
-test("horizon is an independent $500 one-page reference with canonical enquiry pricing", () => {
+test("horizon is an independent $499 four-page template with canonical enquiry pricing", () => {
   const design = availableDesigns().find((item) => item.id === "horizon");
   assert.equal(design.name, "Landscape Contracting");
   assert.equal(design.status, "concept");
   assert.equal(design.tier, "signature");
-  assert.equal(design.startingPriceCad, 500);
-  assert.equal(design.pageCount, 1);
-  assert.equal(designScopeLabel(design), "1 page structure");
+  assert.equal(design.startingPriceCad, 499);
+  assert.equal(design.pageCount, 4);
+  assert.equal(designScopeLabel(design), "4 page structures");
   assert.equal(design.contactMode, "direct");
   assert.equal(design.clientProjectId, undefined);
   assert.equal(design.independentConcept.businessName, "Horizon Contracting Group");
   assert.equal(designStatusLabel(design), "Independent design concept");
   assert.ok(!publishedDesigns().includes(design));
   assert.equal(design.demoUrl, "/website-collection/horizon#preview");
-  assert.equal(design.preview.src, "/images/templates/horizon/hero.png");
+  assert.equal(design.concept.theme, "horizon");
+  assert.equal(design.preview, undefined);
   for (const id of ["construction-trades", "home-property"])
     assert.ok(categoryDesigns(templateCategories.find((item) => item.id === id)).includes(design));
   const inquiry = collectionInquiry({
@@ -447,7 +450,7 @@ test("horizon is an independent $500 one-page reference with canonical enquiry p
     tier: "flagship",
   });
   assert.ok(inquiry.message.includes("Design: Landscape Contracting"));
-  assert.ok(inquiry.message.includes("Launch pricing: From $500 CAD"));
+  assert.ok(inquiry.message.includes("Launch pricing: From $499 CAD"));
   assert.ok(inquiry.message.includes("Collection: Signature"));
   assert.ok(inquiry.message.includes("Direct contact included"));
   assert.ok(!inquiry.message.includes("From $1 CAD"));

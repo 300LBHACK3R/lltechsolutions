@@ -288,9 +288,7 @@ try {
       );
     }
     const previewPhoto = [...html.matchAll(/<img\b[^>]*>/g)].find(([tag]) =>
-      tag.includes(
-        encodeURIComponent(id === "horizon" ? "/images/templates/horizon/" : "/images/collection/"),
-      ),
+      tag.includes(encodeURIComponent("/images/collection/")),
     )?.[0];
     assert.ok(previewPhoto, `${id}: design image is rendered`);
     const previewSource = previewPhoto.match(/\bsrc="([^"]+)"/)?.[1].replaceAll("&amp;", "&");
@@ -427,9 +425,9 @@ try {
   const templatePrices = [
     ["still", "health-wellness", 299],
     ["calgary-hot-shot", "transport-logistics", 399],
+    ["horizon", "construction-trades", 499],
     ["lawncare", "construction-trades", 499],
     ["pigment", "construction-trades", 499],
-    ["horizon", "construction-trades", 500],
     ["structure", "construction-trades", 699],
     ["earthworks", "construction-trades", 1000],
     ["crestline", "construction-trades", 399],

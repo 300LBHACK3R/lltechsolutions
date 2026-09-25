@@ -16,7 +16,7 @@ import { readTemplateShowcase } from "../src/lib/template-showcase.ts";
 test("contact scope belongs to the selected offer and cannot be changed by an enquiry URL", () => {
   for (const design of availableDesigns()) {
     assert.ok(["direct", "enquiry-form"].includes(design.contactMode));
-    if (design.startingPriceCad !== null && design.startingPriceCad <= 500)
+    if (design.startingPriceCad !== null && design.startingPriceCad <= 499)
       assert.equal(design.contactMode, "direct", design.id);
     if (design.startingPriceCad !== null && design.startingPriceCad >= 699)
       assert.equal(design.contactMode, "enquiry-form", design.id);
@@ -44,7 +44,7 @@ test("lawn care is a four-page $499 direct-contact option sorted between $399 an
   assert.equal(trades.length, 6);
   assert.deepEqual(
     filterDesigns(trades, {}).map((entry) => entry.id),
-    ["crestline", "lawncare", "pigment", "horizon", "structure", "earthworks"],
+    ["crestline", "horizon", "lawncare", "pigment", "structure", "earthworks"],
   );
   assert.deepEqual(
     filterDesigns(trades, { sort: "price-high" }).map((entry) => entry.id),

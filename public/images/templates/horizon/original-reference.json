@@ -1,0 +1,23 @@
+[
+  {
+    "src": "/images/templates/horizon/hero.png",
+    "alt": "Horizon independent redesign concept with a green landscape hero, orange project button and Okanagan service-area panel",
+    "caption": "Introduction & service coverage",
+    "width": 2048,
+    "height": 1082
+  },
+  {
+    "src": "/images/templates/horizon/services.png",
+    "alt": "Landscape construction, irrigation, snow and ice, and property maintenance cards above a site-preparation section",
+    "caption": "Services & site preparation",
+    "width": 2048,
+    "height": 978
+  },
+  {
+    "src": "/images/templates/horizon/gallery.png",
+    "alt": "Landscaping and tree-care imagery followed by the Horizon concept's outdoor-project contact invitation",
+    "caption": "Project imagery & contact",
+    "width": 2048,
+    "height": 967
+  }
+]

@@ -1,0 +1,2125 @@
+/* A generic landscape identity: deep evergreen, warm stone and sunset orange. */
+.horizon-site,
+.horizon-cover {
+  --horizon-forest: #102e26;
+  --horizon-deep: #09221b;
+  --horizon-cream: #f5f1e8;
+  --horizon-stone: #eae5d9;
+  --horizon-orange: #ff913e;
+  --horizon-ink: #1a3028;
+  --horizon-muted: #5c685f;
+  --horizon-rule: #cdd1c4;
+  background: var(--horizon-cream);
+  color: var(--horizon-ink);
+  color-scheme: light;
+  isolation: isolate;
+  font-family: var(--font-sans), Arial, sans-serif;
+}
+.horizon-site {
+  container-type: inline-size;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.horizon-site *,
+.horizon-cover * {
+  box-sizing: border-box;
+}
+.horizon-site :is(h1, h2, h3, p, figure),
+.horizon-cover :is(p, figure) {
+  margin: 0;
+}
+.horizon-site :is(h1, h2, h3) {
+  text-wrap: balance;
+}
+.horizon-site :is(h1, h2) {
+  font-weight: 550;
+  letter-spacing: -0.055em;
+}
+.horizon-site h1 {
+  font-size: clamp(58px, 7.45cqi, 112px);
+  line-height: 1.01;
+}
+.horizon-site h2 {
+  font-size: clamp(39px, 4.8cqi, 72px);
+  line-height: 1.06;
+}
+.horizon-site h3 {
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 550;
+  letter-spacing: -0.035em;
+}
+.horizon-site em,
+.horizon-cover em {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-weight: 400;
+}
+.horizon-site a {
+  color: inherit;
+  text-decoration: none;
+}
+.horizon-site :is(a, summary, input):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 6px;
+}
+.horizon-site img,
+.horizon-cover img {
+  object-fit: cover;
+}
+.horizon-site :is(section, article, h1)[id] {
+  scroll-margin-top: 110px;
+}
+.horizon-section {
+  padding: clamp(60px, 7.2cqi, 108px) 6cqi;
+}
+.horizon-mark {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  color: var(--horizon-orange);
+}
+.horizon-arrow {
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+}
+.horizon-arrow-diagonal {
+  transform: rotate(-45deg);
+}
+.horizon-contours {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.horizon-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  line-height: 1.6;
+  font-weight: 550;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.horizon-line {
+  width: 30px;
+  height: 2px;
+  background: var(--horizon-orange);
+  flex-shrink: 0;
+}
+.horizon-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--horizon-orange);
+  flex-shrink: 0;
+}
+.horizon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 52px;
+  padding: 15px 23px;
+  background: var(--horizon-orange);
+  color: var(--horizon-deep) !important;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  border: 1px solid var(--horizon-orange);
+  border-radius: 2px;
+}
+.horizon-button:hover {
+  background: #ffac6c;
+  border-color: #ffac6c;
+}
+.horizon-site .horizon-button:focus-visible,
+.horizon-site .horizon-selected-card:focus-visible,
+.horizon-site .horizon-service-card:focus-visible {
+  outline: 2px solid var(--horizon-cream);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--horizon-deep);
+}
+.horizon-button-secondary {
+  color: var(--horizon-cream) !important;
+  border-color: #afbbb073;
+  background: #102e2640;
+}
+.horizon-button-secondary:hover {
+  background: #f5f1e81f;
+  border-color: var(--horizon-cream);
+}
+.horizon-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 23px;
+  min-height: 44px;
+  font-size: 12px;
+  font-weight: 550;
+  line-height: 1.5;
+}
+.horizon-text-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+.horizon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding: 22px 6cqi;
+  background: var(--horizon-forest);
+  color: var(--horizon-cream);
+  border-bottom: 1px solid #ffffff26;
+  position: relative;
+  z-index: 5;
+}
+.horizon-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+}
+.horizon-brand > span {
+  font-size: 17px;
+  letter-spacing: 0.055em;
+  line-height: 1.3;
+  font-weight: 550;
+}
+.horizon-brand small {
+  display: block;
+  margin-top: 5px;
+  font-size: 7px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+}
+.horizon-nav {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+.horizon-nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  min-height: 44px;
+  font-size: 12px;
+}
+.horizon-nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--horizon-orange);
+}
+.horizon-nav a:last-child {
+  border: 1px solid #9daaa080;
+  padding: 9px 18px;
+  border-radius: 2px;
+}
+.horizon-nav a:last-child[aria-current="page"]::after {
+  bottom: 6px;
+  left: 18px;
+  right: 18px;
+}
+.horizon-nav a:hover {
+  color: var(--horizon-orange);
+}
+.horizon-mobile-nav {
+  display: none;
+}
+.horizon-hero {
+  position: relative;
+  min-height: min(760px, 63cqi);
+  display: flex;
+  align-items: center;
+  background: var(--horizon-forest);
+  color: var(--horizon-cream);
+  overflow: hidden;
+}
+.horizon-hero-image {
+  object-position: center 57%;
+}
+.horizon-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #07271dee 0%, #09281cd9 25%, #0e2c229c 51%, #09261c0a 90%),
+    linear-gradient(0deg, #09271ec9, transparent 50%);
+  pointer-events: none;
+}
+.horizon-hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 76px 6cqi 140px;
+}
+.horizon-hero-content > .horizon-eyebrow {
+  margin-bottom: 26px;
+}
+.horizon-hero h1 {
+  max-width: 1040px;
+}
+.horizon-hero h1 em {
+  color: var(--horizon-orange);
+}
+.horizon-hero-description {
+  max-width: 480px;
+  margin-top: 28px !important;
+  color: #e0e6db;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.horizon-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 31px;
+}
+.horizon-scroll-link {
+  position: absolute;
+  bottom: 32px;
+  left: 6cqi;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  min-height: 44px;
+}
+.horizon-scroll-link > span {
+  display: grid;
+  place-items: center;
+  border: 1px solid #a9b8a970;
+  width: 31px;
+  height: 40px;
+  border-radius: 20px;
+  font-size: 15px;
+}
+.horizon-hero-note {
+  position: absolute;
+  right: 6cqi;
+  bottom: 40px;
+  z-index: 2;
+  padding: 23px 26px;
+  border: 1px solid #bcc8b942;
+  background: #0d3427d9;
+  width: min(310px, 30cqi);
+  backdrop-filter: blur(12px);
+}
+.horizon-hero-note .horizon-eyebrow {
+  color: #d0ddc8;
+  font-size: 8px;
+  letter-spacing: 0.11em;
+}
+.horizon-hero-note > p {
+  margin: 11px 0 19px;
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: 27px;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.horizon-hero-note > span:last-child {
+  display: block;
+  border-top: 1px solid #aec0ab40;
+  padding-top: 13px;
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  color: #d0ddc8;
+}
+.horizon-service-rail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 25px 6cqi;
+  background: var(--horizon-orange);
+  color: var(--horizon-deep);
+  font-size: 11px;
+  font-weight: 550;
+  letter-spacing: 0.04em;
+}
+.horizon-service-rail i {
+  width: 5px;
+  height: 5px;
+  background: currentColor;
+  border-radius: 50%;
+}
+.horizon-capabilities {
+  background: var(--horizon-forest);
+  color: var(--horizon-cream);
+}
+.horizon-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 45px;
+  margin-bottom: 42px;
+}
+.horizon-section-heading > div:first-child {
+  flex: 1.55;
+}
+.horizon-section-heading h2 {
+  margin-top: 21px;
+}
+.horizon-section-heading > p,
+.horizon-section-heading > div:last-child:not(:first-child) {
+  flex: 0.8;
+  max-width: 365px;
+}
+.horizon-section-heading > div:last-child > .horizon-text-link {
+  margin-top: 20px;
+}
+.horizon-capabilities .horizon-section-heading > p {
+  color: #c2cfc3;
+}
+.horizon-service-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.horizon-service-card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 385px;
+  overflow: hidden;
+  background: #254b36;
+}
+.horizon-service-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #102e2630 10%, #102e2600 25%, #08251ee6 76%, #08251e 100%);
+}
+.horizon-service-number {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d7e0d073;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 10px;
+}
+.horizon-service-card > div {
+  position: relative;
+  z-index: 1;
+  padding: 26px 22px 20px;
+  width: 100%;
+}
+.horizon-service-card h3 {
+  font-size: clamp(21px, 2.1cqi, 31px);
+  line-height: 1.13;
+  max-width: 210px;
+}
+.horizon-service-card p {
+  color: #d4dece;
+  font-size: 12px;
+  line-height: 1.7;
+  margin-top: 13px;
+  min-height: 42px;
+}
+.horizon-service-card .horizon-text-link {
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 29px;
+  padding-top: 12px;
+  border-top: 1px solid #adbaa847;
+  color: var(--horizon-orange);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+.horizon-service-card:hover .horizon-text-link {
+  color: #ffb077;
+}
+.horizon-approach {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+}
+.horizon-approach-photo {
+  position: relative;
+  min-height: 670px;
+}
+.horizon-approach-photo img {
+  object-position: 62% center;
+}
+.horizon-image-label {
+  position: absolute;
+  z-index: 1;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  width: fit-content;
+  max-width: calc(100% - 48px);
+  padding: 8px 12px;
+  background: #112e26e8;
+  color: var(--horizon-cream);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+.horizon-approach-copy {
+  padding: 7cqi 6cqi;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.horizon-approach-copy h2 {
+  margin: 24px 0;
+}
+.horizon-approach-copy > p:not(.horizon-eyebrow) {
+  color: var(--horizon-muted);
+  margin-bottom: 18px;
+  max-width: 440px;
+}
+.horizon-approach-copy .horizon-text-link {
+  margin-top: 17px;
+  border-bottom: 1px solid var(--horizon-ink);
+}
+.horizon-coverage {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr 0.9fr;
+  align-items: center;
+  gap: 5cqi;
+  padding: 60px 6cqi;
+  background: var(--horizon-stone);
+  border-block: 1px solid var(--horizon-rule);
+}
+.horizon-coverage h2 {
+  font-size: clamp(31px, 3cqi, 45px);
+  margin-top: 15px;
+}
+.horizon-coverage-copy {
+  color: var(--horizon-muted);
+  font-size: 13px;
+}
+.horizon-coverage-copy .horizon-text-link {
+  margin-top: 17px;
+  color: var(--horizon-ink);
+  font-size: 11px;
+}
+.horizon-coverage-map {
+  position: relative;
+  align-self: stretch;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #bfc7b7;
+}
+.horizon-coverage-map > .horizon-contours {
+  position: absolute;
+  inset: 0;
+  color: #9cae923d;
+  transform: scale(1.35);
+}
+.horizon-map-pin {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  background: var(--horizon-forest);
+}
+.horizon-map-pin .horizon-mark {
+  width: 30px;
+  height: 30px;
+}
+.horizon-coverage-map > p {
+  position: relative;
+  margin-top: 19px;
+  padding-inline: 8px;
+  text-align: center;
+  font-size: 7px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+.horizon-coverage-map small {
+  display: block;
+  margin-top: 3px;
+  font-size: 7px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.horizon-selected .horizon-section-heading p:not(.horizon-eyebrow) {
+  color: var(--horizon-muted);
+}
+.horizon-selected-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  grid-template-rows: 255px 255px;
+  gap: 19px;
+}
+.horizon-selected-card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 27px;
+  overflow: hidden;
+  background: var(--horizon-forest);
+  color: var(--horizon-cream) !important;
+}
+.horizon-selected-card:first-child {
+  grid-row: span 2;
+}
+.horizon-selected-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, #0a291de0 100%);
+}
+.horizon-selected-card > div {
+  z-index: 1;
+  position: relative;
+  padding-right: 36px;
+}
+.horizon-selected-card .horizon-eyebrow {
+  font-size: 8px;
+  margin-bottom: 9px;
+}
+.horizon-selected-card h3 {
+  max-width: 450px;
+}
+.horizon-selected-card:first-child h3 {
+  font-size: clamp(28px, 3.1cqi, 45px);
+}
+.horizon-round-arrow {
+  position: absolute;
+  z-index: 1;
+  bottom: 28px;
+  right: 23px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #f5f1e88c;
+  border-radius: 50%;
+}
+.horizon-small-note {
+  color: var(--horizon-muted);
+  font-size: 11px;
+  line-height: 1.65;
+}
+.horizon-selected > .horizon-small-note {
+  margin-top: 18px;
+}
+.horizon-closing {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 6cqi;
+  min-height: 480px;
+  color: var(--horizon-cream);
+  background: var(--horizon-forest);
+  overflow: hidden;
+}
+.horizon-closing::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #0a2b21ef, #0a2b21bf 60%, #0a2b2173);
+}
+.horizon-closing > div {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+.horizon-closing h2 {
+  margin: 22px 0;
+}
+.horizon-closing h2 em {
+  color: var(--horizon-orange);
+}
+.horizon-closing p:not(.horizon-eyebrow) {
+  max-width: 420px;
+  color: #d5dfd1;
+  font-size: 13px;
+}
+.horizon-closing .horizon-button {
+  margin-top: 28px;
+}
+.horizon-closing-number {
+  z-index: 1;
+  font-size: clamp(100px, 16cqi, 235px);
+  font-weight: 200;
+  line-height: 1;
+  color: #f4efe673;
+  align-self: flex-end;
+}
+.horizon-page-intro {
+  position: relative;
+  overflow: hidden;
+  padding: 49px 6cqi 67px;
+  background: var(--horizon-forest);
+  color: var(--horizon-cream);
+}
+.horizon-intro-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 48px;
+}
+.horizon-intro-label > span {
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  color: #becabc;
+}
+.horizon-page-intro h1 {
+  position: relative;
+  z-index: 1;
+}
+.horizon-page-intro h1 em {
+  color: var(--horizon-orange);
+}
+.horizon-intro-description {
+  max-width: 550px;
+  position: relative;
+  z-index: 1;
+  margin-top: 28px !important;
+  color: #cad6c7;
+}
+.horizon-page-intro > .horizon-contours {
+  position: absolute;
+  width: 680px;
+  height: 570px;
+  right: -120px;
+  top: 0;
+  color: #a6b4971c;
+}
+.horizon-service-jump {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 0 6cqi;
+  border-bottom: 1px solid var(--horizon-rule);
+}
+.horizon-service-jump a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 26px 16px 26px 0;
+  min-height: 82px;
+  font-size: 11px;
+  font-weight: 500;
+}
+.horizon-service-jump a > span:first-child {
+  color: var(--horizon-muted);
+  font-size: 9px;
+}
+.horizon-service-jump a > span:last-child {
+  margin-left: auto;
+  padding-right: 18px;
+}
+.horizon-service-jump a:hover {
+  color: #96501e;
+}
+.horizon-services-detail {
+  padding: 10px 6cqi 70px;
+}
+.horizon-service-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7cqi;
+  padding-block: 65px;
+  border-bottom: 1px solid var(--horizon-rule);
+}
+.horizon-service-detail:nth-child(even) .horizon-service-detail-photo {
+  order: 2;
+}
+.horizon-service-detail-photo {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+}
+.horizon-service-detail-photo::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 0;
+  background: linear-gradient(0deg, #102e26a3, transparent);
+}
+.horizon-service-detail-photo > span {
+  position: absolute;
+  bottom: 24px;
+  left: 28px;
+  right: 20px;
+  z-index: 1;
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: clamp(56px, 7.5cqi, 110px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-style: italic;
+  color: var(--horizon-cream);
+}
+.horizon-service-detail-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.horizon-service-detail-copy h2 {
+  font-size: clamp(35px, 4cqi, 59px);
+  margin: 21px 0;
+}
+.horizon-service-detail-copy > p:not(.horizon-eyebrow) {
+  color: var(--horizon-muted);
+}
+.horizon-scope {
+  border-block: 1px solid var(--horizon-rule);
+  width: 100%;
+  margin-top: 22px;
+}
+.horizon-site summary {
+  cursor: pointer;
+  list-style: none;
+}
+.horizon-site summary::-webkit-details-marker {
+  display: none;
+}
+.horizon-scope summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+  min-height: 51px;
+  font-size: 12px;
+  font-weight: 550;
+}
+.horizon-scope summary > span,
+.horizon-faq summary > span {
+  font-size: 23px;
+  line-height: 1;
+  font-weight: 300;
+  flex-shrink: 0;
+}
+.horizon-site details[open] > summary > span:last-child {
+  transform: rotate(45deg);
+}
+.horizon-scope ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 16px;
+  color: var(--horizon-muted);
+}
+.horizon-scope li {
+  position: relative;
+  padding: 5px 0 5px 17px;
+  font-size: 13px;
+}
+.horizon-scope li::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #a65c29;
+  top: 14px;
+  left: 0;
+}
+.horizon-discuss {
+  font-size: 12px;
+  margin: 20px 0 24px !important;
+}
+.horizon-discuss strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--horizon-ink);
+  font-weight: 550;
+}
+.horizon-process {
+  background: var(--horizon-stone);
+}
+.horizon-process .horizon-section-heading > p {
+  color: var(--horizon-muted);
+}
+.horizon-process ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 35px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.horizon-process li {
+  border-top: 1px solid #aeb9a5;
+  padding-top: 23px;
+}
+.horizon-process li > span {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-style: italic;
+  font-size: 45px;
+  color: #6b7c5e;
+  line-height: 1;
+}
+.horizon-process li > h3 {
+  margin: 24px 0 15px;
+  font-size: 23px;
+}
+.horizon-process li > p {
+  color: var(--horizon-muted);
+  font-size: 13px;
+}
+.horizon-faq {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 8cqi;
+}
+.horizon-faq h2 {
+  margin-top: 22px;
+}
+.horizon-faq details {
+  border-bottom: 1px solid var(--horizon-rule);
+}
+.horizon-faq details:first-child {
+  border-top: 1px solid var(--horizon-rule);
+}
+.horizon-faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.horizon-faq details > p {
+  padding: 0 30px 25px 0;
+  color: var(--horizon-muted);
+  font-size: 13px;
+}
+.horizon-gallery-section {
+  padding-top: 40px;
+}
+.horizon-gallery-note {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  color: var(--horizon-muted);
+  font-size: 12px;
+}
+.horizon-project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 11px;
+  padding: 0;
+  margin: 30px 0 45px;
+  border: 0;
+}
+.horizon-project-filters legend {
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+}
+.horizon-project-filters label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+.horizon-project-filters input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+.horizon-project-filters label > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 23px;
+  min-height: 46px;
+  padding: 11px 18px;
+  border: 1px solid #bfc7b7;
+  font-size: 12px;
+}
+.horizon-project-filters small {
+  font-size: 9px;
+  opacity: 0.75;
+}
+.horizon-project-filters input:checked + span {
+  background: var(--horizon-forest);
+  border-color: var(--horizon-forest);
+  color: var(--horizon-cream);
+}
+.horizon-project-filters input:focus-visible + span {
+  outline: 2px solid var(--horizon-forest);
+  outline-offset: 4px;
+}
+.horizon-project-filters label:hover > span {
+  border-color: var(--horizon-forest);
+}
+.horizon-project-grid {
+  display: grid;
+  grid-template-columns: 1.13fr 0.87fr;
+  column-gap: 5cqi;
+  row-gap: 60px;
+  align-items: start;
+}
+.horizon-project-card:nth-child(even) {
+  margin-top: 90px;
+}
+.horizon-project-photo {
+  position: relative;
+  aspect-ratio: 1.12;
+  overflow: hidden;
+}
+.horizon-project-card:nth-child(even) .horizon-project-photo {
+  aspect-ratio: 0.93;
+}
+.horizon-project-caption {
+  padding-top: 24px;
+}
+.horizon-project-caption .horizon-eyebrow {
+  color: var(--horizon-muted);
+  font-size: 9px;
+}
+.horizon-project-caption h2 {
+  font-size: clamp(31px, 3.05cqi, 45px);
+  margin: 12px 0 15px;
+  max-width: 550px;
+}
+.horizon-project-caption > p:not(.horizon-eyebrow) {
+  color: var(--horizon-muted);
+  max-width: 480px;
+  font-size: 13px;
+}
+.horizon-project-notes {
+  margin-top: 17px;
+  border-bottom: 1px solid var(--horizon-rule);
+}
+.horizon-project-notes summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 49px;
+  gap: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.horizon-project-notes[open] .horizon-arrow {
+  transform: rotate(45deg);
+}
+.horizon-project-notes > div {
+  padding-block: 10px 22px;
+}
+.horizon-project-notes p {
+  font-size: 12px;
+  color: var(--horizon-muted);
+}
+.horizon-project-notes ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 17px 0;
+}
+.horizon-project-notes li {
+  background: var(--horizon-stone);
+  border: 1px solid var(--horizon-rule);
+  padding: 4px 9px;
+  font-size: 10px;
+}
+.horizon-project-explorer:has(input[value="hardscape"]:checked)
+  .horizon-project-card:not([data-category="hardscape"]),
+.horizon-project-explorer:has(input[value="planting"]:checked)
+  .horizon-project-card:not([data-category="planting"]),
+.horizon-project-explorer:has(input[value="sitework"]:checked)
+  .horizon-project-card:not([data-category="sitework"]) {
+  display: none;
+}
+.horizon-project-explorer:has(input:not([value="all"]):checked) .horizon-project-card {
+  margin-top: 0;
+}
+.horizon-materials {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  background: var(--horizon-stone);
+}
+.horizon-materials > div:first-child {
+  padding: 7cqi 6cqi;
+}
+.horizon-materials h2 {
+  margin: 24px 0;
+}
+.horizon-materials p:not(.horizon-eyebrow) {
+  color: var(--horizon-muted);
+}
+.horizon-materials .horizon-button {
+  margin-top: 28px;
+}
+.horizon-materials-photo {
+  position: relative;
+  min-height: 500px;
+}
+.horizon-contact-section {
+  display: grid;
+  grid-template-columns: 1fr 0.93fr;
+  gap: 7cqi;
+  padding-bottom: 70px;
+}
+.horizon-contact-card {
+  position: relative;
+  padding: 46px 40px;
+  background: var(--horizon-forest);
+  color: var(--horizon-cream);
+}
+.horizon-contact-card h2 {
+  margin: 22px 0;
+}
+.horizon-contact-card h2 em {
+  color: var(--horizon-orange);
+}
+.horizon-contact-card > p:not(.horizon-eyebrow) {
+  color: #c7d5c4;
+  max-width: 360px;
+  font-size: 13px;
+}
+.horizon-demo-contact {
+  padding: 24px 0;
+  border-bottom: 1px solid #a7b8a33d;
+}
+.horizon-demo-contact > span {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: #d1dccb;
+}
+.horizon-demo-contact p {
+  font-size: clamp(24px, 2.6cqi, 39px);
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+  margin: 10px 0;
+}
+.horizon-demo-contact small {
+  font-size: 10px;
+  color: #c7d5c4;
+}
+.horizon-contact-disclosure {
+  font-size: 11px !important;
+  margin-top: 22px !important;
+}
+.horizon-contact-card > .horizon-mark {
+  position: absolute;
+  right: 28px;
+  top: 35px;
+  opacity: 0.18;
+  width: 60px;
+  height: 60px;
+}
+.horizon-contact-preparation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.horizon-contact-preparation h2 {
+  margin: 22px 0;
+}
+.horizon-contact-preparation > p:not(.horizon-eyebrow) {
+  color: var(--horizon-muted);
+  font-size: 13px;
+}
+.horizon-contact-preparation ol {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 15px;
+  width: 100%;
+}
+.horizon-contact-preparation li {
+  display: flex;
+  gap: 25px;
+  padding: 20px 0;
+  border-top: 1px solid var(--horizon-rule);
+}
+.horizon-contact-preparation li > span {
+  font-size: 11px;
+  color: #945320;
+  padding-top: 4px;
+}
+.horizon-contact-preparation h3 {
+  font-size: 20px;
+  margin-bottom: 9px;
+}
+.horizon-contact-preparation li p {
+  color: var(--horizon-muted);
+  font-size: 12px;
+}
+.horizon-contact-preparation .horizon-text-link {
+  font-size: 11px;
+}
+.horizon-contact-info {
+  display: grid;
+  grid-template-columns: 1fr 0.93fr;
+  gap: 7cqi;
+  background: var(--horizon-stone);
+  align-items: center;
+}
+.horizon-contact-info h2 {
+  margin: 22px 0;
+}
+.horizon-contact-info > div:first-child > p:not(.horizon-eyebrow) {
+  max-width: 460px;
+  color: var(--horizon-muted);
+  font-size: 13px;
+}
+.horizon-contact-info-panel {
+  position: relative;
+  border: 1px solid #b6c0ab;
+  padding: 30px;
+  overflow: hidden;
+}
+.horizon-contact-info-panel > div {
+  position: relative;
+  z-index: 1;
+}
+.horizon-contact-info-panel > div + div {
+  border-top: 1px solid #b6c0ab;
+  padding-top: 23px;
+  margin-top: 24px;
+}
+.horizon-contact-info-panel h3 {
+  font-size: 18px;
+  margin-bottom: 13px;
+}
+.horizon-contact-info-panel p {
+  font-size: 14px;
+}
+.horizon-contact-info-panel small {
+  display: block;
+  font-size: 10px;
+  color: #52624d;
+  line-height: 1.65;
+  margin-top: 8px;
+}
+.horizon-contact-info-panel dl {
+  margin: 0;
+  font-size: 12px;
+}
+.horizon-contact-info-panel dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 7px;
+}
+.horizon-contact-info-panel dd {
+  margin: 0;
+  text-align: right;
+}
+.horizon-contact-info-panel > .horizon-contours {
+  position: absolute;
+  inset: 0;
+  color: #91a57e21;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.4);
+}
+.horizon-own-site {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6cqi;
+}
+.horizon-own-site > div:first-child {
+  flex: 1.3;
+}
+.horizon-own-site h2 {
+  margin: 22px 0;
+}
+.horizon-own-site > div:first-child > p:not(.horizon-eyebrow) {
+  max-width: 515px;
+  font-size: 13px;
+  color: var(--horizon-muted);
+}
+.horizon-own-site-action {
+  flex: 0.8;
+  max-width: 370px;
+  min-width: 275px;
+  padding: 30px;
+  background: var(--horizon-stone);
+  border-top: 3px solid var(--horizon-orange);
+}
+.horizon-own-site-action > p {
+  font-size: 12px;
+}
+.horizon-own-site-action strong {
+  font-size: 50px;
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  margin-inline: 6px;
+}
+.horizon-own-site-action > span {
+  display: block;
+  font-size: 10px;
+  margin: 5px 0 24px;
+}
+.horizon-own-site-action .horizon-button {
+  width: 100%;
+  padding-inline: 18px;
+  font-size: 11px;
+  gap: 14px;
+}
+.horizon-own-site-action > small {
+  display: block;
+  margin-top: 13px;
+  color: var(--horizon-muted);
+  font-size: 9px;
+}
+.horizon-footer {
+  padding: 60px 6cqi 22px;
+  background: var(--horizon-deep);
+  color: var(--horizon-cream);
+}
+.horizon-footer-top {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 0.65fr;
+  align-items: start;
+  gap: 40px;
+  padding-bottom: 51px;
+}
+.horizon-footer-top > p {
+  font-size: clamp(28px, 3cqi, 42px);
+  font-family: var(--font-editorial), Georgia, serif;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+.horizon-footer-top > p em {
+  color: #bcccae;
+}
+.horizon-footer-top nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 25px;
+}
+.horizon-footer-top nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  font-size: 11px;
+}
+.horizon-footer a:hover {
+  color: var(--horizon-orange);
+}
+.horizon-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  border-top: 1px solid #98ae9736;
+  padding-top: 20px;
+  color: #b9c7b2;
+  font-size: 9px;
+}
+.horizon-footer-bottom > span {
+  font-size: 7px;
+  letter-spacing: 0.12em;
+}
+.horizon-footer-bottom > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 44px;
+}
+.horizon-footer-bottom .horizon-arrow {
+  width: 18px;
+  height: 18px;
+}
+
+/* The collection cover is independently sized by its card, never by the viewport. */
+.horizon-cover.design-cover {
+  container-type: inline-size;
+  aspect-ratio: 1.25;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #7e957366;
+  min-height: 0;
+}
+.horizon-cover .template-browser-bar {
+  position: relative;
+}
+.horizon-cover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3cqi;
+  padding: 3cqi 4.5cqi;
+  background: var(--horizon-forest);
+  color: var(--horizon-cream);
+  border-bottom: 1px solid #ffffff26;
+}
+.horizon-cover-header > strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4cqi;
+  font-size: 2.15cqi;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+.horizon-cover-header .horizon-mark {
+  width: 4.4cqi;
+  height: 4.4cqi;
+}
+.horizon-cover-header > span {
+  font-size: 1.25cqi;
+}
+.horizon-cover-header b {
+  display: inline-block;
+  font-weight: 400;
+  padding: 1.2cqi 1.7cqi;
+  border: 1px solid #dce9d754;
+  margin-left: 1.5cqi;
+}
+.horizon-cover-hero {
+  position: relative;
+  min-height: 48cqi;
+  padding: 7cqi 5cqi 8cqi;
+  background: var(--horizon-forest);
+  color: var(--horizon-cream);
+}
+.horizon-cover-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #0b2c22ed, #0b2c2291 60%, #0b2c2230),
+    linear-gradient(0deg, #0b2c2291, transparent 45%);
+}
+.horizon-cover-copy {
+  position: relative;
+  z-index: 1;
+}
+.horizon-cover-copy > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqi;
+  font-size: 1.25cqi;
+  letter-spacing: 0.11em;
+}
+.horizon-cover-copy > span:first-child::before {
+  content: "";
+  width: 3cqi;
+  height: 1px;
+  background: var(--horizon-orange);
+}
+.horizon-cover-copy > strong {
+  display: block;
+  font-size: 7.7cqi;
+  font-weight: 550;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin-top: 2.5cqi;
+}
+.horizon-cover-copy em {
+  color: var(--horizon-orange);
+}
+.horizon-cover-copy > p {
+  font-size: 1.65cqi;
+  line-height: 1.7;
+  color: #dce5d7;
+  margin: 2.7cqi 0;
+}
+.horizon-cover-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 3cqi;
+  padding: 1.5cqi 2cqi;
+  color: var(--horizon-deep);
+  background: var(--horizon-orange);
+  font-size: 1.5cqi;
+  font-weight: 500;
+}
+.horizon-cover-button .horizon-arrow {
+  width: 2.4cqi;
+  height: 2.4cqi;
+}
+.horizon-cover-caption {
+  position: absolute;
+  left: 5cqi;
+  bottom: 2.6cqi;
+  z-index: 1;
+  font-size: 0.95cqi;
+  letter-spacing: 0.1em;
+  color: #d9e3d2;
+}
+.horizon-cover-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3cqi;
+  padding: 3.5cqi 5cqi;
+  background: var(--horizon-cream);
+}
+.horizon-cover-bottom > span {
+  font-size: 3cqi;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+.horizon-cover-bottom > p {
+  font-size: 1.35cqi;
+  line-height: 1.7;
+  color: var(--horizon-muted);
+}
+.horizon-cover-bottom .horizon-arrow {
+  width: 4cqi;
+  height: 4cqi;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion="running"]
+    .horizon-site
+    :is(
+      .horizon-arrow,
+      .horizon-button,
+      .horizon-service-card img,
+      .horizon-selected-card img,
+      .horizon-project-photo img
+    ) {
+    transition:
+      transform 450ms ease,
+      background-color 220ms ease,
+      border-color 220ms ease;
+  }
+  html[data-motion="running"]
+    .horizon-site
+    :is(.horizon-button, .horizon-text-link):hover
+    .horizon-arrow {
+    transform: translateX(4px);
+  }
+  html[data-motion="running"]
+    .horizon-site
+    :is(.horizon-service-card, .horizon-selected-card):hover
+    img,
+  html[data-motion="running"] .horizon-project-card:hover .horizon-project-photo img {
+    transform: scale(1.035);
+  }
+  html[data-motion="running"] .horizon-hero-image {
+    animation: horizon-landscape-drift 24s ease-in-out infinite alternate;
+  }
+  html[data-motion="running"] .horizon-scroll-link > span {
+    animation: horizon-scroll-cue 3s ease-in-out infinite;
+  }
+}
+@keyframes horizon-landscape-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.045);
+  }
+}
+@keyframes horizon-scroll-cue {
+  0%,
+  70%,
+  100% {
+    transform: translateY(0);
+  }
+  85% {
+    transform: translateY(5px);
+  }
+}
+@media (forced-colors: active) {
+  .horizon-button,
+  .horizon-project-filters label > span,
+  .horizon-image-label {
+    border: 1px solid ButtonText;
+  }
+  .horizon-project-filters input:checked + span {
+    outline: 2px solid Highlight;
+  }
+  .horizon-site .horizon-hero::after,
+  .horizon-site .horizon-closing::after,
+  .horizon-site .horizon-service-card::after,
+  .horizon-site .horizon-selected-card::after {
+    background: Canvas;
+    opacity: 0.9;
+  }
+}
+@container (max-width: 1050px) {
+  .horizon-header {
+    padding-inline: 5cqi;
+  }
+  .horizon-nav {
+    gap: 23px;
+  }
+  .horizon-hero-note {
+    width: 270px;
+    right: 5cqi;
+  }
+  .horizon-hero {
+    min-height: 665px;
+  }
+  .horizon-hero-content {
+    padding-left: 5cqi;
+  }
+  .horizon-service-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .horizon-service-card {
+    min-height: 350px;
+  }
+  .horizon-service-card h3 {
+    font-size: 30px;
+    max-width: 260px;
+  }
+  .horizon-service-card p {
+    min-height: 0;
+  }
+  .horizon-approach-photo {
+    min-height: 580px;
+  }
+  .horizon-coverage {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  .horizon-coverage-map {
+    grid-column: span 2;
+    min-height: 150px;
+    flex-direction: row;
+    gap: 30px;
+  }
+  .horizon-coverage-map > p {
+    margin: 0;
+    font-size: 9px;
+  }
+  .horizon-coverage-map small {
+    font-size: 9px;
+  }
+  .horizon-coverage-map .horizon-contours {
+    width: 75%;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+  }
+  .horizon-contact-card {
+    padding: 35px 28px;
+  }
+  .horizon-contact-section {
+    gap: 5cqi;
+  }
+  .horizon-service-detail {
+    gap: 5cqi;
+  }
+  .horizon-service-detail-photo {
+    min-height: 620px;
+  }
+  .horizon-service-jump {
+    grid-template-columns: 1fr 1fr;
+  }
+  .horizon-service-jump a {
+    min-height: 65px;
+    padding-block: 19px;
+  }
+  .horizon-service-jump a:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--horizon-rule);
+  }
+  .horizon-own-site-action {
+    padding: 24px;
+  }
+  .horizon-footer-top {
+    grid-template-columns: 1.3fr 1fr;
+  }
+  .horizon-footer-top nav {
+    grid-template-columns: repeat(4, 1fr);
+    grid-column: span 2;
+    max-width: 450px;
+    width: 100%;
+  }
+}
+@container (max-width: 760px) {
+  .horizon-header {
+    padding-block: 18px;
+    gap: 20px;
+  }
+  .horizon-brand > span {
+    font-size: 15px;
+  }
+  .horizon-brand small {
+    font-size: 6px;
+  }
+  .horizon-nav {
+    display: none;
+  }
+  .horizon-mobile-nav {
+    display: block;
+  }
+  .horizon-mobile-nav > summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+    min-height: 44px;
+    padding: 8px 13px;
+    border: 1px solid #b7c4b756;
+    font-size: 11px;
+  }
+  .horizon-mobile-nav > summary > span {
+    font-size: 21px;
+    line-height: 1;
+  }
+  .horizon-mobile-nav nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background: var(--horizon-forest);
+    border-top: 1px solid #b7c4b756;
+    box-shadow: 0 18px 24px #09221b26;
+    padding: 10px 6cqi 20px;
+  }
+  .horizon-mobile-nav nav a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 52px;
+    border-bottom: 1px solid #b7c4b726;
+    font-size: 14px;
+  }
+  .horizon-mobile-nav a[aria-current="page"] {
+    color: var(--horizon-orange);
+  }
+  .horizon-hero {
+    min-height: 750px;
+    align-items: flex-start;
+  }
+  .horizon-hero-content {
+    padding: 74px 6cqi 190px;
+  }
+  .horizon-hero::after {
+    background:
+      linear-gradient(90deg, #07271de8, #09281c96 90%),
+      linear-gradient(0deg, #09271eb8, transparent 70%);
+  }
+  .horizon-hero h1 {
+    font-size: clamp(55px, 9.7cqi, 74px);
+  }
+  .horizon-hero-note {
+    width: 260px;
+    bottom: 24px;
+    right: 6cqi;
+    padding: 20px;
+  }
+  .horizon-hero-note > p {
+    font-size: 25px;
+    margin-block: 9px 14px;
+  }
+  .horizon-scroll-link {
+    left: 6cqi;
+    font-size: 0;
+  }
+  .horizon-scroll-link > span {
+    font-size: 17px;
+  }
+  .horizon-service-rail {
+    padding-block: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 20px;
+    font-size: 9px;
+  }
+  .horizon-service-rail i {
+    width: 3px;
+    height: 3px;
+  }
+  .horizon-service-rail i:nth-of-type(2) {
+    display: none;
+  }
+  .horizon-service-rail span {
+    flex-basis: 40%;
+    text-align: center;
+  }
+  .horizon-section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+  }
+  .horizon-section-heading > p,
+  .horizon-section-heading > div:last-child:not(:first-child) {
+    max-width: 480px;
+  }
+  .horizon-section-heading p:not(.horizon-eyebrow) {
+    font-size: 13px;
+  }
+  .horizon-section-heading > div:last-child > .horizon-text-link {
+    margin-top: 10px;
+  }
+  .horizon-approach {
+    grid-template-columns: 1fr;
+  }
+  .horizon-approach-photo {
+    min-height: 430px;
+  }
+  .horizon-approach-copy {
+    padding-block: 58px;
+  }
+  .horizon-approach-copy h2 br:nth-child(2) {
+    display: none;
+  }
+  .horizon-approach-copy > p:not(.horizon-eyebrow) {
+    font-size: 13px;
+  }
+  .horizon-selected-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 380px 255px;
+    gap: 14px;
+  }
+  .horizon-selected-card:first-child {
+    grid-row: auto;
+    grid-column: span 2;
+  }
+  .horizon-selected-card {
+    padding: 19px;
+  }
+  .horizon-selected-card h3 {
+    font-size: 22px;
+  }
+  .horizon-selected-card:first-child h3 {
+    font-size: 34px;
+  }
+  .horizon-selected-card > div {
+    padding-right: 0;
+    padding-bottom: 43px;
+  }
+  .horizon-selected-card:first-child > div {
+    padding-bottom: 0;
+    padding-right: 40px;
+  }
+  .horizon-round-arrow {
+    width: 29px;
+    height: 29px;
+    right: 19px;
+    bottom: 18px;
+  }
+  .horizon-round-arrow .horizon-arrow {
+    width: 20px;
+    height: 20px;
+  }
+  .horizon-closing {
+    min-height: 460px;
+    padding-block: 65px;
+  }
+  .horizon-closing-number {
+    display: none;
+  }
+  .horizon-page-intro {
+    padding-block: 35px 56px;
+  }
+  .horizon-page-intro h1 {
+    font-size: clamp(52px, 9.2cqi, 74px);
+  }
+  .horizon-intro-label {
+    margin-bottom: 41px;
+  }
+  .horizon-intro-description {
+    font-size: 13px;
+  }
+  .horizon-service-detail {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-block: 45px;
+  }
+  .horizon-service-detail:nth-child(even) .horizon-service-detail-photo {
+    order: 0;
+  }
+  .horizon-service-detail-photo {
+    min-height: 0;
+    aspect-ratio: 1.2;
+  }
+  .horizon-service-detail-photo > span {
+    font-size: 75px;
+  }
+  .horizon-service-detail-copy h2 {
+    max-width: 500px;
+    font-size: 42px;
+  }
+  .horizon-service-detail-copy > p:not(.horizon-eyebrow) {
+    font-size: 13px;
+  }
+  .horizon-services-detail {
+    padding-bottom: 35px;
+  }
+  .horizon-process ol {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .horizon-process li {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 10px 18px;
+  }
+  .horizon-process li > span {
+    grid-row: span 2;
+  }
+  .horizon-process li > h3 {
+    margin: 4px 0 0;
+  }
+  .horizon-faq {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .horizon-project-grid {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+  .horizon-project-card:nth-child(even) {
+    margin-top: 0;
+  }
+  .horizon-project-card:nth-child(even) .horizon-project-photo {
+    aspect-ratio: 1.12;
+  }
+  .horizon-project-caption h2 {
+    font-size: 36px;
+  }
+  .horizon-materials {
+    grid-template-columns: 1fr;
+  }
+  .horizon-materials > div:first-child {
+    padding-block: 58px;
+  }
+  .horizon-materials-photo {
+    min-height: 380px;
+  }
+  .horizon-contact-section,
+  .horizon-contact-info {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+  .horizon-contact-card {
+    padding: 38px 30px;
+  }
+  .horizon-demo-contact p {
+    font-size: 32px;
+  }
+  .horizon-own-site {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+  }
+  .horizon-own-site-action {
+    max-width: 100%;
+    width: 100%;
+    padding: 30px;
+  }
+  .horizon-own-site-action .horizon-button {
+    width: auto;
+    gap: 32px;
+  }
+  .horizon-footer {
+    padding-top: 45px;
+  }
+  .horizon-footer-top {
+    gap: 30px;
+  }
+  .horizon-footer-bottom {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .horizon-footer-bottom > span {
+    display: none;
+  }
+  .horizon-footer-bottom > p {
+    padding-top: 14px;
+  }
+}
+@container (max-width: 460px) {
+  .horizon-brand {
+    gap: 9px;
+  }
+  .horizon-brand > span {
+    font-size: 13px;
+  }
+  .horizon-brand small {
+    font-size: 5.5px;
+    letter-spacing: 0.14em;
+  }
+  .horizon-brand .horizon-mark {
+    width: 33px;
+    height: 33px;
+  }
+  .horizon-mobile-nav > summary {
+    padding-inline: 10px;
+    gap: 9px;
+  }
+  .horizon-hero {
+    min-height: 735px;
+  }
+  .horizon-hero-content {
+    padding-top: 57px;
+  }
+  .horizon-hero h1 {
+    font-size: 14cqi;
+  }
+  .horizon-hero-description {
+    font-size: 13px;
+  }
+  .horizon-hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .horizon-hero-actions .horizon-button {
+    min-width: 216px;
+  }
+  .horizon-hero-note {
+    width: 245px;
+  }
+  .horizon-hero-note .horizon-eyebrow {
+    font-size: 7px;
+  }
+  .horizon-hero-note > span:last-child {
+    font-size: 6px;
+  }
+  .horizon-service-cards {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .horizon-service-card {
+    min-height: 380px;
+  }
+  .horizon-service-card > div {
+    padding: 25px;
+  }
+  .horizon-service-card h3 {
+    max-width: 275px;
+    font-size: 32px;
+  }
+  .horizon-service-card p {
+    font-size: 13px;
+  }
+  .horizon-service-card .horizon-text-link {
+    margin-top: 19px;
+  }
+  .horizon-approach-photo {
+    min-height: 370px;
+  }
+  .horizon-coverage {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-block: 45px;
+  }
+  .horizon-coverage-map {
+    grid-column: auto;
+    gap: 18px;
+  }
+  .horizon-coverage-map > p {
+    max-width: 190px;
+    font-size: 8px;
+  }
+  .horizon-coverage-map small {
+    font-size: 8px;
+  }
+  .horizon-selected-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 370px 290px 290px;
+  }
+  .horizon-selected-card:first-child {
+    grid-column: auto;
+  }
+  .horizon-selected-card > div {
+    padding-bottom: 0;
+    padding-right: 36px;
+  }
+  .horizon-selected-card h3 {
+    font-size: 27px;
+  }
+  .horizon-selected-card:first-child h3 {
+    font-size: 32px;
+  }
+  .horizon-page-intro h1 {
+    font-size: 12.7cqi;
+  }
+  .horizon-intro-label .horizon-eyebrow {
+    font-size: 8px;
+    gap: 9px;
+  }
+  .horizon-intro-label > span {
+    font-size: 8px;
+  }
+  .horizon-intro-label .horizon-line {
+    width: 22px;
+  }
+  .horizon-service-jump {
+    gap: 0 16px;
+  }
+  .horizon-service-jump a {
+    font-size: 10px;
+    gap: 7px;
+    padding-right: 0;
+  }
+  .horizon-service-jump a > span:last-child {
+    padding-right: 0;
+  }
+  .horizon-service-detail-copy h2 {
+    font-size: 37px;
+  }
+  .horizon-project-filters {
+    gap: 8px;
+  }
+  .horizon-project-filters label {
+    flex: 1 1 40%;
+  }
+  .horizon-project-filters label > span {
+    justify-content: space-between;
+    padding-inline: 15px;
+    font-size: 11px;
+  }
+  .horizon-project-caption h2 {
+    font-size: 33px;
+  }
+  .horizon-contact-card {
+    padding: 33px 23px;
+  }
+  .horizon-contact-info-panel {
+    padding: 25px;
+  }
+  .horizon-contact-info-panel dl {
+    font-size: 11px;
+  }
+  .horizon-own-site-action {
+    min-width: 0;
+    padding: 25px;
+  }
+  .horizon-own-site-action .horizon-button {
+    width: 100%;
+    gap: 17px;
+  }
+  .horizon-footer-top {
+    grid-template-columns: 1fr;
+    padding-bottom: 30px;
+  }
+  .horizon-footer-top nav {
+    grid-column: auto;
+    gap: 15px;
+  }
+  .horizon-footer-top > p {
+    font-size: 33px;
+  }
+  .horizon-footer-bottom {
+    flex-direction: column;
+  }
+  .horizon-footer-bottom > p {
+    padding-top: 0;
+  }
+}

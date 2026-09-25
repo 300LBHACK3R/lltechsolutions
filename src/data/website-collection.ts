@@ -214,7 +214,7 @@ export type WebsiteDesign = {
   customization?: readonly string[];
   additionalIndustries?: readonly CollectionIndustryId[];
   concept?: {
-    theme: "pigment" | "structure" | "still" | "earthworks" | "lawncare";
+    theme: "pigment" | "structure" | "still" | "earthworks" | "lawncare" | "horizon";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -229,12 +229,12 @@ export type WebsiteDesign = {
 };
 
 export const contactScopeSummary =
-  "New website offers from $299–$500 CAD include direct contact. Offers from $699 CAD include a standard protected enquiry form.";
+  "New website offers from $299–$499 CAD include direct contact. Offers from $699 CAD include a standard protected enquiry form.";
 
 export const contactScopeDetails = {
   direct: {
     label: "Direct contact included",
-    priceLabel: "$299–$500 CAD",
+    priceLabel: "$299–$499 CAD",
     description:
       "A contact page or section with click-to-call and click-to-email links, plus your chosen external booking link where relevant.",
   },
@@ -295,25 +295,20 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "construction",
     additionalIndustries: ["landscaping"],
     description:
-      "A focused one-page landscape contracting website with a clear introduction, services, coverage areas, project imagery and a direct path to contact your business.",
-    startingPriceCad: 500,
-    pageCount: 1,
+      "A four-page landscape contracting website with a deep green and orange palette, visual services, an interactive project gallery, coverage information and a dedicated contact page.",
+    startingPriceCad: 499,
+    pageCount: 4,
     contactMode: "direct",
     independentConcept: {
       businessName: "Horizon Contracting Group",
-      note: "An independent redesign concept by L&L for Horizon Contracting Group, shown as a design reference. Your website uses your own branding, imagery and content; the business identity shown is not offered for resale.",
+      note: "Developed from L&L’s independent redesign direction for Horizon Contracting Group. The Landscape Studio demo uses a sample business and illustrative imagery. Your version uses your own approved branding and content; the business identity shown is not offered for resale.",
     },
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
-    preview: {
-      src: "/images/templates/horizon/hero.png",
-      alt: "Horizon Contracting Group independent redesign concept with a landscape image and introductory website section",
-      width: 2048,
-      height: 1082,
-    },
     demoUrl: "/website-collection/horizon#preview",
     included: [
-      "One page structure with introduction, services, coverage areas, project imagery and contact sections",
+      "Four page structures: home, services, projects and contact",
       "Your business identity, supplied photographs, service areas and approved copy",
+      "Visual service details, a filterable project gallery and coverage information",
       contactScopeDetails.direct.description,
       "Responsive implementation, core SEO and security standards, metadata and launch checks",
     ],
@@ -323,6 +318,37 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "Call and email details, plus your chosen external booking link",
       "Additional pages, enquiry forms and custom features quoted separately",
     ],
+    concept: {
+      theme: "horizon",
+      brands: ["LANDSCAPE STUDIO", "YOUR LANDSCAPE CO"],
+      headlines: [
+        "Outdoor work. Built to perform.",
+        "Thoughtful landscapes. Practical foundations.",
+      ],
+      subcopy:
+        "From landscape construction to ongoing property care, explore outdoor work shaped around the way a space is used.",
+      kicker: "Landscape & outdoor services",
+      action: "Discuss your project",
+      photo: {
+        src: "/images/collection/earthworks-landscape.webp",
+        alt: "Illustrative landscaped garden and hardscaping, used as a sample project direction",
+        width: 1536,
+        height: 1024,
+      },
+      services: [
+        {
+          name: "Landscape construction",
+          description: "Considered planting, hard surfaces and outdoor spaces.",
+        },
+        { name: "Property care", description: "Seasonal maintenance shaped around your property." },
+        {
+          name: "Site preparation",
+          description: "Practical groundwork before the finishing details.",
+        },
+      ],
+      approach:
+        "Explore the services and design direction, then discuss the scope, property requirements and contact pathway for your own business.",
+    },
   },
   {
     id: "earthworks",

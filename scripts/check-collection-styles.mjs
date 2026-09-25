@@ -33,6 +33,7 @@ const routes = new Map([
       "plumb-cover",
       "earth-cover",
       "lawn-cover",
+      "horizon-cover",
     ],
   ],
   [
@@ -59,12 +60,7 @@ const routes = new Map([
   ["/website-collection/still", ["design-preview-viewport", "design-name-field"]],
   [
     "/website-collection/horizon",
-    [
-      "template-detail-header",
-      "template-screenshot-main",
-      "template-screenshot-choices",
-      "collection-contact-options",
-    ],
+    ["template-detail-header", "horizon-cover", "collection-contact-options"],
   ],
   ["/website-collection/calgary-hot-shot", ["live-demo-scroll"]],
   ["/website-collection/tow-n-go", ["project-video", "design-detail-scope"]],
