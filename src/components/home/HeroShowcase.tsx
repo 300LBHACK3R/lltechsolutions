@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import type { Project } from "@/data/projects";
-import InteractiveSurface from "@/components/ui/InteractiveSurface";
 import MotionControl from "@/components/ui/MotionControl";
 
 export type FeaturedProject = Pick<
@@ -15,33 +14,32 @@ export type FeaturedProject = Pick<
 export default function HeroShowcase({ projects }: { projects: FeaturedProject[] }) {
   const [selected, setSelected] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const id = useId();
+  if (!projects.length) return null;
 
   return (
-    <div className="hero-showcase">
-      <div className="showcase-heading">
-        <span>Built here. Working out there.</span>
-        <span>Selected / 0{selected + 1}</span>
+    <div className="premium-hero-showcase">
+      <div className="premium-showcase-heading">
+        <p>Our work, out in the world.</p>
+        <span aria-hidden="true">
+          0{selected + 1} <i>/</i> 0{projects.length}
+        </span>
       </div>
-      <InteractiveSurface className="project-stage">
-        <div className="stage-outline stage-outline-back" aria-hidden="true" />
-        <div className="stage-outline stage-outline-front" aria-hidden="true" />
-        <div className="stage-coordinate" aria-hidden="true">
-          DESIGN × DEVELOPMENT
-        </div>
+      <div className="premium-showcase-stage">
         {projects.map((project, index) => {
           const href = `/projects/${project.category}#${project.id}`;
           return (
             <div
               key={project.id}
               role="tabpanel"
-              id={`featured-panel-${project.id}`}
-              aria-labelledby={`featured-tab-${project.id}`}
+              id={`${id}-featured-panel-${project.id}`}
+              aria-labelledby={`${id}-featured-tab-${project.id}`}
               hidden={selected !== index}
               tabIndex={0}
-              className="showcase-panel"
+              className="premium-showcase-panel"
             >
-              <div className="browser-chrome" aria-hidden="true">
-                <span className="window-dots">
+              <div className="premium-showcase-chrome" aria-hidden="true">
+                <span className="premium-showcase-dots">
                   <i />
                   <i />
                   <i />
@@ -53,39 +51,40 @@ export default function HeroShowcase({ projects }: { projects: FeaturedProject[]
                 </span>
                 <span>↗</span>
               </div>
-              <Link href={href} className="showcase-image" aria-label={`Explore ${project.title}`}>
+              <Link
+                href={href}
+                className="premium-showcase-image"
+                aria-label={`Explore ${project.title}`}
+              >
                 {project.image && (
                   <Image
                     src={project.image}
                     alt={project.imageAlt ?? `${project.title} website interface`}
-                    width={1800}
-                    height={1237}
-                    sizes="(min-width: 1900px) 820px, (min-width: 1000px) 51vw, (min-width: 700px) 78vw, 90vw"
-                    priority={index === 0}
+                    fill
+                    sizes="(min-width:2560px) 1120px, (min-width:1900px) 940px, (min-width:1100px) 54vw, (min-width:700px) 90vw, 94vw"
+                    preload={index === 0}
                   />
                 )}
-                <span className="image-open" aria-hidden="true">
-                  Explore the project ↗
-                </span>
               </Link>
-              <div className="showcase-caption">
+              <div className="premium-showcase-caption">
                 <div>
                   <p>{project.relationship}</p>
                   <Link href={href}>{project.title}</Link>
                 </div>
                 <Link
                   href={href}
-                  className="round-link"
+                  className="premium-showcase-case"
                   aria-label={`View ${project.title} case study`}
                 >
-                  ↗
+                  <span>View project</span>
+                  <span aria-hidden="true">↗</span>
                 </Link>
               </div>
             </div>
           );
         })}
-      </InteractiveSurface>
-      <div role="tablist" aria-label="Featured projects" className="showcase-tabs">
+      </div>
+      <div role="tablist" aria-label="Featured projects" className="premium-showcase-tabs">
         {projects.map((project, index) => (
           <button
             key={project.id}
@@ -94,8 +93,8 @@ export default function HeroShowcase({ projects }: { projects: FeaturedProject[]
             }}
             type="button"
             role="tab"
-            id={`featured-tab-${project.id}`}
-            aria-controls={`featured-panel-${project.id}`}
+            id={`${id}-featured-tab-${project.id}`}
+            aria-controls={`${id}-featured-panel-${project.id}`}
             aria-selected={selected === index}
             tabIndex={selected === index ? 0 : -1}
             onClick={() => setSelected(index)}
@@ -112,13 +111,16 @@ export default function HeroShowcase({ projects }: { projects: FeaturedProject[]
               tabs.current[next]?.focus();
             }}
           >
-            <span>0{index + 1}</span>
+            <span aria-hidden="true">0{index + 1}</span>
             <span>{project.title}</span>
           </button>
         ))}
       </div>
-      <div className="showcase-footnote">
-        <p>Select a project. Explore what’s possible.</p>
+      <div className="premium-showcase-footnote">
+        <p>
+          Website design <span aria-hidden="true">/</span> Software{" "}
+          <span aria-hidden="true">/</span> Ongoing partnerships
+        </p>
         <MotionControl />
       </div>
     </div>

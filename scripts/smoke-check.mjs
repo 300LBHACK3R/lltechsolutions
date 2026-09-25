@@ -121,6 +121,20 @@ try {
       `${route}: retired public references`,
     );
     assert.ok(html.includes(">Our Clients</a>"), `${route}: current client navigation`);
+    for (const label of ["Main navigation", "Mobile navigation"]) {
+      const nav = html.match(
+        new RegExp(`<nav[^>]*aria-label="${label}"[^>]*>([\\s\\S]*?)</nav>`),
+      )?.[1];
+      assert.ok(
+        nav && !nav.includes('href="/"'),
+        `${route}: ${label} leaves home navigation to the logo`,
+      );
+    }
+    assert.match(
+      html,
+      /<a[^>]*aria-label="L&amp;L Tech Solutions home"[^>]*href="\/"|<a[^>]*href="\/"[^>]*aria-label="L&amp;L Tech Solutions home"/,
+      `${route}: logo still links home`,
+    );
     assert.ok(!res.headers.has("x-powered-by"));
     const csp = res.headers.get("content-security-policy");
     assert.ok(csp?.includes("frame-ancestors 'none'") && !csp.includes("unsafe-eval"));

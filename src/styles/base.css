@@ -162,21 +162,14 @@ h3 {
 }
 
 main,
-.hero-copy,
 .project-preview,
 .contact-layout > *,
 .footer-main > * {
   min-width: 0;
 }
 @media (forced-colors: active) {
-  .button,
-  .round-link,
-  .showcase-tabs button {
+  .button {
     border: 1px solid ButtonText;
-  }
-  .showcase-tabs button[aria-selected="true"] {
-    outline: 2px solid Highlight;
-    outline-offset: -3px;
   }
   .signal-artwork {
     display: none;

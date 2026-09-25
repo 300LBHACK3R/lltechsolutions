@@ -3,32 +3,6 @@
   :root {
     --container: 1760px;
   }
-  .hero {
-    padding-top: 45px;
-  }
-  .hero h1 {
-    font-size: 86px;
-  }
-  .hero h1 > span {
-    max-width: 560px;
-  }
-  .hero-description {
-    font-size: 17px;
-    max-width: 610px;
-  }
-  .hero-grid {
-    gap: 100px;
-  }
-  .showcase-caption {
-    padding: 25px 30px;
-  }
-  .showcase-tabs button,
-  .showcase-caption p {
-    font-size: 12px;
-  }
-  .hero-proof p {
-    font-size: 15px;
-  }
   .section {
     padding-block: 125px;
   }
@@ -67,38 +41,6 @@
   }
   .desktop-nav {
     gap: 35px;
-  }
-  .hero h1 {
-    font-size: 106px;
-    max-width: 850px;
-  }
-  .hero h1 > span {
-    max-width: 640px;
-  }
-  .hero-description {
-    font-size: 19px;
-    max-width: 680px;
-  }
-  .hero .button,
-  .hero .text-link {
-    font-size: 17px;
-  }
-  .hero-topline .eyebrow,
-  .studio-edition,
-  .showcase-heading {
-    font-size: 13px;
-  }
-  .showcase-tabs button {
-    font-size: 15px;
-  }
-  .showcase-caption a:not(.round-link) {
-    font-size: 29px;
-  }
-  .hero-proof p {
-    font-size: 18px;
-  }
-  .hero-proof span {
-    font-size: 13px;
   }
   h2 {
     font-size: 62px;
@@ -161,15 +103,6 @@
   .mobile-nav nav a[aria-current="page"] {
     color: var(--gold-light);
   }
-  .hero-grid {
-    gap: 40px;
-  }
-  .hero h1 {
-    font-size: 51px;
-  }
-  .studio-edition {
-    display: none;
-  }
   .service-detail,
   .case-body {
     gap: 50px;
@@ -182,47 +115,11 @@
   }
 }
 @media (max-width: 999px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 55px;
-  }
-  .hero-copy {
-    max-width: 760px;
-  }
-  .hero h1 {
-    font-size: clamp(48px, 7.8vw, 72px);
-    max-width: 700px;
-  }
-  .hero h1 > span {
-    max-width: 620px;
-    font-size: 0.55em;
-  }
-  .hero-description {
-    max-width: 640px;
-    font-size: 15px;
-  }
-  .hero-showcase {
-    max-width: 740px;
-    width: 90%;
-    margin-inline: auto;
-  }
-  .showcase-caption a:not(.round-link) {
-    font-size: 23px;
-  }
-  .showcase-image img {
-    aspect-ratio: 1.6;
-  }
-  .hero-proof {
-    margin-top: 38px;
-  }
   .section-heading {
     align-items: flex-start;
   }
   .section-heading > p {
     max-width: 280px;
-  }
-  .home-project-grid {
-    gap: 30px;
   }
   .cta-inner {
     align-items: flex-start;
@@ -261,9 +158,6 @@
   .container {
     width: calc(100% - 40px);
   }
-  .hero-showcase {
-    width: 100%;
-  }
   .section-heading {
     flex-direction: column;
     gap: 22px;
@@ -272,8 +166,7 @@
   .section-heading > p {
     max-width: 100%;
   }
-  .project-grid,
-  .home-project-grid {
+  .project-grid {
     grid-template-columns: 1fr;
     gap: 42px;
   }
@@ -320,110 +213,6 @@
   }
   .header-cta {
     display: none;
-  }
-  .hero {
-    padding-top: 20px;
-  }
-  .hero-topline {
-    padding: 8px 0 28px;
-  }
-  .hero .eyebrow {
-    font-size: 9px;
-    letter-spacing: 0.08em;
-  }
-  .studio-indicator {
-    margin-right: 7px;
-    width: 5px;
-    height: 5px;
-  }
-  .hero h1 {
-    font-size: clamp(39px, 10.8vw, 61px);
-  }
-  .hero h1 > span {
-    font-size: 0.58em;
-    margin-top: 19px;
-  }
-  .hero-description {
-    font-size: 14px;
-    margin-top: 22px;
-    line-height: 1.8;
-  }
-  .hero .button-row {
-    align-items: stretch;
-    gap: 12px;
-  }
-  .hero .button-row .button {
-    width: 100%;
-  }
-  .hero .text-link {
-    justify-content: center;
-    width: 100%;
-  }
-  .hero-grid {
-    gap: 34px;
-  }
-  .project-stage {
-    padding-left: 0;
-  }
-  .stage-outline {
-    inset: 0;
-  }
-  .stage-outline-back {
-    transform: translate(3px, -12px) rotate(2deg);
-  }
-  .stage-outline-front {
-    transform: translate(-3px, -5px) rotate(-1deg);
-  }
-  .stage-coordinate {
-    display: none;
-  }
-  .showcase-heading {
-    font-size: 8px;
-    letter-spacing: 0.07em;
-    padding-bottom: 27px;
-  }
-  .showcase-caption {
-    padding: 17px;
-    gap: 12px;
-  }
-  .showcase-caption a:not(.round-link) {
-    font-size: 18px;
-  }
-  .showcase-caption p {
-    font-size: 9px;
-  }
-  .showcase-tabs {
-    gap: 13px;
-    margin-top: 19px;
-  }
-  .showcase-tabs button {
-    gap: 5px;
-    font-size: 10px;
-    flex-direction: column;
-  }
-  .showcase-footnote {
-    align-items: center;
-    gap: 12px;
-  }
-  .showcase-footnote > p {
-    max-width: 180px;
-  }
-  .hero-proof {
-    gap: 20px;
-    margin-top: 25px;
-    padding-block: 22px;
-  }
-  .hero-proof div {
-    padding-left: 0;
-    border: 0;
-  }
-  .hero-proof span {
-    font-size: 9px;
-    letter-spacing: 0.065em;
-  }
-  .hero-proof p {
-    font-size: 11px;
-    line-height: 1.6;
   }
   .section,
   .final-cta {
@@ -550,23 +339,6 @@
 @media (max-width: 374px) {
   .container {
     width: calc(100% - 32px);
-  }
-  .hero .eyebrow {
-    font-size: 8px;
-  }
-  .browser-chrome {
-    font-size: 8px;
-    padding-inline: 11px;
-    gap: 8px;
-  }
-  .showcase-caption {
-    padding: 14px;
-  }
-  .showcase-caption a:not(.round-link) {
-    font-size: 16px;
-  }
-  .hero-proof {
-    gap: 12px;
   }
   .final-cta h2 {
     font-size: 29px;

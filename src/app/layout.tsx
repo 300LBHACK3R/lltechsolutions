@@ -17,6 +17,8 @@ import "@/styles/template-showcase.css";
 import "@/styles/template-details.css";
 import "@/styles/motion.css";
 import "@/styles/responsive.css";
+import "@/styles/home-premium-hero.css";
+import "@/styles/home-premium-work.css";
 import type { Metadata, Viewport } from "next";
 import { Geist, Cormorant_Garamond } from "next/font/google";
 import Header from "@/components/layout/Header";

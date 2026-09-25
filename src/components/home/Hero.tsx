@@ -1,37 +1,38 @@
 import Link from "next/link";
 import HeroShowcase from "@/components/home/HeroShowcase";
-import SignalArtwork from "@/components/ui/SignalArtwork";
 import { projects } from "@/data/projects";
+import { servicePillars } from "@/data/services";
 
 export default function Hero() {
   return (
-    <section className="hero" aria-labelledby="hero-title">
-      <SignalArtwork className="hero-signals" />
+    <section className="premium-hero" aria-labelledby="hero-title">
       <div className="container">
-        <div className="hero-topline">
-          <p className="eyebrow">
-            <span className="studio-indicator" aria-hidden="true" />
-            Calgary-based · Canada-wide digital studio
+        <div className="premium-hero-topline">
+          <p>
+            Calgary-based <span aria-hidden="true">/</span> Canada-wide
           </p>
-          <span className="studio-edition">Independent thinking. Connected execution.</span>
+          <span>Independent digital studio</span>
         </div>
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <h1 id="hero-title">
-              Your business has outgrown <em>ordinary.</em>
-              <span>Its digital presence should too.</span>
-            </h1>
-            <p className="hero-description">
-              L&L Tech Solutions creates high-performance websites, purpose-built software, and
-              managed content systems for businesses ready to look established, operate
-              intelligently, and stay visible.
+        <div className="premium-hero-grid">
+          <div className="premium-hero-copy">
+            <p className="premium-hero-eyebrow">
+              <span aria-hidden="true" />
+              L&L Tech Solutions
             </p>
-            <div className="button-row">
-              <Link href="/contact" className="button button-gold">
-                Start A Project <span aria-hidden="true">↗</span>
+            <h1 id="hero-title" className="premium-hero-title">
+              Your business has outgrown <em>ordinary.</em>
+            </h1>
+            <p className="premium-hero-editorial">Its digital presence should too.</p>
+            <p className="premium-hero-description">
+              Custom websites. Purpose-built software. Social media and content, thoughtfully
+              managed. One studio to bring your business together online.
+            </p>
+            <div className="premium-hero-actions">
+              <Link href="/contact" className="premium-hero-primary">
+                Start a project <span aria-hidden="true">↗</span>
               </Link>
-              <Link href="/projects" className="text-link">
-                Meet Our Clients <span aria-hidden="true">→</span>
+              <Link href="/projects" className="premium-hero-secondary">
+                Meet our clients <span aria-hidden="true">→</span>
               </Link>
             </div>
           </div>
@@ -52,18 +53,15 @@ export default function Hero() {
             })}
           />
         </div>
-        <div className="hero-proof">
-          {[
-            ["Strategy", "Designed around the business"],
-            ["Execution", "Custom code and content"],
-            ["Continuity", "Managed beyond launch"],
-          ].map(([title, copy]) => (
-            <div key={title}>
-              <span>{title}</span>
-              <p>{copy}</p>
-            </div>
+        <nav className="premium-hero-disciplines" aria-label="Our three disciplines">
+          {servicePillars.map((service, index) => (
+            <Link key={service.id} href={`/services#${service.id}`}>
+              <span>0{index + 1}</span>
+              <span>{service.name}</span>
+              <span aria-hidden="true">↗</span>
+            </Link>
           ))}
-        </div>
+        </nav>
       </div>
     </section>
   );

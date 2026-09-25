@@ -19,7 +19,6 @@ export const siteConfig = {
 } as const;
 
 export const navigation = [
-  { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Our Clients", href: "/projects" },
   { label: "Website Templates", href: "/website-collection" },

@@ -3,7 +3,7 @@
 ## Before review
 
 - Use an isolated worktree or branch and preserve existing local work.
-- Fetch the current main before applying a release. The Website Collection update was prepared from main `6c422eb` plus the pending Crestline gallery and collection commits; reconcile later upstream work without overwriting it.
+- Fetch the current main before applying a release. Match the installer manifest to the release being applied; reconcile later upstream work without overwriting it.
 - Run `npm ci`, formatting, `npm run check`, dependency audit, production build and `npm run smoke`.
 - Review the diff, including deleted files. Originals are recoverable from Git history.
 
@@ -11,7 +11,7 @@
 
 - Inspect 320/375/390/430 px phones, 768/1024 px tablets, 1366/1440 px laptops, 1920/2560 px desktops and a 3840 px large-display layout. Include portrait, short landscape viewports, 200% zoom and enlarged system text.
 - Use current Chrome/Edge, Firefox and Safari, including real iOS and Android devices and an actual TV browser/remote when available. The installed Next.js documents Chrome/Edge/Firefox 111+ and Safari 16.4+ as its default browser baseline; this does not establish support for every older smart-TV browser.
-- Check navigation, menu close/Escape, keyboard focus, project and vertical service tabs (arrows/Home/End), touch-only operation, project anchors and external links.
+- Check navigation, menu close/Escape, keyboard focus, featured project tabs (arrows/Home/End), touch-only operation, project anchors and external links. The Home menu item is removed; the header and footer logos still return home.
 - Check contact service preselection, native validation, failure messaging and retained input.
 - Check OS reduced motion, the visitor motion switch, persistence across pages, blocked local storage, no hover-only actions and usable content with JavaScript unavailable. Changing motion preferences should stop active effects without hiding content.
 - Inspect every page for overflow, missing images, unreadable type and console errors.
@@ -32,9 +32,9 @@
 
 ## Website Templates journey
 
-- Preview `/website-collection`, each `/website-collection/category/[category]` gallery, all three design pages, `/website-collection/compare`, `/website-collection/start?design=pigment` and `/website-collection/brief`.
+- Preview `/website-collection`, each `/website-collection/category/[category]` gallery, every current design detail page, `/website-collection/compare`, `/website-collection/start?design=pigment` and `/website-collection/brief`.
 - For Painting Company, check the brush underline on Home/Services/Projects/Contact, the three accent colours and service selection carried into the sample estimate. Confirm the real L&L enquiry opens with Painting Company selected.
-- In a design, try a short and a long business name, Phone/Fit screen and every page button. Ensure no pretend enquiry is sent by the demonstration. Add only real supplied walkthroughs and measured reports.
+- Massage Practice retains the inline concept: try a short and a long business name, Phone/Fit screen and every page button. Painting, plumbing and earthworks now use screenshots or a labelled cover plus a verified external live-demo link; the duplicate Try this design here dialog is removed. Ensure no pretend enquiry is sent by a demonstration. Add only real supplied walkthroughs and measured reports.
 - Confirm navigation shows Our Clients before Website Templates. Landing-page categories should open distinct galleries, not a flat catalogue. Empty categories must have an honest message and noindex metadata.
 - On the Website Templates hero, select all three client previews with mouse/touch and native radio arrow keys; follow each walkthrough link. Confirm a visible focus outline, one visible preview, and no layout overflow at phone/tablet/desktop widths. Repeat with JavaScript disabled and reduced motion enabled. Check the horizontal process strip stacks on a phone.
 - In each populated gallery, apply Price: low to high and Price: high to low; confirm the selected option, card order and industry/design-level filters work together, including without JavaScript. Check the filter controls on narrow screens. Review the starting prices in `WEBSITE_COLLECTION.md` before publishing.
@@ -52,3 +52,12 @@
 - Deploy `build/painting-demo/out` as a separate static project and verify public access. Record only its actual HTTPS URL in `src/data/painting-demo.json`.
 - On that live demo, check Home, Services, Projects, Contact, refresh and browser Back. Test the brush effect, colour controls, reduced motion and the real L&L enquiry link.
 - Complete Chrome, Firefox, Safari and real mobile rendering review before advertising universal compatibility. Build and HTTP checks alone do not establish that result.
+
+## Premium homepage and template details
+
+- Check the compact template heading, price and actions appear before its design cover or screenshots. Scope, extra-page/custom-feature pricing, optional care and existing evidence must remain discoverable below.
+- Review all four homepage project rows, image aspect ratios, related-work links and the final project invitation. Keep studio software ownership distinct from client website work.
+- Check all three featured-project tabs with touch and keyboard; the first project must remain visible without JavaScript. There is no autoplay.
+- Confirm Construction & Trades and Home & Property both include the five-page Excavation & Landscaping template at From $1,000 CAD. Sorting and the contact prefill must retain that canonical price.
+- On the separate earthworks demo, test Home, Services, Projects, Process and Contact, refresh and browser Back. Test service selection, project filters, project-outline choices, clipboard success/failure and reduced motion. The outline is local only and does not submit a booking.
+- Verify only the actual public earthworks deployment URL is recorded in `src/data/earthworks-demo.json`. Keep its link absent until verified; deploy only to the separate `ll-earthworks-template` project.
