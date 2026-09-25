@@ -20,3 +20,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Server components are the default. Client components are limited to interaction and progressive animation.
 - Changes must pass the documented quality gates. Never claim browser QA, email delivery, remote push or deployment without evidence.
 - Use an isolated branch/worktree. Never overwrite unrelated local work or expose secrets.
+
+- Template prices stay in numeric low-to-high order by default, with equal-price entries in source order. New $299–$499 offers include direct contact; current $699+ offers include standard enquiry form setup. Form upgrades, advanced workflows and ongoing care are separately scoped. Lawn Care is $499 with four pages; Earthworks remains $1,000 with seven. Keep sample contractor contact details inert and clearly labelled; the real L&L enquiry handoff must work.

@@ -50,6 +50,7 @@ try {
     "/website-collection/pigment",
     "/website-collection/structure",
     "/website-collection/earthworks",
+    "/website-collection/lawncare",
     "/website-collection/still",
     "/website-collection/start",
     "/website-collection/compare",
@@ -179,6 +180,7 @@ try {
     ["pigment", "painting"],
     ["structure", "plumbing"],
     ["earthworks", "earthworks"],
+    ["lawncare", "lawncare"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     const media = JSON.parse(
@@ -242,7 +244,7 @@ try {
     "populated property category is indexable",
   );
   checks++;
-  for (const id of ["pigment", "structure", "earthworks", "still"]) {
+  for (const id of ["pigment", "structure", "earthworks", "lawncare", "still"]) {
     const html = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(html.includes('"@type":"CreativeWork"'), `${id}: design schema`);
     assert.ok(
@@ -407,6 +409,7 @@ try {
   const templatePrices = [
     ["still", "health-wellness", 299],
     ["calgary-hot-shot", "transport-logistics", 399],
+    ["lawncare", "construction-trades", 499],
     ["pigment", "construction-trades", 499],
     ["structure", "construction-trades", 699],
     ["earthworks", "construction-trades", 1000],
@@ -419,6 +422,7 @@ try {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(detail.includes(label), `${id}: detail price`);
     assert.ok(detail.includes("Before applicable taxes."), `${id}: tax basis`);
+    assert.ok(detail.includes("collection-contact-options"), `${id}: contact scope is explained`);
     const gallery = htmlByRoute.get(`/website-collection/category/${category}`);
     const card = gallery.match(
       new RegExp(`<article[^>]*id="design-${id}"[^>]*>[\\s\\S]*?</article>`),
@@ -444,7 +448,13 @@ try {
     assert.match(defaultGallery, /<select[^>]*name="sort"/, `${category}: visible sort control`);
     for (const [sort, order] of [
       ["price-low", expected],
-      ["price-high", [...expected].reverse()],
+      [
+        "price-high",
+        templatePrices
+          .filter(([, id]) => id === category)
+          .sort((a, b) => b[2] - a[2])
+          .map(([id]) => id),
+      ],
     ]) {
       const response = await fetch(`${origin}${path}?sort=${sort}`);
       assert.equal(response.status, 200);
@@ -639,6 +649,7 @@ try {
     ["pigment", "Painting Company"],
     ["structure", "Plumbing Company"],
     ["earthworks", "Excavation &amp; Landscaping"],
+    ["lawncare", "Lawn Care"],
     ["still", "Massage Practice"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
@@ -661,6 +672,10 @@ try {
     );
     checks++;
   }
+  assert.ok(
+    propertyGallery.includes('id="design-lawncare"') && trades.includes('id="design-lawncare"'),
+    "lawn care appears under both trades and property",
+  );
   const missingCategory = await fetch(`${origin}/website-collection/category/not-a-category`);
   assert.equal(missingCategory.status, 404, "unknown category returns 404");
   checks++;

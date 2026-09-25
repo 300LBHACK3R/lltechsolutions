@@ -2,6 +2,9 @@ import {
   collectionCarePlans,
   collectionPricingNote,
   collectionCustomization,
+  contactScopeNotes,
+  designContactDescription,
+  designContactLabel,
   designPrice,
   selectedExtras,
   type WebsiteDesign,
@@ -30,6 +33,13 @@ export default function CostSummary({
               : "Personalization & launch"}
           </dt>
           <dd>{designPrice(design)}</dd>
+        </div>
+        <div>
+          <dt>
+            Contact setup for this new build
+            <small>{designContactDescription(design)}</small>
+          </dt>
+          <dd>{designContactLabel(design)}</dd>
         </div>
         <div>
           <dt>
@@ -62,6 +72,8 @@ export default function CostSummary({
         before work begins.
       </p>
       <p>{collectionCustomization.pricing}</p>
+      <p>{contactScopeNotes.upgrades}</p>
+      <p>{contactScopeNotes.care}</p>
       <p>{collectionPricingNote}</p>
     </div>
   );

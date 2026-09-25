@@ -6,6 +6,8 @@ import TemplateShowcase from "@/components/collection/TemplateShowcase";
 import paintingDemo from "@/data/painting-demo.json";
 import plumbingDemo from "@/data/plumbing-demo.json";
 import earthworksDemo from "@/data/earthworks-demo.json";
+import lawncareDemo from "@/data/lawncare-demo.json";
+import CollectionContactOptions from "@/components/collection/CollectionContactOptions";
 import CollectionCustomization from "@/components/collection/CollectionCustomization";
 import { readTemplateShowcase } from "@/lib/template-showcase";
 import CollectionMedia from "@/components/collection/CollectionMedia";
@@ -27,6 +29,7 @@ import {
   designStatusLabel,
   designInquiryLabel,
   designScopeLabel,
+  designContactLabel,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -55,7 +58,9 @@ export default async function DesignPage({ params }: Props) {
         ? readTemplateShowcase(plumbingDemo, "structure")
         : design.id === "earthworks"
           ? readTemplateShowcase(earthworksDemo, "earthworks")
-          : null;
+          : design.id === "lawncare"
+            ? readTemplateShowcase(lawncareDemo, "lawncare")
+            : null;
   const category = categoryForIndustry(design.industry);
   const clientProject = design.clientProjectId
     ? projects.find(
@@ -97,7 +102,9 @@ export default async function DesignPage({ params }: Props) {
               <p className="template-detail-price-context">
                 {designPriceContext(design)} · Before applicable taxes.
               </p>
-              <p className="template-detail-scope-note">{designScopeLabel(design)}</p>
+              <p className="template-detail-scope-note">
+                {designScopeLabel(design)} · {designContactLabel(design)}
+              </p>
               <div className="template-detail-actions">
                 <Link
                   className="button button-gold"
@@ -234,6 +241,7 @@ export default async function DesignPage({ params }: Props) {
             </p>
           </div>
         </section>
+        <CollectionContactOptions design={design} />
         <CollectionCustomization designId={design.id} />
         <section
           className="collection-section journey-disclosures"

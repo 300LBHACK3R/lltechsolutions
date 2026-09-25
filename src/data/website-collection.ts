@@ -63,6 +63,7 @@ export const collectionIndustries = [
   { id: "painting", name: "Painting" },
   { id: "plumbing", name: "Plumbing" },
   { id: "electrical", name: "Electrical" },
+  { id: "lawn-care", name: "Lawn Care" },
   { id: "landscaping", name: "Landscaping & Outdoor Services" },
   { id: "massage-wellness", name: "Massage & Wellness" },
   { id: "dental", name: "Dental Practices" },
@@ -94,8 +95,8 @@ export const templateCategories: readonly TemplateCategory[] = [
     id: "construction-trades",
     name: "Construction & Trades",
     description:
-      "Construction, excavation, landscaping, painting, plumbing and electrical businesses.",
-    industries: ["construction", "excavation", "painting", "plumbing", "electrical"],
+      "Construction, excavation, lawn care, painting, plumbing and electrical businesses.",
+    industries: ["construction", "excavation", "painting", "plumbing", "electrical", "lawn-care"],
     image: "/images/template-categories/construction-trades.webp",
   },
   {
@@ -167,7 +168,7 @@ export const collectionCarePlans = [
     name: "Website Care",
     description: "Keep the website looked after as your business moves forward.",
     scope:
-      "Agreed content changes, dependency and security updates, routine checks, and a backup and recovery plan suited to your site.",
+      "Agreed content changes, dependency and security updates, routine checks including agreed form-delivery checks when a form is configured, and a backup and recovery plan suited to your site.",
   },
   {
     id: "growth",
@@ -187,6 +188,8 @@ export const collectionCarePlans = [
 
 export type CollectionCareId = (typeof collectionCarePlans)[number]["id"];
 
+export type CollectionContactMode = "direct" | "enquiry-form";
+
 export type WebsiteDesign = {
   id: string;
   status: "draft" | "concept" | "published" | "client-example";
@@ -196,6 +199,8 @@ export type WebsiteDesign = {
   description: string;
   startingPriceCad: number | null;
   pageCount: number | null;
+  /** Contact scope for a new build; never a claim about an original client website. */
+  contactMode: CollectionContactMode;
   /** A real portfolio reference; its client-specific assets are not offered for reuse. */
   clientProjectId?: string;
   deliveryWindow: string;
@@ -207,7 +212,7 @@ export type WebsiteDesign = {
   customization?: readonly string[];
   additionalIndustries?: readonly CollectionIndustryId[];
   concept?: {
-    theme: "pigment" | "structure" | "still" | "earthworks";
+    theme: "pigment" | "structure" | "still" | "earthworks" | "lawncare";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -220,6 +225,42 @@ export type WebsiteDesign = {
   walkthrough?: CollectionVideo;
   performance?: readonly PerformanceEvidence[];
 };
+
+export const contactScopeSummary =
+  "New website offers from $299–$499 CAD include direct contact. Offers from $699 CAD include a standard protected enquiry form.";
+
+export const contactScopeDetails = {
+  direct: {
+    label: "Direct contact included",
+    priceLabel: "$299–$499 CAD",
+    description:
+      "A contact page or section with click-to-call and click-to-email links, plus your chosen external booking link where relevant.",
+  },
+  "enquiry-form": {
+    label: "Protected enquiry form included",
+    priceLabel: "$699+ CAD",
+    description:
+      "A standard protected enquiry form to one business inbox, including Resend and sending-domain configuration, field validation, spam controls and an initial delivery test.",
+  },
+} as const;
+
+export const contactScopeNotes = {
+  upgrades:
+    "An enquiry form can be added to any direct-contact offer, quoted by scope. Custom workflows, integrations and advanced forms are also quoted separately at any level.",
+  care: "Ongoing form and website care is optional and separately scoped. Domain and provider fees are separate.",
+  standards:
+    "Every offer has the same core SEO and security standards. Form validation and spam controls apply when a form is included.",
+  clientExamples:
+    "These contact scopes describe a new build for your business; they do not describe or change an original client website.",
+} as const;
+
+export function designContactLabel(design: Pick<WebsiteDesign, "contactMode">) {
+  return contactScopeDetails[design.contactMode].label;
+}
+
+export function designContactDescription(design: Pick<WebsiteDesign, "contactMode">) {
+  return contactScopeDetails[design.contactMode].description;
+}
 
 export type CollectionVideo = {
   src: string;
@@ -255,6 +296,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "An immersive seven-page excavation and landscaping website with cinematic site imagery, interactive service, project and material views, helpful answers and a practical project planner.",
     startingPriceCad: 1000,
     pageCount: 7,
+    contactMode: "enquiry-form",
     deliveryWindow: "Delivery is agreed after content, page requirements and scope are confirmed.",
     demoUrl: "/website-collection/earthworks#preview",
     included: [
@@ -262,14 +304,15 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "Your business identity, supplied photographs, project stories and service areas",
       "Interactive service and material exploration, project presentation and a project-planning journey",
       "A clear process page and client-approved FAQ content",
-      "Responsive layouts, motion controls, metadata, enquiry validation and launch checks",
+      contactScopeDetails["enquiry-form"].description,
+      "Responsive layouts, motion controls, metadata and launch checks",
     ],
     customization: [
       "Your brand palette, logo, business name and approved copy",
       "Excavation, drainage, hardscape and landscaping service content",
       "Project photography, categories and accurate descriptions",
       "Your material choices and answers to common customer questions",
-      "Your enquiry workflow and service-area information within the agreed scope",
+      "Your standard enquiry fields and service-area information within the agreed scope",
     ],
     concept: {
       theme: "earthworks",
@@ -312,6 +355,67 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     },
   },
   {
+    id: "lawncare",
+    status: "concept",
+    name: "Lawn Care",
+    tier: "signature",
+    industry: "lawn-care",
+    additionalIndustries: ["landscaping"],
+    description:
+      "A fresh four-page lawn care website with illustrative garden imagery, clear services, a work showcase and an easy path to a call, email or booking.",
+    startingPriceCad: 499,
+    pageCount: 4,
+    contactMode: "direct",
+    deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
+    demoUrl: "/website-collection/lawncare#preview",
+    included: [
+      "Home, services, our work and contact page structures",
+      "Your business identity, supplied photography, service areas and approved copy",
+      contactScopeDetails.direct.description,
+      "Responsive implementation, metadata and launch checks",
+    ],
+    customization: [
+      "Your lawn care services, service areas and seasonal availability",
+      "Your business name, logo, brand colours and photography",
+      "Your approach and approved service information",
+      "Call and email details, plus your chosen external booking link",
+    ],
+    concept: {
+      theme: "lawncare",
+      brands: ["LAWN STUDIO", "YOUR LAWN CARE CO"],
+      headlines: ["A well-kept lawn. A little more weekend.", "Fresh lawns. More time outdoors."],
+      subcopy:
+        "From a regular mow to a seasonal tidy-up, explore straightforward lawn care shaped around your outdoor space.",
+      kicker: "Lawn care & outdoor maintenance",
+      action: "Talk about your lawn",
+      photo: {
+        src: "/images/collection/lawn-hero.webp",
+        alt: "Illustrative green lawn and garden for the Lawn Studio design; not a real project or before-and-after result",
+        width: 1536,
+        height: 1024,
+      },
+      services: [
+        {
+          name: "Regular mowing",
+          description:
+            "A regular cut and tidy edges, with the schedule and lawn requirements agreed around your property.",
+        },
+        {
+          name: "Edging & trimming",
+          description:
+            "Define lawn borders and tidy hard-to-reach areas, with the trimming and finishing work agreed around your property.",
+        },
+        {
+          name: "Seasonal cleanup",
+          description:
+            "Make space for the season ahead with leaf collection, outdoor tidying and agreed garden cleanup tasks.",
+        },
+      ],
+      approach:
+        "Start with a conversation about your lawn, the work you need and the way you use the space. Agree on the services and schedule before the first visit.",
+    },
+  },
+  {
     id: "pigment",
     status: "concept",
     name: "Painting Company",
@@ -321,13 +425,15 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "An editorial painting website with immersive room photography, brush-drawn navigation and a clear path from inspiration to an estimate.",
     startingPriceCad: 499,
     pageCount: 4,
+    contactMode: "direct",
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
     demoUrl: "/website-collection/pigment#preview",
     included: [
       "Home, services, project showcase and contact page structures",
       "Your logo, colour palette, supplied photography and copy",
-      "An estimate enquiry journey with service-area information",
-      "Responsive implementation, metadata, form validation and launch checks",
+      "Clear service-area information and direct contact for estimate requests",
+      contactScopeDetails.direct.description,
+      "Responsive implementation, metadata and launch checks",
     ],
     customization: [
       "Brand colours and type treatment",
@@ -380,13 +486,15 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "An immersive plumbing website with copper pipe navigation, rich architectural imagery and a clear journey from services to a project enquiry.",
     startingPriceCad: 699,
     pageCount: 4,
+    contactMode: "enquiry-form",
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
     demoUrl: "/website-collection/structure#preview",
     included: [
       "Home, services, project showcase and contact page structures",
       "Your business identity, supplied project content and service areas",
       "Pipe-inspired navigation, interactive service selection and a clear enquiry journey",
-      "Responsive implementation, metadata, form validation and launch checks",
+      contactScopeDetails["enquiry-form"].description,
+      "Responsive implementation, metadata and launch checks",
     ],
     customization: [
       "Your plumbing services and service-area content",
@@ -439,13 +547,14 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "A warm, unhurried website for massage and wellness practices, with a clear path from services to booking.",
     startingPriceCad: 299,
     pageCount: 3,
+    contactMode: "direct",
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
     demoUrl: "/website-collection/still#preview",
     included: [
       "Home, services and contact page structures",
       "Your supplied practice information, branding and room photography",
-      "A link to your existing booking provider",
-      "Responsive implementation, metadata, form validation and launch checks",
+      contactScopeDetails.direct.description,
+      "Responsive implementation, metadata and launch checks",
     ],
     customization: [
       "Your practice name, palette and supplied photography",
@@ -499,6 +608,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "A corporate transport demo with a bold first impression, distinct rental and delivery pathways, and a clear route to a quote.",
     startingPriceCad: 399,
     pageCount: 1,
+    contactMode: "direct",
     deliveryWindow:
       "Your service scope, integrations and launch schedule are agreed before booking.",
     preview: {
@@ -515,17 +625,17 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     },
     demoUrl: "https://calgary-hot-shot-corporate-live.vercel.app/",
     included: [
-      "One-page website structure with service, process and enquiry sections",
+      "One-page website structure with service, process and contact sections",
       "Distinct pathways for rentals, delivered rentals and transport, adapted to your actual services",
       "Your approved branding, fleet photography, service areas and contact information",
-      "A quote journey configured and tested for your business before launch",
-      "Responsive implementation, metadata, form validation and launch checks",
+      contactScopeDetails.direct.description,
+      "Responsive implementation, metadata and launch checks",
     ],
     customization: [
       "Transport services and equipment you actually offer",
       "Real operating areas, fleet details and service requirements",
       "Brand colours, photography and business identity",
-      "Quote fields and contact workflow within the agreed scope",
+      "Direct contact and external booking details within the agreed scope",
     ],
   },
   {
@@ -540,6 +650,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "A real black-and-gold client website with clear fleet categories, rental enquiries and delivery information, supported by an ongoing website and social content partnership.",
     startingPriceCad: 899,
     pageCount: null,
+    contactMode: "enquiry-form",
     deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
     preview: {
       src: "/images/projects/tow-n-go.webp",
@@ -552,13 +663,13 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "A similar visual direction shaped around your own brand and business",
       "Fleet or equipment categories using your approved photos, specifications and information",
       "Clear pathways for the rental, delivery or transport services you actually offer",
-      "An enquiry journey configured for your availability and quote process",
-      "Responsive implementation, metadata, form validation and launch checks",
+      contactScopeDetails["enquiry-form"].description,
+      "Responsive implementation, metadata and launch checks",
     ],
     customization: [
       "Your business name, logo, colours and photography",
       "Your actual equipment, service areas and operating requirements",
-      "The pages, enquiry fields and integrations your business needs",
+      "Your pages and standard enquiry fields, with integrations quoted separately",
       "Optional monthly website care, social management and content, scoped separately",
     ],
   },
@@ -574,6 +685,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "A real painting-company website with architectural imagery, dedicated services and project galleries for commercial, strata, multi-family and custom-home work.",
     startingPriceCad: 399,
     pageCount: null,
+    contactMode: "direct",
     deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
     preview: {
       src: "/images/projects/crestline.webp",
@@ -586,8 +698,9 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "A similar visual direction shaped around your own painting or contracting business",
       "Dedicated service pages organized around the work and customers you serve",
       "Project categories and galleries using your approved photos and project descriptions",
-      "Clear service-area information and a quote enquiry journey for your business",
-      "Responsive implementation, metadata, form validation and launch checks",
+      "Clear service-area information and direct contact for quote requests",
+      contactScopeDetails.direct.description,
+      "Responsive implementation, metadata and launch checks",
     ],
     customization: [
       "Your business name, logo, colours and photography",
@@ -607,6 +720,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "A real boutique massage website pairing a warm green-and-cream design with treatment photography, clear service and pricing pages, client stories and ClinicSense booking links.",
     startingPriceCad: 999,
     pageCount: null,
+    contactMode: "enquiry-form",
     deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
     preview: {
       src: "/images/projects/mckenzie-house.webp",
@@ -620,7 +734,8 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "Service pages with your approved treatment descriptions, appointment lengths and pricing",
       "About, client feedback and practical visitor information using your own approved content",
       "A clear booking pathway connected to your chosen scheduling platform within the agreed scope",
-      "Responsive implementation, metadata, form validation and launch checks",
+      contactScopeDetails["enquiry-form"].description,
+      "Responsive implementation, metadata and launch checks",
     ],
     customization: [
       "Your business name, logo, colours and treatment-space imagery",
@@ -648,7 +763,7 @@ export const collectionStandards = [
   {
     title: "Security considered at launch",
     description:
-      "HTTPS, appropriate security headers, validated forms, protected credentials and dependency checks are part of the launch work. Ongoing updates are covered by the agreed care plan.",
+      "Every offer includes HTTPS, appropriate security headers, protected credentials and dependency checks. Field validation and spam controls apply when a form is included. Ongoing updates are optional and separately scoped.",
   },
   {
     title: "Performance checked",
@@ -687,6 +802,10 @@ export const collectionQuestions = [
     question: "How will pricing work?",
     answer:
       "Each design shows its starting price in CAD for personalization and launch, before applicable taxes. For a client example, this is the starting point for a similar new website with your own branding and content. Extra features, content production, monthly care and third-party fees are separate. We confirm the scope, revisions, timeline and full quote before a deposit. Unpriced additions are marked “Quoted after a conversation”.",
+  },
+  {
+    question: "What contact setup is included?",
+    answer: `${contactScopeSummary} ${contactScopeNotes.upgrades} ${contactScopeNotes.care} ${contactScopeNotes.standards}`,
   },
   {
     question: "Do I need a monthly plan?",
@@ -836,6 +955,7 @@ export function collectionInquiry(
     ...(design
       ? [
           `Launch pricing: ${designPrice(design)}. ${designPriceContext(design)}; final scope, taxes and separate costs to be confirmed.`,
+          `New-build contact scope: ${designContactLabel(design)}. ${designContactDescription(design)}`,
         ]
       : []),
     "",
@@ -843,6 +963,7 @@ export function collectionInquiry(
   ];
   return {
     service: "Website Design & Development",
+    contactMode: design?.contactMode,
     message: details.join("\n"),
     summary:
       [design?.name, industry?.name ?? category?.name, tier?.name, care?.name]
@@ -873,6 +994,12 @@ export const collectionExtras = [
     name: "Layout or feature changes",
     description:
       "Discuss changes to the design or functionality. Work beyond the listed package is quoted separately.",
+  },
+  {
+    id: "contact-form",
+    name: "Enquiry form or contact workflow",
+    description:
+      "Add a protected enquiry form to a direct-contact offer, or discuss custom workflows and advanced forms. Quoted by scope.",
   },
   {
     id: "booking",

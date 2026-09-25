@@ -31,6 +31,7 @@ const fixture = (id, tier, price, industry = "painting", status = "published") =
   id,
   tier,
   startingPriceCad: price,
+  contactMode: price !== null && price >= 699 ? "enquiry-form" : "direct",
   industry,
   status,
   name: `Test design ${id}`,
@@ -171,7 +172,9 @@ test("collection validates design status, scope and local preview assets", () =>
       );
     }
     if (design.concept) {
-      assert.ok(["pigment", "structure", "still", "earthworks"].includes(design.concept.theme));
+      assert.ok(
+        ["pigment", "structure", "still", "earthworks", "lawncare"].includes(design.concept.theme),
+      );
       assert.equal(design.concept.brands.length, 2);
       assert.equal(design.concept.headlines.length, 2);
       assert.ok(design.concept.services.length > 0);

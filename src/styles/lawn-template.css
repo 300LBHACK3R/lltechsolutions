@@ -1,0 +1,1327 @@
+/* A separate sample lawn-care identity: quiet ivory, forest and fresh greens. */
+.lawn-site,
+.lawn-cover {
+  --lawn-ivory: #f6f5ec;
+  --lawn-paper: #eeeee1;
+  --lawn-forest: #173c2d;
+  --lawn-ink: #233d2d;
+  --lawn-muted: #59664f;
+  --lawn-green: #d9e8a7;
+  --lawn-leaf: #536d35;
+  --lawn-rule: #cbd2bd;
+  color: var(--lawn-ink);
+  background: var(--lawn-ivory);
+  color-scheme: light;
+  isolation: isolate;
+  font-family: var(--font-sans), Arial, sans-serif;
+}
+.lawn-site {
+  container-type: inline-size;
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.lawn-site :is(h1, h2, h3, p, figure) {
+  margin: 0;
+}
+.lawn-site :is(h1, h2),
+.lawn-cover-copy > strong {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.lawn-site h1 {
+  font-size: clamp(61px, 7.15cqi, 108px);
+  line-height: 0.94;
+}
+.lawn-site h2 {
+  font-size: clamp(41px, 4.75cqi, 69px);
+  line-height: 1;
+}
+.lawn-site h3 {
+  font-size: 20px;
+  letter-spacing: -0.045em;
+  line-height: 1.3;
+  font-weight: 500;
+}
+.lawn-site em,
+.lawn-cover em {
+  font-family: var(--font-editorial), Georgia, serif;
+  color: var(--lawn-leaf);
+  font-weight: 500;
+}
+.lawn-site a {
+  color: inherit;
+  text-decoration: none;
+}
+.lawn-site a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+.lawn-site a:hover .lawn-arrow {
+  transform: translateX(3px);
+}
+.lawn-mark {
+  width: 39px;
+  height: 41px;
+  flex-shrink: 0;
+}
+.lawn-arrow {
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+}
+.lawn-service-mark {
+  width: 58px;
+  height: 58px;
+}
+.lawn-header {
+  background: var(--lawn-forest);
+  color: var(--lawn-ivory);
+}
+.lawn-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 27px 5cqi 0;
+}
+.lawn-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  flex-shrink: 0;
+}
+.lawn-brand > span {
+  font-size: 19px;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  font-weight: 550;
+}
+.lawn-brand small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.23em;
+  font-weight: 400;
+  margin-top: 8px;
+}
+.lawn-brand .lawn-mark {
+  color: var(--lawn-green);
+}
+.lawn-nav {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+.lawn-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 21px;
+  position: relative;
+  min-height: 44px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.lawn-nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+}
+.lawn-nav a:last-child {
+  background: var(--lawn-green);
+  color: var(--lawn-forest);
+  padding: 10px 18px;
+  border-radius: 2px;
+}
+.lawn-nav a:last-child[aria-current="page"]::after {
+  bottom: 7px;
+  left: 18px;
+  right: 18px;
+}
+.lawn-grass-rail {
+  position: relative;
+  height: 44px;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--lawn-forest);
+}
+.lawn-grass {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.lawn-grass-tall {
+  height: 24px;
+  color: #709253;
+}
+.lawn-grass-short {
+  height: 10px;
+  color: #a5be75;
+}
+.lawn-mower-track {
+  position: absolute;
+  bottom: 4px;
+  width: 100%;
+  height: 43px;
+  transform: translateX(-80px);
+  opacity: 0;
+}
+.lawn-mower {
+  display: block;
+  width: 70px;
+  height: 44px;
+}
+.lawn-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  line-height: 1.7;
+  font-weight: 550;
+  text-transform: uppercase;
+}
+.lawn-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #66853c;
+}
+.lawn-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  min-height: 53px;
+  width: fit-content;
+  padding: 14px 21px;
+  border: 1px solid var(--lawn-forest);
+  border-radius: 2px;
+  background: var(--lawn-forest);
+  color: var(--lawn-ivory) !important;
+  font-size: 12px;
+}
+.lawn-button:hover {
+  background: #28543d;
+}
+.lawn-site .lawn-button:focus-visible {
+  outline-color: var(--lawn-forest);
+}
+.lawn-nav a:last-child:focus-visible {
+  outline-color: var(--lawn-green);
+}
+.lawn-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  min-height: 44px;
+  width: fit-content;
+  border-bottom: 1px solid var(--lawn-rule);
+  font-size: 12px;
+}
+.lawn-hero {
+  display: grid;
+  grid-template-columns: 1.04fr 1fr;
+  min-height: 650px;
+}
+.lawn-hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 59px 3cqi 23px 5cqi;
+}
+.lawn-hero-copy h1 {
+  margin-top: 31px;
+}
+.lawn-hero-copy > p:not(.lawn-eyebrow) {
+  max-width: 350px;
+  color: var(--lawn-muted);
+  font-size: 13px;
+  line-height: 1.85;
+  margin-top: 27px;
+}
+.lawn-hero-copy .lawn-button {
+  margin-block: 25px 45px;
+}
+.lawn-hero-footnote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 9px 18px;
+  padding-top: 17px;
+  border-top: 1px solid var(--lawn-rule);
+  margin-top: auto;
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  color: var(--lawn-muted);
+}
+.lawn-hero-footnote > span:last-child {
+  font-size: 9px;
+  letter-spacing: 0;
+}
+.lawn-hero-photo,
+.lawn-detail-photo {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: #687d4d;
+}
+.lawn-hero-photo::after,
+.lawn-detail-photo::after {
+  content: "";
+  position: absolute;
+  inset: 60% 0 0;
+  background: linear-gradient(transparent, #10291970);
+  pointer-events: none;
+}
+.lawn-hero-photo img,
+.lawn-detail-photo img,
+.lawn-cover-photo img {
+  object-fit: cover;
+}
+.lawn-hero-photo img {
+  object-position: 52% center;
+}
+.lawn-photo-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: absolute;
+  top: 32px;
+  right: 31px;
+  width: 190px;
+  padding: 20px 17px;
+  color: var(--lawn-forest);
+  background: var(--lawn-ivory);
+  border-radius: 2px;
+}
+.lawn-photo-note .lawn-mark {
+  width: 28px;
+  height: 37px;
+}
+.lawn-photo-note > span {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: 25px;
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+}
+.lawn-photo-label {
+  position: absolute;
+  z-index: 1;
+  bottom: 24px;
+  left: 30px;
+  color: white;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+}
+.lawn-services-preview {
+  padding: 87px 5cqi 85px;
+}
+.lawn-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 44px;
+}
+.lawn-section-heading h2 {
+  margin-top: 19px;
+}
+.lawn-section-heading > p {
+  max-width: 345px;
+  font-size: 13px;
+  color: var(--lawn-muted);
+  margin-bottom: 5px;
+}
+.lawn-service-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+.lawn-service-card {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-top: 24px;
+  border-top: 1px solid var(--lawn-rule);
+}
+.lawn-service-card > div {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 26px;
+}
+.lawn-service-card .lawn-service-mark {
+  color: var(--lawn-leaf);
+  width: 47px;
+  height: 47px;
+}
+.lawn-service-card > p {
+  max-width: 310px;
+  margin-block: 13px 20px;
+  color: var(--lawn-muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+.lawn-service-card .lawn-text-link {
+  margin-top: auto;
+}
+.lawn-detail-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--lawn-paper);
+}
+.lawn-detail-photo {
+  min-height: 550px;
+}
+.lawn-detail-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 65px 6cqi;
+}
+.lawn-detail-copy h2 {
+  margin-top: 26px;
+}
+.lawn-detail-copy > p:not(.lawn-eyebrow) {
+  color: var(--lawn-muted);
+  max-width: 370px;
+  font-size: 13px;
+  line-height: 1.85;
+  margin-block: 24px;
+}
+.lawn-closing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 70px 5cqi;
+}
+.lawn-closing > .lawn-mark {
+  width: 63px;
+  height: 73px;
+  color: var(--lawn-leaf);
+}
+.lawn-closing > div {
+  flex: 1;
+}
+.lawn-closing h2 {
+  margin-top: 13px;
+  font-size: clamp(36px, 3.8cqi, 56px);
+}
+.lawn-closing .lawn-button {
+  flex-shrink: 0;
+}
+.lawn-page-intro {
+  padding: 61px 5cqi 56px;
+}
+.lawn-page-intro > .lawn-eyebrow > span {
+  padding-right: 24px;
+  margin-right: 10px;
+  border-right: 1px solid var(--lawn-rule);
+}
+.lawn-page-intro > div {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 60px;
+  margin-top: 33px;
+}
+.lawn-page-intro h1 {
+  font-size: clamp(57px, 6.5cqi, 97px);
+}
+.lawn-intro-copy {
+  max-width: 340px;
+  color: var(--lawn-muted);
+  font-size: 13px;
+  padding-bottom: 5px;
+}
+.lawn-service-list {
+  padding: 0 5cqi 66px;
+}
+.lawn-service-row {
+  display: grid;
+  grid-template-columns: 0.45fr 1.1fr 1.25fr;
+  gap: 45px;
+  padding: 48px 0;
+  border-top: 1px solid var(--lawn-rule);
+  scroll-margin-top: 35px;
+}
+.lawn-service-number {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  gap: 28px;
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: 45px;
+  color: var(--lawn-leaf);
+}
+.lawn-service-number .lawn-service-mark {
+  margin-bottom: 10px;
+}
+.lawn-service-description h2 {
+  margin-top: 24px;
+  font-size: clamp(38px, 4.3cqi, 60px);
+}
+.lawn-service-description > p:last-child {
+  color: var(--lawn-muted);
+  font-size: 13px;
+  max-width: 345px;
+  margin-top: 20px;
+}
+.lawn-service-inclusions {
+  padding-top: 3px;
+}
+.lawn-service-inclusions ul {
+  padding: 0;
+  margin: 20px 0;
+  list-style: none;
+}
+.lawn-service-inclusions li {
+  padding: 10px 0 10px 22px;
+  border-bottom: 1px solid var(--lawn-rule);
+  position: relative;
+  font-size: 12px;
+}
+.lawn-service-inclusions li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  color: var(--lawn-leaf);
+}
+.lawn-service-inclusions > p:not(.lawn-eyebrow) {
+  font-size: 12px;
+  color: var(--lawn-muted);
+}
+.lawn-service-inclusions strong {
+  font-weight: 550;
+  color: var(--lawn-ink);
+}
+.lawn-service-inclusions .lawn-text-link {
+  margin-top: 18px;
+}
+.lawn-process {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 66px 5cqi;
+  background: var(--lawn-paper);
+}
+.lawn-process h2 {
+  margin-top: 23px;
+}
+.lawn-process ol,
+.lawn-contact-guidance ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.lawn-process li,
+.lawn-contact-guidance li {
+  display: flex;
+  gap: 27px;
+  padding: 24px 0;
+  border-top: 1px solid var(--lawn-rule);
+}
+.lawn-process li > span,
+.lawn-contact-guidance li > span {
+  color: var(--lawn-leaf);
+  font-size: 11px;
+  margin-top: 3px;
+}
+.lawn-process h3,
+.lawn-contact-guidance h3 {
+  font-size: 17px;
+}
+.lawn-process li p,
+.lawn-contact-guidance li p {
+  font-size: 12px;
+  color: var(--lawn-muted);
+  margin-top: 10px;
+  max-width: 350px;
+}
+.lawn-gallery-notice {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  padding: 16px 20px;
+  margin: 0 5cqi 38px !important;
+  background: var(--lawn-paper);
+  color: var(--lawn-muted);
+  font-size: 11px;
+}
+.lawn-gallery-notice .lawn-dot {
+  margin-top: 6px;
+}
+.lawn-gallery-notice strong {
+  font-weight: 550;
+  color: var(--lawn-ink);
+}
+.lawn-work-gallery {
+  padding: 0 5cqi 70px;
+}
+.lawn-work-photo {
+  background: #687d4d;
+  overflow: hidden;
+}
+.lawn-work-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.lawn-work-feature .lawn-work-photo {
+  aspect-ratio: 1.98;
+}
+.lawn-work-feature figcaption {
+  display: grid;
+  grid-template-columns: 0.65fr 1.8fr auto;
+  gap: 30px;
+  align-items: start;
+  margin-top: 27px;
+}
+.lawn-work-feature h2 {
+  font-size: clamp(37px, 3.8cqi, 54px);
+}
+.lawn-work-feature figcaption .lawn-eyebrow {
+  margin-top: 8px;
+}
+.lawn-work-gallery figcaption p {
+  color: var(--lawn-muted);
+  font-size: 12px;
+  max-width: 460px;
+  margin-top: 18px;
+}
+.lawn-scene-label {
+  display: inline-block;
+  font-size: 9px;
+  color: var(--lawn-muted);
+  border: 1px solid var(--lawn-rule);
+  border-radius: 2px;
+  padding: 4px 9px;
+  margin-top: 5px;
+}
+.lawn-work-detail {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 6cqi;
+  margin-top: 70px !important;
+  padding-top: 70px;
+  border-top: 1px solid var(--lawn-rule);
+}
+.lawn-work-detail .lawn-work-photo {
+  aspect-ratio: 1.1;
+}
+.lawn-work-detail h2 {
+  margin-top: 28px;
+}
+.lawn-work-detail .lawn-scene-label {
+  margin-top: 27px;
+}
+.lawn-contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7cqi;
+  padding: 0 5cqi 80px;
+  align-items: start;
+}
+.lawn-contact-card {
+  padding: 40px 3.6cqi;
+  background: var(--lawn-forest);
+  color: var(--lawn-ivory);
+}
+.lawn-contact-card > .lawn-mark {
+  width: 47px;
+  height: 54px;
+  color: var(--lawn-green);
+  margin-bottom: 34px;
+}
+.lawn-contact-card h2 {
+  margin-top: 24px;
+}
+.lawn-contact-card em {
+  color: var(--lawn-green);
+}
+.lawn-demo-contact {
+  margin-top: 36px;
+  padding-block: 20px;
+  border-top: 1px solid #719276;
+  border-bottom: 1px solid #719276;
+}
+.lawn-demo-contact > span {
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  color: #c0d0b8;
+}
+.lawn-demo-contact > p {
+  margin-top: 5px;
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: clamp(29px, 3.6cqi, 47px);
+  letter-spacing: -0.035em;
+}
+.lawn-contact-explanation {
+  font-size: 12px;
+  color: #cad6c4;
+  margin-top: 23px !important;
+  max-width: 375px;
+}
+.lawn-contact-note {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  margin-top: 25px;
+  font-size: 10px;
+  color: #cad6c4;
+}
+.lawn-contact-note .lawn-dot {
+  margin-top: 5px;
+  background: var(--lawn-green);
+}
+.lawn-contact-guidance {
+  padding-top: 24px;
+}
+.lawn-contact-guidance h2 {
+  margin-top: 26px;
+}
+.lawn-contact-guidance > p:not(.lawn-eyebrow) {
+  margin-top: 24px;
+  color: var(--lawn-muted);
+  font-size: 13px;
+  max-width: 350px;
+}
+.lawn-contact-guidance ol {
+  margin-top: 35px;
+}
+.lawn-own-site {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  padding: 60px 5cqi;
+  background: var(--lawn-paper);
+}
+.lawn-own-site h2 {
+  margin-top: 22px;
+}
+.lawn-own-site > div > p:last-child {
+  max-width: 445px;
+  color: var(--lawn-muted);
+  font-size: 13px;
+  margin-top: 22px;
+}
+.lawn-own-site > .lawn-button {
+  flex-shrink: 0;
+}
+.lawn-footer {
+  background: var(--lawn-forest);
+  color: var(--lawn-ivory);
+  padding: 53px 5cqi 18px;
+}
+.lawn-footer-main {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 40px;
+  padding-bottom: 43px;
+}
+.lawn-footer-main > p {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: 35px;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+.lawn-footer-main em {
+  color: var(--lawn-green);
+}
+.lawn-footer nav {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  column-gap: 38px;
+  font-size: 11px;
+}
+.lawn-footer nav a {
+  min-height: 38px;
+}
+.lawn-footer nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.lawn-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: #c0d0b8;
+  font-size: 9px;
+  border-top: 1px solid #57715a;
+  padding-top: 12px;
+}
+.lawn-footer-bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 38px;
+}
+.lawn-footer-bottom .lawn-arrow {
+  width: 17px;
+  height: 17px;
+}
+
+/* The catalogue cover is a static miniature of the actual standalone design. */
+.design-cover.lawn-cover {
+  container-type: inline-size;
+  aspect-ratio: 1.25;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+}
+.lawn-cover .template-browser-bar {
+  background: #e7eadb;
+  color: #53674c;
+  border-color: #d1d7c3;
+}
+.lawn-cover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3cqi;
+  background: var(--lawn-forest);
+  color: var(--lawn-ivory);
+  padding: 4cqi 4.5cqi 1cqi;
+}
+.lawn-cover-header > strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.7cqi;
+  font-size: 2.4cqi;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+.lawn-cover-header .lawn-mark {
+  width: 4.3cqi;
+  height: 5cqi;
+  color: var(--lawn-green);
+}
+.lawn-cover-header > span {
+  font-size: 1.5cqi;
+}
+.lawn-cover-header b {
+  display: inline-block;
+  background: var(--lawn-green);
+  color: var(--lawn-forest);
+  margin-left: 2cqi;
+  padding: 1.4cqi 1.6cqi;
+  font-weight: 400;
+}
+.lawn-cover .lawn-grass-rail {
+  height: 3.5cqi;
+}
+.lawn-cover .lawn-grass-tall {
+  height: 2.5cqi;
+}
+.lawn-cover .lawn-grass-short {
+  height: 1cqi;
+}
+.lawn-cover-hero {
+  display: grid;
+  grid-template-columns: 1.04fr 1fr;
+  min-height: 50cqi;
+}
+.lawn-cover-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 5cqi 2cqi 3cqi 4.5cqi;
+}
+.lawn-cover-copy > span:first-child {
+  font-size: 1.2cqi;
+  letter-spacing: 0.13em;
+}
+.lawn-cover-copy > strong {
+  display: block;
+  margin-top: 3cqi;
+  font-size: 7.1cqi;
+  line-height: 0.94;
+}
+.lawn-cover-copy > p {
+  margin-top: 2.5cqi;
+  font-size: 1.65cqi;
+  line-height: 1.65;
+  max-width: 34cqi;
+  color: var(--lawn-muted);
+}
+.lawn-cover-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 3cqi;
+  padding: 1.5cqi 2cqi;
+  color: var(--lawn-ivory);
+  background: var(--lawn-forest);
+  font-size: 1.55cqi;
+  margin: 3cqi 0;
+}
+.lawn-cover-button .lawn-arrow {
+  width: 2.6cqi;
+  height: 2.6cqi;
+}
+.lawn-cover-copy > small {
+  width: 100%;
+  padding-top: 1.6cqi;
+  margin-top: auto;
+  border-top: 1px solid var(--lawn-rule);
+  font-size: 1.1cqi;
+  letter-spacing: 0.09em;
+}
+.lawn-cover-photo {
+  position: relative;
+  background: #687d4d;
+}
+.lawn-cover-photo > span {
+  position: absolute;
+  top: 3cqi;
+  right: 3cqi;
+  padding: 2.3cqi 2.8cqi;
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: 3cqi;
+  line-height: 0.93;
+  background: var(--lawn-ivory);
+}
+.lawn-cover-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4cqi;
+  padding: 3cqi 4.5cqi;
+  border-top: 1px solid var(--lawn-rule);
+}
+.lawn-cover-footer > span:first-child {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: 3.5cqi;
+  letter-spacing: -0.035em;
+}
+.lawn-cover-footer > span:last-child {
+  font-size: 1.1cqi;
+  letter-spacing: 0.08em;
+}
+.lawn-cover-footer .lawn-mark {
+  width: 3.2cqi;
+  height: 3.6cqi;
+  color: var(--lawn-leaf);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion="running"] .lawn-grass-rail-animated .lawn-mower-track {
+    animation: lawn-mower-pass 24s linear infinite;
+  }
+  html[data-motion="running"] .lawn-grass-rail-animated .lawn-grass-tall {
+    animation: lawn-grass-cut 24s linear infinite;
+  }
+  html[data-motion="running"] .lawn-site .lawn-arrow {
+    transition: transform 180ms ease;
+  }
+}
+@keyframes lawn-mower-pass {
+  0%,
+  3% {
+    transform: translateX(-80px);
+    opacity: 0;
+  }
+  3.1% {
+    opacity: 1;
+  }
+  28% {
+    transform: translateX(100%);
+    opacity: 1;
+  }
+  28.1%,
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+@keyframes lawn-grass-cut {
+  0%,
+  4% {
+    clip-path: inset(0 0 0 0);
+  }
+  28%,
+  86% {
+    clip-path: inset(0 0 0 100%);
+  }
+  86.1%,
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@media (max-width: 1000px) {
+  .lawn-nav {
+    gap: 22px;
+  }
+  .lawn-hero {
+    min-height: 595px;
+  }
+  .lawn-hero-copy {
+    padding-top: 44px;
+  }
+  .lawn-hero-copy > p:not(.lawn-eyebrow) {
+    max-width: 290px;
+  }
+  .lawn-photo-note {
+    right: 22px;
+    top: 24px;
+    width: 166px;
+    padding: 17px 12px;
+    gap: 12px;
+  }
+  .lawn-photo-note > span {
+    font-size: 22px;
+  }
+  .lawn-service-row {
+    grid-template-columns: 0.28fr 1fr 1.2fr;
+    gap: 28px;
+  }
+  .lawn-detail-copy {
+    padding-inline: 5cqi;
+  }
+  .lawn-detail-photo {
+    min-height: 490px;
+  }
+  .lawn-closing {
+    flex-wrap: wrap;
+  }
+  .lawn-closing > div {
+    flex-basis: 70%;
+  }
+  .lawn-closing .lawn-button {
+    margin-left: 93px;
+  }
+  .lawn-page-intro > div {
+    gap: 35px;
+  }
+  .lawn-intro-copy {
+    max-width: 285px;
+  }
+  .lawn-work-feature figcaption {
+    grid-template-columns: 0.7fr 1.7fr;
+  }
+  .lawn-work-feature figcaption > .lawn-scene-label {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 0;
+  }
+}
+@media (max-width: 760px) {
+  .lawn-header-inner {
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 23px;
+  }
+  .lawn-header .lawn-brand {
+    align-self: start;
+  }
+  .lawn-brand > span {
+    font-size: 17px;
+  }
+  .lawn-brand small {
+    font-size: 7px;
+  }
+  .lawn-brand .lawn-mark {
+    width: 34px;
+    height: 38px;
+  }
+  .lawn-nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .lawn-nav a {
+    font-size: 11px;
+  }
+  .lawn-nav a:last-child {
+    padding: 7px 12px;
+    gap: 13px;
+  }
+  .lawn-nav .lawn-arrow {
+    width: 17px;
+    height: 17px;
+  }
+  .lawn-grass-rail {
+    height: 39px;
+  }
+  .lawn-hero {
+    grid-template-columns: 1fr;
+  }
+  .lawn-hero-copy {
+    padding: 44px 6cqi 24px;
+  }
+  .lawn-site h1 {
+    font-size: clamp(63px, 11cqi, 83px);
+  }
+  .lawn-hero-copy h1 {
+    margin-top: 27px;
+  }
+  .lawn-hero-copy > p:not(.lawn-eyebrow) {
+    max-width: 360px;
+  }
+  .lawn-hero-copy .lawn-button {
+    margin-bottom: 32px;
+  }
+  .lawn-hero-footnote {
+    margin-top: 0;
+  }
+  .lawn-hero-photo {
+    min-height: 410px;
+  }
+  .lawn-hero-photo img {
+    object-position: center 65%;
+  }
+  .lawn-photo-label {
+    left: 6cqi;
+    bottom: 22px;
+  }
+  .lawn-photo-note {
+    right: 6cqi;
+  }
+  .lawn-services-preview {
+    padding: 56px 6cqi;
+  }
+  .lawn-section-heading {
+    display: block;
+    margin-bottom: 35px;
+  }
+  .lawn-section-heading > p {
+    margin-top: 23px;
+  }
+  .lawn-site h2 {
+    font-size: clamp(43px, 7.5cqi, 58px);
+  }
+  .lawn-service-cards {
+    grid-template-columns: 1fr;
+    gap: 29px;
+  }
+  .lawn-service-card {
+    padding-top: 19px;
+  }
+  .lawn-service-card > div {
+    margin-bottom: 10px;
+  }
+  .lawn-service-card > p {
+    max-width: 450px;
+    margin-bottom: 8px;
+  }
+  .lawn-service-card .lawn-service-mark {
+    width: 42px;
+    height: 42px;
+  }
+  .lawn-detail-feature {
+    grid-template-columns: 1fr;
+  }
+  .lawn-detail-photo {
+    min-height: 380px;
+  }
+  .lawn-detail-copy {
+    padding: 49px 6cqi 50px;
+  }
+  .lawn-closing {
+    padding: 47px 6cqi;
+    gap: 24px;
+    align-items: start;
+  }
+  .lawn-closing > .lawn-mark {
+    width: 41px;
+    height: 49px;
+    margin-top: 5px;
+  }
+  .lawn-closing h2 {
+    font-size: 39px;
+  }
+  .lawn-closing .lawn-button {
+    margin-left: 65px;
+  }
+  .lawn-page-intro {
+    padding: 43px 6cqi 39px;
+  }
+  .lawn-page-intro > div {
+    display: block;
+    margin-top: 28px;
+  }
+  .lawn-page-intro h1 {
+    font-size: clamp(57px, 9.8cqi, 78px);
+  }
+  .lawn-intro-copy {
+    max-width: 440px;
+    margin-top: 26px !important;
+  }
+  .lawn-service-list {
+    padding: 0 6cqi 30px;
+  }
+  .lawn-service-row {
+    grid-template-columns: 50px 1fr;
+    gap: 28px 20px;
+    padding-block: 33px;
+  }
+  .lawn-service-number {
+    justify-content: start;
+    font-size: 34px;
+  }
+  .lawn-service-number .lawn-service-mark {
+    width: 44px;
+    height: 44px;
+  }
+  .lawn-service-description h2 {
+    font-size: 43px;
+    margin-top: 15px;
+  }
+  .lawn-service-inclusions {
+    grid-column: 2;
+  }
+  .lawn-service-inclusions > .lawn-eyebrow {
+    font-size: 8px;
+  }
+  .lawn-service-inclusions ul {
+    margin-top: 12px;
+  }
+  .lawn-process {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding: 45px 6cqi;
+  }
+  .lawn-process li {
+    padding-block: 20px;
+  }
+  .lawn-gallery-notice {
+    margin: 0 6cqi 26px !important;
+    padding: 15px;
+  }
+  .lawn-work-gallery {
+    padding: 0 6cqi 40px;
+  }
+  .lawn-work-feature .lawn-work-photo {
+    aspect-ratio: 1.1;
+  }
+  .lawn-work-feature figcaption {
+    display: block;
+    margin-top: 19px;
+  }
+  .lawn-work-feature h2 {
+    margin-top: 18px;
+    font-size: 42px;
+  }
+  .lawn-work-feature figcaption > .lawn-scene-label {
+    margin-top: 20px;
+  }
+  .lawn-work-detail {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-top: 37px !important;
+    padding-top: 37px;
+  }
+  .lawn-work-detail h2 {
+    font-size: 42px;
+    margin-top: 19px;
+  }
+  .lawn-contact-layout {
+    grid-template-columns: 1fr;
+    gap: 38px;
+    padding: 0 6cqi 44px;
+  }
+  .lawn-contact-card {
+    padding: 29px 6cqi 34px;
+  }
+  .lawn-contact-card > .lawn-mark {
+    margin-bottom: 25px;
+  }
+  .lawn-contact-card h2 {
+    font-size: clamp(42px, 9cqi, 57px);
+  }
+  .lawn-demo-contact > p {
+    font-size: clamp(30px, 8cqi, 45px);
+  }
+  .lawn-contact-guidance {
+    padding-top: 0;
+  }
+  .lawn-contact-guidance h2 {
+    margin-top: 17px;
+  }
+  .lawn-own-site {
+    display: block;
+    padding: 43px 6cqi;
+  }
+  .lawn-own-site > .lawn-button {
+    margin-top: 27px;
+  }
+  .lawn-footer {
+    padding: 42px 6cqi 18px;
+  }
+  .lawn-footer-main {
+    flex-wrap: wrap;
+    gap: 28px;
+    padding-bottom: 29px;
+  }
+  .lawn-footer-main .lawn-brand {
+    width: 100%;
+  }
+  .lawn-footer-main > p {
+    flex: 1;
+    font-size: 31px;
+  }
+  .lawn-footer nav {
+    gap: 0 20px;
+  }
+  .lawn-footer-bottom {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 380px) {
+  .lawn-nav {
+    gap: 6px;
+  }
+  .lawn-nav a {
+    font-size: 10px;
+  }
+  .lawn-nav a:last-child {
+    gap: 7px;
+    padding-inline: 10px;
+  }
+  .lawn-site h1 {
+    font-size: 58px;
+  }
+  .lawn-hero-photo {
+    min-height: 340px;
+  }
+  .lawn-closing {
+    display: block;
+  }
+  .lawn-closing > .lawn-mark {
+    margin-bottom: 20px;
+  }
+  .lawn-closing .lawn-button {
+    margin: 24px 0 0;
+  }
+  .lawn-service-row {
+    grid-template-columns: 38px 1fr;
+    gap: 25px 14px;
+  }
+  .lawn-service-description h2 {
+    font-size: 39px;
+  }
+  .lawn-footer-main > p {
+    font-size: 27px;
+  }
+}

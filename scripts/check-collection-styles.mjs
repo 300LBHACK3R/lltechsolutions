@@ -19,6 +19,7 @@ const routes = new Map([
       "template-category-list",
       "template-category-photo",
       "collection-customization",
+      "collection-contact-options",
     ],
   ],
   [
@@ -31,6 +32,7 @@ const routes = new Map([
       "paint-cover",
       "plumb-cover",
       "earth-cover",
+      "lawn-cover",
     ],
   ],
   [
@@ -50,6 +52,10 @@ const routes = new Map([
   ],
   ["/website-collection/structure", ["plumb-cover", "template-detail-header"]],
   ["/website-collection/earthworks", ["earth-cover", "earth-cover-hero", "template-detail-header"]],
+  [
+    "/website-collection/lawncare",
+    ["lawn-cover", "template-detail-header", "collection-contact-options"],
+  ],
   ["/website-collection/still", ["design-preview-viewport", "design-name-field"]],
   ["/website-collection/calgary-hot-shot", ["live-demo-scroll"]],
   ["/website-collection/tow-n-go", ["project-video", "design-detail-scope"]],

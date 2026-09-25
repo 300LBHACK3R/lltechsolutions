@@ -1,5 +1,6 @@
 import Link from "next/link";
 import DesignCover from "@/components/collection/DesignCover";
+import CollectionContactOptions from "@/components/collection/CollectionContactOptions";
 import {
   categoryHref,
   collectionInquiryHref,
@@ -8,6 +9,7 @@ import {
   collectionCustomization,
   collectionTiers,
   designHref,
+  designContactLabel,
   designPrice,
   designPriceContext,
   designStatusLabel,
@@ -104,10 +106,13 @@ export default function CollectionCatalog({
         </form>
       )}
       {designs.length > 0 && (
-        <div className="collection-result-count">
-          <p>{collectionPricingNote}</p>
-          <p>{collectionCustomization.short}</p>
-        </div>
+        <>
+          <div className="collection-result-count">
+            <p>{collectionPricingNote}</p>
+            <p>{collectionCustomization.short}</p>
+          </div>
+          <CollectionContactOptions />
+        </>
       )}
       {filtered.length === 0 ? (
         <div className="collection-no-results">
@@ -162,6 +167,9 @@ export default function CollectionCatalog({
                   {designPrice(design)}
                   <span>{designPriceContext(design)}</span>
                   <span>{designScopeLabel(design)} · Personalized with L&L</span>
+                </p>
+                <p className="collection-contact-summary">
+                  New build · {designContactLabel(design)}
                 </p>
                 <div className="template-card-actions">
                   <Link className="button button-outline" href={designHref(design)}>

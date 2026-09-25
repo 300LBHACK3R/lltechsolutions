@@ -63,3 +63,12 @@
 - Confirm Construction & Trades and Home & Property both include the seven-page Excavation & Landscaping template at From $1,000 CAD. Sorting and the contact prefill must retain that canonical price.
 - On the separate earthworks demo, test Home, Services, Projects, Materials, Process, FAQ and Contact, refresh and browser Back. Test the visual service and materials selectors, project filters, FAQ expand/collapse, project-outline choices, clipboard success/failure and reduced motion. The outline is local only and does not submit a booking.
 - Verify only the actual public earthworks deployment URL is recorded in `src/data/earthworks-demo.json`. Keep its link absent until verified; deploy only to the separate `ll-earthworks-template` project.
+
+## Lawn Care and contact scope
+
+- Confirm $499, four pages and direct contact on the Lawn Care card, detail, comparison and enquiry. Check both trades and property categories. Low/high price ordering must keep Lawn Care before Painting Company within the $499 group.
+- Check direct contact on $299–$499 new-build offers and standard protected enquiry form setup on current $699+ offers. Optional form upgrades, monthly care and provider fees must remain separately scoped. Original client case studies must retain their facts.
+- Build the standalone Lawn Care export and run its checker. Review Home, Services, Our Work and Contact at narrow and wide widths. Check all nav links, service anchors, focus outlines and L&L enquiry handoff. The reserved sample email must remain labelled and inert.
+- Review the grass/mower animation with motion on, paused and reduced motion. Navigation must remain usable with animation disabled, keyboard input and JavaScript disabled.
+- Confirm no public live-demo link is shown before a verified deployment URL is configured. Review real screenshots once supplied. Static demo routes require noindex and the maintained security headers.
+- Browser rendering, real mobile/Safari/Firefox behavior, Windows script execution and public deployment require separate verification; build and HTTP checks alone do not establish them.

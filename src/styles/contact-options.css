@@ -1,0 +1,53 @@
+/* Shared new-build contact scope; native disclosure keeps browsing compact. */
+.collection-contact-options {
+  margin-block: 22px;
+  padding-block: 18px;
+  border-block: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--muted);
+}
+.collection-contact-options-summary {
+  max-width: 940px;
+}
+.collection-contact-options-summary strong {
+  color: var(--text);
+  font-weight: 500;
+}
+.collection-contact-options summary {
+  width: fit-content;
+  min-height: 44px;
+  padding-block: 12px;
+  color: var(--gold-light);
+}
+.collection-contact-options-detail {
+  display: grid;
+  gap: 12px;
+  max-width: 940px;
+  padding-bottom: 8px;
+}
+.collection-contact-options-detail dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 32px;
+  margin: 0 0 6px;
+}
+.collection-contact-options-detail dt {
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.collection-contact-options-detail dd {
+  margin: 0;
+  line-height: 1.75;
+}
+.collection-design .collection-contact-summary {
+  font-size: 12px;
+  color: var(--gold-light);
+  margin-block: -12px 18px;
+}
+@media (max-width: 699px) {
+  .collection-contact-options-detail dl {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

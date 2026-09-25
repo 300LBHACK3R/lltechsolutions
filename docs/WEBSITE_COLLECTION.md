@@ -144,6 +144,7 @@ The following starting-price schedule reflects the current catalogue. These figu
 | -------------------------------- | -------------------: | ----------------------------------------------------- |
 | Massage Practice                 |                 $299 | New personalization and launch                        |
 | Calgary Hot Shot                 |                 $399 | New personalization and launch                        |
+| Lawn Care                        |                 $499 | New personalization and launch; four demo pages       |
 | Painting Company                 |                 $499 | New personalization and launch                        |
 | Plumbing Company                 |                 $699 | New personalization and launch                        |
 | Crestline Painting reference     |                 $399 | A similar new website with the prospect’s own content |
@@ -153,7 +154,7 @@ The following starting-price schedule reflects the current catalogue. These figu
 
 The sole editable price field is `startingPriceCad` in `src/data/website-collection.ts`. Cards, design pages, comparison, the guided proposal summary and prefilled enquiries use that value. Prices remain starting points: final scope, optional extras, ongoing care, hosting, domains and provider charges are agreed separately. The client examples keep their real-client labels and original media; their brands, reviews and client-specific assets are not sold.
 
-Each populated business gallery has a labelled native **Sort by price** control. Low to high is the default; high to low is available. Press **Apply filters** to apply it together with business type and design level. The GET URL preserves the selection and works without JavaScript. Invalid or repeated sort parameters fall back to low to high. Unpriced future additions stay last in either order. Sorting does not mutate the catalogue; equal prices preserve their original order. The landing page retains category browsing.
+Each populated business gallery has a labelled native **Sort by price** control. Low to high is the default; high to low is available. Press **Apply filters** to apply it together with business type and design level. The GET URL preserves the selection and works without JavaScript. Invalid or repeated sort parameters fall back to low to high. Unpriced future additions stay last in either order. Sorting does not mutate the catalogue; equal prices preserve their source order in both directions. Put a new entry before an existing entry at the same price when it should lead that price group. Lawn Care is immediately before Painting Company at $499. The landing page retains category browsing.
 
 Category metadata keeps the clean category canonical URL. ItemList structured data follows the displayed order. No Product/Offer markup or ranking claims have been added. Enquiry prices come from catalogue data; arbitrary URL prices are ignored. Contact requests remain ordinary editable enquiries, not binding orders or payment submissions.
 
@@ -232,3 +233,21 @@ The Windows publisher reads Vercel's production alias and checks all seven pages
 ## Latest premium refinement verification
 
 The homepage repetition and main-site Process route were removed, navigation was reordered, and Earthworks expanded to seven demo pages while retaining its $1,000 CAD starting scope and verified URL. Formatting, validation across 111 source files, zero-warning ESLint, TypeScript, 32 tests, the main production build, delivered CSS checks and 142 HTTP/link checks passed. The separate seven-page Earthworks build and export checks passed, including distinct Materials and FAQ content. The dependency audit reported zero vulnerabilities. No external email was sent. Browser rendering was not verified because the preview browser blocked local access; live deployment and device review remain separate checks.
+
+## Lawn Care — $499 template and contact scopes
+
+Lawn Care (`lawncare`) is the four-page option for lawn mowing, edging and seasonal cleanup. It is listed under Construction & Trades and Home & Property. The trades gallery now has five designs; no sixth design or placeholder offer has been invented. Default sorting is low to high: Crestline reference $399, Lawn Care $499, Painting Company $499, Plumbing Company $699, Excavation & Landscaping $1,000.
+
+The sample identity is LAWN STUDIO. Forest green, ivory and fresh green are scoped to this demo; L&L keeps its black-and-gold brand. The decorative navigation grass is cut by a small periodic mower animation, gated by the existing motion setting and prefers-reduced-motion. The four routes are `/`, `/services`, `/our-work` and `/contact`. The imagery is generated illustration for a sample business, not completed client work or before/after evidence. The reserved sample email is clearly labelled and does not send mail; the real L&L enquiry action retains the selected design.
+
+Build with `node scripts/prepare-lawncare-demo.mjs`, install/build inside `build/lawncare-demo`, and run `node scripts/check-lawncare-demo.mjs` from the main repository. Publish only the exported `out/` contents to the separate `ll-lawncare-template` Vercel project. The static demo carries noindex and security headers. `src/data/lawncare-demo.json` starts with a null URL and no screenshots. The main site shows a labelled cover until captures are supplied; it only displays **View live demo** after a public URL is configured. The Windows publisher checks the four public routes and headers before saving the URL, preserving screenshot entries. Put real captures in `public/images/templates/lawncare/` using its README.
+
+### Contact setup for new builds
+
+`contactMode` in the canonical catalogue defines each offer; a query string cannot change it. New offers from $299–$499 include a contact page with call/email links and an appropriate external booking link. Current $699-and-up offers include a standard enquiry form to one business inbox, Resend/sending-domain configuration, validation, spam controls and an initial delivery test as launch work. These are scope definitions for future customer builds, not claims that the static demonstrations deliver contractor enquiries. Existing client case-study facts and signed scopes are not changed.
+
+A form can be added to a direct-contact offer by quote. Advanced fields, uploads, CRM routing, automation and other integrations require their own scope at any price. Ongoing maintenance and delivery checks are optional, separately scoped care work. No unlimited support, response SLA or new monthly fee has been invented. Domain and provider fees are separate; a provider free allowance is not free setup or ongoing management. Baseline responsive design, metadata, SEO and security checks apply across all prices. Form-specific controls apply where a form exists.
+
+Cards, details, comparison, proposal summaries and enquiry prefills share these definitions. The guided enquiry offers an optional form/workflow upgrade without adding an invented fixed price. Public starting prices do not promise exact search rankings, delivery schedules, Lighthouse scores or uninterrupted email delivery.
+
+Resend implementation reference: [verified sending domains](https://resend.com/docs/dashboard/domains/introduction). Check the provider's current limits and costs when scoping a launch.

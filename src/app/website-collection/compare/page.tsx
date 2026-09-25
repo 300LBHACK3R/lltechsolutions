@@ -1,11 +1,14 @@
 import Link from "next/link";
 import DesignCover from "@/components/collection/DesignCover";
+import CollectionContactOptions from "@/components/collection/CollectionContactOptions";
 import {
   availableDesigns,
   collectionTiers,
   collectionPricingNote,
   compareSelection,
   designHref,
+  designContactDescription,
+  designContactLabel,
   designPrice,
   designPriceContext,
   designScopeLabel,
@@ -37,6 +40,7 @@ export default async function ComparePage({
       <h1>Find your fit.</h1>
       <p>Compare two or three designs. Every level includes the same core launch checks.</p>
       <p className="collection-fineprint">{collectionPricingNote}</p>
+      <CollectionContactOptions />
       <details className="compare-picker" open={!valid}>
         <summary>{valid ? "Change your shortlist" : "Choose two or three designs"}</summary>
         {selection.tooMany && (
@@ -81,6 +85,11 @@ export default async function ComparePage({
                   <dd>{designScopeLabel(design)}</dd>
                   <dt>{designPriceContext(design)}</dt>
                   <dd>{designPrice(design)}</dd>
+                  <dt>Contact setup for your new build</dt>
+                  <dd>
+                    <strong>{designContactLabel(design)}.</strong>{" "}
+                    {designContactDescription(design)}
+                  </dd>
                   <dt>Key inclusions</dt>
                   <dd>
                     <ul>
