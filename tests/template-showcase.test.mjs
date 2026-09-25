@@ -60,3 +60,27 @@ test("standalone painting destinations round-trip and unknown routes are rejecte
   assert.equal(paintingPageFromPath(["services", "unknown"]), null);
   assert.equal(paintingPageFromPath(["admin"]), null);
 });
+
+test("plumbing screenshots are isolated to their own upload folder", () => {
+  const shot = {
+    src: "/images/templates/structure/home-desktop.webp",
+    alt: "Plumbing homepage",
+    caption: "Home / desktop",
+    width: 1440,
+    height: 960,
+  };
+  assert.deepEqual(readTemplateShowcase({ screenshots: [shot] }, "structure").screenshots, [shot]);
+  assert.deepEqual(readTemplateShowcase({ screenshots: [shot] }, "pigment").screenshots, []);
+  assert.deepEqual(
+    readTemplateShowcase(
+      { screenshots: [{ ...shot, src: "/images/templates/structure/../private.png" }] },
+      "structure",
+    ).screenshots,
+    [],
+  );
+  const config = JSON.parse(fs.readFileSync("src/data/plumbing-demo.json", "utf8"));
+  const parsed = readTemplateShowcase(config, "structure");
+  assert.equal(parsed.url, config.url);
+  assert.equal(parsed.screenshots.length, config.screenshots.length);
+  for (const image of parsed.screenshots) assert.ok(fs.existsSync(path.join("public", image.src)));
+});

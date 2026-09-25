@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import DesignPreview from "@/components/collection/DesignPreview";
-import PaintingShowcase from "@/components/collection/PaintingShowcase";
+import TemplateShowcase from "@/components/collection/TemplateShowcase";
 import paintingDemo from "@/data/painting-demo.json";
+import plumbingDemo from "@/data/plumbing-demo.json";
 import { readTemplateShowcase } from "@/lib/template-showcase";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import CostSummary from "@/components/collection/CostSummary";
@@ -45,7 +46,12 @@ export default async function DesignPage({ params }: Props) {
   const { design: id } = await params;
   const design = availableDesigns().find((item) => item.id === id);
   if (!design) notFound();
-  const painting = design.id === "pigment" ? readTemplateShowcase(paintingDemo) : null;
+  const media =
+    design.id === "pigment"
+      ? readTemplateShowcase(paintingDemo)
+      : design.id === "structure"
+        ? readTemplateShowcase(plumbingDemo, "structure")
+        : null;
   const category = categoryForIndustry(design.industry);
   const clientProject = design.clientProjectId
     ? projects.find(
@@ -89,10 +95,10 @@ export default async function DesignPage({ params }: Props) {
             >
               {designInquiryLabel(design)} ↗
             </Link>
-            {painting?.url && (
+            {media?.url && (
               <a
                 className="button button-outline"
-                href={painting.url}
+                href={media.url}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -110,14 +116,14 @@ export default async function DesignPage({ params }: Props) {
           <div className="collection-heading">
             <div>
               <p className="eyebrow">
-                {painting ? "The design, in detail" : "Look around, right here"}
+                {media ? "The design, in detail" : "Look around, right here"}
               </p>
               <h2 id="preview-title">
-                {painting ? "Picture your business here." : "See how it feels."}
+                {media ? "Picture your business here." : "See how it feels."}
               </h2>
             </div>
             <p>
-              {painting
+              {media
                 ? "Explore the design, look through the available screenshots and try the demo before we make it yours."
                 : clientProject
                   ? "Watch the existing website walkthrough here, then explore the live site or the full client story."
@@ -126,8 +132,8 @@ export default async function DesignPage({ params }: Props) {
                     : "Scroll through the actual demo below, or open it to try the navigation and interactions."}
             </p>
           </div>
-          {painting ? (
-            <PaintingShowcase design={design} media={painting} />
+          {media ? (
+            <TemplateShowcase design={design} media={media} />
           ) : clientProject ? (
             <>
               <p className="collection-fineprint">

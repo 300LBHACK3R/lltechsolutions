@@ -12,7 +12,10 @@ export type TemplateShowcase = {
 };
 
 /** Only configured public HTTPS demos and local screenshot assets reach the page. */
-export function readTemplateShowcase(value: unknown): TemplateShowcase {
+export function readTemplateShowcase(
+  value: unknown,
+  designId: "pigment" | "structure" = "pigment",
+): TemplateShowcase {
   if (!value || typeof value !== "object") return { url: null, screenshots: [] };
   const config = value as Record<string, unknown>;
   let url: string | null = null;
@@ -30,9 +33,10 @@ export function readTemplateShowcase(value: unknown): TemplateShowcase {
         const image = item as Record<string, unknown>;
         return (
           typeof image.src === "string" &&
-          /^\/images\/templates\/pigment\/[a-z0-9][a-z0-9-]*\.(?:webp|png|jpe?g)$/i.test(
-            image.src,
-          ) &&
+          new RegExp(
+            `^/images/templates/${designId}/[a-z0-9][a-z0-9-]*\\.(?:webp|png|jpe?g)$`,
+            "i",
+          ).test(image.src) &&
           typeof image.alt === "string" &&
           image.alt.trim().length > 0 &&
           typeof image.caption === "string" &&

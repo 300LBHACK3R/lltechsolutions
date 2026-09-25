@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { WebsiteDesign } from "@/data/website-collection";
+import PlumbingCover from "@/components/collection/PlumbingCover";
 import PaintingCover from "@/components/collection/PaintingCover";
 
 /** Decorative miniature; the surrounding card supplies its accessible name and description. */
@@ -18,6 +19,7 @@ export default function DesignCover({ design }: { design: WebsiteDesign }) {
   }
   if (!concept) return null;
   if (concept.theme === "pigment") return <PaintingCover design={design} />;
+  if (concept.theme === "structure") return <PlumbingCover design={design} />;
   return (
     <div className={`design-cover design-theme-${concept.theme}`} aria-hidden="true">
       <div className="template-browser-bar">

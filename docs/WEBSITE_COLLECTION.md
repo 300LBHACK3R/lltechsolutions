@@ -5,7 +5,7 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 ## The visitor journey
 
 1. Open Website Templates after Our Clients in the navigation. The introduction pairs the approved headline with selectable real-client previews. A compact process strip explains the next steps, followed by wide photographic business-category links.
-2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Construction & Plumbing, Massage Practice, Calgary Hot Shot, Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage. Category filtering stays on the gallery page, not the landing page.
+2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Plumbing Company, Massage Practice, Calgary Hot Shot, Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage. Category filtering stays on the gallery page, not the landing page.
 3. Open a template to explore its inline pages and Phone/Fit screen views. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
 4. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
 
@@ -15,11 +15,11 @@ No account, extra analytics, tracking pixels, new application dependencies or up
 
 The category banners are generated industry illustrations, not photographs of client premises or completed projects. Their sources are documented in `docs/TEMPLATE_CATEGORY_IMAGES.md`. They load from local optimized WebP files through Next Image. Desktop strips use a shaded text area and a small hover zoom for a fine pointer; on mobile the panorama sits above the copy, preserving the range of subjects. Reduced-motion and forced-colour preferences are respected. The images are decorative because the adjacent heading and description provide the category's meaning.
 
-| Design                  | Main fit                              | Level     | Current status                             |
-| ----------------------- | ------------------------------------- | --------- | ------------------------------------------ |
-| Painting Company        | Painting                              | Signature | Interactive concept; launch pricing quoted |
-| Construction & Plumbing | Construction, also shown for Plumbing | Premier   | Interactive concept; launch pricing quoted |
-| Massage Practice        | Massage & Wellness                    | Essential | Interactive concept; launch pricing quoted |
+| Design           | Main fit           | Level     | Current status                             |
+| ---------------- | ------------------ | --------- | ------------------------------------------ |
+| Painting Company | Painting           | Signature | Interactive concept; launch pricing quoted |
+| Plumbing Company | Plumbing           | Premier   | Interactive concept; launch pricing quoted |
+| Massage Practice | Massage & Wellness | Essential | Interactive concept; launch pricing quoted |
 
 These are original coded design studies with sample text, generic sample identities and generated illustrative photography. They are not client projects, ready-made client assets or complete production business sites. Contact layouts within the concept do not collect information. The actual pages, content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
 
@@ -101,7 +101,7 @@ The updater preserves a local backup, applies only this reviewed patch in a rele
 
 ## Realistic previews and live examples
 
-The Painting Company, Construction & Plumbing and Massage Practice concepts use photo-led previews and customer-facing sample copy. Visitors can try a business name locally in the preview; it is not stored or sent. Miniature typography scales against its card width to keep the title separate from the services strip. Massage has three page structures, with its approach included on Home.
+The Painting Company, Plumbing Company and Massage Practice concepts use photo-led previews and customer-facing sample copy. Visitors can try a business name locally in the preview; it is not stored or sent. Miniature typography scales against its card width to keep the title separate from the services strip. Massage has three page structures, with its approach included on Home.
 
 Transport & Logistics includes Calgary Hot Shot, the user-supplied live concept demo. Its card and scrollable detail preview use actual screenshots; the external link opens the interactive demo. It remains explicitly labelled as a concept with placeholder business details; its starting price applies to a new personalization and launch. Do not represent it as an approved client or a production launch.
 
@@ -144,8 +144,8 @@ This release prepares the following starting-price schedule for Tate to review w
 | Massage Practice                 |                 $299 | New personalization and launch                        |
 | Calgary Hot Shot                 |                 $399 | New personalization and launch                        |
 | Painting Company                 |                 $499 | New personalization and launch                        |
-| Construction & Plumbing          |                 $699 | New personalization and launch                        |
-| Crestline Painting reference     |                 $799 | A similar new website with the prospect’s own content |
+| Plumbing Company                 |                 $699 | New personalization and launch                        |
+| Crestline Painting reference     |                 $399 | A similar new website with the prospect’s own content |
 | Tow-N-Go Trailers reference      |                 $899 | A similar new website with the prospect’s own content |
 | McKenzie House Massage reference |                 $999 | A similar new website with the prospect’s own content |
 
@@ -199,3 +199,11 @@ node scripts/check-painting-demo.mjs
 The generator replaces only `build/painting-demo`, which is ignored by Git. Deploy its `out` folder as a separate static Vercel project, with the copied `vercel.json` headers. Do not deploy the parent L&L app as the demo. The supplied publisher verifies the actual public URL before recording it in the gallery config. It never invents a Vercel address. A successful L&L Git push still requires a Ready Vercel production deployment before the link appears on the live catalogue.
 
 September 21 verification: root formatting, import validation, lint, TypeScript, 27 unit tests, production build and 133 HTTP checks passed. The static demo exported all four pages with checked navigation, asset references, noindex and headers. Browser rendering and real device behaviour remain unverified because the supported browser could not open the local preview; repeat the release checklist on the deployed demo.
+
+## Plumbing template and preview repair — September 25, 2026
+
+The `structure` slug now presents the $699 CAD Plumbing Company example. Its own navy/teal, ivory and copper palette is scoped to the template; L&L stays black and gold. Four sample pages share the same components in the catalogue and separate static demo. The copper pipe navigation supports keyboard use, and motion respects the visitor’s reduced-motion choice and L&L motion control. Images are illustrative, not claimed completed client work.
+
+`src/data/plumbing-demo.json` holds only the verified public demo URL and screenshot metadata. Upload captures to `public/images/templates/structure/`; see its README. Build the independent demo with `node scripts/prepare-plumbing-demo.mjs`, install and build within `build/plumbing-demo`, then run `node scripts/check-plumbing-demo.mjs` from the main repository. Deploy only its exported `out/` contents to the separate `ll-plumbing-template` Vercel project.
+
+Painting and plumbing share the accessible “Try this design here” dialog with a persistent close button, Escape support and focus restoration. The collection canvas no longer shares the unrelated portfolio fullscreen-dialog class. The Crestline example now starts at $399 CAD; this is the starting price for a similar new website with the prospect’s own content.

@@ -27,6 +27,7 @@ const routes = new Map([
       "design-cover",
       "template-mini-hero",
       "paint-cover",
+      "plumb-cover",
     ],
   ],
   [
@@ -44,6 +45,10 @@ const routes = new Map([
       "template-screenshot-main",
       "design-name-field",
     ],
+  ],
+  [
+    "/website-collection/structure",
+    ["plumb-site", "plumb-nav", "plumb-hero", "template-preview-dialog"],
   ],
   ["/website-collection/calgary-hot-shot", ["live-demo-scroll"]],
   ["/website-collection/tow-n-go", ["project-video", "design-detail-scope"]],

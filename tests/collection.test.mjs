@@ -327,7 +327,10 @@ for (const [id, industry] of [
     assert.equal(designInquiryLabel(design), "Build something like this");
     assert.equal(designScopeLabel(design), "Pages scoped to your business");
     assert.ok(!publishedDesigns().includes(design));
-    assert.ok(!filterDesigns([design], { budget: "under-500" }).includes(design));
+    assert.equal(
+      filterDesigns([design], { budget: "under-500" }).includes(design),
+      id === "crestline",
+    );
     assert.ok(categoryDesigns(categoryForIndustry(industry)).includes(design));
     assert.ok(filterDesigns([design], { industry }).includes(design));
     const inquiry = journeyInquiry(design, [], "none");

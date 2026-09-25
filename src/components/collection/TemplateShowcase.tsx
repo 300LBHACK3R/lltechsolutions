@@ -1,22 +1,28 @@
 import Link from "next/link";
-import PaintingCover from "@/components/collection/PaintingCover";
-import DesignPreview from "@/components/collection/DesignPreview";
+import DesignCover from "@/components/collection/DesignCover";
+import InteractiveDesignPreview from "@/components/collection/InteractiveDesignPreview";
 import TemplateScreenshotGallery from "@/components/collection/TemplateScreenshotGallery";
-import { collectionInquiryHref, type WebsiteDesign } from "@/data/website-collection";
-import type { TemplateShowcase } from "@/lib/template-showcase";
+import {
+  collectionInquiryHref,
+  collectionTiers,
+  type WebsiteDesign,
+} from "@/data/website-collection";
+import type { TemplateShowcase as ShowcaseMedia } from "@/lib/template-showcase";
 
-export default function PaintingShowcase({
+export default function TemplateShowcase({
   design,
   media,
 }: {
   design: WebsiteDesign;
-  media: TemplateShowcase;
+  media: ShowcaseMedia;
 }) {
   return (
     <>
       <div className="template-showcase-actions">
         <div>
-          <span className="eyebrow">Painting Company / Signature</span>
+          <span className="eyebrow">
+            {design.name} / {collectionTiers.find((tier) => tier.id === design.tier)?.name}
+          </span>
           <p>Explore the look. Picture your business here.</p>
         </div>
         <div className="button-row">
@@ -43,20 +49,13 @@ export default function PaintingShowcase({
         <TemplateScreenshotGallery images={media.screenshots} />
       ) : (
         <figure className="template-design-overview">
-          <PaintingCover design={design} />
+          <DesignCover design={design} />
           <figcaption>
-            Design preview — explore the pages and brush navigation in the interactive demo.
+            Design preview — explore the pages and interactive navigation in the demo.
           </figcaption>
         </figure>
       )}
-      <details className="template-interactive-preview" id="interactive-preview" open={!media.url}>
-        <summary>
-          Try this design here <span aria-hidden="true">+</span>
-        </summary>
-        <div>
-          <DesignPreview design={design} />
-        </div>
-      </details>
+      <InteractiveDesignPreview design={design} liveDemoUrl={media.url ?? undefined} />
     </>
   );
 }

@@ -304,12 +304,11 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
   {
     id: "structure",
     status: "concept",
-    name: "Construction & Plumbing",
+    name: "Plumbing Company",
     tier: "premier",
-    industry: "construction",
-    additionalIndustries: ["plumbing"],
+    industry: "plumbing",
     description:
-      "A precise, architectural direction for contractors and plumbing businesses with substantial work to show.",
+      "An immersive plumbing website with copper pipe navigation, rich architectural imagery and a clear journey from services to a project enquiry.",
     startingPriceCad: 699,
     pageCount: 4,
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
@@ -317,48 +316,48 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     included: [
       "Home, services, project showcase and contact page structures",
       "Your business identity, supplied project content and service areas",
-      "A clear project enquiry journey",
+      "Pipe-inspired navigation, interactive service selection and a clear enquiry journey",
       "Responsive implementation, metadata, form validation and launch checks",
     ],
     customization: [
-      "Construction or plumbing service content",
+      "Your plumbing services and service-area content",
       "Your brand palette and business identity",
       "Project stories and supplied photography",
       "Project enquiry fields within the agreed scope",
     ],
     concept: {
       theme: "structure",
-      brands: ["BUILD STUDIO", "PLUMBING STUDIO"],
-      headlines: ["Considered work. Solid foundations.", "Well planned. Expertly connected."],
+      brands: ["COPPERLINE", "YOUR PLUMBING CO"],
+      headlines: ["Good plumbing. Beautifully considered.", "A better flow. A better home."],
       subcopy:
-        "Spaces built around the way you live. From an initial idea to the finishing details, start with a clear plan and a team that keeps you informed.",
-      kicker: "Building & renovation",
-      action: "Discuss your project",
+        "From a practical repair to a beautifully finished space. Thoughtful plumbing, clear conversations and details that make everyday life work better.",
+      kicker: "Residential & commercial plumbing",
+      action: "Plan your plumbing project",
       photo: {
-        src: "/images/collection/construction-home.webp",
-        alt: "Illustrative contemporary home with charcoal siding, stone and timber entry details",
+        src: "/images/collection/plumbing-interior.webp",
+        alt: "Illustrative bathroom with warm ivory stone, walnut cabinetry and brushed brass plumbing fixtures",
         width: 1536,
         height: 1024,
       },
       services: [
         {
-          name: "Project planning",
+          name: "Repairs & diagnostics",
           description:
-            "Talk through the space, priorities and practical requirements before agreeing on the scope and next steps.",
+            "Understand leaks, drainage concerns and everyday plumbing problems, then discuss the repair options and next steps.",
         },
         {
-          name: "Installation & improvements",
+          name: "Fixture installations",
           description:
-            "Thoughtful changes to kitchens, bathrooms and living spaces, with attention to the details you use every day.",
+            "Thoughtfully selected taps, sinks and fixtures, installed around the way you use your space.",
         },
         {
-          name: "Ongoing projects",
+          name: "Bathroom & kitchen plumbing",
           description:
-            "A coordinated schedule and clear progress updates, so you understand what is happening and what comes next.",
+            "Plumbing planned alongside your renovation, with the layout, connections and finishing details considered together.",
         },
       ],
       approach:
-        "Good work starts with understanding the brief. We plan around the property, agree on the scope and keep you involved as the project takes shape.",
+        "A good result starts with the connections you cannot see. Talk through the space, choose the right fixtures and plan the work with the practical details in mind.",
     },
   },
   {
@@ -504,7 +503,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["construction"],
     description:
       "A real painting-company website with architectural imagery, dedicated services and project galleries for commercial, strata, multi-family and custom-home work.",
-    startingPriceCad: 799,
+    startingPriceCad: 399,
     pageCount: null,
     deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
     preview: {

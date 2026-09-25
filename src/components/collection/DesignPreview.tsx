@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useId, useRef, useState } from "react";
 import type { WebsiteDesign } from "@/data/website-collection";
+import PlumbingTemplate from "@/components/collection/PlumbingTemplate";
 import PaintingTemplate from "@/components/collection/PaintingTemplate";
 
 export default function DesignPreview({ design }: { design: WebsiteDesign }) {
@@ -19,7 +20,7 @@ export default function DesignPreview({ design }: { design: WebsiteDesign }) {
   };
   const pages = ["Home", "Services", ...(concept.theme === "still" ? [] : ["Projects"]), "Contact"];
   return (
-    <div className="design-preview">
+    <div className="template-design-canvas">
       <div className="design-preview-toolbar">
         <label className="design-name-field" htmlFor={`${id}-business-name`}>
           Try your business name
@@ -60,6 +61,8 @@ export default function DesignPreview({ design }: { design: WebsiteDesign }) {
       <div className={`design-preview-viewport ${screen === "phone" ? "is-phone" : ""}`}>
         {concept.theme === "pigment" ? (
           <PaintingTemplate design={design} businessName={businessName} />
+        ) : concept.theme === "structure" ? (
+          <PlumbingTemplate design={design} businessName={businessName} />
         ) : (
           <div className={`design-canvas design-theme-${concept.theme}`}>
             <div className="demo-header">

@@ -168,6 +168,43 @@ try {
       painting.includes("Terracotta"),
     "painting: named accent controls",
   );
+  for (const id of ["pigment", "structure"]) {
+    const detail = htmlByRoute.get(`/website-collection/${id}`);
+    assert.match(
+      detail,
+      /<dialog[^>]*class="template-preview-dialog"/,
+      `${id}: contained preview dialog`,
+    );
+    assert.ok(detail.includes("Close preview"), `${id}: explicit exit control`);
+    assert.ok(
+      detail.includes('class="template-design-canvas"'),
+      `${id}: isolated collection canvas`,
+    );
+    assert.ok(!detail.includes('class="design-preview"'), `${id}: no portfolio CSS collision`);
+  }
+  const plumbing = htmlByRoute.get("/website-collection/structure");
+  assert.match(
+    plumbing,
+    /<nav class="plumb-nav"[\s\S]*?Home[\s\S]*?Services[\s\S]*?Projects[\s\S]*?Contact[\s\S]*?<\/nav>/,
+    "plumbing: four working preview destinations",
+  );
+  assert.ok(
+    plumbing.includes("plumb-nav-pipe") && plumbing.includes("plumb-service-description"),
+    "plumbing: themed navigation and service explorer",
+  );
+  const plumbingMedia = JSON.parse(
+    await readFile(new URL("../src/data/plumbing-demo.json", import.meta.url), "utf8"),
+  );
+  if (plumbingMedia.url)
+    assert.ok(
+      plumbing.includes(`href="${plumbingMedia.url}"`),
+      "plumbing: configured verified demo link",
+    );
+  else
+    assert.ok(
+      plumbing.includes("Explore interactive preview"),
+      "plumbing: interactive fallback until public deployment",
+    );
   const paintingGallery = htmlByRoute.get("/website-collection/category/construction-trades");
   assert.match(
     paintingGallery,
@@ -383,7 +420,7 @@ try {
     ["calgary-hot-shot", "transport-logistics", 399],
     ["pigment", "construction-trades", 499],
     ["structure", "construction-trades", 699],
-    ["crestline", "construction-trades", 799],
+    ["crestline", "construction-trades", 399],
     ["tow-n-go", "transport-logistics", 899],
     ["mckenzie-house", "health-wellness", 999],
   ];
@@ -406,7 +443,10 @@ try {
   }
   for (const category of ["construction-trades", "health-wellness", "transport-logistics"]) {
     const path = `/website-collection/category/${category}`;
-    const expected = templatePrices.filter(([, id]) => id === category).map(([id]) => id);
+    const expected = templatePrices
+      .filter(([, id]) => id === category)
+      .sort((a, b) => a[2] - b[2])
+      .map(([id]) => id);
     const ids = (html) =>
       [...html.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]);
     const defaultGallery = htmlByRoute.get(path);
@@ -599,7 +639,7 @@ try {
   );
   for (const [id, name] of [
     ["pigment", "Painting Company"],
-    ["structure", "Construction &amp; Plumbing"],
+    ["structure", "Plumbing Company"],
     ["still", "Massage Practice"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
