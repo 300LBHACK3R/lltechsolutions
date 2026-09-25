@@ -23,7 +23,6 @@
   }
   .service-detail p:not(.eyebrow),
   .capability-list li,
-  .process-step p,
   .investment-row p,
   .case-body dd {
     font-size: 16px;
@@ -130,13 +129,6 @@
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  .process-step {
-    grid-template-columns: 60px 1fr;
-    gap: 25px;
-  }
-  .process-step p {
-    grid-column: 2;
-  }
   .investment-row {
     grid-template-columns: 1fr 1fr;
     gap: 25px;
@@ -178,23 +170,6 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 16px;
-  }
-  .trust-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 22px;
-    padding-block: 27px;
-  }
-  .trust-inner > p br {
-    display: none;
-  }
-  .trust-inner > p span {
-    margin-left: 6px;
-  }
-  .client-links {
-    flex-wrap: wrap;
-    gap: 16px 25px;
-    font-size: 15px;
   }
 }
 @media (max-width: 599px) {
@@ -304,13 +279,6 @@
   }
   .case-description {
     font-size: 20px;
-  }
-  .process-step {
-    grid-template-columns: 35px 1fr;
-    gap: 20px;
-  }
-  .process-step > span {
-    font-size: 36px;
   }
   .investment-row {
     grid-template-columns: 1fr;

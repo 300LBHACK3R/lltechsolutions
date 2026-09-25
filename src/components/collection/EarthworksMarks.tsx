@@ -21,6 +21,22 @@ export function SurveyCross() {
     </svg>
   );
 }
+export function TerrainContours() {
+  return (
+    <svg className="earth-contours" viewBox="0 0 600 420" fill="none" aria-hidden="true">
+      <g stroke="currentColor" strokeWidth="1">
+        <path d="M-70 385C14 267 121 425 207 299S235 77 364 55s138 81 281-49" />
+        <path d="M-67 353C25 242 127 390 203 275S242 62 360 29s148 90 286-53" />
+        <path d="M-65 321C39 215 135 355 199 251S249 46 356 3s158 100 290-55" />
+        <path d="M-74 417C2 292 114 460 211 323S228 92 368 81s128 72 273-17" />
+        <path d="M-77 449C-10 317 107 495 215 347S221 107 372 107s118 63 265 15" />
+        <path d="M-80 481C-23 342 100 530 219 371S214 122 376 133s108 54 257 47" />
+        <path d="M-83 513C-36 367 93 565 223 395S207 137 380 159s98 45 249 79" />
+        <path d="M-86 545C-49 392 86 600 227 419S200 152 384 185s88 36 241 111" />
+      </g>
+    </svg>
+  );
+}
 export function EarthworksHeadline({ text }: { text: string }) {
   const split = text.indexOf(". ");
   return split < 0 ? (

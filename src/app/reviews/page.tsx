@@ -78,8 +78,8 @@ export default function ReviewsPage() {
             <Link href="/projects" className="text-link">
               Our clients ↗
             </Link>
-            <Link href="/process" className="text-link">
-              Our process ↗
+            <Link href="/services" className="text-link">
+              Our services ↗
             </Link>
           </nav>
         </div>

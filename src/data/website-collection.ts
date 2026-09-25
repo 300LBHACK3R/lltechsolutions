@@ -252,21 +252,23 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "excavation",
     additionalIndustries: ["landscaping", "construction"],
     description:
-      "An immersive excavation and landscaping website with cinematic site imagery, interactive service and project views, and a practical project planner that turns inspiration into a clear conversation.",
+      "An immersive seven-page excavation and landscaping website with cinematic site imagery, interactive service, project and material views, helpful answers and a practical project planner.",
     startingPriceCad: 1000,
-    pageCount: 5,
+    pageCount: 7,
     deliveryWindow: "Delivery is agreed after content, page requirements and scope are confirmed.",
     demoUrl: "/website-collection/earthworks#preview",
     included: [
-      "Five page structures: home, services, projects, process and contact",
+      "Seven page structures: home, services, projects, materials, process, FAQ and contact",
       "Your business identity, supplied photographs, project stories and service areas",
-      "Interactive service exploration, project presentation and a project-planning journey",
+      "Interactive service and material exploration, project presentation and a project-planning journey",
+      "A clear process page and client-approved FAQ content",
       "Responsive layouts, motion controls, metadata, enquiry validation and launch checks",
     ],
     customization: [
       "Your brand palette, logo, business name and approved copy",
       "Excavation, drainage, hardscape and landscaping service content",
       "Project photography, categories and accurate descriptions",
+      "Your material choices and answers to common customer questions",
       "Your enquiry workflow and service-area information within the agreed scope",
     ],
     concept: {

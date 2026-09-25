@@ -380,10 +380,11 @@ test("price sorting is numeric, stable and keeps unquoted options last in either
   );
 });
 
-test("earthworks is a five-page $1000 starting scope discoverable in trades and property", () => {
+test("earthworks is a seven-page $1000 starting scope discoverable in trades and property", () => {
   const design = availableDesigns().find((item) => item.id === "earthworks");
   assert.equal(design.startingPriceCad, 1000);
-  assert.equal(design.pageCount, 5);
+  assert.equal(design.pageCount, 7);
+  assert.equal(designScopeLabel(design), "7 page structures");
   for (const category of ["construction-trades", "home-property"])
     assert.ok(
       categoryDesigns(templateCategories.find((item) => item.id === category)).some(

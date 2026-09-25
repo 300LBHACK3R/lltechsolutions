@@ -1,4 +1,12 @@
-export const earthworksPages = ["Home", "Services", "Projects", "Process", "Contact"] as const;
+export const earthworksPages = [
+  "Home",
+  "Services",
+  "Projects",
+  "Materials",
+  "Process",
+  "FAQ",
+  "Contact",
+] as const;
 export type EarthworksPage = (typeof earthworksPages)[number];
 
 export function earthworksPagePath(page: EarthworksPage) {

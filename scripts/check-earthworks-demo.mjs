@@ -9,7 +9,9 @@ const routes = [
   ["index.html", "/"],
   ["services.html", "/services"],
   ["projects.html", "/projects"],
+  ["materials.html", "/materials"],
   ["process.html", "/process"],
+  ["faq.html", "/faq"],
   ["contact.html", "/contact"],
 ];
 
@@ -48,6 +50,14 @@ assert.ok(contact.includes("not an earthworks contractor"), "Demo is clearly ide
 assert.ok(contact.includes("Nothing is submitted"), "Interactive planner is local-only");
 const projects = await readFile(resolve(output, "projects.html"), "utf8");
 assert.ok(projects.includes("not completed client projects"), "Project imagery is illustrative");
+const materials = await readFile(resolve(output, "materials.html"), "utf8");
+assert.ok(
+  materials.includes('aria-label="Choose a material direction"'),
+  "Materials has its own palette explorer rather than falling through to another page",
+);
+const faq = await readFile(resolve(output, "faq.html"), "utf8");
+assert.ok(faq.includes('aria-label="Filter questions by topic"'), "FAQ has topic controls");
+assert.ok(/<details\b/.test(faq), "FAQ answers use native accessible disclosure controls");
 await access(resolve(output, "404.html"));
 
 // Headers must travel with the static output; Next.js headers are not exported.

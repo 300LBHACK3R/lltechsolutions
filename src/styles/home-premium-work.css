@@ -1,63 +1,7 @@
-/* Homepage-only partnership, portfolio and invitation treatment. */
-.home-premium .home-partnership-strip {
-  border-block: 1px solid #36342b;
-  background: #111210;
-}
-.home-premium .home-partnership-strip .trust-inner {
-  display: grid;
-  grid-template-columns: minmax(155px, 0.72fr) minmax(0, 2.8fr) auto;
-  gap: clamp(22px, 3vw, 54px);
-  align-items: center;
-  padding-block: 23px;
-}
-.home-premium .home-partnership-strip .trust-inner > p {
-  min-width: 0;
-  margin: 0;
-  line-height: 1.5;
-}
-.home-premium .home-partnership-label {
-  display: block;
-  margin-bottom: 6px;
-  color: #a99b75;
-  font-size: 9px;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-.home-premium .home-partnership-strip strong {
-  display: block;
-  font-size: 12px;
-  font-weight: 450;
-  color: #e8e4d8;
-}
-.home-premium .home-partnership-strip .client-links {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
-  min-width: 0;
-  font-size: clamp(13px, 1.1vw, 17px);
-  letter-spacing: -0.025em;
-}
-.home-premium .home-partnership-strip .client-links a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  min-height: 44px;
-  padding-left: 22px;
-  border-left: 1px solid #35362f;
-  line-height: 1.4;
-}
-.home-premium .home-partnership-strip .client-links a > span {
-  color: #aa9661;
-  font-size: 13px;
-}
-.home-premium .home-partnership-strip .trust-review-link {
-  margin: 0;
-  min-height: 44px;
-  font-size: 11px;
-}
+/* Homepage-only portfolio and invitation treatment. */
 .home-premium .home-work-editorial {
-  padding-block: clamp(58px, 6vw, 92px) clamp(38px, 4vw, 60px);
+  padding-block: clamp(40px, 4vw, 64px) clamp(38px, 4vw, 60px);
+  border-top: 1px solid #303028;
   background: #090a09;
 }
 .home-premium .home-work-heading {
@@ -324,21 +268,6 @@
   }
 }
 @media (max-width: 1099px) {
-  .home-premium .home-partnership-strip .trust-inner {
-    grid-template-columns: minmax(150px, 0.7fr) minmax(0, 2.3fr);
-    gap: 10px 24px;
-  }
-  .home-premium .home-partnership-strip .trust-review-link {
-    grid-column: 2;
-    justify-self: end;
-  }
-  .home-premium .home-partnership-strip .client-links {
-    gap: 16px;
-    font-size: 13px;
-  }
-  .home-premium .home-partnership-strip .client-links a {
-    padding-left: 16px;
-  }
   .home-premium .home-work-heading {
     gap: 32px;
   }
@@ -365,34 +294,6 @@
   }
 }
 @media (max-width: 749px) {
-  .home-premium .home-partnership-strip .trust-inner {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 16px 22px;
-    padding-block: 22px;
-  }
-  .home-premium .home-partnership-strip .trust-inner > p {
-    grid-column: 1;
-  }
-  .home-premium .home-partnership-strip .client-links {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    gap: 15px;
-  }
-  .home-premium .home-partnership-strip .client-links a {
-    padding-left: 0;
-    border-left: 0;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 7px;
-    font-size: 12px;
-  }
-  .home-premium .home-partnership-strip .client-links a > span {
-    padding-top: 1px;
-  }
-  .home-premium .home-partnership-strip .trust-review-link {
-    grid-column: 2;
-    grid-row: 1;
-  }
   .home-premium .home-work-heading {
     align-items: flex-start;
     flex-direction: column;
@@ -441,24 +342,6 @@
   }
   .home-premium .home-project-invitation h2 {
     font-size: clamp(27px, 5vw, 35px);
-  }
-}
-@media (max-width: 399px) {
-  .home-premium .home-partnership-strip .trust-inner {
-    gap: 12px;
-  }
-  .home-premium .home-partnership-strip .client-links {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    padding-top: 9px;
-    border-top: 1px solid #34352d;
-  }
-  .home-premium .home-partnership-strip .client-links a {
-    align-items: center;
-    justify-content: space-between;
-  }
-  .home-premium .home-partnership-strip .trust-review-link {
-    font-size: 10px;
   }
 }
 @media (min-width: 1900px) {

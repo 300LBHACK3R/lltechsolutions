@@ -19,12 +19,11 @@ export const siteConfig = {
 } as const;
 
 export const navigation = [
+  { label: "Website Templates", href: "/website-collection" },
   { label: "Services", href: "/services" },
   { label: "Our Clients", href: "/projects" },
-  { label: "Website Templates", href: "/website-collection" },
-  { label: "Reviews", href: "/reviews" },
-  { label: "Process", href: "/process" },
   { label: "Pricing", href: "/packages" },
+  { label: "Reviews", href: "/reviews" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
@@ -37,7 +36,6 @@ export const publicRoutes = [
   "/projects/software-development",
   "/projects/social-media-management",
   "/reviews",
-  "/process",
   "/packages",
   "/contact",
   "/free-tech-audit",

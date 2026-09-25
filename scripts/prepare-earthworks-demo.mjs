@@ -12,6 +12,8 @@ const files = [
   "src/components/collection/EarthworksTemplate.tsx",
   "src/components/collection/EarthworksAction.tsx",
   "src/components/collection/EarthworksMarks.tsx",
+  "src/components/collection/EarthworksMaterials.tsx",
+  "src/components/collection/EarthworksQuestions.tsx",
   "src/components/ui/MotionControl.tsx",
   "src/lib/use-motion.ts",
   "src/data/website-collection.ts",

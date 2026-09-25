@@ -1,34 +1,4 @@
-/* Shared client-strip, portfolio and call-to-action foundations. */
-.trust-strip {
-  border-block: 1px solid var(--line);
-  background: #0c0c0b;
-}
-.trust-inner {
-  display: flex;
-  gap: 35px;
-  align-items: center;
-  padding-block: 28px;
-}
-.trust-inner > p {
-  color: #e6e6df;
-  font-size: 11px;
-  line-height: 1.7;
-  min-width: 140px;
-}
-.trust-inner > p span {
-  color: var(--muted);
-}
-.client-links {
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  align-items: center;
-  gap: 30px;
-  color: #d4d4ce;
-  font-size: clamp(13px, 1.4vw, 20px);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-}
+/* Shared portfolio and call-to-action foundations. */
 .section {
   padding: 110px 0;
 }
@@ -75,23 +45,6 @@ h2 {
   color: var(--gold-light);
   margin-top: 15px;
   font-size: 12px;
-}
-.client-links a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-}
-.client-links a:hover {
-  color: var(--gold-light);
-}
-.trust-review-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  color: var(--gold-light);
-  font-size: 11px;
-  white-space: nowrap;
 }
 .project-frame {
   padding: 15px;

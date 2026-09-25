@@ -1,7 +1,6 @@
 import Link from "next/link";
 import HeroShowcase from "@/components/home/HeroShowcase";
 import { projects } from "@/data/projects";
-import { servicePillars } from "@/data/services";
 
 export default function Hero() {
   return (
@@ -53,15 +52,6 @@ export default function Hero() {
             })}
           />
         </div>
-        <nav className="premium-hero-disciplines" aria-label="Our three disciplines">
-          {servicePillars.map((service, index) => (
-            <Link key={service.id} href={`/services#${service.id}`}>
-              <span>0{index + 1}</span>
-              <span>{service.name}</span>
-              <span aria-hidden="true">↗</span>
-            </Link>
-          ))}
-        </nav>
       </div>
     </section>
   );

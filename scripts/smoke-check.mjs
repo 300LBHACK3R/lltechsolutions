@@ -59,7 +59,6 @@ try {
     "/projects/software-development",
     "/projects/social-media-management",
     "/reviews",
-    "/process",
     "/packages",
     "/contact",
     "/free-tech-audit",
@@ -128,6 +127,21 @@ try {
       assert.ok(
         nav && !nav.includes('href="/"'),
         `${route}: ${label} leaves home navigation to the logo`,
+      );
+      const mainLinks = [...nav.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)]
+        .map((match) => [match[1], match[2]])
+        .filter(([href]) => href.startsWith("/"));
+      assert.deepEqual(
+        mainLinks,
+        [
+          ["/website-collection", "Website Templates"],
+          ["/services", "Services"],
+          ["/projects", "Our Clients"],
+          ["/packages", "Pricing"],
+          ["/reviews", "Reviews"],
+          ["/contact", "Contact"],
+        ],
+        `${route}: ${label} follows the approved six-item order`,
       );
     }
     assert.match(
@@ -364,11 +378,6 @@ try {
   assert.ok(
     collection.includes('class="collection-process-strip collection-roadmap" id="how-it-works"'),
     "compact process strip retains its working anchor",
-  );
-  const mainNav = collection.match(/<nav[^>]*aria-label="Main navigation"[^>]*>(.*?)<\/nav>/s)?.[1];
-  assert.ok(
-    mainNav && mainNav.indexOf(">Our Clients</a>") < mainNav.indexOf(">Website Templates</a>"),
-    "Our Clients precedes Website Templates",
   );
   for (const id of [
     "construction-trades",
@@ -619,6 +628,14 @@ try {
   assert.equal(
     new URL(legacyRetail.headers.get("location"), origin).pathname,
     "/website-collection/category/retail-automotive",
+  );
+  checks++;
+  const retiredProcess = await fetch(`${origin}/process`, { redirect: "manual" });
+  assert.equal(retiredProcess.status, 308, "retired Process page has a permanent redirect");
+  assert.equal(
+    new URL(retiredProcess.headers.get("location"), origin).pathname,
+    "/services",
+    "retired Process page points to Services",
   );
   checks++;
   const trades = htmlByRoute.get("/website-collection/category/construction-trades");
@@ -940,6 +957,10 @@ try {
     assert.equal(res.status, 200, route);
     if (route === "/sitemap.xml") {
       const sitemap = await res.text();
+      assert.ok(
+        !sitemap.includes("<loc>https://lltechsolutions.ca/process</loc>"),
+        "retired Process page is excluded from the sitemap",
+      );
       for (const path of routes.filter((path) => !privateUtilityRoutes.has(path))) {
         assert.ok(
           sitemap.includes(`<loc>${new URL(path, "https://lltechsolutions.ca").href}</loc>`),

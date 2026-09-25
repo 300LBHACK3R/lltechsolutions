@@ -15,12 +15,12 @@ No account, extra analytics, tracking pixels, new application dependencies or up
 
 The category banners are generated industry illustrations, not photographs of client premises or completed projects. Their sources are documented in `docs/TEMPLATE_CATEGORY_IMAGES.md`. They load from local optimized WebP files through Next Image. Desktop strips use a shaded text area and a small hover zoom for a fine pointer; on mobile the panorama sits above the copy, preserving the range of subjects. Reduced-motion and forced-colour preferences are respected. The images are decorative because the adjacent heading and description provide the category's meaning.
 
-| Design                   | Main fit                 | Level     | Current status                             |
-| ------------------------ | ------------------------ | --------- | ------------------------------------------ |
-| Painting Company         | Painting                 | Signature | Four-page sample demo; launch scope agreed |
-| Plumbing Company         | Plumbing                 | Premier   | Four-page sample demo; launch scope agreed |
-| Massage Practice         | Massage & Wellness       | Essential | Inline sample; three page structures       |
-| Excavation & Landscaping | Excavation & Landscaping | Flagship  | Five-page sample demo; launch scope agreed |
+| Design                   | Main fit                 | Level     | Current status                              |
+| ------------------------ | ------------------------ | --------- | ------------------------------------------- |
+| Painting Company         | Painting                 | Signature | Four-page sample demo; launch scope agreed  |
+| Plumbing Company         | Plumbing                 | Premier   | Four-page sample demo; launch scope agreed  |
+| Massage Practice         | Massage & Wellness       | Essential | Inline sample; three page structures        |
+| Excavation & Landscaping | Excavation & Landscaping | Flagship  | Seven-page sample demo; launch scope agreed |
 
 These are original coded design studies with sample text, generic sample identities and generated illustrative photography. They are not client projects, ready-made client assets or complete production business sites. Sample contact layouts do not deliver enquiries to a contractor or practice; the real L&L enquiry action is clearly separate. The actual pages, content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
 
@@ -149,7 +149,7 @@ The following starting-price schedule reflects the current catalogue. These figu
 | Crestline Painting reference     |                 $399 | A similar new website with the prospect’s own content |
 | Tow-N-Go Trailers reference      |                 $899 | A similar new website with the prospect’s own content |
 | McKenzie House Massage reference |                 $999 | A similar new website with the prospect’s own content |
-| Excavation & Landscaping         |               $1,000 | New personalization and launch; five demo pages       |
+| Excavation & Landscaping         |               $1,000 | New personalization and launch; seven demo pages      |
 
 The sole editable price field is `startingPriceCad` in `src/data/website-collection.ts`. Cards, design pages, comparison, the guided proposal summary and prefilled enquiries use that value. Prices remain starting points: final scope, optional extras, ongoing care, hosting, domains and provider charges are agreed separately. The client examples keep their real-client labels and original media; their brands, reviews and client-specific assets are not sold.
 
@@ -212,13 +212,13 @@ The latest approved showcase removes the duplicate “Try this design here” di
 
 ## Excavation & Landscaping / Earthworks demo
 
-The `earthworks` design starts at **$1,000 CAD** and has five sample pages: **Home, Services, Projects, Process and Contact**. Its excavation industry places it in **Construction & Trades**; the additional landscaping industry also includes it in **Home & Property**. These placements come from the canonical catalogue tags, not duplicated design records.
+The `earthworks` design starts at **$1,000 CAD** and has seven sample pages: **Home, Services, Projects, Materials, Process, FAQ and Contact**. Its excavation industry places it in **Construction & Trades**; the additional landscaping industry also includes it in **Home & Property**. These placements come from the canonical catalogue tags, not duplicated design records.
 
-The example uses a dedicated earthworks design and illustrative imagery. Sample sites, scenes and identities do not establish real client projects, completed excavation work, team credentials or business claims. A customer's finished site uses approved details and appropriately licensed imagery. The starting price covers the agreed template personalization and launch scope; additional pages, custom layout changes and features are quoted by scope and agreed before work starts, for this template and every other template. There is no blanket per-page fee.
+The example uses a dedicated earthworks design and illustrative imagery. Photographic service exploration, a materials selector and expandable FAQ answers add useful depth without adding dependencies. The two new demo pages are Materials and FAQ; the starting price remains $1,000 CAD. Sample sites, scenes and identities do not establish real client projects, completed excavation work, team credentials or business claims. A customer's finished site uses approved details and appropriately licensed imagery. The starting price covers the agreed template personalization and launch scope; additional pages, custom layout changes and features are quoted by scope and agreed before work starts, for this template and every other template. There is no blanket per-page fee.
 
 Use `src/data/earthworks-demo.json` for the verified public demo URL and screenshot metadata. Store actual captures in `public/images/templates/earthworks/`; its README includes the entry format. The detail page displays the screenshot gallery or a labelled cover and shows **View live demo** only when a public URL is configured. No duplicate embedded try-design dialog is offered.
 
-The maintained standalone files live in `templates/earthworks-demo/`. Build and check the five-page export with:
+The maintained standalone files live in `templates/earthworks-demo/`. Build and check the seven-page export with:
 
 ```powershell
 node scripts/prepare-earthworks-demo.mjs
@@ -227,6 +227,10 @@ npm --prefix build/earthworks-demo run build
 node scripts/check-earthworks-demo.mjs
 ```
 
-The generator replaces only the ignored `build/earthworks-demo` directory. Publish its exported `out/` contents, with the maintained deployment headers, to the separate **ll-earthworks-template** Vercel project. Its real routes are `/`, `/services`, `/projects`, `/process` and `/contact`. The demo is noindex and the sample contact view does not send a contractor enquiry. The L&L demo strip carries the canonical price, a return-to-details link, motion control and the real template enquiry handoff.
+The generator replaces only the ignored `build/earthworks-demo` directory. Publish its exported `out/` contents, with the maintained deployment headers, to the separate **ll-earthworks-template** Vercel project. Its real routes are `/`, `/services`, `/projects`, `/materials`, `/process`, `/faq` and `/contact`. The demo is noindex and the sample contact view does not send a contractor enquiry. The L&L demo strip carries the canonical price, a return-to-details link, motion control and the real template enquiry handoff.
 
-The Windows publisher reads Vercel's production alias and checks all five pages publicly before saving the URL. It preserves existing screenshot entries. A protected deployment URL is not a public demo link, and a completed Git push does not by itself confirm the main-site Vercel deployment. Verification counts above describe their named historical updates; they are not evidence of checks run for this earthworks release.
+The Windows publisher reads Vercel's production alias and checks all seven pages publicly before saving the URL. It preserves existing screenshot entries. A protected deployment URL is not a public demo link, and a completed Git push does not by itself confirm the main-site Vercel deployment. Verification counts above describe their named historical updates; they are not evidence of checks run for this earthworks release.
+
+## Latest premium refinement verification
+
+The homepage repetition and main-site Process route were removed, navigation was reordered, and Earthworks expanded to seven demo pages while retaining its $1,000 CAD starting scope and verified URL. Formatting, validation across 111 source files, zero-warning ESLint, TypeScript, 32 tests, the main production build, delivered CSS checks and 142 HTTP/link checks passed. The separate seven-page Earthworks build and export checks passed, including distinct Materials and FAQ content. The dependency audit reported zero vulnerabilities. No external email was sent. Browser rendering was not verified because the preview browser blocked local access; live deployment and device review remain separate checks.

@@ -129,35 +129,6 @@ dd {
   gap: 12px 24px;
   margin-top: 24px;
 }
-.process-list {
-  padding-bottom: 50px;
-}
-.process-step {
-  display: grid;
-  grid-template-columns: 100px 1fr 1fr;
-  gap: 45px;
-  border-top: 1px solid var(--line);
-  padding: 40px 0;
-}
-.process-step > span {
-  font-weight: 400;
-  letter-spacing: -0.07em;
-  color: var(--gold-light);
-  font-size: 54px;
-  line-height: 1;
-}
-.process-step h2 {
-  font-size: 30px;
-}
-.process-step p {
-  color: var(--muted);
-  font-size: 14px;
-}
-.process-step small {
-  display: block;
-  color: var(--gold-light);
-  margin-top: 15px;
-}
 .investment-row {
   padding: 38px 0;
   border-top: 1px solid var(--line);

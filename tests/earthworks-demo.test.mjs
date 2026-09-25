@@ -12,7 +12,12 @@ test("earthworks demo destinations round-trip and unsupported routes are rejecte
     assert.equal(earthworksPageFromPath(pathname.split("/").filter(Boolean)), page);
   }
   assert.equal(earthworksPageFromPath(), "Home");
+  assert.equal(earthworksPageFromPath(["materials"]), "Materials");
+  assert.equal(earthworksPageFromPath(["process"]), "Process");
+  assert.equal(earthworksPageFromPath(["faq"]), "FAQ");
+  assert.equal(earthworksPagePath("FAQ"), "/faq");
   assert.equal(earthworksPageFromPath(["services", "unknown"]), null);
   assert.equal(earthworksPageFromPath(["admin"]), null);
   assert.equal(earthworksPageFromPath(["Services"]), null);
+  assert.equal(earthworksPageFromPath(["FAQ"]), null);
 });

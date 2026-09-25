@@ -54,6 +54,7 @@ const config: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/process", destination: "/services", permanent: true },
       { source: "/projects/tech-support", destination: "/projects", permanent: true },
       {
         source: "/website-collection/category/retail-hospitality",

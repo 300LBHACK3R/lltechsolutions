@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useId, useRef, useState } from "react";
 import type { Project } from "@/data/projects";
-import MotionControl from "@/components/ui/MotionControl";
 
 export type FeaturedProject = Pick<
   Project,
@@ -115,13 +114,6 @@ export default function HeroShowcase({ projects }: { projects: FeaturedProject[]
             <span>{project.title}</span>
           </button>
         ))}
-      </div>
-      <div className="premium-showcase-footnote">
-        <p>
-          Website design <span aria-hidden="true">/</span> Software{" "}
-          <span aria-hidden="true">/</span> Ongoing partnerships
-        </p>
-        <MotionControl />
       </div>
     </div>
   );

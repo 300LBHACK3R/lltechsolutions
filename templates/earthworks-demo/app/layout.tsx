@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | Excavation & Landscaping Demo",
   },
   description:
-    "Explore an original L&L earthworks website design with project imagery, considered interactions and a clear journey from site preparation to finished landscape.",
+    "Explore an original seven-page L&L earthworks design with project imagery, material inspiration, helpful answers and a clear journey from site preparation to finished landscape.",
   robots: { index: false, follow: false },
 };
 

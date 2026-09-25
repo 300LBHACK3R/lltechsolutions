@@ -26,7 +26,7 @@ export default function EarthworksCover({ design }: { design: WebsiteDesign }) {
           </span>
         </strong>
         <span>
-          Services · Projects · Process <b>Let’s talk ↗</b>
+          Services · Projects · Materials <b>Let’s talk ↗</b>
         </span>
       </div>
       <div className="earth-cover-hero">
@@ -46,6 +46,18 @@ export default function EarthworksCover({ design }: { design: WebsiteDesign }) {
           </span>
         </div>
         <span className="earth-cover-caption">01 / SHAPING WHAT COMES NEXT</span>
+        <div className="earth-cover-inset">
+          <Image
+            src="/images/collection/earthworks-detail.webp"
+            alt=""
+            width={1200}
+            height={800}
+            sizes="(max-width:699px) 25vw, 15vw"
+          />
+          <span>
+            Consider every layer. <b>↗</b>
+          </span>
+        </div>
       </div>
       <div className="earth-cover-foot">
         <strong>
