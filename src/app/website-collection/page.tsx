@@ -2,7 +2,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import TemplateCategories from "@/components/collection/TemplateCategories";
 import CollectionCustomization from "@/components/collection/CollectionCustomization";
-import CollectionShowcase from "@/components/collection/CollectionShowcase";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl } from "@/config/site";
@@ -46,40 +45,24 @@ export default async function WebsiteCollectionPage({
   const tier = collectionTiers.find((item) => item.id === query.tier);
   return (
     <div className="website-collection">
-      <section
-        className="collection-hero collection-visual-hero"
-        aria-labelledby="collection-title"
-      >
-        <div className="container collection-visual-grid">
-          <div className="collection-visual-copy">
-            <p className="eyebrow">L&L / Website Templates</p>
-            <h1 id="collection-title">
-              A design you love.
-              <br />
-              <em>The details, handled.</em>
-            </h1>
-            <p className="collection-hero-copy">
-              Start with a design that feels right for your business. We tailor the code, bring your
-              brand into it, and handle the launch.
-            </p>
-            <div className="button-row">
-              <a href="#designs" className="button button-gold">
-                Find your design <span aria-hidden="true">↗</span>
-              </a>
-              <a href="#how-it-works" className="text-link">
-                How it works ↓
-              </a>
-            </div>
-            <div className="collection-visual-signoff">
-              <span aria-hidden="true">&lt;/&gt;</span>
-              <p>
-                Custom-coded. Personally handled.<span>Calgary-based · Canada-wide</span>
-              </p>
-            </div>
-          </div>
-          <CollectionShowcase />
+      <section className="collection-intro" aria-labelledby="collection-title">
+        <div className="container">
+          <p className="eyebrow">L&L / Website Templates</p>
+          <h1 id="collection-title">
+            A design you love. <em>The details, handled.</em>
+          </h1>
+          <p className="collection-intro-copy">
+            Start with a design that feels right for your business. We tailor the code, bring your
+            brand into it, and handle the launch.
+          </p>
+          <p className="collection-intro-note">
+            Custom-coded. Personally handled. <span>Calgary-based · Canada-wide</span>
+          </p>
         </div>
       </section>
+      <div className="container">
+        <TemplateCategories />
+      </div>
       <section
         className="collection-process-strip collection-roadmap"
         id="how-it-works"
@@ -118,7 +101,6 @@ export default async function WebsiteCollectionPage({
         </div>
       </section>
       <div className="container">
-        <TemplateCategories />
         <CollectionCustomization />
         <section
           className="collection-section journey-disclosures"

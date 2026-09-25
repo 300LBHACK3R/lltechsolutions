@@ -10,10 +10,10 @@ const routes = new Map([
   [
     "/website-collection",
     [
-      "collection-hero",
-      "collection-visual-grid",
-      "collection-showcase-panel",
-      "collection-showcase-option",
+      "collection-intro",
+      "collection-intro-copy",
+      "template-category-section",
+      "template-category-heading",
       "collection-process-strip",
       "collection-roadmap",
       "template-category-list",

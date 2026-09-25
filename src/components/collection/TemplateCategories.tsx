@@ -5,18 +5,15 @@ import { categoryDesigns, categoryHref, templateCategories } from "@/data/websit
 export default function TemplateCategories() {
   return (
     <section
-      className="collection-section"
+      className="collection-section template-category-section"
       id="designs"
       aria-labelledby="template-categories-title"
     >
-      <div className="collection-heading">
-        <div>
-          <p className="eyebrow">Start with your business</p>
-          <h2 id="template-categories-title">What do you do?</h2>
-        </div>
-        <p>
-          Choose a category, browse the website layouts, then open any template for a closer look.
-        </p>
+      <div className="template-category-heading">
+        <h2 id="template-categories-title">Browse by business type</h2>
+        <a href="#how-it-works" className="text-link">
+          How it works <span aria-hidden="true">↓</span>
+        </a>
       </div>
       <div className="template-category-list">
         {templateCategories.map((category, index) => {
@@ -29,6 +26,7 @@ export default function TemplateCategories() {
                   src={category.image}
                   alt=""
                   fill
+                  loading={index === 0 ? "eager" : "lazy"}
                   sizes="(min-width: 2560px) 2080px, (min-width: 1900px) 1760px, (min-width: 1520px) 1440px, (max-width: 374px) calc(100vw - 32px), (max-width: 699px) calc(100vw - 40px), calc(100vw - 80px)"
                 />
               </span>

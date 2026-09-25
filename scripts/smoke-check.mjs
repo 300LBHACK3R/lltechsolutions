@@ -324,57 +324,42 @@ try {
     !collection.includes('class="collection-design"'),
     "individual template cards live in category galleries",
   );
-  const hero = collection.match(
-    /<section[^>]*class="collection-hero collection-visual-hero"[^>]*>([\s\S]*?)<\/section>/,
+  const intro = collection.match(
+    /<section[^>]*class="collection-intro"[^>]*>([\s\S]*?)<\/section>/,
   )?.[1];
-  assert.ok(hero, "collection opens with the visual showcase");
-  assert.ok(
-    !hero.includes('id="how-it-works"'),
-    "the process explanation sits below the visual hero",
-  );
-  const choices = [...hero.matchAll(/<input\b[^>]*type="radio"[^>]*>/g)].map((match) => match[0]);
-  assert.equal(choices.length, 3, "three native website preview choices");
+  assert.ok(intro, "collection opens with a compact introduction");
   assert.equal(
-    choices.filter((tag) => tag.includes('checked=""')).length,
-    1,
-    "one initial selection",
+    intro
+      .match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1]
+      .replace(/<[^>]*>/g, "")
+      .trim(),
+    "A design you love. The details, handled.",
+    "collection retains the approved headline",
   );
-  for (const id of ["mckenzie-house", "tow-n-go", "crestline"]) {
-    assert.ok(
-      choices.some(
-        (tag) =>
-          tag.includes(`id="collection-choice-${id}"`) &&
-          tag.includes('name="collection-preview"') &&
-          tag.includes(`aria-controls="collection-preview-${id}"`),
-      ),
-      `${id}: native choice points to its preview`,
-    );
-    assert.ok(hero.includes(`for="collection-choice-${id}"`), `${id}: visible selection label`);
-    assert.ok(
-      hero.includes(`id="collection-preview-${id}"`),
-      `${id}: preview exists in server HTML`,
-    );
-    assert.ok(
-      hero.includes(`href="/website-collection/${id}#preview"`),
-      `${id}: opens the existing walkthrough`,
-    );
-    const imagePath = encodeURIComponent(`/images/projects/${id}.webp`);
-    const imageTag = [...hero.matchAll(/<img\b[^>]*>/g)]
-      .map((match) => match[0])
-      .find((tag) => tag.includes(imagePath) && !tag.includes('alt=""'));
-    assert.ok(imageTag, `${id}: actual portfolio screenshot`);
-    assert.ok(
-      imageTag.includes(id === "mckenzie-house" ? 'fetchPriority="high"' : 'loading="lazy"'),
-      `${id}: image loading priority`,
-    );
-    const response = await fetch(
-      new URL(imageTag.match(/\bsrc="([^"]+)"/)[1].replaceAll("&amp;", "&"), origin),
-    );
-    assert.equal(response.status, 200, `${id}: responsive preview loads`);
-    assert.match(response.headers.get("content-type") || "", /^image\//);
-    await response.arrayBuffer();
-    checks++;
-  }
+  assert.ok(
+    intro.includes(
+      "Start with a design that feels right for your business. We tailor the code, bring your brand into it, and handle the launch.",
+    ) && intro.includes("Custom-coded. Personally handled."),
+    "collection retains its introduction and personal service note",
+  );
+  assert.ok(
+    !collection.includes("collection-showcase") &&
+      !collection.includes('name="collection-preview"'),
+    "landing page does not restore the removed client preview selector",
+  );
+  const categorySection = collection.match(
+    /<section\b[^>]*id="designs"[^>]*>([\s\S]*?)<\/section>/,
+  )?.[1];
+  assert.ok(
+    categorySection?.includes("Browse by business type") &&
+      categorySection.includes('href="#how-it-works"'),
+    "business browsing provides the process link",
+  );
+  assert.ok(
+    collection.indexOf('class="collection-intro"') < collection.indexOf('id="designs"') &&
+      collection.indexOf('id="designs"') < collection.indexOf('id="how-it-works"'),
+    "business categories follow the introduction and precede the process explanation",
+  );
   assert.ok(
     collection.includes('class="collection-process-strip collection-roadmap" id="how-it-works"'),
     "compact process strip retains its working anchor",
@@ -398,8 +383,9 @@ try {
     )?.[0];
     assert.ok(categoryImage, `${id}: category photograph is rendered`);
     assert.ok(
-      categoryImage.includes('alt=""') && categoryImage.includes('loading="lazy"'),
-      `${id}: decorative photo is lazy loaded`,
+      categoryImage.includes('alt=""') &&
+        categoryImage.includes(id === "construction-trades" ? 'loading="eager"' : 'loading="lazy"'),
+      `${id}: decorative photo uses the appropriate loading priority`,
     );
     const imageUrl = categoryImage.match(/\bsrc="([^"]+)"/)?.[1].replaceAll("&amp;", "&");
     assert.ok(imageUrl, `${id}: responsive image source is present`);

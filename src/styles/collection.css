@@ -2,36 +2,38 @@
 .website-collection {
   --collection-space: clamp(56px, 6vw, 104px);
 }
-.collection-hero {
-  background:
-    radial-gradient(ellipse at 88% 0, #51402030, transparent 60%),
-    linear-gradient(120deg, #1b1b18, #080808 70%);
-  border-bottom: 1px solid var(--line);
-  padding-block: clamp(50px, 6vw, 95px);
+.collection-intro {
+  padding-block: clamp(28px, 3vw, 44px) 20px;
 }
-.collection-hero h1 {
-  font-size: clamp(40px, 4.9vw, 76px);
-  letter-spacing: -0.045em;
-  line-height: 1.1;
+.collection-intro h1 {
+  font-size: clamp(28px, 3vw, 44px);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
   font-weight: 550;
-  margin-top: 25px;
+  margin-top: 12px;
 }
-.collection-hero h1 em,
+.collection-intro h1 em,
 .collection-end h2 em {
   font-family: var(--font-editorial), Georgia, serif;
   color: var(--gold-light);
   font-weight: 500;
 }
-.collection-hero-copy {
-  max-width: 640px;
+.collection-intro-copy {
+  max-width: 850px;
   color: var(--muted);
-  margin-top: 28px;
-  font-size: clamp(15px, 1.1vw, 19px);
+  margin-top: 14px;
+  font-size: 15px;
 }
-.collection-hero-note {
-  color: #c1bcae;
-  margin-top: 28px;
+.collection-intro-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 18px;
+  color: var(--gold-light);
+  margin-top: 12px;
   font-size: 12px;
+}
+.collection-intro-note span {
+  color: var(--muted);
 }
 .collection-section {
   padding-block: var(--collection-space);
@@ -269,17 +271,11 @@
   }
 }
 @media (min-width: 2560px) {
-  .collection-hero h1 {
-    font-size: 96px;
-  }
   .collection-heading > p {
     font-size: 18px;
   }
   .collection-heading > p {
     max-width: 590px;
-  }
-  .collection-hero-copy {
-    max-width: 860px;
   }
 }
 @media (max-width: 999px) {
@@ -307,14 +303,6 @@
     flex-direction: column;
     align-items: start;
   }
-  .collection-hero .button-row {
-    gap: 12px;
-    align-items: stretch;
-    flex-direction: column;
-  }
-  .collection-hero .button-row .text-link {
-    justify-content: center;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
   .website-collection .button {
@@ -328,6 +316,91 @@
   }
 }
 
+.collection-process-strip {
+  background: var(--charcoal);
+  border-block: 1px solid var(--line);
+  padding-block: 27px 30px;
+  scroll-margin-top: 110px;
+}
+.collection-process-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-bottom: 22px;
+}
+.collection-process-heading .eyebrow {
+  font-size: 10px;
+}
+.collection-process-heading > p:last-child {
+  font-size: 12px;
+  color: var(--muted);
+}
+.collection-roadmap ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  gap: clamp(20px, 4vw, 64px);
+  padding: 0;
+  margin: 0;
+}
+.collection-roadmap li {
+  display: flex;
+  align-items: start;
+  gap: 16px;
+}
+.collection-roadmap li + li {
+  border-left: 1px solid var(--line);
+  padding-left: clamp(20px, 4vw, 64px);
+}
+.collection-roadmap li > span {
+  color: var(--gold-light);
+  font-size: 12px;
+  padding-top: 3px;
+}
+.collection-roadmap strong {
+  font-size: clamp(16px, 1.4vw, 21px);
+  font-weight: 500;
+}
+.collection-roadmap li p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+@media (max-width: 699px) {
+  .collection-roadmap ol {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .collection-roadmap li + li {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+  }
+}
+
+/* The compact introduction leads directly into business-category photographs. */
+.template-category-section {
+  padding-top: 0;
+}
+.template-category-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 24px;
+  margin-bottom: 16px;
+}
+.template-category-heading h2 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.template-category-heading .text-link {
+  min-height: 44px;
+  font-size: 13px;
+}
 /* Business-first browsing; galleries live on their own category pages. */
 .template-category-list {
   display: grid;

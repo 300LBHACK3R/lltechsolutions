@@ -1,23 +1,4 @@
 /* Calm disclosure: a short primary path, optional detail one click away. */
-.collection-roadmap li {
-  display: flex;
-  align-items: start;
-  gap: 22px;
-  padding-block: 20px;
-}
-.collection-roadmap li > span {
-  color: var(--gold-light);
-  font-size: 12px;
-  padding-top: 9px;
-}
-.collection-roadmap strong {
-  font-size: clamp(21px, 2vw, 29px);
-}
-.collection-roadmap li p {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 5px;
-}
 .collection-extra-filters {
   flex: 2 1 230px;
 }

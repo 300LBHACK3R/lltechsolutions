@@ -9,7 +9,6 @@ import "@/styles/reviews.css";
 import "@/styles/collection.css";
 import "@/styles/collection-journey.css";
 import "@/styles/collection-previews.css";
-import "@/styles/collection-showcase.css";
 import "@/styles/painting-template.css";
 import "@/styles/plumbing-template.css";
 import "@/styles/earthworks-template.css";
