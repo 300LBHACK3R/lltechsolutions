@@ -1,4 +1,41 @@
 {
-  "url": null,
-  "screenshots": []
+  "url": "https://ll-wellness-template.vercel.app/",
+  "screenshots": [
+    {
+      "src": "/images/templates/wellness/home-desktop.png",
+      "alt": "Evergreen Wellness sample website home page on desktop",
+      "caption": "Home — actual desktop demo capture",
+      "width": 1440,
+      "height": 3709,
+      "sourceUrl": "https://ll-wellness-template.vercel.app/",
+      "capturedAt": "2026-09-25T18:28:52.949Z"
+    },
+    {
+      "src": "/images/templates/wellness/treatments-desktop.png",
+      "alt": "Evergreen Wellness sample website treatments page on desktop",
+      "caption": "Treatments — actual desktop demo capture",
+      "width": 1440,
+      "height": 3658,
+      "sourceUrl": "https://ll-wellness-template.vercel.app/treatments/",
+      "capturedAt": "2026-09-25T18:28:53.605Z"
+    },
+    {
+      "src": "/images/templates/wellness/contact-desktop.png",
+      "alt": "Evergreen Wellness sample website contact page on desktop",
+      "caption": "Contact — actual desktop demo capture",
+      "width": 1440,
+      "height": 2895,
+      "sourceUrl": "https://ll-wellness-template.vercel.app/contact/",
+      "capturedAt": "2026-09-25T18:28:54.220Z"
+    },
+    {
+      "src": "/images/templates/wellness/home-mobile.png",
+      "alt": "Evergreen Wellness sample website home page on a mobile screen",
+      "caption": "Home — actual mobile demo capture",
+      "width": 390,
+      "height": 4414,
+      "sourceUrl": "https://ll-wellness-template.vercel.app/",
+      "capturedAt": "2026-09-25T18:28:54.932Z"
+    }
+  ]
 }
