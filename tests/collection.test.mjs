@@ -154,7 +154,11 @@ test("collection validates design status, scope and local preview assets", () =>
     else assert.ok(design.startingPriceCad === null || design.startingPriceCad > 0);
     if (design.status === "client-example") {
       assert.match(design.clientProjectId, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
-      assert.ok(Number.isFinite(design.startingPriceCad) && design.startingPriceCad > 0);
+      assert.ok(
+        design.startingPriceCad === null ||
+          (Number.isFinite(design.startingPriceCad) && design.startingPriceCad > 0),
+        "client references use an approved website price or a scoped quote",
+      );
       assert.equal(design.pageCount, null);
     } else assert.ok(Number.isInteger(design.pageCount) && design.pageCount > 0);
     if (design.independentConcept) {

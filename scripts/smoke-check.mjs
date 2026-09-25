@@ -183,7 +183,6 @@ try {
     ["earthworks", "earthworks"],
     ["lawncare", "lawncare"],
     ["horizon", "horizon"],
-    ["mckenzie-house", "wellness"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     const media = JSON.parse(
@@ -241,27 +240,25 @@ try {
   }
   const paintingGallery = htmlByRoute.get("/website-collection/category/construction-trades");
   const wellness = htmlByRoute.get("/website-collection/mckenzie-house");
-  assert.ok(wellness.includes("Wellness &amp; Massage"), "wellness: separate template identity");
-  assert.ok(wellness.includes("6 page structures"), "wellness: explicit six-page offer");
+  assert.ok(wellness.includes("McKenzie House Massage"), "McKenzie: real client identity");
+  assert.ok(wellness.includes("Quoted after a conversation"), "McKenzie: no assumed website price");
+  assert.ok(!wellness.includes("$999"), "McKenzie: original bundled fee is not a template price");
   assert.ok(
-    wellness.includes("standard contact-form"),
-    "wellness: form setup belongs to the new offer",
+    wellness.includes("on-site photography, videography, editing"),
+    "McKenzie: original production scope is clear",
   );
   assert.ok(
-    wellness.includes("on-site photography and service video"),
-    "wellness: real client production work stays visible",
+    wellness.includes("New photography, video production and ongoing care are priced separately"),
+    "McKenzie: optional production and care are separately priced",
   );
   assert.ok(
     wellness.includes('href="/projects/web-builds#mckenzie-house"'),
-    "wellness: original client case study remains accessible",
+    "McKenzie: client story remains accessible",
   );
   assert.ok(
-    !wellness.includes('src="/media/projects/mckenzie-website.mp4"'),
-    "wellness: client video is not presented as this demo",
-  );
-  assert.ok(
-    !wellness.includes('href="https://mckenziehousemassage.ca/"'),
-    "wellness: live demo never sends visitors to Heather's different site",
+    !wellness.includes("ll-wellness-template.vercel.app") &&
+      !wellness.includes("Evergreen Wellness"),
+    "McKenzie: archived generic demo is not offered",
   );
   for (const route of [
     "/projects/web-builds",
@@ -477,10 +474,11 @@ try {
     ["earthworks", "construction-trades", 1000],
     ["crestline", "construction-trades", 399],
     ["tow-n-go", "transport-logistics", 899],
-    ["mckenzie-house", "health-wellness", 999],
+    ["mckenzie-house", "health-wellness", null],
   ];
   for (const [id, category, price] of templatePrices) {
-    const label = `From $${price.toLocaleString("en-CA")} CAD`;
+    const label =
+      price === null ? "Quoted after a conversation" : `From $${price.toLocaleString("en-CA")} CAD`;
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(detail.includes(label), `${id}: detail price`);
     assert.ok(detail.includes("Before applicable taxes."), `${id}: tax basis`);
@@ -501,7 +499,7 @@ try {
     const path = `/website-collection/category/${category}`;
     const expected = templatePrices
       .filter(([, id]) => id === category)
-      .sort((a, b) => a[2] - b[2])
+      .sort((a, b) => (a[2] === null ? (b[2] === null ? 0 : 1) : b[2] === null ? -1 : a[2] - b[2]))
       .map(([id]) => id);
     const ids = (html) =>
       [...html.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]);
@@ -514,7 +512,9 @@ try {
         "price-high",
         templatePrices
           .filter(([, id]) => id === category)
-          .sort((a, b) => b[2] - a[2])
+          .sort((a, b) =>
+            a[2] === null ? (b[2] === null ? 0 : 1) : b[2] === null ? -1 : b[2] - a[2],
+          )
           .map(([id]) => id),
       ],
     ]) {
@@ -576,6 +576,13 @@ try {
       "construction-trades",
       "https://www.crestlinepainting.ca/",
       "crestline-website",
+    ],
+    [
+      "mckenzie-house",
+      "McKenzie House Massage",
+      "health-wellness",
+      "https://mckenziehousemassage.ca/",
+      "mckenzie-website",
     ],
   ]) {
     const gallery = htmlByRoute.get(`/website-collection/category/${category}`);

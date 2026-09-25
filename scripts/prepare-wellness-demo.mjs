@@ -3,6 +3,12 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const demo = JSON.parse(await readFile(resolve(root, "src/data/wellness-demo.json"), "utf8"));
+if (demo.archived) {
+  throw new Error(
+    "The generic wellness demo is archived. McKenzie House is the current client template reference. Do not rerun the former wellness publisher.",
+  );
+}
 const target = resolve(root, "build/wellness-demo");
 // Generated output only. The maintained sources remain in src/ and templates/.
 await rm(target, { recursive: true, force: true });

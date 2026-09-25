@@ -8,7 +8,6 @@ import plumbingDemo from "@/data/plumbing-demo.json";
 import earthworksDemo from "@/data/earthworks-demo.json";
 import lawncareDemo from "@/data/lawncare-demo.json";
 import horizonDemo from "@/data/horizon-demo.json";
-import wellnessDemo from "@/data/wellness-demo.json";
 import CollectionContactOptions from "@/components/collection/CollectionContactOptions";
 import CollectionCustomization from "@/components/collection/CollectionCustomization";
 import { readTemplateShowcase } from "@/lib/template-showcase";
@@ -64,9 +63,7 @@ export default async function DesignPage({ params }: Props) {
             ? readTemplateShowcase(lawncareDemo, "lawncare")
             : design.id === "horizon"
               ? readTemplateShowcase(horizonDemo, "horizon")
-              : design.id === "mckenzie-house"
-                ? readTemplateShowcase(wellnessDemo, "wellness")
-                : null;
+              : null;
   const category = categoryForIndustry(design.industry);
   const clientProject = design.clientProjectId
     ? projects.find(
@@ -74,11 +71,6 @@ export default async function DesignPage({ params }: Props) {
       )
     : undefined;
   if (design.status === "client-example" && !clientProject) notFound();
-  const caseStudy = design.caseStudyProjectId
-    ? projects.find(
-        (project) => project.id === design.caseStudyProjectId && project.ownership === "client",
-      )
-    : undefined;
   const relatedProject = clientProject?.relatedWork
     ? projects.find((project) => project.id === clientProject.relatedWork?.projectId)
     : undefined;
@@ -176,6 +168,9 @@ export default async function DesignPage({ params }: Props) {
                 business content. The client’s logo, photos and client-specific materials stay with
                 their business.
               </p>
+              {design.clientScopeNote && (
+                <p className="template-client-scope">{design.clientScopeNote}</p>
+              )}
               <ProjectVideo
                 video={clientProject.video}
                 projectId={`collection-${clientProject.id}`}
@@ -220,29 +215,6 @@ export default async function DesignPage({ params }: Props) {
               video={design.walkthrough}
               title={`${design.name} website walkthrough`}
             />
-          )}
-          {caseStudy && (
-            <aside
-              className="collection-section template-case-study"
-              aria-labelledby="template-case-study-title"
-            >
-              <p className="eyebrow">From real client work</p>
-              <h3 id="template-case-study-title">The work behind the direction.</h3>
-              <p>
-                Our original {caseStudy.title} project included custom website development, on-site
-                photography and service video. This separate sample website shows the six-page
-                wellness offer with a demonstration enquiry form and booking pathway. Your website
-                uses your own approved branding and content.
-              </p>
-              <p>
-                The listed starting scope includes personalization, standard contact-form setup and
-                launch. New photography, video production, ongoing care and provider fees are quoted
-                separately.
-              </p>
-              <Link className="text-link" href={projectPath(caseStudy)}>
-                Explore the McKenzie House client case study ↗
-              </Link>
-            </aside>
           )}
         </section>
         <section className="collection-section design-detail-scope" aria-labelledby="scope-title">

@@ -148,21 +148,11 @@
 .template-detail-preview .text-link {
   min-height: 44px;
 }
-.template-case-study {
+.template-client-scope {
   max-width: 85ch;
-  margin-top: 28px;
-  padding-block: 24px 0;
-  border-top: 1px solid var(--line);
-}
-.template-case-study h3 {
-  margin-block: 10px 14px;
-  font-size: clamp(21px, 2vw, 28px);
-  line-height: 1.2;
-}
-.template-case-study > p:not(.eyebrow) {
-  margin-block: 12px;
+  margin: 0 0 24px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.75;
 }
 .template-detail .design-detail-scope {

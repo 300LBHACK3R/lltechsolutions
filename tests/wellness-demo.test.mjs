@@ -42,20 +42,23 @@ test("wellness routing rejects unknown, nested and differently cased paths", () 
     assert.equal(wellnessPageFromPath(segments), null, segments.join("/"));
 });
 
-test("the six-page $999 wellness offer preserves its bookmarked enquiry selection", () => {
+test("the restored McKenzie client example keeps its enquiry without reusing a bundled price", () => {
   const design = websiteDesigns.find((item) => item.id === "mckenzie-house");
   assert.ok(design);
-  assert.equal(design.name, "Wellness & Massage");
-  assert.equal(design.startingPriceCad, 999);
-  assert.equal(design.pageCount, wellnessPages.length);
-  assert.equal(design.contactMode, "enquiry-form");
+  assert.equal(design.name, "McKenzie House Massage");
+  assert.equal(design.status, "client-example");
+  assert.equal(design.clientProjectId, "mckenzie-house");
+  assert.equal(design.startingPriceCad, null);
+  assert.equal(design.pageCount, null);
+  assert.equal(design.contactMode, "direct");
   const href = new URL(collectionInquiryHref({ design: design.id }), "https://lltechsolutions.ca");
   assert.equal(href.pathname, "/contact");
   assert.equal(href.searchParams.get("collection"), "website");
   assert.equal(href.searchParams.get("design"), "mckenzie-house");
   const inquiry = collectionInquiry(Object.fromEntries(href.searchParams));
   assert.ok(inquiry.message.includes(design.name));
-  assert.ok(inquiry.message.includes("$999"));
+  assert.ok(inquiry.message.includes("Quoted after a conversation"));
+  assert.ok(!inquiry.message.includes("$999"));
 });
 
 test("the static wellness deployment retains security headers and search exclusion", async () => {

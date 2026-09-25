@@ -51,6 +51,10 @@ const tooling = resolve(values["tooling-dir"]);
 assert(output !== tooling, "Capture output and tooling must be separate directories.");
 const config = JSON.parse(await readFile(configPath, "utf8"));
 assert(config && typeof config === "object" && !Array.isArray(config), "Invalid demo config.");
+assert(
+  !config.archived,
+  "The generic wellness demo is archived. McKenzie House is the current client template reference; its showcase must not be replaced by the former demo.",
+);
 const toolingRequire = createRequire(join(tooling, "package.json"));
 const installed = toolingRequire("playwright/package.json");
 assert.equal(installed.version, playwrightVersion, "Unexpected Playwright version in tooling.");

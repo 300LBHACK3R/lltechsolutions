@@ -80,10 +80,10 @@
 - Keep the original Horizon captures as reference files. The catalogue's maintained cover and any new screenshots should represent the new Landscape Studio demo. Preserve the independent-concept label; Horizon is not a client record.
 - Keep `src/data/horizon-demo.json`'s URL null until the publisher verifies the separate demo's public alias and all four routes. Check the live demo button after the main L&L deployment is Ready.
 
-## Separate wellness demo and consistent actions
+## McKenzie client reference and consistent actions
 
-- Confirm every external website/software example action reads View live demo, including client-based template references and Tate’s TV. Internal template and client-story links still open their detail pages.
-- Confirm Wellness & Massage at the existing `/website-collection/mckenzie-house` URL: $999 CAD, six pages, standard enquiry setup and separately scoped content production/care. Heather’s actual case study and original website remain accessible through Our Clients.
-- Build and validate the six-page standalone demo. Enquiry and booking interactions show demonstration results only, with no network submission, appointment confirmation, storage or real contact destination. Check disabled no-JavaScript submission, error/status announcements, keyboard access, phone layout and reduced motion.
-- Publish only the separate ll-wellness-template export. Verify all public routes and headers, capture the actual demo, then connect its URL and matching screenshots. Check the final main-site Vercel deployment separately.
-- On Windows, confirm the wellness build's normalization step succeeds and the export checker verifies all 21 generated page-data files. After publishing, check the public files against the build manifest before capture; HTML-only checks miss incorrectly nested segment files. Preserve failed-capture diagnostics rather than bypassing missing-resource checks.
+- Confirm every external website/software example action reads View live demo, including client template references and Tate’s TV.
+- Confirm `/website-collection/mckenzie-house` presents McKenzie House Massage as live client work with its original image, walkthrough, actual website and client-story link. Health & Wellness must show the same identity and media.
+- Confirm the catalogue, comparison, guided enquiry and Contact use Quoted after a conversation for this reference. No $999 website-only offer or assumed replacement price should remain. Unquoted options stay after priced designs in either sort direction.
+- Explain the original website, on-site photography, filming, editing and media implementation scope. New production, forms and ongoing care require their own agreed scope and price; do not publish a client's historical invoice as a new offer.
+- The generic wellness demo is archived. Its preparation and capture scripts must stop before modifying output; old publishers must not reconnect it to McKenzie's catalogue URL. Keep archived source and captures available for reference. This update does not delete the separate Vercel deployment.
