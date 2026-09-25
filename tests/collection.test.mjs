@@ -157,11 +157,22 @@ test("collection validates design status, scope and local preview assets", () =>
       assert.ok(Number.isFinite(design.startingPriceCad) && design.startingPriceCad > 0);
       assert.equal(design.pageCount, null);
     } else assert.ok(Number.isInteger(design.pageCount) && design.pageCount > 0);
+    if (design.independentConcept) {
+      assert.equal(design.status, "concept");
+      assert.equal(design.clientProjectId, undefined);
+      assert.ok(design.independentConcept.businessName.trim());
+      assert.ok(design.independentConcept.note.trim());
+      assert.equal(designStatusLabel(design), "Independent design concept");
+    }
     if (design.preview) {
       asset(
         design.preview.src,
         "(?:webp|png|jpe?g)",
-        design.status === "client-example" ? "projects" : "collection",
+        design.status === "client-example"
+          ? "projects"
+          : design.independentConcept
+            ? `templates/${design.id}`
+            : "collection",
       );
       assert.ok(design.preview.alt && design.preview.width > 0 && design.preview.height > 0);
     } else assert.ok(design.concept, "a usable visual preview exists");
@@ -184,6 +195,8 @@ test("collection validates design status, scope and local preview assets", () =>
           design.concept.photo.width > 0 &&
           design.concept.photo.height > 0,
       );
+      assert.equal(design.demoUrl, `${designHref(design)}#preview`);
+    } else if (design.independentConcept) {
       assert.equal(design.demoUrl, `${designHref(design)}#preview`);
     } else {
       const demo = new URL(design.demoUrl);
@@ -407,4 +420,37 @@ test("earthworks is a seven-page $1000 starting scope discoverable in trades and
     }).ok,
     true,
   );
+});
+
+test("horizon is an independent $500 one-page reference with canonical enquiry pricing", () => {
+  const design = availableDesigns().find((item) => item.id === "horizon");
+  assert.equal(design.name, "Landscape Contracting");
+  assert.equal(design.status, "concept");
+  assert.equal(design.tier, "signature");
+  assert.equal(design.startingPriceCad, 500);
+  assert.equal(design.pageCount, 1);
+  assert.equal(designScopeLabel(design), "1 page structure");
+  assert.equal(design.contactMode, "direct");
+  assert.equal(design.clientProjectId, undefined);
+  assert.equal(design.independentConcept.businessName, "Horizon Contracting Group");
+  assert.equal(designStatusLabel(design), "Independent design concept");
+  assert.ok(!publishedDesigns().includes(design));
+  assert.equal(design.demoUrl, "/website-collection/horizon#preview");
+  assert.equal(design.preview.src, "/images/templates/horizon/hero.png");
+  for (const id of ["construction-trades", "home-property"])
+    assert.ok(categoryDesigns(templateCategories.find((item) => item.id === id)).includes(design));
+  const inquiry = collectionInquiry({
+    collection: "website",
+    design: "horizon",
+    price: "1",
+    contactMode: "enquiry-form",
+    tier: "flagship",
+  });
+  assert.ok(inquiry.message.includes("Design: Landscape Contracting"));
+  assert.ok(inquiry.message.includes("Launch pricing: From $500 CAD"));
+  assert.ok(inquiry.message.includes("Collection: Signature"));
+  assert.ok(inquiry.message.includes("Direct contact included"));
+  assert.ok(!inquiry.message.includes("From $1 CAD"));
+  assert.ok(!inquiry.message.includes("Protected enquiry form included"));
+  assert.ok(!inquiry.message.includes("Client example:"));
 });

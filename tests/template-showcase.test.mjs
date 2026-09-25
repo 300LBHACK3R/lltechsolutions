@@ -101,3 +101,21 @@ test("earthworks media keeps its verified URL and isolates screenshot paths", ()
   assert.equal(parsed.screenshots.length, config.screenshots.length);
   for (const image of parsed.screenshots) assert.ok(fs.existsSync(path.join("public", image.src)));
 });
+
+test("horizon preserves the supplied gallery and does not invent a live link", () => {
+  const config = JSON.parse(fs.readFileSync("src/data/horizon-demo.json", "utf8"));
+  const parsed = readTemplateShowcase(config, "horizon");
+  assert.equal(parsed.url, config.url);
+  assert.equal(readTemplateShowcase({ screenshots: config.screenshots }, "horizon").url, null);
+  assert.deepEqual(parsed.screenshots, config.screenshots);
+  assert.deepEqual(
+    parsed.screenshots.map((image) => path.basename(image.src)),
+    ["hero.png", "services.png", "gallery.png"],
+  );
+  assert.equal(readTemplateShowcase(config, "lawncare").screenshots.length, 0);
+  for (const image of parsed.screenshots) {
+    const bytes = fs.readFileSync(path.join("public", image.src));
+    assert.equal(bytes.readUInt32BE(16), image.width, "PNG width matches gallery metadata");
+    assert.equal(bytes.readUInt32BE(20), image.height, "PNG height matches gallery metadata");
+  }
+});

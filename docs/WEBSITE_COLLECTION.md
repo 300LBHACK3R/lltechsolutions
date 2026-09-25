@@ -146,6 +146,7 @@ The following starting-price schedule reflects the current catalogue. These figu
 | Calgary Hot Shot                 |                 $399 | New personalization and launch                        |
 | Lawn Care                        |                 $499 | New personalization and launch; four demo pages       |
 | Painting Company                 |                 $499 | New personalization and launch                        |
+| Landscape Contracting            |                 $500 | New personalization and launch; one page              |
 | Plumbing Company                 |                 $699 | New personalization and launch                        |
 | Crestline Painting reference     |                 $399 | A similar new website with the prospect’s own content |
 | Tow-N-Go Trailers reference      |                 $899 | A similar new website with the prospect’s own content |
@@ -236,7 +237,7 @@ The homepage repetition and main-site Process route were removed, navigation was
 
 ## Lawn Care — $499 template and contact scopes
 
-Lawn Care (`lawncare`) is the four-page option for lawn mowing, edging and seasonal cleanup. It is listed under Construction & Trades and Home & Property. The trades gallery now has five designs; no sixth design or placeholder offer has been invented. Default sorting is low to high: Crestline reference $399, Lawn Care $499, Painting Company $499, Plumbing Company $699, Excavation & Landscaping $1,000.
+Lawn Care (`lawncare`) is the four-page option for lawn mowing, edging and seasonal cleanup. It is listed under Construction & Trades and Home & Property. With the supplied Horizon redesign reference, the trades gallery has six designs. Default sorting is low to high: Crestline reference $399, Lawn Care $499, Painting Company $499, Landscape Contracting $500, Plumbing Company $699, Excavation & Landscaping $1,000. Equal-price designs retain their source order in both sort directions.
 
 The sample identity is LAWN STUDIO. Forest green, ivory and fresh green are scoped to this demo; L&L keeps its black-and-gold brand. The decorative navigation grass is cut by a small periodic mower animation, gated by the existing motion setting and prefers-reduced-motion. The four routes are `/`, `/services`, `/our-work` and `/contact`. The imagery is generated illustration for a sample business, not completed client work or before/after evidence. The reserved sample email is clearly labelled and does not send mail; the real L&L enquiry action retains the selected design.
 
@@ -244,10 +245,18 @@ Build with `node scripts/prepare-lawncare-demo.mjs`, install/build inside `build
 
 ### Contact setup for new builds
 
-`contactMode` in the canonical catalogue defines each offer; a query string cannot change it. New offers from $299–$499 include a contact page with call/email links and an appropriate external booking link. Current $699-and-up offers include a standard enquiry form to one business inbox, Resend/sending-domain configuration, validation, spam controls and an initial delivery test as launch work. These are scope definitions for future customer builds, not claims that the static demonstrations deliver contractor enquiries. Existing client case-study facts and signed scopes are not changed.
+`contactMode` in the canonical catalogue defines each offer; a query string cannot change it. New offers from $299–$500 include a contact page or section with call/email links and an appropriate external booking link. Current $699-and-up offers include a standard enquiry form to one business inbox, Resend/sending-domain configuration, validation, spam controls and an initial delivery test as launch work. These are scope definitions for future customer builds, not claims that the static demonstrations deliver contractor enquiries. Existing client case-study facts and signed scopes are not changed.
 
 A form can be added to a direct-contact offer by quote. Advanced fields, uploads, CRM routing, automation and other integrations require their own scope at any price. Ongoing maintenance and delivery checks are optional, separately scoped care work. No unlimited support, response SLA or new monthly fee has been invented. Domain and provider fees are separate; a provider free allowance is not free setup or ongoing management. Baseline responsive design, metadata, SEO and security checks apply across all prices. Form-specific controls apply where a form exists.
 
 Cards, details, comparison, proposal summaries and enquiry prefills share these definitions. The guided enquiry offers an optional form/workflow upgrade without adding an invented fixed price. Public starting prices do not promise exact search rankings, delivery schedules, Lighthouse scores or uninterrupted email delivery.
 
 Resend implementation reference: [verified sending domains](https://resend.com/docs/dashboard/domains/introduction). Check the provider's current limits and costs when scoping a launch.
+
+## Landscape Contracting — Horizon independent concept
+
+Landscape Contracting (`horizon`) is a **$500 CAD** starting offer for one page with an introduction, services, coverage areas, project imagery and direct contact. The construction industry places it in Construction & Trades; its additional landscaping tag also includes it in Home & Property. Responsive implementation, core SEO and security standards, metadata and launch checks are included. Additional pages, enquiry forms and custom features are quoted separately.
+
+The three supplied screenshots show an independent L&L redesign concept for **Horizon Contracting Group**. The catalogue's `independentConcept` field identifies the reference business and explains that a buyer's website uses their own approved branding, imagery and content. The screenshots do not establish a client relationship or offer the reference business's identity for resale. Do not add Horizon to client or project records.
+
+The hero capture is the catalogue cover. `src/data/horizon-demo.json` holds the three screenshot records under `public/images/templates/horizon/`; the live URL remains null until a public demo has been verified. The catalogue's internal `/website-collection/horizon#preview` link leads to those screenshots. The detail page displays **Independent design concept**, the reference note, the gallery, pricing, scope and the existing L&L enquiry handoff. No external demo link is invented.

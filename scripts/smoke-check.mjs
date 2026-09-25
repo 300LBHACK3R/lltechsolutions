@@ -51,6 +51,7 @@ try {
     "/website-collection/structure",
     "/website-collection/earthworks",
     "/website-collection/lawncare",
+    "/website-collection/horizon",
     "/website-collection/still",
     "/website-collection/start",
     "/website-collection/compare",
@@ -181,6 +182,7 @@ try {
     ["structure", "plumbing"],
     ["earthworks", "earthworks"],
     ["lawncare", "lawncare"],
+    ["horizon", "horizon"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     const media = JSON.parse(
@@ -215,7 +217,20 @@ try {
     }
     if (media.screenshots.length) {
       assert.ok(detail.includes("template-screenshot-main"), `${id}: uploaded screenshot gallery`);
-      assert.ok(detail.includes(media.screenshots[0].caption), `${id}: first screenshot caption`);
+      assert.ok(
+        detail.replaceAll("&amp;", "&").includes(media.screenshots[0].caption),
+        `${id}: first screenshot caption`,
+      );
+      for (const screenshot of media.screenshots) {
+        assert.ok(
+          detail.includes(encodeURIComponent(screenshot.src)),
+          `${id}: screenshot is available in the gallery`,
+        );
+        const response = await fetch(new URL(screenshot.src, origin), { method: "HEAD" });
+        assert.equal(response.status, 200, `${screenshot.src}: screenshot response`);
+        assert.ok(response.headers.get("content-type")?.startsWith("image/"));
+        checks++;
+      }
     } else {
       assert.ok(
         detail.includes("template-design-overview"),
@@ -244,11 +259,12 @@ try {
     "populated property category is indexable",
   );
   checks++;
-  for (const id of ["pigment", "structure", "earthworks", "lawncare", "still"]) {
+  for (const id of ["pigment", "structure", "earthworks", "lawncare", "horizon", "still"]) {
     const html = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(html.includes('"@type":"CreativeWork"'), `${id}: design schema`);
     assert.ok(
-      (html.includes('id="preview"') && html.includes("Sample layout")) ||
+      (html.includes('id="preview"') &&
+        (html.includes("Sample layout") || html.includes("Independent design concept"))) ||
         html.includes("Interactive design concept"),
       `${id}: labelled concept preview`,
     );
@@ -272,9 +288,11 @@ try {
       );
     }
     const previewPhoto = [...html.matchAll(/<img\b[^>]*>/g)].find(([tag]) =>
-      tag.includes(encodeURIComponent("/images/collection/")),
+      tag.includes(
+        encodeURIComponent(id === "horizon" ? "/images/templates/horizon/" : "/images/collection/"),
+      ),
     )?.[0];
-    assert.ok(previewPhoto, `${id}: illustrative photo is rendered`);
+    assert.ok(previewPhoto, `${id}: design image is rendered`);
     const previewSource = previewPhoto.match(/\bsrc="([^"]+)"/)?.[1].replaceAll("&amp;", "&");
     const previewResponse = await fetch(new URL(previewSource, origin));
     assert.equal(previewResponse.status, 200, `${id}: optimized preview photo loads`);
@@ -411,6 +429,7 @@ try {
     ["calgary-hot-shot", "transport-logistics", 399],
     ["lawncare", "construction-trades", 499],
     ["pigment", "construction-trades", 499],
+    ["horizon", "construction-trades", 500],
     ["structure", "construction-trades", 699],
     ["earthworks", "construction-trades", 1000],
     ["crestline", "construction-trades", 399],
@@ -650,6 +669,7 @@ try {
     ["structure", "Plumbing Company"],
     ["earthworks", "Excavation &amp; Landscaping"],
     ["lawncare", "Lawn Care"],
+    ["horizon", "Landscape Contracting"],
     ["still", "Massage Practice"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
@@ -676,6 +696,23 @@ try {
     propertyGallery.includes('id="design-lawncare"') && trades.includes('id="design-lawncare"'),
     "lawn care appears under both trades and property",
   );
+  assert.equal(
+    [...trades.matchAll(/<article[^>]*id="design-([^"]+)"/g)].length,
+    6,
+    "Construction & Trades contains the six supplied designs",
+  );
+  const horizon = htmlByRoute.get("/website-collection/horizon");
+  assert.ok(
+    propertyGallery.includes('id="design-horizon"') && trades.includes('id="design-horizon"'),
+    "landscape contracting appears under both trades and property",
+  );
+  assert.ok(
+    horizon.includes("Independent design concept") &&
+      horizon.includes("Horizon Contracting Group") &&
+      horizon.includes("the business identity shown is not offered for resale"),
+    "Horizon remains an independent reference personalized with the buyer's own identity",
+  );
+  assert.ok(!horizon.includes("Live client example"), "Horizon is not presented as a client");
   const missingCategory = await fetch(`${origin}/website-collection/category/not-a-category`);
   assert.equal(missingCategory.status, 404, "unknown category returns 404");
   checks++;
@@ -882,9 +919,13 @@ try {
     "gallery is labelled as part of the Crestline case study",
   );
   assert.equal(
-    designImages.size,
+    new Set(
+      [...webProjects.matchAll(/href="(\/images\/[^"?#]+\.(?:jpe?g|png|webp))"/g)].map(
+        (match) => match[1],
+      ),
+    ).size,
     3,
-    "three full-size image links remain usable without JavaScript",
+    "three case-study image links remain usable without JavaScript",
   );
   for (const asset of designImages) {
     const response = await fetch(origin + asset, { method: "HEAD" });

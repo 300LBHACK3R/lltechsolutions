@@ -203,6 +203,8 @@ export type WebsiteDesign = {
   contactMode: CollectionContactMode;
   /** A real portfolio reference; its client-specific assets are not offered for reuse. */
   clientProjectId?: string;
+  /** An independent redesign reference, not a client project or an offer to reuse its identity. */
+  independentConcept?: { businessName: string; note: string };
   deliveryWindow: string;
   preview?: { src: string; alt: string; width: number; height: number };
   /** Actual full-page capture of an external demo, kept separate from illustrative concepts. */
@@ -227,12 +229,12 @@ export type WebsiteDesign = {
 };
 
 export const contactScopeSummary =
-  "New website offers from $299–$499 CAD include direct contact. Offers from $699 CAD include a standard protected enquiry form.";
+  "New website offers from $299–$500 CAD include direct contact. Offers from $699 CAD include a standard protected enquiry form.";
 
 export const contactScopeDetails = {
   direct: {
     label: "Direct contact included",
-    priceLabel: "$299–$499 CAD",
+    priceLabel: "$299–$500 CAD",
     description:
       "A contact page or section with click-to-call and click-to-email links, plus your chosen external booking link where relevant.",
   },
@@ -285,6 +287,43 @@ export const developerIntroduction: CollectionVideo | null = null;
 // Starting prices cover a new personalization and launch within the agreed scope.
 // Client examples demonstrate an approach; their identities and client-specific assets are not for resale.
 export const websiteDesigns: readonly WebsiteDesign[] = [
+  {
+    id: "horizon",
+    status: "concept",
+    name: "Landscape Contracting",
+    tier: "signature",
+    industry: "construction",
+    additionalIndustries: ["landscaping"],
+    description:
+      "A focused one-page landscape contracting website with a clear introduction, services, coverage areas, project imagery and a direct path to contact your business.",
+    startingPriceCad: 500,
+    pageCount: 1,
+    contactMode: "direct",
+    independentConcept: {
+      businessName: "Horizon Contracting Group",
+      note: "An independent redesign concept by L&L for Horizon Contracting Group, shown as a design reference. Your website uses your own branding, imagery and content; the business identity shown is not offered for resale.",
+    },
+    deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
+    preview: {
+      src: "/images/templates/horizon/hero.png",
+      alt: "Horizon Contracting Group independent redesign concept with a landscape image and introductory website section",
+      width: 2048,
+      height: 1082,
+    },
+    demoUrl: "/website-collection/horizon#preview",
+    included: [
+      "One page structure with introduction, services, coverage areas, project imagery and contact sections",
+      "Your business identity, supplied photographs, service areas and approved copy",
+      contactScopeDetails.direct.description,
+      "Responsive implementation, core SEO and security standards, metadata and launch checks",
+    ],
+    customization: [
+      "Your business name, logo, brand colours and approved photography",
+      "Your landscaping and contracting services, coverage areas and project information",
+      "Call and email details, plus your chosen external booking link",
+      "Additional pages, enquiry forms and custom features quoted separately",
+    ],
+  },
   {
     id: "earthworks",
     status: "concept",
@@ -852,7 +891,10 @@ export function designHref(design: Pick<WebsiteDesign, "id">) {
   return `/website-collection/${design.id}`;
 }
 
-export function designStatusLabel(design: Pick<WebsiteDesign, "status" | "pagePreview">) {
+export function designStatusLabel(
+  design: Pick<WebsiteDesign, "status" | "pagePreview" | "independentConcept">,
+) {
+  if (design.independentConcept) return "Independent design concept";
   if (design.status === "client-example") return "Live client example";
   if (design.status === "concept") return design.pagePreview ? "Live design demo" : "Sample layout";
   return design.status === "published" ? "Available design" : "In development";

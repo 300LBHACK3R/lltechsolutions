@@ -67,8 +67,14 @@
 ## Lawn Care and contact scope
 
 - Confirm $499, four pages and direct contact on the Lawn Care card, detail, comparison and enquiry. Check both trades and property categories. Low/high price ordering must keep Lawn Care before Painting Company within the $499 group.
-- Check direct contact on $299–$499 new-build offers and standard protected enquiry form setup on current $699+ offers. Optional form upgrades, monthly care and provider fees must remain separately scoped. Original client case studies must retain their facts.
+- Check direct contact on $299–$500 new-build offers and standard protected enquiry form setup on current $699+ offers. Optional form upgrades, monthly care and provider fees must remain separately scoped. Original client case studies must retain their facts.
 - Build the standalone Lawn Care export and run its checker. Review Home, Services, Our Work and Contact at narrow and wide widths. Check all nav links, service anchors, focus outlines and L&L enquiry handoff. The reserved sample email must remain labelled and inert.
 - Review the grass/mower animation with motion on, paused and reduced motion. Navigation must remain usable with animation disabled, keyboard input and JavaScript disabled.
 - Confirm no public live-demo link is shown before a verified deployment URL is configured. Review real screenshots once supplied. Static demo routes require noindex and the maintained security headers.
 - Browser rendering, real mobile/Safari/Firefox behavior, Windows script execution and public deployment require separate verification; build and HTTP checks alone do not establish them.
+
+## Landscape Contracting reference
+
+- Confirm six Construction & Trades entries, with Landscape Contracting at $500 between the $499 and $699 designs. It also appears in Home & Property. Its detail and comparison show the one-page scope; its enquiry preserves the canonical price and direct-contact selection.
+- Check all three supplied screenshots in the detail gallery, including thumbnail selection, full-size links and keyboard focus at narrow and wide widths. Preserve the independent-concept label and reference note; Horizon is not a client record.
+- Keep `src/data/horizon-demo.json`'s URL null until a public live demo is supplied and verified. The screenshot anchor must remain usable without an external demo.

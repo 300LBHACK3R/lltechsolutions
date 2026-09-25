@@ -7,6 +7,7 @@ import paintingDemo from "@/data/painting-demo.json";
 import plumbingDemo from "@/data/plumbing-demo.json";
 import earthworksDemo from "@/data/earthworks-demo.json";
 import lawncareDemo from "@/data/lawncare-demo.json";
+import horizonDemo from "@/data/horizon-demo.json";
 import CollectionContactOptions from "@/components/collection/CollectionContactOptions";
 import CollectionCustomization from "@/components/collection/CollectionCustomization";
 import { readTemplateShowcase } from "@/lib/template-showcase";
@@ -60,7 +61,9 @@ export default async function DesignPage({ params }: Props) {
           ? readTemplateShowcase(earthworksDemo, "earthworks")
           : design.id === "lawncare"
             ? readTemplateShowcase(lawncareDemo, "lawncare")
-            : null;
+            : design.id === "horizon"
+              ? readTemplateShowcase(horizonDemo, "horizon")
+              : null;
   const category = categoryForIndustry(design.industry);
   const clientProject = design.clientProjectId
     ? projects.find(
@@ -153,6 +156,9 @@ export default async function DesignPage({ params }: Props) {
                     : "A closer look at the website layout."}
             </p>
           </div>
+          {design.independentConcept && (
+            <p className="collection-fineprint">{design.independentConcept.note}</p>
+          )}
           {media ? (
             <TemplateShowcase design={design} media={media} />
           ) : clientProject ? (

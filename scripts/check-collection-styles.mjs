@@ -57,6 +57,15 @@ const routes = new Map([
     ["lawn-cover", "template-detail-header", "collection-contact-options"],
   ],
   ["/website-collection/still", ["design-preview-viewport", "design-name-field"]],
+  [
+    "/website-collection/horizon",
+    [
+      "template-detail-header",
+      "template-screenshot-main",
+      "template-screenshot-choices",
+      "collection-contact-options",
+    ],
+  ],
   ["/website-collection/calgary-hot-shot", ["live-demo-scroll"]],
   ["/website-collection/tow-n-go", ["project-video", "design-detail-scope"]],
   ["/website-collection/crestline", ["project-video", "design-detail-scope"]],
