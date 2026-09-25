@@ -3,6 +3,8 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { isAbsolute, join, resolve } from "node:path";
 import { parseArgs } from "node:util";
+import { verifyWellnessPublicSegments } from "./check-wellness-public.mjs";
+import { isCompletedHeadTransfer } from "./lib/capture-request-failures.mjs";
 
 // Run on the publisher's computer after public deployment verification.
 // Playwright is installed outside the website repository by the release script.
@@ -219,6 +221,8 @@ async function checkDemoNavigationAndPreviews(browser, mobile) {
   }
 }
 
+const verifiedSegments = await verifyWellnessPublicSegments({ url: source.href });
+console.log(`CHECKED ${verifiedSegments} public page-data files before browser capture.`);
 const browser = await chromium.launch({ headless: true });
 const screenshots = [];
 try {
@@ -238,20 +242,54 @@ try {
       timezoneId: "America/Toronto",
       serviceWorkers: "block",
     });
+    const errors = [];
+    const failedRequests = [];
+    const responseStatuses = new WeakMap();
     try {
       const page = await context.newPage();
-      const errors = [];
       page.on("pageerror", (error) => errors.push(error.message));
       page.on("response", (response) => {
+        responseStatuses.set(response.request(), response.status());
         const url = new URL(response.url());
         if (url.origin === approvedOrigin && response.status() >= 400) {
-          errors.push(`HTTP ${response.status()} at ${url.pathname}`);
+          errors.push(
+            `HTTP ${response.status()} ${response.request().method()} at ${url.pathname}`,
+          );
         }
       });
       page.on("requestfailed", (request) => {
         const url = new URL(request.url());
-        if (url.origin === approvedOrigin) errors.push(`Failed resource at ${url.pathname}`);
+        if (url.origin === approvedOrigin) failedRequests.push(request);
       });
+      const assertResources = async () => {
+        for (const request of failedRequests.splice(0)) {
+          const failure = {
+            method: request.method(),
+            resourceType: request.resourceType(),
+            errorText: request.failure()?.errorText ?? "Unknown request failure",
+            status: responseStatuses.get(request),
+          };
+          const path = new URL(request.url()).pathname;
+          if (isCompletedHeadTransfer(failure)) {
+            console.log(
+              `CHECKED successful HEAD ${path}: HTTP ${failure.status}; no body required.`,
+            );
+          } else {
+            errors.push(
+              `${failure.method} ${path} (${failure.resourceType}): ${failure.errorText}; response ${failure.status ?? "not received"}`,
+            );
+          }
+        }
+        if (errors.length) {
+          const diagnostic = { page: shot.route, viewport: shot.viewport, errors };
+          await writeFile(
+            join(output, "capture-errors.json"),
+            `${JSON.stringify(diagnostic, null, 2)}\n`,
+          );
+          console.error(`CAPTURE DIAGNOSTICS: ${join(output, "capture-errors.json")}`);
+        }
+        assert.equal(errors.length, 0, `Page errors prevent capture: ${errors.join("; ")}`);
+      };
       const sourceUrl = new URL(shot.route, source).href;
       const response = await page.goto(sourceUrl, { waitUntil: "load", timeout: 45000 });
       assert(
@@ -299,7 +337,7 @@ try {
         { timeout: 20000 },
       );
       await assertNoOverflow(page, shot.route);
-      assert.equal(errors.length, 0, `Page errors prevent capture: ${errors.join("; ")}`);
+      await assertResources();
       const bytes = await page.screenshot({
         fullPage: true,
         type: "png",
@@ -308,6 +346,7 @@ try {
         scale: "css",
         timeout: 30000,
       });
+      await assertResources();
       const size = pngDimensions(bytes);
       assert.equal(size.width, shot.viewport.width, "Screenshot width differs from the viewport.");
       assert(size.height >= shot.viewport.height, "Screenshot does not cover the viewport.");
@@ -321,6 +360,32 @@ try {
         capturedAt: new Date().toISOString(),
       });
       console.log(`CAPTURED ${shot.file}: ${size.width} x ${size.height} from ${sourceUrl}`);
+    } catch (error) {
+      // Preserve evidence even when a navigation or image wait fails before
+      // the usual resource assertion. Diagnostic writes never replace the cause.
+      const diagnostic = {
+        page: shot.route,
+        viewport: shot.viewport,
+        cause: error instanceof Error ? error.message : String(error),
+        errors,
+        pendingFailures: failedRequests.map((request) => ({
+          path: new URL(request.url()).pathname,
+          method: request.method(),
+          type: request.resourceType(),
+          error: request.failure()?.errorText ?? "Unknown request failure",
+          status: responseStatuses.get(request) ?? null,
+        })),
+      };
+      try {
+        await writeFile(
+          join(output, "capture-errors.json"),
+          `${JSON.stringify(diagnostic, null, 2)}\n`,
+        );
+        console.error(`CAPTURE DIAGNOSTICS: ${join(output, "capture-errors.json")}`);
+      } catch (diagnosticError) {
+        console.error(`Could not save capture diagnostics: ${diagnosticError.message}`);
+      }
+      throw error;
     } finally {
       await context.close();
     }

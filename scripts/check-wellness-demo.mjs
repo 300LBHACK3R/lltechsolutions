@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { access, cp, readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { wellnessPagePath, wellnessPages } from "../src/data/wellness-pages.ts";
+import { validateWellnessSegmentsManifest } from "./check-wellness-public.mjs";
 import {
   collectionInquiryHref,
   designPrice,
@@ -11,6 +13,18 @@ import {
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "build/wellness-demo/out");
+const segmentManifest = JSON.parse(
+  await readFile(resolve(output, "wellness-segments.json"), "utf8"),
+);
+for (const file of validateWellnessSegmentsManifest(segmentManifest)) {
+  const bytes = await readFile(resolve(output, file.path.slice(1)));
+  assert.equal(bytes.length, file.bytes, `Exported segment size: ${file.path}`);
+  assert.equal(
+    createHash("sha256").update(bytes).digest("hex"),
+    file.sha256,
+    `Exported segment content: ${file.path}`,
+  );
+}
 const design = websiteDesigns.find((item) => item.id === "mckenzie-house");
 assert.ok(design, "The wellness offer exists in the canonical catalogue");
 assert.equal(design.name, "Wellness & Massage", "The template uses its generic offer name");

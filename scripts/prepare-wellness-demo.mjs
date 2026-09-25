@@ -9,6 +9,8 @@ await rm(target, { recursive: true, force: true });
 await mkdir(target, { recursive: true });
 await cp(resolve(root, "templates/wellness-demo"), target, { recursive: true });
 const files = [
+  "scripts/normalize-wellness-segments.mjs",
+  "scripts/lib/static-export-segments.mjs",
   "src/components/collection/WellnessTemplate.tsx",
   "src/components/collection/WellnessCover.tsx",
   "src/components/collection/WellnessMarks.tsx",
@@ -37,6 +39,7 @@ pkg.name = "ll-wellness-template";
 pkg.scripts = {
   dev: "next dev",
   build: "next build",
+  postbuild: "node scripts/normalize-wellness-segments.mjs",
   typecheck: "next typegen && tsc --noEmit",
 };
 const lock = JSON.parse(await readFile(resolve(root, "package-lock.json"), "utf8"));
