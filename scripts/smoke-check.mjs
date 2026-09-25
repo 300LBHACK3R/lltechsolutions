@@ -248,6 +248,38 @@ try {
     "McKenzie: original production scope is clear",
   );
   assert.ok(
+    wellness.includes("Approx. $1,000 CAD") && wellness.includes("Original combined project"),
+    "McKenzie: original combined project cost is explained separately",
+  );
+  assert.ok(!/<video\b/.test(wellness), "McKenzie: template page has no video player");
+  assert.ok(
+    wellness.includes("template-client-image") &&
+      wellness.includes(encodeURIComponent("/images/projects/mckenzie-house.webp")),
+    "McKenzie: template preview uses the matching real website image",
+  );
+  const productionService = "Photo / Video / Short-Form Content";
+  const productionHref = `/contact?service=${encodeURIComponent(productionService)}`;
+  assert.ok(
+    htmlByRoute.get("/services").includes(`href="${productionHref}"`),
+    "Services: photography and videography enquiry uses the existing contact option",
+  );
+  assert.ok(
+    htmlByRoute.get("/packages").includes("Approx. $1,000 CAD") &&
+      htmlByRoute.get("/packages").includes('href="/services#photography-videography"'),
+    "Pricing: combined project example and optional production services are visible",
+  );
+  const productionContact = await fetch(origin + productionHref);
+  assert.equal(productionContact.status, 200);
+  const productionContactHtml = await productionContact.text();
+  const selectedService = [
+    ...productionContactHtml.matchAll(/<option\b([^>]*)>([^<]*)<\/option>/g),
+  ].find(([, , label]) => label === productionService);
+  assert.ok(
+    selectedService?.[1].includes("selected="),
+    "Photo/video enquiry preselects its service",
+  );
+  checks++;
+  assert.ok(
     wellness.includes("New photography, video production and ongoing care are priced separately"),
     "McKenzie: optional production and care are separately priced",
   );
@@ -619,10 +651,17 @@ try {
       !example.includes("placeholder business details") && !example.includes("Made yours."),
       `${id}: not labelled a placeholder template`,
     );
-    assert.ok(
-      example.includes(`src="/media/projects/${videoSrc}.mp4"`),
-      `${id}: correct canonical walkthrough`,
-    );
+    if (id !== "mckenzie-house") {
+      assert.ok(
+        example.includes(`src="/media/projects/${videoSrc}.mp4"`),
+        `${id}: correct canonical walkthrough`,
+      );
+    } else {
+      assert.ok(
+        htmlByRoute.get("/projects/web-builds").includes(`src="/media/projects/${videoSrc}.mp4"`),
+        "McKenzie: walkthrough remains available in the client case study",
+      );
+    }
     for (const href of [`/projects/web-builds#${id}`, liveUrl]) {
       assert.ok(example.includes(`href="${href}"`), `${id}: links to ${href}`);
     }

@@ -14,6 +14,7 @@ import { readTemplateShowcase } from "@/lib/template-showcase";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import CostSummary from "@/components/collection/CostSummary";
 import ProjectVideo from "@/components/projects/ProjectVideo";
+import ProductionExample from "@/components/ui/ProductionExample";
 import { projects, projectPath } from "@/data/projects";
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl, liveDemoLabel } from "@/config/site";
@@ -149,7 +150,9 @@ export default async function DesignPage({ params }: Props) {
                   ? "Browse the screenshots for a closer look."
                   : "Your branding, content and imagery make it yours."
                 : clientProject
-                  ? "Watch the walkthrough or explore the client story."
+                  ? design.clientPreview === "image"
+                    ? "The actual client website. Open the live demo to explore it."
+                    : "Watch the walkthrough or explore the client story."
                   : design.concept
                     ? "Explore the sample pages and try your business name."
                     : "A closer look at the website layout."}
@@ -171,10 +174,26 @@ export default async function DesignPage({ params }: Props) {
               {design.clientScopeNote && (
                 <p className="template-client-scope">{design.clientScopeNote}</p>
               )}
-              <ProjectVideo
-                video={clientProject.video}
-                projectId={`collection-${clientProject.id}`}
-              />
+              {design.clientPreview === "image" && design.preview ? (
+                <figure className="template-design-overview template-client-image">
+                  <Image
+                    src={design.preview.src}
+                    alt={design.preview.alt}
+                    width={design.preview.width}
+                    height={design.preview.height}
+                    sizes="(max-width: 767px) 92vw, (max-width: 1280px) 90vw, 1180px"
+                  />
+                  <figcaption>
+                    {clientProject.title} · Actual website example. Your version uses your own brand
+                    and content.
+                  </figcaption>
+                </figure>
+              ) : (
+                <ProjectVideo
+                  video={clientProject.video}
+                  projectId={`collection-${clientProject.id}`}
+                />
+              )}
               <div className="button-row">
                 <Link className="text-link" href={projectPath(clientProject)}>
                   Explore the client story ↗
@@ -217,6 +236,7 @@ export default async function DesignPage({ params }: Props) {
             />
           )}
         </section>
+        {design.id === "mckenzie-house" && <ProductionExample />}
         <section className="collection-section design-detail-scope" aria-labelledby="scope-title">
           <div>
             <p className="eyebrow">Included in the starting scope</p>

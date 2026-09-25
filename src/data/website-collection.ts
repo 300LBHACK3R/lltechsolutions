@@ -203,6 +203,8 @@ export type WebsiteDesign = {
   contactMode: CollectionContactMode;
   /** A real portfolio reference; its client-specific assets are not offered for reuse. */
   clientProjectId?: string;
+  /** Use the matching website image instead of the canonical client walkthrough. */
+  clientPreview?: "image";
   /** Explain original client production separately from a prospective website's price. */
   clientScopeNote?: string;
   /** An independent redesign reference, not a client project or an offer to reuse its identity. */
@@ -780,6 +782,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     id: "mckenzie-house",
     status: "client-example",
     clientProjectId: "mckenzie-house",
+    clientPreview: "image",
     name: "McKenzie House Massage",
     tier: "premier",
     industry: "massage-wellness",
@@ -789,7 +792,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     pageCount: null,
     contactMode: "direct",
     clientScopeNote:
-      "The original McKenzie House project combined website development with on-site photography, videography, editing and adding the finished media to the website. Your website is quoted for its own pages, content and features. New photography, video production and ongoing care are priced separately.",
+      "Your website is quoted for its own pages, supplied content and features. New photography, video production and ongoing care are priced separately.",
     deliveryWindow:
       "Your website scope and price are agreed before booking. Content production is quoted separately.",
     preview: {
@@ -1054,8 +1057,9 @@ export const collectionExtras = [
   },
   {
     id: "photos",
-    name: "Photography or video",
-    description: "Discuss the real images and footage your website needs.",
+    name: "Photography & videography",
+    description:
+      "Plan original photos or footage, editing and website implementation. Shoot location and deliverables are quoted separately.",
   },
   {
     id: "pages",

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PageIntro from "@/components/ui/PageIntro";
 import ProjectCTA from "@/components/ui/ProjectCTA";
+import ProductionExample from "@/components/ui/ProductionExample";
 import { pageMetadata } from "@/lib/metadata";
 import { investments, investmentDescription } from "@/data/investments";
 export const metadata = pageMetadata(
@@ -42,6 +43,14 @@ export default function PricingPage() {
           Starting prices are in CAD. Strategy, design, features, integrations, content, timeline
           and ongoing support affect the final quote. Your proposal will identify applicable taxes
           and any separate hosting, domain, platform, advertising or usage fees before approval.
+        </p>
+        <ProductionExample />
+        <p className="investment-note">
+          Photography and videography are also available as standalone projects for websites, social
+          media and promotional content.{" "}
+          <Link href="/services#photography-videography" className="text-link">
+            Explore photo & video services ↗
+          </Link>
         </p>
         <section className="collection-pricing-link" aria-labelledby="pricing-collection-title">
           <div>

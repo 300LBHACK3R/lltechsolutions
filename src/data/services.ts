@@ -14,6 +14,7 @@ export const servicePillars = [
       "E-commerce, booking and payment integrations",
       "Technical SEO, accessibility and performance",
       "Analytics, Google Business and launch support",
+      "Optional photography, videography and media preparation for your website",
       "Website maintenance and continuous improvement",
     ],
     work: "/projects/web-builds",
@@ -59,3 +60,27 @@ export const servicePillars = [
     inquiry: "Social Media Management",
   },
 ] as const;
+
+/** Content production supports our website and social work; it is not a fourth pillar. */
+export const contentProduction = {
+  id: "photography-videography",
+  title: "Photography & videography",
+  description:
+    "Show the people, places and work behind your business. We plan and capture original photos and video, edit them for their intended use, and prepare the finished content for your website, social channels or promotional campaigns.",
+  uses: [
+    "Website hero imagery, service photos and video",
+    "Team, workspace, product and completed-project photography",
+    "Short-form video, social posts and promotional content",
+    "Editing, web-ready exports and website implementation",
+  ],
+  scope:
+    "Available with a website or as a separate content project. Shoot location, travel, timing, editing and deliverables are agreed in your quote. Ongoing content and maintenance are scoped separately.",
+  inquiry: "Photo / Video / Short-Form Content",
+  projectExample: {
+    title: "A website. And the content that makes it yours.",
+    priceLabel: "Approx. $1,000 CAD",
+    description:
+      "McKenzie House’s original project combined website development with on-site photography, videography, editing and implementing the finished media on the website.",
+    note: "This is an example combined project cost, not a website-only template price. Your quote confirms the website scope, shoot, deliverables, applicable taxes and any travel costs. New production and ongoing care are agreed separately.",
+  },
+} as const;

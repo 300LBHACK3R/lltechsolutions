@@ -2,12 +2,12 @@ import Link from "next/link";
 import PageIntro from "@/components/ui/PageIntro";
 import ProjectCTA from "@/components/ui/ProjectCTA";
 import JsonLd from "@/components/seo/JsonLd";
-import { servicePillars } from "@/data/services";
+import { contentProduction, servicePillars } from "@/data/services";
 import { absoluteUrl } from "@/config/site";
 import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata(
   "Website, Software & Social Media Services",
-  "Custom website development, purpose-built software and managed social content from a Calgary digital studio serving businesses across Canada.",
+  "Website development, custom software and social media, plus photography and videography for websites and business content. Calgary-based L&L Tech Solutions.",
   "/services",
 );
 export default function ServicesPage() {
@@ -48,6 +48,24 @@ export default function ServicesPage() {
                     Explore the Website Templates ↗
                   </Link>
                 </div>
+              )}
+              {service.id === "social-media-management" && (
+                <section className="content-production" id={contentProduction.id}>
+                  <h3>{contentProduction.title}</h3>
+                  <p>{contentProduction.description}</p>
+                  <ul className="content-production-uses">
+                    {contentProduction.uses.map((use) => (
+                      <li key={use}>{use}</li>
+                    ))}
+                  </ul>
+                  <p className="content-production-scope">{contentProduction.scope}</p>
+                  <Link
+                    href={`/contact?service=${encodeURIComponent(contentProduction.inquiry)}`}
+                    className="text-link"
+                  >
+                    Plan your photo & video project ↗
+                  </Link>
+                </section>
               )}
             </div>
             <div>

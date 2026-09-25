@@ -67,7 +67,7 @@ const routes = new Map([
   ["/website-collection/crestline", ["project-video", "design-detail-scope"]],
   [
     "/website-collection/mckenzie-house",
-    ["project-video", "template-client-scope", "design-detail-scope"],
+    ["template-client-image", "production-example", "template-client-scope", "design-detail-scope"],
   ],
   ["/website-collection/start?design=pigment", ["journey-progress", "journey-options"]],
   ["/website-collection/compare?design=pigment&design=still", ["design-comparison"]],

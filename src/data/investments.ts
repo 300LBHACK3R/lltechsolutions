@@ -7,7 +7,7 @@ export const investments = [
     amount: 399,
     period: "",
     description:
-      "A focused business website with a clear scope. Page count, supplied content, original photography, integrations and custom features shape the final quote.",
+      "A focused business website using your supplied content. Pages, integrations and custom features shape the final quote. Original photography, videography and ongoing care are optional, separately scoped services.",
     service: "Website Design & Development",
   },
   {
