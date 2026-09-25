@@ -183,6 +183,7 @@ try {
     ["earthworks", "earthworks"],
     ["lawncare", "lawncare"],
     ["horizon", "horizon"],
+    ["mckenzie-house", "wellness"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     const media = JSON.parse(
@@ -239,6 +240,50 @@ try {
     }
   }
   const paintingGallery = htmlByRoute.get("/website-collection/category/construction-trades");
+  const wellness = htmlByRoute.get("/website-collection/mckenzie-house");
+  assert.ok(wellness.includes("Wellness &amp; Massage"), "wellness: separate template identity");
+  assert.ok(wellness.includes("6 page structures"), "wellness: explicit six-page offer");
+  assert.ok(
+    wellness.includes("standard contact-form"),
+    "wellness: form setup belongs to the new offer",
+  );
+  assert.ok(
+    wellness.includes("on-site photography and service video"),
+    "wellness: real client production work stays visible",
+  );
+  assert.ok(
+    wellness.includes('href="/projects/web-builds#mckenzie-house"'),
+    "wellness: original client case study remains accessible",
+  );
+  assert.ok(
+    !wellness.includes('src="/media/projects/mckenzie-website.mp4"'),
+    "wellness: client video is not presented as this demo",
+  );
+  assert.ok(
+    !wellness.includes('href="https://mckenziehousemassage.ca/"'),
+    "wellness: live demo never sends visitors to Heather's different site",
+  );
+  for (const route of [
+    "/projects/web-builds",
+    "/projects/software-development",
+    "/projects/social-media-management",
+  ]) {
+    const page = htmlByRoute.get(route);
+    const websiteLinks = [
+      ...page.matchAll(
+        /<a\b[^>]*href="https:\/\/(?:www\.)?(?:towandgotrailers\.ca|crestlinepainting\.ca|mckenziehousemassage\.ca|tatestv\.ca)\/"[^>]*>([\s\S]*?)<\/a>/g,
+      ),
+    ];
+    assert.ok(websiteLinks.length, `${route}: website demo actions are available`);
+    for (const [, label] of websiteLinks)
+      assert.ok(label.startsWith("View live demo"), `${route}: consistent visible demo wording`);
+  }
+  for (const id of ["tow-n-go", "crestline", "calgary-hot-shot"])
+    assert.match(
+      htmlByRoute.get(`/website-collection/${id}`),
+      />View live demo(?:<!-- -->)? /,
+      `${id}: consistent external demo wording`,
+    );
   assert.match(
     paintingGallery,
     /<h3><a href="\/website-collection\/pigment">Painting Company<\/a><\/h3>/,
@@ -531,13 +576,6 @@ try {
       "construction-trades",
       "https://www.crestlinepainting.ca/",
       "crestline-website",
-    ],
-    [
-      "mckenzie-house",
-      "McKenzie House Massage",
-      "health-wellness",
-      "https://mckenziehousemassage.ca/",
-      "mckenzie-website",
     ],
   ]) {
     const gallery = htmlByRoute.get(`/website-collection/category/${category}`);
@@ -937,7 +975,6 @@ try {
     ["/projects/web-builds", 3],
     ["/website-collection/tow-n-go", 1],
     ["/website-collection/crestline", 1],
-    ["/website-collection/mckenzie-house", 1],
     ["/projects/software-development", 1],
     ["/projects/social-media-management", 2],
   ]) {

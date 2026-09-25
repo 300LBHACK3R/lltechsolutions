@@ -184,7 +184,7 @@ test("collection validates design status, scope and local preview assets", () =>
     }
     if (design.concept) {
       assert.ok(
-        ["pigment", "structure", "still", "earthworks", "lawncare", "horizon"].includes(
+        ["pigment", "structure", "still", "earthworks", "lawncare", "horizon", "wellness"].includes(
           design.concept.theme,
         ),
       );
@@ -335,7 +335,6 @@ test("transport and restaurant enquiries preserve their category and real design
 for (const [id, industry] of [
   ["tow-n-go", "transport-logistics"],
   ["crestline", "painting"],
-  ["mckenzie-house", "massage-wellness"],
 ]) {
   test(`${id}: client reference keeps its own scoped offer and enquiry`, () => {
     const design = availableDesigns().find((item) => item.id === id);

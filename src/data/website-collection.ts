@@ -203,6 +203,8 @@ export type WebsiteDesign = {
   contactMode: CollectionContactMode;
   /** A real portfolio reference; its client-specific assets are not offered for reuse. */
   clientProjectId?: string;
+  /** Related completed client work; the template itself uses a separate sample business. */
+  caseStudyProjectId?: string;
   /** An independent redesign reference, not a client project or an offer to reuse its identity. */
   independentConcept?: { businessName: string; note: string };
   deliveryWindow: string;
@@ -214,7 +216,7 @@ export type WebsiteDesign = {
   customization?: readonly string[];
   additionalIndustries?: readonly CollectionIndustryId[];
   concept?: {
-    theme: "pigment" | "structure" | "still" | "earthworks" | "lawncare" | "horizon";
+    theme: "pigment" | "structure" | "still" | "earthworks" | "lawncare" | "horizon" | "wellness";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -775,39 +777,64 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     ],
   },
   {
+    // Keep the existing catalogue URL and saved enquiry selections valid.
     id: "mckenzie-house",
-    status: "client-example",
-    clientProjectId: "mckenzie-house",
-    name: "McKenzie House Massage",
+    status: "concept",
+    caseStudyProjectId: "mckenzie-house",
+    name: "Wellness & Massage",
     tier: "premier",
     industry: "massage-wellness",
     description:
-      "A real boutique massage website pairing a warm green-and-cream design with treatment photography, clear service and pricing pages, client stories and ClinicSense booking links.",
+      "A complete six-page wellness website in deep evergreen, warm cream and gold, with treatment details, transparent pricing, an approachable practice story, FAQs and a full enquiry and booking contact page.",
     startingPriceCad: 999,
-    pageCount: null,
+    pageCount: 6,
     contactMode: "enquiry-form",
-    deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
-    preview: {
-      src: "/images/projects/mckenzie-house.webp",
-      alt: "McKenzie House Massage website with deep green and warm gold details, treatment-room photography and a booking call to action",
-      width: 1348,
-      height: 926,
-    },
-    demoUrl: "https://mckenziehousemassage.ca/",
+    deliveryWindow: "Content, provider requirements and launch timing are agreed before booking.",
+    demoUrl: "/website-collection/mckenzie-house#preview",
     included: [
-      "A similar welcoming design shaped around your own practice and brand",
-      "Service pages with your approved treatment descriptions, appointment lengths and pricing",
-      "About, client feedback and practical visitor information using your own approved content",
-      "A clear booking pathway connected to your chosen scheduling platform within the agreed scope",
+      "Six page structures: Home, Treatments, Pricing, About, FAQ and Contact",
+      "Personalization with your approved logo, colours, supplied imagery, practitioner information, service descriptions and rates",
       contactScopeDetails["enquiry-form"].description,
-      "Responsive implementation, metadata and launch checks",
+      "Contact information and a booking button linked to your chosen scheduling provider; custom booking systems and integrations are extra",
+      "Responsive implementation, core SEO, metadata, security headers and dependency checks",
+      "Vercel deployment, domain connection and agreed launch checks; domain, hosting and provider fees are separate",
     ],
     customization: [
-      "Your business name, logo, colours and treatment-space imagery",
-      "Your actual treatments, practitioner information, rates and tax wording",
-      "Your booking provider, contact details and relevant practice policies",
-      "Optional photography, service videos and ongoing website care, scoped separately",
+      "Your actual treatments, appointment lengths, rates and tax wording",
+      "Practice information, service area, contact details and approved policies",
+      "Standard enquiry fields and your existing external scheduling link",
+      "Extra pages, new photography, video production, custom features and ongoing maintenance quoted separately",
     ],
+    concept: {
+      theme: "wellness",
+      brands: ["EVERGREEN WELLNESS", "YOUR WELLNESS STUDIO"],
+      headlines: ["A little space. To feel like you.", "Make room for yourself."],
+      subcopy: "A considered space for massage and everyday wellbeing, shaped around your comfort.",
+      kicker: "Massage & wellbeing",
+      action: "Explore treatments",
+      photo: {
+        src: "/images/collection/massage-room.webp",
+        alt: "Illustrative wellness treatment room with sage walls and cream linens",
+        width: 1536,
+        height: 1024,
+      },
+      services: [
+        {
+          name: "Relaxation massage",
+          description: "Time to settle, with pressure and positioning guided by your comfort.",
+        },
+        {
+          name: "Focused massage",
+          description: "A conversation about the areas you would like attention to.",
+        },
+        {
+          name: "Your first visit",
+          description: "Clear practical information and time for your questions.",
+        },
+      ],
+      approach:
+        "A welcoming website with clear treatment information, sample enquiry and booking interactions, and room for your real practice story.",
+    },
   },
 ];
 

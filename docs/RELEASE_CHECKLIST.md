@@ -79,3 +79,10 @@
 - Build the standalone Landscape Studio export and run its checker. Review Home, Services, Projects and Contact at narrow and wide widths. Check navigation, project filters, service details, coverage anchors, keyboard focus, motion preferences and the real L&L enquiry handoff. Sample contractor contacts stay clearly labelled and inert.
 - Keep the original Horizon captures as reference files. The catalogue's maintained cover and any new screenshots should represent the new Landscape Studio demo. Preserve the independent-concept label; Horizon is not a client record.
 - Keep `src/data/horizon-demo.json`'s URL null until the publisher verifies the separate demo's public alias and all four routes. Check the live demo button after the main L&L deployment is Ready.
+
+## Separate wellness demo and consistent actions
+
+- Confirm every external website/software example action reads View live demo, including client-based template references and Tate’s TV. Internal template and client-story links still open their detail pages.
+- Confirm Wellness & Massage at the existing `/website-collection/mckenzie-house` URL: $999 CAD, six pages, standard enquiry setup and separately scoped content production/care. Heather’s actual case study and original website remain accessible through Our Clients.
+- Build and validate the six-page standalone demo. Enquiry and booking interactions show demonstration results only, with no network submission, appointment confirmation, storage or real contact destination. Check disabled no-JavaScript submission, error/status announcements, keyboard access, phone layout and reduced motion.
+- Publish only the separate ll-wellness-template export. Verify all public routes and headers, capture the actual demo, then connect its URL and matching screenshots. Check the final main-site Vercel deployment separately.

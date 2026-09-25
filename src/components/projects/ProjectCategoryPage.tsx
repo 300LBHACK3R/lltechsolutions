@@ -87,7 +87,8 @@ export default function ProjectCategoryPage({ category }: { category: ProjectCat
                         rel="noopener noreferrer"
                         className="text-link"
                       >
-                        {link.label} ↗
+                        {link.label}{" "}
+                        <span className="sr-only">for {project.title}, in a new tab</span>↗
                       </a>
                     ))}
                   </div>

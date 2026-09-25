@@ -5,6 +5,7 @@ import type { WebsiteDesign } from "@/data/website-collection";
 import PlumbingCover from "@/components/collection/PlumbingCover";
 import PaintingCover from "@/components/collection/PaintingCover";
 import HorizonCover from "@/components/collection/HorizonCover";
+import WellnessCover from "@/components/collection/WellnessCover";
 
 /** Decorative miniature; the surrounding card supplies its accessible name and description. */
 export default function DesignCover({ design }: { design: WebsiteDesign }) {
@@ -21,6 +22,7 @@ export default function DesignCover({ design }: { design: WebsiteDesign }) {
     );
   }
   if (!concept) return null;
+  if (concept.theme === "wellness") return <WellnessCover design={design} />;
   if (concept.theme === "horizon") return <HorizonCover design={design} />;
   if (concept.theme === "lawncare") return <LawnCover design={design} />;
   if (concept.theme === "earthworks") return <EarthworksCover design={design} />;

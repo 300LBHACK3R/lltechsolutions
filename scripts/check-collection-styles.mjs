@@ -38,7 +38,7 @@ const routes = new Map([
   ],
   [
     "/website-collection/category/health-wellness",
-    ["template-gallery-heading", "template-mini-hero"],
+    ["template-gallery-heading", "template-mini-hero", "wellness-cover"],
   ],
   [
     "/website-collection/pigment",
@@ -65,7 +65,10 @@ const routes = new Map([
   ["/website-collection/calgary-hot-shot", ["live-demo-scroll"]],
   ["/website-collection/tow-n-go", ["project-video", "design-detail-scope"]],
   ["/website-collection/crestline", ["project-video", "design-detail-scope"]],
-  ["/website-collection/mckenzie-house", ["project-video", "design-detail-scope"]],
+  [
+    "/website-collection/mckenzie-house",
+    ["wellness-cover", "template-case-study", "design-detail-scope"],
+  ],
   ["/website-collection/start?design=pigment", ["journey-progress", "journey-options"]],
   ["/website-collection/compare?design=pigment&design=still", ["design-comparison"]],
   ["/website-collection/brief", ["brief-fields"]],

@@ -17,6 +17,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Use the existing logo and real project assets. Do not manufacture client identities, testimonials or performance results.
 - Heather's quoted testimonial must stay verbatim.
 - Business details and project data each have one canonical source. Do not recreate duplicate datasets/forms.
+- External website and software example actions use the shared “View live demo” label. Internal template-detail, case-study, social and booking links retain their own accurate labels.
+- Wellness & Massage is a separate $999 six-page template using the legacy `mckenzie-house` catalogue identifier. Heather’s actual website, photography and video remain in the client case study. Demo enquiry and booking controls never send messages or create appointments; actual delivery is configured and tested during a customer launch. Use actual captures of the generic demo for its screenshots.
 - Server components are the default. Client components are limited to interaction and progressive animation.
 - Changes must pass the documented quality gates. Never claim browser QA, email delivery, remote push or deployment without evidence.
 - Use an isolated branch/worktree. Never overwrite unrelated local work or expose secrets.

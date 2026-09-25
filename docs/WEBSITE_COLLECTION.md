@@ -5,7 +5,7 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 ## The visitor journey
 
 1. Open Website Templates in the main navigation. A compact introduction preserves “A design you love. The details, handled.” and the existing launch explanation. Wide photographic business-category links appear immediately below, under “Browse by business type”. The nearby **How it works** link jumps to the compact process strip after the categories.
-2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The templates use plain names: Painting Company, Plumbing Company, Excavation & Landscaping, Massage Practice, Calgary Hot Shot, Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage. Category filtering stays on the gallery page, not the landing page.
+2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The templates use plain names: Painting Company, Plumbing Company, Excavation & Landscaping, Landscape Contracting, Lawn Care, Massage Practice, Wellness & Massage, Calgary Hot Shot, Tow-N-Go Trailers and Crestline Painting. Category filtering stays on the gallery page, not the landing page.
 3. Open a template to view its screenshots or labelled design cover, scope and starting price. Painting, plumbing and earthworks use a **View live demo** button only when a verified public URL is configured; their duplicate embedded “Try this design here” flow has been removed. Massage Practice retains its generic inline page preview with Phone/Fit screen views until its standalone demo is built. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
 4. Additional pages, custom layouts and features are available for every template and are quoted by the agreed scope before work begins; no fixed per-page fee is implied. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
 
@@ -128,7 +128,7 @@ Historical Tow-N-Go verification: this addition passed formatting, import/asset 
 
 ## Crestline and McKenzie client references
 
-Construction & Trades includes **Crestline Painting**, also available through the Painting and Construction industry filters. Health & Wellness includes **McKenzie House Massage** under Massage & Wellness. Both use the existing **Live client example** presentation: the actual portfolio screenshot, canonical 26-second walkthrough, live website and full client story. No client media files are copied or replaced.
+Construction & Trades includes **Crestline Painting**, also available through the Painting and Construction industry filters, using the actual portfolio screenshot, canonical walkthrough, live website and full client story. Historically Health & Wellness showed **McKenzie House Massage** in the same way. That catalogue offer is now the separate **Wellness & Massage** demo described below; Heather’s original media remain in her client case study. No client media files are copied or replaced.
 
 Crestline’s proposed starting scope focuses on service pages, project categories, photography and quote enquiries. McKenzie’s focuses on treatment information, pricing, practice details and a booking pathway using the new business’s chosen provider. The examples demonstrate completed work; a new website uses the prospect’s own approved branding, content and imagery. Page count, launch price, additional production and care plans are scoped separately. No historical client fees or performance claims are used as an offer.
 
@@ -140,18 +140,18 @@ Historical client-reference verification: formatting, local import/asset validat
 
 The following starting-price schedule reflects the current catalogue. These figures are commercial starting points, not inferred past client fees or externally benchmarked market rates. They exclude applicable taxes. Existing Custom Business Website ($399+) and Social Management Partner ($149/month+) entry points remain unchanged.
 
-| Design                           | Starting price (CAD) | Price applies to                                      |
-| -------------------------------- | -------------------: | ----------------------------------------------------- |
-| Massage Practice                 |                 $299 | New personalization and launch                        |
-| Calgary Hot Shot                 |                 $399 | New personalization and launch                        |
-| Lawn Care                        |                 $499 | New personalization and launch; four demo pages       |
-| Painting Company                 |                 $499 | New personalization and launch                        |
-| Landscape Contracting            |                 $499 | New personalization and launch; four pages            |
-| Plumbing Company                 |                 $699 | New personalization and launch                        |
-| Crestline Painting reference     |                 $399 | A similar new website with the prospect’s own content |
-| Tow-N-Go Trailers reference      |                 $899 | A similar new website with the prospect’s own content |
-| McKenzie House Massage reference |                 $999 | A similar new website with the prospect’s own content |
-| Excavation & Landscaping         |               $1,000 | New personalization and launch; seven demo pages      |
+| Design                       | Starting price (CAD) | Price applies to                                      |
+| ---------------------------- | -------------------: | ----------------------------------------------------- |
+| Massage Practice             |                 $299 | New personalization and launch                        |
+| Calgary Hot Shot             |                 $399 | New personalization and launch                        |
+| Lawn Care                    |                 $499 | New personalization and launch; four demo pages       |
+| Painting Company             |                 $499 | New personalization and launch                        |
+| Landscape Contracting        |                 $499 | New personalization and launch; four pages            |
+| Plumbing Company             |                 $699 | New personalization and launch                        |
+| Crestline Painting reference |                 $399 | A similar new website with the prospect’s own content |
+| Tow-N-Go Trailers reference  |                 $899 | A similar new website with the prospect’s own content |
+| Wellness & Massage           |                 $999 | Six pages, personalization, enquiry setup and launch  |
+| Excavation & Landscaping     |               $1,000 | New personalization and launch; seven demo pages      |
 
 The sole editable price field is `startingPriceCad` in `src/data/website-collection.ts`. Cards, design pages, comparison, the guided proposal summary and prefilled enquiries use that value. Prices remain starting points: final scope, optional extras, ongoing care, hosting, domains and provider charges are agreed separately. The client examples keep their real-client labels and original media; their brands, reviews and client-specific assets are not sold.
 
@@ -262,3 +262,15 @@ The design direction began with an independent L&L redesign concept for **Horizo
 `HorizonCover` is the maintained visual overview on the catalogue and detail page. `src/data/horizon-demo.json` holds the live URL and optional screenshots of the new demo. Its screenshot list is empty until actual captures are added; original reference screenshots are not presented as captures of the new implementation. The live URL stays null until the publisher verifies it. The detail page retains **Independent design concept**, pricing, scope and the existing L&L enquiry handoff.
 
 Run `node scripts/prepare-horizon-demo.mjs`, install and build in `build/horizon-demo`, then run `node scripts/check-horizon-demo.mjs` from the main repository. The maintained scaffold is `templates/horizon-demo/`; generated output is replaceable. Deploy only its `out/` export to the separate `ll-landscape-template` project. The demo includes the L&L details/price/motion/enquiry strip, real page links, sample contact details, noindex and static security headers. No contractor messages are sent. Configure a buyer's real contact details during personalization; forms remain a separately scoped upgrade.
+
+## Wellness & Massage — separate six-page demo
+
+The $999 CAD offer is now **Wellness & Massage**, a separate Evergreen Wellness sample website with Home, Treatments, Pricing, About, FAQ and Contact pages. The existing `mckenzie-house` catalogue identifier and URL are retained so bookmarks and enquiry selections continue to work. Its status is a concept, not a client example; `caseStudyProjectId` links the completed real McKenzie House project. The earlier McKenzie gallery-as-template description above is superseded for this offer.
+
+The real case study still documents custom website development, photography and videography. Its real website and booking links remain in the client portfolio. The new template uses illustrative imagery and a sample identity. Its demo form validates locally and clearly states that nothing is sent; its booking interaction never creates an appointment. During a customer launch, the included standard enquiry setup configures Resend, sending-domain delivery, field validation, spam controls and an initial delivery test. The booking button can link to the customer's scheduling provider; a custom booking system is extra.
+
+The $999 starting price covers six page structures, code personalization with supplied branding/content, standard contact-form setup, SEO/metadata/security foundations, deployment, domain connection and agreed launch checks. Extra pages, photography, video production, ongoing maintenance and domain/hosting/provider charges have separate scope and pricing.
+
+Use `src/data/wellness-demo.json` for the verified public URL and captures of this actual demo. Build using `scripts/prepare-wellness-demo.mjs`, install/build in `build/wellness-demo`, then validate with `scripts/check-wellness-demo.mjs`. Publish only its export to the separate `ll-wellness-template` project. The Windows publisher captures actual desktop Home, Treatments and Contact plus mobile Home from the verified demo, then records and commits the four image files and metadata. A code-based `WellnessCover` is the honest interim preview. Heather's screenshots and video are never used as evidence of this different demo.
+
+All external website and software example actions now share **View live demo**, defined by `liveDemoLabel` in `src/config/site.ts`. Internal links such as View template, case-study links, social links and booking actions continue to describe their own destinations.

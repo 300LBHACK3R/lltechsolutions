@@ -14,7 +14,8 @@ export type TemplateShowcase = {
 /** Only configured public HTTPS demos and local screenshot assets reach the page. */
 export function readTemplateShowcase(
   value: unknown,
-  designId: "pigment" | "structure" | "earthworks" | "lawncare" | "horizon" = "pigment",
+  designId:
+    "pigment" | "structure" | "earthworks" | "lawncare" | "horizon" | "wellness" = "pigment",
 ): TemplateShowcase {
   if (!value || typeof value !== "object") return { url: null, screenshots: [] };
   const config = value as Record<string, unknown>;

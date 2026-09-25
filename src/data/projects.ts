@@ -1,4 +1,5 @@
 import { projectVideos, type ProjectVideo } from "@/data/project-videos";
+import { liveDemoLabel } from "@/config/site";
 
 export type ProjectCategory = "web-builds" | "software-development" | "social-media-management";
 export type ProjectDesignOption = {
@@ -74,7 +75,7 @@ export const projects: Project[] = [
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [
       {
-        label: "Live Website",
+        label: liveDemoLabel,
         href: "https://www.towandgotrailers.ca/",
         kind: "website",
       },
@@ -160,7 +161,7 @@ export const projects: Project[] = [
     liveUrl: "https://www.crestlinepainting.ca/",
     links: [
       {
-        label: "Live Website",
+        label: liveDemoLabel,
         href: "https://www.crestlinepainting.ca/",
         kind: "website",
       },
@@ -204,7 +205,7 @@ export const projects: Project[] = [
     liveUrl: "https://mckenziehousemassage.ca/",
     links: [
       {
-        label: "Live Website",
+        label: liveDemoLabel,
         href: "https://mckenziehousemassage.ca/",
         kind: "website",
       },
@@ -253,7 +254,7 @@ export const projects: Project[] = [
     liveUrl: "https://www.tatestv.ca/",
     links: [
       {
-        label: "Open Tate's TV",
+        label: liveDemoLabel,
         href: "https://www.tatestv.ca/",
         kind: "website",
       },
@@ -296,7 +297,7 @@ export const projects: Project[] = [
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [
       {
-        label: "Live Website",
+        label: liveDemoLabel,
         href: "https://www.towandgotrailers.ca/",
         kind: "website",
       },
@@ -349,7 +350,7 @@ export const projects: Project[] = [
     liveUrl: "https://mckenziehousemassage.ca/",
     links: [
       {
-        label: "Live Website",
+        label: liveDemoLabel,
         href: "https://mckenziehousemassage.ca/",
         kind: "website",
       },
