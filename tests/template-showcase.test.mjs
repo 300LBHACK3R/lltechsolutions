@@ -84,3 +84,20 @@ test("plumbing screenshots are isolated to their own upload folder", () => {
   assert.equal(parsed.screenshots.length, config.screenshots.length);
   for (const image of parsed.screenshots) assert.ok(fs.existsSync(path.join("public", image.src)));
 });
+
+test("earthworks media keeps its verified URL and isolates screenshot paths", () => {
+  const shot = {
+    src: "/images/templates/earthworks/home-desktop.webp",
+    alt: "Earthworks homepage",
+    caption: "Home / desktop",
+    width: 1440,
+    height: 960,
+  };
+  assert.deepEqual(readTemplateShowcase({ screenshots: [shot] }, "earthworks").screenshots, [shot]);
+  assert.deepEqual(readTemplateShowcase({ screenshots: [shot] }, "structure").screenshots, []);
+  const config = JSON.parse(fs.readFileSync("src/data/earthworks-demo.json", "utf8"));
+  const parsed = readTemplateShowcase(config, "earthworks");
+  assert.equal(parsed.url, config.url);
+  assert.equal(parsed.screenshots.length, config.screenshots.length);
+  for (const image of parsed.screenshots) assert.ok(fs.existsSync(path.join("public", image.src)));
+});

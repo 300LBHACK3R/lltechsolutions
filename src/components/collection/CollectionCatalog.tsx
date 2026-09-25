@@ -5,6 +5,7 @@ import {
   collectionInquiryHref,
   collectionIndustries,
   collectionPricingNote,
+  collectionCustomization,
   collectionTiers,
   designHref,
   designPrice,
@@ -102,7 +103,12 @@ export default function CollectionCatalog({
           </Link>
         </form>
       )}
-      {designs.length > 0 && <p className="collection-result-count">{collectionPricingNote}</p>}
+      {designs.length > 0 && (
+        <div className="collection-result-count">
+          <p>{collectionPricingNote}</p>
+          <p>{collectionCustomization.short}</p>
+        </div>
+      )}
       {filtered.length === 0 ? (
         <div className="collection-no-results">
           <h3>

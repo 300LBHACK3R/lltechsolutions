@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import TemplateCategories from "@/components/collection/TemplateCategories";
+import CollectionCustomization from "@/components/collection/CollectionCustomization";
 import CollectionShowcase from "@/components/collection/CollectionShowcase";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import JsonLd from "@/components/seo/JsonLd";
@@ -118,6 +119,7 @@ export default async function WebsiteCollectionPage({
       </section>
       <div className="container">
         <TemplateCategories />
+        <CollectionCustomization />
         <section
           className="collection-section journey-disclosures"
           id="collections"

@@ -1,0 +1,338 @@
+/* Template detail pages put the design and its starting price before the fine print. */
+.template-detail {
+  --collection-space: clamp(36px, 4vw, 58px);
+}
+.template-detail-header {
+  padding-block: 14px 28px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(115deg, #161613, #090909 70%);
+}
+.template-detail-breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  margin-bottom: 18px;
+}
+.template-detail-breadcrumb .text-link {
+  min-height: 44px;
+  font-size: 12px;
+}
+.template-detail-breadcrumb > span {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.035em;
+}
+.template-detail-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(330px, 0.82fr);
+  gap: clamp(28px, 4vw, 72px);
+  align-items: start;
+}
+.template-detail-title,
+.template-detail-purchase {
+  min-width: 0;
+}
+.template-detail-title h1 {
+  max-width: 23ch;
+  margin: 10px 0 15px;
+  font-size: clamp(31px, 3.1vw, 49px);
+  font-weight: 550;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.template-detail-description {
+  max-width: 66ch;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+.template-detail-purchase {
+  padding-left: clamp(22px, 3vw, 44px);
+  border-left: 1px solid #65542d;
+}
+.template-detail-price {
+  margin: 0;
+  font-size: clamp(24px, 2.2vw, 34px);
+  font-weight: 550;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  color: var(--gold-light);
+}
+.template-detail-price-context,
+.template-detail-scope-note,
+.template-detail-delivery {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.template-detail-price-context {
+  margin-top: 7px;
+}
+.template-detail-scope-note {
+  margin-top: 8px;
+  color: #e5dfcd;
+}
+.template-detail-delivery {
+  margin-top: 12px;
+  max-width: 62ch;
+  font-size: 11px;
+}
+.template-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 18px;
+}
+.template-detail-actions .button {
+  min-height: 46px;
+  min-width: 0;
+  padding: 12px 17px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.45;
+}
+.template-detail .template-detail-preview {
+  padding-block: 24px clamp(30px, 4vw, 52px);
+  scroll-margin-top: 125px;
+}
+.template-detail-preview-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 28px;
+  margin-bottom: 18px;
+}
+.template-detail-preview-heading h2 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+}
+.template-detail-preview-heading > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.template-detail .template-design-overview {
+  width: 100%;
+  max-width: 1180px;
+  border-color: #3f3b2d;
+  border-radius: 4px;
+  box-shadow: 0 20px 65px rgb(0 0 0 / 18%);
+}
+.template-detail .template-design-overview figcaption {
+  padding: 13px 20px;
+  background: #141411;
+  font-size: 11px;
+}
+.template-detail .template-screenshots {
+  max-width: 1180px;
+  margin-inline: auto;
+}
+.template-detail-preview > .collection-fineprint {
+  margin: 0 0 20px;
+  max-width: 90ch;
+  font-size: 12px;
+}
+.template-detail-preview > .button-row {
+  margin-top: 18px;
+}
+.template-detail-preview .text-link {
+  min-height: 44px;
+}
+.template-detail .design-detail-scope {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(28px, 5vw, 80px);
+}
+.template-detail .design-detail-scope h2,
+.template-detail .collection-customization h3,
+.template-detail .collection-end h2 {
+  margin: 12px 0 16px;
+  font-size: clamp(24px, 2.2vw, 33px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+.template-detail .design-detail-scope h3 {
+  margin: 0 0 18px;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.template-detail .design-detail-scope p,
+.template-detail .design-detail-scope li {
+  font-size: 14px;
+  line-height: 1.75;
+  margin-bottom: 12px;
+}
+.template-detail .design-detail-scope .eyebrow {
+  font-size: 11px;
+  color: var(--gold-light);
+}
+.template-detail .design-detail-scope ul {
+  margin-top: 21px;
+  padding-left: 17px;
+}
+.template-detail .collection-customization {
+  margin: 0;
+  padding: var(--collection-space) 0;
+  border: 0;
+  border-block: 1px solid var(--line);
+  background: transparent;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(24px, 5vw, 80px);
+}
+.template-detail .collection-customization h3 {
+  max-width: 26ch;
+  margin-bottom: 0;
+}
+.template-detail .collection-customization .text-link {
+  margin-top: 10px;
+  min-height: 44px;
+}
+.template-detail .journey-disclosures {
+  padding-block: 24px var(--collection-space);
+}
+.template-detail .journey-disclosures details {
+  padding-block: 0;
+}
+.template-detail .journey-disclosures summary {
+  min-height: 58px;
+  padding-block: 17px;
+  font-size: 16px;
+}
+.template-detail .journey-disclosures details > p {
+  font-size: 14px;
+}
+.template-detail .journey-disclosures .text-link {
+  min-height: 44px;
+  margin-bottom: 16px;
+}
+.template-detail .collection-end {
+  align-items: center;
+  padding-block: 28px 50px;
+  gap: 24px;
+}
+.template-detail .collection-end > div {
+  min-width: 0;
+}
+.template-detail .collection-end h2 {
+  margin-bottom: 10px;
+}
+.template-detail .collection-end p:not(.eyebrow) {
+  margin-top: 0;
+  font-size: 14px;
+}
+.template-detail .collection-end .button {
+  flex-shrink: 0;
+  min-height: 46px;
+}
+@media (max-width: 999px) {
+  .template-detail-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.92fr);
+    gap: 28px;
+  }
+  .template-detail-purchase {
+    padding-left: 24px;
+  }
+  .template-detail-actions .button {
+    flex: 1 1 150px;
+  }
+  .template-detail .collection-end {
+    align-items: flex-start;
+  }
+}
+@media (max-width: 749px) {
+  .template-detail-header {
+    padding-block: 8px 24px;
+  }
+  .template-detail-intro,
+  .template-detail .design-detail-scope,
+  .template-detail .collection-customization {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .template-detail-intro {
+    gap: 22px;
+  }
+  .template-detail-breadcrumb {
+    margin-bottom: 12px;
+  }
+  .template-detail-breadcrumb > span {
+    display: none;
+  }
+  .template-detail-title h1 {
+    margin-block: 8px 12px;
+    font-size: clamp(30px, 5.4vw, 39px);
+  }
+  .template-detail-description {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .template-detail-purchase {
+    padding: 18px 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .template-detail-price {
+    font-size: 27px;
+  }
+  .template-detail-price-context {
+    margin-top: 5px;
+  }
+  .template-detail-scope-note {
+    margin-top: 6px;
+  }
+  .template-detail-actions {
+    margin-top: 14px;
+  }
+  .template-detail-actions .button {
+    flex-basis: 140px;
+  }
+  .template-detail .template-detail-preview {
+    padding-top: 20px;
+    scroll-margin-top: 100px;
+  }
+  .template-detail-preview-heading {
+    margin-bottom: 13px;
+  }
+  .template-detail .template-design-overview figcaption {
+    padding: 12px 14px;
+  }
+  .template-detail .design-detail-scope {
+    gap: 26px;
+  }
+  .template-detail .design-detail-scope > div + div {
+    padding-top: 25px;
+    border-top: 1px solid var(--line);
+  }
+  .template-detail .collection-customization {
+    gap: 20px;
+  }
+}
+@media (min-width: 2200px) {
+  .template-detail > .container,
+  .template-detail-header > .container {
+    max-width: 1720px;
+  }
+  .template-detail-description {
+    font-size: 16px;
+  }
+  .template-detail .template-design-overview,
+  .template-detail .template-screenshots {
+    max-width: 1380px;
+  }
+}
+@media (forced-colors: active) {
+  .template-detail-purchase,
+  .template-detail .template-design-overview {
+    border-color: CanvasText;
+  }
+}

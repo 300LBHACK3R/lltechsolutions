@@ -5,9 +5,9 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 ## The visitor journey
 
 1. Open Website Templates after Our Clients in the navigation. The introduction pairs the approved headline with selectable real-client previews. A compact process strip explains the next steps, followed by wide photographic business-category links.
-2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The existing templates use plain names: Painting Company, Plumbing Company, Massage Practice, Calgary Hot Shot, Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage. Category filtering stays on the gallery page, not the landing page.
-3. Open a template to explore its inline pages and Phone/Fit screen views. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
-4. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
+2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The templates use plain names: Painting Company, Plumbing Company, Excavation & Landscaping, Massage Practice, Calgary Hot Shot, Tow-N-Go Trailers, Crestline Painting and McKenzie House Massage. Category filtering stays on the gallery page, not the landing page.
+3. Open a template to view its screenshots or labelled design cover, scope and starting price. Painting, plumbing and earthworks use a **View live demo** button only when a verified public URL is configured; their duplicate embedded “Try this design here” flow has been removed. Massage Practice retains its generic inline page preview with Phone/Fit screen views until its standalone demo is built. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
+4. Additional pages, custom layouts and features are available for every template and are quoted by the agreed scope before work begins; no fixed per-page fee is implied. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
 
 No account, extra analytics, tracking pixels, new application dependencies or upload service is introduced. The contact form stays mounted while visitors move back through the guided steps, preserving their typed information. Selection context is appended to the final submitted message using the existing length limits and server validation. A normal enquiry link and direct contact details remain available.
 
@@ -15,15 +15,16 @@ No account, extra analytics, tracking pixels, new application dependencies or up
 
 The category banners are generated industry illustrations, not photographs of client premises or completed projects. Their sources are documented in `docs/TEMPLATE_CATEGORY_IMAGES.md`. They load from local optimized WebP files through Next Image. Desktop strips use a shaded text area and a small hover zoom for a fine pointer; on mobile the panorama sits above the copy, preserving the range of subjects. Reduced-motion and forced-colour preferences are respected. The images are decorative because the adjacent heading and description provide the category's meaning.
 
-| Design           | Main fit           | Level     | Current status                             |
-| ---------------- | ------------------ | --------- | ------------------------------------------ |
-| Painting Company | Painting           | Signature | Interactive concept; launch pricing quoted |
-| Plumbing Company | Plumbing           | Premier   | Interactive concept; launch pricing quoted |
-| Massage Practice | Massage & Wellness | Essential | Interactive concept; launch pricing quoted |
+| Design                   | Main fit                 | Level     | Current status                             |
+| ------------------------ | ------------------------ | --------- | ------------------------------------------ |
+| Painting Company         | Painting                 | Signature | Four-page sample demo; launch scope agreed |
+| Plumbing Company         | Plumbing                 | Premier   | Four-page sample demo; launch scope agreed |
+| Massage Practice         | Massage & Wellness       | Essential | Inline sample; three page structures       |
+| Excavation & Landscaping | Excavation & Landscaping | Flagship  | Five-page sample demo; launch scope agreed |
 
-These are original coded design studies with sample text, generic sample identities and generated illustrative photography. They are not client projects, ready-made client assets or complete production business sites. Contact layouts within the concept do not collect information. The actual pages, content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
+These are original coded design studies with sample text, generic sample identities and generated illustrative photography. They are not client projects, ready-made client assets or complete production business sites. Sample contact layouts do not deliver enquiries to a contractor or practice; the real L&L enquiry action is clearly separate. The actual pages, content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
 
-Existing website/software/social pricing remains unchanged. The starting-price schedule below applies to new template-based builds and is presented to Tate with the updater for review before publishing. A design with `startingPriceCad: null` reads “Quoted after a conversation”; it is never treated as free or included beneath a numeric budget ceiling. A starting price does not change a sample layout into a finished template or a client example into reusable client assets. Higher levels describe greater scope, not a different baseline of security or care.
+The starting-price schedule below applies to new template-based builds. Additional pages and customization are quoted separately by scope before work starts; the optional customization choice does not add an invented fixed fee. A design with `startingPriceCad: null` reads “Quoted after a conversation”; it is never treated as free or included beneath a numeric budget ceiling. A starting price does not change a sample layout into a finished template or a client example into reusable client assets. Higher levels describe greater scope, not a different baseline of security or care.
 
 ## Canonical data and routes
 
@@ -31,7 +32,7 @@ Existing website/software/social pricing remains unchanged. The starting-price s
 
 - `/website-collection`: business category selection and service explanations. Legacy `?industry=` links redirect to the corresponding gallery, preserving filter context.
 - `/website-collection/category/[category]`: category-specific gallery, optional business/level filters, template previews, direct enquiry links and comparison selections.
-- `/website-collection/[design]`: individual detail page, interactive preview, scope, optional video, pricing explanation and performance evidence.
+- `/website-collection/[design]`: individual detail page, screenshots or a labelled cover, verified live-demo link where configured, scope, optional video, pricing explanation and performance evidence. Massage Practice keeps its generic inline preview.
 - `/website-collection/start?design=pigment`: three-step guided enquiry.
 - `/website-collection/compare?design=pigment&design=still`: shareable comparison.
 - `/website-collection/brief`: optional client content guide, after booking.
@@ -40,14 +41,14 @@ Design pages use server-generated metadata, canonical URLs and CreativeWork stru
 
 ## Adding and publishing designs
 
-Use the `WebsiteDesign` type in the catalogue. Give every design a unique slug, a plain business-facing name, tier, industry, description, page count, realistic delivery wording, scope and customization list. Assign an existing industry tag and it automatically appears in the correct gallery. If adding an industry tag, assign it to exactly one `templateCategories` group. Put real thumbnail images under `public/images/collection/<design-id>/preview.webp` and set the `preview` source, alt text and actual dimensions in the record. An image alone does not make a template available: include a working inline concept or a checked public demo.
+Use the `WebsiteDesign` type in the catalogue. Give every design a unique slug, a plain business-facing name, tier, industry, description, page count, realistic delivery wording, scope and customization list. Assign an existing industry tag and it automatically appears in the correct gallery. If adding an industry tag, assign it to exactly one `templateCategories` group. Put real thumbnail images under `public/images/collection/<design-id>/preview.webp` and set the `preview` source, alt text and actual dimensions in the record. A screenshot is not a live demo: only show the external demo action after its public URL has been checked, and do not mark an offer as published on the strength of a cover image alone.
 
 - `draft`: private preparation; never rendered publicly.
 - `concept`: an explicitly labelled preview whose final offer may still require a quote.
 - `published`: approved offer with a positive, numeric `startingPriceCad` and a checked demo.
 - `client-example`: a real portfolio reference with a valid `clientProjectId`; its optional starting price is for a similar new build; the final quote and page count depend on the prospect’s own agreed scope.
 
-Existing concepts have `concept` data used by `DesignPreview.tsx` and their own route anchor as `demoUrl`. Future externally hosted demos need a public HTTPS URL and a real screenshot under `public/images/collection/`, with alt text and the actual image dimensions. Inline concepts use a miniature HTML page layout built from their sample brand, headline and services. Supplied screenshots take precedence in gallery cards. These are preview layouts, not screenshots of a finished client site. A future original layout can extend the preview component; do not disguise a repeated layout as an exclusive bespoke client design.
+Massage Practice keeps the generic `DesignPreview.tsx` inline concept. Painting, plumbing and earthworks instead use dedicated covers and a screenshot gallery, with live-demo URLs and screenshot records in their respective `src/data/*-demo.json` files. Missing screenshots show a labelled design cover. A missing URL omits the external demo action; it does not reveal a second embedded preview or a dead button. Supplied gallery captures must be real captures with accessible descriptions and actual dimensions. Do not disguise a repeated layout as an exclusive bespoke client design.
 
 Confirm scope, revision allowance, content responsibilities, completion timing, usage/handover terms, taxes and provider fees before accepting a deposit. Monthly care remains optional and separately scoped.
 
@@ -66,7 +67,7 @@ Use these suggested file locations (create each folder when adding the actual fi
 
 Set a design’s `walkthrough` object, or the `developerIntroduction` export, with `src`, `poster`, `captions` and a real `transcript`. Public URLs omit `public`, for example `/media/collection/pigment/walkthrough.mp4`. Do not set the object until all three files exist. Use H.264 MP4 with a web-friendly encoding and captions matching the recording. Keep a tour focused: home, services, one useful detail and the contact journey. Check playback and seeking on the actual deployed site.
 
-Without a recording, the interactive concept remains usable; Meet Tate uses the written introduction. Existing client videos elsewhere on the site are untouched.
+Without a recording, the design cover, supplied screenshots and any configured live-demo link remain available; Massage Practice retains its inline concept. Meet Tate uses the written introduction. Existing client videos elsewhere on the site are untouched.
 
 ## Performance evidence
 
@@ -89,19 +90,19 @@ The exported file is `My-LandL-Website-Brief.txt`. The visitor sends it through 
 
 ## Checks and remaining review
 
-Use `npm ci`, `npm run format:check`, `npm run check`, `npm audit --audit-level=moderate`, `npm run build` and `npm run smoke`.
+Use `npm ci`, `npm run format:check`, `npm run check`, `npm audit --audit-level=high`, `npm run build` and `npm run smoke`.
 
-The September 15 industry-gallery update passed formatting, source/asset validation, ESLint without warnings, TypeScript, 19 tests, production build, compiled stylesheet verification and 86 HTTP checks. Tests cover category boundaries, draft exclusion, direct enquiry context, unknown categories, legacy filter redirects and empty-state metadata. The smoke server has no email key and sends no external email.
+Historical verification: the September 15 industry-gallery update passed formatting, source/asset validation, ESLint without warnings, TypeScript, 19 tests, production build, compiled stylesheet verification and 86 HTTP checks. Tests cover category boundaries, draft exclusion, direct enquiry context, unknown categories, legacy filter redirects and empty-state metadata. The smoke server has no email key and sends no external email.
 
-The subsequent category-photo update passed the same checks and 91 HTTP checks, including an optimized image response for each of the five banners. The full-resolution WebP sources total 936,082 bytes; the browser receives responsive derivatives. No new dependencies, third-party image domains or security-policy exceptions were introduced. Rendered browser review is still required: the preview browser rejected access to the local server (`ERR_BLOCKED_BY_CLIENT`).
+Historical verification: the subsequent category-photo update passed the same checks and 91 HTTP checks, including an optimized image response for each of the five banners. The full-resolution WebP sources total 936,082 bytes; the browser receives responsive derivatives. No new dependencies, third-party image domains or security-policy exceptions were introduced. Rendered browser review is still required: the preview browser rejected access to the local server (`ERR_BLOCKED_BY_CLIENT`).
 
 Rendered review of this update remains outstanding: the supported browser cannot access the local server. After applying it, check category rows and galleries on phone, tablet and desktop, including keyboard selection, template previews and contact links. A successful main push is not a verified Vercel deployment.
 
-The updater preserves a local backup, applies only this reviewed patch in a release branch, and runs the quality gates. With `-Push`, it fast-forwards main to the validated commit and uses the owner’s authenticated Git to push. No force push, stash operation or environment-file copy is used.
+The current Windows installer preserves a local Git-history backup, verifies the release bundle and fast-forwards compatible history before running the quality gates. It stops for uncommitted changes or divergent commits. With `-Push`, it uses the owner’s authenticated Git for a normal main push only after validation. No force push, stash operation or environment-file copy is used.
 
 ## Realistic previews and live examples
 
-The Painting Company, Plumbing Company and Massage Practice concepts use photo-led previews and customer-facing sample copy. Visitors can try a business name locally in the preview; it is not stored or sent. Miniature typography scales against its card width to keep the title separate from the services strip. Massage has three page structures, with its approach included on Home.
+Painting Company, Plumbing Company, Excavation & Landscaping and Massage Practice use photo-led covers and customer-facing sample copy. Painting, plumbing and earthworks open their separate public demos through the configured live-demo button; the catalogue does not embed another interactive copy. Massage retains its generic inline preview, where visitors can try a business name locally without storage or submission. Miniature typography scales against its card width. Massage has three page structures, with its approach included on Home.
 
 Transport & Logistics includes Calgary Hot Shot, the user-supplied live concept demo. Its card and scrollable detail preview use actual screenshots; the external link opens the interactive demo. It remains explicitly labelled as a concept with placeholder business details; its starting price applies to a new personalization and launch. Do not represent it as an approved client or a production launch.
 
@@ -109,7 +110,7 @@ Food & Restaurants has its own illustrated category and an honest empty state un
 
 To add a real example, extend `websiteDesigns` with its approved category, name, scope, `preview`, optional `pagePreview` and actual HTTPS `demoUrl`. Images live in `public/images/collection/`; provenance is documented in `TEMPLATE_PREVIEW_IMAGES.md`. Do not mark a concept as published until its price and finished scope are approved.
 
-### Validation for this update
+### Historical validation for the realistic-preview update
 
 Formatting, local asset/import validation, zero-warning ESLint, TypeScript, 20 unit tests, production build, production stylesheet checks and 102 HTTP checks passed. Dependency audit reported zero vulnerabilities. HTTP checks cover new category pages and metadata, truthful empty states, the legacy category redirect, actual and generated image responses, enquiry context and security responses. No external email was sent.
 
@@ -123,7 +124,7 @@ The enquiry says “Build something like this” and carries a request for a sim
 
 The existing 26-second portfolio walkthrough is reused, with native controls, no autoplay and a visual-description track. Replacing its canonical project media updates the collection example too. The client site continues to evolve; the live link remains available for its current state.
 
-This addition passed formatting, import/asset validation, ESLint, TypeScript, 21 unit tests, the production build and 106 production HTTP checks. The checks cover the client-reference enquiry, category comparison, existing video controls and media responses, metadata and the unchanged contact protections. Dependency audit reported zero vulnerabilities. No external email was sent; browser/device review and deployment confirmation remain separate.
+Historical Tow-N-Go verification: this addition passed formatting, import/asset validation, ESLint, TypeScript, 21 unit tests, the production build and 106 production HTTP checks. The checks cover the client-reference enquiry, category comparison, existing video controls and media responses, metadata and the unchanged contact protections. Dependency audit reported zero vulnerabilities. No external email was sent; browser/device review and deployment confirmation remain separate.
 
 ## Crestline and McKenzie client references
 
@@ -133,11 +134,11 @@ Crestline’s proposed starting scope focuses on service pages, project categori
 
 Adding these catalogue records uses the existing category, comparison, guided enquiry, metadata and sitemap paths. The production source change is confined to catalogue data; shared components, styles and contact protections are unchanged.
 
-Validation passed: formatting, local import/asset validation, zero-warning ESLint, TypeScript, 23 unit tests, the production build, stylesheet verification and 115 production HTTP checks. Dependency audit reported zero vulnerabilities. Checks confirm both category placements, actual optimized images, canonical videos with playback controls and description tracks, case-study links, sitemap inclusion and selected-client enquiry context. No external email was sent. The existing images were visually inspected; this update does not claim new browser/device rendering tests or a remote deployment.
+Historical client-reference verification: formatting, local import/asset validation, zero-warning ESLint, TypeScript, 23 unit tests, the production build, stylesheet verification and 115 production HTTP checks. Dependency audit reported zero vulnerabilities. Checks confirm both category placements, actual optimized images, canonical videos with playback controls and description tracks, case-study links, sitemap inclusion and selected-client enquiry context. No external email was sent. The existing images were visually inspected; this update does not claim new browser/device rendering tests or a remote deployment.
 
 ## Template starting prices and sorting
 
-This release prepares the following starting-price schedule for Tate to review with the updater. These figures are proposed commercial starting points, not inferred past client fees or externally benchmarked market rates. They exclude applicable taxes. Existing Custom Business Website ($399+) and Social Management Partner ($149/month+) entry points remain unchanged.
+The following starting-price schedule reflects the current catalogue. These figures are commercial starting points, not inferred past client fees or externally benchmarked market rates. They exclude applicable taxes. Existing Custom Business Website ($399+) and Social Management Partner ($149/month+) entry points remain unchanged.
 
 | Design                           | Starting price (CAD) | Price applies to                                      |
 | -------------------------------- | -------------------: | ----------------------------------------------------- |
@@ -148,6 +149,7 @@ This release prepares the following starting-price schedule for Tate to review w
 | Crestline Painting reference     |                 $399 | A similar new website with the prospect’s own content |
 | Tow-N-Go Trailers reference      |                 $899 | A similar new website with the prospect’s own content |
 | McKenzie House Massage reference |                 $999 | A similar new website with the prospect’s own content |
+| Excavation & Landscaping         |               $1,000 | New personalization and launch; five demo pages       |
 
 The sole editable price field is `startingPriceCad` in `src/data/website-collection.ts`. Cards, design pages, comparison, the guided proposal summary and prefilled enquiries use that value. Prices remain starting points: final scope, optional extras, ongoing care, hosting, domains and provider charges are agreed separately. The client examples keep their real-client labels and original media; their brands, reviews and client-specific assets are not sold.
 
@@ -155,7 +157,7 @@ Each populated business gallery has a labelled native **Sort by price** control.
 
 Category metadata keeps the clean category canonical URL. ItemList structured data follows the displayed order. No Product/Offer markup or ranking claims have been added. Enquiry prices come from catalogue data; arbitrary URL prices are ignored. Contact requests remain ordinary editable enquiries, not binding orders or payment submissions.
 
-Validation: formatting, source/asset validation, zero-warning ESLint, TypeScript, 24 unit tests, the production build, stylesheet checks and 129 production HTTP checks passed. Audit reported zero vulnerabilities. Added checks cover numeric ordering, equal and unknown prices, invalid sort parameters, combined filters, canonical URLs, structured-data order and tamper-resistant prefilled starting prices. The native controls retain the existing responsive layout; new rendered browser/device checks were not performed. No external email, remote push or Vercel deployment was performed while preparing this update.
+Historical pricing/sorting verification: formatting, source/asset validation, zero-warning ESLint, TypeScript, 24 unit tests, the production build, stylesheet checks and 129 production HTTP checks passed. Audit reported zero vulnerabilities. Added checks cover numeric ordering, equal and unknown prices, invalid sort parameters, combined filters, canonical URLs, structured-data order and tamper-resistant prefilled starting prices. The native controls retain the existing responsive layout; new rendered browser/device checks were not performed. No external email, remote push or Vercel deployment was performed while preparing this update.
 
 ## Visual collection opening
 
@@ -167,23 +169,23 @@ The three-step explanation is now a compact charcoal strip below the hero. Deskt
 
 Selection reveal and fine-pointer image zoom are gated by both the existing motion setting and prefers-reduced-motion. Content is readable with animation paused. Motion consists of a short 8px/opacity reveal and a 2% hover zoom; there is no continuously moving background.
 
-Validation passed: source/asset checks, zero-warning ESLint, TypeScript, 24 tests, production build, compiled/delivered CSS checks and 132 production HTTP checks. Dependency audit reported zero vulnerabilities. Added HTTP checks verify the three native radio/label/region associations, one default selection, real optimized image responses, loading priorities, walkthrough links and the relocated process anchor. No external email was sent. This environment’s supported browser previously blocked local preview access; fresh rendered browser/device verification remains outstanding. No remote push or deployment is claimed by this source update.
+Historical visual-opening verification: source/asset checks, zero-warning ESLint, TypeScript, 24 tests, production build, compiled/delivered CSS checks and 132 production HTTP checks. Dependency audit reported zero vulnerabilities. Added HTTP checks verify the three native radio/label/region associations, one default selection, real optimized image responses, loading priorities, walkthrough links and the relocated process anchor. No external email was sent. This environment’s supported browser previously blocked local preview access; fresh rendered browser/device verification remains outstanding. No remote push or deployment is claimed by this source update.
 
 ## Painting Company / Pigment demo
 
-The $499 CAD starting point and four page structures remain unchanged. The painting preview now has its own scoped components and stylesheet: `PaintingTemplate`, `PaintingCover`, `PaintMarks` and `painting-template.css`. The cover represents the actual demo; other concepts keep the shared `DesignPreview` layout.
+The $499 CAD starting point and four page structures remain unchanged. The painting preview now has its own scoped components and stylesheet: `PaintingTemplate`, `PaintingCover`, `PaintMarks` and `painting-template.css`. The cover represents the sample demo. Plumbing and earthworks have their own dedicated components; Massage Practice keeps the shared `DesignPreview` layout.
 
-Home, Services, Projects and Contact are interactive sample views. Visitors can try a business name and three accent colours without storage or requests. The brush draws a navigation underline once on selection, keyboard focus or pointer hover. OS reduced motion and the existing L&L motion switch disable animation while preserving a static selected underline.
+Home, Services, Projects and Contact are real routes in the standalone painting demo. Visitors can try three accent colours without storage or requests. The brush draws a navigation underline once on selection, keyboard focus or pointer hover. OS reduced motion and the existing L&L motion switch disable animation while preserving a static selected underline.
 
 Contact is explicitly a non-interactive estimate layout; selecting a service carries its name into that layout. “Make this my website” opens the existing L&L enquiry with Pigment selected. No painting enquiry is collected or delivered by this sample. The two spaces use existing illustrative collection imagery, not claims of completed painting work.
 
-Before publishing, review all four views, long business names, accent selection and Phone/Fit screen at narrow and wide widths. Check keyboard focus after changing views, motion paused/reduced and the real L&L enquiry handoff. The production smoke and delivered-CSS checks include the painting preview and matching category cover.
+Before publishing, review all four routes and accent selection at narrow and wide widths. Check keyboard focus after changing views, motion paused/reduced and the real L&L enquiry handoff. The production smoke and delivered-CSS checks include the painting preview and matching category cover.
 
 ## Painting showcase and standalone demo
 
-The Painting Company title, cover and View template button all open `/website-collection/pigment` from the beginning. The detail page offers the price, scope, a screenshot gallery and the enquiry handoff. Until actual screenshots are supplied, a labelled design preview occupies the gallery area. The inline interactive preview remains available below it.
+The Painting Company title, cover and View template button all open `/website-collection/pigment` from the beginning. The detail page offers the price, scope, a screenshot gallery and the enquiry handoff. Until actual screenshots are supplied, a labelled design preview occupies the gallery area. There is no duplicate embedded “Try this design here” preview; use the verified external **View live demo** action.
 
-Configure the real public demo URL and screenshots in `src/data/painting-demo.json`. Add screenshot files under `public/images/templates/pigment/`; the README in that folder includes an example with dimensions and accessible descriptions. Empty URL configuration uses the working inline preview instead of a dead external button. Test validation rejects unsafe URLs, invalid dimensions, duplicate paths and missing files. This is a developer-managed gallery, not a public upload form.
+Configure the real public demo URL and screenshots in `src/data/painting-demo.json`. Add screenshot files under `public/images/templates/pigment/`; the README in that folder includes an example with dimensions and accessible descriptions. Empty URL configuration omits the external live-demo button until a public demo is verified. Test validation rejects unsafe URLs, invalid dimensions, duplicate paths and missing files. This is a developer-managed gallery, not a public upload form.
 
 The standalone painting site reuses `PaintingTemplate`, its imagery and stylesheet. Maintained hosting files live in `templates/painting-demo/`. Its Home, Services, Projects and Contact are real routes; each has one main heading. The sample contact layout does not collect information. Its L&L enquiry link carries Painting Company into the existing form. Demo pages are noindex to keep this sample business separate from real contractors.
 
@@ -198,12 +200,33 @@ node scripts/check-painting-demo.mjs
 
 The generator replaces only `build/painting-demo`, which is ignored by Git. Deploy its `out` folder as a separate static Vercel project, with the copied `vercel.json` headers. Do not deploy the parent L&L app as the demo. The supplied publisher verifies the actual public URL before recording it in the gallery config. It never invents a Vercel address. A successful L&L Git push still requires a Ready Vercel production deployment before the link appears on the live catalogue.
 
-September 21 verification: root formatting, import validation, lint, TypeScript, 27 unit tests, production build and 133 HTTP checks passed. The static demo exported all four pages with checked navigation, asset references, noindex and headers. Browser rendering and real device behaviour remain unverified because the supported browser could not open the local preview; repeat the release checklist on the deployed demo.
+Historical September 21 verification: root formatting, import validation, lint, TypeScript, 27 unit tests, production build and 133 HTTP checks passed. The static demo exported all four pages with checked navigation, asset references, noindex and headers. Browser rendering and real device behaviour remain unverified because the supported browser could not open the local preview; repeat the release checklist on the deployed demo.
 
-## Plumbing template and preview repair — September 25, 2026
+## Plumbing template — current showcase behaviour
 
-The `structure` slug now presents the $699 CAD Plumbing Company example. Its own navy/teal, ivory and copper palette is scoped to the template; L&L stays black and gold. Four sample pages share the same components in the catalogue and separate static demo. The copper pipe navigation supports keyboard use, and motion respects the visitor’s reduced-motion choice and L&L motion control. Images are illustrative, not claimed completed client work.
+The `structure` slug now presents the $699 CAD Plumbing Company example. Its own navy/teal, ivory and copper palette is scoped to the template; L&L stays black and gold. The dedicated catalogue cover and separate four-page static demo share the plumbing design language. The copper pipe navigation supports keyboard use, and motion respects the visitor’s reduced-motion choice and L&L motion control. Images are illustrative, not claimed completed client work.
 
 `src/data/plumbing-demo.json` holds only the verified public demo URL and screenshot metadata. Upload captures to `public/images/templates/structure/`; see its README. Build the independent demo with `node scripts/prepare-plumbing-demo.mjs`, install and build within `build/plumbing-demo`, then run `node scripts/check-plumbing-demo.mjs` from the main repository. Deploy only its exported `out/` contents to the separate `ll-plumbing-template` Vercel project.
 
-Painting and plumbing share the accessible “Try this design here” dialog with a persistent close button, Escape support and focus restoration. The collection canvas no longer shares the unrelated portfolio fullscreen-dialog class. The Crestline example now starts at $399 CAD; this is the starting price for a similar new website with the prospect’s own content.
+The latest approved showcase removes the duplicate “Try this design here” dialog from painting, plumbing and earthworks. Each detail page keeps screenshots or a labelled cover, the verified **View live demo** button, pricing, scope and its L&L enquiry handoff. Massage Practice retains its generic inline concept until separately built. The Crestline example starts at $399 CAD; this is the starting price for a similar new website with the prospect’s own content.
+
+## Excavation & Landscaping / Earthworks demo
+
+The `earthworks` design starts at **$1,000 CAD** and has five sample pages: **Home, Services, Projects, Process and Contact**. Its excavation industry places it in **Construction & Trades**; the additional landscaping industry also includes it in **Home & Property**. These placements come from the canonical catalogue tags, not duplicated design records.
+
+The example uses a dedicated earthworks design and illustrative imagery. Sample sites, scenes and identities do not establish real client projects, completed excavation work, team credentials or business claims. A customer's finished site uses approved details and appropriately licensed imagery. The starting price covers the agreed template personalization and launch scope; additional pages, custom layout changes and features are quoted by scope and agreed before work starts, for this template and every other template. There is no blanket per-page fee.
+
+Use `src/data/earthworks-demo.json` for the verified public demo URL and screenshot metadata. Store actual captures in `public/images/templates/earthworks/`; its README includes the entry format. The detail page displays the screenshot gallery or a labelled cover and shows **View live demo** only when a public URL is configured. No duplicate embedded try-design dialog is offered.
+
+The maintained standalone files live in `templates/earthworks-demo/`. Build and check the five-page export with:
+
+```powershell
+node scripts/prepare-earthworks-demo.mjs
+npm --prefix build/earthworks-demo ci
+npm --prefix build/earthworks-demo run build
+node scripts/check-earthworks-demo.mjs
+```
+
+The generator replaces only the ignored `build/earthworks-demo` directory. Publish its exported `out/` contents, with the maintained deployment headers, to the separate **ll-earthworks-template** Vercel project. Its real routes are `/`, `/services`, `/projects`, `/process` and `/contact`. The demo is noindex and the sample contact view does not send a contractor enquiry. The L&L demo strip carries the canonical price, a return-to-details link, motion control and the real template enquiry handoff.
+
+The Windows publisher reads Vercel's production alias and checks all five pages publicly before saving the URL. It preserves existing screenshot entries. A protected deployment URL is not a public demo link, and a completed Git push does not by itself confirm the main-site Vercel deployment. Verification counts above describe their named historical updates; they are not evidence of checks run for this earthworks release.

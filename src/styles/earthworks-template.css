@@ -1,0 +1,1538 @@
+/* RIDGELINE: a separate, illustrative earthworks identity. */
+.earth-site,
+.earth-cover {
+  --earth-ground: #151d18;
+  --earth-forest: #263d2f;
+  --earth-paper: #eeeae0;
+  --earth-yellow: #efd153;
+  --earth-ink: #1f2b23;
+  --earth-muted: #b9c4b7;
+  --earth-rule: #566252;
+  background: var(--earth-ground);
+  color: var(--earth-paper);
+  color-scheme: dark;
+  isolation: isolate;
+}
+.earth-site {
+  container-type: inline-size;
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.earth-site :is(h1, h2, h3, h4, p, figure) {
+  margin: 0;
+}
+.earth-site :is(h1, h2, h3, h4) {
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-weight: 650;
+  line-height: 1.03;
+  letter-spacing: -0.065em;
+  text-wrap: balance;
+}
+.earth-site :is(h1, h3) {
+  font-size: clamp(45px, 7.7cqi, 108px);
+  scroll-margin-block: 145px 35px;
+}
+.earth-site :is(h2, h4) {
+  font-size: clamp(31px, 4.2cqi, 59px);
+}
+.earth-site em,
+.earth-cover em {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: inherit;
+  color: var(--earth-yellow);
+}
+.earth-site p {
+  line-height: 1.8;
+}
+.earth-site :is(a, button) {
+  -webkit-tap-highlight-color: transparent;
+}
+.earth-site :is(a, button, [tabindex="0"]):focus-visible,
+.earth-site :is(h1, h3):focus-visible {
+  outline: 2px solid var(--earth-yellow);
+  outline-offset: 5px;
+}
+.earth-site button {
+  color: inherit;
+}
+.earth-mark {
+  display: block;
+  width: 44px;
+  height: 40px;
+  flex-shrink: 0;
+}
+.earth-survey-cross {
+  display: block;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+.earth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 34px;
+  padding: 25px 4.5cqi 20px;
+  background: var(--earth-paper);
+  color: var(--earth-ink);
+}
+.earth-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  max-width: 41%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: clamp(17px, 1.9cqi, 27px);
+  font-weight: 750;
+  letter-spacing: -0.045em;
+  text-align: left;
+  line-height: 1.1;
+}
+.earth-brand > span {
+  min-width: 0;
+}
+.earth-brand small {
+  display: block;
+  margin-top: 7px;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+.earth-nav {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 22px;
+  width: min(54%, 630px);
+}
+.earth-nav > :is(a, button) {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 7px;
+  align-content: start;
+  min-height: 58px;
+  padding: 4px 2px 11px;
+  border: 0;
+  border-bottom: 1px solid #c2c5b9;
+  background: none;
+  color: var(--earth-ink);
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.earth-nav > :is(a, button) > span:first-child {
+  font-family: ui-monospace, monospace;
+  color: #647060;
+  font-size: 8px;
+  line-height: 1.2;
+}
+.earth-nav-tick {
+  position: absolute;
+  bottom: -3px;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  background: #8e9788;
+}
+.earth-nav > :is(a, button)[aria-current="page"] {
+  border-bottom: 2px solid var(--earth-ink);
+  font-weight: 750;
+}
+.earth-nav > :is(a, button)[aria-current="page"] .earth-nav-tick {
+  background: var(--earth-ink);
+  height: 9px;
+  bottom: -5px;
+}
+.earth-header :is(a, button):focus-visible {
+  outline-color: var(--earth-ink);
+}
+.earth-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(560px, 56cqi, 800px);
+  background: #26342b;
+  isolation: isolate;
+}
+.earth-hero > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 65% center;
+  z-index: -3;
+}
+.earth-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, #0c180fe0 0%, #0f1b15b0 30%, #17241c2b 75%),
+    linear-gradient(0deg, #111a14dd 0%, transparent 40%);
+}
+.earth-hero-copy {
+  position: relative;
+  z-index: 0;
+  padding: 68px 8cqi 59px;
+  width: 80%;
+}
+.earth-site .earth-kicker {
+  font-size: 10px;
+  line-height: 1.6;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--earth-yellow);
+}
+.earth-hero-copy :is(h1, h3) {
+  margin-top: 26px;
+  max-width: 11ch;
+}
+.earth-hero-copy :is(h1, h3) :is(span, em) {
+  display: block;
+}
+.earth-hero-copy :is(h1, h3) em {
+  margin-top: 3px;
+}
+.earth-site .earth-intro {
+  margin-block: 27px 29px;
+  max-width: 43ch;
+  font-size: clamp(14px, 1.25cqi, 17px);
+  color: #e1e6d9;
+}
+.earth-site .earth-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  min-height: 56px;
+  max-width: 100%;
+  padding: 16px 23px;
+  border: 1px solid var(--earth-yellow);
+  border-radius: 0;
+  background: var(--earth-yellow);
+  color: var(--earth-ink);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: left;
+}
+.earth-button > span {
+  font-size: 20px;
+  line-height: 1;
+}
+.earth-site .earth-text-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 46px;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid #879482;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: left;
+}
+.earth-hero-survey {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 35px;
+  position: absolute;
+  top: 42px;
+  bottom: 110px;
+  right: 4cqi;
+  color: var(--earth-yellow);
+}
+.earth-hero-survey::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  bottom: 28px;
+  left: calc(50% - 0.5px);
+  border-left: 1px solid #d7c35873;
+  z-index: -1;
+}
+.earth-hero-survey > span {
+  writing-mode: vertical-rl;
+  padding: 17px 7px;
+  color: #eeefd7;
+  background: #182419b5;
+  font-family: ui-monospace, monospace;
+  letter-spacing: 0.13em;
+  font-size: 8px;
+}
+.earth-hero-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  margin-inline: 4.5cqi;
+  padding: 18px 0;
+  border-top: 1px solid #d3d4ba7d;
+}
+.earth-hero-foot > span {
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  font-family: ui-monospace, monospace;
+}
+.earth-hero-foot > :is(a, button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 30px;
+  padding: 10px 0;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: #f4f1df;
+  font-size: 11px;
+}
+.earth-hero-foot > :is(a, button) > span {
+  font-size: 20px;
+  color: var(--earth-yellow);
+}
+.earth-statement {
+  display: grid;
+  grid-template-columns: 35px minmax(0, 1fr) minmax(0, 0.75fr);
+  align-items: center;
+  gap: 4cqi;
+  padding: 69px 6cqi;
+  background: var(--earth-paper);
+  color: var(--earth-ink);
+}
+.earth-statement :is(h2, h4) {
+  font-size: clamp(33px, 4.5cqi, 63px);
+}
+.earth-statement em {
+  color: #687454;
+}
+.earth-statement > .earth-survey-cross {
+  align-self: start;
+  margin-top: 7px;
+}
+.earth-statement > p {
+  font-size: 14px;
+  color: #4c5b49;
+  max-width: 41ch;
+}
+.earth-services-explorer {
+  padding: 70px 6cqi 78px;
+}
+.earth-section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  align-items: start;
+  gap: 40px;
+}
+.earth-section-heading .earth-kicker {
+  padding-top: 7px;
+}
+.earth-section-heading :is(h2, h4) em {
+  color: #aab99c;
+}
+.earth-explorer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  align-items: stretch;
+  gap: 6cqi;
+  margin-top: 49px;
+}
+.earth-service-choices button {
+  display: grid;
+  grid-template-columns: 32px 1fr 25px;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 72px;
+  padding: 22px 0;
+  border: 0;
+  border-top: 1px solid var(--earth-rule);
+  background: none;
+  text-align: left;
+  color: #c4cdbd;
+}
+.earth-service-choices button:last-child {
+  border-bottom: 1px solid var(--earth-rule);
+}
+.earth-service-choices button > span:first-child {
+  align-self: start;
+  padding-top: 5px;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  color: #97a78d;
+}
+.earth-service-choices button strong {
+  font-size: clamp(20px, 2.5cqi, 34px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+.earth-service-choices button > span:last-child {
+  font-size: 24px;
+  opacity: 0.5;
+}
+.earth-service-choices button[aria-pressed="true"] {
+  color: var(--earth-yellow);
+  border-top-color: var(--earth-yellow);
+}
+.earth-service-choices button[aria-pressed="true"] > span {
+  color: var(--earth-yellow);
+  opacity: 1;
+}
+.earth-service-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-width: 0;
+  min-height: 375px;
+  padding: 32px;
+  background: var(--earth-forest);
+  overflow: hidden;
+  border-top: 2px solid #a8b391;
+}
+.earth-service-panel > .earth-survey-cross {
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  color: var(--earth-yellow);
+}
+.earth-panel-index {
+  position: absolute;
+  top: 20px;
+  left: 27px;
+  font-family: ui-monospace, monospace;
+  font-size: 88px;
+  font-weight: 400;
+  letter-spacing: -0.11em;
+  line-height: 1;
+  color: #8c9b7373;
+}
+.earth-service-panel > strong {
+  position: relative;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+  margin-top: 100px;
+}
+.earth-service-panel > p {
+  margin-top: 17px;
+  font-size: 13px;
+  color: #cbd3bf;
+}
+.earth-service-panel .earth-text-link {
+  margin-top: 18px;
+  font-size: 11px;
+}
+.earth-feature-project {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  align-items: stretch;
+  background: var(--earth-paper);
+  color: var(--earth-ink);
+}
+.earth-feature-photo {
+  position: relative;
+  min-height: 540px;
+  overflow: hidden;
+}
+.earth-feature-photo img {
+  object-fit: cover;
+}
+.earth-feature-photo > span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 18px 27px;
+  background: var(--earth-ground);
+  color: var(--earth-paper);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+.earth-feature-project > div:last-child {
+  align-self: center;
+  padding: 55px 4cqi;
+}
+.earth-feature-project .earth-kicker {
+  color: #526149;
+}
+.earth-feature-project :is(h2, h4) {
+  margin-block: 27px;
+  font-size: clamp(34px, 4.2cqi, 60px);
+}
+.earth-feature-project em {
+  color: #6b7856;
+}
+.earth-feature-project p:not(.earth-kicker) {
+  font-size: 13px;
+  color: #53604d;
+}
+.earth-feature-project .earth-text-link {
+  margin-top: 22px;
+}
+.earth-feature-project :is(a, button):focus-visible {
+  outline-color: var(--earth-ink);
+}
+.earth-home-process {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr) 80px;
+  gap: 6cqi;
+  padding: 75px 6cqi;
+}
+.earth-home-process > .earth-kicker {
+  padding-top: 7px;
+}
+.earth-home-process > div > p {
+  font-size: 14px;
+  color: var(--earth-muted);
+  max-width: 35ch;
+  margin-block: 23px;
+}
+.earth-home-process :is(h2, h4) em {
+  color: #aab99c;
+}
+.earth-process-track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  position: relative;
+  padding-block: 4px;
+}
+.earth-process-track::before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  top: 8px;
+  bottom: 28px;
+  background: #d4c46b85;
+}
+.earth-process-track > span {
+  position: relative;
+  padding-block: 8px;
+  font:
+    9px/1.4 ui-monospace,
+    monospace;
+  color: var(--earth-yellow);
+  background: var(--earth-ground);
+}
+.earth-process-track .earth-survey-cross {
+  color: var(--earth-yellow);
+  background: var(--earth-ground);
+}
+.earth-inner {
+  padding: 65px 6cqi 75px;
+}
+.earth-page-heading {
+  max-width: 900px;
+}
+.earth-page-heading :is(h1, h3) {
+  margin-block: 24px 28px;
+}
+.earth-page-heading :is(h1, h3) em {
+  color: #aab99c;
+}
+.earth-page-heading > p:not(.earth-kicker) {
+  color: var(--earth-muted);
+  font-size: 15px;
+  max-width: 52ch;
+}
+.earth-service-list {
+  margin-top: 55px;
+}
+.earth-service-list article {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 35px;
+  padding: 35px 0;
+  border-top: 1px solid var(--earth-rule);
+}
+.earth-service-list article > span {
+  padding-top: 6px;
+  color: var(--earth-yellow);
+  font:
+    11px/1.5 ui-monospace,
+    monospace;
+}
+.earth-service-list :is(h2, h4) {
+  font-size: clamp(29px, 3.7cqi, 48px);
+}
+.earth-service-list article p {
+  color: var(--earth-muted);
+  font-size: 14px;
+}
+.earth-service-list .earth-text-link {
+  margin-top: 16px;
+}
+.earth-service-close {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 25px;
+  margin-top: 35px;
+  padding: 28px;
+  background: var(--earth-forest);
+  border-left: 3px solid var(--earth-yellow);
+}
+.earth-service-close .earth-survey-cross {
+  color: var(--earth-yellow);
+}
+.earth-service-close p {
+  font-size: 13px;
+  max-width: 49ch;
+}
+.earth-project-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding-block: 27px;
+  margin-top: 35px;
+  border-block: 1px solid var(--earth-rule);
+}
+.earth-project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+}
+.earth-project-filters button {
+  padding: 11px 18px;
+  min-height: 46px;
+  border: 1px solid #65715e;
+  background: none;
+  color: #e2e6d8;
+  font-size: 11px;
+}
+.earth-project-filters button[aria-pressed="true"] {
+  background: var(--earth-yellow);
+  color: var(--earth-ink);
+  border-color: var(--earth-yellow);
+}
+.earth-project-toolbar > span {
+  color: var(--earth-muted);
+  font-size: 11px;
+}
+.earth-project-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 4cqi;
+  row-gap: 50px;
+  margin-top: 40px;
+}
+.earth-project-grid > figure {
+  min-width: 0;
+}
+.earth-project-grid > figure:first-child {
+  grid-column: 1 / -1;
+}
+.earth-project-photo {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.3;
+  background: #324332;
+}
+.earth-project-grid > figure:first-child .earth-project-photo {
+  aspect-ratio: 2.15;
+}
+.earth-project-photo img {
+  object-fit: cover;
+}
+.earth-project-photo > span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  max-width: 95%;
+  padding: 15px 20px;
+  background: var(--earth-paper);
+  color: var(--earth-ink);
+  font-size: 10px;
+  letter-spacing: 0.025em;
+}
+.earth-project-grid figcaption {
+  padding: 25px 0;
+  border-bottom: 1px solid var(--earth-rule);
+}
+.earth-project-grid :is(h2, h4) {
+  font-size: clamp(28px, 3.6cqi, 48px);
+}
+.earth-project-grid figcaption > p {
+  margin-top: 14px;
+  color: var(--earth-muted);
+  font-size: 13px;
+  max-width: 54ch;
+}
+.earth-site .earth-sample-note {
+  font-size: 11px;
+  color: #bac6b5;
+  line-height: 1.8;
+  max-width: 83ch;
+}
+.earth-project-grid + .earth-sample-note {
+  margin-top: 33px;
+}
+.earth-process-list {
+  margin-top: 59px;
+}
+.earth-process-list article {
+  position: relative;
+  display: grid;
+  grid-template-columns: 95px 1fr 28px;
+  gap: 4cqi;
+  padding: 36px 0;
+  border-top: 1px solid var(--earth-rule);
+}
+.earth-step-number {
+  align-self: start;
+  font-family: ui-monospace, monospace;
+  font-size: 52px;
+  line-height: 1;
+  color: var(--earth-yellow);
+  letter-spacing: -0.1em;
+}
+.earth-process-list .earth-kicker {
+  color: #abbc9a;
+  font-size: 9px;
+}
+.earth-process-list :is(h2, h4) {
+  margin-block: 14px 19px;
+  font-size: clamp(32px, 4cqi, 54px);
+}
+.earth-process-list article > div > p:not(.earth-kicker) {
+  color: var(--earth-muted);
+  max-width: 65ch;
+  font-size: 14px;
+}
+.earth-process-list .earth-survey-cross {
+  color: var(--earth-yellow);
+}
+.earth-process-close {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 22px;
+  margin-top: 28px;
+  padding: 30px;
+  background: var(--earth-forest);
+}
+.earth-process-close > p {
+  font-size: 22px;
+  letter-spacing: -0.04em;
+}
+.earth-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 6cqi;
+  align-items: start;
+}
+.earth-contact :is(h1, h3) {
+  font-size: clamp(43px, 5.6cqi, 78px);
+}
+.earth-contact .earth-page-heading .earth-sample-note {
+  margin-top: 31px;
+  padding-top: 22px;
+  border-top: 1px solid var(--earth-rule);
+  font-size: 11px;
+}
+.earth-planner {
+  padding: 34px;
+  background: var(--earth-paper);
+  color: var(--earth-ink);
+  border-top: 4px solid var(--earth-yellow);
+}
+.earth-planner fieldset {
+  border: 0;
+  min-width: 0;
+  padding: 0;
+  margin: 0 0 28px;
+}
+.earth-planner legend {
+  display: flex;
+  gap: 13px;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.earth-planner legend > span {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  color: #65745a;
+  padding-top: 3px;
+}
+.earth-planner fieldset > p {
+  color: #58674f;
+  font-size: 11px;
+  margin-top: 7px;
+}
+.earth-planner-types {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 17px;
+}
+.earth-planner-types button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid #a8b29d;
+  background: transparent;
+  color: var(--earth-ink);
+  margin-top: -1px;
+  text-align: left;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.earth-planner-types button[aria-pressed="true"] {
+  position: relative;
+  z-index: 1;
+  background: var(--earth-forest);
+  color: #f1f0df;
+  border-color: var(--earth-forest);
+}
+.earth-planner-types button > span {
+  font-size: 17px;
+}
+.earth-priorities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 16px;
+}
+.earth-priorities button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 1px solid #a8b29d;
+  background: none;
+  color: var(--earth-ink);
+  font-size: 10px;
+  text-align: left;
+}
+.earth-priorities button > span {
+  font-size: 16px;
+  width: 13px;
+  flex-shrink: 0;
+}
+.earth-priorities button[aria-pressed="true"] {
+  border-color: var(--earth-ink);
+  background: #dedfcf;
+}
+.earth-brief {
+  padding: 23px;
+  border: 1px solid #a1ad94;
+  background: #e0e2d2;
+}
+.earth-brief .earth-kicker {
+  color: #415038;
+  font-size: 9px;
+}
+.earth-brief-summary {
+  white-space: pre-line;
+  color: #263b29;
+  font-size: 12px;
+  line-height: 1.9;
+  margin-top: 13px;
+  user-select: text;
+}
+.earth-brief .earth-text-link {
+  margin-top: 11px;
+  font-size: 11px;
+}
+.earth-copy-status {
+  min-height: 21px;
+  font-size: 10px;
+  margin-top: 7px !important;
+  color: #485c3d;
+}
+.earth-planner-close {
+  padding-top: 25px;
+  margin-top: 27px;
+  border-top: 1px solid #aeb7a4;
+}
+.earth-planner-close p {
+  font-size: 12px;
+  margin-bottom: 13px;
+  color: #4a5e40;
+}
+.earth-planner-close .earth-button {
+  width: 100%;
+}
+.earth-planner :is(a, button, [tabindex="0"]):focus-visible {
+  outline-color: var(--earth-ink);
+}
+.earth-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 25px 4.5cqi;
+  background: #101811;
+  border-top: 1px solid var(--earth-rule);
+}
+.earth-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  font-size: 14px;
+}
+.earth-footer-brand .earth-mark {
+  width: 34px;
+  height: 31px;
+  color: var(--earth-yellow);
+}
+.earth-footer p {
+  font-size: 10px;
+  color: var(--earth-muted);
+}
+.earth-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 44px;
+  color: var(--earth-yellow);
+  font-size: 11px;
+}
+/* The catalogue cover mirrors the live home composition; it contains no nested links. */
+.design-cover.earth-cover {
+  container-type: inline-size;
+  aspect-ratio: 1.25;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+}
+.earth-cover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3cqi;
+  padding: 3cqi 4cqi;
+  background: var(--earth-paper);
+  color: var(--earth-ink);
+}
+.earth-cover-header > strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5cqi;
+  font-size: 2.6cqi;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+.earth-cover-header .earth-mark {
+  width: 5cqi;
+  height: 5cqi;
+}
+.earth-cover-header small {
+  display: block;
+  font-size: 1cqi;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  margin-top: 1cqi;
+}
+.earth-cover-header > span {
+  display: flex;
+  align-items: center;
+  gap: 2.5cqi;
+  font-size: 1.3cqi;
+}
+.earth-cover-header b {
+  display: inline-block;
+  padding: 1.6cqi 1.8cqi;
+  border: 1px solid #75816c;
+  font-size: 1.3cqi;
+  font-weight: 600;
+}
+.earth-cover-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 53cqi;
+  padding: 5cqi 7cqi 7cqi;
+  isolation: isolate;
+}
+.earth-cover-hero > img {
+  object-fit: cover;
+  object-position: 66% center;
+  z-index: -3;
+}
+.earth-cover-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #0c180fe8, #0c180f50 77%),
+    linear-gradient(0deg, #0c180f8c, transparent 70%);
+  z-index: -2;
+}
+.earth-cover-hero > div {
+  max-width: 75%;
+}
+.earth-cover-hero > div > span:first-child {
+  display: block;
+  color: var(--earth-yellow);
+  font-size: 1.2cqi;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.earth-cover-hero strong {
+  display: block;
+  max-width: 11ch;
+  margin-top: 3cqi;
+  font-size: 7.3cqi;
+  letter-spacing: -0.06em;
+  line-height: 1.02;
+  font-weight: 650;
+}
+.earth-cover-hero strong :is(span, em) {
+  display: block;
+}
+.earth-cover-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4cqi;
+  width: fit-content;
+  margin-top: 3.5cqi;
+  padding: 1.9cqi 2.6cqi;
+  background: var(--earth-yellow);
+  color: var(--earth-ink);
+  font-size: 1.3cqi;
+  font-weight: 650;
+}
+.earth-cover-button b {
+  font-size: 2cqi;
+}
+.earth-cover-caption {
+  position: absolute;
+  bottom: 2cqi;
+  left: 7cqi;
+  font:
+    1cqi/1.4 ui-monospace,
+    monospace;
+  letter-spacing: 0.1em;
+  color: #e1e6d9;
+}
+.earth-cover-survey {
+  position: absolute;
+  right: 4cqi;
+  top: 4cqi;
+  bottom: 4cqi;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2cqi;
+  color: var(--earth-yellow);
+}
+.earth-cover-survey .earth-survey-cross {
+  width: 3cqi;
+  height: 3cqi;
+}
+.earth-cover-survey > span {
+  writing-mode: vertical-rl;
+  font:
+    1cqi/1.3 ui-monospace,
+    monospace;
+  letter-spacing: 0.14em;
+}
+.earth-cover-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4cqi;
+  padding: 3cqi 4cqi;
+  background: var(--earth-paper);
+  color: var(--earth-ink);
+}
+.earth-cover-foot strong {
+  font-size: 2cqi;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+}
+.earth-cover-foot > span {
+  font-size: 1.2cqi;
+}
+.earth-cover-foot .earth-survey-cross {
+  width: 3cqi;
+  height: 3cqi;
+}
+@container (max-width: 1000px) {
+  .earth-header {
+    gap: 24px;
+  }
+  .earth-brand {
+    font-size: 19px;
+  }
+  .earth-nav {
+    gap: 13px;
+    width: 55%;
+  }
+  .earth-nav > :is(a, button) {
+    font-size: 11px;
+  }
+  .earth-hero-copy {
+    width: 89%;
+    padding-left: 6cqi;
+  }
+  .earth-hero-copy :is(h1, h3) {
+    font-size: clamp(58px, 8.9cqi, 87px);
+  }
+  .earth-statement {
+    grid-template-columns: 28px 1.2fr 1fr;
+    gap: 23px;
+  }
+  .earth-statement p {
+    font-size: 13px;
+  }
+  .earth-explorer-grid {
+    gap: 35px;
+  }
+  .earth-service-panel {
+    padding: 28px;
+  }
+  .earth-feature-photo {
+    min-height: 490px;
+  }
+  .earth-feature-project > div:last-child {
+    padding-block: 37px;
+  }
+  .earth-home-process {
+    grid-template-columns: 0.7fr 1.3fr 60px;
+    gap: 30px;
+  }
+  .earth-service-close {
+    grid-template-columns: 28px 1fr;
+  }
+  .earth-service-close .earth-button {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .earth-contact {
+    gap: 35px;
+  }
+  .earth-planner {
+    padding: 26px;
+  }
+  .earth-contact :is(h1, h3) {
+    font-size: 48px;
+  }
+}
+@container (max-width: 699px) {
+  .earth-header {
+    display: grid;
+    gap: 23px;
+    padding: 22px 6cqi 15px;
+  }
+  .earth-brand {
+    max-width: 100%;
+    font-size: 24px;
+  }
+  .earth-nav {
+    width: 100%;
+    gap: 12px;
+  }
+  .earth-nav > :is(a, button) {
+    font-size: 11px;
+    min-height: 55px;
+  }
+  .earth-hero {
+    min-height: 650px;
+  }
+  .earth-hero > img {
+    object-position: 61% center;
+  }
+  .earth-hero-shade {
+    background:
+      linear-gradient(0deg, #0e1b14f2 0%, #102216a3 48%, #0e1b1420),
+      linear-gradient(90deg, #14211462, transparent 85%);
+  }
+  .earth-hero-copy {
+    width: 100%;
+    padding: 75px 7cqi 30px;
+  }
+  .earth-hero-copy :is(h1, h3) {
+    font-size: clamp(47px, 12cqi, 78px);
+    margin-top: 20px;
+    max-width: 11ch;
+  }
+  .earth-hero-copy .earth-kicker {
+    max-width: 30ch;
+    font-size: 9px;
+  }
+  .earth-site .earth-intro {
+    font-size: 14px;
+    margin-block: 24px;
+    max-width: 37ch;
+  }
+  .earth-hero-survey {
+    top: 28px;
+    bottom: auto;
+    right: 7cqi;
+    height: 33px;
+  }
+  .earth-hero-survey > span,
+  .earth-hero-survey > .earth-survey-cross:last-child,
+  .earth-hero-survey::before {
+    display: none;
+  }
+  .earth-hero-foot {
+    display: block;
+    margin-inline: 7cqi;
+    padding: 15px 0 20px;
+  }
+  .earth-hero-foot > span {
+    font-size: 8px;
+  }
+  .earth-hero-foot > :is(a, button) {
+    display: flex;
+    width: 100%;
+    font-size: 11px;
+    justify-content: space-between;
+    padding-block: 9px;
+    margin-top: 4px;
+  }
+  .earth-statement {
+    grid-template-columns: 25px 1fr;
+    gap: 20px;
+    padding: 38px 7cqi;
+  }
+  .earth-statement :is(h2, h4) {
+    font-size: clamp(33px, 9cqi, 49px);
+  }
+  .earth-statement > p {
+    grid-column: 2;
+    max-width: 47ch;
+    margin-top: 4px;
+  }
+  .earth-services-explorer {
+    padding: 43px 7cqi;
+  }
+  .earth-section-heading {
+    grid-template-columns: 1fr;
+    gap: 19px;
+  }
+  .earth-section-heading .earth-kicker {
+    padding-top: 0;
+  }
+  .earth-section-heading :is(h2, h4) {
+    font-size: clamp(35px, 9cqi, 49px);
+  }
+  .earth-explorer-grid {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    margin-top: 31px;
+  }
+  .earth-service-choices button {
+    grid-template-columns: 22px 1fr 20px;
+    padding-block: 20px;
+    min-height: 64px;
+    gap: 14px;
+  }
+  .earth-service-choices button strong {
+    font-size: 23px;
+  }
+  .earth-service-panel {
+    min-height: 300px;
+    padding: 27px;
+  }
+  .earth-panel-index {
+    font-size: 75px;
+  }
+  .earth-service-panel > strong {
+    margin-top: 89px;
+  }
+  .earth-feature-project {
+    grid-template-columns: 1fr;
+  }
+  .earth-feature-photo {
+    min-height: 0;
+    aspect-ratio: 1.15;
+  }
+  .earth-feature-photo > span {
+    font-size: 8px;
+    padding: 15px 7cqi;
+  }
+  .earth-feature-project > div:last-child {
+    padding: 37px 7cqi 41px;
+  }
+  .earth-feature-project :is(h2, h4) {
+    font-size: clamp(38px, 10cqi, 54px);
+    margin-block: 22px;
+  }
+  .earth-feature-project :is(h2, h4) br {
+    display: none;
+  }
+  .earth-feature-project :is(h2, h4) em {
+    display: block;
+  }
+  .earth-home-process {
+    grid-template-columns: 1fr 35px;
+    gap: 25px 20px;
+    padding: 43px 7cqi;
+  }
+  .earth-home-process > .earth-kicker {
+    grid-column: 1 / -1;
+    padding: 0;
+  }
+  .earth-home-process :is(h2, h4) {
+    font-size: clamp(34px, 8cqi, 47px);
+  }
+  .earth-process-track {
+    width: 35px;
+  }
+  .earth-process-track > span {
+    writing-mode: vertical-rl;
+    padding-block: 7px;
+    font-size: 8px;
+  }
+  .earth-inner {
+    padding: 43px 7cqi;
+  }
+  .earth-page-heading :is(h1, h3) {
+    font-size: clamp(43px, 11cqi, 67px);
+    margin-block: 20px 25px;
+  }
+  .earth-page-heading > p:not(.earth-kicker) {
+    font-size: 14px;
+  }
+  .earth-service-list {
+    margin-top: 35px;
+  }
+  .earth-service-list article {
+    grid-template-columns: 25px 1fr;
+    gap: 18px;
+    padding-block: 27px;
+  }
+  .earth-service-list article > div {
+    grid-column: 2;
+  }
+  .earth-service-list :is(h2, h4) {
+    font-size: 31px;
+  }
+  .earth-service-list article p {
+    font-size: 13px;
+  }
+  .earth-service-close {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+    padding: 23px;
+    margin-top: 25px;
+  }
+  .earth-project-toolbar {
+    margin-top: 28px;
+    padding-block: 21px;
+    gap: 16px;
+  }
+  .earth-project-filters {
+    gap: 8px;
+  }
+  .earth-project-filters button {
+    font-size: 10px;
+    padding: 10px 13px;
+  }
+  .earth-project-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 27px;
+  }
+  .earth-project-grid > figure:first-child {
+    grid-column: auto;
+  }
+  .earth-project-grid > figure:first-child .earth-project-photo {
+    aspect-ratio: 1.15;
+  }
+  .earth-project-grid :is(h2, h4) {
+    font-size: 33px;
+  }
+  .earth-project-photo > span {
+    font-size: 9px;
+    padding: 13px 18px;
+  }
+  .earth-process-list {
+    margin-top: 37px;
+  }
+  .earth-process-list article {
+    grid-template-columns: 40px 1fr;
+    gap: 22px;
+    padding-block: 28px;
+  }
+  .earth-process-list article > .earth-survey-cross {
+    display: none;
+  }
+  .earth-step-number {
+    font-size: 35px;
+  }
+  .earth-process-list :is(h2, h4) {
+    font-size: 32px;
+  }
+  .earth-process-list article > div > p:not(.earth-kicker) {
+    font-size: 13px;
+  }
+  .earth-process-close {
+    padding: 25px;
+    margin-top: 20px;
+  }
+  .earth-process-close > p {
+    font-size: 21px;
+  }
+  .earth-contact {
+    display: block;
+  }
+  .earth-planner {
+    padding: 25px 22px;
+    margin-top: 33px;
+  }
+  .earth-planner legend {
+    font-size: 16px;
+  }
+  .earth-brief {
+    padding: 20px;
+  }
+  .earth-brief-summary {
+    font-size: 11px;
+  }
+  .earth-footer {
+    gap: 12px;
+    padding: 24px 7cqi;
+  }
+  .earth-footer > p {
+    flex-basis: 100%;
+    font-size: 9px;
+  }
+  .earth-footer > a {
+    font-size: 11px;
+  }
+}
+@media (hover: hover) {
+  .earth-site .earth-button:hover {
+    background: #ffe477;
+    border-color: #ffe477;
+  }
+  .earth-site .earth-text-link:hover {
+    color: var(--earth-yellow);
+  }
+  .earth-feature-project .earth-text-link:hover,
+  .earth-planner .earth-text-link:hover {
+    color: #4a5c37;
+  }
+  .earth-nav > :is(a, button):hover {
+    border-bottom-color: #1f2b23;
+  }
+  .earth-service-choices button:hover {
+    color: #f1d658;
+  }
+  .earth-project-filters button:not([aria-pressed="true"]):hover {
+    border-color: var(--earth-yellow);
+  }
+  .earth-planner-types button:not([aria-pressed="true"]):hover,
+  .earth-priorities button:hover {
+    border-color: var(--earth-ink);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion="running"]
+    .earth-site
+    :is(.earth-button, .earth-text-link, .earth-service-choices button) {
+    transition:
+      background 0.2s,
+      color 0.2s,
+      border-color 0.2s;
+  }
+  html[data-motion="running"] .earth-page {
+    animation: earth-page-enter 0.45s ease-out;
+  }
+  html[data-motion="running"] .earth-hero-survey::before {
+    transform-origin: top;
+    animation: earth-survey-enter 0.9s ease-out both;
+  }
+  @media (hover: hover) {
+    html[data-motion="running"] .earth-project-photo img {
+      transition: transform 0.6s ease;
+    }
+    html[data-motion="running"] .earth-project-photo:hover img {
+      transform: scale(1.025);
+    }
+  }
+}
+@keyframes earth-page-enter {
+  from {
+    opacity: 0.8;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes earth-survey-enter {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .earth-site *,
+  .earth-site *::before,
+  .earth-site *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (forced-colors: active) {
+  .earth-site,
+  .earth-cover {
+    color: CanvasText;
+    background: Canvas;
+  }
+  .earth-site :is(h1, h2, h3, h4) em,
+  .earth-site .earth-kicker,
+  .earth-site p {
+    color: CanvasText;
+  }
+  .earth-site :is(a, button, [tabindex="0"]):focus-visible {
+    outline-color: Highlight;
+  }
+  .earth-site button,
+  .earth-site .earth-button {
+    border: 1px solid ButtonText;
+  }
+  .earth-site button[aria-pressed="true"],
+  .earth-nav > :is(a, button)[aria-current="page"] {
+    outline: 2px solid Highlight;
+    outline-offset: -3px;
+  }
+  .earth-hero-copy,
+  .earth-hero-foot {
+    background: Canvas;
+  }
+}

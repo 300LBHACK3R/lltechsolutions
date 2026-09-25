@@ -49,6 +49,7 @@ try {
     "/website-collection/mckenzie-house",
     "/website-collection/pigment",
     "/website-collection/structure",
+    "/website-collection/earthworks",
     "/website-collection/still",
     "/website-collection/start",
     "/website-collection/compare",
@@ -71,7 +72,6 @@ try {
     "/website-collection/compare",
     "/website-collection/brief",
     "/website-collection/category/legal-professional",
-    "/website-collection/category/home-property",
     "/website-collection/category/retail-automotive",
     "/website-collection/category/food-restaurants",
   ]);
@@ -147,94 +147,74 @@ try {
   );
   const painting = htmlByRoute.get("/website-collection/pigment");
   assert.ok(painting.includes("From $499 CAD"), "painting: agreed starting price");
-  assert.match(
-    painting,
-    /class="paint-site" data-tone="ochre"/,
-    "painting: server-rendered initial design",
-  );
-  assert.match(
-    painting,
-    /<nav class="paint-nav"[\s\S]*?Home[\s\S]*?Services[\s\S]*?Projects[\s\S]*?Contact[\s\S]*?<\/nav>/,
-    "painting: all four sample destinations are available",
-  );
-  assert.ok(
-    painting.includes("paint-hero-photo") && painting.includes("paint-approach"),
-    "painting: full initial content without waiting for hydration",
-  );
-  assert.ok(
-    painting.includes("Preview accent colour") &&
-      painting.includes("Warm ochre") &&
-      painting.includes("Soft sage") &&
-      painting.includes("Terracotta"),
-    "painting: named accent controls",
-  );
-  for (const id of ["pigment", "structure"]) {
+  for (const [id, configName] of [
+    ["pigment", "painting"],
+    ["structure", "plumbing"],
+    ["earthworks", "earthworks"],
+  ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
-    assert.match(
-      detail,
-      /<dialog[^>]*class="template-preview-dialog"/,
-      `${id}: contained preview dialog`,
+    const media = JSON.parse(
+      await readFile(new URL(`../src/data/${configName}-demo.json`, import.meta.url), "utf8"),
     );
-    assert.ok(detail.includes("Close preview"), `${id}: explicit exit control`);
+    assert.ok(detail.includes("template-detail-header"), `${id}: compact shared detail header`);
+    assert.ok(detail.includes('id="preview"'), `${id}: visual showcase remains available`);
     assert.ok(
-      detail.includes('class="template-design-canvas"'),
-      `${id}: isolated collection canvas`,
+      !detail.includes("Try this design here") && !detail.includes("template-preview-dialog"),
+      `${id}: duplicate interactive modal removed`,
     );
-    assert.ok(!detail.includes('class="design-preview"'), `${id}: no portfolio CSS collision`);
+    assert.ok(
+      !detail.includes("Try your business name"),
+      `${id}: personalization belongs in the live demo`,
+    );
+    assert.ok(
+      detail.includes("Additional work is quoted separately"),
+      `${id}: extra customization is separately scoped`,
+    );
+    if (media.url) {
+      assert.ok(detail.includes(`href="${media.url}"`), `${id}: configured public live demo`);
+      assert.equal(
+        (detail.match(/>View live demo(?:<!-- -->)? /g) || []).length,
+        1,
+        `${id}: one live demo action`,
+      );
+    } else {
+      assert.ok(
+        !detail.includes("View live demo"),
+        `${id}: no invented demo link before deployment`,
+      );
+    }
+    if (media.screenshots.length) {
+      assert.ok(detail.includes("template-screenshot-main"), `${id}: uploaded screenshot gallery`);
+      assert.ok(detail.includes(media.screenshots[0].caption), `${id}: first screenshot caption`);
+    } else {
+      assert.ok(
+        detail.includes("template-design-overview"),
+        `${id}: honest design cover until screenshots uploaded`,
+      );
+    }
   }
-  const plumbing = htmlByRoute.get("/website-collection/structure");
-  assert.match(
-    plumbing,
-    /<nav class="plumb-nav"[\s\S]*?Home[\s\S]*?Services[\s\S]*?Projects[\s\S]*?Contact[\s\S]*?<\/nav>/,
-    "plumbing: four working preview destinations",
-  );
-  assert.ok(
-    plumbing.includes("plumb-nav-pipe") && plumbing.includes("plumb-service-description"),
-    "plumbing: themed navigation and service explorer",
-  );
-  const plumbingMedia = JSON.parse(
-    await readFile(new URL("../src/data/plumbing-demo.json", import.meta.url), "utf8"),
-  );
-  if (plumbingMedia.url)
-    assert.ok(
-      plumbing.includes(`href="${plumbingMedia.url}"`),
-      "plumbing: configured verified demo link",
-    );
-  else
-    assert.ok(
-      plumbing.includes("Explore interactive preview"),
-      "plumbing: interactive fallback until public deployment",
-    );
   const paintingGallery = htmlByRoute.get("/website-collection/category/construction-trades");
   assert.match(
     paintingGallery,
     /<h3><a href="\/website-collection\/pigment">Painting Company<\/a><\/h3>/,
-    "painting: the name opens the detail page without jumping past it",
+    "painting: title opens its detail page",
   );
-  const paintingMedia = JSON.parse(
-    await readFile(new URL("../src/data/painting-demo.json", import.meta.url), "utf8"),
-  );
-  assert.ok(painting.includes("Picture your business here."), "painting: dedicated showcase");
-  if (paintingMedia.url) {
-    assert.ok(painting.includes(`href="${paintingMedia.url}"`), "painting: configured live demo");
-    assert.ok(painting.includes("View live demo"), "painting: live demo button");
-  } else {
-    assert.ok(painting.includes("Explore interactive preview"), "painting: working local fallback");
-  }
-  if (paintingMedia.screenshots.length) {
-    assert.ok(painting.includes("template-screenshot-main"), "painting: uploaded gallery");
-    assert.ok(
-      painting.includes(paintingMedia.screenshots[0].caption),
-      "painting: first screenshot",
-    );
-  }
   assert.match(
     paintingGallery,
     /id="design-pigment"[\s\S]*?class="design-cover paint-cover"/,
     "painting: matching gallery cover",
   );
+  const propertyGallery = htmlByRoute.get("/website-collection/category/home-property");
+  assert.ok(
+    propertyGallery.includes('id="design-earthworks"'),
+    "earthworks: landscaping is discoverable under Home & Property too",
+  );
+  assert.ok(
+    !propertyGallery.includes('content="noindex, follow"'),
+    "populated property category is indexable",
+  );
   checks++;
-  for (const id of ["pigment", "structure", "still"]) {
+  for (const id of ["pigment", "structure", "earthworks", "still"]) {
     const html = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(html.includes('"@type":"CreativeWork"'), `${id}: design schema`);
     assert.ok(
@@ -251,14 +231,16 @@ try {
       html.includes(`href="/website-collection/start?design=${id}"`),
       `${id}: guided enquiry starts with design`,
     );
-    assert.ok(
-      html.includes('aria-pressed="true"') && html.includes('aria-current="page"'),
-      `${id}: initial preview controls are accessible`,
-    );
-    assert.ok(
-      html.includes("Try your business name") && html.includes('maxLength="64"'),
-      `${id}: bounded personalization control`,
-    );
+    if (id === "still") {
+      assert.ok(
+        html.includes('aria-pressed="true"') && html.includes('aria-current="page"'),
+        `${id}: initial preview controls are accessible`,
+      );
+      assert.ok(
+        html.includes("Try your business name") && html.includes('maxLength="64"'),
+        `${id}: bounded personalization control`,
+      );
+    }
     const previewPhoto = [...html.matchAll(/<img\b[^>]*>/g)].find(([tag]) =>
       tag.includes(encodeURIComponent("/images/collection/")),
     )?.[0];
@@ -405,9 +387,7 @@ try {
     checks++;
     const gallery = htmlByRoute.get(`/website-collection/category/${id}`);
     assert.ok(gallery.includes('"@type":"BreadcrumbList"'), `${id}: category breadcrumbs`);
-    if (
-      ["legal-professional", "home-property", "retail-automotive", "food-restaurants"].includes(id)
-    ) {
+    if (["legal-professional", "retail-automotive", "food-restaurants"].includes(id)) {
       assert.ok(
         gallery.includes("No templates have been added here yet."),
         `${id}: truthful empty state`,
@@ -420,6 +400,7 @@ try {
     ["calgary-hot-shot", "transport-logistics", 399],
     ["pigment", "construction-trades", 499],
     ["structure", "construction-trades", 699],
+    ["earthworks", "construction-trades", 1000],
     ["crestline", "construction-trades", 399],
     ["tow-n-go", "transport-logistics", 899],
     ["mckenzie-house", "health-wellness", 999],
@@ -640,6 +621,7 @@ try {
   for (const [id, name] of [
     ["pigment", "Painting Company"],
     ["structure", "Plumbing Company"],
+    ["earthworks", "Excavation &amp; Landscaping"],
     ["still", "Massage Practice"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);

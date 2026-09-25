@@ -1,4 +1,5 @@
 import Image from "next/image";
+import EarthworksCover from "@/components/collection/EarthworksCover";
 import type { WebsiteDesign } from "@/data/website-collection";
 import PlumbingCover from "@/components/collection/PlumbingCover";
 import PaintingCover from "@/components/collection/PaintingCover";
@@ -18,6 +19,7 @@ export default function DesignCover({ design }: { design: WebsiteDesign }) {
     );
   }
   if (!concept) return null;
+  if (concept.theme === "earthworks") return <EarthworksCover design={design} />;
   if (concept.theme === "pigment") return <PaintingCover design={design} />;
   if (concept.theme === "structure") return <PlumbingCover design={design} />;
   return (

@@ -5,6 +5,8 @@ import DesignPreview from "@/components/collection/DesignPreview";
 import TemplateShowcase from "@/components/collection/TemplateShowcase";
 import paintingDemo from "@/data/painting-demo.json";
 import plumbingDemo from "@/data/plumbing-demo.json";
+import earthworksDemo from "@/data/earthworks-demo.json";
+import CollectionCustomization from "@/components/collection/CollectionCustomization";
 import { readTemplateShowcase } from "@/lib/template-showcase";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import CostSummary from "@/components/collection/CostSummary";
@@ -51,7 +53,9 @@ export default async function DesignPage({ params }: Props) {
       ? readTemplateShowcase(paintingDemo)
       : design.id === "structure"
         ? readTemplateShowcase(plumbingDemo, "structure")
-        : null;
+        : design.id === "earthworks"
+          ? readTemplateShowcase(earthworksDemo, "earthworks")
+          : null;
   const category = categoryForIndustry(design.industry);
   const clientProject = design.clientProjectId
     ? projects.find(
@@ -62,74 +66,84 @@ export default async function DesignPage({ params }: Props) {
   const relatedProject = clientProject?.relatedWork
     ? projects.find((project) => project.id === clientProject.relatedWork?.projectId)
     : undefined;
+  const liveDemoUrl =
+    media?.url ??
+    clientProject?.liveUrl ??
+    (!design.concept && design.demoUrl.startsWith("https://") ? design.demoUrl : null);
   return (
-    <div className="website-collection">
-      <section className="collection-hero">
+    <div className="website-collection template-detail">
+      <header className="template-detail-header">
         <div className="container">
-          <Link
-            className="text-link"
-            href={category ? `${categoryHref(category)}#designs` : "/website-collection#designs"}
-          >
-            ← {category?.name ?? "Website Templates"}
-          </Link>
-          <p className="eyebrow">
-            {collectionTiers.find((tier) => tier.id === design.tier)?.name} /{" "}
-            {collectionIndustries.find((industry) => industry.id === design.industry)?.name}
-          </p>
-          <h1>
-            {design.name}
-            <br />
-            <em>{clientProject ? "Imagine your business here." : "Made yours."}</em>
-          </h1>
-          <p className="collection-hero-copy">{design.description}</p>
-          <p className="collection-hero-note">
-            {designStatusLabel(design)} · {designPrice(design)}
-          </p>
-          <p className="collection-fineprint">
-            {designPriceContext(design)} · Before applicable taxes.
-          </p>
-          <div className="button-row">
+          <div className="template-detail-breadcrumb">
             <Link
-              className="button button-gold"
-              href={collectionInquiryHref({ design: design.id })}
+              className="text-link"
+              href={category ? `${categoryHref(category)}#designs` : "/website-collection#designs"}
             >
-              {designInquiryLabel(design)} ↗
+              ← {category?.name ?? "Website Templates"}
             </Link>
-            {media?.url && (
-              <a
-                className="button button-outline"
-                href={media.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View live demo <span className="sr-only">in a new tab</span>↗
-              </a>
-            )}
-            <a href="#preview" className="text-link">
-              Explore the design ↓
-            </a>
+            <span>{designStatusLabel(design)}</span>
+          </div>
+          <div className="template-detail-intro">
+            <div className="template-detail-title">
+              <p className="eyebrow">
+                {collectionTiers.find((tier) => tier.id === design.tier)?.name} /{" "}
+                {collectionIndustries.find((industry) => industry.id === design.industry)?.name}
+              </p>
+              <h1>{design.name}</h1>
+              <p className="template-detail-description">{design.description}</p>
+            </div>
+            <div className="template-detail-purchase">
+              <p className="template-detail-price">{designPrice(design)}</p>
+              <p className="template-detail-price-context">
+                {designPriceContext(design)} · Before applicable taxes.
+              </p>
+              <p className="template-detail-scope-note">{designScopeLabel(design)}</p>
+              <div className="template-detail-actions">
+                <Link
+                  className="button button-gold"
+                  href={collectionInquiryHref({ design: design.id })}
+                >
+                  {designInquiryLabel(design)} ↗
+                </Link>
+                {liveDemoUrl ? (
+                  <a
+                    className="button button-outline"
+                    href={liveDemoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {clientProject ? "Visit the live website" : "View live demo"}{" "}
+                    <span className="sr-only">in a new tab</span>↗
+                  </a>
+                ) : (
+                  <a href="#preview" className="button button-outline">
+                    View the design ↓
+                  </a>
+                )}
+              </div>
+              <p className="template-detail-delivery">{design.deliveryWindow}</p>
+            </div>
           </div>
         </div>
-      </section>
+      </header>
       <div className="container">
-        <section id="preview" className="collection-section" aria-labelledby="preview-title">
-          <div className="collection-heading">
-            <div>
-              <p className="eyebrow">
-                {media ? "The design, in detail" : "Look around, right here"}
-              </p>
-              <h2 id="preview-title">
-                {media ? "Picture your business here." : "See how it feels."}
-              </h2>
-            </div>
+        <section
+          id="preview"
+          className="collection-section template-detail-preview"
+          aria-labelledby="preview-title"
+        >
+          <div className="template-detail-preview-heading">
+            <h2 id="preview-title">{clientProject ? "Client website" : "Design preview"}</h2>
             <p>
               {media
-                ? "Explore the design, look through the available screenshots and try the demo before we make it yours."
+                ? media.screenshots.length
+                  ? "Browse the screenshots for a closer look."
+                  : "Your branding, content and imagery make it yours."
                 : clientProject
-                  ? "Watch the existing website walkthrough here, then explore the live site or the full client story."
+                  ? "Watch the walkthrough or explore the client story."
                   : design.concept
-                    ? "Try your business name, switch to a phone width and explore the sample pages."
-                    : "Scroll through the actual demo below, or open it to try the navigation and interactions."}
+                    ? "Explore the sample pages and try your business name."
+                    : "A closer look at the website layout."}
             </p>
           </div>
           {media ? (
@@ -147,14 +161,6 @@ export default async function DesignPage({ params }: Props) {
                 projectId={`collection-${clientProject.id}`}
               />
               <div className="button-row">
-                <a
-                  className="button button-outline"
-                  href={clientProject.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Visit the live website <span className="sr-only">in a new tab</span> ↗
-                </a>
                 <Link className="text-link" href={projectPath(clientProject)}>
                   Explore the client story ↗
                 </Link>
@@ -187,14 +193,6 @@ export default async function DesignPage({ params }: Props) {
                   </div>
                 </>
               )}
-              <a
-                href={design.demoUrl}
-                className="button button-outline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Open the live demo <span className="sr-only">in a new tab</span> ↗
-              </a>
             </div>
           )}
           {design.walkthrough && (
@@ -206,8 +204,8 @@ export default async function DesignPage({ params }: Props) {
         </section>
         <section className="collection-section design-detail-scope" aria-labelledby="scope-title">
           <div>
-            <p className="eyebrow">The proposed starting scope</p>
-            <h2 id="scope-title">What we build with you.</h2>
+            <p className="eyebrow">Included in the starting scope</p>
+            <h2 id="scope-title">Your website, built with you.</h2>
             <p>
               {designScopeLabel(design)}. {design.deliveryWindow}
             </p>
@@ -236,6 +234,7 @@ export default async function DesignPage({ params }: Props) {
             </p>
           </div>
         </section>
+        <CollectionCustomization designId={design.id} />
         <section
           className="collection-section journey-disclosures"
           aria-label="Useful details before enquiring"
@@ -317,9 +316,9 @@ export default async function DesignPage({ params }: Props) {
         </section>
         <section className="collection-end">
           <div>
-            <p className="eyebrow">A few easy choices</p>
-            <h2>Like this direction?</h2>
-            <p>Choose any extra help and support you want, then send a short enquiry.</p>
+            <p className="eyebrow">Your next step</p>
+            <h2>Make this your starting point.</h2>
+            <p>Tell us about your business. We’ll confirm the scope and price together.</p>
           </div>
           <Link className="button button-gold" href={collectionInquiryHref({ design: design.id })}>
             {designInquiryLabel(design)} ↗

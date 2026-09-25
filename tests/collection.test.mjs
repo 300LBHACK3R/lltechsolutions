@@ -171,7 +171,7 @@ test("collection validates design status, scope and local preview assets", () =>
       );
     }
     if (design.concept) {
-      assert.ok(["pigment", "structure", "still"].includes(design.concept.theme));
+      assert.ok(["pigment", "structure", "still", "earthworks"].includes(design.concept.theme));
       assert.equal(design.concept.brands.length, 2);
       assert.equal(design.concept.headlines.length, 2);
       assert.ok(design.concept.services.length > 0);
@@ -377,5 +377,30 @@ test("price sorting is numeric, stable and keeps unquoted options last in either
   assert.deepEqual(
     filterDesigns(entries, { sort: "price-high", budget: "under-1000" }).map((entry) => entry.id),
     ["middle", "small"],
+  );
+});
+
+test("earthworks is a five-page $1000 starting scope discoverable in trades and property", () => {
+  const design = availableDesigns().find((item) => item.id === "earthworks");
+  assert.equal(design.startingPriceCad, 1000);
+  assert.equal(design.pageCount, 5);
+  for (const category of ["construction-trades", "home-property"])
+    assert.ok(
+      categoryDesigns(templateCategories.find((item) => item.id === category)).some(
+        (item) => item.id === design.id,
+      ),
+    );
+  const selection = journeyInquiry(design, ["pages", "customization"], "none");
+  assert.ok(selection.message.includes("From $1,000 CAD"));
+  assert.ok(selection.message.includes("Layout or feature changes"));
+  assert.equal(
+    validateContact({
+      name: "Example Client",
+      email: "example@example.com",
+      service: selection.service,
+      timeline: "This month",
+      message: selection.message,
+    }).ok,
+    true,
   );
 });

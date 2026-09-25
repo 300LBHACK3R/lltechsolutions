@@ -59,6 +59,7 @@ export type CollectionTierId = (typeof collectionTiers)[number]["id"];
 /** Industry and collection level are independent: a painting design can belong to any level. */
 export const collectionIndustries = [
   { id: "construction", name: "Construction & Contracting" },
+  { id: "excavation", name: "Excavation & Landscaping" },
   { id: "painting", name: "Painting" },
   { id: "plumbing", name: "Plumbing" },
   { id: "electrical", name: "Electrical" },
@@ -92,8 +93,9 @@ export const templateCategories: readonly TemplateCategory[] = [
   {
     id: "construction-trades",
     name: "Construction & Trades",
-    description: "Construction companies, painters, plumbers and electricians.",
-    industries: ["construction", "painting", "plumbing", "electrical"],
+    description:
+      "Construction, excavation, landscaping, painting, plumbing and electrical businesses.",
+    industries: ["construction", "excavation", "painting", "plumbing", "electrical"],
     image: "/images/template-categories/construction-trades.webp",
   },
   {
@@ -205,7 +207,7 @@ export type WebsiteDesign = {
   customization?: readonly string[];
   additionalIndustries?: readonly CollectionIndustryId[];
   concept?: {
-    theme: "pigment" | "structure" | "still";
+    theme: "pigment" | "structure" | "still" | "earthworks";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -242,6 +244,71 @@ export const developerIntroduction: CollectionVideo | null = null;
 // Starting prices cover a new personalization and launch within the agreed scope.
 // Client examples demonstrate an approach; their identities and client-specific assets are not for resale.
 export const websiteDesigns: readonly WebsiteDesign[] = [
+  {
+    id: "earthworks",
+    status: "concept",
+    name: "Excavation & Landscaping",
+    tier: "flagship",
+    industry: "excavation",
+    additionalIndustries: ["landscaping", "construction"],
+    description:
+      "An immersive excavation and landscaping website with cinematic site imagery, interactive service and project views, and a practical project planner that turns inspiration into a clear conversation.",
+    startingPriceCad: 1000,
+    pageCount: 5,
+    deliveryWindow: "Delivery is agreed after content, page requirements and scope are confirmed.",
+    demoUrl: "/website-collection/earthworks#preview",
+    included: [
+      "Five page structures: home, services, projects, process and contact",
+      "Your business identity, supplied photographs, project stories and service areas",
+      "Interactive service exploration, project presentation and a project-planning journey",
+      "Responsive layouts, motion controls, metadata, enquiry validation and launch checks",
+    ],
+    customization: [
+      "Your brand palette, logo, business name and approved copy",
+      "Excavation, drainage, hardscape and landscaping service content",
+      "Project photography, categories and accurate descriptions",
+      "Your enquiry workflow and service-area information within the agreed scope",
+    ],
+    concept: {
+      theme: "earthworks",
+      brands: ["RIDGELINE", "YOUR EARTHWORKS CO"],
+      headlines: ["Good ground. Great possibilities.", "From the ground up. Built around you."],
+      subcopy:
+        "From the first cut of earth to the last stone in place. Shape a property that works beautifully, with the groundwork and finishing details considered together.",
+      kicker: "Excavation & landscape construction",
+      action: "Plan your project",
+      photo: {
+        src: "/images/collection/earthworks-site.webp",
+        alt: "Illustrative excavation and landscaping site with a tracked excavator and foothill landscape",
+        width: 1536,
+        height: 1024,
+      },
+      services: [
+        {
+          name: "Excavation & site preparation",
+          description:
+            "Make a considered start: discuss access, existing conditions, excavation requirements and the groundwork your project needs.",
+        },
+        {
+          name: "Grading & drainage",
+          description:
+            "Plan how the land and water work together, with levels, surface drainage and the finished use of the property in mind.",
+        },
+        {
+          name: "Retaining walls & hardscaping",
+          description:
+            "Bring structure to the space with retaining walls, steps, pathways and patios that connect the different parts of your property.",
+        },
+        {
+          name: "Landscape construction",
+          description:
+            "Build an outdoor space around everyday life, combining planted areas, practical surfaces and the details that make it feel complete.",
+        },
+      ],
+      approach:
+        "Understand the land before shaping it. We start with the space, the way you want to use it and the practical requirements, then plan the work from groundwork through to the finished landscape.",
+    },
+  },
   {
     id: "pigment",
     status: "concept",
@@ -612,7 +679,7 @@ export const collectionQuestions = [
   {
     question: "Can I change the layout or add features?",
     answer:
-      "Yes. Each design will list its included customization. Additional pages, larger layout changes, booking, payments and integrations are quoted before work begins. If your requirements call for an entirely individual design, we can discuss a bespoke build.",
+      "Yes. Every template can be personalized and expanded. The listed package defines the starting scope. Extra pages, layout changes, new features and integrations are quoted separately based on the content and complexity, with your approval before work begins. We can also discuss a fully bespoke build.",
   },
   {
     question: "How will pricing work?",
@@ -630,6 +697,16 @@ export const collectionQuestions = [
       "Your business details, logo, service information, contact information and any photos or copy you want to use. We guide you through the checklist. If you need help creating content, we can include that in the scope.",
   },
 ] as const;
+
+export const collectionCustomization = {
+  title: "A starting point. Room to make it yours.",
+  summary:
+    "Every template can be personalized and expanded. Your selected package covers its listed pages and customization; you can also request extra pages, layout changes or new features.",
+  pricing:
+    "Additional work is quoted separately based on the content, complexity and integrations involved. We agree on the scope and price with you before any extra work begins.",
+  short:
+    "Need more pages or a different feature? Every template can be adapted, with additional work quoted before we begin.",
+} as const;
 
 export const collectionPricingNote =
   "Starting prices are in CAD, before applicable taxes. Final scope is agreed before work begins. Optional extras, ongoing care, hosting, domains and provider fees are separate.";
@@ -786,7 +863,14 @@ export const collectionExtras = [
   {
     id: "pages",
     name: "Additional pages",
-    description: "Make room for more services, locations or project stories.",
+    description:
+      "Add services, locations or project stories to any template. Quoted by content and complexity before work begins.",
+  },
+  {
+    id: "customization",
+    name: "Layout or feature changes",
+    description:
+      "Discuss changes to the design or functionality. Work beyond the listed package is quoted separately.",
   },
   {
     id: "booking",

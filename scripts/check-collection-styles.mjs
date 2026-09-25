@@ -17,6 +17,7 @@ const routes = new Map([
       "collection-roadmap",
       "template-category-list",
       "template-category-photo",
+      "collection-customization",
     ],
   ],
   [
@@ -28,6 +29,7 @@ const routes = new Map([
       "template-mini-hero",
       "paint-cover",
       "plumb-cover",
+      "earth-cover",
     ],
   ],
   [
@@ -37,19 +39,17 @@ const routes = new Map([
   [
     "/website-collection/pigment",
     [
-      "design-preview-viewport",
-      "paint-hero",
-      "paint-nav-effect",
-      "paint-swatches",
-      "template-showcase-actions",
+      "paint-cover",
+      "template-detail-header",
+      "template-detail-intro",
+      "template-detail-purchase",
+      "template-detail-preview-heading",
       "template-screenshot-main",
-      "design-name-field",
     ],
   ],
-  [
-    "/website-collection/structure",
-    ["plumb-site", "plumb-nav", "plumb-hero", "template-preview-dialog"],
-  ],
+  ["/website-collection/structure", ["plumb-cover", "template-detail-header"]],
+  ["/website-collection/earthworks", ["earth-cover", "earth-cover-hero", "template-detail-header"]],
+  ["/website-collection/still", ["design-preview-viewport", "design-name-field"]],
   ["/website-collection/calgary-hot-shot", ["live-demo-scroll"]],
   ["/website-collection/tow-n-go", ["project-video", "design-detail-scope"]],
   ["/website-collection/crestline", ["project-video", "design-detail-scope"]],
