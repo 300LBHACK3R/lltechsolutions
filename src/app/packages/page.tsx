@@ -36,6 +36,11 @@ export default function PricingPage() {
               >
                 Discuss the scope ↗
               </Link>
+              {item.id === "website" && (
+                <Link className="text-link" href="/website-collection/massage-one-page">
+                  See the one-page example ↗
+                </Link>
+              )}
             </div>
           </section>
         ))}

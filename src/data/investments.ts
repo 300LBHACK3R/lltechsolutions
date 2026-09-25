@@ -4,10 +4,10 @@ export const investments = [
     id: "website",
     title: "Custom Business Website",
     label: "Starting at",
-    amount: 399,
+    amount: 150,
     period: "",
     description:
-      "A focused business website using your supplied content. Pages, integrations and custom features shape the final quote. Original photography, videography and ongoing care are optional, separately scoped services.",
+      "Start with one polished page from an L&L design, personalized with your supplied branding, wording and images. Direct contact or an external booking link is included. More pages, custom features, enquiry forms, original photography, video and ongoing care are quoted separately.",
     service: "Website Design & Development",
   },
   {
@@ -32,4 +32,4 @@ export const investments = [
   },
 ] as const;
 
-export const investmentDescription = `Custom business websites starting at $${investments[0].amount} CAD, scoped software development and social media management starting at $${investments[2].amount} CAD per month. Each engagement is quoted around its requirements.`;
+export const investmentDescription = `One-page business websites starting at $${investments[0].amount} CAD, scoped software development and social media management starting at $${investments[2].amount} CAD per month. Each engagement is quoted around its requirements.`;

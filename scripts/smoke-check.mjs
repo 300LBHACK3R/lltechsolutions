@@ -53,6 +53,7 @@ try {
     "/website-collection/lawncare",
     "/website-collection/horizon",
     "/website-collection/still",
+    "/website-collection/massage-one-page",
     "/website-collection/start",
     "/website-collection/compare",
     "/website-collection/brief",
@@ -183,6 +184,8 @@ try {
     ["earthworks", "earthworks"],
     ["lawncare", "lawncare"],
     ["horizon", "horizon"],
+    ["still", "beauty"],
+    ["massage-one-page", "massage-one-page"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     const media = JSON.parse(
@@ -333,12 +336,22 @@ try {
     "populated property category is indexable",
   );
   checks++;
-  for (const id of ["pigment", "structure", "earthworks", "lawncare", "horizon", "still"]) {
+  for (const id of [
+    "pigment",
+    "structure",
+    "earthworks",
+    "lawncare",
+    "horizon",
+    "still",
+    "massage-one-page",
+  ]) {
     const html = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(html.includes('"@type":"CreativeWork"'), `${id}: design schema`);
     assert.ok(
       (html.includes('id="preview"') &&
-        (html.includes("Sample layout") || html.includes("Independent design concept"))) ||
+        (html.includes("Sample layout") ||
+          html.includes("Available design") ||
+          html.includes("Independent design concept"))) ||
         html.includes("Interactive design concept"),
       `${id}: labelled concept preview`,
     );
@@ -351,16 +364,6 @@ try {
       html.includes(`href="/website-collection/start?design=${id}"`),
       `${id}: guided enquiry starts with design`,
     );
-    if (id === "still") {
-      assert.ok(
-        html.includes('aria-pressed="true"') && html.includes('aria-current="page"'),
-        `${id}: initial preview controls are accessible`,
-      );
-      assert.ok(
-        html.includes("Try your business name") && html.includes('maxLength="64"'),
-        `${id}: bounded personalization control`,
-      );
-    }
     const previewPhoto = [...html.matchAll(/<img\b[^>]*>/g)].find(([tag]) =>
       tag.includes(encodeURIComponent("/images/collection/")),
     )?.[0];
@@ -497,7 +500,8 @@ try {
     }
   }
   const templatePrices = [
-    ["still", "health-wellness", 299],
+    ["massage-one-page", "health-wellness", 150],
+    ["still", "health-wellness", 399],
     ["calgary-hot-shot", "transport-logistics", 399],
     ["horizon", "construction-trades", 499],
     ["lawncare", "construction-trades", 499],
@@ -752,7 +756,8 @@ try {
     ["earthworks", "Excavation &amp; Landscaping"],
     ["lawncare", "Lawn Care"],
     ["horizon", "Landscape Contracting"],
-    ["still", "Massage Practice"],
+    ["still", "Nail &amp; Esthetics Studio"],
+    ["massage-one-page", "One-page Massage Website"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(
@@ -927,11 +932,16 @@ try {
   );
 
   const investment = htmlByRoute.get("/packages");
-  assert.ok(investment.includes("$399+") && investment.includes("$149+"), "revised entry prices");
+  assert.ok(investment.includes("$150+") && investment.includes("$149+"), "revised entry prices");
+  assert.ok(
+    investment.includes("one polished page") &&
+      investment.includes('href="/website-collection/massage-one-page"'),
+    "entry offer explains its one-page scope and links to the example",
+  );
   assert.ok(!/\$(?:499|199)/.test(investment), "retired starting prices are removed");
   const investmentMetadata = investment.match(/name="description" content="([^"]+)"/)?.[1];
   assert.ok(
-    investmentMetadata?.includes("$399") && investmentMetadata.includes("$149"),
+    investmentMetadata?.includes("$150") && investmentMetadata.includes("$149"),
     "search description agrees with visible pricing",
   );
   for (const [route, html] of htmlByRoute) {

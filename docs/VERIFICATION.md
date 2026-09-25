@@ -1,6 +1,18 @@
 # Verification and release status
 
-Date: September 8, 2026. Release: Client Showcase, Reviews & Investment.
+## Current prepared scope — September 25, 2026
+
+Nail & Esthetics Studio replaces the former generic Massage Practice at the stable `still` URL. The approved $399 CAD offer has Home, Services and Contact. One-page Massage Website (`massage-one-page`) adds a $150 CAD entry offer using supplied content, up to three treatments and direct contact or an external booking link. The public website starting price is now $150+ CAD; social management remains $149+ CAD/month. Other template and client prices are unchanged.
+
+Both offers use separate static demo projects (`ll-beauty-template` and `ll-massage-one-page`). Their source, export checks and approved scope are distinct from public deployment: record a live-demo URL only after verifying the actual public production domain. Keep the demos noindex with the maintained security headers. No practice email delivery, integrated booking or ongoing care is included in these direct-contact demonstrations. Extra pages, original content, forms and integrations are separately scoped.
+
+McKenzie remains a separately quoted real client example with a matching image and View live demo. Its original approximately $1,000 CAD website/photo/video project is historical combined scope, not a new template price.
+
+This section records the prepared scope, not completed test counts, Windows execution, browser/device verification, a remote push or a Vercel deployment. Use the checks for the exact new revision and the current release checklist; historical results below do not establish verification of these new offers.
+
+## Historical verification — September 8, 2026
+
+Release: Client Showcase, Reviews & Investment.
 
 ## Source and scope
 
@@ -8,7 +20,7 @@ Date: September 8, 2026. Release: Client Showcase, Reviews & Investment.
 - This revision carries that interactive design forward. Complete pre-change Git history is preserved in a backup bundle; changes are isolated on `refactor/client-proof-and-reviews`.
 - Retains the exact brand asset, three disciplines and approved hero language. The homepage now has five sections; all three client websites are represented and full testimonials live on `/reviews`.
 - The portfolio distinguishes client websites, content partnerships and studio-owned projects. Tow-N-Go has a direct monthly social/content partnership link; McKenzie's completed digital launch is not described as a monthly contract.
-- Website starting prices are $399+ CAD; social management starts at $149+ CAD/month. Software remains scoped. Existing client agreements are unaffected.
+- At that historical release, website starting prices were $399+ CAD and social management started at $149+ CAD/month. The current website entry is $150+ CAD as described above; software remains scoped and existing client agreements are unaffected.
 - Retains the layered project stage, interactive service study, fine-pointer tilt, gold circuit motion, crossfades, visitor motion controls and real client captures from September 6. No client images, reviews or performance figures were invented.
 
 ## Verified automatically

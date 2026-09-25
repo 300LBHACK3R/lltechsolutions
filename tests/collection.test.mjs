@@ -188,9 +188,17 @@ test("collection validates design status, scope and local preview assets", () =>
     }
     if (design.concept) {
       assert.ok(
-        ["pigment", "structure", "still", "earthworks", "lawncare", "horizon", "wellness"].includes(
-          design.concept.theme,
-        ),
+        [
+          "pigment",
+          "structure",
+          "still",
+          "earthworks",
+          "lawncare",
+          "horizon",
+          "wellness",
+          "beauty",
+          "massage-one-page",
+        ].includes(design.concept.theme),
       );
       assert.equal(design.concept.brands.length, 2);
       assert.equal(design.concept.headlines.length, 2);
@@ -229,6 +237,34 @@ test("collection validates design status, scope and local preview assets", () =>
     }
   }
   media(developerIntroduction);
+});
+
+test("entry offers keep their approved prices, separate business types and direct-contact scope", () => {
+  const beauty = websiteDesigns.find((item) => item.id === "still");
+  const massage = websiteDesigns.find((item) => item.id === "massage-one-page");
+  assert.ok(beauty && massage);
+  assert.equal(beauty.industry, "beauty");
+  assert.equal(beauty.startingPriceCad, 399);
+  assert.equal(beauty.pageCount, 3);
+  assert.equal(massage.industry, "massage-wellness");
+  assert.equal(massage.startingPriceCad, 150);
+  assert.equal(massage.pageCount, 1);
+  assert.equal(designScopeLabel(massage), "1 page structure");
+  assert.equal(filterDesigns(websiteDesigns, { sort: "price-low" })[0].id, massage.id);
+  for (const design of [beauty, massage]) {
+    assert.equal(design.status, "published");
+    assert.equal(design.contactMode, "direct");
+    const query = {
+      collection: "website",
+      design: design.id,
+      price: "100",
+      contactMode: "enquiry-form",
+    };
+    const inquiry = collectionInquiry(query);
+    assert.ok(inquiry.message.includes(`From $${design.startingPriceCad} CAD`));
+    assert.ok(inquiry.message.includes("Direct contact included"));
+    assert.ok(!inquiry.message.includes("Protected enquiry form included"));
+  }
 });
 
 test("unpriced concepts are never treated as free or as a match for a price ceiling", () => {

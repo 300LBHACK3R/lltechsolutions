@@ -218,7 +218,16 @@ export type WebsiteDesign = {
   customization?: readonly string[];
   additionalIndustries?: readonly CollectionIndustryId[];
   concept?: {
-    theme: "pigment" | "structure" | "still" | "earthworks" | "lawncare" | "horizon" | "wellness";
+    theme:
+      | "pigment"
+      | "structure"
+      | "still"
+      | "earthworks"
+      | "lawncare"
+      | "horizon"
+      | "wellness"
+      | "beauty"
+      | "massage-one-page";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -233,12 +242,12 @@ export type WebsiteDesign = {
 };
 
 export const contactScopeSummary =
-  "New website offers from $299–$499 CAD include direct contact. Offers from $699 CAD include a standard protected enquiry form.";
+  "New website offers from $150–$499 CAD include direct contact. Offers from $699 CAD include a standard protected enquiry form.";
 
 export const contactScopeDetails = {
   direct: {
     label: "Direct contact included",
-    priceLabel: "$299–$499 CAD",
+    priceLabel: "$150–$499 CAD",
     description:
       "A contact page or section with click-to-call and click-to-email links, plus your chosen external booking link where relevant.",
   },
@@ -608,62 +617,123 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
   },
   {
     id: "still",
-    status: "concept",
-    name: "Massage Practice",
-    tier: "essential",
-    industry: "massage-wellness",
+    status: "published",
+    name: "Nail & Esthetics Studio",
+    tier: "signature",
+    industry: "beauty",
     description:
-      "A warm, unhurried website for massage and wellness practices, with a clear path from services to booking.",
-    startingPriceCad: 299,
+      "A polished three-page website for nail salons and esthetics studios, with an editorial welcome, a clear treatment menu and a dedicated booking and contact page.",
+    startingPriceCad: 399,
     pageCount: 3,
     contactMode: "direct",
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
     demoUrl: "/website-collection/still#preview",
     included: [
-      "Home, services and contact page structures",
-      "Your supplied practice information, branding and room photography",
+      "Three complete pages: home, services and contact",
+      "Your supplied studio branding, approved wording and images added to this design",
+      "A treatment menu with your service descriptions, appointment lengths and rates",
       contactScopeDetails.direct.description,
-      "Responsive implementation, metadata and launch checks",
+      "Your chosen external booking link, opening hours and arrival information",
+      "Responsive implementation, core SEO, metadata, security headers and launch checks",
     ],
     customization: [
-      "Your practice name, palette and supplied photography",
-      "Approved treatment descriptions and rates",
-      "Your biography and approach",
-      "Booking provider link and arrival information",
+      "Your salon name, logo, colours and supplied photography",
+      "Your nail and esthetics menu, pricing, policies and studio information",
+      "Extra pages, enquiry forms and booking integrations quoted separately",
+      "Original photography, filming, copywriting and ongoing care quoted separately",
     ],
     concept: {
-      theme: "still",
-      brands: ["MASSAGE STUDIO", "WELLNESS PRACTICE"],
-      headlines: ["A little space. Just for you.", "Care begins with feeling welcome."],
+      theme: "beauty",
+      brands: ["FORMA", "YOUR BEAUTY STUDIO"],
+      headlines: ["Considered care. Beautifully you.", "A little time, beautifully spent."],
       subcopy:
-        "An unhurried welcome, a comfortable space and time to talk about what you need. Explore the treatments and find an appointment that fits your day.",
-      kicker: "Massage & personal care",
-      action: "Explore treatments",
+        "Nails, skin and the little details. Explore considered treatments, make time for yourself and find a visit that fits your day.",
+      kicker: "Nails & esthetics",
+      action: "Explore our services",
       photo: {
-        src: "/images/collection/massage-room.webp",
-        alt: "Illustrative massage treatment room with sage walls and ivory linens",
+        src: "/images/collection/beauty-studio.webp",
+        alt: "Illustrative boutique nail studio with ivory surfaces and muted plum manicure chairs",
         width: 1536,
         height: 1024,
       },
       services: [
         {
-          name: "Relaxation massage",
+          name: "Nails & finishing",
           description:
-            "Set aside some time to settle in. Talk through your comfort preferences and enjoy an unhurried treatment.",
+            "From a clean natural finish to your next favourite shade, choose a manicure that suits your style.",
         },
         {
-          name: "Focused treatment",
+          name: "Skin & self-care",
           description:
-            "Discuss the areas you would like attention to, with pressure and positioning adjusted to your comfort.",
+            "Make time for a considered facial and a calm studio experience, with preferences discussed before treatment.",
         },
         {
-          name: "Planning a visit",
+          name: "Brows & details",
           description:
-            "New to the practice? Ask a question before booking and learn what to expect at your first appointment.",
+            "Shape and finishing options, with a consultation to agree the look before your appointment begins.",
         },
       ],
       approach:
-        "Your comfort shapes the appointment. There is time to talk before treatment, ask questions and share your preferences throughout your visit.",
+        "A comfortable studio, a conversation about your preferences and thoughtful attention to the details. Your appointment starts with you.",
+    },
+  },
+  {
+    id: "massage-one-page",
+    status: "published",
+    name: "One-page Massage Website",
+    tier: "essential",
+    industry: "massage-wellness",
+    description:
+      "A calm, polished single-page website for an independent massage business. Introduce your practice, show up to three treatments and make booking or contacting you straightforward.",
+    startingPriceCad: 150,
+    pageCount: 1,
+    contactMode: "direct",
+    deliveryWindow: "One-page scope and delivery are agreed after your content is ready.",
+    demoUrl: "/website-collection/massage-one-page#preview",
+    included: [
+      "One scrolling page: welcome, up to three treatments, a short about section and contact",
+      "Your supplied logo, brand colours, approved wording and images placed into this design",
+      "Treatment names, appointment lengths and rates supplied by your business",
+      contactScopeDetails.direct.description,
+      "Responsive layout, core SEO, metadata, security headers and agreed launch checks",
+      "Personalization and launch within the agreed one-page scope; domain, hosting and provider fees are separate",
+    ],
+    customization: [
+      "Your business name, supplied content, colours and contact details",
+      "Your external booking URL, opening hours and location or service area",
+      "Extra pages, layout changes, forms and custom integrations quoted separately",
+      "New photography, videography, copywriting and ongoing care quoted separately",
+    ],
+    concept: {
+      theme: "massage-one-page",
+      brands: ["SOMA", "YOUR MASSAGE PRACTICE"],
+      headlines: ["Room to exhale.", "A moment that belongs to you."],
+      subcopy:
+        "A quiet space, a conversation about your comfort and time set aside for you. Explore the treatments and plan your next visit.",
+      kicker: "Massage & everyday wellbeing",
+      action: "Plan your visit",
+      photo: {
+        src: "/images/collection/massage-room.webp",
+        alt: "Illustrative massage studio with sage walls, soft daylight and ivory linens",
+        width: 1536,
+        height: 1024,
+      },
+      services: [
+        {
+          name: "Relaxation",
+          description: "Unhurried time with pressure adjusted to your comfort.",
+        },
+        {
+          name: "Focused care",
+          description: "Discuss the areas you would like attention to before your visit.",
+        },
+        {
+          name: "A longer pause",
+          description: "More time to settle in and shape the appointment around you.",
+        },
+      ],
+      approach:
+        "Your comfort comes first. Ask questions and share your preferences before and throughout your visit.",
     },
   },
   {

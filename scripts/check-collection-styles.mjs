@@ -38,7 +38,7 @@ const routes = new Map([
   ],
   [
     "/website-collection/category/health-wellness",
-    ["template-gallery-heading", "template-mini-hero", "wellness-cover"],
+    ["template-gallery-heading", "beauty-cover", "massage-one-cover"],
   ],
   [
     "/website-collection/pigment",
@@ -57,7 +57,14 @@ const routes = new Map([
     "/website-collection/lawncare",
     ["lawn-cover", "template-detail-header", "collection-contact-options"],
   ],
-  ["/website-collection/still", ["design-preview-viewport", "design-name-field"]],
+  [
+    "/website-collection/still",
+    ["beauty-cover", "template-detail-header", "collection-contact-options"],
+  ],
+  [
+    "/website-collection/massage-one-page",
+    ["massage-one-cover", "template-detail-header", "collection-contact-options"],
+  ],
   [
     "/website-collection/horizon",
     ["template-detail-header", "horizon-cover", "collection-contact-options"],

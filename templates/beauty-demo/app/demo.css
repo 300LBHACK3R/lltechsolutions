@@ -1,0 +1,107 @@
+body {
+  background: #f7f2ec;
+  color: #472936;
+  color-scheme: light;
+}
+.beauty-demo-stage {
+  max-width: 1600px;
+  margin-inline: auto;
+  container-type: inline-size;
+}
+.beauty-demo-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 25px;
+  padding: 10px max(24px, calc((100vw - 1500px) / 2));
+  background: #080808;
+  color: #f0d481;
+  font-size: 11px;
+}
+.beauty-demo-bar > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+.beauty-demo-bar a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.beauty-demo-bar a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.beauty-demo-bar .motion-control {
+  border: 1px solid #736137;
+  background: transparent;
+  color: #f0d481;
+  min-height: 44px;
+  padding: 10px 14px;
+  font-size: 11px;
+}
+.beauty-demo-bar .motion-control:disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+.beauty-demo-disclosure {
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 11px;
+  color: #705c60;
+}
+.beauty-demo-not-found {
+  padding: 70px 24px;
+  background: #f7f2ec;
+}
+.beauty-demo-not-found h1 {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: clamp(36px, 6vw, 70px);
+}
+.beauty-demo-not-found p {
+  margin-block: 20px;
+}
+.beauty-demo-not-found a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  text-decoration: underline;
+}
+html:not([data-motion="running"]) *,
+html:not([data-motion="running"]) *::before,
+html:not([data-motion="running"]) *::after {
+  animation: none !important;
+  transition: none !important;
+}
+@media (max-width: 650px) {
+  .beauty-demo-bar {
+    justify-content: center;
+    gap: 0 18px;
+    padding: 8px 18px;
+  }
+  .beauty-demo-bar > span {
+    width: 100%;
+    text-align: center;
+  }
+  .beauty-demo-bar > div {
+    justify-content: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .beauty-demo-bar .motion-control {
+    border-color: ButtonText;
+  }
+}

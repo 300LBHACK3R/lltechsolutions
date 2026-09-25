@@ -1,5 +1,13 @@
 # Changelog
 
+## Prepared update — Beauty and one-page massage templates
+
+- Replace the former generic Massage Practice at the stable `still` URL with Nail & Esthetics Studio: a $399 CAD three-page offer with Home, Services and Contact. Use the dedicated beauty design and matching cover.
+- Add One-page Massage Website (`massage-one-page`) at $150 CAD, with supplied content, up to three treatments, an about section and direct contact or an external booking link. Lower the public website entry price and matching metadata to $150+ CAD; retain other template prices and social management at $149+ CAD/month.
+- Keep extra pages, enquiry forms, booking integrations, original photography/video and ongoing care separately scoped. Catalogue ordering, comparisons and enquiries retain the canonical offer price and contact scope.
+- Provide separate static demo exports for `ll-beauty-template` and `ll-massage-one-page`, with noindex and maintained security headers. Show View live demo only after its actual public URL is verified; use matching covers or real captures rather than duplicate inline previews.
+- Preserve McKenzie House’s image-led, separately quoted client reference and the historical approximately $1,000 combined website/photo/video context. This prepared entry does not claim completed browser testing, a GitHub push or a Vercel deployment.
+
 ## Prepared update — Guided Website Collection
 
 - Put the design catalogue first and keep collection levels, launch details and monthly options behind optional disclosures.

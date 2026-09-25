@@ -5,8 +5,8 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 ## The visitor journey
 
 1. Open Website Templates in the main navigation. A compact introduction preserves “A design you love. The details, handled.” and the existing launch explanation. Wide photographic business-category links appear immediately below, under “Browse by business type”. The nearby **How it works** link jumps to the compact process strip after the categories.
-2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The templates use plain names: Painting Company, Plumbing Company, Excavation & Landscaping, Landscape Contracting, Lawn Care, Massage Practice, McKenzie House Massage, Calgary Hot Shot, Tow-N-Go Trailers and Crestline Painting. Category filtering stays on the gallery page, not the landing page.
-3. Open a template to view its screenshots or labelled design cover, scope and starting price. Painting, plumbing and earthworks use a **View live demo** button only when a verified public URL is configured; their duplicate embedded “Try this design here” flow has been removed. Massage Practice retains its generic inline page preview with Phone/Fit screen views until its standalone demo is built. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
+2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The templates use plain names: Painting Company, Plumbing Company, Excavation & Landscaping, Landscape Contracting, Lawn Care, Nail & Esthetics Studio, One-page Massage Website, McKenzie House Massage, Calgary Hot Shot, Tow-N-Go Trailers and Crestline Painting. Category filtering stays on the gallery page, not the landing page.
+3. Open a template to view its screenshots or labelled design cover, scope and starting price. Dedicated template demos use a **View live demo** button only when a verified public URL is configured. The former inline “Try this design here” flow and generic business-name editor are removed; the beauty and one-page massage offers follow the same cover/screenshots-to-live-demo journey. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
 4. Additional pages, custom layouts and features are available for every template and are quoted by the agreed scope before work begins; no fixed per-page fee is implied. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
 
 No account, extra analytics, tracking pixels, new application dependencies or upload service is introduced. The contact form stays mounted while visitors move back through the guided steps, preserving their typed information. Selection context is appended to the final submitted message using the existing length limits and server validation. A normal enquiry link and direct contact details remain available.
@@ -19,7 +19,8 @@ The category banners are generated industry illustrations, not photographs of cl
 | ------------------------ | ------------------------ | --------- | ------------------------------------------- |
 | Painting Company         | Painting                 | Signature | Four-page sample demo; launch scope agreed  |
 | Plumbing Company         | Plumbing                 | Premier   | Four-page sample demo; launch scope agreed  |
-| Massage Practice         | Massage & Wellness       | Essential | Inline sample; three page structures        |
+| Nail & Esthetics Studio  | Beauty & Personal Care   | Signature | Approved three-page offer; separate demo    |
+| One-page Massage Website | Massage & Wellness       | Essential | Approved one-page offer; separate demo      |
 | Excavation & Landscaping | Excavation & Landscaping | Flagship  | Seven-page sample demo; launch scope agreed |
 
 These are original coded design studies with sample text, generic sample identities and generated illustrative photography. They are not client projects, ready-made client assets or complete production business sites. Sample contact layouts do not deliver enquiries to a contractor or practice; the real L&L enquiry action is clearly separate. The actual pages, content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
@@ -32,7 +33,7 @@ The starting-price schedule below applies to new template-based builds. Addition
 
 - `/website-collection`: business category selection and service explanations. Legacy `?industry=` links redirect to the corresponding gallery, preserving filter context.
 - `/website-collection/category/[category]`: category-specific gallery, optional business/level filters, template previews, direct enquiry links and comparison selections.
-- `/website-collection/[design]`: individual detail page, screenshots or a labelled cover, verified live-demo link where configured, scope, optional video, pricing explanation and performance evidence. Massage Practice keeps its generic inline preview.
+- `/website-collection/[design]`: individual detail page, screenshots or a labelled cover, verified live-demo link where configured, scope, optional supplied media, pricing explanation and performance evidence. The beauty and one-page massage designs use the same dedicated showcase flow as the other templates.
 - `/website-collection/start?design=pigment`: three-step guided enquiry.
 - `/website-collection/compare?design=pigment&design=still`: shareable comparison.
 - `/website-collection/brief`: optional client content guide, after booking.
@@ -41,14 +42,14 @@ Design pages use server-generated metadata, canonical URLs and CreativeWork stru
 
 ## Adding and publishing designs
 
-Use the `WebsiteDesign` type in the catalogue. Give every design a unique slug, a plain business-facing name, tier, industry, description, page count, realistic delivery wording, scope and customization list. Assign an existing industry tag and it automatically appears in the correct gallery. If adding an industry tag, assign it to exactly one `templateCategories` group. Put real thumbnail images under `public/images/collection/<design-id>/preview.webp` and set the `preview` source, alt text and actual dimensions in the record. A screenshot is not a live demo: only show the external demo action after its public URL has been checked, and do not mark an offer as published on the strength of a cover image alone.
+Use the `WebsiteDesign` type in the catalogue. Give every design a unique slug, a plain business-facing name, tier, industry, description, page count, realistic delivery wording, scope and customization list. Assign an existing industry tag and it automatically appears in the correct gallery. If adding an industry tag, assign it to exactly one `templateCategories` group. Put real thumbnail images under `public/images/collection/<design-id>/preview.webp` and set the `preview` source, alt text and actual dimensions in the record. A screenshot is not a live demo: only show the external demo action after its public URL has been checked, and do not mark an offer as published on the strength of a cover image alone. A published offer requires an approved scope and completed dedicated demo source; this status does not imply that its separate Vercel deployment has been verified.
 
 - `draft`: private preparation; never rendered publicly.
 - `concept`: an explicitly labelled preview whose final offer may still require a quote.
-- `published`: approved offer with a positive, numeric `startingPriceCad` and a checked demo.
+- `published`: approved offer with a positive, numeric `startingPriceCad`, defined scope and completed dedicated demo source. A verified public URL is separately required before displaying View live demo.
 - `client-example`: a real portfolio reference with a valid `clientProjectId`; its optional starting price is for a similar new build; the final quote and page count depend on the prospect’s own agreed scope.
 
-Massage Practice keeps the generic `DesignPreview.tsx` inline concept. Painting, plumbing and earthworks instead use dedicated covers and a screenshot gallery, with live-demo URLs and screenshot records in their respective `src/data/*-demo.json` files. Missing screenshots show a labelled design cover. A missing URL omits the external demo action; it does not reveal a second embedded preview or a dead button. Supplied gallery captures must be real captures with accessible descriptions and actual dimensions. Do not disguise a repeated layout as an exclusive bespoke client design.
+Nail & Esthetics Studio and One-page Massage Website use dedicated covers and screenshot galleries, like painting, plumbing and earthworks. Live-demo URLs and screenshot records stay in their respective `src/data/*-demo.json` files. Missing screenshots show a labelled design cover. A missing URL omits the external demo action; it does not reveal a second embedded preview or a dead button. Supplied gallery captures must be real captures with accessible descriptions and actual dimensions. Do not disguise a repeated layout as an exclusive bespoke client design.
 
 Confirm scope, revision allowance, content responsibilities, completion timing, usage/handover terms, taxes and provider fees before accepting a deposit. Monthly care remains optional and separately scoped.
 
@@ -62,12 +63,12 @@ Use these suggested file locations (create each folder when adding the actual fi
 | -------------- | ---------------------------------------------------------------------------------- |
 | Pigment tour   | `public/media/collection/pigment/walkthrough.mp4`, `poster.webp`, `captions.vtt`   |
 | Structure tour | `public/media/collection/structure/walkthrough.mp4`, `poster.webp`, `captions.vtt` |
-| Still tour     | `public/media/collection/still/walkthrough.mp4`, `poster.webp`, `captions.vtt`     |
+| Beauty tour    | `public/media/collection/still/walkthrough.mp4`, `poster.webp`, `captions.vtt`     |
 | Meet Tate      | `public/media/collection/tate/introduction.mp4`, `poster.webp`, `captions.vtt`     |
 
 Set a design’s `walkthrough` object, or the `developerIntroduction` export, with `src`, `poster`, `captions` and a real `transcript`. Public URLs omit `public`, for example `/media/collection/pigment/walkthrough.mp4`. Do not set the object until all three files exist. Use H.264 MP4 with a web-friendly encoding and captions matching the recording. Keep a tour focused: home, services, one useful detail and the contact journey. Check playback and seeking on the actual deployed site.
 
-Without a recording, the design cover, supplied screenshots and any configured live-demo link remain available; Massage Practice retains its inline concept. Meet Tate uses the written introduction. Existing client videos elsewhere on the site are untouched.
+Without a recording, the design cover, supplied screenshots and any configured live-demo link remain available. A walkthrough is optional; the template does not need an embedded video or a duplicate interactive preview. Meet Tate uses the written introduction. Existing client videos elsewhere on the site are untouched.
 
 ## Performance evidence
 
@@ -102,7 +103,7 @@ The current Windows installer preserves a local Git-history backup, verifies the
 
 ## Realistic previews and live examples
 
-Painting Company, Plumbing Company, Excavation & Landscaping and Massage Practice use photo-led covers and customer-facing sample copy. Painting, plumbing and earthworks open their separate public demos through the configured live-demo button; the catalogue does not embed another interactive copy. Massage retains its generic inline preview, where visitors can try a business name locally without storage or submission. Miniature typography scales against its card width. Massage has three page structures, with its approach included on Home.
+Painting Company, Plumbing Company, Excavation & Landscaping, Nail & Esthetics Studio and One-page Massage Website use photo-led covers and customer-facing sample copy. Dedicated templates open their separate public demos through the verified live-demo button; the catalogue does not embed another interactive copy. Miniature typography scales against its card width. Nail & Esthetics has three complete pages. The massage entry has one scrolling page, with section anchors rather than separate service/contact routes.
 
 Transport & Logistics includes Calgary Hot Shot, the user-supplied live concept demo. Its card and scrollable detail preview use actual screenshots; the external link opens the interactive demo. It remains explicitly labelled as a concept with placeholder business details; its starting price applies to a new personalization and launch. Do not represent it as an approved client or a production launch.
 
@@ -138,11 +139,12 @@ Historical client-reference verification: formatting, local import/asset validat
 
 ## Template starting prices and sorting
 
-The following starting-price schedule reflects the current catalogue. These figures are commercial starting points, not inferred past client fees or externally benchmarked market rates. They exclude applicable taxes. Existing Custom Business Website ($399+) and Social Management Partner ($149/month+) entry points remain unchanged.
+The following starting-price schedule reflects the current catalogue. These figures are commercial starting points, not inferred past client fees or externally benchmarked market rates. They exclude applicable taxes. The Custom Business Website entry is $150+ CAD for a focused one-page build using supplied content. Social Management Partner remains $149/month+. Extra scope, ongoing care and provider costs are separate.
 
 | Design                       | Starting price (CAD) | Price applies to                                       |
 | ---------------------------- | -------------------: | ------------------------------------------------------ |
-| Massage Practice             |                 $299 | New personalization and launch                         |
+| One-page Massage Website     |                 $150 | Supplied content; one page and direct contact          |
+| Nail & Esthetics Studio      |                 $399 | New personalization and launch; three pages            |
 | Calgary Hot Shot             |                 $399 | New personalization and launch                         |
 | Lawn Care                    |                 $499 | New personalization and launch; four demo pages        |
 | Painting Company             |                 $499 | New personalization and launch                         |
@@ -173,7 +175,7 @@ The production smoke checks verify the retained headline and introduction, absen
 
 ## Painting Company / Pigment demo
 
-The $499 CAD starting point and four page structures remain unchanged. The painting preview now has its own scoped components and stylesheet: `PaintingTemplate`, `PaintingCover`, `PaintMarks` and `painting-template.css`. The cover represents the sample demo. Plumbing and earthworks have their own dedicated components; Massage Practice keeps the shared `DesignPreview` layout.
+The $499 CAD starting point and four page structures remain unchanged. The painting preview now has its own scoped components and stylesheet: `PaintingTemplate`, `PaintingCover`, `PaintMarks` and `painting-template.css`. The cover represents the sample demo. Plumbing, earthworks, beauty and one-page massage have their own dedicated components; the generic inline `DesignPreview` flow is retired.
 
 Home, Services, Projects and Contact are real routes in the standalone painting demo. Visitors can try three accent colours without storage or requests. The brush draws a navigation underline once on selection, keyboard focus or pointer hover. OS reduced motion and the existing L&L motion switch disable animation while preserving a static selected underline.
 
@@ -208,7 +210,7 @@ The `structure` slug now presents the $699 CAD Plumbing Company example. Its own
 
 `src/data/plumbing-demo.json` holds only the verified public demo URL and screenshot metadata. Upload captures to `public/images/templates/structure/`; see its README. Build the independent demo with `node scripts/prepare-plumbing-demo.mjs`, install and build within `build/plumbing-demo`, then run `node scripts/check-plumbing-demo.mjs` from the main repository. Deploy only its exported `out/` contents to the separate `ll-plumbing-template` Vercel project.
 
-The latest approved showcase removes the duplicate “Try this design here” dialog from painting, plumbing and earthworks. Each detail page keeps screenshots or a labelled cover, the verified **View live demo** button, pricing, scope and its L&L enquiry handoff. Massage Practice retains its generic inline concept until separately built. The Crestline example starts at $399 CAD; this is the starting price for a similar new website with the prospect’s own content.
+The latest approved showcase removes the duplicate “Try this design here” dialog from painting, plumbing and earthworks. Each detail page keeps screenshots or a labelled cover, the verified **View live demo** button, pricing, scope and its L&L enquiry handoff. Nail & Esthetics Studio and One-page Massage Website now use the same dedicated cover/screenshots and verified external live-demo flow. The Crestline example starts at $399 CAD; this is the starting price for a similar new website with the prospect’s own content.
 
 ## Excavation & Landscaping / Earthworks demo
 
@@ -245,7 +247,7 @@ Build with `node scripts/prepare-lawncare-demo.mjs`, install/build inside `build
 
 ### Contact setup for new builds
 
-`contactMode` in the canonical catalogue defines each offer; a query string cannot change it. New offers from $299–$499 include a contact page or section with call/email links and an appropriate external booking link. Current $699-and-up offers include a standard enquiry form to one business inbox, Resend/sending-domain configuration, validation, spam controls and an initial delivery test as launch work. These are scope definitions for future customer builds, not claims that the static demonstrations deliver contractor enquiries. Existing client case-study facts and signed scopes are not changed.
+`contactMode` in the canonical catalogue defines each offer; a query string cannot change it. New offers from $150–$499 include a contact page or section with call/email links and an appropriate external booking link. Current $699-and-up offers include a standard enquiry form to one business inbox, Resend/sending-domain configuration, validation, spam controls and an initial delivery test as launch work. These are scope definitions for future customer builds, not claims that the static demonstrations deliver contractor enquiries. Existing client case-study facts and signed scopes are not changed.
 
 A form can be added to a direct-contact offer by quote. Advanced fields, uploads, CRM routing, automation and other integrations require their own scope at any price. Ongoing maintenance and delivery checks are optional, separately scoped care work. No unlimited support, response SLA or new monthly fee has been invented. Domain and provider fees are separate; a provider free allowance is not free setup or ongoing management. Baseline responsive design, metadata, SEO and security checks apply across all prices. Form-specific controls apply where a form exists.
 
@@ -274,3 +276,39 @@ The shared `contentProduction.projectExample` in `src/data/services.ts` explains
 The generic Evergreen Wellness demo has been withdrawn from the catalogue. Its source and captured assets are retained for reference, with `archived: true` in `src/data/wellness-demo.json`. The preparation and capture scripts stop before modifying generated output or reconnecting it. Do not run the former wellness release/publisher against this current source. The existing separate Vercel deployment is not deleted by this catalogue update.
 
 The former Windows static-export normalization and public hash-check utilities remain available with the archived demo source. They are not used by the restored McKenzie client reference. Future reactivation requires a separately approved identity, scope and price.
+
+## Nail & Esthetics Studio — $399 CAD
+
+The stable `still` catalogue ID now describes **Nail & Esthetics Studio**, an approved three-page offer in Beauty & Personal Care under Health & Wellness. Its `beauty` theme uses the sample identity FORMA and dedicated Home, Services and Contact pages. The starting scope includes supplied branding, approved wording and imagery, a treatment menu, appointment lengths and rates, studio details, direct call/email contact and an external booking link. Responsive implementation, core SEO, metadata, security headers and agreed launch checks remain included.
+
+The former generic Massage Practice preview is replaced; the existing detail URL and selection ID are retained rather than creating duplicate entries. Sample identities, service copy and illustrative photography do not imply real salon clients, completed treatments or professional credentials. A customer's website must use their approved business details. Contact and booking in the demo are explicitly sample behaviour; no salon enquiry is delivered.
+
+Maintained hosting files live in `templates/beauty-demo/`. Run:
+
+```powershell
+node scripts/prepare-beauty-demo.mjs
+npm --prefix build/beauty-demo ci
+npm --prefix build/beauty-demo run build
+node scripts/check-beauty-demo.mjs
+```
+
+Deploy only the normalized static export to the separate **ll-beauty-template** Vercel project with its maintained noindex and security headers. `src/data/beauty-demo.json` maps the verified live URL and any real screenshots to `still`; screenshot files belong under `public/images/templates/still/`. The detail page keeps its matching design cover when no actual captures are configured. Do not substitute the main L&L project, an unverified deployment URL or client screenshots.
+
+## One-page Massage Website — $150 CAD entry
+
+**One-page Massage Website** (`massage-one-page`) is an approved Essential offer in Massage & Wellness under Health & Wellness. Its dedicated sample identity is SOMA. The starting scope is one scrolling page: a welcome, up to three treatments, a short about section and direct contact or an external booking link. Branding, wording, treatment names, durations, rates, imagery and business details are supplied and approved by the customer. Section anchors are navigation within that one page; they do not imply extra included pages.
+
+The $150 CAD offer includes personalization within that defined design, responsive layout, core SEO, metadata, security headers and agreed launch checks. The smaller price reflects its limited content and page scope, not weaker baseline protections. Additional pages, layout changes, forms, integrated booking, original photography/video, copywriting and ongoing care are quoted separately. Domains, hosting and provider fees are separate and identified before approval. No API enquiry form, unlimited revisions, treatment credentials or delivery deadline is implied.
+
+Maintained hosting files live in `templates/massage-one-page-demo/`. Run:
+
+```powershell
+node scripts/prepare-massage-one-page-demo.mjs
+npm --prefix build/massage-one-page-demo ci
+npm --prefix build/massage-one-page-demo run build
+node scripts/check-massage-one-page-demo.mjs
+```
+
+Deploy only its normalized static export to the separate **ll-massage-one-page** project, retaining noindex and security headers. Record the actual publicly verified URL and real screenshots in `src/data/massage-one-page-demo.json`; captures belong under `public/images/templates/massage-one-page/`. The demo’s sample contact/booking display does not send a practice enquiry; its real L&L handoff selects this $150 offer.
+
+Both offers are included in `LL_Beauty_Massage_Templates_Release.zip`. `Run-LandL-Beauty-Massage.ps1` validates and applies the source update, publishes the two separate demos and records their verified public links. Source validation, Windows execution, browser/device rendering, actual demo access and the main L&L production deployment are separate verification steps. This documentation records intended release scope and does not itself claim that any of those checks has passed.

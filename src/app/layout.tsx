@@ -15,6 +15,8 @@ import "@/styles/earthworks-template.css";
 import "@/styles/lawn-template.css";
 import "@/styles/horizon-template.css";
 import "@/styles/wellness-template.css";
+import "@/styles/beauty-template.css";
+import "@/styles/massage-one-page.css";
 import "@/styles/contact-options.css";
 import "@/styles/template-showcase.css";
 import "@/styles/template-details.css";

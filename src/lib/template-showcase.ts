@@ -15,7 +15,14 @@ export type TemplateShowcase = {
 export function readTemplateShowcase(
   value: unknown,
   designId:
-    "pigment" | "structure" | "earthworks" | "lawncare" | "horizon" | "wellness" = "pigment",
+    | "pigment"
+    | "structure"
+    | "earthworks"
+    | "lawncare"
+    | "horizon"
+    | "wellness"
+    | "still"
+    | "massage-one-page" = "pigment",
 ): TemplateShowcase {
   if (!value || typeof value !== "object") return { url: null, screenshots: [] };
   const config = value as Record<string, unknown>;

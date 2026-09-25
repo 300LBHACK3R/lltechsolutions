@@ -67,7 +67,7 @@ function Test-PublicRelease {
                     if ($Check.Headers['X-Robots-Tag'] -match 'noindex') {
                         throw "The production $Route page has a noindex header."
                     }
-                    if ($Route -eq '/packages' -and ($Check.Content -notmatch '\$399\+' -or $Check.Content -notmatch '\$149\+')) {
+                    if ($Route -eq '/packages' -and ($Check.Content -notmatch '\$150\+' -or $Check.Content -notmatch '\$149\+')) {
                         throw 'The new starting prices are not visible yet.'
                     }
                     if ($Check.Content -match 'tate.?byers\.ca|tate-byers|Selected Work') {
