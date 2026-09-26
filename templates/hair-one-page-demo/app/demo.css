@@ -1,0 +1,70 @@
+html {
+  scroll-behavior: auto;
+  scroll-padding-top: 24px;
+}
+body {
+  background: #faf7f2;
+  color: #3c302b;
+  color-scheme: light;
+}
+.hair-one-demo-stage {
+  max-width: 1600px;
+  margin-inline: auto;
+}
+.hair-one-demo-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 25px;
+  padding: 9px max(24px, calc((100vw - 1500px) / 2));
+  background: #080808;
+  color: #f0d481;
+  font-size: 11px;
+}
+.hair-one-demo-bar a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.hair-one-demo-bar a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hair-one-demo-disclosure {
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 11px;
+  color: #74665e;
+  border-top: 1px solid #d8cec5;
+}
+.hair-one-demo-not-found {
+  padding: 70px 24px;
+  background: #faf7f2;
+}
+.hair-one-demo-not-found h1 {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: clamp(36px, 6vw, 70px);
+}
+.hair-one-demo-not-found p {
+  margin-block: 20px;
+}
+.hair-one-demo-not-found a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+}
+@media (max-width: 650px) {
+  .hair-one-demo-bar {
+    justify-content: center;
+    gap: 0 18px;
+    padding: 8px 18px;
+  }
+  .hair-one-demo-bar > span {
+    flex-basis: 100%;
+    order: 1;
+    padding-block: 4px;
+    text-align: center;
+  }
+}

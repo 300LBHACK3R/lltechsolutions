@@ -5,7 +5,7 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 ## The visitor journey
 
 1. Open Website Templates in the main navigation. A compact introduction preserves “A design you love. The details, handled.” and the existing launch explanation. Wide photographic business-category links appear immediately below, under “Browse by business type”. The nearby **How it works** link jumps to the compact process strip after the categories.
-2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The templates use plain names: Painting Company, Plumbing Company, Excavation & Landscaping, Landscape Contracting, Lawn Care, Nail & Esthetics Studio, One-page Massage Website, McKenzie House Massage, Calgary Hot Shot, Tow-N-Go Trailers and Crestline Painting. Category filtering stays on the gallery page, not the landing page.
+2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The templates use plain business-facing names. Health & Wellness includes separate medical-spa, artistic nail, corporate hair and one-page hair offers alongside Nail & Esthetics Studio, One-page Massage Website and the McKenzie House Massage client reference. Category filtering stays on the gallery page, not the landing page.
 3. Open a template to view its screenshots or labelled design cover, scope and starting price. Dedicated template demos use a **View live demo** button only when a verified public URL is configured. The former inline “Try this design here” flow and generic business-name editor are removed; the beauty and one-page massage offers follow the same cover/screenshots-to-live-demo journey. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
 4. Additional pages, custom layouts and features are available for every template and are quoted by the agreed scope before work begins; no fixed per-page fee is implied. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
 
@@ -15,15 +15,19 @@ No account, extra analytics, tracking pixels, new application dependencies or up
 
 The category banners are generated industry illustrations, not photographs of client premises or completed projects. Their sources are documented in `docs/TEMPLATE_CATEGORY_IMAGES.md`. They load from local optimized WebP files through Next Image. Desktop strips use a shaded text area and a small hover zoom for a fine pointer; on mobile the panorama sits above the copy, preserving the range of subjects. Reduced-motion and forced-colour preferences are respected. The images are decorative because the adjacent heading and description provide the category's meaning.
 
-| Design                   | Main fit                 | Level     | Current status                              |
-| ------------------------ | ------------------------ | --------- | ------------------------------------------- |
-| Painting Company         | Painting                 | Signature | Four-page sample demo; launch scope agreed  |
-| Plumbing Company         | Plumbing                 | Premier   | Four-page sample demo; launch scope agreed  |
-| Nail & Esthetics Studio  | Beauty & Personal Care   | Signature | Approved three-page offer; separate demo    |
-| One-page Massage Website | Massage & Wellness       | Essential | Approved one-page offer; separate demo      |
-| Excavation & Landscaping | Excavation & Landscaping | Flagship  | Seven-page sample demo; launch scope agreed |
+| Design                       | Main fit                 | Level     | Current status                              |
+| ---------------------------- | ------------------------ | --------- | ------------------------------------------- |
+| Painting Company             | Painting                 | Signature | Four-page sample demo; launch scope agreed  |
+| Plumbing Company             | Plumbing                 | Premier   | Four-page sample demo; launch scope agreed  |
+| Nail & Esthetics Studio      | Beauty & Personal Care   | Signature | Approved three-page offer; separate demo    |
+| One-page Massage Website     | Massage & Wellness       | Essential | Approved one-page offer; separate demo      |
+| Luxury Medical Spa           | Medical Spa              | Flagship  | Approved six-page offer; dedicated demo     |
+| Creative Nail Studio         | Beauty & Personal Care   | Premier   | Approved four-page offer; dedicated demo    |
+| Professional Hair Salon      | Hair Salon               | Signature | Approved four-page offer; dedicated demo    |
+| One-page Hairdresser Website | Hair Salon               | Essential | Approved one-page offer; dedicated demo     |
+| Excavation & Landscaping     | Excavation & Landscaping | Flagship  | Seven-page sample demo; launch scope agreed |
 
-These are original coded design studies with sample text, generic sample identities and generated illustrative photography. They are not client projects, ready-made client assets or complete production business sites. Sample contact layouts do not deliver enquiries to a contractor or practice; the real L&L enquiry action is clearly separate. The actual pages, content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
+These are original coded demonstrations with sample text, fictional sample identities and illustrative imagery. Completed dedicated demos are not client projects or launched customer business sites. Sample contact layouts do not deliver enquiries to a contractor, clinic or studio; the real L&L enquiry action is clearly separate. The actual customer content, integrations and launch implementation are defined in the proposal. Only original or appropriately licensed reusable material may enter the collection.
 
 The starting-price schedule below applies to new template-based builds. Additional pages and customization are quoted separately by scope before work starts; the optional customization choice does not add an invented fixed fee. A design with `startingPriceCad: null` reads “Quoted after a conversation”; it is never treated as free or included beneath a numeric budget ceiling. A starting price does not change a sample layout into a finished template or a client example into reusable client assets. Higher levels describe greater scope, not a different baseline of security or care.
 
@@ -144,15 +148,19 @@ The following starting-price schedule reflects the current catalogue. These figu
 | Design                       | Starting price (CAD) | Price applies to                                       |
 | ---------------------------- | -------------------: | ------------------------------------------------------ |
 | One-page Massage Website     |                 $150 | Supplied content; one page and direct contact          |
+| One-page Hairdresser Website |                 $150 | Supplied content; one page and direct contact          |
 | Nail & Esthetics Studio      |                 $399 | New personalization and launch; three pages            |
 | Calgary Hot Shot             |                 $399 | New personalization and launch                         |
 | Lawn Care                    |                 $499 | New personalization and launch; four demo pages        |
 | Painting Company             |                 $499 | New personalization and launch                         |
 | Landscape Contracting        |                 $499 | New personalization and launch; four pages             |
+| Professional Hair Salon      |                 $499 | Four pages; direct contact or external booking link    |
 | Plumbing Company             |                 $699 | New personalization and launch                         |
+| Creative Nail Studio         |                 $699 | Four pages; standard enquiry form setup at launch      |
 | Crestline Painting reference |                 $399 | A similar new website with the prospect’s own content  |
 | Tow-N-Go Trailers reference  |                 $899 | A similar new website with the prospect’s own content  |
 | McKenzie House Massage       |               Quoted | Website scope agreed; new photo/video production extra |
+| Luxury Medical Spa           |                 $999 | Six pages; standard enquiry form setup at launch       |
 | Excavation & Landscaping     |               $1,000 | New personalization and launch; seven demo pages       |
 
 The sole editable price field is `startingPriceCad` in `src/data/website-collection.ts`. Cards, design pages, comparison, the guided proposal summary and prefilled enquiries use that value. Prices remain starting points: final scope, optional extras, ongoing care, hosting, domains and provider charges are agreed separately. The client examples keep their real-client labels and original media; their brands, reviews and client-specific assets are not sold.
@@ -312,3 +320,31 @@ node scripts/check-massage-one-page-demo.mjs
 Deploy only its normalized static export to the separate **ll-massage-one-page** project, retaining noindex and security headers. Record the actual publicly verified URL and real screenshots in `src/data/massage-one-page-demo.json`; captures belong under `public/images/templates/massage-one-page/`. The demo’s sample contact/booking display does not send a practice enquiry; its real L&L handoff selects this $150 offer.
 
 Both offers are included in `LL_Beauty_Massage_Templates_Release.zip`. `Run-LandL-Beauty-Massage.ps1` validates and applies the source update, publishes the two separate demos and records their verified public links. Source validation, Windows execution, browser/device rendering, actual demo access and the main L&L production deployment are separate verification steps. This documentation records intended release scope and does not itself claim that any of those checks has passed.
+
+## Health & Wellness expansion — four distinct completed demos
+
+The September 26 prepared update adds four published catalogue offers with dedicated demo source. All four belong to Health & Wellness; `medical-spa` and `hair-salon` are new business-type filters, while `artsy-nails` uses Beauty & Personal Care. The existing `still` and `massage-one-page` URLs and their $399/$150 scopes remain unchanged. McKenzie House Massage remains a separately quoted real client reference with its original website image, live link and client story.
+
+| Catalogue ID    | Level     | Starting price (CAD) | Included page structures | Contact scope                              |
+| --------------- | --------- | -------------------: | -----------------------: | ------------------------------------------ |
+| `medical-spa`   | Flagship  |                 $999 |                        6 | Standard protected enquiry form setup      |
+| `artsy-nails`   | Premier   |                 $699 |                        4 | Standard protected enquiry form setup      |
+| `hair-salon`    | Signature |                 $499 |                        4 | Direct contact or an external booking link |
+| `hair-one-page` | Essential |                 $150 |                        1 | Direct contact or an external booking link |
+
+The clinic, nail and hair identities, stories, service examples and imagery are fictional or illustrative. They are not client endorsements, clinical credentials, performance evidence or real business contact details. The medical-spa presentation is a design example; actual treatment claims, qualifications, pricing and consent requirements need customer approval for a real launch. The one-page hair offer uses supplied content and section anchors, not multiple included pages. Additional pages, custom features, original content, integrations and ongoing care are separately quoted.
+
+The $699 and $999 demos demonstrate enquiry forms locally: validation and the confirmation state do not send email, create a booking or save a customer enquiry on a server. Their included customer launch scope covers a standard form to one business inbox, Resend and sending-domain configuration, validation, spam controls and an initial delivery test. Actual delivery is configured and checked at that customer's launch; no connected salon or clinic inbox is claimed for a static demo. The $150 and $499 hair offers include direct-contact or external-booking links; an enquiry form upgrade is separately scoped. All four retain a separate working L&L enquiry handoff with the correct catalogue selection.
+
+| Demo source/config stem | Catalogue ID and screenshot folder | Separate project            |
+| ----------------------- | ---------------------------------- | --------------------------- |
+| `medical-spa`           | `medical-spa`                      | `ll-medical-spa-template`   |
+| `artsy-nail`            | `artsy-nails`                      | `ll-artsy-nails-template`   |
+| `hair-salon`            | `hair-salon`                       | `ll-hair-salon-template`    |
+| `hair-one-page`         | `hair-one-page`                    | `ll-hair-one-page-template` |
+
+Each stem has `scripts/prepare-<stem>-demo.mjs`, `scripts/check-<stem>-demo.mjs`, maintained hosting files under `templates/<stem>-demo/`, and `src/data/<stem>-demo.json`. Prepare the demo, install its locked dependencies and build under `build/<stem>-demo`, then run the matching export checker. Deploy only that demo's normalized static export to its separate project with noindex and the maintained security headers. Screenshot files use `public/images/templates/<catalogue-id>/`; the parser rejects another template's images, remote image URLs and path traversal. Covers use the matching dedicated design while screenshots are empty. The JSON URL remains null until the actual public production URL is verified, so the catalogue does not display an unverified View live demo action.
+
+Price sorting remains numeric. Health & Wellness defaults to the two $150 one-page offers in source order, then $399, $499, $699, $999 and the separately quoted McKenzie reference. Reversing the sort keeps equal-price source order and McKenzie last. Detail pages, comparison, the guided enquiry and Contact use the canonical scope and price even when query parameters are altered. The main L&L navigation and compact homepage remain unchanged; this expansion is discovered through the category gallery.
+
+The updated unit, production HTTP and delivered-CSS gates cover these catalogue records, filters, prices, scope, selected-design enquiries, metadata, matching covers and media isolation. Passing source or HTTP checks does not establish rendered mobile/browser behavior, real inbox delivery, a push or a deployment; record those outcomes separately for the exact release revision.

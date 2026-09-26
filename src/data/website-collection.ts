@@ -66,6 +66,8 @@ export const collectionIndustries = [
   { id: "lawn-care", name: "Lawn Care" },
   { id: "landscaping", name: "Landscaping & Outdoor Services" },
   { id: "massage-wellness", name: "Massage & Wellness" },
+  { id: "medical-spa", name: "Medical Spas & Aesthetics" },
+  { id: "hair-salon", name: "Hair Salons & Hairdressers" },
   { id: "dental", name: "Dental Practices" },
   { id: "legal", name: "Legal Services" },
   { id: "cleaning", name: "Cleaning" },
@@ -102,8 +104,8 @@ export const templateCategories: readonly TemplateCategory[] = [
   {
     id: "health-wellness",
     name: "Health & Wellness",
-    description: "Massage therapists, dental practices and personal care businesses.",
-    industries: ["massage-wellness", "dental", "beauty"],
+    description: "Massage, medical spas, nail salons, hairdressers and personal care businesses.",
+    industries: ["massage-wellness", "medical-spa", "hair-salon", "dental", "beauty"],
     image: "/images/template-categories/health-wellness.webp",
   },
   {
@@ -227,7 +229,11 @@ export type WebsiteDesign = {
       | "horizon"
       | "wellness"
       | "beauty"
-      | "massage-one-page";
+      | "massage-one-page"
+      | "medical-spa"
+      | "artsy-nails"
+      | "hair-salon"
+      | "hair-one-page";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -734,6 +740,242 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       ],
       approach:
         "Your comfort comes first. Ask questions and share your preferences before and throughout your visit.",
+    },
+  },
+  {
+    id: "medical-spa",
+    status: "published",
+    name: "Luxury Medical Spa",
+    tier: "flagship",
+    industry: "medical-spa",
+    description:
+      "A six-page medical spa website in dark marble and champagne gold, with an interactive treatment explorer, consultation guidance and a complete enquiry page.",
+    startingPriceCad: 999,
+    pageCount: 6,
+    contactMode: "enquiry-form",
+    deliveryWindow: "Delivery is agreed after clinic-approved content and scope are confirmed.",
+    demoUrl: "/website-collection/medical-spa#preview",
+    included: [
+      "Six complete pages: home, treatments, consultation, the clinic, FAQs and contact",
+      "Your supplied identity, photography and clinic-approved wording personalised within this design",
+      "Treatment-category exploration, consultation information and accessible FAQ interactions",
+      contactScopeDetails["enquiry-form"].description,
+      "Clinic hours, location, direct contact details and your chosen external booking link",
+      "Responsive implementation, core SEO, metadata, security headers and agreed launch checks",
+    ],
+    customization: [
+      "Your clinic name, brand colours, supplied photography and clinician-approved treatment information",
+      "Additional treatment pages, booking systems, payments and custom integrations quoted separately",
+      "Photography, videography, clinical copy review and ongoing care have their own agreed scope",
+      "The included enquiry form is for general enquiries, not patient records or medical intake; provider and domain fees are separate",
+    ],
+    concept: {
+      theme: "medical-spa",
+      brands: ["AUREL AESTHETICS", "YOUR AESTHETICS CLINIC"],
+      headlines: ["Considered care. Distinctly you.", "An individual approach to aesthetics."],
+      subcopy:
+        "Space to ask. Time to consider. A thoughtful introduction to your clinic and its approach.",
+      kicker: "Medical spa & aesthetics",
+      action: "Explore treatments",
+      photo: {
+        src: "/images/collection/medical-spa-interior.webp",
+        alt: "Illustrative aesthetics clinic with dark marble and champagne-gold architectural details",
+        width: 1536,
+        height: 1024,
+      },
+      services: [
+        {
+          name: "Skin & facials",
+          description: "Introduce your approved skin services and invite a consultation.",
+        },
+        {
+          name: "Injectable consultations",
+          description: "Give visitors a clear starting point for their questions.",
+        },
+        {
+          name: "Laser & light",
+          description: "Explain your clinic's consultation process and available services.",
+        },
+      ],
+      approach:
+        "A refined clinic introduction with room for questions and clear next steps. Treatment suitability belongs in a consultation with an appropriately qualified clinician.",
+    },
+  },
+  {
+    id: "artsy-nails",
+    status: "published",
+    name: "Creative Nail Studio",
+    tier: "premier",
+    industry: "beauty",
+    description:
+      "A colourful four-page nail salon website with bold editorial layouts, an interactive polish palette, a clear service menu and a dedicated enquiry page.",
+    startingPriceCad: 699,
+    pageCount: 4,
+    contactMode: "enquiry-form",
+    deliveryWindow: "Delivery is agreed after your service menu, imagery and wording are ready.",
+    demoUrl: "/website-collection/artsy-nails#preview",
+    included: [
+      "Four complete pages: home, nail menu, the studio and contact",
+      "Your supplied branding, nail photography, service descriptions and approved wording",
+      "An interactive polish palette and expressive layouts adapted to your studio's personality",
+      contactScopeDetails["enquiry-form"].description,
+      "Your appointment information, policies and external booking link where relevant",
+      "Responsive implementation, reduced-motion support, core SEO, metadata, security headers and launch checks",
+    ],
+    customization: [
+      "Your salon name, colours, supplied nail-art images and service menu",
+      "Extra pages, live booking, payments and advanced galleries quoted separately",
+      "Original photography, video, copywriting and ongoing care quoted separately",
+      "Domain, hosting and provider fees are separate from the agreed website build",
+    ],
+    concept: {
+      theme: "artsy-nails",
+      brands: ["CHROMA NAIL CLUB", "YOUR NAIL STUDIO"],
+      headlines: ["Small canvas. BIG ENERGY.", "Your colour. Your kind of statement."],
+      subcopy:
+        "Colour outside the lines. A nail studio for bold ideas, tiny details and whatever feels like you.",
+      kicker: "Creative nails & colour",
+      action: "Find your nail mood",
+      photo: {
+        src: "/images/collection/nail-art-hands.webp",
+        alt: "Illustrative nail-art photograph with cobalt, tangerine and cream details",
+        width: 1536,
+        height: 1024,
+      },
+      services: [
+        {
+          name: "The clean set",
+          description: "Introduce a considered shape and a finish that suits the customer.",
+        },
+        {
+          name: "The art set",
+          description: "Make space for colour, graphic lines and individual ideas.",
+        },
+        {
+          name: "The reset",
+          description: "Explain removal, reshaping and refresh appointments clearly.",
+        },
+      ],
+      approach:
+        "A small canvas with room for a big personality. Browse a palette, explore the services and start a conversation about the next set.",
+    },
+  },
+  {
+    id: "hair-salon",
+    status: "published",
+    name: "Professional Hair Salon",
+    tier: "signature",
+    industry: "hair-salon",
+    description:
+      "A polished four-page hair salon website in blue, white and grey, with a filterable service menu, a salon introduction and a clear booking and contact page.",
+    startingPriceCad: 499,
+    pageCount: 4,
+    contactMode: "direct",
+    deliveryWindow:
+      "Delivery is agreed after your supplied content and service menu are confirmed.",
+    demoUrl: "/website-collection/hair-salon#preview",
+    included: [
+      "Four complete pages: home, services, our salon and contact",
+      "Your supplied logo, approved wording, salon photography and brand colours",
+      "A filterable service menu using your supplied appointment lengths and prices",
+      contactScopeDetails.direct.description,
+      "Your salon hours, arrival information and chosen external booking link",
+      "Responsive layout, core SEO, metadata, security headers and agreed launch checks",
+    ],
+    customization: [
+      "Your salon name, blue or alternative brand palette, staff introduction and supplied images",
+      "Your cut, colour and styling menu with approved rates and appointment information",
+      "Enquiry forms, extra pages, booking integrations and custom features quoted separately",
+      "Original photography, video, copywriting and ongoing care quoted separately; domain and provider fees are separate",
+    ],
+    concept: {
+      theme: "hair-salon",
+      brands: ["LINE & FORM HAIR", "YOUR HAIR SALON"],
+      headlines: ["Good hair. Clear intention.", "A fresh perspective on everyday hair."],
+      subcopy: "Thoughtful cuts, considered colour and a finish that feels like you.",
+      kicker: "Cut. Colour. Confidence.",
+      action: "Explore the services",
+      photo: {
+        src: "/images/collection/hair-salon-interior.webp",
+        alt: "Illustrative professional hair salon with blue cabinetry, white walls and grey styling chairs",
+        width: 1536,
+        height: 1024,
+      },
+      services: [
+        {
+          name: "Cut & style",
+          description: "A clean shape, a considered change or a fresh signature cut.",
+        },
+        {
+          name: "Colour",
+          description: "Clear options for tone and dimension, discussed before the appointment.",
+        },
+        {
+          name: "Care & finish",
+          description: "Introduce the finishing services that complete the experience.",
+        },
+      ],
+      approach:
+        "A straightforward service menu, a personal salon introduction and an easy way to plan a visit.",
+    },
+  },
+  {
+    id: "hair-one-page",
+    status: "published",
+    name: "One-page Hairdresser Website",
+    tier: "essential",
+    industry: "hair-salon",
+    description:
+      "A clean, premium one-page website for an independent hairdresser, with space for up to three services, a short introduction and direct booking or contact links.",
+    startingPriceCad: 150,
+    pageCount: 1,
+    contactMode: "direct",
+    deliveryWindow: "The one-page scope and delivery are agreed after your content is ready.",
+    demoUrl: "/website-collection/hair-one-page#preview",
+    included: [
+      "One scrolling page: welcome, up to three services, a short about section and contact",
+      "Your supplied logo, colours, approved wording and photography placed into this design",
+      "Your supplied service descriptions and appointment information",
+      contactScopeDetails.direct.description,
+      "Responsive layout, core SEO, metadata, security headers and agreed launch checks",
+      "Personalization and launch within the agreed one-page scope; domain, hosting and provider fees are separate",
+    ],
+    customization: [
+      "Your business name, supplied images, wording, colours and contact information",
+      "Your external booking link, opening hours and location or service area",
+      "Extra pages, forms, layout changes and custom integrations quoted separately",
+      "Photography, videography, copywriting and ongoing care quoted separately",
+    ],
+    concept: {
+      theme: "hair-one-page",
+      brands: ["JUNE HAIR", "YOUR HAIRDRESSING STUDIO"],
+      headlines: ["Good hair. Good company.", "A fresh look. Still very much you."],
+      subcopy:
+        "A fresh shape, a little colour, a moment for yourself. Thoughtful hairdressing with a relaxed, personal touch.",
+      kicker: "Your neighbourhood hair studio",
+      action: "Plan your visit",
+      photo: {
+        src: "/images/collection/hair-salon-detail.webp",
+        alt: "Illustrative hairdressing station with a chair, tools and warm natural light",
+        width: 1536,
+        height: 1024,
+      },
+      services: [
+        {
+          name: "Cut & finish",
+          description: "A shape considered around your hair and everyday routine.",
+        },
+        {
+          name: "Colour refresh",
+          description: "A conversation about colour, tone and maintenance.",
+        },
+        {
+          name: "Blow-dry & style",
+          description: "A polished finish for a special plan or an ordinary day.",
+        },
+      ],
+      approach:
+        "An inviting single page that makes an independent hairdresser easy to understand and contact.",
     },
   },
   {

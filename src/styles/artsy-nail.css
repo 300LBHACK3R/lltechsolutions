@@ -1,0 +1,1618 @@
+/* CHROMA is a fictional nail studio. Its colour system stays inside this design. */
+.artsy-nail-site,
+.artsy-nail-cover {
+  --nail-cream: #faf3e4;
+  --nail-ink: #242126;
+  --nail-blue: #2948d8;
+  --nail-lilac: #c9c2f2;
+  --nail-orange: #f87946;
+  --nail-line: #c9c0b0;
+  color: var(--nail-ink);
+  background: var(--nail-cream);
+  color-scheme: light;
+  font-family: var(--font-sans), Arial, sans-serif;
+  isolation: isolate;
+}
+.artsy-nail-site {
+  container-type: inline-size;
+  font-size: 15px;
+  line-height: 1.65;
+  overflow: clip;
+}
+.artsy-nail-site :is(h1, h2, h3, p, figure) {
+  margin: 0;
+}
+.artsy-nail-site :is(h1, h2, h3) {
+  font-weight: 750;
+  letter-spacing: -0.065em;
+}
+.artsy-nail-site h1 {
+  font-size: clamp(64px, 8.3cqi, 130px);
+  line-height: 0.95;
+}
+.artsy-nail-site h2 {
+  font-size: clamp(38px, 4.9cqi, 74px);
+  line-height: 1.04;
+}
+.artsy-nail-site h3 {
+  font-size: 25px;
+  line-height: 1.15;
+}
+.artsy-nail-site em,
+.artsy-nail-cover em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  color: var(--nail-blue);
+  letter-spacing: -0.06em;
+}
+.artsy-nail-site a {
+  color: inherit;
+  text-decoration: none;
+}
+.artsy-nail-site :is(a, button, input, textarea, select):focus-visible {
+  outline: 3px solid var(--nail-blue);
+  outline-offset: 4px;
+}
+.artsy-nail-site ::selection {
+  background: var(--nail-blue);
+  color: var(--nail-cream);
+}
+.artsy-nail-site :is(a, button) {
+  -webkit-tap-highlight-color: transparent;
+}
+.artsy-nail-site :is(p, h1, h2, h3, dd) {
+  overflow-wrap: break-word;
+}
+.artsy-nail-mark {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+}
+.artsy-nail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 5cqi;
+  border-bottom: 1px solid var(--nail-ink);
+}
+.artsy-nail-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  color: var(--nail-blue) !important;
+}
+.artsy-nail-brand > span {
+  display: block;
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -0.075em;
+  line-height: 0.9;
+}
+.artsy-nail-brand small {
+  display: block;
+  margin-top: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.44em;
+}
+.artsy-nail-brand .artsy-nail-mark {
+  width: 38px;
+  height: 38px;
+}
+.artsy-nail-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+}
+.artsy-nail-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 44px;
+  border-bottom: 1px solid transparent;
+  font-size: 13px;
+  font-weight: 550;
+}
+.artsy-nail-nav a[aria-current="page"] {
+  border-bottom-color: var(--nail-blue);
+  color: var(--nail-blue);
+}
+.artsy-nail-nav a:last-child {
+  padding-inline: 21px;
+  border: 1px solid var(--nail-ink);
+  border-radius: 50%;
+}
+.artsy-nail-nav a:hover {
+  color: var(--nail-blue);
+}
+.artsy-nail-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+}
+.artsy-nail-eyebrow > span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--nail-orange);
+}
+.artsy-nail-lead {
+  max-width: 440px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+.artsy-nail-button {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  min-height: 52px;
+  padding: 13px 23px;
+  border: 1px solid var(--nail-blue);
+  border-radius: 2px;
+  background: var(--nail-blue);
+  color: var(--nail-cream) !important;
+  font-size: 13px;
+  font-weight: 650;
+}
+.artsy-nail-button > span {
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1;
+}
+.artsy-nail-button:hover {
+  background: var(--nail-ink);
+  border-color: var(--nail-ink);
+}
+.artsy-nail-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 44px;
+  border-bottom: 1px solid currentColor;
+  font-size: 13px;
+  font-weight: 650;
+}
+.artsy-nail-text-link > span {
+  font-size: 23px;
+}
+.artsy-nail-hero {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  min-height: 670px;
+  padding: 66px 5cqi 60px;
+  gap: 2cqi;
+}
+.artsy-nail-hero > * {
+  min-width: 0;
+}
+.artsy-nail-hero-copy {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  padding-block: 18px;
+}
+.artsy-nail-hero h1 {
+  margin-top: 25px;
+  font-size: clamp(63px, 7.25cqi, 116px);
+  font-weight: 650;
+  letter-spacing: -0.075em;
+}
+.artsy-nail-hero h1 em {
+  display: block;
+  margin: 9px -6cqi 0 0;
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-style: normal;
+  font-weight: 950;
+  font-size: 1.04em;
+  letter-spacing: -0.085em;
+}
+.artsy-nail-hero .artsy-nail-lead {
+  max-width: 345px;
+  margin-top: 29px;
+}
+.artsy-nail-hero .artsy-nail-button {
+  margin-top: 29px;
+}
+.artsy-nail-hero-footnote {
+  display: block;
+  max-width: 330px;
+  margin-top: 45px;
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  line-height: 1.5;
+}
+.artsy-nail-hero-image {
+  position: relative;
+  align-self: stretch;
+  padding: 2cqi 0 2cqi 3cqi;
+}
+.artsy-nail-hero-photo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 440px;
+  overflow: hidden;
+  transform: rotate(3deg);
+  border-radius: 47% 45% 2px 2px;
+  background: var(--nail-lilac);
+}
+.artsy-nail-hero-photo img,
+.artsy-nail-studio-photo img,
+.artsy-nail-studio-wide img,
+.artsy-nail-cover-photo img {
+  object-fit: cover;
+}
+.artsy-nail-hero-photo img {
+  object-position: 52% center;
+}
+.artsy-nail-hero-image figcaption {
+  position: absolute;
+  display: grid;
+  place-content: center;
+  right: -12px;
+  top: -7px;
+  width: 150px;
+  height: 150px;
+  transform: rotate(12deg);
+  border-radius: 50%;
+  background: var(--nail-lilac);
+  color: var(--nail-blue);
+  text-align: center;
+}
+.artsy-nail-hero-image figcaption > span {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+.artsy-nail-hero-image figcaption .artsy-nail-mark {
+  width: 27px;
+  height: 27px;
+  margin: 12px auto 0;
+}
+.artsy-nail-photo-note {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+}
+.artsy-nail-ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 3cqi;
+  margin-inline: -3%;
+  padding: 21px 5cqi;
+  background: var(--nail-orange);
+  transform: rotate(-2deg);
+  font-size: clamp(13px, 2cqi, 25px);
+  font-weight: 850;
+  letter-spacing: -0.045em;
+}
+.artsy-nail-ribbon > span {
+  flex-shrink: 0;
+}
+.artsy-nail-ribbon .artsy-nail-mark {
+  width: 27px;
+  height: 27px;
+}
+.artsy-nail-play {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 8cqi;
+  padding: 110px 7cqi 90px 5cqi;
+}
+.artsy-nail-play > * {
+  min-width: 0;
+}
+.artsy-nail-play-copy {
+  align-self: center;
+}
+.artsy-nail-play-copy h2 {
+  margin-top: 20px;
+  max-width: 390px;
+}
+.artsy-nail-play-copy h2 em {
+  display: block;
+  font-size: 1.2em;
+}
+.artsy-nail-play-copy > p:not(.artsy-nail-eyebrow) {
+  margin-top: 26px;
+  max-width: 335px;
+}
+.artsy-nail-palette-options {
+  display: grid;
+  gap: 0;
+  margin: 28px 0 23px;
+}
+.artsy-nail-palette-options button {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 59px;
+  padding: 13px 4px;
+  text-align: left;
+  border: 0;
+  border-top: 1px solid var(--nail-line);
+  background: transparent;
+  color: var(--nail-ink);
+  font-size: 14px;
+  font-weight: 650;
+}
+.artsy-nail-palette-options button:last-child {
+  border-bottom: 1px solid var(--nail-line);
+}
+.artsy-nail-palette-options button[aria-pressed="true"] {
+  color: var(--nail-blue);
+}
+.artsy-nail-palette-options button > span:first-child {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 42% 48% 46% 39%;
+  border: 1px solid transparent;
+}
+.artsy-nail-palette-check {
+  margin-left: auto;
+  font-size: 23px;
+  font-weight: 400;
+}
+.artsy-nail-palette-preview {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 530px;
+  padding: 31px 35px 22px;
+  background: var(--nail-lilac);
+  transform: rotate(2deg);
+}
+.artsy-nail-palette-preview::before {
+  position: absolute;
+  top: -14px;
+  left: 38%;
+  width: 26%;
+  height: 30px;
+  background: #dfd8c2b3;
+  transform: rotate(-6deg);
+  content: "";
+}
+.artsy-nail-sample-label {
+  font-size: 9px;
+  letter-spacing: 0.17em;
+  font-weight: 600;
+}
+.artsy-nail-nail-study {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4%;
+  min-height: 290px;
+  padding: 45px 0;
+}
+.artsy-nail-swatch {
+  position: relative;
+  width: 16%;
+  height: 150px;
+  border-radius: 49% 49% 36% 36%;
+  background: var(--polish);
+  overflow: hidden;
+  box-shadow:
+    inset -5px -4px 8px #0002,
+    3px 12px 5px #4d39751f;
+  transform: rotate(-8deg);
+}
+.artsy-nail-swatch::after {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 10%;
+  height: 43%;
+  border-radius: 50%;
+  background: #fff6;
+  transform: rotate(9deg);
+  content: "";
+}
+.artsy-nail-swatch-0 {
+  height: 128px;
+  transform: translateY(30px) rotate(-16deg);
+  background: var(--polish-base);
+}
+.artsy-nail-swatch-0 i {
+  position: absolute;
+  left: -5%;
+  top: -10%;
+  width: 100%;
+  height: 70%;
+  border-radius: 0 0 70% 0;
+  background: var(--polish);
+}
+.artsy-nail-swatch-1 {
+  height: 162px;
+  transform: translateY(4px) rotate(-7deg);
+}
+.artsy-nail-swatch-1 i {
+  position: absolute;
+  top: -13%;
+  left: 22%;
+  width: 100%;
+  height: 95%;
+  border: 14px solid var(--polish-accent);
+  border-radius: 50%;
+  transform: rotate(30deg);
+}
+.artsy-nail-swatch-2 {
+  height: 180px;
+  background: var(--polish-base);
+  transform: rotate(1deg);
+}
+.artsy-nail-swatch-2 i {
+  position: absolute;
+  width: 80%;
+  height: 120%;
+  left: 28%;
+  top: -8%;
+  background: var(--polish);
+  border-radius: 50%;
+  transform: rotate(22deg);
+}
+.artsy-nail-swatch-3 {
+  height: 160px;
+  background: var(--polish-accent);
+  transform: translateY(9px) rotate(9deg);
+}
+.artsy-nail-swatch-3 i {
+  position: absolute;
+  top: 33%;
+  left: 32%;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--polish);
+}
+.artsy-nail-swatch-4 {
+  height: 120px;
+  transform: translateY(38px) rotate(16deg);
+}
+.artsy-nail-swatch-4 i {
+  position: absolute;
+  bottom: -3px;
+  right: -12%;
+  width: 130%;
+  height: 80%;
+  border-radius: 50%;
+  border: 17px solid var(--polish-base);
+  transform: rotate(-28deg);
+}
+.artsy-nail-palette-caption {
+  margin-top: auto;
+}
+.artsy-nail-palette-caption > span {
+  font-size: 9px;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+}
+.artsy-nail-palette-caption h3 {
+  margin-top: 9px;
+  font-size: 43px;
+}
+.artsy-nail-palette-caption p {
+  max-width: 340px;
+  margin-top: 13px;
+  font-size: 13px;
+}
+.artsy-nail-study-note {
+  display: block;
+  padding-top: 30px;
+  font-size: 8px;
+  letter-spacing: 0.07em;
+}
+.artsy-nail-menu-preview {
+  padding: 20px 5cqi 90px;
+}
+.artsy-nail-section-heading {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 8cqi;
+  margin-bottom: 40px;
+}
+.artsy-nail-section-heading > p {
+  align-self: start;
+  margin-top: 11px;
+}
+.artsy-nail-section-heading h2 {
+  max-width: 620px;
+}
+.artsy-nail-section-heading h2 em {
+  display: block;
+}
+.artsy-nail-menu-index > a {
+  display: grid;
+  grid-template-columns: 50px 1fr 240px 30px;
+  align-items: center;
+  gap: 25px;
+  padding-block: 29px;
+  border-top: 1px solid var(--nail-ink);
+}
+.artsy-nail-menu-index > a:last-child {
+  border-bottom: 1px solid var(--nail-ink);
+}
+.artsy-nail-number {
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+}
+.artsy-nail-menu-index h3 {
+  font-size: clamp(28px, 4cqi, 55px);
+}
+.artsy-nail-menu-index p {
+  font-size: 13px;
+}
+.artsy-nail-menu-index > a > span:last-child {
+  font-size: 36px;
+  font-weight: 400;
+}
+.artsy-nail-menu-index > a:hover h3 {
+  color: var(--nail-blue);
+}
+.artsy-nail-studio-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--nail-blue);
+  color: var(--nail-cream);
+}
+.artsy-nail-studio-photo {
+  position: relative;
+  min-height: 540px;
+}
+.artsy-nail-studio-preview > div:last-child {
+  align-self: center;
+  padding: 65px 5cqi;
+}
+.artsy-nail-studio-preview h2 {
+  margin-top: 20px;
+}
+.artsy-nail-studio-preview em {
+  color: var(--nail-lilac);
+}
+.artsy-nail-studio-preview p:not(.artsy-nail-eyebrow) {
+  max-width: 355px;
+  margin-top: 27px;
+}
+.artsy-nail-studio-preview .artsy-nail-text-link {
+  margin-top: 28px;
+}
+.artsy-nail-studio-preview a:focus-visible {
+  outline-color: var(--nail-cream);
+}
+.artsy-nail-closing {
+  position: relative;
+  padding: 85px 15cqi 90px 5cqi;
+  background: var(--nail-lilac);
+}
+.artsy-nail-closing h2 {
+  max-width: 850px;
+  margin-top: 22px;
+  font-size: clamp(44px, 6.3cqi, 90px);
+}
+.artsy-nail-closing .artsy-nail-button {
+  margin-top: 32px;
+}
+.artsy-nail-closing > .artsy-nail-mark {
+  position: absolute;
+  top: 45%;
+  right: 5cqi;
+  width: 9cqi;
+  height: 9cqi;
+  color: var(--nail-blue);
+}
+.artsy-nail-page-intro {
+  position: relative;
+  padding: 70px 5cqi 64px;
+}
+.artsy-nail-page-intro h1 {
+  margin-top: 26px;
+  font-size: clamp(68px, 8.2cqi, 128px);
+}
+.artsy-nail-page-intro .artsy-nail-lead {
+  max-width: 465px;
+  margin-top: 31px;
+}
+.artsy-nail-page-intro > .artsy-nail-mark {
+  position: absolute;
+  right: 9cqi;
+  top: 35%;
+  width: 14cqi;
+  height: 14cqi;
+  color: var(--nail-orange);
+  transform: rotate(13deg);
+}
+.artsy-nail-menu-details {
+  padding-inline: 5cqi;
+}
+.artsy-nail-menu-details article {
+  display: grid;
+  grid-template-columns: 35px 1fr 1fr;
+  gap: 35px;
+  padding: 45px 0;
+  border-top: 1px solid var(--nail-ink);
+  scroll-margin-top: 35px;
+}
+.artsy-nail-menu-details article:last-child {
+  border-bottom: 1px solid var(--nail-ink);
+}
+.artsy-nail-menu-details article .artsy-nail-number {
+  padding-top: 5px;
+}
+.artsy-nail-menu-details h2 {
+  margin-top: 13px;
+  font-size: clamp(34px, 4.2cqi, 60px);
+}
+.artsy-nail-service-note {
+  margin-top: 17px !important;
+  font-family: Georgia, serif;
+  font-size: 21px;
+  font-style: italic;
+  color: var(--nail-blue);
+}
+.artsy-nail-menu-details article > div:last-child {
+  max-width: 440px;
+}
+.artsy-nail-menu-details article > div:last-child > p + p {
+  margin-top: 20px;
+  font-size: 13px;
+}
+.artsy-nail-menu-details .artsy-nail-text-link {
+  margin-top: 20px;
+}
+.artsy-nail-menu-note {
+  display: flex;
+  gap: 32px;
+  margin: 60px 5cqi 0;
+  padding: 34px;
+  background: var(--nail-orange);
+}
+.artsy-nail-menu-note > .artsy-nail-mark {
+  width: 65px;
+  height: 65px;
+}
+.artsy-nail-menu-note h2 {
+  font-size: 30px;
+  letter-spacing: -0.04em;
+}
+.artsy-nail-menu-note p {
+  max-width: 800px;
+  margin-top: 16px;
+  font-size: 14px;
+}
+.artsy-nail-small {
+  font-size: 11px !important;
+  line-height: 1.65;
+}
+.artsy-nail-studio-wide {
+  position: relative;
+  margin-inline: 5cqi;
+  aspect-ratio: 2.1;
+}
+.artsy-nail-studio-wide img {
+  object-position: 50% 52%;
+}
+.artsy-nail-studio-wide figcaption {
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+  padding: 16px 22px;
+  background: var(--nail-lilac);
+  transform: rotate(-3deg);
+  color: var(--nail-blue);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.03em;
+}
+.artsy-nail-studio-manifesto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8cqi;
+  padding: 85px 5cqi 60px;
+}
+.artsy-nail-studio-manifesto h2 {
+  margin-top: 25px;
+}
+.artsy-nail-studio-manifesto > div:last-child {
+  padding-top: 31px;
+  max-width: 470px;
+}
+.artsy-nail-studio-manifesto p + p {
+  margin-top: 25px;
+}
+.artsy-nail-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4cqi;
+  padding: 10px 5cqi 85px;
+}
+.artsy-nail-values article {
+  padding-top: 24px;
+  border-top: 1px solid var(--nail-ink);
+}
+.artsy-nail-values article > span {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  font-weight: 650;
+}
+.artsy-nail-values h3 {
+  margin-top: 30px;
+  font-size: 34px;
+}
+.artsy-nail-values p {
+  margin-top: 16px;
+  font-size: 14px;
+}
+.artsy-nail-contact-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 7cqi;
+  padding: 0 5cqi 90px;
+}
+.artsy-nail-contact-copy {
+  padding-top: 35px;
+}
+.artsy-nail-contact-copy h2 {
+  margin-top: 22px;
+  font-size: clamp(35px, 4cqi, 58px);
+}
+.artsy-nail-contact-copy > p:not(.artsy-nail-eyebrow) {
+  margin-top: 24px;
+  max-width: 340px;
+}
+.artsy-nail-contact-copy dl {
+  margin: 37px 0 0;
+}
+.artsy-nail-contact-copy dl > div {
+  padding-block: 20px;
+  border-top: 1px solid var(--nail-line);
+}
+.artsy-nail-contact-copy dt {
+  font-size: 10px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.artsy-nail-contact-copy dd {
+  max-width: 345px;
+  margin: 9px 0 0;
+  font-size: 14px;
+}
+.artsy-nail-contact-sticker {
+  display: inline-flex;
+  gap: 20px;
+  align-items: center;
+  margin: 32px 0 0 12px;
+  padding: 22px 28px;
+  border: 1px solid var(--nail-blue);
+  transform: rotate(-5deg);
+  color: var(--nail-blue);
+}
+.artsy-nail-contact-sticker span {
+  font-size: 17px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+.artsy-nail-form-wrap {
+  min-width: 0;
+  padding: 37px;
+  background: var(--nail-lilac);
+}
+.artsy-nail-form-wrap h2 {
+  margin-top: 15px;
+  font-size: 39px;
+}
+.artsy-nail-form-note {
+  margin-top: 18px !important;
+  max-width: 440px;
+  font-size: 13px;
+}
+.artsy-nail-site .demo-enquiry-form {
+  margin-top: 25px;
+}
+.artsy-nail-site .demo-enquiry-notice {
+  margin: 0 0 23px;
+  padding: 13px 15px;
+  border-left: 2px solid var(--nail-blue);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.artsy-nail-site .demo-enquiry-form fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.artsy-nail-site .demo-enquiry-form legend {
+  margin-bottom: 18px;
+  font-size: 14px;
+  font-weight: 750;
+}
+.artsy-nail-site .demo-enquiry-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.artsy-nail-site .demo-enquiry-field {
+  min-width: 0;
+  margin-bottom: 20px;
+}
+.artsy-nail-site .demo-enquiry-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 650;
+}
+.artsy-nail-site .demo-enquiry-field label span {
+  font-size: 10px;
+  font-weight: 400;
+}
+.artsy-nail-site .demo-enquiry-field :is(input, select, textarea) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid #696485;
+  border-radius: 0;
+  background: var(--nail-cream);
+  color: var(--nail-ink);
+  font-size: 16px;
+  line-height: 1.4;
+}
+.artsy-nail-site .demo-enquiry-field textarea {
+  resize: vertical;
+}
+.artsy-nail-site .demo-enquiry-field ::placeholder {
+  opacity: 1;
+  color: #68626b;
+  font-size: 13px;
+}
+.artsy-nail-site .demo-enquiry-submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  min-height: 52px;
+  padding: 12px 22px;
+  border: 1px solid var(--nail-blue);
+  border-radius: 0;
+  background: var(--nail-blue);
+  color: var(--nail-cream);
+  font-size: 13px;
+  font-weight: 650;
+}
+.artsy-nail-site .demo-enquiry-submit span {
+  font-size: 23px;
+}
+.artsy-nail-site .demo-enquiry-status {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.artsy-nail-site .demo-enquiry-status:not(:empty) {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid var(--nail-blue);
+  background: var(--nail-cream);
+}
+.artsy-nail-site .demo-enquiry-form noscript {
+  display: block;
+  margin-top: 20px;
+  font-size: 13px;
+}
+.artsy-nail-purchase {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0 5cqi;
+  padding: 60px 5cqi;
+  background: var(--nail-orange);
+}
+.artsy-nail-purchase h2 {
+  margin-top: 20px;
+  font-size: clamp(37px, 4.5cqi, 65px);
+}
+.artsy-nail-purchase > div > p:not(.artsy-nail-eyebrow) {
+  max-width: 565px;
+  margin-top: 22px;
+  font-size: 14px;
+}
+.artsy-nail-purchase > .artsy-nail-small {
+  grid-column: 2;
+  max-width: 225px;
+  margin-top: 14px;
+}
+.artsy-nail-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: start;
+  gap: 35px;
+  padding: 50px 5cqi 16px;
+  border-top: 1px solid var(--nail-ink);
+}
+.artsy-nail-footer > p {
+  font-size: 29px;
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+.artsy-nail-footer > nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 28px;
+}
+.artsy-nail-footer > nav > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 12px;
+}
+.artsy-nail-footer > nav > a:hover {
+  color: var(--nail-blue);
+}
+.artsy-nail-footer-note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  grid-column: 1 / -1;
+  padding-top: 15px;
+  border-top: 1px solid var(--nail-line);
+  font-size: 9px;
+  line-height: 1.6;
+}
+.artsy-nail-footer-note > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 44px;
+  white-space: nowrap;
+}
+/* The catalogue cover follows the same headline, photo and paper-ribbon composition. */
+.design-cover.artsy-nail-cover {
+  background: var(--nail-cream);
+  color: var(--nail-ink);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+}
+.artsy-nail-cover .template-browser-bar {
+  background: #262229;
+  color: #f0e8df;
+}
+.artsy-nail-cover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3cqi;
+  padding: 3.7cqi 5cqi;
+  border-bottom: 1px solid var(--nail-ink);
+}
+.artsy-nail-cover-header > strong {
+  position: relative;
+  display: block;
+  padding-right: 6cqi;
+  color: var(--nail-blue);
+  font-size: 4cqi;
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.075em;
+}
+.artsy-nail-cover-header small {
+  display: block;
+  margin-top: 1cqi;
+  font-size: 1cqi;
+  line-height: 1;
+  letter-spacing: 0.4em;
+}
+.artsy-nail-cover-header .artsy-nail-mark {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 4.5cqi;
+  height: 4.5cqi;
+}
+.artsy-nail-cover-header > span {
+  font-size: 1.45cqi;
+}
+.artsy-nail-cover-hero {
+  display: grid;
+  grid-template-columns: 1.16fr 1fr;
+  gap: 1cqi;
+  padding: 5cqi 5cqi 3cqi;
+  min-height: 0;
+}
+.artsy-nail-cover-copy {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  min-width: 0;
+}
+.artsy-nail-cover-copy > span:first-child {
+  font-size: 1.35cqi;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+}
+.artsy-nail-cover-copy > strong {
+  display: block;
+  margin-top: 3cqi;
+  font-size: 7.45cqi;
+  font-weight: 650;
+  letter-spacing: -0.075em;
+  line-height: 0.95;
+}
+.artsy-nail-cover-copy strong > em {
+  display: block;
+  margin: 0.8cqi -5cqi 0 0;
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: 1.02em;
+  font-style: normal;
+  font-weight: 950;
+  letter-spacing: -0.085em;
+}
+.artsy-nail-cover-copy p {
+  max-width: 33cqi;
+  margin: 3cqi 0 0;
+  font-size: 1.65cqi;
+  line-height: 1.65;
+}
+.artsy-nail-cover-copy > .artsy-nail-cover-button {
+  display: inline-block;
+  margin-top: 3cqi;
+  padding: 1.6cqi 2.5cqi;
+  background: var(--nail-blue);
+  color: var(--nail-cream);
+  font-size: 1.5cqi;
+  font-weight: 600;
+}
+.artsy-nail-cover-copy small {
+  display: block;
+  max-width: 34cqi;
+  margin-top: 4.5cqi;
+  font-size: 0.88cqi;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+}
+.artsy-nail-cover-photo {
+  position: relative;
+  min-height: 0;
+  margin: 1cqi 0 1cqi 2cqi;
+  background: var(--nail-lilac);
+  border-radius: 47% 45% 2px 2px;
+  transform: rotate(3deg);
+}
+.artsy-nail-cover-photo img {
+  border-radius: inherit;
+  object-position: 52% center;
+}
+.artsy-nail-cover-photo > span {
+  position: absolute;
+  top: -2cqi;
+  right: -1cqi;
+  display: grid;
+  place-content: center;
+  width: 14cqi;
+  height: 14cqi;
+  border-radius: 50%;
+  background: var(--nail-lilac);
+  color: var(--nail-blue);
+  text-align: center;
+  transform: rotate(9deg);
+  font-size: 1.8cqi;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+.artsy-nail-cover-photo .artsy-nail-mark {
+  width: 2.5cqi;
+  height: 2.5cqi;
+  margin: 1cqi auto 0;
+}
+.artsy-nail-cover-ribbon {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 3cqi;
+  margin: 2cqi -3% 1cqi;
+  padding: 2.3cqi 3cqi;
+  background: var(--nail-orange);
+  transform: rotate(-2deg);
+  font-size: 2cqi;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+.artsy-nail-cover-ribbon .artsy-nail-mark {
+  width: 2.6cqi;
+  height: 2.6cqi;
+}
+@container (max-width: 980px) {
+  .artsy-nail-header {
+    gap: 18px;
+  }
+  .artsy-nail-nav {
+    gap: 10px 18px;
+  }
+  .artsy-nail-hero {
+    min-height: 560px;
+    padding-block: 47px;
+  }
+  .artsy-nail-hero h1 {
+    font-size: 7.3cqi;
+  }
+  .artsy-nail-hero-image figcaption {
+    width: 120px;
+    height: 120px;
+  }
+  .artsy-nail-hero-image figcaption > span {
+    font-size: 13px;
+  }
+  .artsy-nail-hero-photo {
+    min-height: 410px;
+  }
+  .artsy-nail-menu-index > a {
+    grid-template-columns: 35px 1fr 180px 26px;
+    gap: 18px;
+  }
+  .artsy-nail-play {
+    gap: 5cqi;
+    padding-right: 5cqi;
+  }
+  .artsy-nail-palette-preview {
+    padding-inline: 25px;
+  }
+  .artsy-nail-contact-layout {
+    gap: 4cqi;
+  }
+  .artsy-nail-form-wrap {
+    padding: 28px;
+  }
+  .artsy-nail-site .demo-enquiry-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+@container (max-width: 760px) {
+  .artsy-nail-header {
+    flex-wrap: wrap;
+    padding: 22px 24px 14px;
+  }
+  .artsy-nail-brand > span {
+    font-size: 29px;
+  }
+  .artsy-nail-brand .artsy-nail-mark {
+    width: 33px;
+    height: 33px;
+  }
+  .artsy-nail-nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 7px;
+  }
+  .artsy-nail-nav a {
+    gap: 8px;
+    font-size: 12px;
+  }
+  .artsy-nail-nav a:last-child {
+    padding-inline: 14px;
+  }
+  .artsy-nail-hero {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 39px 24px 35px;
+  }
+  .artsy-nail-hero-copy {
+    padding: 0;
+  }
+  .artsy-nail-hero h1 {
+    max-width: 630px;
+    font-size: clamp(50px, 12cqi, 87px);
+  }
+  .artsy-nail-hero h1 em {
+    margin-right: 0;
+  }
+  .artsy-nail-hero .artsy-nail-lead {
+    max-width: 370px;
+    margin-top: 23px;
+    font-size: 15px;
+  }
+  .artsy-nail-hero .artsy-nail-button {
+    margin-top: 24px;
+  }
+  .artsy-nail-hero-footnote {
+    margin-top: 24px;
+  }
+  .artsy-nail-hero-image {
+    padding: 0 8px 26px;
+  }
+  .artsy-nail-hero-photo {
+    min-height: 0;
+    aspect-ratio: 1.22;
+    border-radius: 42% 42% 2px 2px;
+  }
+  .artsy-nail-hero-image figcaption {
+    right: 0;
+    top: 0;
+    width: 115px;
+    height: 115px;
+  }
+  .artsy-nail-photo-note {
+    right: 10px;
+  }
+  .artsy-nail-ribbon {
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 15px 25px;
+    width: max-content;
+    font-size: 17px;
+  }
+  .artsy-nail-ribbon .artsy-nail-mark {
+    width: 22px;
+    height: 22px;
+  }
+  .artsy-nail-play {
+    grid-template-columns: 1fr;
+    gap: 45px;
+    padding: 67px 24px;
+  }
+  .artsy-nail-play-copy h2 {
+    font-size: 54px;
+  }
+  .artsy-nail-play-copy h2 em {
+    display: inline;
+  }
+  .artsy-nail-play-copy > p:not(.artsy-nail-eyebrow) {
+    max-width: 435px;
+  }
+  .artsy-nail-palette-options {
+    margin-bottom: 19px;
+  }
+  .artsy-nail-palette-preview {
+    min-height: 490px;
+    padding: 28px;
+    transform: rotate(1deg);
+  }
+  .artsy-nail-nail-study {
+    min-height: 250px;
+  }
+  .artsy-nail-swatch {
+    max-width: 74px;
+  }
+  .artsy-nail-palette-caption h3 {
+    font-size: 41px;
+  }
+  .artsy-nail-menu-preview {
+    padding: 0 24px 60px;
+  }
+  .artsy-nail-section-heading {
+    grid-template-columns: 1fr;
+    gap: 19px;
+    margin-bottom: 33px;
+  }
+  .artsy-nail-section-heading h2 {
+    max-width: 500px;
+    font-size: 45px;
+  }
+  .artsy-nail-menu-index > a {
+    grid-template-columns: 24px 1fr 24px;
+    gap: 9px 15px;
+    padding-block: 23px;
+  }
+  .artsy-nail-menu-index h3 {
+    font-size: 35px;
+  }
+  .artsy-nail-menu-index p {
+    grid-row: 2;
+    grid-column: 2;
+    font-size: 12px;
+  }
+  .artsy-nail-menu-index > a > span:last-child {
+    grid-row: 1 / 3;
+    grid-column: 3;
+    font-size: 29px;
+  }
+  .artsy-nail-studio-preview {
+    grid-template-columns: 1fr;
+  }
+  .artsy-nail-studio-photo {
+    min-height: 0;
+    aspect-ratio: 1.3;
+  }
+  .artsy-nail-studio-preview > div:last-child {
+    padding: 45px 24px;
+  }
+  .artsy-nail-studio-preview h2 {
+    font-size: 48px;
+  }
+  .artsy-nail-closing {
+    padding: 50px 24px;
+  }
+  .artsy-nail-closing h2 {
+    max-width: 535px;
+    padding-right: 30px;
+    font-size: 52px;
+  }
+  .artsy-nail-closing > .artsy-nail-mark {
+    top: auto;
+    bottom: 44px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+  }
+  .artsy-nail-page-intro {
+    padding: 44px 24px;
+  }
+  .artsy-nail-page-intro h1 {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(51px, 10.5cqi, 78px);
+  }
+  .artsy-nail-page-intro .artsy-nail-lead {
+    margin-top: 24px;
+    font-size: 15px;
+  }
+  .artsy-nail-page-intro > .artsy-nail-mark {
+    top: 44px;
+    right: 28px;
+    width: 36px;
+    height: 36px;
+  }
+  .artsy-nail-menu-details {
+    padding-inline: 24px;
+  }
+  .artsy-nail-menu-details article {
+    grid-template-columns: 24px 1fr;
+    gap: 24px 16px;
+    padding: 30px 0;
+  }
+  .artsy-nail-menu-details article > div:last-child {
+    grid-column: 2;
+    max-width: 520px;
+  }
+  .artsy-nail-menu-details h2 {
+    font-size: 40px;
+  }
+  .artsy-nail-menu-note {
+    gap: 20px;
+    padding: 28px 22px;
+    margin: 40px 24px 0;
+  }
+  .artsy-nail-menu-note > .artsy-nail-mark {
+    width: 32px;
+    height: 32px;
+  }
+  .artsy-nail-menu-note h2 {
+    font-size: 25px;
+  }
+  .artsy-nail-menu-note p {
+    font-size: 13px;
+  }
+  .artsy-nail-studio-wide {
+    margin-inline: 24px;
+    aspect-ratio: 1.18;
+  }
+  .artsy-nail-studio-wide figcaption {
+    left: 15px;
+    bottom: 22px;
+    max-width: calc(100% - 30px);
+    font-size: 10px;
+  }
+  .artsy-nail-studio-manifesto {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 52px 24px 35px;
+  }
+  .artsy-nail-studio-manifesto h2 {
+    font-size: 48px;
+  }
+  .artsy-nail-studio-manifesto > div:last-child {
+    max-width: 100%;
+  }
+  .artsy-nail-values {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 15px 24px 52px;
+  }
+  .artsy-nail-values h3 {
+    margin-top: 17px;
+    font-size: 31px;
+  }
+  .artsy-nail-contact-layout {
+    grid-template-columns: 1fr;
+    gap: 42px;
+    padding: 0 24px 55px;
+  }
+  .artsy-nail-contact-copy {
+    padding-top: 0;
+  }
+  .artsy-nail-contact-copy h2 {
+    font-size: 43px;
+  }
+  .artsy-nail-contact-sticker {
+    margin-top: 23px;
+  }
+  .artsy-nail-form-wrap {
+    padding: 27px 23px;
+  }
+  .artsy-nail-form-wrap h2 {
+    font-size: 34px;
+  }
+  .artsy-nail-purchase {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 44px 24px;
+  }
+  .artsy-nail-purchase > .artsy-nail-button {
+    justify-self: start;
+  }
+  .artsy-nail-purchase > .artsy-nail-small {
+    grid-column: 1;
+    max-width: 100%;
+    margin-top: -10px;
+  }
+  .artsy-nail-footer {
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    padding: 36px 24px 14px;
+  }
+  .artsy-nail-footer > p {
+    font-size: 25px;
+    text-align: right;
+  }
+  .artsy-nail-footer > nav {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .artsy-nail-footer-note {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0 20px;
+  }
+}
+@container (max-width: 380px) {
+  .artsy-nail-header,
+  .artsy-nail-hero,
+  .artsy-nail-page-intro {
+    padding-inline: 19px;
+  }
+  .artsy-nail-nav a {
+    font-size: 10px;
+    gap: 5px;
+  }
+  .artsy-nail-nav a:last-child {
+    padding-inline: 10px;
+  }
+  .artsy-nail-hero h1 {
+    font-size: 11.7cqi;
+  }
+  .artsy-nail-hero h1 em {
+    letter-spacing: -0.085em;
+  }
+  .artsy-nail-eyebrow {
+    font-size: 9px;
+  }
+  .artsy-nail-hero-image figcaption {
+    width: 92px;
+    height: 92px;
+  }
+  .artsy-nail-hero-image figcaption > span {
+    font-size: 10px;
+  }
+  .artsy-nail-hero-image figcaption .artsy-nail-mark {
+    width: 21px;
+    height: 21px;
+    margin-top: 8px;
+  }
+  .artsy-nail-play-copy h2 {
+    font-size: 43px;
+  }
+  .artsy-nail-palette-preview {
+    min-height: 440px;
+    padding: 24px 19px;
+  }
+  .artsy-nail-nail-study {
+    min-height: 220px;
+    gap: 3%;
+  }
+  .artsy-nail-swatch {
+    height: 125px;
+  }
+  .artsy-nail-swatch-0 {
+    height: 100px;
+  }
+  .artsy-nail-swatch-1,
+  .artsy-nail-swatch-3 {
+    height: 132px;
+  }
+  .artsy-nail-swatch-2 {
+    height: 151px;
+  }
+  .artsy-nail-swatch-4 {
+    height: 98px;
+  }
+  .artsy-nail-palette-caption h3 {
+    font-size: 34px;
+  }
+  .artsy-nail-menu-index h3 {
+    font-size: 28px;
+  }
+  .artsy-nail-section-heading h2,
+  .artsy-nail-studio-preview h2 {
+    font-size: 41px;
+  }
+  .artsy-nail-closing h2 {
+    font-size: 44px;
+    padding-right: 0;
+  }
+  .artsy-nail-closing > .artsy-nail-mark {
+    width: 31px;
+    height: 31px;
+    right: 22px;
+    bottom: 59px;
+  }
+  .artsy-nail-closing .artsy-nail-button {
+    gap: 18px;
+    padding-inline: 18px;
+  }
+  .artsy-nail-page-intro > .artsy-nail-mark {
+    width: 25px;
+    height: 25px;
+    right: 20px;
+  }
+  .artsy-nail-menu-note {
+    display: block;
+  }
+  .artsy-nail-menu-note > .artsy-nail-mark {
+    margin-bottom: 20px;
+  }
+  .artsy-nail-form-wrap {
+    margin-inline: -5px;
+    padding: 24px 19px;
+  }
+  .artsy-nail-footer {
+    grid-template-columns: 1fr;
+  }
+  .artsy-nail-footer > p {
+    text-align: left;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .artsy-nail-site *,
+  .artsy-nail-site *::before,
+  .artsy-nail-site *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .artsy-nail-site :is(.artsy-nail-button, .demo-enquiry-submit, .artsy-nail-contact-sticker),
+  .artsy-nail-palette-options button > span:first-child {
+    border-color: ButtonText;
+  }
+  .artsy-nail-palette-options button[aria-pressed="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+  .artsy-nail-hero-image figcaption,
+  .artsy-nail-palette-preview {
+    border: 1px solid CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+}

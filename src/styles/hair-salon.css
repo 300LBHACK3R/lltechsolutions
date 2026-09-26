@@ -1,0 +1,1490 @@
+/* LINE & FORM is a fictional salon identity, distinct from L&L's own brand. */
+.hair-site,
+.hair-cover {
+  --hair-blue: #194daf;
+  --hair-blue-dark: #11397f;
+  --hair-ink: #253344;
+  --hair-muted: #607083;
+  --hair-line: #dce2e9;
+  --hair-soft: #f2f5f9;
+  --hair-pale: #eaf0fa;
+  background: #fff;
+  color: var(--hair-ink);
+  color-scheme: light;
+  font-family: var(--font-sans), Arial, sans-serif;
+  isolation: isolate;
+}
+.hair-site {
+  container-type: inline-size;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.hair-site *,
+.hair-cover * {
+  box-sizing: border-box;
+}
+.hair-site :is(h1, h2, h3, p, figure) {
+  margin: 0;
+}
+.hair-site :is(h1, h2, h3) {
+  text-wrap: balance;
+}
+.hair-site :is(h1, h2) {
+  font-weight: 500;
+  letter-spacing: -0.055em;
+}
+.hair-site h1 {
+  font-size: clamp(54px, 6.6cqi, 96px);
+  line-height: 1.03;
+}
+.hair-site h1 > span {
+  color: var(--hair-blue);
+}
+.hair-site h2 {
+  font-size: clamp(33px, 3.6cqi, 54px);
+  line-height: 1.15;
+}
+.hair-site h3 {
+  font-size: 20px;
+  font-weight: 550;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+.hair-site a {
+  color: inherit;
+  text-decoration: none;
+}
+.hair-site :is(a, button, summary):focus-visible {
+  outline: 2px solid var(--hair-blue);
+  outline-offset: 5px;
+}
+.hair-site ::selection {
+  color: white;
+  background: var(--hair-blue);
+}
+.hair-site :is(p, h1, h2, h3, dd) {
+  overflow-wrap: break-word;
+}
+.hair-site :is(a, button, summary) {
+  -webkit-tap-highlight-color: transparent;
+}
+.hair-accent-rail {
+  height: 5px;
+  background: var(--hair-blue);
+}
+.hair-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding: 25px 5.5cqi;
+  border-bottom: 1px solid var(--hair-line);
+}
+.hair-brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 13px;
+}
+.hair-mark {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  color: var(--hair-blue);
+}
+.hair-brand > span {
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: 0.045em;
+}
+.hair-brand small {
+  display: block;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.44em;
+  margin-top: 8px;
+}
+.hair-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 32px;
+}
+.hair-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  font-size: 12px;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+}
+.hair-nav a[aria-current="page"] {
+  color: var(--hair-blue);
+  border-bottom-color: var(--hair-blue);
+}
+.hair-nav a:last-child {
+  gap: 23px;
+  padding: 10px 20px;
+  color: #fff;
+  background: var(--hair-blue);
+  border: 1px solid var(--hair-blue);
+}
+.hair-nav a:last-child[aria-current="page"] {
+  background: var(--hair-blue-dark);
+}
+.hair-nav a:hover {
+  color: var(--hair-blue);
+}
+.hair-nav a:last-child:hover {
+  color: #fff;
+  background: var(--hair-blue-dark);
+}
+.hair-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.04fr;
+  min-height: 655px;
+}
+.hair-hero > * {
+  min-width: 0;
+}
+.hair-hero-copy {
+  padding: 78px 4.6cqi 40px 5.5cqi;
+}
+.hair-eyebrow {
+  color: var(--hair-blue);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  font-weight: 650;
+  line-height: 1.8;
+}
+.hair-hero-copy > .hair-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 32px;
+}
+.hair-hero-copy > .hair-eyebrow > span {
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+}
+.hair-lead {
+  max-width: 45ch;
+  color: var(--hair-muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+.hair-hero .hair-lead {
+  margin-top: 27px;
+  max-width: 37ch;
+}
+.hair-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 13px 25px;
+  margin-top: 32px;
+}
+.hair-button {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 28px;
+  min-height: 50px;
+  padding: 14px 21px;
+  border: 1px solid var(--hair-blue);
+  background: var(--hair-blue);
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 550;
+  transition: background 160ms ease;
+}
+.hair-button > span {
+  font-size: 19px;
+  line-height: 1;
+}
+.hair-button:hover {
+  background: var(--hair-blue-dark);
+  border-color: var(--hair-blue-dark);
+}
+.hair-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 44px;
+  color: var(--hair-blue) !important;
+  font-size: 12px;
+  font-weight: 550;
+}
+.hair-text-link > span {
+  font-size: 20px;
+}
+.hair-text-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.hair-hero-signoff {
+  border-top: 1px solid var(--hair-line);
+  padding-top: 22px;
+  margin-top: 54px;
+  max-width: 380px;
+}
+.hair-hero-signoff > span {
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: var(--hair-muted);
+}
+.hair-hero-signoff > p {
+  margin-top: 6px;
+  font-size: 12px;
+}
+.hair-hero-image {
+  position: relative;
+  min-height: 600px;
+  background: var(--hair-soft);
+}
+.hair-hero-image img,
+.hair-detail-image img,
+.hair-salon-wide img,
+.hair-cover-photo img {
+  object-fit: cover;
+}
+.hair-hero-image img {
+  object-position: 53% center;
+}
+.hair-hero-image figcaption {
+  position: absolute;
+  inset: auto 30px 30px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 5px 20px;
+  padding: 20px 24px;
+  color: var(--hair-ink);
+  background: rgb(255 255 255 / 96%);
+  border-left: 3px solid var(--hair-blue);
+}
+.hair-hero-image figcaption > span:first-child {
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: var(--hair-blue);
+}
+.hair-hero-image figcaption > strong {
+  grid-column: 1;
+  font-size: 22px;
+  font-weight: 450;
+  letter-spacing: -0.025em;
+}
+.hair-hero-image figcaption > span:last-child {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  font-size: 30px;
+  color: var(--hair-blue);
+}
+.hair-values-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  padding: 24px 5.5cqi;
+  background: var(--hair-soft);
+  color: var(--hair-muted);
+  font-size: 11px;
+}
+.hair-values-strip > span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hair-values-strip > span::before {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: var(--hair-blue);
+}
+.hair-values-strip > span + span {
+  border-left: 1px solid var(--hair-line);
+  padding-left: 28px;
+}
+.hair-services-preview {
+  padding: 83px 5.5cqi 88px;
+}
+.hair-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 35px;
+  margin-bottom: 38px;
+}
+.hair-section-heading h2 {
+  margin-top: 18px;
+}
+.hair-section-heading > p {
+  max-width: 30ch;
+  color: var(--hair-muted);
+  font-size: 14px;
+}
+.hair-section-heading > .hair-text-link {
+  flex-shrink: 0;
+}
+.hair-service-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.hair-service-cards > a {
+  min-width: 0;
+  padding: 28px 30px 24px;
+  border: 1px solid var(--hair-line);
+  background: white;
+  transition: background 160ms ease;
+}
+.hair-service-cards > a + a {
+  border-left: 0;
+}
+.hair-service-cards > a:hover {
+  background: var(--hair-soft);
+}
+.hair-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 47px;
+  color: var(--hair-blue);
+}
+.hair-card-top > span:first-child {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.hair-card-top > span:last-child {
+  font-size: 26px;
+}
+.hair-service-cards h3 {
+  margin-top: 9px;
+  font-size: 28px;
+  font-weight: 500;
+}
+.hair-service-cards h3 + p {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--hair-muted);
+}
+.hair-card-note {
+  display: block;
+  border-top: 1px solid var(--hair-line);
+  padding-top: 20px;
+  margin-top: 28px;
+  font-size: 10px;
+  color: var(--hair-muted);
+}
+.hair-salon-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--hair-soft);
+}
+.hair-detail-image {
+  position: relative;
+  min-height: 450px;
+}
+.hair-salon-preview > div:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 60px 6cqi;
+}
+.hair-salon-preview h2 {
+  margin-top: 20px;
+}
+.hair-salon-preview h2 + p {
+  margin-top: 24px;
+  color: var(--hair-muted);
+  font-size: 14px;
+  max-width: 44ch;
+}
+.hair-salon-preview .hair-text-link,
+.hair-salon-preview .hair-button {
+  margin-top: 25px;
+}
+.hair-journey {
+  padding: 85px 5.5cqi;
+}
+.hair-journey ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  padding: 0;
+  margin: 44px 0 0;
+  gap: 42px;
+}
+.hair-journey li {
+  border-top: 1px solid var(--hair-line);
+  padding-top: 25px;
+}
+.hair-journey li > span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  margin-bottom: 25px;
+  background: var(--hair-pale);
+  color: var(--hair-blue);
+  font-size: 11px;
+}
+.hair-journey h3 {
+  font-size: 18px;
+}
+.hair-journey li > p {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--hair-muted);
+  max-width: 34ch;
+}
+.hair-closing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 54px 5.5cqi;
+  background: var(--hair-blue);
+  color: #fff;
+}
+.hair-closing .hair-eyebrow {
+  color: #d8e4fa;
+}
+.hair-closing h2 {
+  margin-top: 12px;
+  font-size: clamp(33px, 3.8cqi, 54px);
+}
+.hair-closing .hair-button {
+  background: #fff;
+  border-color: #fff;
+  color: var(--hair-blue) !important;
+  flex-shrink: 0;
+}
+.hair-closing .hair-button:hover {
+  background: var(--hair-pale);
+}
+.hair-closing .hair-button:focus-visible {
+  outline-color: white;
+}
+.hair-page-intro {
+  padding: 70px 5.5cqi 62px;
+}
+.hair-page-intro h1 {
+  margin-top: 25px;
+  font-size: clamp(53px, 6.1cqi, 90px);
+}
+.hair-page-intro .hair-lead {
+  margin-top: 25px;
+  max-width: 56ch;
+}
+.hair-menu-section {
+  padding: 0 5.5cqi 60px;
+}
+.hair-menu-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 32px;
+  border-top: 1px solid var(--hair-line);
+}
+.hair-menu-heading h2 {
+  font-size: 30px;
+}
+.hair-menu-heading > span {
+  color: var(--hair-muted);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+.hair-menu-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 27px;
+  margin-bottom: 25px;
+}
+.hair-service-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hair-service-filters button {
+  appearance: none;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid var(--hair-line);
+  background: white;
+  color: var(--hair-muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+.hair-service-filters button[aria-pressed="true"] {
+  color: white;
+  background: var(--hair-blue);
+  border-color: var(--hair-blue);
+}
+.hair-service-filters button:hover {
+  border-color: var(--hair-blue);
+}
+.hair-menu-toolbar > p {
+  color: var(--hair-muted);
+  font-size: 11px;
+}
+.hair-menu-legend {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 140px 100px;
+  gap: 25px;
+  padding: 13px 24px;
+  background: var(--hair-soft);
+  font-size: 9px;
+  font-weight: 550;
+  letter-spacing: 0.12em;
+  color: var(--hair-muted);
+}
+.hair-menu-legend > span:last-child {
+  text-align: right;
+}
+.hair-menu-results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.hair-menu-results > li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 140px 100px;
+  gap: 25px;
+  align-items: center;
+  padding: 25px 24px;
+  border-bottom: 1px solid var(--hair-line);
+}
+.hair-menu-results h3 {
+  font-size: 19px;
+}
+.hair-menu-results p {
+  margin-top: 6px;
+  color: var(--hair-muted);
+  font-size: 12px;
+}
+.hair-service-duration {
+  color: var(--hair-muted);
+  font-size: 12px;
+}
+.hair-menu-results strong {
+  font-size: 23px;
+  color: var(--hair-blue);
+  font-weight: 500;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.hair-menu-note {
+  max-width: 90ch;
+  margin-top: 22px !important;
+  color: var(--hair-muted);
+  font-size: 11px;
+}
+.hair-consultation-note {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin: 0 5.5cqi 70px;
+  padding: 34px;
+  background: var(--hair-pale);
+}
+.hair-consultation-note > span {
+  font-size: 40px;
+  color: var(--hair-blue);
+}
+.hair-consultation-note > div {
+  flex: 1;
+}
+.hair-consultation-note h2 {
+  margin-top: 10px;
+  font-size: 29px;
+}
+.hair-consultation-note h2 + p {
+  margin-top: 13px;
+  color: var(--hair-muted);
+  font-size: 12px;
+  max-width: 65ch;
+}
+.hair-consultation-note .hair-button {
+  flex-shrink: 0;
+}
+.hair-faq {
+  display: grid;
+  grid-template-columns: 0.65fr 1fr;
+  padding: 0 5.5cqi 80px;
+  gap: 65px;
+}
+.hair-faq h2 {
+  margin-top: 17px;
+}
+.hair-faq details {
+  border-top: 1px solid var(--hair-line);
+}
+.hair-faq details:last-child {
+  border-bottom: 1px solid var(--hair-line);
+}
+.hair-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 0;
+  min-height: 62px;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.hair-faq summary::-webkit-details-marker {
+  display: none;
+}
+.hair-faq summary > span {
+  color: var(--hair-blue);
+  font-size: 22px;
+  font-weight: 400;
+}
+.hair-faq details[open] summary > span {
+  transform: rotate(45deg);
+}
+.hair-faq details > p {
+  padding: 0 30px 25px 0;
+  color: var(--hair-muted);
+  font-size: 13px;
+}
+.hair-salon-intro {
+  padding-bottom: 50px;
+}
+.hair-salon-wide {
+  position: relative;
+  min-height: 520px;
+  margin: 0 5.5cqi !important;
+}
+.hair-salon-wide img {
+  object-position: center 57%;
+}
+.hair-salon-wide figcaption {
+  position: absolute;
+  inset: auto auto 24px 24px;
+  padding: 13px 18px;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  background: white;
+  color: var(--hair-blue);
+}
+.hair-salon-story {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  padding: 72px 5.5cqi;
+  gap: 9cqi;
+  border-bottom: 1px solid var(--hair-line);
+}
+.hair-salon-story h2 {
+  margin-top: 20px;
+  font-size: clamp(32px, 3.2cqi, 48px);
+}
+.hair-salon-story > div:last-child p {
+  color: var(--hair-muted);
+  font-size: 14px;
+}
+.hair-salon-story > div:last-child p + p {
+  margin-top: 20px;
+}
+.hair-salon-story .hair-story-note {
+  border-top: 1px solid var(--hair-line);
+  padding-top: 19px;
+  font-size: 11px !important;
+}
+.hair-contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 8cqi;
+  padding: 0 5.5cqi 80px;
+}
+.hair-contact-layout > * {
+  min-width: 0;
+}
+.hair-contact-card {
+  padding: 36px 3.5cqi;
+  background: var(--hair-soft);
+  border-top: 3px solid var(--hair-blue);
+}
+.hair-contact-card .hair-mark {
+  width: 50px;
+  height: 50px;
+}
+.hair-contact-card h2 {
+  margin-top: 22px;
+  font-size: 39px;
+}
+.hair-contact-card > p {
+  margin-top: 18px;
+  font-size: 12px;
+  color: var(--hair-muted);
+}
+.hair-contact-card dl {
+  margin: 28px 0;
+}
+.hair-contact-card dl > div {
+  padding: 19px 0;
+  border-top: 1px solid var(--hair-line);
+}
+.hair-contact-card dt {
+  color: var(--hair-muted);
+  font-size: 9px;
+  font-weight: 550;
+  letter-spacing: 0.09em;
+}
+.hair-contact-card dd {
+  font-size: 16px;
+  margin: 10px 0 0;
+}
+.hair-booking-placeholder {
+  display: flex;
+  align-items: start;
+  gap: 18px;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--hair-line);
+}
+.hair-booking-placeholder > span {
+  color: var(--hair-blue);
+  font-size: 26px;
+}
+.hair-booking-placeholder h3 {
+  font-size: 17px;
+}
+.hair-booking-placeholder p {
+  color: var(--hair-muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+.hair-contact-aside {
+  padding-top: 22px;
+}
+.hair-contact-aside h2 {
+  margin-top: 20px;
+}
+.hair-contact-aside ul {
+  padding: 0;
+  margin: 28px 0 35px;
+  list-style: none;
+}
+.hair-contact-aside li {
+  position: relative;
+  padding: 11px 0 11px 20px;
+  border-bottom: 1px solid var(--hair-line);
+  color: var(--hair-muted);
+  font-size: 13px;
+}
+.hair-contact-aside li::before {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  left: 0;
+  top: 21px;
+  background: var(--hair-blue);
+}
+.hair-website-note {
+  padding-top: 5px;
+}
+.hair-website-note h3 {
+  margin-top: 12px;
+  font-size: 24px;
+}
+.hair-website-note h3 + p {
+  margin-top: 17px;
+  color: var(--hair-muted);
+  font-size: 13px;
+}
+.hair-website-note .hair-button {
+  margin-top: 24px;
+}
+.hair-website-note small {
+  display: block;
+  margin-top: 13px;
+  color: var(--hair-muted);
+  font-size: 10px;
+}
+.hair-footer {
+  padding: 43px 5.5cqi 15px;
+  border-top: 1px solid var(--hair-line);
+  background: #fff;
+}
+.hair-footer-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: start;
+  gap: 35px;
+}
+.hair-footer-main > p {
+  font-size: 21px;
+  line-height: 1.4;
+  letter-spacing: -0.035em;
+}
+.hair-footer-main > p > span {
+  color: var(--hair-blue);
+}
+.hair-footer-main nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 25px;
+}
+.hair-footer-main nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 11px;
+}
+.hair-footer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.hair-footer-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 25px;
+  flex-wrap: wrap;
+  margin-top: 35px;
+  border-top: 1px solid var(--hair-line);
+  padding-top: 12px;
+  color: var(--hair-muted);
+  font-size: 9px;
+}
+.hair-footer-note > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+}
+.hair-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+/* The catalogue cover mirrors the actual homepage composition. */
+.design-cover.hair-cover {
+  container-type: inline-size;
+  display: grid;
+  aspect-ratio: 1.25;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+}
+.hair-cover .template-browser-bar {
+  background: #e8ecf2;
+  color: var(--hair-muted);
+  border-color: var(--hair-line);
+}
+.hair-cover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqi;
+  padding: 3cqi 4.8cqi;
+  border-top: 0.5cqi solid var(--hair-blue);
+  border-bottom: 1px solid var(--hair-line);
+}
+.hair-cover-header > strong {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqi;
+}
+.hair-cover-header .hair-mark {
+  width: 5cqi;
+  height: 5cqi;
+}
+.hair-cover-header strong > span {
+  font-size: 2.3cqi;
+  line-height: 1.1;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+.hair-cover-header small {
+  display: block;
+  margin-top: 0.9cqi;
+  font-size: 1cqi;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+}
+.hair-cover-header > span {
+  font-size: 1.2cqi;
+}
+.hair-cover-header b {
+  display: inline-block;
+  background: var(--hair-blue);
+  color: white;
+  padding: 1.3cqi 1.8cqi;
+  margin-left: 1.5cqi;
+  font-size: 1.2cqi;
+  font-weight: 500;
+}
+.hair-cover-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.04fr;
+  min-height: 0;
+}
+.hair-cover-copy {
+  padding: 7cqi 3.8cqi 4.6cqi 4.8cqi;
+  min-width: 0;
+}
+.hair-cover-copy > span:first-child {
+  display: block;
+  color: var(--hair-blue);
+  font-size: 1.15cqi;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  margin-bottom: 3.5cqi;
+}
+.hair-cover-copy > strong {
+  display: block;
+  font-size: 6.7cqi;
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.04;
+}
+.hair-cover-copy em {
+  color: var(--hair-blue);
+  font-style: normal;
+}
+.hair-cover-copy > p {
+  font-size: 1.48cqi;
+  line-height: 1.8;
+  color: var(--hair-muted);
+  margin-top: 2.9cqi;
+  max-width: 34ch;
+}
+.hair-cover-copy > .hair-cover-button {
+  display: inline-block;
+  font-size: 1.3cqi;
+  color: white;
+  background: var(--hair-blue);
+  padding: 1.8cqi 2cqi;
+  margin-top: 3.2cqi;
+}
+.hair-cover-copy > small {
+  display: block;
+  border-top: 1px solid var(--hair-line);
+  margin-top: 4.4cqi;
+  padding-top: 2cqi;
+  color: var(--hair-muted);
+  font-size: 0.8cqi;
+  letter-spacing: 0.1em;
+}
+.hair-cover-copy > .hair-cover-signoff {
+  font-size: 1.15cqi;
+  margin-top: 0.6cqi;
+  color: var(--hair-ink);
+}
+.hair-cover-photo {
+  position: relative;
+  min-width: 0;
+}
+.hair-cover-photo img {
+  object-position: 53% center;
+}
+.hair-cover-photo > span {
+  position: absolute;
+  inset: auto 2.5cqi 2.5cqi;
+  padding: 2cqi 2.2cqi;
+  background: rgb(255 255 255 / 96%);
+  border-left: 0.35cqi solid var(--hair-blue);
+  font-size: 2.2cqi;
+  font-weight: 450;
+  letter-spacing: -0.02em;
+}
+.hair-cover-photo small {
+  display: block;
+  font-size: 0.85cqi;
+  color: var(--hair-blue);
+  letter-spacing: 0.09em;
+  margin-bottom: 0.7cqi;
+}
+.hair-cover-photo b {
+  position: absolute;
+  right: 2cqi;
+  top: 2.3cqi;
+  color: var(--hair-blue);
+  font-size: 2.6cqi;
+  font-weight: 400;
+}
+.hair-cover-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqi;
+  padding: 2.5cqi 4.8cqi;
+  background: var(--hair-soft);
+  color: var(--hair-muted);
+  font-size: 1.15cqi;
+}
+@media (max-width: 1100px) {
+  .hair-header {
+    padding-block: 20px;
+  }
+  .hair-nav {
+    gap: 10px 22px;
+  }
+  .hair-hero {
+    min-height: 580px;
+  }
+  .hair-hero-copy {
+    padding-top: 58px;
+  }
+  .hair-hero-image {
+    min-height: 550px;
+  }
+  .hair-hero-signoff {
+    margin-top: 35px;
+  }
+  .hair-card-top {
+    margin-bottom: 30px;
+  }
+  .hair-service-cards > a {
+    padding: 24px;
+  }
+  .hair-service-cards h3 {
+    font-size: 26px;
+  }
+  .hair-journey ol {
+    gap: 27px;
+  }
+  .hair-consultation-note {
+    flex-wrap: wrap;
+  }
+  .hair-consultation-note > div {
+    flex-basis: calc(100% - 80px);
+  }
+  .hair-consultation-note .hair-button {
+    margin-left: 64px;
+  }
+  .hair-footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+  .hair-footer-main nav {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 760px) {
+  .hair-header {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 20px 25px 14px;
+  }
+  .hair-brand > span {
+    font-size: 18px;
+  }
+  .hair-brand small {
+    font-size: 8px;
+  }
+  .hair-nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px 15px;
+  }
+  .hair-nav a {
+    font-size: 11px;
+  }
+  .hair-nav a:last-child {
+    padding: 8px 14px;
+    gap: 18px;
+  }
+  .hair-hero {
+    grid-template-columns: 1fr;
+  }
+  .hair-hero-copy {
+    padding: 49px 26px 36px;
+  }
+  .hair-site h1 {
+    font-size: clamp(49px, 10.2cqi, 78px);
+  }
+  .hair-hero-copy > .hair-eyebrow {
+    margin-bottom: 27px;
+    font-size: 9px;
+  }
+  .hair-hero .hair-lead {
+    max-width: 42ch;
+    font-size: 14px;
+  }
+  .hair-hero-actions {
+    margin-top: 26px;
+  }
+  .hair-hero-signoff {
+    margin-top: 30px;
+    max-width: 100%;
+  }
+  .hair-hero-image {
+    min-height: 430px;
+  }
+  .hair-hero-image figcaption {
+    inset: auto 22px 22px;
+    padding: 16px 20px;
+  }
+  .hair-hero-image figcaption > strong {
+    font-size: 21px;
+  }
+  .hair-values-strip {
+    gap: 15px;
+    padding: 20px 26px;
+    font-size: 10px;
+  }
+  .hair-values-strip > span {
+    align-items: start;
+    gap: 8px;
+  }
+  .hair-values-strip > span::before {
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .hair-values-strip > span + span {
+    padding-left: 15px;
+  }
+  .hair-services-preview,
+  .hair-journey {
+    padding: 52px 26px;
+  }
+  .hair-section-heading {
+    flex-direction: column;
+    align-items: start;
+    gap: 18px;
+    margin-bottom: 29px;
+  }
+  .hair-section-heading h2 {
+    margin-top: 15px;
+  }
+  .hair-section-heading > p {
+    max-width: 42ch;
+  }
+  .hair-service-cards {
+    grid-template-columns: 1fr;
+  }
+  .hair-service-cards > a {
+    padding: 25px;
+  }
+  .hair-service-cards > a + a {
+    border-left: 1px solid var(--hair-line);
+    border-top: 0;
+  }
+  .hair-card-top {
+    margin-bottom: 18px;
+  }
+  .hair-service-cards h3 {
+    font-size: 29px;
+  }
+  .hair-service-cards h3 + p {
+    max-width: 45ch;
+  }
+  .hair-card-note {
+    margin-top: 20px;
+    padding-top: 16px;
+  }
+  .hair-salon-preview {
+    grid-template-columns: 1fr;
+  }
+  .hair-detail-image {
+    min-height: 350px;
+  }
+  .hair-salon-preview > div:last-child {
+    padding: 40px 26px 44px;
+  }
+  .hair-journey ol {
+    grid-template-columns: 1fr;
+    gap: 27px;
+    margin-top: 28px;
+  }
+  .hair-journey li {
+    display: grid;
+    grid-template-columns: 37px 1fr;
+    gap: 9px 19px;
+    padding-top: 24px;
+  }
+  .hair-journey li > span {
+    grid-row: 1 / 3;
+    margin: 0;
+  }
+  .hair-journey li > p {
+    grid-column: 2;
+    margin: 0;
+    max-width: 44ch;
+  }
+  .hair-closing {
+    flex-direction: column;
+    align-items: start;
+    gap: 25px;
+    padding: 40px 26px;
+  }
+  .hair-page-intro {
+    padding: 48px 26px 42px;
+  }
+  .hair-page-intro .hair-lead {
+    font-size: 14px;
+  }
+  .hair-menu-section {
+    padding: 0 26px 42px;
+  }
+  .hair-menu-heading {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 25px;
+  }
+  .hair-menu-heading h2 {
+    font-size: 29px;
+  }
+  .hair-menu-heading > span {
+    font-size: 8px;
+  }
+  .hair-menu-toolbar {
+    margin-top: 23px;
+    margin-bottom: 20px;
+  }
+  .hair-service-filters {
+    gap: 7px;
+  }
+  .hair-service-filters button {
+    padding: 10px 13px;
+    font-size: 11px;
+  }
+  .hair-menu-legend {
+    grid-template-columns: 1fr 75px;
+    padding-inline: 12px;
+  }
+  .hair-menu-legend > span:nth-child(2) {
+    display: none;
+  }
+  .hair-menu-results > li {
+    grid-template-columns: minmax(0, 1fr) 65px;
+    gap: 7px 15px;
+    padding: 22px 12px;
+  }
+  .hair-menu-results h3 {
+    font-size: 18px;
+  }
+  .hair-menu-results > li > div {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .hair-menu-results > li > strong {
+    grid-row: 1;
+    grid-column: 2;
+    align-self: start;
+    font-size: 22px;
+  }
+  .hair-service-duration {
+    grid-column: 1;
+    font-size: 11px;
+  }
+  .hair-menu-results p {
+    font-size: 12px;
+  }
+  .hair-menu-note {
+    font-size: 10px;
+  }
+  .hair-consultation-note {
+    display: block;
+    margin: 0 26px 45px;
+    padding: 26px;
+  }
+  .hair-consultation-note > span {
+    display: block;
+    font-size: 30px;
+    margin-bottom: 16px;
+  }
+  .hair-consultation-note h2 {
+    font-size: 28px;
+  }
+  .hair-consultation-note .hair-eyebrow {
+    font-size: 9px;
+  }
+  .hair-consultation-note .hair-button {
+    margin: 22px 0 0;
+  }
+  .hair-faq {
+    grid-template-columns: 1fr;
+    gap: 27px;
+    padding: 0 26px 49px;
+  }
+  .hair-faq h2 br {
+    display: none;
+  }
+  .hair-faq summary {
+    font-size: 13px;
+  }
+  .hair-salon-wide {
+    min-height: 380px;
+    margin-inline: 26px !important;
+  }
+  .hair-salon-wide figcaption {
+    inset: auto 15px 15px;
+    padding: 12px 14px;
+    font-size: 8px;
+  }
+  .hair-salon-story {
+    grid-template-columns: 1fr;
+    padding: 44px 26px;
+    gap: 25px;
+  }
+  .hair-salon-story h2 {
+    font-size: 34px;
+  }
+  .hair-contact-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 0 26px 52px;
+  }
+  .hair-contact-card {
+    padding: 30px 25px;
+  }
+  .hair-contact-card h2 {
+    font-size: 35px;
+  }
+  .hair-contact-card dd {
+    font-size: 15px;
+  }
+  .hair-contact-aside {
+    padding-top: 0;
+  }
+  .hair-footer {
+    padding: 33px 26px 12px;
+  }
+  .hair-footer-main {
+    gap: 22px;
+  }
+  .hair-footer-main > p {
+    font-size: 20px;
+  }
+  .hair-footer-note {
+    margin-top: 21px;
+    gap: 2px 20px;
+  }
+}
+@media (max-width: 420px) {
+  .hair-header {
+    padding-inline: 20px;
+  }
+  .hair-nav {
+    gap: 4px 10px;
+  }
+  .hair-nav a {
+    font-size: 10px;
+  }
+  .hair-nav a:last-child {
+    padding-inline: 12px;
+    gap: 10px;
+  }
+  .hair-hero-copy,
+  .hair-services-preview,
+  .hair-journey,
+  .hair-closing,
+  .hair-page-intro {
+    padding-inline: 22px;
+  }
+  .hair-site h1 {
+    font-size: clamp(45px, 12cqi, 50px);
+  }
+  .hair-site h2 {
+    font-size: 31px;
+  }
+  .hair-hero-image {
+    min-height: 350px;
+  }
+  .hair-values-strip {
+    gap: 12px;
+    padding-inline: 22px;
+    font-size: 9px;
+  }
+  .hair-values-strip > span {
+    display: block;
+  }
+  .hair-values-strip > span::before {
+    margin: 0 0 7px;
+  }
+  .hair-values-strip > span + span {
+    padding-left: 12px;
+  }
+  .hair-hero-image figcaption {
+    inset-inline: 18px;
+  }
+  .hair-menu-section,
+  .hair-faq,
+  .hair-contact-layout,
+  .hair-footer {
+    padding-inline: 22px;
+  }
+  .hair-consultation-note {
+    margin-inline: 22px;
+    padding: 23px;
+  }
+  .hair-button {
+    gap: 21px;
+    padding-inline: 17px;
+    font-size: 11px;
+  }
+  .hair-service-filters button {
+    padding-inline: 11px;
+    font-size: 10px;
+  }
+  .hair-contact-card {
+    padding-inline: 22px;
+  }
+  .hair-footer-main {
+    grid-template-columns: 1fr;
+  }
+  .hair-footer-main nav {
+    gap: 10px 22px;
+  }
+  .hair-salon-wide {
+    margin-inline: 22px !important;
+    min-height: 340px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion="running"] .hair-hero-copy {
+    animation: hair-arrive 600ms ease-out both;
+  }
+  @keyframes hair-arrive {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hair-site *,
+  .hair-site *::before,
+  .hair-site *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .hair-button,
+  .hair-service-filters button,
+  .hair-nav a:last-child {
+    border-color: ButtonText;
+  }
+  .hair-hero-image figcaption,
+  .hair-salon-wide figcaption {
+    background: Canvas;
+    color: CanvasText;
+  }
+  .hair-service-filters button[aria-pressed="true"] {
+    border-width: 3px;
+  }
+}

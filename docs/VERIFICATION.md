@@ -1,6 +1,30 @@
 # Verification and release status
 
-## Current prepared scope — September 25, 2026
+## Current prepared scope — September 26, 2026
+
+Four distinct Health & Wellness offers are added with dedicated demo source: `medical-spa` ($999 CAD, six pages, Flagship), `artsy-nails` ($699 CAD, four pages, Premier), `hair-salon` ($499 CAD, four pages, Signature), and `hair-one-page` ($150 CAD, one page, Essential). The new Medical Spa and Hair Salon business types belong to Health & Wellness; the nail offer uses Beauty & Personal Care. Existing prices, stable URLs, client media, main navigation and compact homepage scope are preserved.
+
+The fictional/illustrative clinic, nail and hair demonstrations are separate from real client work. The clinic and nail forms run locally without email delivery. Their $699+ customer scope includes standard Resend/form setup and an initial delivery check, configured at that customer's launch. The $150/$499 hair scope is direct contact or an external booking link. Optional forms, additional pages, advanced integrations, original content and ongoing care remain separately scoped.
+
+Separate static targets are `ll-medical-spa-template`, `ll-artsy-nails-template`, `ll-hair-salon-template` and `ll-hair-one-page-template`. Matching JSON configs begin with null URLs and empty screenshots, so the catalogue uses dedicated covers and does not advertise unverified demo access. Noindex and maintained security headers apply to each demo. A public production URL must be verified before it is connected to View live demo.
+
+The expanded gates check canonical prices/page counts/contact scope, category placement and filters, numeric sorting with stable equal-price order, comparison and enquiry selection, media isolation, metadata, matching covers and delivered CSS.
+
+### Completed preparation checks
+
+- Formatting, zero-warning ESLint, TypeScript and local import/asset validation across 173 source files passed; 63 tests passed.
+- The final main production build, delivered stylesheet gate and 185 production HTTP/link/anchor checks passed after the mobile medical-spa text-size correction.
+- All four standalone production builds passed using normal dependency installs and actual font downloads: 15 public pages and 57 page-data segment hashes checked across the four exports.
+- A same-process local HTTP check verified 15 clean page routes and 56 per-demo asset URLs. This verifies HTTP responses and identity, not rendered layout.
+- The production dependency audit reported zero known vulnerabilities. This is not a security guarantee.
+- Demo form markup and source checks confirm disabled pre-hydration/no-JavaScript fields, no endpoint or named submission fields, explicit local-preview disclosure and no email delivery. No external email was sent.
+- Windows release scripts received independent static review. Windows execution, remote Git push and Vercel deployment have not been performed in this environment. The release manifest identifies its exact source commit.
+
+### Remaining verification
+
+Rendered browser review was blocked: the browser tool rejected local preview access with `net::ERR_BLOCKED_BY_CLIENT`; CLI browser setup also failed. Mobile/desktop rendering, browser interactions and Safari/Firefox compatibility are not claimed as verified. Check the published previews on real devices before promoting them. Customer email delivery is configured and tested separately at that customer's launch. Historical results below do not verify this expansion.
+
+## Previous prepared scope — September 25, 2026
 
 Nail & Esthetics Studio replaces the former generic Massage Practice at the stable `still` URL. The approved $399 CAD offer has Home, Services and Contact. One-page Massage Website (`massage-one-page`) adds a $150 CAD entry offer using supplied content, up to three treatments and direct contact or an external booking link. The public website starting price is now $150+ CAD; social management remains $149+ CAD/month. Other template and client prices are unchanged.
 

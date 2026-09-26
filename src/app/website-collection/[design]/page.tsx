@@ -10,6 +10,10 @@ import lawncareDemo from "@/data/lawncare-demo.json";
 import horizonDemo from "@/data/horizon-demo.json";
 import beautyDemo from "@/data/beauty-demo.json";
 import massageOnePageDemo from "@/data/massage-one-page-demo.json";
+import medicalSpaDemo from "@/data/medical-spa-demo.json";
+import artsyNailDemo from "@/data/artsy-nail-demo.json";
+import hairSalonDemo from "@/data/hair-salon-demo.json";
+import hairOnePageDemo from "@/data/hair-one-page-demo.json";
 import CollectionContactOptions from "@/components/collection/CollectionContactOptions";
 import CollectionCustomization from "@/components/collection/CollectionCustomization";
 import { readTemplateShowcase } from "@/lib/template-showcase";
@@ -70,7 +74,15 @@ export default async function DesignPage({ params }: Props) {
                 ? readTemplateShowcase(beautyDemo, "still")
                 : design.id === "massage-one-page"
                   ? readTemplateShowcase(massageOnePageDemo, "massage-one-page")
-                  : null;
+                  : design.id === "medical-spa"
+                    ? readTemplateShowcase(medicalSpaDemo, "medical-spa")
+                    : design.id === "artsy-nails"
+                      ? readTemplateShowcase(artsyNailDemo, "artsy-nails")
+                      : design.id === "hair-salon"
+                        ? readTemplateShowcase(hairSalonDemo, "hair-salon")
+                        : design.id === "hair-one-page"
+                          ? readTemplateShowcase(hairOnePageDemo, "hair-one-page")
+                          : null;
   const category = categoryForIndustry(design.industry);
   const clientProject = design.clientProjectId
     ? projects.find(

@@ -13,6 +13,7 @@ import {
   designStatusLabel,
   designInquiryLabel,
   designScopeLabel,
+  designContactLabel,
   designHref,
   journeyInquiry,
   compareSelection,
@@ -25,6 +26,7 @@ import {
   collectionInquiryHref,
 } from "../src/data/website-collection.ts";
 import { validateContact } from "../src/lib/contact-validation.ts";
+import { readTemplateShowcase } from "../src/lib/template-showcase.ts";
 
 // Test-only records: these are never imported into the site or offered for sale.
 const fixture = (id, tier, price, industry = "painting", status = "published") => ({
@@ -198,6 +200,10 @@ test("collection validates design status, scope and local preview assets", () =>
           "wellness",
           "beauty",
           "massage-one-page",
+          "medical-spa",
+          "artsy-nails",
+          "hair-salon",
+          "hair-one-page",
         ].includes(design.concept.theme),
       );
       assert.equal(design.concept.brands.length, 2);
@@ -265,6 +271,176 @@ test("entry offers keep their approved prices, separate business types and direc
     assert.ok(inquiry.message.includes("Direct contact included"));
     assert.ok(!inquiry.message.includes("Protected enquiry form included"));
   }
+});
+
+const wellnessOffers = [
+  ["medical-spa", "medical-spa", "flagship", "medical-spa", 999, 6, "enquiry-form"],
+  ["artsy-nails", "artsy-nail", "premier", "beauty", 699, 4, "enquiry-form"],
+  ["hair-salon", "hair-salon", "signature", "hair-salon", 499, 4, "direct"],
+  ["hair-one-page", "hair-one-page", "essential", "hair-salon", 150, 1, "direct"],
+];
+
+for (const [id, , tier, industry, price, pages, contactMode] of wellnessOffers) {
+  test(`${id}: approved scope reaches comparison and canonical enquiry`, () => {
+    const design = websiteDesigns.find((item) => item.id === id);
+    assert.ok(design, `${id}: catalogue entry exists`);
+    assert.equal(design.status, "published");
+    assert.equal(design.concept.theme, id);
+    assert.equal(design.tier, tier);
+    assert.equal(design.industry, industry);
+    assert.equal(design.startingPriceCad, price);
+    assert.equal(design.pageCount, pages);
+    assert.equal(design.contactMode, contactMode);
+    assert.equal(design.clientProjectId, undefined, "fictional demos are not client work");
+    assert.equal(designHref(design), `/website-collection/${id}`);
+    assert.equal(
+      designScopeLabel(design),
+      `${pages} ${pages === 1 ? "page structure" : "page structures"}`,
+    );
+    assert.ok(publishedDesigns().includes(design));
+    assert.ok(compareSelection([id, "still"]).designs.includes(design));
+    const url = new URL(collectionInquiryHref({ design: id }), "https://example.test");
+    assert.equal(url.pathname, "/contact");
+    const inquiry = collectionInquiry({
+      ...Object.fromEntries(url.searchParams),
+      tier: "forged-tier",
+      industry: "forged-industry",
+      price: "1",
+      contactMode: contactMode === "direct" ? "enquiry-form" : "direct",
+    });
+    for (const message of [inquiry.message, journeyInquiry(design, [], "none").message]) {
+      assert.ok(message.includes(`Design: ${design.name}`));
+      assert.ok(message.includes(`Launch pricing: From $${price} CAD`));
+      assert.ok(message.includes(designContactLabel(design)));
+      assert.ok(
+        message.includes(`Collection: ${collectionTiers.find((item) => item.id === tier).name}`),
+      );
+      assert.ok(
+        message.includes(
+          `Business type: ${collectionIndustries.find((item) => item.id === industry).name}`,
+        ),
+      );
+      assert.ok(!message.includes("forged-") && !message.includes("From $1 CAD"));
+      assert.equal(
+        validateContact({
+          name: "Example Customer",
+          email: "customer@example.com",
+          service: inquiry.service,
+          timeline: "Flexible / planning ahead",
+          message,
+        }).ok,
+        true,
+      );
+    }
+    assert.equal(inquiry.contactMode, contactMode);
+  });
+}
+
+test("Health & Wellness keeps seven distinct offers in numeric order and filters their business types", () => {
+  const category = categoryForIndustry("medical-spa");
+  assert.equal(category.id, "health-wellness");
+  assert.equal(categoryForIndustry("hair-salon"), category);
+  const entries = categoryDesigns(category);
+  const ids = (values) => values.map((item) => item.id);
+  assert.deepEqual(ids(filterDesigns(entries, {})), [
+    "massage-one-page",
+    "hair-one-page",
+    "still",
+    "hair-salon",
+    "artsy-nails",
+    "medical-spa",
+    "mckenzie-house",
+  ]);
+  assert.deepEqual(ids(filterDesigns(entries, { sort: "price-high" })), [
+    "medical-spa",
+    "artsy-nails",
+    "hair-salon",
+    "still",
+    "massage-one-page",
+    "hair-one-page",
+    "mckenzie-house",
+  ]);
+  assert.deepEqual(ids(filterDesigns(entries, { industry: "medical-spa" })), ["medical-spa"]);
+  assert.deepEqual(ids(filterDesigns(entries, { industry: "hair-salon" })), [
+    "hair-one-page",
+    "hair-salon",
+  ]);
+  assert.deepEqual(ids(filterDesigns(entries, { industry: "beauty" })), ["still", "artsy-nails"]);
+  assert.deepEqual(
+    ids(filterDesigns(entries, { industry: "hair-salon", tier: "signature", budget: "under-500" })),
+    ["hair-salon"],
+  );
+  assert.deepEqual(
+    ids(filterDesigns(entries, { industry: "medical-spa", budget: "under-500" })),
+    [],
+  );
+  for (const [id] of wellnessOffers) {
+    for (const other of templateCategories.filter((item) => item.id !== category.id))
+      assert.ok(
+        !categoryDesigns(other).some((item) => item.id === id),
+        `${id}: stays out of ${other.id}`,
+      );
+  }
+});
+
+test("wellness demo screenshots remain isolated and empty media never creates a live action", () => {
+  for (const [id, configName] of wellnessOffers) {
+    const shot = {
+      src: `/images/templates/${id}/home.webp`,
+      alt: `${id} demo home`,
+      caption: "Home page",
+      width: 1440,
+      height: 960,
+    };
+    assert.deepEqual(readTemplateShowcase({ url: null, screenshots: [] }, id), {
+      url: null,
+      screenshots: [],
+    });
+    assert.deepEqual(readTemplateShowcase({ screenshots: [shot] }, id).screenshots, [shot]);
+    for (const [otherId] of wellnessOffers.filter(([other]) => other !== id))
+      assert.deepEqual(readTemplateShowcase({ screenshots: [shot] }, otherId).screenshots, []);
+    for (const invalidSrc of [
+      "/images/projects/mckenzie-house.webp",
+      `/images/templates/${id}/../still/home.webp`,
+      `https://example.test/images/templates/${id}/home.webp`,
+    ])
+      assert.deepEqual(
+        readTemplateShowcase({ screenshots: [{ ...shot, src: invalidSrc }] }, id).screenshots,
+        [],
+      );
+    const config = JSON.parse(fs.readFileSync(`src/data/${configName}-demo.json`, "utf8"));
+    const parsed = readTemplateShowcase(config, id);
+    assert.equal(parsed.url, config.url);
+    assert.equal(parsed.screenshots.length, config.screenshots.length);
+    for (const image of parsed.screenshots)
+      asset(image.src, "(?:webp|png|jpe?g)", `templates/${id}`);
+  }
+});
+
+test("the wellness expansion preserves existing prices, page scopes and McKenzie's original image", () => {
+  for (const [id, price, pages] of [
+    ["massage-one-page", 150, 1],
+    ["still", 399, 3],
+    ["calgary-hot-shot", 399, 1],
+    ["crestline", 399, null],
+    ["horizon", 499, 4],
+    ["lawncare", 499, 4],
+    ["pigment", 499, 4],
+    ["structure", 699, 4],
+    ["tow-n-go", 899, null],
+    ["earthworks", 1000, 7],
+  ]) {
+    const design = websiteDesigns.find((item) => item.id === id);
+    assert.equal(design.startingPriceCad, price, `${id}: price preserved`);
+    assert.equal(design.pageCount, pages, `${id}: page scope preserved`);
+  }
+  const mckenzie = websiteDesigns.find((item) => item.id === "mckenzie-house");
+  assert.equal(mckenzie.startingPriceCad, null);
+  assert.equal(mckenzie.status, "client-example");
+  assert.equal(mckenzie.clientProjectId, "mckenzie-house");
+  assert.equal(mckenzie.clientPreview, "image");
+  assert.equal(mckenzie.preview.src, "/images/projects/mckenzie-house.webp");
+  assert.equal(mckenzie.concept, undefined);
 });
 
 test("unpriced concepts are never treated as free or as a match for a price ceiling", () => {

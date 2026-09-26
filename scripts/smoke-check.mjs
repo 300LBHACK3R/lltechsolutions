@@ -54,6 +54,10 @@ try {
     "/website-collection/horizon",
     "/website-collection/still",
     "/website-collection/massage-one-page",
+    "/website-collection/medical-spa",
+    "/website-collection/artsy-nails",
+    "/website-collection/hair-salon",
+    "/website-collection/hair-one-page",
     "/website-collection/start",
     "/website-collection/compare",
     "/website-collection/brief",
@@ -186,6 +190,10 @@ try {
     ["horizon", "horizon"],
     ["still", "beauty"],
     ["massage-one-page", "massage-one-page"],
+    ["medical-spa", "medical-spa"],
+    ["artsy-nails", "artsy-nail"],
+    ["hair-salon", "hair-salon"],
+    ["hair-one-page", "hair-one-page"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     const media = JSON.parse(
@@ -344,6 +352,10 @@ try {
     "horizon",
     "still",
     "massage-one-page",
+    "medical-spa",
+    "artsy-nails",
+    "hair-salon",
+    "hair-one-page",
   ]) {
     const html = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(html.includes('"@type":"CreativeWork"'), `${id}: design schema`);
@@ -501,7 +513,11 @@ try {
   }
   const templatePrices = [
     ["massage-one-page", "health-wellness", 150],
+    ["hair-one-page", "health-wellness", 150],
     ["still", "health-wellness", 399],
+    ["hair-salon", "health-wellness", 499],
+    ["artsy-nails", "health-wellness", 699],
+    ["medical-spa", "health-wellness", 999],
     ["calgary-hot-shot", "transport-logistics", 399],
     ["horizon", "construction-trades", 499],
     ["lawncare", "construction-trades", 499],
@@ -529,6 +545,78 @@ try {
     const contactHtml = await contact.text();
     assert.ok(contactHtml.includes(`Launch pricing: ${label}`), `${id}: canonical enquiry price`);
     assert.ok(!contactHtml.includes("From $1 CAD"), `${id}: URL cannot change the price`);
+    checks++;
+  }
+  const wellnessGallery = htmlByRoute.get("/website-collection/category/health-wellness");
+  for (const [id, cover, pages, contactMode] of [
+    ["medical-spa", "medical-spa-cover", 6, "enquiry-form"],
+    ["artsy-nails", "artsy-nail-cover", 4, "enquiry-form"],
+    ["hair-salon", "hair-cover", 4, "direct"],
+    ["hair-one-page", "hair-one-cover", 1, "direct"],
+  ]) {
+    const detail = htmlByRoute.get(`/website-collection/${id}`);
+    const name = detail.match(/<h1\b[^>]*>(.*?)<\/h1>/s)?.[1];
+    assert.ok(name, `${id}: visible template name`);
+    assert.ok(detail.includes("Make this my website"), `${id}: direct enquiry action`);
+    assert.ok(
+      detail.includes(`${pages} ${pages === 1 ? "page structure" : "page structures"}`),
+      `${id}: exact page scope`,
+    );
+    const scope =
+      contactMode === "direct" ? "Direct contact included" : "Protected enquiry form included";
+    assert.ok(detail.includes(scope), `${id}: agreed contact scope`);
+    assert.ok(
+      !detail.includes("Live client example"),
+      `${id}: demonstration is not a client project`,
+    );
+    const card = wellnessGallery.match(
+      new RegExp(`<article[^>]*id="design-${id}"[^>]*>[\\s\\S]*?</article>`),
+    )?.[0];
+    assert.ok(card?.includes(cover), `${id}: matching Health & Wellness cover`);
+    assert.ok(
+      !paintingGallery.includes(`id="design-${id}"`) &&
+        !propertyGallery.includes(`id="design-${id}"`),
+      `${id}: no unrelated gallery placement`,
+    );
+    const contactHref = [...detail.matchAll(/href="([^\"]+)"/g)]
+      .map((match) => match[1].replaceAll("&amp;", "&"))
+      .find(
+        (href) =>
+          href.startsWith("/contact?") && new URL(href, origin).searchParams.get("design") === id,
+      );
+    assert.ok(contactHref, `${id}: enquiry keeps the selected design`);
+    const tampered = new URL(contactHref, origin);
+    tampered.searchParams.set("contactMode", contactMode === "direct" ? "enquiry-form" : "direct");
+    tampered.searchParams.set("industry", "forged-industry");
+    const response = await fetch(tampered);
+    assert.equal(response.status, 200);
+    const contact = await response.text();
+    const message = contact.match(/<textarea\b[^>]*name="message"[^>]*>(.*?)<\/textarea>/s)?.[1];
+    assert.ok(
+      message?.includes(`Design: ${name}`),
+      `${id}: chosen name reaches the editable enquiry`,
+    );
+    assert.ok(
+      message.includes(scope) && !message.includes("forged-industry"),
+      `${id}: query cannot change the agreed contact scope or industry`,
+    );
+    checks++;
+  }
+  for (const [industry, expected] of [
+    ["medical-spa", ["medical-spa"]],
+    ["hair-salon", ["hair-one-page", "hair-salon"]],
+    ["beauty", ["still", "artsy-nails"]],
+  ]) {
+    const response = await fetch(
+      `${origin}/website-collection/category/health-wellness?industry=${industry}`,
+    );
+    assert.equal(response.status, 200);
+    const gallery = await response.text();
+    assert.deepEqual(
+      [...gallery.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]),
+      expected,
+      `${industry}: relevant Health & Wellness designs`,
+    );
     checks++;
   }
   for (const category of ["construction-trades", "health-wellness", "transport-logistics"]) {

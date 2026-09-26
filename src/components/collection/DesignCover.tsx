@@ -8,6 +8,10 @@ import HorizonCover from "@/components/collection/HorizonCover";
 import WellnessCover from "@/components/collection/WellnessCover";
 import BeautyCover from "@/components/collection/BeautyCover";
 import MassageOnePageCover from "@/components/collection/MassageOnePageCover";
+import MedicalSpaCover from "@/components/collection/MedicalSpaCover";
+import ArtsyNailCover from "@/components/collection/ArtsyNailCover";
+import HairSalonCover from "@/components/collection/HairSalonCover";
+import HairOnePageCover from "@/components/collection/HairOnePageCover";
 
 /** Decorative miniature; the surrounding card supplies its accessible name and description. */
 export default function DesignCover({ design }: { design: WebsiteDesign }) {
@@ -24,6 +28,10 @@ export default function DesignCover({ design }: { design: WebsiteDesign }) {
     );
   }
   if (!concept) return null;
+  if (concept.theme === "medical-spa") return <MedicalSpaCover design={design} />;
+  if (concept.theme === "artsy-nails") return <ArtsyNailCover design={design} />;
+  if (concept.theme === "hair-salon") return <HairSalonCover design={design} />;
+  if (concept.theme === "hair-one-page") return <HairOnePageCover design={design} />;
   if (concept.theme === "beauty") return <BeautyCover design={design} />;
   if (concept.theme === "massage-one-page") return <MassageOnePageCover design={design} />;
   if (concept.theme === "wellness") return <WellnessCover design={design} />;

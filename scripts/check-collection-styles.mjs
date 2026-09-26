@@ -38,7 +38,15 @@ const routes = new Map([
   ],
   [
     "/website-collection/category/health-wellness",
-    ["template-gallery-heading", "beauty-cover", "massage-one-cover"],
+    [
+      "template-gallery-heading",
+      "beauty-cover",
+      "massage-one-cover",
+      "medical-spa-cover",
+      "artsy-nail-cover",
+      "hair-cover",
+      "hair-one-cover",
+    ],
   ],
   [
     "/website-collection/pigment",
@@ -68,6 +76,22 @@ const routes = new Map([
   [
     "/website-collection/horizon",
     ["template-detail-header", "horizon-cover", "collection-contact-options"],
+  ],
+  [
+    "/website-collection/medical-spa",
+    ["medical-spa-cover", "template-detail-header", "collection-contact-options"],
+  ],
+  [
+    "/website-collection/artsy-nails",
+    ["artsy-nail-cover", "template-detail-header", "collection-contact-options"],
+  ],
+  [
+    "/website-collection/hair-salon",
+    ["hair-cover", "template-detail-header", "collection-contact-options"],
+  ],
+  [
+    "/website-collection/hair-one-page",
+    ["hair-one-cover", "template-detail-header", "collection-contact-options"],
   ],
   ["/website-collection/calgary-hot-shot", ["live-demo-scroll"]],
   ["/website-collection/tow-n-go", ["project-video", "design-detail-scope"]],

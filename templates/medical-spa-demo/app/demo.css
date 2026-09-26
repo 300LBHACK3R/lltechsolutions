@@ -1,0 +1,107 @@
+body {
+  background: #10110f;
+  color: #f4efe6;
+  color-scheme: dark;
+}
+.medical-spa-demo-stage {
+  max-width: 1600px;
+  margin-inline: auto;
+  container-type: inline-size;
+}
+.medical-spa-demo-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 25px;
+  padding: 10px max(24px, calc((100vw - 1500px) / 2));
+  background: #080808;
+  color: #f0d481;
+  font-size: 11px;
+}
+.medical-spa-demo-bar > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+.medical-spa-demo-bar a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.medical-spa-demo-bar a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.medical-spa-demo-bar .motion-control {
+  border: 1px solid #736137;
+  background: transparent;
+  color: #f0d481;
+  min-height: 44px;
+  padding: 10px 14px;
+  font-size: 11px;
+}
+.medical-spa-demo-bar .motion-control:disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+.medical-spa-demo-disclosure {
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 11px;
+  color: #beb7aa;
+}
+.medical-spa-demo-not-found {
+  padding: 70px 24px;
+  background: #10110f;
+}
+.medical-spa-demo-not-found h1 {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: clamp(36px, 6vw, 70px);
+}
+.medical-spa-demo-not-found p {
+  margin-block: 20px;
+}
+.medical-spa-demo-not-found a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  text-decoration: underline;
+}
+html:not([data-motion="running"]) *,
+html:not([data-motion="running"]) *::before,
+html:not([data-motion="running"]) *::after {
+  animation: none !important;
+  transition: none !important;
+}
+@media (max-width: 650px) {
+  .medical-spa-demo-bar {
+    justify-content: center;
+    gap: 0 18px;
+    padding: 8px 18px;
+  }
+  .medical-spa-demo-bar > span {
+    width: 100%;
+    text-align: center;
+  }
+  .medical-spa-demo-bar > div {
+    justify-content: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .medical-spa-demo-bar .motion-control {
+    border-color: ButtonText;
+  }
+}

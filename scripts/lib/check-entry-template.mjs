@@ -69,6 +69,7 @@ function validatePages(pages, demo, design) {
   const enquiry = new URL(collectionInquiryHref({ design: demo.id }), "https://lltechsolutions.ca");
   const headings = new Set();
   const titles = new Set();
+  let enquiryForms = 0;
   for (const [activePath, html] of pages) {
     const visible = visibleMarkup(html);
     assert.equal(
@@ -153,10 +154,42 @@ function validatePages(pages, demo, design) {
         );
       }
     }
-    assert(
-      !/<form\b/.test(visible),
-      `${activePath}: no form endpoint is implied in the direct-contact offer`,
-    );
+    const forms = [...visible.matchAll(/<form\b[^>]*>[\s\S]*?<\/form>/g)];
+    if (demo.contactMode === "direct") {
+      assert.equal(
+        forms.length,
+        0,
+        `${activePath}: no form endpoint is implied in the direct-contact offer`,
+      );
+    } else {
+      for (const [form] of forms) {
+        enquiryForms += 1;
+        assert.match(form, /data-demo-enquiry="local-only"/, `${activePath}: local-only form`);
+        assert(
+          !/<form\b[^>]*\s(?:action|method)=/i.test(form),
+          `${activePath}: no form transmission endpoint`,
+        );
+        assert.match(
+          form,
+          /<fieldset\b[^>]*\sdisabled(?:="")?[\s>]/,
+          `${activePath}: form disabled without JavaScript`,
+        );
+        assert(
+          !/<(?:input|select|textarea)\b[^>]*\sname=/i.test(form),
+          `${activePath}: sample details cannot become submission fields`,
+        );
+        const buttons = [...form.matchAll(/<button\b[^>]*>/g)];
+        assert(buttons.length, `${activePath}: enquiry preview control`);
+        for (const [button] of buttons)
+          assert.match(button, /\stype="button"/, `${activePath}: no submit button`);
+        assert.match(form, /preview/i, `${activePath}: enquiry preview is labelled`);
+        assert.match(
+          form,
+          /not (?:sent|stored|transmitted)|nothing (?:is )?(?:sent|stored)|does not (?:send|submit)/i,
+          `${activePath}: no-transmission disclosure`,
+        );
+      }
+    }
     assert.match(
       visible,
       /sample|demonstration|illustrative/i,
@@ -165,12 +198,35 @@ function validatePages(pages, demo, design) {
   }
   assert.equal(headings.size, demo.routes.length, "Distinct page headings");
   assert.equal(titles.size, demo.routes.length, "Distinct page titles");
+  if (demo.contactMode === "enquiry-form")
+    assert(enquiryForms > 0, "The enquiry-form offer includes a safe local preview");
+}
+
+function pageAssets(pages) {
+  const paths = new Set();
+  for (const [route, html] of pages) {
+    for (const [tag] of html.matchAll(/<(?:link|script|img)\b[^>]*>/g)) {
+      const src = tag.match(/(?:href|src)="(\/[^"?]+)(?:\?[^"\s]*)?"/)?.[1];
+      if (src && !src.startsWith("//")) paths.add(src);
+      if (tag.startsWith("<img")) {
+        assert.match(tag, /\ssrc="\/images\//, `${route}: local imagery`);
+        assert.match(tag, /\salt="[^"]*"/, `${route}: alternative text`);
+      }
+    }
+  }
+  return [...paths];
 }
 
 async function publicRequest(origin, path) {
+  const destination = new URL(path, origin);
+  assert.equal(
+    destination.origin,
+    new URL(origin).origin,
+    "Public checks stay on the approved demo",
+  );
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      const response = await fetch(new URL(path, origin), {
+      const response = await fetch(destination, {
         redirect: "error",
         headers: { "Cache-Control": "no-cache" },
         signal: AbortSignal.timeout(30000),
@@ -211,7 +267,11 @@ export async function checkEntryTemplate(kind) {
     demo.routes.length,
     "The demonstration matches the offered page count",
   );
-  assert.equal(design.contactMode, "direct", "The offer includes direct contact");
+  assert.equal(
+    design.contactMode,
+    demo.contactMode,
+    "The advertised contact scope matches the demo",
+  );
   const output = resolve(root, "build", demo.folder, "out");
   const pages = new Map();
   if (values.url) {
@@ -236,6 +296,42 @@ export async function checkEntryTemplate(kind) {
       pages.set(route, await response.text());
     }
     validatePages(pages, demo, design);
+    const assets = pageAssets(pages);
+    for (let start = 0; start < assets.length; start += 4) {
+      await Promise.all(
+        assets.slice(start, start + 4).map(async (path) => {
+          const response = await publicRequest(approved, path);
+          if (path.startsWith("/images/"))
+            assert.match(
+              response.headers.get("content-type") ?? "",
+              /^image\//,
+              `Public image: ${path}`,
+            );
+          if (path.endsWith(".css"))
+            assert.match(
+              response.headers.get("content-type") ?? "",
+              /^text\/css/,
+              `Public style: ${path}`,
+            );
+          if (path.endsWith(".js"))
+            assert.match(
+              response.headers.get("content-type") ?? "",
+              /(?:javascript|ecmascript)/,
+              `Public script: ${path}`,
+            );
+          assert(
+            (await response.arrayBuffer()).byteLength > 0,
+            `Public asset is not empty: ${path}`,
+          );
+        }),
+      );
+    }
+    for (const asset of demo.assets) {
+      const path = `/images/collection/${asset}`;
+      const published = Buffer.from(await (await publicRequest(approved, path)).arrayBuffer());
+      const expected = await readFile(resolve(root, "public", path.slice(1)));
+      assert(published.equals(expected), `Public image matches the supplied demo asset: ${asset}`);
+    }
     const manifest = await (await publicRequest(approved, "/static-segments.json")).json();
     if (values.manifest) {
       const localManifest = JSON.parse(await readFile(values.manifest, "utf8"));
@@ -250,7 +346,7 @@ export async function checkEntryTemplate(kind) {
       Buffer.from(await (await publicRequest(approved, path)).arrayBuffer()),
     );
     console.log(
-      `PASS: public ${demo.label} demo, ${demo.routes.length} pages, correct price and enquiry destinations, required headers and ${count} page-data hashes. No browser capture or email was performed.`,
+      `PASS: public ${demo.label} demo, ${demo.routes.length} pages, correct price, ${demo.contactMode} preview and enquiry destinations, ${assets.length} assets, required headers and ${count} page-data hashes. No browser capture or email was performed.`,
     );
     return;
   }
@@ -263,16 +359,7 @@ export async function checkEntryTemplate(kind) {
       ),
     );
   validatePages(pages, demo, design);
-  for (const [route, html] of pages) {
-    for (const [tag] of html.matchAll(/<(?:link|script|img)\b[^>]*>/g)) {
-      const src = tag.match(/(?:href|src)="(\/[^"?]+)(?:\?[^"]*)?"/)?.[1];
-      if (src && !src.startsWith("//")) await access(resolve(output, src.slice(1)));
-      if (tag.startsWith("<img")) {
-        assert.match(tag, /\ssrc="\/images\//, `${route}: local imagery`);
-        assert.match(tag, /\salt="[^"]*"/, `${route}: alternative text`);
-      }
-    }
-  }
+  for (const path of pageAssets(pages)) await access(resolve(output, path.slice(1)));
   const manifest = JSON.parse(await readFile(resolve(output, "static-segments.json"), "utf8"));
   const count = await validateSegments(manifest, demo, (path) =>
     readFile(resolve(output, path.slice(1))),

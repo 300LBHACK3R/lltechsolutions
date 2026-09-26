@@ -1,0 +1,110 @@
+body {
+  background: #f5f1e8;
+  color: #1c1c1b;
+  color-scheme: light;
+}
+.artsy-nail-demo-stage {
+  max-width: 1600px;
+  margin-inline: auto;
+  container-type: inline-size;
+}
+.artsy-nail-demo-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 25px;
+  padding: 10px max(24px, calc((100vw - 1500px) / 2));
+  background: #080808;
+  color: #f0d481;
+  font-size: 11px;
+}
+.artsy-nail-demo-bar > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+.artsy-nail-demo-bar a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.artsy-nail-demo-bar a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.artsy-nail-demo-bar .motion-control {
+  border: 1px solid #736137;
+  background: transparent;
+  color: #f0d481;
+  min-height: 44px;
+  padding: 10px 14px;
+  font-size: 11px;
+}
+.artsy-nail-demo-bar .motion-control:disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+.artsy-nail-demo-disclosure {
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 11px;
+  color: #625f57;
+}
+.artsy-nail-demo-not-found {
+  padding: 70px 24px;
+  background: #f5f1e8;
+}
+.artsy-nail-demo-not-found h1 {
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: clamp(36px, 6vw, 70px);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+.artsy-nail-demo-not-found p {
+  margin-block: 20px;
+}
+.artsy-nail-demo-not-found a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  text-decoration: underline;
+}
+html:not([data-motion="running"]) *,
+html:not([data-motion="running"]) *::before,
+html:not([data-motion="running"]) *::after {
+  animation: none !important;
+  transition: none !important;
+}
+@media (max-width: 650px) {
+  .artsy-nail-demo-bar {
+    justify-content: center;
+    gap: 0 18px;
+    padding: 8px 18px;
+  }
+  .artsy-nail-demo-bar > span {
+    width: 100%;
+    text-align: center;
+  }
+  .artsy-nail-demo-bar > div {
+    justify-content: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .artsy-nail-demo-bar .motion-control {
+    border-color: ButtonText;
+  }
+}

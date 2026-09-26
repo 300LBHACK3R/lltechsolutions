@@ -22,6 +22,10 @@ export function readTemplateShowcase(
     | "horizon"
     | "wellness"
     | "still"
+    | "medical-spa"
+    | "artsy-nails"
+    | "hair-salon"
+    | "hair-one-page"
     | "massage-one-page" = "pigment",
 ): TemplateShowcase {
   if (!value || typeof value !== "object") return { url: null, screenshots: [] };

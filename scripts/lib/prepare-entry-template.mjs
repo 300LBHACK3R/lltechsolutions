@@ -17,6 +17,9 @@ export async function prepareEntryTemplate(kind) {
     "scripts/lib/entry-template-config.mjs",
     "scripts/lib/static-export-segments.mjs",
     ...demo.components.map((name) => `src/components/collection/${name}.tsx`),
+    ...(demo.contactMode === "enquiry-form"
+      ? ["src/components/collection/DemoEnquiryForm.tsx"]
+      : []),
     ...demo.data.map((name) => `src/data/${name}.ts`),
     "src/data/website-collection.ts",
     "src/components/ui/MotionControl.tsx",

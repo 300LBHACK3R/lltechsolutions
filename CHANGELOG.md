@@ -1,5 +1,13 @@
 # Changelog
 
+## Prepared update — Health & Wellness expansion
+
+- Add four distinct published template offers and completed dedicated demo source: Luxury Medical Spa (`medical-spa`), $999 CAD/six pages; Creative Nail Studio (`artsy-nails`), $699 CAD/four pages; Professional Hair Salon (`hair-salon`), $499 CAD/four pages; and One-page Hairdresser Website (`hair-one-page`), $150 CAD/one page.
+- Add Medical Spa and Hair Salon industry filters within Health & Wellness. Provide matching covers, isolated screenshot configuration, static demo exports and separate deployment targets. Public View live demo actions remain absent until actual production URLs are verified.
+- Keep fictional and illustrative business content labelled. The medical-spa and nail demo forms validate locally without sending email; standard Resend/domain setup and an initial delivery check are included in their real customer launch scope. Hair offers include direct contact or external booking, with form upgrades and ongoing care separately quoted.
+- Extend catalogue, enquiry, price/order, scope, metadata, media-isolation and delivered-CSS checks. Preserve every existing price, stable URL and client asset, including McKenzie's separately quoted image-led reference. Main navigation and the compact homepage remain unchanged.
+- This prepared entry does not claim browser/device testing, actual email delivery, a remote push or a production deployment. Earlier entries below record their named historical scope.
+
 ## Prepared update — Beauty and one-page massage templates
 
 - Replace the former generic Massage Practice at the stable `still` URL with Nail & Esthetics Studio: a $399 CAD three-page offer with Home, Services and Contact. Use the dedicated beauty design and matching cover.
