@@ -205,6 +205,7 @@ test("collection validates design status, scope and local preview assets", () =>
           "hair-salon",
           "hair-one-page",
           "professional",
+          "home-property",
         ].includes(design.concept.theme),
       );
       assert.equal(design.concept.brands.length, 2);

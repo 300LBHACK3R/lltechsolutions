@@ -64,6 +64,12 @@ try {
     "/website-collection/creative-consultancy",
     "/website-collection/boutique-law",
     "/website-collection/corporate-law",
+    "/website-collection/home-cleaning",
+    "/website-collection/window-care",
+    "/website-collection/home-organizing",
+    "/website-collection/interior-studio",
+    "/website-collection/property-management",
+    "/website-collection/real-estate",
 
     "/website-collection/start",
     "/website-collection/compare",
@@ -524,6 +530,12 @@ try {
     }
   }
   const templatePrices = [
+    ["home-cleaning", "home-property", 150],
+    ["window-care", "home-property", 399],
+    ["home-organizing", "home-property", 499],
+    ["interior-studio", "home-property", 699],
+    ["property-management", "home-property", 699],
+    ["real-estate", "home-property", 999],
     ["consultant-one-page", "legal-professional", 150],
     ["bookkeeping", "legal-professional", 399],
     ["accounting", "legal-professional", 499],
@@ -564,6 +576,31 @@ try {
     const contactHtml = await contact.text();
     assert.ok(contactHtml.includes(`Launch pricing: ${label}`), `${id}: canonical enquiry price`);
     assert.ok(!contactHtml.includes("From $1 CAD"), `${id}: URL cannot change the price`);
+    checks++;
+  }
+  assert.equal(
+    (propertyGallery.match(/data-home-property-cover=/g) ?? []).length,
+    6,
+    "six distinct Home & Property covers",
+  );
+  for (const [industry, id] of [
+    ["cleaning", "home-cleaning"],
+    ["window-cleaning", "window-care"],
+    ["home-organizing", "home-organizing"],
+    ["interior-design", "interior-studio"],
+    ["property-management", "property-management"],
+    ["real-estate", "real-estate"],
+  ]) {
+    const response = await fetch(
+      `${origin}/website-collection/category/home-property?industry=${industry}`,
+    );
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.deepEqual(
+      [...html.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]),
+      [id],
+      `${industry}: correct property offer`,
+    );
     checks++;
   }
   const legalGallery = htmlByRoute.get("/website-collection/category/legal-professional");

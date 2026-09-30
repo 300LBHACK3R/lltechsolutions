@@ -1,3 +1,4 @@
+import HomePropertyCover from "@/components/collection/HomePropertyCover";
 import ProfessionalCover from "@/components/collection/ProfessionalCover";
 import Image from "next/image";
 import LawnCover from "@/components/collection/LawnCover";
@@ -29,6 +30,7 @@ export default function DesignCover({ design }: { design: WebsiteDesign }) {
     );
   }
   if (!concept) return null;
+  if (concept.theme === "home-property") return <HomePropertyCover design={design} />;
   if (concept.theme === "professional") return <ProfessionalCover design={design} />;
   if (concept.theme === "medical-spa") return <MedicalSpaCover design={design} />;
   if (concept.theme === "artsy-nails") return <ArtsyNailCover design={design} />;

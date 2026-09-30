@@ -22,6 +22,7 @@ import "@/styles/artsy-nail.css";
 import "@/styles/hair-salon.css";
 import "@/styles/hair-one-page.css";
 import "@/styles/professional-templates.css";
+import "@/styles/home-property.css";
 import "@/styles/contact-options.css";
 import "@/styles/template-showcase.css";
 import "@/styles/template-details.css";

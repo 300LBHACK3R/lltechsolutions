@@ -72,7 +72,12 @@ export const collectionIndustries = [
   { id: "legal", name: "Legal Services" },
   { id: "bookkeeping", name: "Bookkeeping" },
   { id: "accounting", name: "Accounting & Advisory" },
-  { id: "cleaning", name: "Cleaning" },
+  { id: "cleaning", name: "Home Cleaning" },
+  { id: "window-cleaning", name: "Window Cleaning" },
+  { id: "home-organizing", name: "Home Organization" },
+  { id: "interior-design", name: "Interior Design" },
+  { id: "property-management", name: "Property Management" },
+  { id: "real-estate", name: "Real Estate" },
   { id: "automotive", name: "Automotive & Detailing" },
   { id: "retail", name: "Retail & Shops" },
   { id: "transport-logistics", name: "Transport & Logistics" },
@@ -120,8 +125,17 @@ export const templateCategories: readonly TemplateCategory[] = [
   {
     id: "home-property",
     name: "Home & Property",
-    description: "Landscaping, cleaning and property care businesses.",
-    industries: ["landscaping", "cleaning"],
+    description:
+      "Cleaning, organizing, interior design, property management, real estate and outdoor care.",
+    industries: [
+      "landscaping",
+      "cleaning",
+      "window-cleaning",
+      "home-organizing",
+      "interior-design",
+      "property-management",
+      "real-estate",
+    ],
     image: "/images/template-categories/home-property.webp",
   },
   {
@@ -236,7 +250,8 @@ export type WebsiteDesign = {
       | "artsy-nails"
       | "hair-salon"
       | "hair-one-page"
-      | "professional";
+      | "professional"
+      | "home-property";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -309,6 +324,282 @@ export const developerIntroduction: CollectionVideo | null = null;
 // Starting prices cover a new personalization and launch within the agreed scope.
 // Client examples demonstrate an approach; their identities and client-specific assets are not for resale.
 /** Fictional demo content and offer scope; the only source for the professional range. */
+/** Fictional Home & Property demos; content, price and launch scope share this source. */
+export const homePropertyTemplates = [
+  {
+    id: "home-cleaning",
+    name: "One-page Home Cleaning",
+    brand: "GOOD DAY",
+    subbrand: "HOME CLEANING",
+    price: 150,
+    tier: "essential",
+    industry: "cleaning",
+    pages: ["Home"],
+    theme: "sunny",
+    headline: "A clean home.",
+    emphasis: "A good day.",
+    intro:
+      "Less time on the housework. More time for the good stuff. A friendly clean, built around your home and your routine.",
+    about:
+      "A small cleaning team with a simple approach: listen to what matters, agree the details and leave the space ready for everyday life.",
+    imageAlt: "Illustrative sunlit yellow kitchen with lemons and cleaning supplies",
+    form: false,
+    description:
+      "A cheerful one-page cleaning website with butter yellow, cobalt type, a scalloped photo frame and a simple direct-contact journey.",
+    services: [
+      {
+        name: "The regular reset",
+        description: "For the everyday rhythm.",
+        detail:
+          "A recurring clean with an agreed checklist for kitchens, bathrooms and living areas.",
+      },
+      {
+        name: "The deeper clean",
+        description: "A little extra attention.",
+        detail:
+          "More time for the corners and surfaces that need it. We confirm priorities and access before booking.",
+      },
+      {
+        name: "The moving clean",
+        description: "A fresh start, on either side.",
+        detail:
+          "An agreed move-in or move-out clean for an empty space. Final scope depends on the property.",
+      },
+    ],
+    cta: "Let’s talk cleaning",
+    note: "A clear list, a thoughtful clean, a little more breathing room.",
+    image: "/images/collection/property-home-cleaning.webp",
+  },
+  {
+    id: "window-care",
+    name: "Window Cleaning",
+    brand: "CLEARLINE",
+    subbrand: "WINDOW & GLASS CARE",
+    price: 399,
+    tier: "signature",
+    industry: "window-cleaning",
+    pages: ["Home", "Services", "Contact"],
+    theme: "glass",
+    headline: "Let the light",
+    emphasis: "back in.",
+    intro:
+      "Windows, frames and the details around them. Clear, careful service for homes and street-facing spaces.",
+    about:
+      "We keep the job straightforward: understand the glass, plan safe access and agree what is included before work begins.",
+    imageAlt: "Illustrative modern home with blue glass windows and a sunlit patio",
+    form: false,
+    description:
+      "An aqua-and-white window care site with a glass-inspired split layout, a playful squeegee reveal and three focused pages.",
+    services: [
+      {
+        name: "Residential windows",
+        description: "A clearer view from home.",
+        detail:
+          "Interior and exterior glass cleaning where access is suitable, with frames and sills scoped before booking.",
+      },
+      {
+        name: "Storefront glass",
+        description: "Keep the front of house clear.",
+        detail:
+          "One-time and recurring visits for accessible retail glass, scheduled around your business.",
+      },
+      {
+        name: "Screens & details",
+        description: "The finishing touches.",
+        detail:
+          "Screen cleaning and selected frame detailing can be added after we assess condition and access.",
+      },
+    ],
+    cta: "Discuss your windows",
+    note: "Inside. Outside. The details in between.",
+    image: "/images/collection/property-window-care.webp",
+  },
+  {
+    id: "home-organizing",
+    name: "Home Organization",
+    brand: "ROOM TO BREATHE",
+    subbrand: "HOME ORGANIZING",
+    price: 499,
+    tier: "signature",
+    industry: "home-organizing",
+    pages: ["Home", "Spaces", "Our approach", "Contact"],
+    theme: "linen",
+    headline: "Make room",
+    emphasis: "for real life.",
+    intro:
+      "Thoughtful organizing for the spaces you use every day. Less searching, more living, and a home that makes sense to you.",
+    about:
+      "Your home is not a showroom. We work with your habits, your belongings and your pace to create systems that feel natural to keep using.",
+    imageAlt: "Illustrative warm oak entryway with baskets, shoes and a green bench cushion",
+    form: false,
+    description:
+      "A warm peach-and-olive editorial layout with layered image notes, a room selector and practical organizing stories across four pages.",
+    services: [
+      {
+        name: "Entryways",
+        description: "A softer landing.",
+        detail:
+          "Give keys, bags, shoes and everyday essentials a practical home right where you need them.",
+      },
+      {
+        name: "Kitchens",
+        description: "Find your everyday rhythm.",
+        detail:
+          "Group what you use, simplify the layout and make space for cooking, packing and gathering.",
+      },
+      {
+        name: "Wardrobes",
+        description: "An easier start.",
+        detail:
+          "Sort by your routine, make the most of existing storage and agree a system you can maintain.",
+      },
+    ],
+    cta: "Start with one space",
+    note: "Small shifts. More breathing room.",
+    image: "/images/collection/property-home-organizing.webp",
+  },
+  {
+    id: "interior-studio",
+    name: "Interior Design Studio",
+    brand: "FORME",
+    subbrand: "INTERIORS & SPACES",
+    price: 699,
+    tier: "premier",
+    industry: "interior-design",
+    pages: ["Home", "Projects", "Services", "Studio", "Contact"],
+    theme: "clay",
+    headline: "Rooms with",
+    emphasis: "a point of view.",
+    intro:
+      "Warm materials. Considered proportions. Interiors that feel personal, useful and quietly expressive.",
+    about:
+      "We work from the way you live: the light, the daily rituals and the pieces you want to keep. Every material and layout decision has a reason.",
+    imageAlt:
+      "Illustrative sculptural living room with a rust sofa, travertine table and plaster arch",
+    form: true,
+    description:
+      "A terracotta-and-cream design journal with an oversized wordmark, art-directed project spreads, a material palette interaction and a full enquiry page.",
+    services: [
+      {
+        name: "Design direction",
+        description: "Find the thread.",
+        detail:
+          "A focused brief, visual direction and material palette to guide the next decisions.",
+      },
+      {
+        name: "Room planning",
+        description: "Make the space work.",
+        detail:
+          "Furniture layouts, proportions and practical recommendations developed around your room and your routines.",
+      },
+      {
+        name: "Finishing layers",
+        description: "Bring it together.",
+        detail:
+          "A considered selection of colour, lighting, textiles and objects. Sourcing and implementation are agreed separately.",
+      },
+    ],
+    cta: "Tell us about your space",
+    note: "Material matters. So does the everyday.",
+    image: "/images/collection/property-interior-studio.webp",
+  },
+  {
+    id: "property-management",
+    name: "Property Management",
+    brand: "COMMON GROUND",
+    subbrand: "RESIDENTIAL PROPERTY CARE",
+    price: 699,
+    tier: "premier",
+    industry: "property-management",
+    pages: ["Home", "Owners", "Residents", "Properties", "Contact"],
+    theme: "teal",
+    headline: "Good places.",
+    emphasis: "Well looked after.",
+    intro:
+      "Clear communication for owners. A useful point of contact for residents. Thoughtful care for the places people call home.",
+    about:
+      "A property needs more than a list of tasks. We connect the everyday details, the people and the longer-term plan, with responsibilities agreed from the start.",
+    imageAlt: "Illustrative landscaped apartment courtyard with brick buildings and benches",
+    form: true,
+    description:
+      "A teal-and-citrus property site with a structured dashboard-inspired layout, owner/resident pathways, a filterable sample property collection and a complete contact page.",
+    services: [
+      {
+        name: "Owner support",
+        description: "A clear view of the property.",
+        detail:
+          "Agree the service scope, reporting rhythm and responsibilities before bringing a property into care.",
+      },
+      {
+        name: "Resident communication",
+        description: "An easier next step.",
+        detail:
+          "Make routine questions and maintenance contacts easy to find, with clear guidance on who to reach.",
+      },
+      {
+        name: "Property coordination",
+        description: "Keep the details moving.",
+        detail:
+          "Coordinate agreed inspections, routine work and service partners within an approved management scope.",
+      },
+    ],
+    cta: "Find your next step",
+    note: "Care for the place. Respect for the people.",
+    image: "/images/collection/property-property-management.webp",
+  },
+  {
+    id: "real-estate",
+    name: "Boutique Real Estate",
+    brand: "ADDRESS",
+    subbrand: "HOMES WITH CHARACTER",
+    price: 999,
+    tier: "flagship",
+    industry: "real-estate",
+    pages: ["Home", "Homes", "Neighbourhoods", "Services", "About", "FAQs", "Contact"],
+    theme: "estate",
+    headline: "Some places",
+    emphasis: "just feel different.",
+    intro:
+      "Explore the space, the setting and the way you want to live. A considered approach to your next move.",
+    about:
+      "A home search is personal. We begin with how you want to live, then help you understand the options and prepare for the next conversation.",
+    imageAlt: "Illustrative contemporary cedar and stone house at dusk with a mountain backdrop",
+    form: true,
+    description:
+      "A cinematic plum-and-ivory real estate experience with a full-bleed photographic hero, searchable sample homes, expandable property details and seven complete pages.",
+    services: [
+      {
+        name: "Buying",
+        description: "Start with how you live.",
+        detail:
+          "Discuss location, space and priorities, then build a considered search brief with your representative.",
+      },
+      {
+        name: "Selling",
+        description: "Tell the property’s story.",
+        detail:
+          "Plan the presentation, content and marketing approach around the property and the agreed scope.",
+      },
+      {
+        name: "Your next chapter",
+        description: "Connect the decisions.",
+        detail: "Bring your timing and questions together before deciding what to do next.",
+      },
+    ],
+    cta: "Explore the homes",
+    note: "A different view of home.",
+    image: "/images/collection/property-real-estate.webp",
+  },
+] as const;
+export type HomePropertyTemplate = (typeof homePropertyTemplates)[number];
+export type HomePropertyTemplateId = HomePropertyTemplate["id"];
+export function homePropertyTemplate(id: string) {
+  return homePropertyTemplates.find((template) => template.id === id);
+}
+export function homePropertyPagePath(page: string) {
+  return page === "Home" ? "/" : `/${page.toLowerCase().replaceAll(" ", "-")}`;
+}
+
 export const professionalTemplates = [
   {
     id: "consultant-one-page",
@@ -1449,6 +1740,54 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     ],
     concept: {
       theme: "professional",
+      brands: [template.brand, template.brand],
+      headlines: [`${template.headline} ${template.emphasis}`, template.headline],
+      subcopy: template.intro,
+      kicker: template.subbrand,
+      action: "Start a conversation",
+      photo: { src: template.image, alt: template.imageAlt, width: 1536, height: 1024 },
+      services: template.services,
+      approach: template.about,
+    },
+  })),
+  ...homePropertyTemplates.map((template): WebsiteDesign => ({
+    id: template.id,
+    status: "concept",
+    name: template.name,
+    tier: template.tier,
+    industry: template.industry,
+    description: template.description,
+    startingPriceCad: template.price,
+    pageCount: template.pages.length,
+    contactMode: template.form ? "enquiry-form" : "direct",
+    deliveryWindow: "Timing agreed after your content and scope are confirmed.",
+    demoUrl: `/website-collection/${template.id}#preview`,
+    included: [
+      template.pages.length === 1
+        ? "One page: introduction, up to three services, about and direct-contact sections"
+        : `${template.pages.length} pages: ${template.pages.join(", ")}`,
+      "Your supplied logo, colours, business information and images implemented in the code",
+      "Responsive layout, keyboard navigation and reduced-motion support",
+      "Page titles, descriptions, social metadata and launch security configuration",
+      ...(template.form
+        ? [
+            "Standard enquiry form setup: one inbox, Resend, sending-domain configuration, spam controls and an initial delivery test",
+          ]
+        : ["Direct phone and email contact; an existing external scheduling link can be added"]),
+      "Personalization and launch within this template’s agreed scope",
+    ],
+    customization: [
+      "Additional pages, custom functionality and third-party integrations quoted separately",
+      "Original copywriting, photography, videography and ongoing care scoped separately",
+      "Your business supplies and approves its service claims, credentials and usage rights for all content",
+      ...(template.id === "property-management" || template.id === "real-estate"
+        ? [
+            "Static property content within the agreed initial scope; live listing feeds, MLS/IDX, resident portals, applications, payments and custom workflows are separate projects",
+          ]
+        : []),
+    ],
+    concept: {
+      theme: "home-property",
       brands: [template.brand, template.brand],
       headlines: [`${template.headline} ${template.emphasis}`, template.headline],
       subcopy: template.intro,

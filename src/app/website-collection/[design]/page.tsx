@@ -1,3 +1,9 @@
+import homeCleaningDemo from "@/data/home-cleaning-demo.json";
+import windowCareDemo from "@/data/window-care-demo.json";
+import homeOrganizingDemo from "@/data/home-organizing-demo.json";
+import interiorStudioDemo from "@/data/interior-studio-demo.json";
+import propertyManagementDemo from "@/data/property-management-demo.json";
+import realEstateDemo from "@/data/real-estate-demo.json";
 import averyDemo from "@/data/consultant-one-page-demo.json";
 import tallyDemo from "@/data/bookkeeping-demo.json";
 import northlineDemo from "@/data/accounting-demo.json";
@@ -31,6 +37,8 @@ import { projects, projectPath } from "@/data/projects";
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl, liveDemoLabel } from "@/config/site";
 import {
+  homePropertyTemplate,
+  type HomePropertyTemplateId,
   professionalTemplate,
   type ProfessionalTemplateId,
   availableDesigns,
@@ -48,6 +56,15 @@ import {
   designContactLabel,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
+
+const homePropertyShowcases = {
+  "home-cleaning": homeCleaningDemo,
+  "window-care": windowCareDemo,
+  "home-organizing": homeOrganizingDemo,
+  "interior-studio": interiorStudioDemo,
+  "property-management": propertyManagementDemo,
+  "real-estate": realEstateDemo,
+};
 
 const professionalShowcases = {
   "consultant-one-page": averyDemo,
@@ -76,8 +93,12 @@ export default async function DesignPage({ params }: Props) {
   const { design: id } = await params;
   const design = availableDesigns().find((item) => item.id === id);
   if (!design) notFound();
-  const media =
-    design.id === "pigment"
+  const media = homePropertyTemplate(design.id)
+    ? readTemplateShowcase(
+        homePropertyShowcases[design.id as HomePropertyTemplateId],
+        design.id as HomePropertyTemplateId,
+      )
+    : design.id === "pigment"
       ? readTemplateShowcase(paintingDemo)
       : design.id === "structure"
         ? readTemplateShowcase(plumbingDemo, "structure")
