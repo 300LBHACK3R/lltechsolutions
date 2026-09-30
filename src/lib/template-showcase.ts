@@ -1,4 +1,5 @@
 import type {
+  FoodTemplateId,
   HomePropertyTemplateId,
   ProfessionalTemplateId,
   TransportTemplateId,
@@ -20,6 +21,7 @@ export type TemplateShowcase = {
 export function readTemplateShowcase(
   value: unknown,
   designId:
+    | FoodTemplateId
     | HomePropertyTemplateId
     | ProfessionalTemplateId
     | TransportTemplateId

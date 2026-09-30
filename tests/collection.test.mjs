@@ -207,6 +207,7 @@ test("collection validates design status, scope and local preview assets", () =>
           "professional",
           "home-property",
           "transport",
+          "food",
         ].includes(design.concept.theme),
       );
       assert.equal(design.concept.brands.length, 2);

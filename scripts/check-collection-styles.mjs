@@ -7,6 +7,10 @@ import { pathToFileURL } from "node:url";
 // Check delivered CSS, including one dependency from each collection stylesheet.
 const routes = new Map([
   [
+    "/website-collection/category/food-restaurants",
+    ["food-cover", "food-cover-stage", "food-cover-headline"],
+  ],
+  [
     "/website-collection/category/transport-logistics",
     ["tl-cover", "tl-cover-body", "tl-cover-headline"],
   ],

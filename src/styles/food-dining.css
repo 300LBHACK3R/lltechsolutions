@@ -1,0 +1,1580 @@
+/* Vesper — an immersive restaurant journal in espresso, oxblood and bronze. */
+.food-site.vd-site {
+  --food-bg: #211715;
+  --food-ink: #f3e8d5;
+  --food-muted: #c1b19d;
+  --food-accent: #d5b688;
+  --food-on-accent: #261a16;
+  --food-line: #655046;
+  --food-panel: #30221e;
+  --food-focus: #f0cda0;
+  color-scheme: dark;
+}
+.vd-site :is(h1, h2, h3),
+.vd-site .food-brand,
+.vd-site .food-footer-brand {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+.vd-site :is(h1, h2) em {
+  font-weight: 400;
+  color: #d5b688;
+}
+.vd-site .food-header {
+  padding-block: 23px;
+  border-bottom: 1px solid #5d463a;
+  background: #211715;
+  --food-focus: #f0cda0;
+}
+.vd-site .food-brand {
+  font-size: 31px;
+  letter-spacing: 0.12em;
+}
+.vd-site .food-brand-symbol,
+.vd-site .food-brand small {
+  display: none;
+}
+.vd-site .food-nav {
+  gap: 4px 24px;
+}
+.vd-site .food-nav a {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.vd-site .food-page-intro {
+  padding-block: 90px 70px;
+}
+.vd-site .food-page-intro .food-kicker {
+  font-weight: 400;
+  color: #d5b688;
+  font-size: 10px;
+}
+.vd-site .food-page-intro h1 {
+  max-width: 15ch;
+  font-size: clamp(55px, 7.5vw, 115px);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  margin-top: 34px;
+}
+.vd-site .food-page-intro > p:last-child {
+  font-size: 15px;
+  line-height: 1.95;
+  max-width: 52ch;
+  margin-top: 32px;
+}
+.vd-wrap {
+  width: 86%;
+  max-width: 1460px;
+  margin-inline: auto;
+}
+.vd-section {
+  padding-block: clamp(65px, 8vw, 130px);
+}
+.vd-eyebrow {
+  font-size: 9px;
+  line-height: 1.8;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #d5b688;
+}
+.vd-site .vd-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  min-height: 47px;
+  padding-block: 10px;
+  border-bottom: 1px solid #a88b66;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #edddc4;
+}
+.vd-link > span {
+  font-size: 21px;
+  font-weight: 300;
+  transition: transform 0.25s ease;
+}
+.vd-link:hover > span {
+  transform: translate(3px, -3px);
+}
+.vd-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 760px;
+  height: calc(100svh - 90px);
+  max-height: 1080px;
+  background: #211715;
+  color: #fff5e4;
+  overflow: hidden;
+  --food-focus: #fff5e4;
+}
+.vd-hero-image {
+  object-fit: cover;
+  object-position: center;
+  z-index: -2;
+  animation: vd-arrive 2.2s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+.vd-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, #130d0a65 0%, #1c0f0e4f 20%, #150d0b6b 75%, #150d0bbf 100%);
+}
+.vd-hero::before,
+.vd-hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #f5dfbc42;
+  left: 5%;
+}
+.vd-hero::after {
+  left: auto;
+  right: 5%;
+}
+.vd-hero-topline {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 32px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px #000;
+}
+.vd-hero-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  min-height: 760px;
+  padding: 100px 8% 140px;
+}
+.vd-hero-content > .vd-eyebrow {
+  color: #fff5e4;
+  letter-spacing: 0.24em;
+  font-size: 10px;
+  text-shadow: 0 1px 7px #000;
+  animation: vd-rise 1s 0.15s both;
+}
+.vd-hero h1 {
+  font-size: clamp(80px, 9.1vw, 165px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  margin-block: 30px 48px;
+  text-shadow: 0 2px 22px #140b06b5;
+  max-width: 14ch;
+}
+.vd-hero h1 > span,
+.vd-hero h1 > em {
+  display: block;
+  animation: vd-rise 1.1s 0.25s both;
+}
+.vd-hero h1 > em {
+  color: #f3dbba;
+  animation-delay: 0.4s;
+}
+.vd-site .vd-hero-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  min-height: 50px;
+  border-block: 1px solid #e6d4b98a;
+  color: #fff5e4;
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  padding: 12px 8px;
+  animation: vd-rise 1s 0.6s both;
+  text-shadow: 0 1px 5px #000;
+}
+.vd-hero-link > span {
+  font-size: 21px;
+  transition: transform 0.25s ease;
+}
+.vd-hero-link:hover > span {
+  transform: translate(3px, -3px);
+}
+.vd-hero-bottom {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 28px;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px #000;
+}
+.vd-hero-bottom a {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  min-height: 44px;
+}
+.vd-hero-bottom a > span {
+  font-size: 22px;
+}
+.vd-opening {
+  display: grid;
+  grid-template-columns: 0.45fr 1.25fr 0.85fr;
+  gap: 5%;
+  padding-block: 115px;
+  align-items: start;
+}
+.vd-opening > .vd-eyebrow {
+  padding-top: 10px;
+}
+.vd-opening h2 {
+  font-size: clamp(39px, 4.25vw, 67px);
+  line-height: 1.15;
+}
+.vd-opening > div > p {
+  font-size: 13px;
+  line-height: 2;
+  color: #cdbda6;
+  max-width: 35ch;
+  margin-bottom: 21px;
+}
+.vd-home-menu {
+  background: #381d20;
+  border-block: 1px solid #664146;
+  padding-block: 95px 105px;
+  --food-focus: #f8d9aa;
+}
+.vd-section-intro {
+  display: grid;
+  grid-template-columns: 0.45fr 1.25fr 0.85fr;
+  gap: 5%;
+  align-items: end;
+  margin-bottom: 50px;
+}
+.vd-section-intro > .vd-eyebrow {
+  align-self: start;
+  padding-top: 10px;
+}
+.vd-section-intro h2 {
+  font-size: clamp(44px, 5.3vw, 80px);
+  line-height: 1.05;
+}
+.vd-section-intro > p:last-child {
+  font-size: 13px;
+  color: #d4bcb3;
+  line-height: 1.9;
+  max-width: 35ch;
+}
+.vd-tasting-toolbar {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 30px;
+}
+.vd-menu-switch {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.vd-menu-switch legend {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: #d7c2b6;
+  margin-bottom: 13px;
+}
+.vd-menu-switch button {
+  border: 1px solid #926963;
+  min-height: 47px;
+  background: transparent;
+  color: #f3e5d5;
+  padding: 12px 20px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+.vd-menu-switch button[aria-pressed="true"] {
+  background: #e4c5a0;
+  color: #331b1e;
+  border-color: #e4c5a0;
+}
+.vd-tasting-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+.vd-tasting-price strong {
+  font:
+    30px/1.2 var(--font-editorial),
+    Georgia,
+    serif;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+.vd-tasting-price > span {
+  display: block;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: #d7c2b6;
+  margin-top: 6px;
+}
+.vd-course-theatre {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-block: 1px solid #795252;
+  background: #2d181b;
+}
+.vd-course-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-right: 1px solid #795252;
+}
+.vd-course-list li {
+  border-bottom: 1px solid #684649;
+}
+.vd-course-list li:last-child {
+  border-bottom: 0;
+}
+.vd-course-list button {
+  display: grid;
+  grid-template-columns: 34px 1fr 20px;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  min-height: 101px;
+  padding: 21px 26px;
+  text-align: left;
+  background: transparent;
+  color: #f0e0ce;
+  border: 0;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+.vd-course-list button:hover {
+  background: #48272b;
+}
+.vd-course-list button[aria-pressed="true"] {
+  background: #593036;
+}
+.vd-course-number {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: 22px;
+  color: #d7b48e;
+}
+.vd-course-list .vd-eyebrow {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  margin-bottom: 6px;
+}
+.vd-course-list strong {
+  display: block;
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.vd-course-list button > span:last-child {
+  font-size: 21px;
+  color: #d7b48e;
+  transition: transform 0.25s ease;
+}
+.vd-course-list button[aria-pressed="true"] > span:last-child {
+  transform: rotate(45deg);
+}
+.vd-course-spotlight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 90% 20%, #5b3431, #2d181b 78%);
+  padding: 50px clamp(25px, 5vw, 75px);
+  min-height: 506px;
+}
+.vd-course-reveal {
+  position: relative;
+  isolation: isolate;
+  animation: vd-course-reveal 0.45s ease both;
+}
+.vd-course-watermark {
+  position: absolute;
+  right: -0.03em;
+  top: -0.42em;
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: clamp(180px, 23vw, 320px);
+  line-height: 1;
+  color: #e4c5a00e;
+  z-index: -1;
+  letter-spacing: -0.09em;
+  pointer-events: none;
+}
+.vd-course-spotlight h3 {
+  font-size: clamp(39px, 4.5vw, 68px);
+  line-height: 1.06;
+  margin-top: 27px;
+  max-width: 10ch;
+}
+.vd-course-rule {
+  width: 44px;
+  height: 1px;
+  background: #be926f;
+  margin-block: 31px 25px;
+}
+.vd-course-spotlight .vd-course-reveal > p:not(.vd-eyebrow) {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #ddc6b9;
+  max-width: 34ch;
+}
+.vd-course-caption {
+  display: block;
+  font-family: var(--font-editorial), Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  color: #d6b28d;
+  margin-top: 35px;
+}
+.vd-menu-disclaimer {
+  font-size: 10px;
+  line-height: 1.9;
+  max-width: 105ch !important;
+  color: #d5beb0;
+  margin-top: 23px !important;
+}
+.vd-home-menu .vd-tasting + .vd-link {
+  margin-top: 20px;
+}
+.vd-room-teaser {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.8fr 1.3fr;
+  gap: 8%;
+  padding-block: 120px;
+  align-items: center;
+}
+.vd-room-text h2 {
+  font-size: clamp(48px, 5.8vw, 85px);
+  line-height: 1.03;
+  margin-block: 25px 30px;
+}
+.vd-room-text > p:not(.vd-eyebrow) {
+  font-size: 13px;
+  line-height: 1.95;
+  color: #c9b8a2;
+  max-width: 33ch;
+  margin-bottom: 22px;
+}
+.vd-photo {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+  background: #30221e;
+}
+.vd-photo img {
+  object-fit: cover;
+}
+.vd-photo::after {
+  content: "";
+  position: absolute;
+  inset: 65% 0 0;
+  background: linear-gradient(transparent, #110b08b8);
+}
+.vd-photo figcaption {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 23px;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #fff3de;
+  z-index: 1;
+  text-shadow: 0 1px 3px #000;
+}
+.vd-room-crop {
+  min-height: 670px;
+}
+.vd-room-crop img {
+  object-position: 70% 50%;
+}
+.vd-room-margin {
+  position: absolute;
+  right: -35px;
+  top: 50%;
+  writing-mode: vertical-rl;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: #ac9479;
+}
+.vd-private-band {
+  padding-block: 85px;
+  background: #3b1f22;
+  border-block: 1px solid #684146;
+  text-align: center;
+  --food-focus: #f8d9aa;
+}
+.vd-private-band .vd-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.vd-private-band h2 {
+  font-size: clamp(42px, 5vw, 78px);
+  margin-block: 25px 32px;
+  line-height: 1.13;
+}
+.vd-next {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-block: 90px 95px;
+}
+.vd-sun-mark {
+  font-size: 49px;
+  line-height: 1;
+  color: #d5b688;
+  font-weight: 400;
+}
+.vd-next > .vd-eyebrow {
+  margin-top: 28px;
+}
+.vd-next h2 {
+  font-size: clamp(45px, 5.2vw, 78px);
+  line-height: 1.14;
+  max-width: 17ch;
+  margin-block: 23px 30px;
+}
+.vd-site .food-footer {
+  border-color: #60493d;
+  padding-block: 42px;
+}
+.vd-site .food-footer-brand {
+  font-size: 34px;
+  letter-spacing: 0.12em;
+}
+.vd-site .food-footer > div > p {
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: #c9b59a;
+}
+.vd-site .food-footer nav a {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+.vd-site .food-contact h2 {
+  font-size: clamp(40px, 4.2vw, 65px);
+}
+.vd-site .food-contact-panel {
+  background: #30211e;
+  border-color: #6a5246;
+}
+.vd-site .food-contact-panel > h2 {
+  font-size: 38px;
+}
+.vd-site .food-contact .demo-enquiry-field :is(input, select, textarea) {
+  background: #211715;
+  color: #f3e8d5;
+}
+.vd-site .food-contact .demo-enquiry-field :is(input, textarea)::placeholder {
+  color: #b8a790;
+  opacity: 1;
+}
+.vd-menu-page {
+  padding-top: 55px;
+}
+.vd-menu-page .vd-course-theatre {
+  background: #2a1d19;
+  border-color: #725541;
+}
+.vd-menu-page .vd-course-list {
+  border-color: #725541;
+}
+.vd-menu-page .vd-course-list li {
+  border-color: #5e4639;
+}
+.vd-menu-page .vd-course-list button:hover {
+  background: #3d2a22;
+}
+.vd-menu-page .vd-course-list button[aria-pressed="true"] {
+  background: #473024;
+}
+.vd-menu-page .vd-course-spotlight {
+  background: radial-gradient(ellipse at 90% 20%, #4e3527, #291c18 80%);
+}
+.vd-a-la-carte {
+  display: grid;
+  grid-template-columns: 0.85fr 1.2fr;
+  gap: 10%;
+}
+.vd-a-la-carte h2 {
+  font-size: clamp(44px, 5.1vw, 76px);
+  margin-block: 24px 28px;
+}
+.vd-a-la-carte > div > p:last-child {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #c1b19d;
+  max-width: 35ch;
+}
+.vd-dish-list article {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: start;
+  padding-block: 24px;
+  border-top: 1px solid #6a5040;
+}
+.vd-dish-list article:last-child {
+  border-bottom: 1px solid #6a5040;
+}
+.vd-dish-list h3 {
+  font-size: 29px;
+  margin-block: 6px 10px;
+}
+.vd-dish-list article p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #c9b79f;
+}
+.vd-dish-list article > span {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: 27px;
+  text-align: right;
+  margin-top: 20px;
+}
+.vd-dish-list article > span > small {
+  display: block;
+  font:
+    8px/1.9 var(--font-sans),
+    Arial,
+    sans-serif;
+  letter-spacing: 0.04em;
+  color: #c9b79f;
+  white-space: nowrap;
+}
+.vd-menu-note {
+  border-block: 1px solid #60493d;
+  padding-block: 30px;
+  display: grid;
+  grid-template-columns: 0.85fr 1.2fr;
+  gap: 10%;
+  align-items: start;
+}
+.vd-menu-note h2 {
+  font-size: 32px;
+}
+.vd-menu-note > p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #c1b19d;
+}
+.vd-room-panorama {
+  min-height: 650px;
+  margin-top: 55px !important;
+  width: 90%;
+  margin-inline: auto !important;
+}
+.vd-room-panorama img {
+  object-position: 50% 35%;
+}
+.vd-room-manifesto {
+  display: grid;
+  grid-template-columns: 0.4fr 1.3fr 0.8fr;
+  gap: 5%;
+  align-items: start;
+}
+.vd-room-manifesto > .vd-eyebrow {
+  padding-top: 9px;
+}
+.vd-room-manifesto h2 {
+  font-size: clamp(42px, 5vw, 75px);
+  line-height: 1.15;
+}
+.vd-room-manifesto > p {
+  font-size: 13px;
+  line-height: 1.95;
+  color: #c1b19d;
+  padding-top: 7px;
+}
+.vd-room-details {
+  border-top: 1px solid #60493d;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6%;
+  padding-top: 37px;
+  padding-bottom: 35px;
+}
+.vd-room-details article > span {
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  color: #d5b688;
+  text-transform: uppercase;
+}
+.vd-room-details h3 {
+  font-size: 31px;
+  margin-block: 22px 18px;
+}
+.vd-room-details p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #c1b19d;
+}
+.vd-room-details .vd-link {
+  margin-top: 15px;
+}
+.vd-private-feature {
+  display: grid;
+  grid-template-columns: 1.4fr 0.85fr;
+  align-items: center;
+  margin-top: 65px;
+  position: relative;
+  padding-right: 6%;
+}
+.vd-private-feature .vd-photo {
+  min-height: 710px;
+}
+.vd-private-note {
+  background: #3f2425;
+  padding: 50px 42px;
+  position: relative;
+  margin-left: -48px;
+  z-index: 1;
+  border: 1px solid #8a6154;
+  box-shadow: 0 0 0 10px #211715;
+}
+.vd-private-note h2 {
+  font-size: clamp(45px, 4.8vw, 69px);
+  line-height: 1.13;
+  margin-block: 25px 28px;
+}
+.vd-private-note > p:not(.vd-eyebrow) {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #d8beb0;
+  margin-bottom: 24px;
+}
+.vd-private-process {
+  display: grid;
+  grid-template-columns: 0.5fr 1.8fr;
+  gap: 6%;
+}
+.vd-private-process > .vd-eyebrow {
+  padding-top: 12px;
+}
+.vd-private-process ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.vd-private-process li {
+  display: grid;
+  grid-template-columns: 50px 1fr 1.15fr;
+  gap: 25px;
+  border-top: 1px solid #60493d;
+  padding-block: 32px;
+  align-items: start;
+}
+.vd-private-process li:last-child {
+  border-bottom: 1px solid #60493d;
+}
+.vd-private-process li > span {
+  font-family: var(--font-editorial), Georgia, serif;
+  color: #c5a67e;
+  font-size: 28px;
+}
+.vd-private-process h2 {
+  font-size: 34px;
+  line-height: 1.2;
+}
+.vd-private-process li > p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #c1b19d;
+}
+.vd-brochure-note {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  padding: 30px;
+  border: 1px solid #60493d;
+}
+.vd-brochure-note .vd-sun-mark {
+  flex-shrink: 0;
+  font-size: 36px;
+}
+.vd-brochure-note p {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #c1b19d;
+  max-width: 105ch;
+}
+.vd-story {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 12%;
+  padding-block: 85px;
+}
+.vd-story > .vd-story-drop {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-size: clamp(32px, 3.4vw, 50px);
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  max-width: 20ch;
+}
+.vd-story > div > p {
+  font-size: 14px;
+  line-height: 2;
+  color: #c9b79f;
+  margin-bottom: 24px;
+}
+.vd-story-photo {
+  width: 100%;
+  min-height: 600px;
+}
+.vd-story-photo img {
+  object-position: 50% 59%;
+}
+.vd-story-principles {
+  display: grid;
+  grid-template-columns: 0.55fr 1.8fr;
+  column-gap: 7%;
+  padding-block: 95px 25px;
+}
+.vd-story-principles > .vd-eyebrow {
+  grid-row: 1/4;
+  padding-top: 7px;
+}
+.vd-story-principles > div {
+  grid-column: 2;
+  padding-block: 25px;
+  border-bottom: 1px solid #60493d;
+}
+.vd-story-principles > div:first-of-type {
+  padding-top: 0;
+}
+.vd-story-principles h2 {
+  font-size: clamp(30px, 3.2vw, 48px);
+}
+.vd-story-principles p {
+  font-size: 12px;
+  color: #c1b19d;
+  line-height: 1.9;
+  margin-top: 13px;
+}
+.vd-journal-lead {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 9%;
+  align-items: center;
+  padding-block: 65px 80px;
+  border-bottom: 1px solid #60493d;
+}
+.vd-journal-lead .vd-photo {
+  min-height: 650px;
+}
+.vd-journal-lead h2 {
+  font-size: clamp(42px, 4.8vw, 70px);
+  line-height: 1.11;
+  margin-block: 25px 32px;
+}
+.vd-journal-lead article > p:not(.vd-eyebrow) {
+  font-size: 13px;
+  line-height: 2;
+  color: #c1b19d;
+  margin-bottom: 21px;
+}
+.vd-journal-lead .vd-link {
+  margin-top: 8px;
+}
+.vd-journal-notes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10%;
+  padding-block: 70px 20px;
+}
+.vd-journal-notes h2 {
+  font-size: clamp(31px, 3.8vw, 54px);
+  line-height: 1.15;
+  margin-block: 23px 25px;
+  max-width: 17ch;
+}
+.vd-journal-notes article > p:not(.vd-eyebrow) {
+  font-size: 13px;
+  line-height: 2;
+  color: #c1b19d;
+  margin-bottom: 20px;
+  max-width: 49ch;
+}
+.vd-journal-notes .vd-link {
+  margin-top: 6px;
+}
+@keyframes vd-arrive {
+  from {
+    transform: scale(1.045);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes vd-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes vd-course-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-width: 1600px) {
+  .vd-hero {
+    min-height: 860px;
+  }
+  .vd-hero-content {
+    min-height: 860px;
+  }
+}
+@media (max-width: 1100px) {
+  .vd-site .food-nav {
+    gap: 4px 20px;
+  }
+  .vd-site .food-nav a {
+    font-size: 11px;
+  }
+  .vd-hero,
+  .vd-hero-content {
+    min-height: 700px;
+  }
+  .vd-hero h1 {
+    font-size: clamp(78px, 11vw, 126px);
+  }
+  .vd-opening,
+  .vd-section-intro {
+    grid-template-columns: 0.4fr 1.4fr;
+    gap: 25px 7%;
+  }
+  .vd-opening > div,
+  .vd-section-intro > p:last-child {
+    grid-column: 2;
+  }
+  .vd-opening {
+    padding-block: 85px;
+  }
+  .vd-opening h2 {
+    font-size: 54px;
+  }
+  .vd-opening > div > p {
+    max-width: 46ch;
+  }
+  .vd-section-intro > p:last-child {
+    max-width: 46ch;
+  }
+  .vd-course-list button {
+    gap: 14px;
+    padding: 20px;
+    min-height: 103px;
+    grid-template-columns: 25px 1fr 16px;
+  }
+  .vd-course-list strong {
+    font-size: 19px;
+  }
+  .vd-course-spotlight {
+    padding: 40px 30px;
+    min-height: 516px;
+  }
+  .vd-course-spotlight h3 {
+    font-size: 47px;
+  }
+  .vd-room-teaser {
+    gap: 6%;
+    padding-block: 85px;
+  }
+  .vd-room-crop {
+    min-height: 590px;
+  }
+  .vd-room-margin {
+    right: -25px;
+  }
+  .vd-room-manifesto {
+    grid-template-columns: 0.4fr 1.4fr;
+    gap: 25px 7%;
+  }
+  .vd-room-manifesto > p {
+    grid-column: 2;
+    max-width: 47ch;
+  }
+  .vd-room-manifesto h2 {
+    font-size: 59px;
+  }
+  .vd-private-feature {
+    padding-right: 0;
+    grid-template-columns: 1.2fr 1fr;
+  }
+  .vd-private-feature .vd-photo {
+    min-height: 650px;
+  }
+  .vd-private-note {
+    padding: 38px 30px;
+    margin-left: -30px;
+  }
+  .vd-private-process {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .vd-journal-lead {
+    gap: 6%;
+  }
+  .vd-journal-lead .vd-photo {
+    min-height: 600px;
+  }
+}
+@media (max-width: 760px) {
+  .vd-wrap {
+    width: 86%;
+  }
+  .vd-site .food-header {
+    padding-block: 19px;
+  }
+  .vd-site .food-brand {
+    font-size: 27px;
+  }
+  .vd-site .food-menu-toggle {
+    font-size: 11px;
+    padding: 8px 12px;
+  }
+  .vd-site .food-page-intro {
+    padding-block: 55px 45px;
+  }
+  .vd-site .food-page-intro h1 {
+    font-size: clamp(47px, 10.5vw, 77px);
+    line-height: 1.06;
+    margin-top: 25px;
+  }
+  .vd-site .food-page-intro > p:last-child {
+    font-size: 13px;
+    line-height: 1.9;
+    margin-top: 25px;
+  }
+  .vd-hero {
+    min-height: 650px;
+    height: calc(100svh - 130px);
+    max-height: 820px;
+  }
+  .vd-hero-content {
+    min-height: 650px;
+    padding: 105px 7% 140px;
+  }
+  .vd-hero::before {
+    left: 5%;
+  }
+  .vd-hero::after {
+    right: 5%;
+  }
+  .vd-hero-topline {
+    top: 25px;
+    left: 8%;
+    right: 8%;
+    font-size: 8px;
+    line-height: 1.8;
+    max-width: 30ch;
+  }
+  .vd-hero-topline > span:last-child {
+    display: none;
+  }
+  .vd-hero h1 {
+    font-size: clamp(61px, 11.8vw, 88px);
+    line-height: 1.04;
+    max-width: 13ch;
+    margin-block: 28px 37px;
+  }
+  .vd-hero-content > .vd-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.18em;
+  }
+  .vd-hero-bottom {
+    left: 8%;
+    right: 8%;
+    bottom: 25px;
+    gap: 12px;
+    font-size: 8px;
+    line-height: 1.8;
+  }
+  .vd-hero-bottom > span {
+    max-width: 15ch;
+  }
+  .vd-hero-bottom a {
+    gap: 12px;
+  }
+  .vd-site .vd-hero-link {
+    font-size: 9px;
+    gap: 37px;
+    letter-spacing: 0.13em;
+  }
+  .vd-hero-image {
+    object-position: 60% 50%;
+  }
+  .vd-opening {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding-block: 65px;
+  }
+  .vd-opening h2 {
+    font-size: clamp(41px, 8vw, 58px);
+  }
+  .vd-opening > div {
+    grid-column: 1;
+  }
+  .vd-opening > div > p {
+    font-size: 13px;
+    max-width: 43ch;
+  }
+  .vd-home-menu {
+    padding-block: 60px;
+  }
+  .vd-section-intro {
+    grid-template-columns: 1fr;
+    gap: 23px;
+    margin-bottom: 35px;
+  }
+  .vd-section-intro h2 {
+    font-size: 54px;
+  }
+  .vd-section-intro > p:last-child {
+    grid-column: 1;
+    font-size: 12px;
+    max-width: 43ch;
+  }
+  .vd-tasting-toolbar {
+    align-items: start;
+    gap: 18px;
+    flex-direction: column;
+    margin-bottom: 23px;
+  }
+  .vd-menu-switch {
+    gap: 7px;
+    width: 100%;
+  }
+  .vd-menu-switch legend {
+    font-size: 9px;
+  }
+  .vd-menu-switch button {
+    font-size: 8px;
+    padding: 11px 14px;
+    letter-spacing: 0.06em;
+    flex: 1;
+  }
+  .vd-tasting-price {
+    text-align: left;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+  .vd-tasting-price strong {
+    font-size: 27px;
+  }
+  .vd-tasting-price > span {
+    font-size: 8px;
+    margin: 0;
+  }
+  .vd-course-theatre {
+    grid-template-columns: 1fr;
+  }
+  .vd-course-list {
+    border-right: 0;
+    border-bottom: 1px solid #795252;
+  }
+  .vd-course-list button {
+    grid-template-columns: 27px 1fr 17px;
+    gap: 13px;
+    min-height: 80px;
+    padding: 15px 18px;
+  }
+  .vd-course-list strong {
+    font-size: 20px;
+  }
+  .vd-course-list .vd-eyebrow {
+    font-size: 7px;
+    margin-bottom: 4px;
+  }
+  .vd-course-number {
+    font-size: 23px;
+  }
+  .vd-course-spotlight {
+    min-height: 380px;
+    padding: 43px 30px;
+    order: -1;
+    border-bottom: 1px solid #795252;
+  }
+  .vd-course-watermark {
+    font-size: 250px;
+    right: 0;
+    top: -0.16em;
+  }
+  .vd-course-spotlight h3 {
+    font-size: 48px;
+    max-width: 13ch;
+    margin-top: 23px;
+  }
+  .vd-course-rule {
+    margin-block: 25px 22px;
+  }
+  .vd-course-spotlight .vd-course-reveal > p:not(.vd-eyebrow) {
+    font-size: 12px;
+    max-width: 35ch;
+  }
+  .vd-course-caption {
+    font-size: 15px;
+    margin-top: 25px;
+  }
+  .vd-menu-disclaimer {
+    font-size: 9px;
+    line-height: 1.9;
+  }
+  .vd-room-teaser {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding-block: 70px;
+  }
+  .vd-room-text h2 {
+    font-size: 61px;
+    margin-block: 22px 25px;
+  }
+  .vd-room-text > p:not(.vd-eyebrow) {
+    max-width: 41ch;
+    font-size: 13px;
+  }
+  .vd-room-crop {
+    min-height: 440px;
+  }
+  .vd-room-margin {
+    right: -21px;
+    top: auto;
+    bottom: 105px;
+    font-size: 7px;
+  }
+  .vd-private-band {
+    padding-block: 60px;
+  }
+  .vd-private-band h2 {
+    font-size: clamp(39px, 8.1vw, 61px);
+    margin-block: 24px 28px;
+    line-height: 1.14;
+  }
+  .vd-next {
+    padding-block: 65px 75px;
+  }
+  .vd-next h2 {
+    font-size: clamp(41px, 8.1vw, 60px);
+    max-width: 16ch;
+  }
+  .vd-next > .vd-eyebrow {
+    margin-top: 24px;
+  }
+  .vd-sun-mark {
+    font-size: 42px;
+  }
+  .vd-site .food-footer {
+    padding-block: 35px;
+  }
+  .vd-menu-page {
+    padding-top: 35px;
+  }
+  .vd-a-la-carte {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-block: 62px;
+  }
+  .vd-a-la-carte h2 {
+    font-size: 53px;
+  }
+  .vd-a-la-carte > div > p:last-child {
+    max-width: 45ch;
+  }
+  .vd-dish-list h3 {
+    font-size: 28px;
+  }
+  .vd-dish-list article > span {
+    font-size: 25px;
+  }
+  .vd-dish-list article {
+    gap: 16px;
+  }
+  .vd-dish-list article p {
+    font-size: 11px;
+  }
+  .vd-menu-note {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .vd-menu-note h2 {
+    font-size: 31px;
+  }
+  .vd-menu-note > p {
+    font-size: 11px;
+  }
+  .vd-room-panorama {
+    min-height: 450px;
+    margin-top: 35px !important;
+  }
+  .vd-room-manifesto {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .vd-room-manifesto h2 {
+    font-size: clamp(40px, 8.4vw, 60px);
+  }
+  .vd-room-manifesto > p {
+    grid-column: 1;
+    font-size: 12px;
+    max-width: 46ch;
+  }
+  .vd-room-details {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-top: 28px;
+  }
+  .vd-room-details article {
+    padding-bottom: 28px;
+    border-bottom: 1px solid #60493d;
+  }
+  .vd-room-details article:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .vd-room-details h3 {
+    font-size: 30px;
+    margin-block: 17px;
+  }
+  .vd-room-details p {
+    max-width: 43ch;
+  }
+  .vd-private-feature {
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+  }
+  .vd-private-feature .vd-photo {
+    min-height: 450px;
+  }
+  .vd-private-note {
+    width: 90%;
+    justify-self: center;
+    margin: -45px 0 0;
+    padding: 32px 26px;
+    box-shadow: 0 0 0 7px #211715;
+  }
+  .vd-private-note h2 {
+    font-size: 50px;
+    margin-block: 22px;
+  }
+  .vd-private-note > p:not(.vd-eyebrow) {
+    font-size: 12px;
+  }
+  .vd-private-process {
+    padding-block: 65px;
+    gap: 25px;
+  }
+  .vd-private-process li {
+    grid-template-columns: 35px 1fr;
+    gap: 14px 18px;
+    padding-block: 25px;
+  }
+  .vd-private-process li > p {
+    grid-column: 2;
+    font-size: 12px;
+  }
+  .vd-private-process h2 {
+    font-size: 33px;
+  }
+  .vd-private-process li > span {
+    font-size: 25px;
+  }
+  .vd-brochure-note {
+    padding: 25px;
+    gap: 22px;
+    align-items: flex-start;
+  }
+  .vd-brochure-note p {
+    font-size: 10px;
+  }
+  .vd-brochure-note .vd-sun-mark {
+    font-size: 29px;
+  }
+  .vd-story {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-block: 50px;
+  }
+  .vd-story > .vd-story-drop {
+    font-size: 38px;
+    max-width: 22ch;
+  }
+  .vd-story > div > p {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .vd-story-photo {
+    min-height: 410px;
+  }
+  .vd-story-principles {
+    grid-template-columns: 1fr;
+    padding-block: 60px 10px;
+    gap: 20px;
+  }
+  .vd-story-principles > .vd-eyebrow {
+    grid-row: auto;
+  }
+  .vd-story-principles > div {
+    grid-column: 1;
+    padding-block: 5px 24px;
+  }
+  .vd-story-principles h2 {
+    font-size: 33px;
+  }
+  .vd-story-principles p {
+    font-size: 12px;
+    max-width: 42ch;
+  }
+  .vd-journal-lead {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding-block: 40px 55px;
+  }
+  .vd-journal-lead .vd-photo {
+    min-height: 430px;
+  }
+  .vd-journal-lead h2 {
+    font-size: clamp(45px, 8.9vw, 66px);
+    margin-block: 22px 26px;
+  }
+  .vd-journal-lead article > p:not(.vd-eyebrow) {
+    font-size: 12px;
+    max-width: 46ch;
+  }
+  .vd-journal-notes {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-block: 50px 10px;
+  }
+  .vd-journal-notes article {
+    padding-bottom: 35px;
+    border-bottom: 1px solid #60493d;
+  }
+  .vd-journal-notes h2 {
+    font-size: 40px;
+    margin-block: 20px 23px;
+  }
+  .vd-journal-notes article > p:not(.vd-eyebrow) {
+    font-size: 12px;
+    max-width: 46ch;
+  }
+  .vd-site .food-contact h2 {
+    font-size: 43px;
+  }
+  .vd-site .food-contact-panel > h2 {
+    font-size: 35px;
+  }
+}
+@media (max-width: 380px) {
+  .vd-hero,
+  .vd-hero-content {
+    min-height: 600px;
+  }
+  .vd-hero h1 {
+    font-size: 57px;
+  }
+  .vd-hero-content {
+    padding-inline: 8%;
+    padding-top: 100px;
+  }
+  .vd-hero-bottom {
+    font-size: 7px;
+  }
+  .vd-site .vd-hero-link {
+    font-size: 8px;
+    gap: 26px;
+  }
+  .vd-course-spotlight {
+    padding: 35px 24px;
+    min-height: 360px;
+  }
+  .vd-course-spotlight h3 {
+    font-size: 43px;
+  }
+  .vd-course-list button {
+    gap: 10px;
+    padding-inline: 14px;
+  }
+  .vd-course-list strong {
+    font-size: 18px;
+  }
+  .vd-menu-switch button {
+    font-size: 7px;
+    padding-inline: 8px;
+  }
+  .vd-private-note {
+    padding: 28px 22px;
+  }
+  .vd-private-note h2 {
+    font-size: 43px;
+  }
+  .vd-site .vd-link {
+    font-size: 9px;
+    gap: 23px;
+  }
+  .vd-brochure-note {
+    padding: 20px;
+    gap: 15px;
+  }
+  .vd-site .food-brand {
+    font-size: 25px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vd-site * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+html[data-motion="paused"] .vd-site * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}

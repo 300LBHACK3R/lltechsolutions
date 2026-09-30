@@ -89,6 +89,12 @@ export const collectionIndustries = [
   { id: "cold-chain", name: "Cold-chain Transport" },
   { id: "freight", name: "Freight & Logistics" },
   { id: "food-hospitality", name: "Food & Restaurants" },
+  { id: "food-truck", name: "Food Truck" },
+  { id: "neighbourhood-cafe", name: "Neighbourhood Café" },
+  { id: "artisan-bakery", name: "Artisan Bakery" },
+  { id: "pizzeria", name: "Pizzeria" },
+  { id: "catering-events", name: "Catering & Events" },
+  { id: "fine-dining", name: "Fine Dining" },
   { id: "beauty", name: "Beauty & Personal Care" },
   { id: "professional-services", name: "Professional Services" },
 ] as const;
@@ -165,7 +171,15 @@ export const templateCategories: readonly TemplateCategory[] = [
     id: "food-restaurants",
     name: "Food & Restaurants",
     description: "Restaurants, cafés, caterers, bakeries and food businesses.",
-    industries: ["food-hospitality"],
+    industries: [
+      "food-hospitality",
+      "food-truck",
+      "neighbourhood-cafe",
+      "artisan-bakery",
+      "pizzeria",
+      "catering-events",
+      "fine-dining",
+    ],
     image: "/images/template-categories/food-restaurants.webp",
   },
   {
@@ -268,7 +282,8 @@ export type WebsiteDesign = {
       | "hair-one-page"
       | "professional"
       | "home-property"
-      | "transport";
+      | "transport"
+      | "food";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -614,6 +629,456 @@ export function homePropertyTemplate(id: string) {
   return homePropertyTemplates.find((template) => template.id === id);
 }
 export function homePropertyPagePath(page: string) {
+  return page === "Home" ? "/" : `/${page.toLowerCase().replaceAll(" ", "-")}`;
+}
+
+/** Fictional food-business designs. Menu entries are illustrative supplied-content examples. */
+export const foodTemplates = [
+  {
+    id: "food-truck",
+    name: "One-page Food Truck",
+    brand: "SIDE STREET",
+    subbrand: "STREET FOOD & GOOD COMPANY",
+    price: 150,
+    tier: "essential",
+    pages: ["Home"],
+    headline: "Big bites.",
+    emphasis: "Good times.",
+    intro: "Street-food favourites, a changing view, and a very good reason to step outside.",
+    about:
+      "A short menu, a lively corner and something good in hand. Pull up to the window, pick a favourite and make a little time for lunch.",
+    imageAlt:
+      "Illustrative coral street-food truck with an open serving window and a casual outdoor table",
+    form: false,
+    description:
+      "A punchy cobalt-and-acid-yellow one-page food-truck design with oversized type, a concise sample menu and direct-contact sections.",
+    cta: "Find the next stop",
+    services: [
+      {
+        name: "Street favourites",
+        description: "A small menu with plenty of character.",
+        detail:
+          "A few good handhelds, a side for sharing and plenty of flavour between the first bite and the last.",
+      },
+      {
+        name: "Find the truck",
+        description: "Bring the next stop into view.",
+        detail:
+          "A new corner can make an ordinary lunch feel like a small adventure. Confirm the current stop and serving times before heading over.",
+      },
+      {
+        name: "Private events",
+        description: "Take the conversation off the street.",
+        detail:
+          "Share the occasion and proposed location directly with the business to discuss event options.",
+      },
+    ],
+    menu: [
+      {
+        name: "Crispy chicken bun",
+        description: "Crisp chicken, crunchy slaw, pickles and house sauce.",
+        price: "$14",
+        category: "Handhelds",
+      },
+      {
+        name: "Crisp chickpea wrap",
+        description: "Crisp chickpeas, crunchy slaw and lemon dressing.",
+        price: "$13",
+        category: "Handhelds",
+      },
+      {
+        name: "Street fries",
+        description: "Golden fries with seasoning and a house dip.",
+        price: "$7",
+        category: "Sides",
+      },
+    ],
+    industry: "food-truck",
+    theme: "food-truck",
+    image: "/images/collection/food-food-truck.webp",
+  },
+  {
+    id: "neighbourhood-cafe",
+    name: "Neighbourhood Café",
+    brand: "SUNDAY CLUB",
+    subbrand: "COFFEE & EVERYDAY PLEASURES",
+    price: 399,
+    tier: "signature",
+    pages: ["Home", "Menu", "Visit"],
+    headline: "A little pause.",
+    emphasis: "A lovely part of your day.",
+    intro: "Coffee, something from the kitchen, and a seat worth staying in.",
+    about:
+      "A café for the in-between moments: a first coffee, a quiet catch-up or a long lunch. A warm, unhurried place to make part of your day.",
+    imageAlt:
+      "Illustrative warm neighbourhood café with terracotta seating, a timber counter and afternoon window light",
+    form: false,
+    description:
+      "A warm terracotta-and-cream café design with editorial photography, a filterable sample menu and three welcoming pages.",
+    cta: "Plan a visit",
+    services: [
+      {
+        name: "Coffee",
+        description: "Your everyday ritual.",
+        detail:
+          "Something rich, something milky or something over ice. Find the coffee that fits the moment.",
+      },
+      {
+        name: "From the kitchen",
+        description: "A reason to stay a while.",
+        detail:
+          "Toast at a window seat, a breakfast bun on the way through or a pastry beside your coffee.",
+      },
+      {
+        name: "Come by",
+        description: "A place in the neighbourhood.",
+        detail:
+          "Find the practical details for your next visit, then make a little time to settle in.",
+      },
+    ],
+    menu: [
+      {
+        name: "Flat white",
+        description: "Espresso with silky steamed milk.",
+        price: "$5",
+        category: "Coffee",
+      },
+      {
+        name: "Long black",
+        description: "Espresso poured over hot water.",
+        price: "$4",
+        category: "Coffee",
+      },
+      {
+        name: "Iced oat latte",
+        description: "Espresso, oat drink and ice.",
+        price: "$6",
+        category: "Coffee",
+      },
+      {
+        name: "Butter croissant",
+        description: "Flaky pastry with cultured butter.",
+        price: "$5",
+        category: "Kitchen",
+      },
+      {
+        name: "Soft scramble toast",
+        description: "Soft scrambled eggs, fresh herbs and toasted sourdough.",
+        price: "$14",
+        category: "Kitchen",
+      },
+      {
+        name: "Breakfast bun",
+        description: "A soft bun with egg, greens and relish.",
+        price: "$12",
+        category: "Kitchen",
+      },
+    ],
+    industry: "neighbourhood-cafe",
+    theme: "neighbourhood-cafe",
+    image: "/images/collection/food-neighbourhood-cafe.webp",
+  },
+  {
+    id: "artisan-bakery",
+    name: "Artisan Bakery",
+    brand: "BUTTER & CRUMB",
+    subbrand: "BREAD, PASTRY & SMALL PLEASURES",
+    price: 499,
+    tier: "signature",
+    pages: ["Home", "Bakes", "Our kitchen", "Visit"],
+    headline: "Good things",
+    emphasis: "take their time.",
+    intro: "Flaky edges, a flour-dusted table and the simple pleasure of something from the oven.",
+    about:
+      "The rhythm of the kitchen shapes the day: mixing, folding, resting and baking. Bread for the table, pastry for the walk home and a few sweet things along the way.",
+    imageAlt:
+      "Illustrative bakery still life with a rustic loaf, flaky croissants and flour on a warm timber worktop",
+    form: false,
+    description:
+      "An expressive butter-cream and berry-red bakery design with a striped awning, editorial bake ledger, kitchen story and four complete pages.",
+    cta: "Explore the bakes",
+    services: [
+      {
+        name: "Bread",
+        description: "A place at the everyday table.",
+        detail:
+          "A loaf to slice at breakfast, bring to dinner or keep beside a bowl of something warm.",
+      },
+      {
+        name: "Pastry",
+        description: "Flaky, golden, worth a pause.",
+        detail:
+          "Butter croissants, morning buns and the sweet things that make a coffee break last a little longer.",
+      },
+      {
+        name: "The kitchen",
+        description: "The story behind the counter.",
+        detail:
+          "Follow the rhythm of dough, flour and heat, from the first fold to the cooling rack.",
+      },
+    ],
+    menu: [
+      {
+        name: "Butter croissant",
+        description: "A layered butter pastry with a golden, crisp shell.",
+        price: "$5.50",
+        category: "Breakfast",
+      },
+      {
+        name: "Morning bun",
+        description: "Rolled pastry with citrus sugar and a soft centre.",
+        price: "$5.75",
+        category: "Breakfast",
+      },
+      {
+        name: "Country sourdough",
+        description: "A rustic loaf with a deeply coloured crust.",
+        price: "$9.50",
+        category: "Bread",
+      },
+      {
+        name: "Olive & rosemary loaf",
+        description: "A savoury loaf with olives and rosemary.",
+        price: "$11",
+        category: "Bread",
+      },
+      {
+        name: "Berry galette",
+        description: "Seasonal berry filling in a folded pastry shell.",
+        price: "$7",
+        category: "Sweets",
+      },
+      {
+        name: "Brown butter cookie",
+        description: "A golden cookie with brown-butter notes.",
+        price: "$4.50",
+        category: "Sweets",
+      },
+    ],
+    industry: "artisan-bakery",
+    theme: "artisan-bakery",
+    image: "/images/collection/food-artisan-bakery.webp",
+  },
+  {
+    id: "pizzeria",
+    name: "Pizzeria",
+    brand: "SLICE SOCIAL",
+    subbrand: "PIZZA & A FULL TABLE",
+    price: 699,
+    tier: "premier",
+    pages: ["Home", "Menu", "Our place", "Group tables", "Contact"],
+    headline: "For the table.",
+    emphasis: "For the good times.",
+    intro: "A pizza in the middle, another chair pulled up and a night that finds its own pace.",
+    about:
+      "Pizza gives people a reason to gather. A casual plan becomes a table full of friends, a few favourite slices and a conversation that carries on.",
+    imageAlt:
+      "Illustrative pizza with basil and tomato on a red-check tablecloth in a warm casual pizzeria",
+    form: true,
+    description:
+      "A spirited tomato-red and cobalt pizzeria design with oversized typography, an interactive pizza wheel, a filterable menu and a five-page gathering journey.",
+    cta: "Gather your people",
+    services: [
+      {
+        name: "The pizza",
+        description: "Something for the middle.",
+        detail:
+          "The familiar favourites, a few vegetable-led combinations and something to pass around the table.",
+      },
+      {
+        name: "Our place",
+        description: "Set the scene for the evening.",
+        detail:
+          "A little colour, a lively table and room for another chair. Come for the pizza; settle into the evening.",
+      },
+      {
+        name: "Group tables",
+        description: "Make room for your people.",
+        detail:
+          "Bring the occasion, your preferred date and a rough guest count. Table arrangements are confirmed directly with the business.",
+      },
+    ],
+    menu: [
+      {
+        name: "Margherita",
+        description: "Tomato, mozzarella, basil and olive oil.",
+        price: "$19",
+        category: "Classic",
+      },
+      {
+        name: "Pepperoni",
+        description: "Tomato, mozzarella and pepperoni.",
+        price: "$23",
+        category: "Classic",
+      },
+      {
+        name: "Hot honey salami",
+        description: "Salami, mozzarella, chilli and hot honey.",
+        price: "$25",
+        category: "Classic",
+      },
+      {
+        name: "Mushroom bianca",
+        description: "Roasted mushrooms, mozzarella and a white base.",
+        price: "$24",
+        category: "Vegetable",
+      },
+      {
+        name: "Garden party",
+        description: "Seasonal vegetables, tomato and herbs.",
+        price: "$23",
+        category: "Vegetable",
+      },
+      {
+        name: "Roasted pepper",
+        description: "Sweet peppers, olives, mozzarella and basil.",
+        price: "$22",
+        category: "Vegetable",
+      },
+    ],
+    industry: "pizzeria",
+    theme: "pizzeria",
+    image: "/images/collection/food-pizzeria.webp",
+  },
+  {
+    id: "catering-events",
+    name: "Catering & Events",
+    brand: "TABLE & FIELD",
+    subbrand: "FOOD FOR GATHERING",
+    price: 699,
+    tier: "premier",
+    pages: ["Home", "Menus", "Events", "Our approach", "Contact"],
+    headline: "The table is",
+    emphasis: "only the beginning.",
+    intro:
+      "Considered food, thoughtful details and room for the people who make an occasion yours.",
+    about:
+      "A gathering starts with its people. The menu, setting and service style come together around the kind of occasion you want to create.",
+    imageAlt:
+      "Illustrative long event table with linen, flowers and colourful sharing platters in a garden setting",
+    form: true,
+    description:
+      "An elegant olive-and-parchment catering design with generous editorial spacing, sample menus and five thoughtful pages.",
+    cta: "Tell us about your event",
+    services: [
+      {
+        name: "Celebrations",
+        description: "Food at the heart of the occasion.",
+        detail:
+          "Mark the day with food that brings people together, from a small reception to a long-table supper.",
+      },
+      {
+        name: "Work gatherings",
+        description: "A considered table for the team.",
+        detail:
+          "A team lunch, a shared milestone or an evening for the people you work with. Start with the occasion.",
+      },
+      {
+        name: "Shared tables",
+        description: "Let the conversation unfold.",
+        detail:
+          "Generous plates in the middle and a little space for conversation. Guest needs and service arrangements are agreed together.",
+      },
+    ],
+    menu: [
+      {
+        name: "Market table",
+        description: "Seasonal vegetables, whipped white bean, sourdough",
+        price: "$28 per guest",
+        category: "Sharing",
+      },
+      {
+        name: "Gathered supper",
+        description: "Roast chicken or mushroom main, shared seasonal sides",
+        price: "$54 per guest",
+        category: "Seated",
+      },
+      {
+        name: "A sweet finish",
+        description: "Lemon olive-oil cake, berries, cultured cream",
+        price: "$12 per guest",
+        category: "Dessert",
+      },
+    ],
+    industry: "catering-events",
+    theme: "catering-events",
+    image: "/images/collection/food-catering-events.webp",
+  },
+  {
+    id: "fine-dining",
+    name: "Fine Dining",
+    brand: "VESPER",
+    subbrand: "AN EVENING, CONSIDERED",
+    price: 999,
+    tier: "flagship",
+    pages: ["Home", "The menu", "The room", "Private dining", "Our story", "Journal", "Contact"],
+    headline: "An evening",
+    emphasis: "to settle into.",
+    intro: "A considered menu. A room with its own rhythm. Time to enjoy what is in front of you.",
+    about:
+      "The experience lives in the details: the shape of a plate, the feel of the room and the pace of the evening. An invitation to slow down and give each course its moment.",
+    imageAlt:
+      "Illustrative refined restaurant plate with seasonal vegetables and a softly lit intimate dining room",
+    form: true,
+    description:
+      "A cinematic ink-and-champagne restaurant design with refined typography, a sample tasting menu and an expansive seven-page editorial journey.",
+    cta: "Begin an evening",
+    services: [
+      {
+        name: "The menu",
+        description: "A sequence of considered plates.",
+        detail:
+          "A beginning, a centre and a quiet finish. Explore the plates that give an evening its shape.",
+      },
+      {
+        name: "The room",
+        description: "Space for the evening to unfold.",
+        detail: "Soft light, considered textures and a place to settle in as the evening unfolds.",
+      },
+      {
+        name: "Private dining",
+        description: "An occasion with its own setting.",
+        detail:
+          "A gathering with its own rhythm. Discuss the occasion, guest numbers and the details that make it yours.",
+      },
+    ],
+    menu: [
+      {
+        name: "First light",
+        description: "Tomato, peach, basil oil",
+        price: "$24",
+        category: "To begin",
+      },
+      {
+        name: "Wood & earth",
+        description: "Mushrooms, barley, aged cheese",
+        price: "$34",
+        category: "From the kitchen",
+      },
+      {
+        name: "Coastline",
+        description: "Roasted fish, leeks, herb broth",
+        price: "$42",
+        category: "From the kitchen",
+      },
+      {
+        name: "Last light",
+        description: "Dark chocolate, cherry, cream",
+        price: "$16",
+        category: "To finish",
+      },
+    ],
+    industry: "fine-dining",
+    theme: "fine-dining",
+    image: "/images/collection/food-fine-dining.webp",
+  },
+] as const;
+export type FoodTemplate = (typeof foodTemplates)[number];
+export type FoodTemplateId = FoodTemplate["id"];
+export function foodTemplate(id: string) {
+  return foodTemplates.find((template) => template.id === id);
+}
+export function foodPagePath(page: string) {
   return page === "Home" ? "/" : `/${page.toLowerCase().replaceAll(" ", "-")}`;
 }
 
@@ -2031,6 +2496,53 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     ],
     concept: {
       theme: "professional",
+      brands: [template.brand, template.brand],
+      headlines: [`${template.headline} ${template.emphasis}`, template.headline],
+      subcopy: template.intro,
+      kicker: template.subbrand,
+      action: "Start a conversation",
+      photo: { src: template.image, alt: template.imageAlt, width: 1536, height: 1024 },
+      services: template.services,
+      approach: template.about,
+    },
+  })),
+  ...foodTemplates.map((template): WebsiteDesign => ({
+    id: template.id,
+    status: "concept",
+    name: template.name,
+    tier: template.tier,
+    industry: template.industry,
+    description: template.description,
+    startingPriceCad: template.price,
+    pageCount: template.pages.length,
+    contactMode: template.form ? "enquiry-form" : "direct",
+    deliveryWindow: "Timing agreed after your content and scope are confirmed.",
+    demoUrl: `/website-collection/${template.id}#preview`,
+    included: [
+      template.pages.length === 1
+        ? "One page: introduction, up to three menu items, about and direct-contact sections"
+        : `${template.pages.length} pages: ${template.pages.join(", ")}`,
+      "Your supplied logo, colours, business information and images implemented in the code",
+      "Your supplied menu and prices as static initial content within the agreed page scope",
+      "Responsive layout, keyboard navigation and reduced-motion support",
+      "Page titles, descriptions, social metadata and launch security configuration",
+      ...(template.form
+        ? [
+            "Standard enquiry form setup: one inbox, Resend, sending-domain configuration, field validation, spam controls and an initial delivery test",
+          ]
+        : [
+            "Direct phone and email contact; an existing external booking or ordering link can be added",
+          ]),
+      "Personalization and launch within this template’s agreed scope",
+    ],
+    customization: [
+      "Additional pages, original copywriting, photography, videography and ongoing care scoped separately",
+      "Online ordering, payments, reservations, POS, delivery integrations and other connected workflows are separately scoped",
+      "Your business supplies and approves menus, prices, ingredient and allergen information, dietary descriptions, opening details and content usage rights",
+      "Sample menus, prices, hours, locations and enquiry interactions are illustrative; these static demos do not accept orders, bookings, payments or reservations",
+    ],
+    concept: {
+      theme: "food",
       brands: [template.brand, template.brand],
       headlines: [`${template.headline} ${template.emphasis}`, template.headline],
       subcopy: template.intro,

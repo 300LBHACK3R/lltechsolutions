@@ -76,6 +76,12 @@ try {
     "/website-collection/equipment-rentals",
     "/website-collection/cold-chain",
     "/website-collection/freight-logistics",
+    "/website-collection/food-truck",
+    "/website-collection/neighbourhood-cafe",
+    "/website-collection/artisan-bakery",
+    "/website-collection/pizzeria",
+    "/website-collection/catering-events",
+    "/website-collection/fine-dining",
 
     "/website-collection/start",
     "/website-collection/compare",
@@ -97,7 +103,6 @@ try {
     "/website-collection/compare",
     "/website-collection/brief",
     "/website-collection/category/retail-automotive",
-    "/website-collection/category/food-restaurants",
   ]);
   const htmlByRoute = new Map();
   const titles = new Set();
@@ -527,7 +532,7 @@ try {
     checks++;
     const gallery = htmlByRoute.get(`/website-collection/category/${id}`);
     assert.ok(gallery.includes('"@type":"BreadcrumbList"'), `${id}: category breadcrumbs`);
-    if (["retail-automotive", "food-restaurants"].includes(id)) {
+    if (id === "retail-automotive") {
       assert.ok(
         gallery.includes("No templates have been added here yet."),
         `${id}: truthful empty state`,
@@ -536,6 +541,13 @@ try {
     }
   }
   const templatePrices = [
+    ["food-truck", "food-restaurants", 150],
+    ["neighbourhood-cafe", "food-restaurants", 399],
+    ["artisan-bakery", "food-restaurants", 499],
+    ["pizzeria", "food-restaurants", 699],
+    ["catering-events", "food-restaurants", 699],
+    ["fine-dining", "food-restaurants", 999],
+
     ["calgary-hot-shot", "transport-logistics", 399],
     ["courier-one-page", "transport-logistics", 150],
     ["moving-company", "transport-logistics", 399],
@@ -612,6 +624,33 @@ try {
       [...html.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]),
       [id],
       `${industry}: correct property offer`,
+    );
+    checks++;
+  }
+  const foodGallery = htmlByRoute.get("/website-collection/category/food-restaurants");
+  assert.equal(
+    (foodGallery.match(/data-food-cover=/g) ?? []).length,
+    6,
+    "six distinct food previews",
+  );
+  assert.ok(!foodGallery.includes('content="noindex'), "populated food gallery is indexable");
+  for (const id of [
+    "food-truck",
+    "neighbourhood-cafe",
+    "artisan-bakery",
+    "pizzeria",
+    "catering-events",
+    "fine-dining",
+  ]) {
+    const response = await fetch(
+      `${origin}/website-collection/category/food-restaurants?industry=${id}`,
+    );
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.deepEqual(
+      [...html.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]),
+      [id],
+      `${id}: exact food industry filter`,
     );
     checks++;
   }

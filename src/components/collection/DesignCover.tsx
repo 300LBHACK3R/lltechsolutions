@@ -1,3 +1,4 @@
+import FoodCover from "@/components/collection/FoodCover";
 import HomePropertyCover from "@/components/collection/HomePropertyCover";
 import TransportCover from "@/components/collection/TransportCover";
 import ProfessionalCover from "@/components/collection/ProfessionalCover";
@@ -37,6 +38,7 @@ export default function DesignCover({
     );
   }
   if (!concept) return null;
+  if (concept.theme === "food") return <FoodCover design={design} expanded={expanded} />;
   if (concept.theme === "transport") return <TransportCover design={design} expanded={expanded} />;
   if (concept.theme === "home-property") return <HomePropertyCover design={design} />;
   if (concept.theme === "professional") return <ProfessionalCover design={design} />;

@@ -1,0 +1,657 @@
+/* SUNDAY CLUB: an oat-paper editorial, generous photography and a typeset menu. */
+.food-site.food-theme-neighbourhood-cafe {
+  --food-bg: #f3eee4;
+  --food-ink: #382e27;
+  --food-muted: #6a6258;
+  --food-accent: #4b5b45;
+  --food-on-accent: #f8f4e9;
+  --food-line: #cbc6b8;
+  --food-panel: #e3e5d8;
+  --food-focus: #627945;
+}
+.food-theme-neighbourhood-cafe .food-header {
+  border-bottom: 1px solid #cbc6b8;
+  padding-block: 25px;
+}
+.food-theme-neighbourhood-cafe .food-brand {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.075em;
+  font-size: 32px;
+}
+.food-theme-neighbourhood-cafe :is(h1, h2, h3, h4) {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.055em;
+}
+.food-theme-neighbourhood-cafe :is(h1, h2) em {
+  color: #687555;
+  font-weight: 400;
+}
+.food-theme-neighbourhood-cafe .scc-kicker {
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  line-height: 1.6;
+}
+.food-theme-neighbourhood-cafe .scc-hero {
+  padding: clamp(50px, 7vw, 110px) 6% 36px;
+  text-align: center;
+}
+.food-theme-neighbourhood-cafe .scc-hero > .scc-kicker {
+  margin-inline: auto;
+}
+.food-theme-neighbourhood-cafe .scc-hero h1 {
+  font-size: clamp(44px, 6.3vw, 96px);
+  line-height: 1.08;
+  margin: 25px auto 43px;
+  max-width: 1100px;
+}
+.food-theme-neighbourhood-cafe .scc-hero h1 em {
+  font-size: 0.88em;
+}
+.food-theme-neighbourhood-cafe .scc-hero-bottom {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  gap: 25px;
+  text-align: left;
+}
+.food-theme-neighbourhood-cafe .scc-small-flower {
+  font-size: 44px;
+  line-height: 1;
+  color: #687555;
+}
+.food-theme-neighbourhood-cafe .scc-hero-bottom p {
+  justify-self: center;
+  font-size: 14px;
+  text-align: center;
+  max-width: 43ch;
+  line-height: 1.7;
+}
+.food-theme-neighbourhood-cafe .scc-text-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  width: fit-content;
+  gap: 28px;
+  border-bottom: 1px solid #6e7762;
+  color: #382e27;
+  font-size: 12px;
+  font-weight: 550;
+  line-height: 1.6;
+  padding-block: 9px;
+  transition:
+    color 0.2s,
+    gap 0.2s;
+}
+.food-theme-neighbourhood-cafe .scc-text-link:hover {
+  color: #687555;
+  gap: 36px;
+}
+.food-theme-neighbourhood-cafe .scc-hero-bottom .scc-text-link {
+  justify-self: end;
+  font-size: 10px;
+  gap: 15px;
+}
+.food-theme-neighbourhood-cafe .scc-photo {
+  position: relative;
+  height: clamp(350px, 46vw, 715px);
+  background: #84785e;
+}
+.food-theme-neighbourhood-cafe .scc-photo img {
+  object-fit: cover;
+  object-position: center 55%;
+}
+.food-theme-neighbourhood-cafe .scc-photo figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 50px 5% 24px;
+  background: linear-gradient(transparent, #271d1675);
+  color: #fffef6;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+.food-theme-neighbourhood-cafe .scc-welcome {
+  display: grid;
+  grid-template-columns: 0.75fr 2fr 0.8fr;
+  align-items: start;
+  gap: 6%;
+  padding: clamp(65px, 8vw, 130px) 6%;
+}
+.food-theme-neighbourhood-cafe .scc-welcome > .scc-kicker {
+  padding-top: 8px;
+}
+.food-theme-neighbourhood-cafe .scc-welcome h2 {
+  font-size: clamp(34px, 3.7vw, 58px);
+  line-height: 1.2;
+}
+.food-theme-neighbourhood-cafe .scc-welcome > div > p {
+  font-size: 13px;
+  color: #6a6258;
+  max-width: 51ch;
+  margin-top: 26px;
+  line-height: 1.85;
+}
+.food-theme-neighbourhood-cafe .scc-welcome .scc-text-link {
+  margin-top: 17px;
+}
+.food-theme-neighbourhood-cafe :is(.scc-coffee-ring, .scc-brew-ring) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 154px;
+  aspect-ratio: 1;
+  position: relative;
+  color: #7c8062;
+  border: 3px solid #a2a08755;
+  border-radius: 48% 51% 49% 53%;
+  transform: rotate(12deg);
+}
+.food-theme-neighbourhood-cafe :is(.scc-coffee-ring, .scc-brew-ring)::before {
+  content: "";
+  position: absolute;
+  inset: 4px -6px -5px 2px;
+  border: 1px solid #99957555;
+  border-radius: 51% 46% 53% 47%;
+}
+.food-theme-neighbourhood-cafe :is(.scc-coffee-ring, .scc-brew-ring)::after {
+  content: "";
+  position: absolute;
+  inset: -4px 2px 5px -4px;
+  border: 2px solid #9c97732b;
+  border-radius: 46% 53% 48% 54%;
+}
+.food-theme-neighbourhood-cafe :is(.scc-coffee-ring, .scc-brew-ring) span {
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  font-weight: 650;
+}
+.food-theme-neighbourhood-cafe :is(.scc-coffee-ring, .scc-brew-ring) b {
+  font-family: Georgia, serif;
+  font-size: 60px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.35;
+  letter-spacing: -0.08em;
+}
+.food-theme-neighbourhood-cafe .scc-welcome .scc-coffee-ring {
+  justify-self: end;
+  margin-top: 55px;
+}
+.food-theme-neighbourhood-cafe .scc-brew-guide {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 8%;
+  margin: 0 6%;
+  padding: 50px 0;
+  border-block: 1px solid #cbc6b8;
+}
+.food-theme-neighbourhood-cafe .scc-brew-controls h2 {
+  font-size: clamp(34px, 3.4vw, 51px);
+  line-height: 1.15;
+  margin-top: 14px;
+}
+.food-theme-neighbourhood-cafe .scc-brew-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 21px;
+}
+.food-theme-neighbourhood-cafe .scc-brew-options button {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 9px 4px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: #6a6258;
+  font-size: 12px;
+}
+.food-theme-neighbourhood-cafe .scc-brew-options button[aria-pressed="true"] {
+  border-bottom-color: #4b5b45;
+  color: #382e27;
+  font-weight: 700;
+}
+.food-theme-neighbourhood-cafe .scc-brew-options button:hover {
+  color: #382e27;
+}
+.food-theme-neighbourhood-cafe .scc-brew-result {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 30px;
+  align-items: center;
+}
+.food-theme-neighbourhood-cafe .scc-brew-ring {
+  width: 145px;
+  transition: transform 0.8s cubic-bezier(0.22, 0.68, 0.18, 1);
+}
+.food-theme-neighbourhood-cafe .scc-brew-ring[data-brew="1"] {
+  transform: rotate(34deg);
+}
+.food-theme-neighbourhood-cafe .scc-brew-ring[data-brew="2"] {
+  transform: rotate(-12deg);
+}
+.food-theme-neighbourhood-cafe .scc-brew-result h3 {
+  font-size: 28px;
+  line-height: 1.15;
+}
+.food-theme-neighbourhood-cafe .scc-brew-result p {
+  font-size: 12px;
+  color: #6a6258;
+  margin-top: 14px;
+  line-height: 1.8;
+}
+.food-theme-neighbourhood-cafe .scc-brew-result small {
+  display: block;
+  margin-top: 17px;
+  color: #6a6258;
+  font-size: 9px;
+  line-height: 1.65;
+}
+.food-theme-neighbourhood-cafe .scc-menu-preview {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 12%;
+  padding: clamp(65px, 8vw, 120px) 6%;
+}
+.food-theme-neighbourhood-cafe .scc-preview-title h2 {
+  font-size: clamp(36px, 4vw, 61px);
+  margin-top: 22px;
+  line-height: 1.16;
+}
+.food-theme-neighbourhood-cafe .scc-preview-title .scc-text-link {
+  margin-top: 28px;
+}
+.food-theme-neighbourhood-cafe .scc-preview-items article {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid #cbc6b8;
+}
+.food-theme-neighbourhood-cafe .scc-preview-items article:first-child {
+  padding-top: 0;
+}
+.food-theme-neighbourhood-cafe .scc-preview-items h3 {
+  font-size: 26px;
+}
+.food-theme-neighbourhood-cafe .scc-preview-items article p {
+  font-size: 12px;
+  margin-top: 9px;
+  color: #6a6258;
+  line-height: 1.7;
+}
+.food-theme-neighbourhood-cafe .scc-preview-items article > span {
+  flex-shrink: 0;
+  font-family: Georgia, serif;
+  font-size: 24px;
+}
+.food-theme-neighbourhood-cafe .scc-menu-note {
+  color: #6a6258;
+  font-size: 10px;
+  line-height: 1.8;
+  margin-top: 22px;
+}
+.food-theme-neighbourhood-cafe .scc-home-visit {
+  text-align: center;
+  background: #e1e4d7;
+  padding: clamp(60px, 7vw, 105px) 6%;
+}
+.food-theme-neighbourhood-cafe .scc-home-visit > p {
+  margin-inline: auto;
+}
+.food-theme-neighbourhood-cafe .scc-home-visit h2 {
+  font-size: clamp(35px, 4.6vw, 68px);
+  line-height: 1.15;
+  margin: 25px auto 28px;
+}
+.food-theme-neighbourhood-cafe .scc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  min-height: 48px;
+  padding: 13px 23px;
+  border: 1px solid #4b5b45;
+  background: #4b5b45;
+  color: #f8f4e9;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+.food-theme-neighbourhood-cafe .scc-button:hover {
+  background: #34442e;
+}
+.food-theme-neighbourhood-cafe .scc-page-intro {
+  text-align: center;
+  padding: clamp(55px, 7vw, 110px) 6% 65px;
+}
+.food-theme-neighbourhood-cafe .scc-page-intro > p {
+  margin-inline: auto;
+}
+.food-theme-neighbourhood-cafe .scc-page-intro h1 {
+  font-size: clamp(43px, 6vw, 88px);
+  line-height: 1.08;
+  margin: 23px auto 30px;
+}
+.food-theme-neighbourhood-cafe .scc-page-intro > p:last-child {
+  max-width: 51ch;
+  font-size: 13px;
+  color: #6a6258;
+  line-height: 1.8;
+}
+.food-theme-neighbourhood-cafe .scc-menu-page {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 12%;
+  padding: 22px 10% 100px;
+}
+.food-theme-neighbourhood-cafe .scc-menu-side {
+  align-self: start;
+  padding-top: 40px;
+}
+.food-theme-neighbourhood-cafe .scc-menu-side .scc-coffee-ring {
+  width: 195px;
+  margin-inline: auto;
+}
+.food-theme-neighbourhood-cafe .scc-menu-side > p {
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: 26px;
+  color: #6a6258;
+  line-height: 1.5;
+  letter-spacing: -0.035em;
+  margin-top: 43px;
+}
+.food-theme-neighbourhood-cafe .scc-menu-tabs {
+  display: flex;
+  gap: 30px;
+  border-bottom: 1px solid #cbc6b8;
+}
+.food-theme-neighbourhood-cafe .scc-menu-tabs button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  min-height: 52px;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #6a6258;
+  font-size: 13px;
+}
+.food-theme-neighbourhood-cafe .scc-menu-tabs button[aria-pressed="true"] {
+  color: #382e27;
+  border-bottom-color: #4b5b45;
+  font-weight: 700;
+}
+.food-theme-neighbourhood-cafe .scc-menu-tabs button:hover {
+  color: #382e27;
+}
+.food-theme-neighbourhood-cafe .scc-menu-ledger {
+  min-height: 355px;
+}
+.food-theme-neighbourhood-cafe .scc-menu-category {
+  margin-top: 28px;
+  font-size: 39px;
+  font-style: italic;
+  color: #687555;
+}
+.food-theme-neighbourhood-cafe .scc-menu-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 22px 0;
+  border-bottom: 1px solid #cbc6b8;
+}
+.food-theme-neighbourhood-cafe .scc-menu-item h4 {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 0;
+}
+.food-theme-neighbourhood-cafe .scc-menu-item p {
+  font-size: 12px;
+  color: #6a6258;
+  margin-top: 8px;
+  line-height: 1.7;
+}
+.food-theme-neighbourhood-cafe .scc-menu-item > span {
+  flex-shrink: 0;
+  font-family: Georgia, serif;
+  font-size: 24px;
+}
+.food-theme-neighbourhood-cafe .scc-menu-foot {
+  margin-inline: 6%;
+  padding: 45px 0 65px;
+  border-top: 1px solid #cbc6b8;
+  text-align: center;
+}
+.food-theme-neighbourhood-cafe .scc-menu-foot > p {
+  margin-inline: auto;
+}
+.food-theme-neighbourhood-cafe .scc-menu-foot h2 {
+  margin: 17px 0 20px;
+  font-size: clamp(34px, 4vw, 57px);
+}
+.food-theme-neighbourhood-cafe .scc-visit-details {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 12%;
+  margin-inline: 6%;
+  padding: 48px 0 80px;
+  border-top: 1px solid #cbc6b8;
+}
+.food-theme-neighbourhood-cafe .scc-visit-details h2 {
+  font-size: clamp(39px, 4.6vw, 66px);
+  margin-top: 20px;
+  line-height: 1.15;
+}
+.food-theme-neighbourhood-cafe .scc-visit-details > div > p:not(.scc-kicker) {
+  max-width: 43ch;
+  color: #6a6258;
+  font-size: 13px;
+  line-height: 1.85;
+  margin-top: 21px;
+}
+.food-theme-neighbourhood-cafe .scc-visit-details .scc-small-note {
+  font-size: 10px !important;
+}
+.food-theme-neighbourhood-cafe .scc-opening dl {
+  margin: 24px 0 0;
+}
+.food-theme-neighbourhood-cafe .scc-opening dl > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid #cbc6b8;
+}
+.food-theme-neighbourhood-cafe .scc-opening dt {
+  font-family: Georgia, serif;
+  font-size: 21px;
+}
+.food-theme-neighbourhood-cafe .scc-opening dd {
+  margin: 0;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.food-theme-neighbourhood-cafe .scc-opening .scc-text-link {
+  margin-top: 16px;
+}
+.food-theme-neighbourhood-cafe .scc-photo-compact {
+  height: clamp(290px, 36vw, 500px);
+}
+.food-theme-neighbourhood-cafe .food-contact {
+  padding-block: 80px;
+}
+.food-theme-neighbourhood-cafe .food-contact h2 {
+  font-size: clamp(31px, 3.5vw, 49px);
+  line-height: 1.15;
+}
+.food-theme-neighbourhood-cafe .food-footer {
+  width: 100%;
+  max-width: none;
+  padding-inline: 5%;
+  background: #e7e4d9;
+}
+.food-theme-neighbourhood-cafe .food-contact-panel {
+  border: 0;
+  border-left: 1px solid #cbc6b8;
+  padding-block: 0;
+}
+.food-theme-neighbourhood-cafe .food-contact-arrow {
+  display: none;
+}
+html[data-motion="paused"]
+  .food-theme-neighbourhood-cafe
+  :is(.scc-brew-ring, .scc-text-link, .scc-button) {
+  transition: none;
+}
+@media (max-width: 1000px) {
+  .food-theme-neighbourhood-cafe .scc-welcome {
+    grid-template-columns: 0.8fr 2fr;
+    gap: 28px;
+  }
+  .food-theme-neighbourhood-cafe .scc-welcome .scc-coffee-ring {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    width: 130px;
+    margin: -125px 0 0;
+  }
+  .food-theme-neighbourhood-cafe .scc-brew-guide {
+    gap: 5%;
+  }
+  .food-theme-neighbourhood-cafe .scc-brew-result {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .food-theme-neighbourhood-cafe .scc-brew-ring {
+    width: 112px;
+  }
+  .food-theme-neighbourhood-cafe .scc-brew-ring b {
+    font-size: 42px;
+  }
+  .food-theme-neighbourhood-cafe .scc-brew-ring span {
+    font-size: 6px;
+  }
+}
+@media (max-width: 760px) {
+  .food-theme-neighbourhood-cafe .food-contact-panel {
+    border-left: 0;
+    border-top: 1px solid #cbc6b8;
+    padding: 35px 0 0;
+  }
+  .food-theme-neighbourhood-cafe .scc-hero-bottom {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .food-theme-neighbourhood-cafe .scc-small-flower {
+    display: none;
+  }
+  .food-theme-neighbourhood-cafe .scc-hero-bottom .scc-text-link {
+    justify-self: center;
+    font-size: 11px;
+  }
+  .food-theme-neighbourhood-cafe .scc-hero h1 {
+    margin-bottom: 27px;
+  }
+  .food-theme-neighbourhood-cafe .scc-photo {
+    height: 430px;
+  }
+  .food-theme-neighbourhood-cafe .scc-welcome {
+    grid-template-columns: 1fr;
+  }
+  .food-theme-neighbourhood-cafe .scc-welcome .scc-coffee-ring {
+    grid-column: auto;
+    grid-row: auto;
+    justify-self: end;
+    width: 140px;
+    margin: 15px 10px 0;
+  }
+  .food-theme-neighbourhood-cafe .scc-brew-guide {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .food-theme-neighbourhood-cafe .scc-brew-result {
+    grid-template-columns: 112px 1fr;
+    gap: 28px;
+  }
+  .food-theme-neighbourhood-cafe .scc-menu-preview {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+  .food-theme-neighbourhood-cafe .scc-preview-title .scc-text-link {
+    margin-top: 18px;
+  }
+  .food-theme-neighbourhood-cafe .scc-menu-page {
+    grid-template-columns: 1fr;
+    gap: 45px;
+    padding-inline: 6%;
+    padding-bottom: 65px;
+  }
+  .food-theme-neighbourhood-cafe .scc-menu-side {
+    display: none;
+  }
+  .food-theme-neighbourhood-cafe .scc-menu-ledger {
+    min-height: 360px;
+  }
+  .food-theme-neighbourhood-cafe .scc-visit-details {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+  .food-theme-neighbourhood-cafe .scc-photo-compact {
+    height: 330px;
+  }
+}
+@media (max-width: 440px) {
+  .food-theme-neighbourhood-cafe .scc-hero {
+    padding-inline: 5%;
+  }
+  .food-theme-neighbourhood-cafe .scc-hero h1 {
+    font-size: 43px;
+  }
+  .food-theme-neighbourhood-cafe .scc-hero h1 em {
+    font-size: 0.83em;
+  }
+  .food-theme-neighbourhood-cafe .scc-photo {
+    height: 355px;
+  }
+  .food-theme-neighbourhood-cafe .scc-photo figcaption {
+    font-size: 7px;
+  }
+  .food-theme-neighbourhood-cafe .scc-brew-result {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .food-theme-neighbourhood-cafe .scc-brew-ring {
+    justify-self: end;
+  }
+  .food-theme-neighbourhood-cafe .scc-opening dl > div {
+    gap: 12px;
+  }
+  .food-theme-neighbourhood-cafe .scc-opening dt {
+    font-size: 19px;
+  }
+  .food-theme-neighbourhood-cafe .scc-opening dd {
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .food-theme-neighbourhood-cafe :is(.scc-brew-ring, .scc-text-link, .scc-button) {
+    transition: none;
+  }
+}

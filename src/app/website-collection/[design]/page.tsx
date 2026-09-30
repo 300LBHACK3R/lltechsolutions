@@ -1,3 +1,9 @@
+import foodTruckDemo from "@/data/food-truck-demo.json";
+import neighbourhoodCafeDemo from "@/data/neighbourhood-cafe-demo.json";
+import artisanBakeryDemo from "@/data/artisan-bakery-demo.json";
+import pizzeriaDemo from "@/data/pizzeria-demo.json";
+import cateringEventsDemo from "@/data/catering-events-demo.json";
+import fineDiningDemo from "@/data/fine-dining-demo.json";
 import homeCleaningDemo from "@/data/home-cleaning-demo.json";
 import windowCareDemo from "@/data/window-care-demo.json";
 import homeOrganizingDemo from "@/data/home-organizing-demo.json";
@@ -43,6 +49,8 @@ import { projects, projectPath } from "@/data/projects";
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl, liveDemoLabel } from "@/config/site";
 import {
+  foodTemplate,
+  type FoodTemplateId,
   homePropertyTemplate,
   type HomePropertyTemplateId,
   transportTemplate,
@@ -64,6 +72,15 @@ import {
   designContactLabel,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
+
+const foodShowcases = {
+  "food-truck": foodTruckDemo,
+  "neighbourhood-cafe": neighbourhoodCafeDemo,
+  "artisan-bakery": artisanBakeryDemo,
+  pizzeria: pizzeriaDemo,
+  "catering-events": cateringEventsDemo,
+  "fine-dining": fineDiningDemo,
+};
 
 const homePropertyShowcases = {
   "home-cleaning": homeCleaningDemo,
@@ -110,44 +127,46 @@ export default async function DesignPage({ params }: Props) {
   const { design: id } = await params;
   const design = availableDesigns().find((item) => item.id === id);
   if (!design) notFound();
-  const media = transportTemplate(design.id)
-    ? readTemplateShowcase(
-        transportShowcases[design.id as TransportTemplateId],
-        design.id as TransportTemplateId,
-      )
-    : homePropertyTemplate(design.id)
+  const media = foodTemplate(design.id)
+    ? readTemplateShowcase(foodShowcases[design.id as FoodTemplateId], design.id as FoodTemplateId)
+    : transportTemplate(design.id)
       ? readTemplateShowcase(
-          homePropertyShowcases[design.id as HomePropertyTemplateId],
-          design.id as HomePropertyTemplateId,
+          transportShowcases[design.id as TransportTemplateId],
+          design.id as TransportTemplateId,
         )
-      : design.id === "pigment"
-        ? readTemplateShowcase(paintingDemo)
-        : design.id === "structure"
-          ? readTemplateShowcase(plumbingDemo, "structure")
-          : design.id === "earthworks"
-            ? readTemplateShowcase(earthworksDemo, "earthworks")
-            : design.id === "lawncare"
-              ? readTemplateShowcase(lawncareDemo, "lawncare")
-              : design.id === "horizon"
-                ? readTemplateShowcase(horizonDemo, "horizon")
-                : design.id === "still"
-                  ? readTemplateShowcase(beautyDemo, "still")
-                  : design.id === "massage-one-page"
-                    ? readTemplateShowcase(massageOnePageDemo, "massage-one-page")
-                    : design.id === "medical-spa"
-                      ? readTemplateShowcase(medicalSpaDemo, "medical-spa")
-                      : design.id === "artsy-nails"
-                        ? readTemplateShowcase(artsyNailDemo, "artsy-nails")
-                        : design.id === "hair-salon"
-                          ? readTemplateShowcase(hairSalonDemo, "hair-salon")
-                          : design.id === "hair-one-page"
-                            ? readTemplateShowcase(hairOnePageDemo, "hair-one-page")
-                            : professionalTemplate(design.id)
-                              ? readTemplateShowcase(
-                                  professionalShowcases[design.id as ProfessionalTemplateId],
-                                  design.id as ProfessionalTemplateId,
-                                )
-                              : null;
+      : homePropertyTemplate(design.id)
+        ? readTemplateShowcase(
+            homePropertyShowcases[design.id as HomePropertyTemplateId],
+            design.id as HomePropertyTemplateId,
+          )
+        : design.id === "pigment"
+          ? readTemplateShowcase(paintingDemo)
+          : design.id === "structure"
+            ? readTemplateShowcase(plumbingDemo, "structure")
+            : design.id === "earthworks"
+              ? readTemplateShowcase(earthworksDemo, "earthworks")
+              : design.id === "lawncare"
+                ? readTemplateShowcase(lawncareDemo, "lawncare")
+                : design.id === "horizon"
+                  ? readTemplateShowcase(horizonDemo, "horizon")
+                  : design.id === "still"
+                    ? readTemplateShowcase(beautyDemo, "still")
+                    : design.id === "massage-one-page"
+                      ? readTemplateShowcase(massageOnePageDemo, "massage-one-page")
+                      : design.id === "medical-spa"
+                        ? readTemplateShowcase(medicalSpaDemo, "medical-spa")
+                        : design.id === "artsy-nails"
+                          ? readTemplateShowcase(artsyNailDemo, "artsy-nails")
+                          : design.id === "hair-salon"
+                            ? readTemplateShowcase(hairSalonDemo, "hair-salon")
+                            : design.id === "hair-one-page"
+                              ? readTemplateShowcase(hairOnePageDemo, "hair-one-page")
+                              : professionalTemplate(design.id)
+                                ? readTemplateShowcase(
+                                    professionalShowcases[design.id as ProfessionalTemplateId],
+                                    design.id as ProfessionalTemplateId,
+                                  )
+                                : null;
   const category = categoryForIndustry(design.industry);
   const clientProject = design.clientProjectId
     ? projects.find(
