@@ -2,6 +2,8 @@
 
 Prepared September 8, 2026, following Tate's approval of the rest of the site and request to publish.
 
+Historical report: the dependency versions and audit findings below describe September 8 only. They are superseded by the September 30 security update to Next.js and eslint-config-next 16.3.8. Re-run the current release checks before publishing.
+
 ## Changes
 
 The footer uses a smaller linked logo, short location line, inline desktop navigation and a three-column phone navigation grid. Large repeated tagline text, the tall navigation column and surplus padding were removed. Email, telephone, all three social links, legal pages and motion preferences remain accessible.
