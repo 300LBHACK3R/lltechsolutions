@@ -80,6 +80,12 @@ export const collectionIndustries = [
   { id: "real-estate", name: "Real Estate" },
   { id: "automotive", name: "Automotive & Detailing" },
   { id: "retail", name: "Retail & Shops" },
+  { id: "mobile-detailing", name: "Mobile Detailing" },
+  { id: "flower-shop", name: "Flower Shops" },
+  { id: "auto-repair", name: "Auto Repair Workshops" },
+  { id: "streetwear-store", name: "Streetwear Stores" },
+  { id: "wheel-studio", name: "Wheel & Tire Studios" },
+  { id: "jewellery-atelier", name: "Jewellery Ateliers" },
   { id: "transport-logistics", name: "Transport & Logistics" },
   { id: "trailer-rentals", name: "Trailer & Equipment Rentals" },
   { id: "courier", name: "Courier & Local Delivery" },
@@ -186,7 +192,16 @@ export const templateCategories: readonly TemplateCategory[] = [
     id: "retail-automotive",
     name: "Retail & Automotive",
     description: "Independent shops, showrooms, automotive services and detailing businesses.",
-    industries: ["retail", "automotive"],
+    industries: [
+      "retail",
+      "automotive",
+      "mobile-detailing",
+      "flower-shop",
+      "auto-repair",
+      "streetwear-store",
+      "wheel-studio",
+      "jewellery-atelier",
+    ],
     image: "/images/template-categories/retail-automotive.webp",
   },
 ];
@@ -283,7 +298,8 @@ export type WebsiteDesign = {
       | "professional"
       | "home-property"
       | "transport"
-      | "food";
+      | "food"
+      | "retail";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -632,6 +648,448 @@ export function homePropertyPagePath(page: string) {
   return page === "Home" ? "/" : `/${page.toLowerCase().replaceAll(" ", "-")}`;
 }
 
+/** Fictional Retail & Automotive designs; supplied items are illustrative static content. */
+export const retailTemplates = [
+  {
+    id: "mobile-detailing",
+    name: "One-page Mobile Detailing",
+    brand: "CURBSIDE",
+    subbrand: "MOBILE DETAILING / SAMPLE STUDIO",
+    price: 150,
+    tier: "essential",
+    pages: ["Home"],
+    headline: "A fresh start.",
+    emphasis: "Parked right here.",
+    intro:
+      "A considered clean for the car that carries your everyday. Start with the spaces you use most, then give the rest a little attention.",
+    about:
+      "Daily commutes. Weekend trips. A life lived between the seats. We start with your priorities, talk through the condition of your car and agree on the work before getting started.",
+    imageAlt:
+      "Illustrative unbranded dark-blue sedan viewed from the front three-quarter angle with aqua reflections in a clean concrete studio",
+    form: false,
+    description:
+      "An ink-and-icy-aqua one-page detailing design built around a service ticket, sample package selector and direct contact.",
+    cta: "Explore the service ticket",
+    services: [
+      {
+        name: "Interior reset",
+        description: "Focus on the spaces you use most.",
+        detail:
+          "The dashboard, the floor mats, the places that collect the everyday. Tell us what needs attention so we can shape the service around your car.",
+      },
+      {
+        name: "Exterior care",
+        description: "Give the outside some attention.",
+        detail:
+          "A fresh exterior begins with a conversation about the paint, its condition and the finish you want to care for.",
+      },
+      {
+        name: "Complete refresh",
+        description: "Bring the inside and outside together.",
+        detail:
+          "Inside and outside, considered together. A clear scope built around your vehicle, your priorities and the time available.",
+      },
+    ],
+    items: [
+      {
+        name: "Cabin reset",
+        description: "Sample interior surface and mat care.",
+        price: "$95",
+        category: "Interior",
+      },
+      {
+        name: "Outside refresh",
+        description: "Sample exterior wash and finish.",
+        price: "$75",
+        category: "Exterior",
+      },
+      {
+        name: "Inside + out",
+        description: "An illustrative combined care package.",
+        price: "$155",
+        category: "Complete",
+      },
+    ],
+    industry: "mobile-detailing",
+    theme: "mobile-detailing",
+    image: "/images/collection/retail-mobile-detailing.webp",
+  },
+  {
+    id: "flower-shop",
+    name: "Flower Shop",
+    brand: "STEM HOUSE",
+    subbrand: "FLOWERS FOR THE EVERYDAY",
+    price: 399,
+    tier: "signature",
+    pages: ["Home", "Flowers", "Visit"],
+    headline: "A little wild.",
+    emphasis: "Entirely lovely.",
+    intro:
+      "Stems with movement, unexpected colour and a place in your day. For the big occasions, the small gestures and the just-because moments.",
+    about:
+      "Some stems lean. Some colours surprise you. We like flowers that feel gathered, with room for a little wildness and a personality of their own.",
+    imageAlt:
+      "Illustrative cream yellow and mauve bouquet wrapped in paper against an aubergine backdrop",
+    form: false,
+    description:
+      "An aubergine-and-butter flower shop with a paper bouquet mood board, colour selector and three editorial pages.",
+    cta: "Find your flower mood",
+    services: [
+      {
+        name: "Everyday flowers",
+        description: "A small gesture with its own personality.",
+        detail:
+          "Hand-tied shapes for the kitchen table, a thank-you or no particular occasion. A little colour can change the feel of a whole room.",
+      },
+      {
+        name: "Gatherings",
+        description: "Flowers that belong to the occasion.",
+        detail:
+          "A dinner with friends, a long table, a day to remember. Bring the feeling of your occasion and let the flowers find their place.",
+      },
+      {
+        name: "Shop notes",
+        description: "A little context for every stem.",
+        detail:
+          "Seasonal favourites, a closer look at the stems and a few notes from the shop. Ask us about the flowers that are right for your occasion.",
+      },
+    ],
+    items: [
+      {
+        name: "Sunroom",
+        description: "An illustrative mix of yellow stems and leafy movement.",
+        price: "$55",
+        category: "Bright",
+      },
+      {
+        name: "Plum paper",
+        description: "A sample arrangement of deep colour and sculptural stems.",
+        price: "$75",
+        category: "Moody",
+      },
+      {
+        name: "Soft morning",
+        description: "A gentle example in pale pink and cream.",
+        price: "$60",
+        category: "Soft",
+      },
+      {
+        name: "Wild gesture",
+        description: "An illustrative loose bouquet with unexpected texture.",
+        price: "$85",
+        category: "Wild",
+      },
+    ],
+    industry: "flower-shop",
+    theme: "flower-shop",
+    image: "/images/collection/retail-flower-shop.webp",
+  },
+  {
+    id: "auto-repair",
+    name: "Auto Repair Workshop",
+    brand: "BAY 03",
+    subbrand: "THE WORKSHOP / SAMPLE CONCEPT",
+    price: 499,
+    tier: "signature",
+    pages: ["Home", "Services", "Workshop", "Contact"],
+    headline: "Know the next step.",
+    emphasis: "Keep the conversation clear.",
+    intro:
+      "Clear service information. Useful questions. A direct conversation with the people looking after your vehicle.",
+    about:
+      "Good workshop conversations start with what you have noticed. We make room for your questions, explain the proposed next step and agree on the work before it begins.",
+    imageAlt:
+      "Illustrative tidy automotive workshop with a vehicle lift tools and steel-blue details",
+    form: false,
+    description:
+      "A technical steel-blue-and-white workshop manual with an interactive service explorer and four clear pages.",
+    cta: "Open the service guide",
+    services: [
+      {
+        name: "Brake care",
+        description: "Start with the concern you have noticed.",
+        detail:
+          "Describe the concern and when it happens. A hands-on workshop assessment comes before a recommendation for your vehicle.",
+      },
+      {
+        name: "Routine maintenance",
+        description: "Make room for the everyday essentials.",
+        detail:
+          "Talk through your vehicle, its service history and the maintenance work you are considering. The right scope starts with the right information.",
+      },
+      {
+        name: "Diagnostics",
+        description: "Describe the symptom and the context.",
+        detail:
+          "Share the symptom, when it appears and anything that has changed. Give the workshop a clear starting point for its assessment.",
+      },
+    ],
+    items: [
+      {
+        name: "Brake conversation",
+        description: "A sample starting point for describing a brake concern.",
+        price: "By enquiry",
+        category: "Brakes",
+      },
+      {
+        name: "Maintenance conversation",
+        description: "A sample outline for discussing routine care.",
+        price: "By enquiry",
+        category: "Maintenance",
+      },
+      {
+        name: "Diagnostic assessment",
+        description: "An illustrative starting point for a professional assessment.",
+        price: "By enquiry",
+        category: "Diagnostics",
+      },
+    ],
+    industry: "auto-repair",
+    theme: "auto-repair",
+    image: "/images/collection/retail-auto-repair.webp",
+  },
+  {
+    id: "streetwear-store",
+    name: "Streetwear Store",
+    brand: "OFF/GRID",
+    subbrand: "INDEPENDENT FORM / SAMPLE COLLECTION",
+    price: 699,
+    tier: "premier",
+    pages: ["Home", "Collection", "Lookbook", "Our story", "Contact"],
+    headline: "Wear your own",
+    emphasis: "frequency.",
+    intro:
+      "Everyday pieces with a point of view. Expressive silhouettes, deliberate proportions and room to make them your own.",
+    about:
+      "OFF/GRID explores shape, repetition and everyday movement. Familiar pieces, seen from a different angle. We are interested in how you wear them, not a rulebook for getting dressed.",
+    imageAlt:
+      "Illustrative streetwear editorial with sculptural garments coral accents and a monochrome studio backdrop",
+    form: true,
+    description:
+      "An electric-coral-and-monochrome streetwear lookbook with oversized type, a filterable sample collection and local product shortlist.",
+    cta: "Explore the collection",
+    services: [
+      {
+        name: "The collection",
+        description: "Build a visual point of view.",
+        detail:
+          "Easy layers, expressive shapes and pieces that work in their own way. Explore the collection and bring your favourites together.",
+      },
+      {
+        name: "Lookbook",
+        description: "A different way to see the pieces.",
+        detail:
+          "Proportions, textures and the spaces between. Step into the studio for a different view of the collection.",
+      },
+      {
+        name: "The studio",
+        description: "Give the label its own voice.",
+        detail:
+          "Ideas become silhouettes, and silhouettes become part of the everyday. Get to know the point of view behind the label.",
+      },
+    ],
+    items: [
+      {
+        name: "Volume tee",
+        description: "A sample boxy cotton tee with a considered dropped shoulder.",
+        price: "$68",
+        category: "Tops",
+      },
+      {
+        name: "Signal overshirt",
+        description: "An illustrative layered shirt with oversized pockets.",
+        price: "$148",
+        category: "Layers",
+      },
+      {
+        name: "Wide utility pant",
+        description: "A sample relaxed trouser with practical pocket details.",
+        price: "$128",
+        category: "Bottoms",
+      },
+      {
+        name: "Grid cap",
+        description: "An illustrative six-panel cap with a minimal stitched mark.",
+        price: "$42",
+        category: "Accessories",
+      },
+      {
+        name: "Studio hoodie",
+        description: "A sample structured hooded layer with clean proportions.",
+        price: "$138",
+        category: "Layers",
+      },
+      {
+        name: "Frame long sleeve",
+        description: "An illustrative long-sleeve tee with a quiet graphic detail.",
+        price: "$82",
+        category: "Tops",
+      },
+    ],
+    industry: "streetwear-store",
+    theme: "streetwear-store",
+    image: "/images/collection/retail-streetwear-store.webp",
+  },
+  {
+    id: "wheel-studio",
+    name: "Wheel & Tire Studio",
+    brand: "AXIS WORKS",
+    subbrand: "FORM / FINISH / PROPORTION",
+    price: 699,
+    tier: "premier",
+    pages: ["Home", "Wheels", "Services", "Fitment", "Contact"],
+    headline: "Precision in",
+    emphasis: "the details.",
+    intro:
+      "For people who notice the finish, the shape and the way every detail works together. Find a visual direction, then start the conversation.",
+    about:
+      "A wheel changes the character of a car. We look at the relationship between form, finish and proportion, then bring the practical requirements into the conversation.",
+    imageAlt: "Illustrative bronze alloy wheel and tire in a dark studio",
+    form: true,
+    description:
+      "A charcoal-and-copper wheel studio with a finish selector, sample collection and clearly labelled fitment enquiry guide.",
+    cta: "Explore the finishes",
+    services: [
+      {
+        name: "Wheel collections",
+        description: "A closer look at shape and finish.",
+        detail:
+          "Clean spokes, sculptural lines, a considered finish. Explore the visual directions and bring your shortlist to the studio.",
+      },
+      {
+        name: "Studio services",
+        description: "Show the work your business offers.",
+        detail:
+          "From a first conversation to the details of wheel and tire care, start with the service you need and the vehicle you drive.",
+      },
+      {
+        name: "Fitment conversation",
+        description: "Gather context for a professional review.",
+        detail:
+          "Bring your vehicle details and what you have in mind. Compatibility, load suitability and installation requirements need professional verification before choosing a wheel or tire.",
+      },
+    ],
+    items: [
+      {
+        name: "Arc 01",
+        description: "A sample open-spoke form in a satin silver finish.",
+        price: "By enquiry",
+        category: "Satin silver",
+      },
+      {
+        name: "Contour 02",
+        description: "An illustrative sculpted multi-spoke form in graphite.",
+        price: "By enquiry",
+        category: "Graphite",
+      },
+      {
+        name: "Line 03",
+        description: "A sample clean spoke profile in warm brushed bronze.",
+        price: "By enquiry",
+        category: "Brushed bronze",
+      },
+      {
+        name: "Form 04",
+        description: "An illustrative deep-profile wheel in polished silver.",
+        price: "By enquiry",
+        category: "Polished silver",
+      },
+    ],
+    industry: "wheel-studio",
+    theme: "wheel-studio",
+    image: "/images/collection/retail-wheel-studio.webp",
+  },
+  {
+    id: "jewellery-atelier",
+    name: "Jewellery Atelier",
+    brand: "FORME",
+    subbrand: "OBJECTS TO KEEP / SAMPLE ATELIER",
+    price: 999,
+    tier: "flagship",
+    pages: ["Home", "Collections", "The atelier", "Bespoke", "Materials", "Journal", "Contact"],
+    headline: "Small forms.",
+    emphasis: "Lasting presence.",
+    intro:
+      "Quiet objects, considered proportions and the pleasure of looking a little closer. Pieces that make room for your own meaning.",
+    about:
+      "A curve. A surface. The space between. FORME begins with simple gestures and the way an object meets the light. What it means is something you bring to it.",
+    imageAlt: "Illustrative gold ring and open cuff displayed on ivory stone in soft gallery light",
+    form: true,
+    description:
+      "An ivory-and-champagne jewellery gallery with an interactive exhibit, material swatches and seven editorial pages.",
+    cta: "Enter the collection",
+    services: [
+      {
+        name: "Collections",
+        description: "Objects arranged around a shared idea.",
+        detail:
+          "Rings, cuffs and pendants arranged around a shared idea. Small objects with their own presence, made to be looked at slowly.",
+      },
+      {
+        name: "Bespoke conversations",
+        description: "Begin with the shape of an idea.",
+        detail:
+          "A shape you keep returning to. An occasion, a gesture or a thought. Begin with an idea and a conversation about where it could lead.",
+      },
+      {
+        name: "Material studies",
+        description: "Look closely at surface and tone.",
+        detail:
+          "Warmth, reflection, texture and tone. Explore the visual character of a finish, then ask about composition and care for the actual piece.",
+      },
+    ],
+    items: [
+      {
+        name: "Orbit ring",
+        description: "A sample rounded band with a sculptural open curve.",
+        price: "$240",
+        category: "Rings",
+      },
+      {
+        name: "Fold earrings",
+        description: "An illustrative folded silhouette in a warm metal tone.",
+        price: "$320",
+        category: "Earrings",
+      },
+      {
+        name: "Line pendant",
+        description: "A sample quiet vertical form on a fine chain.",
+        price: "$280",
+        category: "Pendants",
+      },
+      {
+        name: "Still ring",
+        description: "An illustrative flat-profile band with a brushed surface.",
+        price: "$210",
+        category: "Rings",
+      },
+      {
+        name: "Arc earrings",
+        description: "A sample small curved form with a polished finish.",
+        price: "$260",
+        category: "Earrings",
+      },
+      {
+        name: "Trace pendant",
+        description: "An illustrative oval pendant with a soft-edged outline.",
+        price: "$295",
+        category: "Pendants",
+      },
+    ],
+    industry: "jewellery-atelier",
+    theme: "jewellery-atelier",
+    image: "/images/collection/retail-jewellery-atelier.webp",
+  },
+] as const;
+export type RetailTemplate = (typeof retailTemplates)[number];
+export type RetailTemplateId = RetailTemplate["id"];
+export function retailTemplate(id: string) {
+  return retailTemplates.find((template) => template.id === id);
+}
+export function retailPagePath(page: string) {
+  return page === "Home" ? "/" : `/${page.toLowerCase().replaceAll(" ", "-")}`;
+}
+
 /** Fictional food-business designs. Menu entries are illustrative supplied-content examples. */
 export const foodTemplates = [
   {
@@ -647,8 +1105,7 @@ export const foodTemplates = [
     intro: "Street-food favourites, a changing view, and a very good reason to step outside.",
     about:
       "A short menu, a lively corner and something good in hand. Pull up to the window, pick a favourite and make a little time for lunch.",
-    imageAlt:
-      "Illustrative coral street-food truck with an open serving window and a casual outdoor table",
+    imageAlt: "Illustrative crispy chicken bun and fries on a blue-and-yellow street-food setting",
     form: false,
     description:
       "A punchy cobalt-and-acid-yellow one-page food-truck design with oversized type, a concise sample menu and direct-contact sections.",
@@ -2496,6 +2953,58 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     ],
     concept: {
       theme: "professional",
+      brands: [template.brand, template.brand],
+      headlines: [`${template.headline} ${template.emphasis}`, template.headline],
+      subcopy: template.intro,
+      kicker: template.subbrand,
+      action: "Start a conversation",
+      photo: { src: template.image, alt: template.imageAlt, width: 1536, height: 1024 },
+      services: template.services,
+      approach: template.about,
+    },
+  })),
+  ...retailTemplates.map((template): WebsiteDesign => ({
+    id: template.id,
+    status: "concept",
+    name: template.name,
+    tier: template.tier,
+    industry: template.industry,
+    additionalIndustries: [
+      ["mobile-detailing", "auto-repair", "wheel-studio"].includes(template.id)
+        ? "automotive"
+        : "retail",
+    ],
+    description: template.description,
+    startingPriceCad: template.price,
+    pageCount: template.pages.length,
+    contactMode: template.form ? "enquiry-form" : "direct",
+    deliveryWindow: "Timing agreed after your content and scope are confirmed.",
+    demoUrl: `/website-collection/${template.id}#preview`,
+    included: [
+      template.pages.length === 1
+        ? "One page: introduction, up to three services, about and direct-contact sections"
+        : `${template.pages.length} pages: ${template.pages.join(", ")}`,
+      "Your supplied logo, colours, business information and images implemented in the code",
+      "Your supplied products, services, descriptions and prices as static initial content within the agreed page scope",
+      "Responsive layout, keyboard navigation and reduced-motion support",
+      "Page titles, descriptions, social metadata and launch security configuration",
+      ...(template.form
+        ? [
+            "Standard enquiry form setup: one inbox, Resend, sending-domain configuration, field validation, spam controls and an initial delivery test",
+          ]
+        : [
+            "Direct phone and email contact; an existing external booking or store link can be added",
+          ]),
+      "Personalization and launch within this template’s agreed scope",
+    ],
+    customization: [
+      "Additional pages, original copywriting, photography, videography and ongoing care scoped separately",
+      "E-commerce checkout, stock systems, bookings, payments, POS, vehicle fitment databases and other connected workflows are separately scoped",
+      "Your business supplies and approves product and service information, prices, materials, care guidance, credentials, availability and content usage rights",
+      "Sample items, prices, locations and enquiry interactions are illustrative; these static demos do not accept orders, bookings or payments, confirm stock or provide vehicle fitment advice",
+    ],
+    concept: {
+      theme: "retail",
       brands: [template.brand, template.brand],
       headlines: [`${template.headline} ${template.emphasis}`, template.headline],
       subcopy: template.intro,

@@ -76,6 +76,12 @@ try {
     "/website-collection/equipment-rentals",
     "/website-collection/cold-chain",
     "/website-collection/freight-logistics",
+    "/website-collection/mobile-detailing",
+    "/website-collection/flower-shop",
+    "/website-collection/auto-repair",
+    "/website-collection/streetwear-store",
+    "/website-collection/wheel-studio",
+    "/website-collection/jewellery-atelier",
     "/website-collection/food-truck",
     "/website-collection/neighbourhood-cafe",
     "/website-collection/artisan-bakery",
@@ -102,7 +108,6 @@ try {
     "/website-collection/start",
     "/website-collection/compare",
     "/website-collection/brief",
-    "/website-collection/category/retail-automotive",
   ]);
   const htmlByRoute = new Map();
   const titles = new Set();
@@ -532,15 +537,14 @@ try {
     checks++;
     const gallery = htmlByRoute.get(`/website-collection/category/${id}`);
     assert.ok(gallery.includes('"@type":"BreadcrumbList"'), `${id}: category breadcrumbs`);
-    if (id === "retail-automotive") {
-      assert.ok(
-        gallery.includes("No templates have been added here yet."),
-        `${id}: truthful empty state`,
-      );
-      assert.ok(!gallery.includes('class="collection-design"'), `${id}: no invented templates`);
-    }
   }
   const templatePrices = [
+    ["mobile-detailing", "retail-automotive", 150],
+    ["flower-shop", "retail-automotive", 399],
+    ["auto-repair", "retail-automotive", 499],
+    ["streetwear-store", "retail-automotive", 699],
+    ["wheel-studio", "retail-automotive", 699],
+    ["jewellery-atelier", "retail-automotive", 999],
     ["food-truck", "food-restaurants", 150],
     ["neighbourhood-cafe", "food-restaurants", 399],
     ["artisan-bakery", "food-restaurants", 499],
@@ -624,6 +628,33 @@ try {
       [...html.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]),
       [id],
       `${industry}: correct property offer`,
+    );
+    checks++;
+  }
+  const retailGallery = htmlByRoute.get("/website-collection/category/retail-automotive");
+  assert.equal(
+    (retailGallery.match(/data-retail-cover=/g) ?? []).length,
+    6,
+    "six distinct retail previews",
+  );
+  assert.ok(!retailGallery.includes('content="noindex'), "populated retail gallery is indexable");
+  for (const id of [
+    "mobile-detailing",
+    "flower-shop",
+    "auto-repair",
+    "streetwear-store",
+    "wheel-studio",
+    "jewellery-atelier",
+  ]) {
+    const response = await fetch(
+      `${origin}/website-collection/category/retail-automotive?industry=${id}`,
+    );
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.deepEqual(
+      [...html.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]),
+      [id],
+      `${id}: exact retail industry filter`,
     );
     checks++;
   }

@@ -25,6 +25,7 @@ import "@/styles/professional-templates.css";
 import "@/styles/home-property.css";
 import "@/styles/transport.css";
 import "@/styles/food.css";
+import "@/styles/retail.css";
 import "@/styles/transport-courier.css";
 import "@/styles/transport-moving.css";
 import "@/styles/transport-auto.css";

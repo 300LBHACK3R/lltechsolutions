@@ -1,3 +1,4 @@
+import RetailCover from "@/components/collection/RetailCover";
 import FoodCover from "@/components/collection/FoodCover";
 import HomePropertyCover from "@/components/collection/HomePropertyCover";
 import TransportCover from "@/components/collection/TransportCover";
@@ -38,6 +39,7 @@ export default function DesignCover({
     );
   }
   if (!concept) return null;
+  if (concept.theme === "retail") return <RetailCover design={design} expanded={expanded} />;
   if (concept.theme === "food") return <FoodCover design={design} expanded={expanded} />;
   if (concept.theme === "transport") return <TransportCover design={design} expanded={expanded} />;
   if (concept.theme === "home-property") return <HomePropertyCover design={design} />;

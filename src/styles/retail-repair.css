@@ -1,0 +1,692 @@
+/* BAY 03 — a workshop manual in steel, graphite and blue. */
+.retail-site.retail-theme-auto-repair {
+  --retail-bg: #edf0ef;
+  --retail-ink: #17232b;
+  --retail-muted: #51616b;
+  --retail-accent: #275d7a;
+  --retail-on-accent: #ffffff;
+  --retail-line: #b7c3c8;
+  --retail-panel: #dce5e9;
+  --retail-focus: #156a9b;
+}
+.retail-theme-auto-repair :is(h1, h2, h3, .retail-brand) {
+  font-family: Impact, "Arial Narrow", var(--font-sans), Arial, sans-serif;
+  font-weight: 850;
+  letter-spacing: -0.045em;
+}
+.retail-theme-auto-repair .retail-brand {
+  font-size: 32px;
+  letter-spacing: -0.065em;
+}
+.retail-theme-auto-repair .retail-brand-symbol {
+  color: var(--retail-accent);
+}
+.retail-theme-auto-repair .retail-header {
+  padding-block: 22px;
+}
+.retail-theme-auto-repair .retail-nav a {
+  font-family: "Courier New", monospace;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.retail-theme-auto-repair .bay-label,
+.retail-theme-auto-repair .bay-small,
+.retail-theme-auto-repair .bay-hero-reference,
+.retail-theme-auto-repair .bay-diagram-top,
+.retail-theme-auto-repair .bay-diagram-bottom,
+.retail-theme-auto-repair .bay-process-code,
+.retail-theme-auto-repair .retail-kicker {
+  font-family: "Courier New", monospace;
+}
+.retail-theme-auto-repair .bay-label {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+}
+.retail-theme-auto-repair .bay-hero {
+  padding-top: 30px;
+}
+.retail-theme-auto-repair .bay-hero-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+.retail-theme-auto-repair .bay-hero-reference {
+  font-size: 10px;
+}
+.retail-theme-auto-repair .bay-hero-title {
+  display: grid;
+  grid-template-columns: 1fr 0.37fr;
+  gap: 5%;
+  align-items: end;
+  padding-block: 38px 48px;
+}
+.retail-theme-auto-repair .bay-hero h1 {
+  font-size: clamp(45px, 6.5vw, 110px);
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+}
+.retail-theme-auto-repair .bay-hero h1 > span {
+  color: var(--retail-accent);
+}
+.retail-theme-auto-repair .bay-hero-note {
+  font-size: 14px;
+}
+.retail-theme-auto-repair .bay-asterisk {
+  font-size: 45px;
+  line-height: 1;
+  display: block;
+  margin-bottom: 20px;
+  color: var(--retail-accent);
+}
+.retail-theme-auto-repair .bay-hero-note p {
+  max-width: 34ch;
+}
+.retail-theme-auto-repair .bay-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 12px;
+  min-height: 48px;
+  font-size: 12px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--retail-ink);
+  margin-top: 15px;
+}
+.retail-theme-auto-repair .bay-link > span {
+  font-size: 20px;
+  transition: transform 180ms ease;
+}
+.retail-theme-auto-repair .bay-link:hover > span {
+  transform: translate(3px, -3px);
+}
+.retail-theme-auto-repair .bay-hero-media {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  min-height: 435px;
+}
+.retail-theme-auto-repair .bay-bay-number {
+  background: var(--retail-accent);
+  color: #fff;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.retail-theme-auto-repair .bay-bay-number span {
+  font-family: "Courier New", monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+.retail-theme-auto-repair .bay-bay-number b {
+  align-self: center;
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-weight: 900;
+  font-size: clamp(80px, 12vw, 180px);
+  line-height: 1;
+  letter-spacing: -0.08em;
+}
+.retail-theme-auto-repair .bay-photo {
+  position: relative;
+  min-height: 435px;
+  overflow: hidden;
+  background: #a5b8c2;
+}
+.retail-theme-auto-repair .bay-photo img {
+  object-fit: cover;
+  object-position: center 58%;
+}
+.retail-theme-auto-repair .bay-photo figcaption {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  padding: 20px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  background: linear-gradient(transparent, #14212ee3);
+  color: #fff;
+  font:
+    9px/1.5 "Courier New",
+    monospace;
+  letter-spacing: 0.08em;
+}
+.retail-theme-auto-repair .bay-hero-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid var(--retail-line);
+  padding: 10px 0;
+  font:
+    10px/1.5 "Courier New",
+    monospace;
+}
+.retail-theme-auto-repair .bay-hero-caption a {
+  display: inline-flex;
+  gap: 18px;
+  align-items: center;
+  min-height: 44px;
+}
+.retail-theme-auto-repair .bay-explorer {
+  padding-block: clamp(60px, 7.5vw, 120px);
+}
+.retail-theme-auto-repair .bay-explorer-heading {
+  display: grid;
+  grid-template-columns: 0.7fr 1.5fr 0.8fr;
+  align-items: end;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+.retail-theme-auto-repair .bay-explorer-heading > .bay-label {
+  align-self: start;
+  padding-top: 6px;
+}
+.retail-theme-auto-repair .bay-explorer-heading > p:last-child {
+  font-size: 14px;
+  color: var(--retail-muted);
+}
+.retail-theme-auto-repair .bay-explorer h2 {
+  font-size: clamp(34px, 4.1vw, 65px);
+  line-height: 1.02;
+}
+.retail-theme-auto-repair .bay-explorer-body {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  border: 1px solid var(--retail-line);
+}
+.retail-theme-auto-repair .bay-diagram {
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  background:
+    linear-gradient(#aabdc426 1px, transparent 1px),
+    linear-gradient(90deg, #aabdc426 1px, transparent 1px), #dee8ec;
+  background-size: 24px 24px;
+}
+.retail-theme-auto-repair .bay-diagram-top,
+.retail-theme-auto-repair .bay-diagram-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+.retail-theme-auto-repair .bay-diagram svg {
+  width: 100%;
+  height: auto;
+  flex: 1;
+  max-height: 410px;
+}
+.retail-theme-auto-repair .bay-guide {
+  stroke: #79919f;
+  stroke-width: 0.7;
+}
+.retail-theme-auto-repair .bay-chassis {
+  stroke: #526d7b;
+  stroke-width: 2;
+}
+.retail-theme-auto-repair .bay-glass {
+  fill: #bfced7;
+  stroke: #728c99;
+}
+.retail-theme-auto-repair .bay-zone {
+  stroke: #758e9b;
+  fill: #d0dce2;
+  stroke-width: 2;
+  transition:
+    fill 250ms ease,
+    stroke 250ms ease,
+    filter 250ms ease;
+}
+.retail-theme-auto-repair .bay-zone path {
+  fill: none;
+}
+.retail-theme-auto-repair .bay-diagram[data-area="0"] .bay-zone-brakes,
+.retail-theme-auto-repair .bay-diagram[data-area="1"] .bay-zone-maintenance,
+.retail-theme-auto-repair .bay-diagram[data-area="2"] .bay-zone-diagnostics {
+  fill: #376f90;
+  stroke: #172f47;
+  filter: drop-shadow(0 0 9px #348cbe70);
+}
+.retail-theme-auto-repair .bay-diagram[data-area="1"] .bay-zone-maintenance path,
+.retail-theme-auto-repair .bay-diagram[data-area="2"] .bay-zone-diagnostics path {
+  stroke: #eaf9ff;
+}
+.retail-theme-auto-repair .bay-callout {
+  stroke: #658391;
+  stroke-width: 1;
+}
+.retail-theme-auto-repair .bay-point {
+  fill: #275d7a;
+}
+.retail-theme-auto-repair .bay-diagram text {
+  fill: #244a60;
+  font:
+    13px "Courier New",
+    monospace;
+}
+.retail-theme-auto-repair .bay-direction {
+  stroke: #62859b;
+  stroke-width: 2;
+}
+.retail-theme-auto-repair .bay-service-console {
+  padding: 26px 30px;
+  border-left: 1px solid var(--retail-line);
+  display: flex;
+  flex-direction: column;
+}
+.retail-theme-auto-repair .bay-service-options {
+  display: grid;
+}
+.retail-theme-auto-repair .bay-service-options button {
+  min-height: 55px;
+  display: grid;
+  grid-template-columns: 30px 1fr 20px;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--retail-line);
+  background: transparent;
+  color: var(--retail-ink);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 12px 15px;
+  cursor: pointer;
+}
+.retail-theme-auto-repair .bay-service-options button > span:first-child {
+  font:
+    11px "Courier New",
+    monospace;
+}
+.retail-theme-auto-repair .bay-service-options button[aria-pressed="true"] {
+  background: var(--retail-accent);
+  color: #fff;
+  border-color: var(--retail-accent);
+}
+.retail-theme-auto-repair .bay-service-options button:not([aria-pressed="true"]):hover {
+  background: #d9e3e8;
+}
+.retail-theme-auto-repair .bay-service-detail {
+  padding: 28px 0 20px;
+  min-height: 265px;
+}
+.retail-theme-auto-repair .bay-service-detail .bay-label {
+  color: var(--retail-accent);
+  font-size: 10px;
+}
+.retail-theme-auto-repair .bay-service-detail h3 {
+  font-size: 28px;
+  margin: 13px 0;
+}
+.retail-theme-auto-repair .bay-service-detail p {
+  font-size: 14px;
+}
+.retail-theme-auto-repair .bay-service-detail .bay-service-note {
+  border-left: 2px solid var(--retail-accent);
+  padding-left: 13px;
+  margin-top: 18px;
+  font-size: 12px;
+  color: var(--retail-muted);
+}
+.retail-theme-auto-repair .bay-small {
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--retail-muted);
+}
+.retail-theme-auto-repair .bay-service-console > .bay-small {
+  margin-top: auto;
+}
+.retail-theme-auto-repair .bay-process {
+  display: grid;
+  grid-template-columns: 0.9fr 1.4fr;
+  gap: 9%;
+  padding-block: 15px 95px;
+}
+.retail-theme-auto-repair .bay-process-intro h2 {
+  margin: 22px 0;
+}
+.retail-theme-auto-repair .bay-process-intro > p:last-child {
+  font-size: 14px;
+  color: var(--retail-muted);
+  max-width: 29ch;
+}
+.retail-theme-auto-repair .bay-process-ledger {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 2px solid var(--retail-ink);
+}
+.retail-theme-auto-repair .bay-process-ledger li {
+  display: grid;
+  grid-template-columns: 36px 1fr 60px;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--retail-line);
+}
+.retail-theme-auto-repair .bay-step {
+  font:
+    17px "Courier New",
+    monospace;
+  color: var(--retail-accent);
+  padding-top: 4px;
+}
+.retail-theme-auto-repair .bay-process-ledger h3 {
+  font-size: 22px;
+  line-height: 1.2;
+}
+.retail-theme-auto-repair .bay-process-ledger p {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--retail-muted);
+}
+.retail-theme-auto-repair .bay-process-code {
+  font-size: 8px;
+  padding-top: 8px;
+  text-align: right;
+}
+.retail-theme-auto-repair .bay-statement {
+  border-top: 1px solid var(--retail-line);
+  padding-block: 60px 85px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px 8%;
+  align-items: end;
+}
+.retail-theme-auto-repair .bay-statement > .bay-label {
+  grid-column: 1 / -1;
+}
+.retail-theme-auto-repair .bay-statement h2 {
+  font-size: clamp(40px, 5.4vw, 80px);
+}
+.retail-theme-auto-repair .bay-statement h2 span {
+  color: var(--retail-accent);
+}
+.retail-theme-auto-repair .bay-statement > div p {
+  font-size: 14px;
+}
+.retail-theme-auto-repair .retail-page-intro h1 {
+  text-transform: uppercase;
+  max-width: 16ch;
+}
+.retail-theme-auto-repair .bay-photo-compact {
+  min-height: 450px;
+  margin-block: 38px 80px;
+}
+.retail-theme-auto-repair .bay-workshop-notes {
+  display: grid;
+  grid-template-columns: 0.7fr 1.5fr 0.8fr;
+  gap: 5%;
+  border-top: 1px solid var(--retail-line);
+  padding-block: 65px 90px;
+}
+.retail-theme-auto-repair .bay-workshop-notes h2 {
+  margin-bottom: 25px;
+}
+.retail-theme-auto-repair .bay-workshop-notes p {
+  font-size: 14px;
+}
+.retail-theme-auto-repair .bay-workshop-mark {
+  align-self: center;
+  font-size: clamp(44px, 7vw, 105px);
+  font-weight: 900;
+  color: var(--retail-accent);
+  letter-spacing: -0.07em;
+}
+.retail-theme-auto-repair .bay-ledger {
+  padding-bottom: 70px;
+}
+.retail-theme-auto-repair .bay-ledger-heading {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  align-items: end;
+  padding-bottom: 30px;
+}
+.retail-theme-auto-repair .bay-ledger-heading h2 {
+  grid-row: span 2;
+}
+.retail-theme-auto-repair .bay-ledger-heading > span {
+  font:
+    9px "Courier New",
+    monospace;
+}
+.retail-theme-auto-repair .bay-ledger-row {
+  display: grid;
+  grid-template-columns: 0.18fr 0.85fr 1.2fr 1fr;
+  gap: 25px;
+  padding-block: 30px;
+  border-top: 1px solid var(--retail-line);
+}
+.retail-theme-auto-repair .bay-ledger-number {
+  font:
+    14px "Courier New",
+    monospace;
+}
+.retail-theme-auto-repair .bay-ledger-row h3 {
+  font-size: 24px;
+}
+.retail-theme-auto-repair .bay-ledger-row p {
+  font-size: 13px;
+}
+.retail-theme-auto-repair .bay-ledger-row .bay-ledger-detail {
+  color: var(--retail-muted);
+  font-size: 12px;
+}
+.retail-theme-auto-repair .bay-page-cta {
+  padding: 40px 0 70px;
+  border-top: 2px solid var(--retail-ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+.retail-theme-auto-repair .bay-page-cta h2 {
+  max-width: 15ch;
+}
+.retail-theme-auto-repair .retail-footer {
+  background: #192933;
+  color: #f0f5f7;
+  --retail-line: #51616b;
+  --retail-muted: #bfd0d9;
+}
+@media (min-width: 1600px) {
+  .retail-theme-auto-repair .bay-hero-media,
+  .retail-theme-auto-repair .bay-photo {
+    min-height: 570px;
+  }
+}
+@media (max-width: 1000px) {
+  .retail-theme-auto-repair .bay-hero-title {
+    grid-template-columns: 1fr 0.45fr;
+    gap: 4%;
+  }
+  .retail-theme-auto-repair .bay-hero h1 {
+    font-size: clamp(45px, 6vw, 85px);
+  }
+  .retail-theme-auto-repair .bay-hero-note {
+    font-size: 12px;
+  }
+  .retail-theme-auto-repair .bay-explorer-heading {
+    grid-template-columns: 1fr 1.4fr;
+  }
+  .retail-theme-auto-repair .bay-explorer-heading > p:last-child {
+    grid-column: 2;
+  }
+  .retail-theme-auto-repair .bay-explorer-body {
+    grid-template-columns: 1.1fr 1fr;
+  }
+  .retail-theme-auto-repair .bay-service-console {
+    padding: 22px;
+  }
+  .retail-theme-auto-repair .bay-process {
+    gap: 6%;
+  }
+  .retail-theme-auto-repair .bay-process-ledger li {
+    grid-template-columns: 25px 1fr;
+  }
+  .retail-theme-auto-repair .bay-process-code {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  .retail-theme-auto-repair .bay-hero-reference {
+    display: none;
+  }
+  .retail-theme-auto-repair .bay-hero-title {
+    display: block;
+    padding-block: 30px;
+  }
+  .retail-theme-auto-repair .bay-hero h1 {
+    font-size: clamp(38px, 9.2vw, 66px);
+  }
+  .retail-theme-auto-repair .bay-hero-note {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 10px 18px;
+    margin-top: 28px;
+    font-size: 13px;
+  }
+  .retail-theme-auto-repair .bay-asterisk {
+    font-size: 33px;
+  }
+  .retail-theme-auto-repair .bay-hero-note p {
+    max-width: 45ch;
+  }
+  .retail-theme-auto-repair .bay-hero-note .bay-link {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 0;
+  }
+  .retail-theme-auto-repair .bay-hero-media {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .retail-theme-auto-repair .bay-bay-number {
+    flex-direction: row;
+    align-items: center;
+    padding: 14px 18px;
+    gap: 20px;
+  }
+  .retail-theme-auto-repair .bay-bay-number b {
+    font-size: 44px;
+    order: -1;
+  }
+  .retail-theme-auto-repair .bay-bay-number span:last-child {
+    max-width: 17ch;
+    text-align: right;
+  }
+  .retail-theme-auto-repair .bay-photo {
+    min-height: 300px;
+  }
+  .retail-theme-auto-repair .bay-photo figcaption {
+    padding: 16px;
+    font-size: 8px;
+  }
+  .retail-theme-auto-repair .bay-hero-caption {
+    flex-wrap: wrap;
+    gap: 2px;
+    padding-top: 15px;
+  }
+  .retail-theme-auto-repair .bay-explorer-heading {
+    display: block;
+  }
+  .retail-theme-auto-repair .bay-explorer-heading h2 {
+    margin-block: 20px;
+  }
+  .retail-theme-auto-repair .bay-explorer-heading > p:last-child {
+    max-width: 32ch;
+  }
+  .retail-theme-auto-repair .bay-explorer-body {
+    grid-template-columns: 1fr;
+  }
+  .retail-theme-auto-repair .bay-diagram {
+    min-height: 270px;
+    padding: 16px;
+  }
+  .retail-theme-auto-repair .bay-diagram svg {
+    min-height: 210px;
+  }
+  .retail-theme-auto-repair .bay-diagram-top,
+  .retail-theme-auto-repair .bay-diagram-bottom {
+    font-size: 8px;
+  }
+  .retail-theme-auto-repair .bay-service-console {
+    border-left: 0;
+    border-top: 1px solid var(--retail-line);
+    padding: 22px 18px;
+  }
+  .retail-theme-auto-repair .bay-service-detail {
+    min-height: 0;
+  }
+  .retail-theme-auto-repair .bay-process {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-bottom: 60px;
+  }
+  .retail-theme-auto-repair .bay-process-intro > p:last-child {
+    max-width: 40ch;
+  }
+  .retail-theme-auto-repair .bay-statement {
+    grid-template-columns: 1fr;
+    padding-block: 45px 60px;
+  }
+  .retail-theme-auto-repair .bay-statement > .bay-label {
+    grid-column: auto;
+  }
+  .retail-theme-auto-repair .bay-workshop-notes {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .retail-theme-auto-repair .bay-workshop-mark {
+    justify-self: end;
+    font-size: 65px;
+  }
+  .retail-theme-auto-repair .bay-photo-compact {
+    margin-block: 25px 50px;
+    min-height: 310px;
+  }
+  .retail-theme-auto-repair .bay-ledger-heading {
+    grid-template-columns: 1fr;
+  }
+  .retail-theme-auto-repair .bay-ledger-heading h2 {
+    grid-row: auto;
+  }
+  .retail-theme-auto-repair .bay-ledger-row {
+    grid-template-columns: 30px 1fr;
+    gap: 15px;
+  }
+  .retail-theme-auto-repair .bay-ledger-row p {
+    grid-column: 2;
+  }
+  .retail-theme-auto-repair .bay-page-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+html[data-motion="paused"] .retail-theme-auto-repair *,
+html[data-motion="paused"] .retail-theme-auto-repair *::before,
+html[data-motion="paused"] .retail-theme-auto-repair *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .retail-theme-auto-repair *,
+  .retail-theme-auto-repair *::before,
+  .retail-theme-auto-repair *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
