@@ -16,7 +16,7 @@ export default function TemplateShowcase({
         <TemplateScreenshotGallery images={media.screenshots} />
       ) : (
         <figure className="template-design-overview">
-          <DesignCover design={design} />
+          <DesignCover design={design} expanded />
           <figcaption>
             Design preview — your own branding, imagery and content make it yours.
           </figcaption>

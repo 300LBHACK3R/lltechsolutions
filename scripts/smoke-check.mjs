@@ -70,6 +70,12 @@ try {
     "/website-collection/interior-studio",
     "/website-collection/property-management",
     "/website-collection/real-estate",
+    "/website-collection/courier-one-page",
+    "/website-collection/moving-company",
+    "/website-collection/auto-transport",
+    "/website-collection/equipment-rentals",
+    "/website-collection/cold-chain",
+    "/website-collection/freight-logistics",
 
     "/website-collection/start",
     "/website-collection/compare",
@@ -530,6 +536,13 @@ try {
     }
   }
   const templatePrices = [
+    ["calgary-hot-shot", "transport-logistics", 399],
+    ["courier-one-page", "transport-logistics", 150],
+    ["moving-company", "transport-logistics", 399],
+    ["auto-transport", "transport-logistics", 499],
+    ["equipment-rentals", "transport-logistics", 699],
+    ["cold-chain", "transport-logistics", 699],
+    ["freight-logistics", "transport-logistics", 999],
     ["home-cleaning", "home-property", 150],
     ["window-care", "home-property", 399],
     ["home-organizing", "home-property", 499],
@@ -549,7 +562,6 @@ try {
     ["hair-salon", "health-wellness", 499],
     ["artsy-nails", "health-wellness", 699],
     ["medical-spa", "health-wellness", 999],
-    ["calgary-hot-shot", "transport-logistics", 399],
     ["horizon", "construction-trades", 499],
     ["lawncare", "construction-trades", 499],
     ["pigment", "construction-trades", 499],
@@ -604,6 +616,32 @@ try {
     checks++;
   }
   const legalGallery = htmlByRoute.get("/website-collection/category/legal-professional");
+  const transportGallery = htmlByRoute.get("/website-collection/category/transport-logistics");
+  assert.equal(
+    (transportGallery.match(/data-transport-cover=/g) ?? []).length,
+    6,
+    "six distinct transport previews",
+  );
+  for (const [industry, id] of [
+    ["courier", "courier-one-page"],
+    ["moving", "moving-company"],
+    ["vehicle-transport", "auto-transport"],
+    ["equipment-rentals", "equipment-rentals"],
+    ["cold-chain", "cold-chain"],
+    ["freight", "freight-logistics"],
+  ]) {
+    const response = await fetch(
+      `${origin}/website-collection/category/transport-logistics?industry=${industry}`,
+    );
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.deepEqual(
+      [...html.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]),
+      [id],
+      `${industry}: correct transport offer`,
+    );
+    checks++;
+  }
   assert.equal(
     (legalGallery.match(/data-professional-cover=/g) ?? []).length,
     6,

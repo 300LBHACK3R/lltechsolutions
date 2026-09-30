@@ -1,4 +1,8 @@
-import type { HomePropertyTemplateId, ProfessionalTemplateId } from "@/data/website-collection";
+import type {
+  HomePropertyTemplateId,
+  ProfessionalTemplateId,
+  TransportTemplateId,
+} from "@/data/website-collection";
 export type TemplateScreenshot = {
   src: string;
   alt: string;
@@ -18,6 +22,7 @@ export function readTemplateShowcase(
   designId:
     | HomePropertyTemplateId
     | ProfessionalTemplateId
+    | TransportTemplateId
     | "pigment"
     | "structure"
     | "earthworks"

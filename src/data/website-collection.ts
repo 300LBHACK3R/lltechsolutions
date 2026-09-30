@@ -82,6 +82,12 @@ export const collectionIndustries = [
   { id: "retail", name: "Retail & Shops" },
   { id: "transport-logistics", name: "Transport & Logistics" },
   { id: "trailer-rentals", name: "Trailer & Equipment Rentals" },
+  { id: "courier", name: "Courier & Local Delivery" },
+  { id: "moving", name: "Moving Companies" },
+  { id: "vehicle-transport", name: "Vehicle Transport" },
+  { id: "equipment-rentals", name: "Equipment Rentals" },
+  { id: "cold-chain", name: "Cold-chain Transport" },
+  { id: "freight", name: "Freight & Logistics" },
   { id: "food-hospitality", name: "Food & Restaurants" },
   { id: "beauty", name: "Beauty & Personal Care" },
   { id: "professional-services", name: "Professional Services" },
@@ -141,8 +147,18 @@ export const templateCategories: readonly TemplateCategory[] = [
   {
     id: "transport-logistics",
     name: "Transport & Logistics",
-    description: "Hot shot operators, delivery companies, freight services and trailer rentals.",
-    industries: ["transport-logistics", "trailer-rentals"],
+    description:
+      "Couriers, movers, vehicle transport, equipment rentals, cold-chain and freight services.",
+    industries: [
+      "transport-logistics",
+      "trailer-rentals",
+      "courier",
+      "moving",
+      "vehicle-transport",
+      "equipment-rentals",
+      "cold-chain",
+      "freight",
+    ],
     image: "/images/template-categories/transport-logistics.webp",
   },
   {
@@ -251,7 +267,8 @@ export type WebsiteDesign = {
       | "hair-salon"
       | "hair-one-page"
       | "professional"
-      | "home-property";
+      | "home-property"
+      | "transport";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -597,6 +614,280 @@ export function homePropertyTemplate(id: string) {
   return homePropertyTemplates.find((template) => template.id === id);
 }
 export function homePropertyPagePath(page: string) {
+  return page === "Home" ? "/" : `/${page.toLowerCase().replaceAll(" ", "-")}`;
+}
+
+/** Fictional Transport & Logistics demos; the canonical content, price and launch scope. */
+export const transportTemplates = [
+  {
+    id: "courier-one-page",
+    name: "One-page Courier",
+    brand: "ZIP",
+    subbrand: "LOCAL COURIER",
+    price: 150,
+    tier: "essential",
+    industry: "courier",
+    pages: ["Home"],
+    theme: "courier-one-page",
+    headline: "Small parcel.",
+    emphasis: "Big momentum.",
+    intro:
+      "The documents, shop orders and everyday essentials that need to get across town. Start with the pickup, the destination and the details.",
+    about:
+      "Local delivery starts with a clear conversation. We confirm the item, access and timing before agreeing a collection and delivery plan.",
+    imageAlt:
+      "Illustrative yellow courier van on a sunlit residential street beside a hand truck and parcel",
+    image: "/images/collection/transport-courier-one-page.webp",
+    form: false,
+    description:
+      "An energetic yellow-and-ink one-page courier website with oversized typography, a parcel-inspired layout and a direct-contact journey.",
+    services: [
+      {
+        name: "Local parcels",
+        description: "From your door to theirs.",
+        detail:
+          "Share the parcel size, collection address and destination so the delivery requirements can be reviewed.",
+      },
+      {
+        name: "Business runs",
+        description: "Keep the working day moving.",
+        detail:
+          "Discuss documents, supplies and regular business deliveries with an agreed route and handover process.",
+      },
+      {
+        name: "Shop to doorstep",
+        description: "The last leg, considered.",
+        detail:
+          "Local retail delivery options are planned around item suitability, access and the recipient’s details.",
+      },
+    ],
+    cta: "Talk delivery",
+  },
+  {
+    id: "moving-company",
+    name: "Moving Company",
+    brand: "GOOD MOVE",
+    subbrand: "MOVING & PACKING",
+    price: 399,
+    tier: "signature",
+    industry: "moving",
+    pages: ["Home", "Services", "Contact"],
+    theme: "moving-company",
+    headline: "Your next chapter.",
+    emphasis: "A good move.",
+    intro:
+      "The boxes, the big pieces and the details between two front doors. A thoughtful moving plan begins with the way you live.",
+    about:
+      "Every move has its own shape. We talk through the spaces, the access and the things that need particular attention before agreeing the scope.",
+    imageAlt:
+      "Illustrative blue-and-cream moving truck outside a house with moving boxes at the entrance",
+    image: "/images/collection/transport-moving-company.webp",
+    form: false,
+    description:
+      "A warm coral-and-cream moving website with friendly boxed compositions, a packing checklist and three focused pages.",
+    services: [
+      {
+        name: "Home moves",
+        description: "From one home to the next.",
+        detail:
+          "Plan household items, building access and the sequence of the day around an agreed moving scope.",
+      },
+      {
+        name: "Packing support",
+        description: "A little order before the move.",
+        detail:
+          "Discuss which rooms and belongings need packing support, suitable materials and any special handling requirements.",
+      },
+      {
+        name: "Small office moves",
+        description: "Make room for what comes next.",
+        detail:
+          "Coordinate furniture, labelled equipment and access for a small workplace move; specialist items are assessed separately.",
+      },
+    ],
+    cta: "Plan your move",
+  },
+  {
+    id: "auto-transport",
+    name: "Auto Transport",
+    brand: "OVERLAND",
+    subbrand: "VEHICLE TRANSPORT",
+    price: 499,
+    tier: "signature",
+    industry: "vehicle-transport",
+    pages: ["Home", "Transport", "How it works", "Contact"],
+    theme: "auto-transport",
+    headline: "The next mile.",
+    emphasis: "Handled with intent.",
+    intro:
+      "A clear route from first conversation to vehicle handover. Tell us what is moving, where it needs to go and the dates you have in mind.",
+    about:
+      "Good vehicle transport planning makes the practical details visible: vehicle condition, collection access, route options and the handover process.",
+    imageAlt: "Illustrative dark enclosed vehicle transporter in a modern industrial yard",
+    image: "/images/collection/transport-auto-transport.webp",
+    form: false,
+    description:
+      "A cinematic graphite, silver and ice-blue vehicle transport design with a route-led process, clear transport options and four complete pages.",
+    services: [
+      {
+        name: "Personal vehicles",
+        description: "A move beyond the driveway.",
+        detail:
+          "Share vehicle dimensions, condition and route details to discuss a suitable collection and transport plan.",
+      },
+      {
+        name: "Dealer movements",
+        description: "Connect the handovers.",
+        detail:
+          "Plan vehicle transfers between agreed locations with clear contacts, access instructions and handover requirements.",
+      },
+      {
+        name: "Specialist requests",
+        description: "Start with the vehicle.",
+        detail:
+          "Non-running, modified or unusual vehicles need an individual discussion of equipment, access and handling before a service is agreed.",
+      },
+    ],
+    cta: "Discuss your vehicle",
+  },
+  {
+    id: "equipment-rentals",
+    name: "Equipment Rentals",
+    brand: "YARD",
+    subbrand: "EQUIPMENT RENTALS",
+    price: 699,
+    tier: "premier",
+    industry: "equipment-rentals",
+    pages: ["Home", "Equipment", "Rental guide", "About", "Contact"],
+    theme: "equipment-rentals",
+    headline: "Get the right kit.",
+    emphasis: "Get to work.",
+    intro:
+      "A practical starting point for the tools and equipment your job needs. Explore the range, understand the rental steps and ask about suitability.",
+    about:
+      "The job comes first. We discuss the task, the site and operator requirements so equipment choices and rental conditions can be reviewed together.",
+    imageAlt:
+      "Illustrative orange compact excavator and construction equipment in an organized outdoor rental yard",
+    image: "/images/collection/transport-equipment-rentals.webp",
+    form: true,
+    description:
+      "A bold cream, olive and orange equipment website with a filterable illustrative catalogue, rental guidance and five complete pages.",
+    services: [
+      {
+        name: "Groundwork equipment",
+        description: "Start from the ground up.",
+        detail:
+          "Explore illustrative compact equipment categories and discuss the site, access and operator requirements for your task.",
+      },
+      {
+        name: "Site essentials",
+        description: "The supporting kit matters.",
+        detail:
+          "Consider compaction, power and other supporting equipment as part of the job’s overall rental requirements.",
+      },
+      {
+        name: "Rental planning",
+        description: "Make the details clear.",
+        detail:
+          "Confirm dates, availability, collection or delivery, operator requirements and rental terms directly before making arrangements.",
+      },
+    ],
+    cta: "Discuss your equipment",
+  },
+  {
+    id: "cold-chain",
+    name: "Cold-chain Transport",
+    brand: "POLARLINE",
+    subbrand: "TEMPERATURE-CONTROLLED TRANSPORT",
+    price: 699,
+    tier: "premier",
+    industry: "cold-chain",
+    pages: ["Home", "Services", "Handling", "Coverage", "Contact"],
+    theme: "cold-chain",
+    headline: "Every degree.",
+    emphasis: "Every detail.",
+    intro:
+      "Temperature-sensitive freight starts with a precise brief. Connect the product, handling instructions and delivery plan before the journey begins.",
+    about:
+      "We bring the shipment requirements into one conversation: the goods, the packaging, the agreed temperature range and the receiving arrangements.",
+    imageAlt: "Illustrative white refrigerated truck at a clean blue-toned warehouse loading bay",
+    image: "/images/collection/transport-cold-chain.webp",
+    form: true,
+    description:
+      "A crisp ice-blue transport website with technical editorial layouts, an illustrative handling selector and five focused pages.",
+    services: [
+      {
+        name: "Chilled freight",
+        description: "Begin with the product brief.",
+        detail:
+          "Discuss the shipper’s specified range, packaging, loading conditions and receiving process before agreeing transport requirements.",
+      },
+      {
+        name: "Frozen freight",
+        description: "Plan the complete handover.",
+        detail:
+          "Confirm the product instructions, packaging and loading arrangements with the teams responsible for each stage.",
+      },
+      {
+        name: "Planned distribution",
+        description: "Connect each stop.",
+        detail:
+          "Review collection windows, delivery order and site access as part of a clearly scoped distribution plan.",
+      },
+    ],
+    cta: "Discuss your shipment",
+  },
+  {
+    id: "freight-logistics",
+    name: "Freight & Logistics",
+    brand: "MERIDIAN",
+    subbrand: "FREIGHT & LOGISTICS",
+    price: 999,
+    tier: "flagship",
+    industry: "freight",
+    pages: ["Home", "Services", "Industries", "Network", "Shipment guide", "About", "Contact"],
+    theme: "freight-logistics",
+    headline: "A wider view.",
+    emphasis: "A clearer way forward.",
+    intro:
+      "Connect the cargo, the route and the people behind every handover. Thoughtful freight planning for businesses with more moving parts.",
+    about:
+      "Freight is a chain of decisions. We start with the shipment brief and make space for the commercial priorities, access details and coordination each movement needs.",
+    imageAlt:
+      "Illustrative container truck at a harbour terminal with cranes and a cargo ship at dusk",
+    image: "/images/collection/transport-freight-logistics.webp",
+    form: true,
+    description:
+      "An expansive burgundy-and-copper logistics design with editorial service pages, an illustrative network explorer and a seven-page shipment journey.",
+    services: [
+      {
+        name: "Road freight",
+        description: "Build the movement around the load.",
+        detail:
+          "Review dimensions, weight, route and site access to discuss appropriate road transport options.",
+      },
+      {
+        name: "Freight coordination",
+        description: "Connect the next handover.",
+        detail:
+          "Bring the shipment brief, relevant contacts and agreed responsibilities together before confirming a movement.",
+      },
+      {
+        name: "Distribution planning",
+        description: "See the whole journey.",
+        detail:
+          "Plan recurring movements and multiple destinations around product requirements, receiving arrangements and the agreed service scope.",
+      },
+    ],
+    cta: "Start a freight conversation",
+  },
+] as const;
+export type TransportTemplate = (typeof transportTemplates)[number];
+export type TransportTemplateId = TransportTemplate["id"];
+export function transportTemplate(id: string) {
+  return transportTemplates.find((template) => template.id === id);
+}
+export function transportPagePath(page: string) {
   return page === "Home" ? "/" : `/${page.toLowerCase().replaceAll(" ", "-")}`;
 }
 
@@ -1740,6 +2031,50 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     ],
     concept: {
       theme: "professional",
+      brands: [template.brand, template.brand],
+      headlines: [`${template.headline} ${template.emphasis}`, template.headline],
+      subcopy: template.intro,
+      kicker: template.subbrand,
+      action: "Start a conversation",
+      photo: { src: template.image, alt: template.imageAlt, width: 1536, height: 1024 },
+      services: template.services,
+      approach: template.about,
+    },
+  })),
+  ...transportTemplates.map((template): WebsiteDesign => ({
+    id: template.id,
+    status: "concept",
+    name: template.name,
+    tier: template.tier,
+    industry: template.industry,
+    description: template.description,
+    startingPriceCad: template.price,
+    pageCount: template.pages.length,
+    contactMode: template.form ? "enquiry-form" : "direct",
+    deliveryWindow: "Timing agreed after your content and scope are confirmed.",
+    demoUrl: `/website-collection/${template.id}#preview`,
+    included: [
+      template.pages.length === 1
+        ? "One page: introduction, up to three services, about and direct-contact sections"
+        : `${template.pages.length} pages: ${template.pages.join(", ")}`,
+      "Your supplied logo, colours, business information and images implemented in the code",
+      "Responsive layout, keyboard navigation and reduced-motion support",
+      "Page titles, descriptions, social metadata and launch security configuration",
+      ...(template.form
+        ? [
+            "Standard enquiry form setup: one inbox, Resend, sending-domain configuration, field validation, spam controls and an initial delivery test",
+          ]
+        : ["Direct phone and email contact; an existing external booking link can be added"]),
+      "Personalization and launch within this template’s agreed scope",
+    ],
+    customization: [
+      "Additional pages, original copywriting, photography, videography and ongoing care scoped separately",
+      "Shipment tracking, live rates, booking, payments, fleet systems, rental inventory and customer portals are separately scoped integrations",
+      "Your business supplies and approves coverage, service claims, credentials, operating requirements and usage rights for all content",
+      "Sample routes, equipment, handling information and shipment interactions are illustrative; the static demo provides no live tracking, availability, booking or temperature data",
+    ],
+    concept: {
+      theme: "transport",
       brands: [template.brand, template.brand],
       headlines: [`${template.headline} ${template.emphasis}`, template.headline],
       subcopy: template.intro,

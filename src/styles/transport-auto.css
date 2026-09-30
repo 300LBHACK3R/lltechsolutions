@@ -1,0 +1,636 @@
+/* OVERLAND — silver, graphite and an open road. */
+.tl-theme-auto-transport {
+  --tl-bg: #171c22;
+  --tl-ink: #eef2f5;
+  --tl-muted: #aebbc5;
+  --tl-accent: #b5d5ed;
+  --tl-line: #45505a;
+  --tl-button-ink: #14222d;
+  color-scheme: dark;
+}
+.tl-theme-auto-transport .tl-header {
+  padding-block: 27px;
+}
+.tl-theme-auto-transport .tl-brand {
+  letter-spacing: 0.055em;
+  font-size: 24px;
+}
+.tl-theme-auto-transport .tl-brand-symbol {
+  transform: rotate(-5deg);
+  color: var(--tl-accent);
+}
+.tl-theme-auto-transport .tl-brand small {
+  letter-spacing: 0.2em;
+  font-size: 8px;
+}
+.tl-theme-auto-transport .tl-nav a {
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.tl-theme-auto-transport :is(h1, h2, h3) {
+  font-weight: 450;
+}
+.tl-theme-auto-transport .tl-kicker {
+  color: var(--tl-accent);
+  font-size: 10px;
+}
+.tl-theme-auto-transport .tl-button {
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.11em;
+  gap: 38px;
+  min-height: 52px;
+}
+.tl-theme-auto-transport .ov-hero {
+  position: relative;
+  min-height: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  isolation: isolate;
+  overflow: hidden;
+}
+.tl-theme-auto-transport .ov-hero > img {
+  object-fit: cover;
+  object-position: 57% center;
+  z-index: -2;
+}
+.tl-theme-auto-transport .ov-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(12, 21, 28, 0.62), rgba(12, 21, 28, 0.13) 80%),
+    linear-gradient(0deg, rgba(9, 18, 24, 0.9), rgba(9, 18, 24, 0) 65%);
+}
+.tl-theme-auto-transport .ov-hero-copy {
+  padding-top: 85px;
+  padding-bottom: 55px;
+}
+.tl-theme-auto-transport .ov-hero h1 {
+  font-size: clamp(49px, 7.25vw, 116px);
+  line-height: 0.99;
+  letter-spacing: -0.065em;
+  margin-top: 28px;
+  max-width: 16ch;
+}
+.tl-theme-auto-transport .ov-hero h1 span {
+  color: #c3d6e4;
+}
+.tl-theme-auto-transport .ov-hero-bottom {
+  margin-top: 54px;
+  margin-left: 34%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+.tl-theme-auto-transport .ov-hero-bottom p {
+  max-width: 42ch;
+  font-size: 14px;
+  color: #dde4e9;
+}
+.tl-theme-auto-transport .ov-hero-bottom .tl-button {
+  flex-shrink: 0;
+}
+.tl-theme-auto-transport .ov-route-strip {
+  padding: 28px 5%;
+  display: grid;
+  grid-template-columns: 1fr minmax(100px, 1.1fr) 1fr 0.9fr;
+  gap: 30px;
+  align-items: center;
+  border-top: 1px solid #d2dee947;
+  background: #17212ade;
+}
+.tl-theme-auto-transport .ov-route-strip > div {
+  display: grid;
+  gap: 5px;
+}
+.tl-theme-auto-transport .ov-route-strip div > span {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #adbfcd;
+}
+.tl-theme-auto-transport .ov-route-strip strong {
+  font-size: 13px;
+  font-weight: 500;
+}
+.tl-theme-auto-transport .ov-route-strip p {
+  font-size: 11px;
+  color: #c3cdd6;
+  border-left: 1px solid #667887;
+  padding-left: 30px;
+}
+.tl-theme-auto-transport .ov-route-line {
+  height: 1px;
+  background: #99b1c3;
+  position: relative;
+  margin-inline: 3px;
+}
+.tl-theme-auto-transport .ov-route-line i {
+  position: absolute;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  border: 1px solid #a7c4d8;
+  background: #18242e;
+  top: -3px;
+  left: -3px;
+}
+.tl-theme-auto-transport .ov-route-line i:last-child {
+  left: auto;
+  right: -3px;
+  background: #b5d5ed;
+}
+.tl-theme-auto-transport .ov-introduction {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 6%;
+}
+.tl-theme-auto-transport .ov-introduction > .tl-kicker {
+  padding-top: 10px;
+}
+.tl-theme-auto-transport .ov-introduction h2 {
+  font-size: clamp(36px, 4.8vw, 73px);
+}
+.tl-theme-auto-transport .ov-introduction > div > p {
+  margin-top: 30px;
+  color: var(--tl-muted);
+  max-width: 53ch;
+}
+.tl-theme-auto-transport .ov-services-section {
+  padding-bottom: 80px;
+}
+.tl-theme-auto-transport .ov-service-list article {
+  display: grid;
+  grid-template-columns: 0.22fr 1fr 1fr auto;
+  align-items: start;
+  gap: 28px;
+  padding-block: 34px;
+  border-top: 1px solid var(--tl-line);
+}
+.tl-theme-auto-transport .ov-service-index {
+  color: var(--tl-accent);
+  font-size: 11px;
+  padding-top: 7px;
+}
+.tl-theme-auto-transport .ov-service-list h3 {
+  font-size: clamp(24px, 2.7vw, 38px);
+}
+.tl-theme-auto-transport .ov-service-list p {
+  font-size: 14px;
+  color: var(--tl-muted);
+}
+.tl-theme-auto-transport .ov-service-list p + p {
+  margin-top: 12px;
+}
+.tl-theme-auto-transport .ov-service-arrow {
+  font-size: 25px;
+  color: var(--tl-accent);
+  line-height: 1;
+}
+.tl-theme-auto-transport .ov-text-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  min-height: 48px;
+  margin-top: 30px;
+  border-bottom: 1px solid #7f97a9;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.tl-theme-auto-transport .ov-text-link:hover {
+  color: var(--tl-accent);
+}
+.tl-theme-auto-transport .ov-planning-section {
+  background: #dce3e7;
+  color: #17232e;
+  --tl-line: #a2b0bb;
+  --tl-muted: #485d6c;
+  --tl-accent: #235a7b;
+}
+.tl-theme-auto-transport .ov-section-head {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 6%;
+  align-items: start;
+  margin-bottom: 55px;
+}
+.tl-theme-auto-transport .ov-section-head > .tl-kicker {
+  margin-top: 8px;
+}
+.tl-theme-auto-transport .ov-section-head h2 {
+  font-size: clamp(34px, 4.1vw, 65px);
+}
+.tl-theme-auto-transport .ov-vehicle-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--tl-line);
+  border-bottom: 1px solid var(--tl-line);
+}
+.tl-theme-auto-transport .ov-vehicle-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--tl-line);
+  text-align: left;
+  min-height: 78px;
+  padding: 16px 22px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.tl-theme-auto-transport .ov-vehicle-tabs button:last-child {
+  border-right: 0;
+}
+.tl-theme-auto-transport .ov-vehicle-tabs button[aria-pressed="true"] {
+  background: #172c3c;
+  color: #e2eef6;
+}
+.tl-theme-auto-transport .ov-vehicle-tabs button > span:first-child {
+  font-size: 9px;
+  opacity: 0.75;
+}
+.tl-theme-auto-transport .ov-vehicle-tabs button > span:last-child {
+  margin-left: auto;
+}
+.tl-theme-auto-transport .ov-vehicle-notes {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr;
+  gap: 10%;
+  padding-top: 45px;
+  min-height: 255px;
+}
+.tl-theme-auto-transport .ov-vehicle-notes h3 {
+  font-size: clamp(28px, 3vw, 42px);
+  margin: 15px 0 22px;
+  max-width: 22ch;
+}
+.tl-theme-auto-transport .ov-vehicle-notes > div > p:last-child {
+  font-size: 14px;
+  color: var(--tl-muted);
+}
+.tl-theme-auto-transport .ov-vehicle-notes ul {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tl-theme-auto-transport .ov-vehicle-notes li {
+  display: flex;
+  gap: 16px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--tl-line);
+  font-size: 13px;
+}
+.tl-theme-auto-transport .ov-planning-note {
+  margin-top: 32px;
+  font-size: 11px;
+  color: var(--tl-muted);
+  max-width: 100ch;
+}
+.tl-theme-auto-transport .ov-journey {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.tl-theme-auto-transport .ov-journey li {
+  border-top: 1px solid #718592;
+  padding: 26px 30px 12px 0;
+  position: relative;
+}
+.tl-theme-auto-transport .ov-journey li::before {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  content: "";
+  height: 7px;
+  width: 7px;
+  background: var(--tl-accent);
+  border-radius: 50%;
+}
+.tl-theme-auto-transport .ov-step-number {
+  font-size: 10px;
+  color: var(--tl-accent);
+}
+.tl-theme-auto-transport .ov-journey h3 {
+  margin-top: 29px;
+  font-size: 26px;
+  max-width: 14ch;
+}
+.tl-theme-auto-transport .ov-journey p {
+  color: var(--tl-muted);
+  font-size: 13px;
+  margin-top: 17px;
+  max-width: 29ch;
+}
+.tl-theme-auto-transport .ov-next-step {
+  padding-block: 75px;
+  border-top: 1px solid var(--tl-line);
+}
+.tl-theme-auto-transport .ov-next-step > div {
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 23px;
+}
+.tl-theme-auto-transport .ov-next-step h2 {
+  font-size: clamp(36px, 5vw, 79px);
+}
+.tl-theme-auto-transport .ov-next-step .tl-button {
+  flex-shrink: 0;
+}
+.tl-theme-auto-transport .tl-page-intro {
+  padding-bottom: 75px;
+}
+.tl-theme-auto-transport .tl-page-intro h1 {
+  font-size: clamp(44px, 6vw, 94px);
+  font-weight: 430;
+}
+.tl-theme-auto-transport .tl-page-intro + .ov-services-section {
+  padding-top: 35px;
+}
+.tl-theme-auto-transport .ov-transport-photo {
+  position: relative;
+  min-height: 510px;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  padding: 5%;
+}
+.tl-theme-auto-transport .ov-transport-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, #0c1a26c9, transparent);
+}
+.tl-theme-auto-transport .ov-transport-photo img {
+  object-fit: cover;
+  z-index: -2;
+}
+.tl-theme-auto-transport .ov-transport-photo p {
+  font-size: clamp(35px, 4.5vw, 70px);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+}
+.tl-theme-auto-transport .ov-transport-photo p span {
+  color: #bfd4e5;
+}
+.tl-theme-auto-transport .ov-access-note {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 7%;
+  padding-top: 40px;
+  margin-top: 55px;
+  border-top: 1px solid var(--tl-line);
+}
+.tl-theme-auto-transport .ov-access-note h3 {
+  font-size: 26px;
+}
+.tl-theme-auto-transport .ov-access-note p {
+  font-size: 14px;
+  color: var(--tl-muted);
+}
+.tl-theme-auto-transport .ov-process-page {
+  padding-block: 65px 100px;
+}
+.tl-theme-auto-transport .ov-journey-detailed {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 55px 6%;
+}
+.tl-theme-auto-transport .ov-journey-detailed li {
+  padding-top: 30px;
+  padding-right: 0;
+}
+.tl-theme-auto-transport .ov-journey-detailed h3 {
+  font-size: 36px;
+  max-width: none;
+}
+.tl-theme-auto-transport .ov-journey-detailed p {
+  max-width: 54ch;
+}
+.tl-theme-auto-transport .ov-journey-detailed .ov-step-detail {
+  color: #d2dce3;
+}
+.tl-theme-auto-transport .ov-preparation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9%;
+}
+.tl-theme-auto-transport .ov-preparation h2 {
+  margin-block: 22px 30px;
+}
+.tl-theme-auto-transport .ov-preparation > div > p:last-child {
+  font-size: 14px;
+  color: var(--tl-muted);
+  max-width: 40ch;
+}
+.tl-theme-auto-transport .ov-questions details {
+  border-top: 1px solid var(--tl-line);
+}
+.tl-theme-auto-transport .ov-questions details:last-child {
+  border-bottom: 1px solid var(--tl-line);
+}
+.tl-theme-auto-transport .ov-questions summary {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  min-height: 70px;
+  padding-block: 18px;
+  font-size: 16px;
+  list-style: none;
+}
+.tl-theme-auto-transport .ov-questions summary::-webkit-details-marker {
+  display: none;
+}
+.tl-theme-auto-transport .ov-questions details[open] summary > span {
+  transform: rotate(45deg);
+}
+.tl-theme-auto-transport .ov-questions details p {
+  padding-bottom: 26px;
+  font-size: 13px;
+  color: var(--tl-muted);
+}
+.tl-theme-auto-transport .ov-contact-prelude {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 40px;
+  padding-top: 35px;
+  color: var(--tl-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.tl-theme-auto-transport .ov-contact-prelude span::before {
+  content: "↗";
+  color: var(--tl-accent);
+  margin-right: 14px;
+}
+.tl-theme-auto-transport .tl-contact-panel {
+  background: #222c35;
+}
+@media (min-width: 1700px) {
+  .tl-theme-auto-transport .ov-hero {
+    min-height: 870px;
+  }
+  .tl-theme-auto-transport .ov-hero-copy {
+    padding-bottom: 75px;
+  }
+}
+@media (max-width: 1050px) {
+  .tl-theme-auto-transport .ov-hero {
+    min-height: 680px;
+  }
+  .tl-theme-auto-transport .ov-hero-bottom {
+    margin-left: 15%;
+  }
+  .tl-theme-auto-transport .ov-vehicle-tabs button {
+    font-size: 13px;
+    padding-inline: 15px;
+    gap: 10px;
+  }
+  .tl-theme-auto-transport .ov-journey h3 {
+    font-size: 22px;
+  }
+  .tl-theme-auto-transport .ov-service-list article {
+    grid-template-columns: 0.13fr 1fr 1fr auto;
+    gap: 20px;
+  }
+}
+@media (max-width: 760px) {
+  .tl-theme-auto-transport .ov-hero {
+    min-height: 680px;
+  }
+  .tl-theme-auto-transport .ov-hero > img {
+    object-position: 60% center;
+  }
+  .tl-theme-auto-transport .ov-hero-copy {
+    padding-top: 62px;
+    padding-bottom: 35px;
+  }
+  .tl-theme-auto-transport .ov-hero h1 {
+    font-size: clamp(43px, 9vw, 69px);
+  }
+  .tl-theme-auto-transport .ov-hero-bottom {
+    margin-left: 0;
+    margin-top: 35px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .tl-theme-auto-transport .ov-hero-bottom p {
+    max-width: 40ch;
+  }
+  .tl-theme-auto-transport .ov-route-strip {
+    grid-template-columns: 1fr 0.45fr 1fr;
+    gap: 15px;
+    padding-block: 22px;
+  }
+  .tl-theme-auto-transport .ov-route-strip p {
+    display: none;
+  }
+  .tl-theme-auto-transport .ov-route-strip strong {
+    font-size: 11px;
+  }
+  .tl-theme-auto-transport .ov-introduction,
+  .tl-theme-auto-transport .ov-section-head {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .tl-theme-auto-transport .ov-service-list article {
+    grid-template-columns: 22px 1fr 25px;
+    gap: 15px;
+    padding-block: 25px;
+  }
+  .tl-theme-auto-transport .ov-service-list article > div {
+    grid-column: 2;
+  }
+  .tl-theme-auto-transport .ov-service-arrow {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .tl-theme-auto-transport .ov-services-section {
+    padding-bottom: 50px;
+  }
+  .tl-theme-auto-transport .ov-vehicle-tabs {
+    grid-template-columns: 1fr;
+  }
+  .tl-theme-auto-transport .ov-vehicle-tabs button {
+    min-height: 60px;
+    border-right: 0;
+    border-bottom: 1px solid var(--tl-line);
+    font-size: 14px;
+  }
+  .tl-theme-auto-transport .ov-vehicle-tabs button:last-child {
+    border-bottom: 0;
+  }
+  .tl-theme-auto-transport .ov-vehicle-notes {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .tl-theme-auto-transport .ov-journey {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 15px;
+  }
+  .tl-theme-auto-transport .ov-journey li {
+    padding-right: 10px;
+  }
+  .tl-theme-auto-transport .ov-next-step > div {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .tl-theme-auto-transport .ov-next-step {
+    padding-block: 55px;
+  }
+  .tl-theme-auto-transport .ov-transport-photo {
+    min-height: 390px;
+  }
+  .tl-theme-auto-transport .ov-transport-photo img {
+    object-position: 63% center;
+  }
+  .tl-theme-auto-transport .ov-access-note,
+  .tl-theme-auto-transport .ov-preparation {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .tl-theme-auto-transport .ov-journey-detailed {
+    grid-template-columns: 1fr;
+  }
+  .tl-theme-auto-transport .ov-journey-detailed h3 {
+    font-size: 33px;
+  }
+  .tl-theme-auto-transport .ov-process-page {
+    padding-block: 45px 65px;
+  }
+}
+@media (max-width: 380px) {
+  .tl-theme-auto-transport .tl-brand {
+    font-size: 20px;
+  }
+  .tl-theme-auto-transport .ov-hero h1 {
+    font-size: 41px;
+  }
+  .tl-theme-auto-transport .ov-hero {
+    min-height: 700px;
+  }
+  .tl-theme-auto-transport .ov-route-strip {
+    gap: 10px;
+  }
+  .tl-theme-auto-transport .ov-journey {
+    grid-template-columns: 1fr;
+  }
+  .tl-theme-auto-transport .ov-journey h3 {
+    max-width: none;
+  }
+}

@@ -1,0 +1,69 @@
+import "@/styles/globals.css";
+import "@/styles/base.css";
+import "@/styles/transport.css";
+import "@/styles/transport-courier.css";
+import "@/styles/transport-moving.css";
+import "@/styles/transport-auto.css";
+import "@/styles/transport-equipment.css";
+import "@/styles/transport-cold.css";
+import "@/styles/transport-freight.css";
+import type { Metadata } from "next";
+import { Geist, Cormorant_Garamond } from "next/font/google";
+import MotionControl from "@/components/ui/MotionControl";
+import {
+  collectionInquiryHref,
+  designPrice,
+  transportTemplate,
+  websiteDesigns,
+} from "@/data/website-collection";
+const sans = Geist({ variable: "--font-sans", subsets: ["latin"], display: "swap" });
+const editorial = Cormorant_Garamond({
+  variable: "--font-editorial",
+  subsets: ["latin"],
+  weight: ["500"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+const template = transportTemplate("auto-transport")!;
+const design = websiteDesigns.find((item) => item.id === template.id)!;
+export const metadata: Metadata = {
+  title: {
+    default: `${template.brand} | L&L Website Demo`,
+    template: `%s | ${template.brand} Demo`,
+  },
+  description: template.description,
+  robots: { index: false, follow: false },
+  formatDetection: { telephone: false, email: false, address: false },
+};
+export default function DemoLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en-CA" data-motion="paused">
+      <body className={`${sans.variable} ${editorial.variable}`}>
+        <a className="skip-link" href="#main-content">
+          Skip to the website demo
+        </a>
+        <div className="tl-demo-bar">
+          <a href={`https://lltechsolutions.ca/website-collection/${template.id}`}>
+            ← L&L / Template details
+          </a>
+          <span>Website demo · {designPrice(design)}</span>
+          <div>
+            <MotionControl />
+            <a href={`https://lltechsolutions.ca${collectionInquiryHref({ design: template.id })}`}>
+              Make this my website ↗
+            </a>
+          </div>
+        </div>
+        <main id="main-content" tabIndex={-1} data-transport-demo={template.id}>
+          {children}
+        </main>
+        <div className="tl-demo-disclosure">
+          {template.brand} is a fictional business. Illustrative imagery and sample content show the
+          design; no shipment, rental or transport service is offered here. Enquiry previews are
+          local only; this demo does not send messages, accept bookings or show live tracking,
+          inventory or temperatures.
+        </div>
+      </body>
+    </html>
+  );
+}

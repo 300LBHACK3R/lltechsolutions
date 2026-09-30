@@ -1,4 +1,5 @@
 import HomePropertyCover from "@/components/collection/HomePropertyCover";
+import TransportCover from "@/components/collection/TransportCover";
 import ProfessionalCover from "@/components/collection/ProfessionalCover";
 import Image from "next/image";
 import LawnCover from "@/components/collection/LawnCover";
@@ -16,7 +17,13 @@ import HairSalonCover from "@/components/collection/HairSalonCover";
 import HairOnePageCover from "@/components/collection/HairOnePageCover";
 
 /** Decorative miniature; the surrounding card supplies its accessible name and description. */
-export default function DesignCover({ design }: { design: WebsiteDesign }) {
+export default function DesignCover({
+  design,
+  expanded = false,
+}: {
+  design: WebsiteDesign;
+  expanded?: boolean;
+}) {
   const concept = design.concept;
   if (design.preview) {
     return (
@@ -30,6 +37,7 @@ export default function DesignCover({ design }: { design: WebsiteDesign }) {
     );
   }
   if (!concept) return null;
+  if (concept.theme === "transport") return <TransportCover design={design} expanded={expanded} />;
   if (concept.theme === "home-property") return <HomePropertyCover design={design} />;
   if (concept.theme === "professional") return <ProfessionalCover design={design} />;
   if (concept.theme === "medical-spa") return <MedicalSpaCover design={design} />;

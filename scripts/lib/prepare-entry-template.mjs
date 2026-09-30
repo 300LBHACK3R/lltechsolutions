@@ -27,6 +27,7 @@ export async function prepareEntryTemplate(kind) {
     "src/styles/globals.css",
     "src/styles/base.css",
     `src/styles/${demo.style}.css`,
+    ...(demo.extraStyles ?? []).map((style) => `src/styles/${style}.css`),
     ...demo.assets.map((name) => `public/images/collection/${name}`),
     "postcss.config.mjs",
     "tsconfig.json",

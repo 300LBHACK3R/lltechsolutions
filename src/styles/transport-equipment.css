@@ -1,0 +1,778 @@
+/* YARD — an industrial catalogue in warm cream, olive and orange. */
+.tl-theme-equipment-rentals {
+  --tl-bg: #eeeee0;
+  --tl-ink: #313922;
+  --tl-muted: #61674f;
+  --tl-accent: #313922;
+  --tl-line: #b9bea6;
+  --tl-button-ink: #f4f2e6;
+  --yard-orange: #f58641;
+}
+.tl-theme-equipment-rentals :is(h1, h2) {
+  font-weight: 900;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+.tl-theme-equipment-rentals .tl-header {
+  border-bottom: 2px solid var(--tl-ink);
+  padding-block: 22px;
+}
+.tl-theme-equipment-rentals .tl-brand {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.075em;
+}
+.tl-theme-equipment-rentals .tl-brand-symbol {
+  font-size: 29px;
+  font-weight: 800;
+}
+.tl-theme-equipment-rentals .tl-brand small {
+  letter-spacing: 0.08em;
+  font-size: 8px;
+  margin-top: 5px;
+}
+.tl-theme-equipment-rentals .tl-nav a {
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+}
+.tl-theme-equipment-rentals .tl-button {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  min-height: 51px;
+  gap: 34px;
+}
+.tl-theme-equipment-rentals .tl-kicker {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.tl-theme-equipment-rentals .yard-hero {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  position: relative;
+  padding-block: 60px 58px;
+  gap: 34px 7%;
+}
+.tl-theme-equipment-rentals .yard-hero-heading {
+  grid-column: 1 / -1;
+  z-index: 1;
+}
+.tl-theme-equipment-rentals .yard-hero h1 {
+  font-size: clamp(57px, 8.2vw, 131px);
+  text-transform: uppercase;
+  margin-top: 25px;
+  max-width: 16ch;
+  line-height: 0.91;
+}
+.tl-theme-equipment-rentals .yard-hero h1 > span {
+  color: #758048;
+}
+.tl-theme-equipment-rentals .yard-hero-description {
+  padding-block: 20px;
+  align-self: center;
+}
+.tl-theme-equipment-rentals .yard-hero-description > p {
+  max-width: 33ch;
+  font-size: 15px;
+}
+.tl-theme-equipment-rentals .yard-hero-description .tl-button {
+  margin-top: 27px;
+}
+.tl-theme-equipment-rentals .yard-hero-caption {
+  display: block;
+  font-size: 10px;
+  margin-top: 45px;
+  color: var(--tl-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.tl-theme-equipment-rentals .yard-hero-image {
+  position: relative;
+  min-height: 340px;
+  background: #c6c7ae;
+}
+.tl-theme-equipment-rentals .yard-hero-image img {
+  object-fit: cover;
+  object-position: center top;
+}
+.tl-theme-equipment-rentals .yard-hero-image figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 11px 16px;
+  color: #eeeede;
+  background: #313922ec;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.tl-theme-equipment-rentals .yard-hero-stamp {
+  position: absolute;
+  right: 30px;
+  top: 77px;
+  border: 2px solid var(--tl-ink);
+  background: var(--yard-orange);
+  width: 99px;
+  height: 99px;
+  padding: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(8deg);
+}
+.tl-theme-equipment-rentals .yard-hero-stamp > span {
+  font-size: 62px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.08em;
+}
+.tl-theme-equipment-rentals .yard-hero-stamp small {
+  font-size: 9px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+.tl-theme-equipment-rentals .yard-category-band {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  background: var(--tl-ink);
+  color: #e5e8cb;
+  padding: 22px 5%;
+  font-size: clamp(13px, 1.75vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  overflow: hidden;
+}
+.tl-theme-equipment-rentals .yard-category-band > span:nth-child(even) {
+  color: var(--yard-orange);
+}
+.tl-theme-equipment-rentals .yard-section-heading {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  align-items: end;
+  gap: 8%;
+  margin-bottom: 45px;
+}
+.tl-theme-equipment-rentals .yard-section-heading h2 {
+  margin-top: 21px;
+  font-size: clamp(35px, 4.5vw, 67px);
+}
+.tl-theme-equipment-rentals .yard-section-heading > p {
+  font-size: 14px;
+  max-width: 36ch;
+  color: var(--tl-muted);
+}
+.tl-theme-equipment-rentals .yard-filter-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--tl-ink);
+}
+.tl-theme-equipment-rentals .yard-filter-row button {
+  border: 0;
+  border-right: 1px solid var(--tl-ink);
+  min-height: 55px;
+  padding: 14px 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  background: transparent;
+  color: var(--tl-ink);
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  text-align: left;
+}
+.tl-theme-equipment-rentals .yard-filter-row button:last-child {
+  border-right: 0;
+}
+.tl-theme-equipment-rentals .yard-filter-row button[aria-pressed="true"] {
+  background: var(--tl-ink);
+  color: var(--tl-bg);
+}
+.tl-theme-equipment-rentals .yard-filter-row button:hover:not([aria-pressed="true"]) {
+  background: #dfe1cb;
+}
+.tl-theme-equipment-rentals .yard-catalogue-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 9px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding-block: 18px;
+  color: var(--tl-muted);
+}
+.tl-theme-equipment-rentals .yard-equipment-item {
+  border-top: 1px solid var(--tl-line);
+}
+.tl-theme-equipment-rentals .yard-equipment-item:last-child {
+  border-bottom: 1px solid var(--tl-ink);
+}
+.tl-theme-equipment-rentals .yard-equipment-item summary {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 110px 1.5fr 1fr 35px;
+  align-items: center;
+  gap: 25px;
+  min-height: 124px;
+  padding: 20px 0;
+  cursor: pointer;
+}
+.tl-theme-equipment-rentals .yard-equipment-item summary::-webkit-details-marker {
+  display: none;
+}
+.tl-theme-equipment-rentals .yard-equipment-mark {
+  width: 100%;
+  height: 78px;
+  padding: 7px;
+  background: #dce0c8;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: square;
+  stroke-linejoin: round;
+}
+.tl-theme-equipment-rentals .yard-equipment-title {
+  display: grid;
+  gap: 7px;
+}
+.tl-theme-equipment-rentals .yard-equipment-title small {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--tl-muted);
+}
+.tl-theme-equipment-rentals .yard-equipment-title strong {
+  font-size: clamp(23px, 2.8vw, 42px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.055em;
+}
+.tl-theme-equipment-rentals .yard-equipment-use {
+  font-size: 12px;
+  color: var(--tl-muted);
+}
+.tl-theme-equipment-rentals .yard-equipment-expand {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--tl-line);
+  line-height: 1;
+  font-size: 24px;
+}
+.tl-theme-equipment-rentals .yard-equipment-item[open] .yard-equipment-expand {
+  transform: rotate(45deg);
+  border-color: transparent;
+}
+.tl-theme-equipment-rentals .yard-equipment-item[open] summary .yard-equipment-mark {
+  background: var(--yard-orange);
+}
+.tl-theme-equipment-rentals .yard-equipment-detail {
+  padding: 0 60px 30px 135px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6%;
+}
+.tl-theme-equipment-rentals .yard-equipment-detail p {
+  font-size: 13px;
+  color: var(--tl-muted);
+}
+.tl-theme-equipment-rentals .yard-equipment-detail strong {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.tl-theme-equipment-rentals .yard-catalogue-note {
+  font-size: 11px;
+  color: var(--tl-muted);
+  margin-top: 24px;
+  max-width: 100ch;
+}
+.tl-theme-equipment-rentals .yard-rental-primer {
+  background: #dfe2cb;
+}
+.tl-theme-equipment-rentals .yard-rental-primer > .tl-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9%;
+}
+.tl-theme-equipment-rentals .yard-rental-primer h2 {
+  margin-top: 23px;
+  font-size: clamp(33px, 3.7vw, 58px);
+}
+.tl-theme-equipment-rentals .yard-text-link {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 35px;
+  border-bottom: 1px solid var(--tl-ink);
+  min-height: 48px;
+  margin-top: 30px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.tl-theme-equipment-rentals .yard-text-link:hover {
+  color: #646b36;
+}
+.tl-theme-equipment-rentals .yard-rental-primer ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tl-theme-equipment-rentals .yard-rental-primer li {
+  display: flex;
+  gap: 28px;
+  padding-block: 26px;
+  border-top: 1px solid #a5ad8b;
+}
+.tl-theme-equipment-rentals .yard-rental-primer li > span {
+  font-size: 12px;
+  font-weight: 700;
+  padding-top: 5px;
+}
+.tl-theme-equipment-rentals .yard-rental-primer h3 {
+  font-size: 28px;
+  font-weight: 750;
+}
+.tl-theme-equipment-rentals .yard-rental-primer li p {
+  font-size: 13px;
+  margin-top: 12px;
+  color: var(--tl-muted);
+}
+.tl-theme-equipment-rentals .yard-next-step {
+  background: var(--yard-orange);
+  color: #303522;
+}
+.tl-theme-equipment-rentals .yard-next-step > .tl-wrap {
+  padding-block: 65px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 30px;
+  align-items: end;
+}
+.tl-theme-equipment-rentals .yard-next-step .tl-kicker {
+  grid-column: 1 / -1;
+  margin-bottom: 24px;
+}
+.tl-theme-equipment-rentals .yard-next-step h2 {
+  font-size: clamp(70px, 10vw, 153px);
+  line-height: 0.85;
+}
+.tl-theme-equipment-rentals .yard-next-step .tl-button {
+  margin-bottom: 6px;
+}
+.tl-theme-equipment-rentals .tl-footer {
+  padding-top: 43px;
+  border-top: 0;
+}
+.tl-theme-equipment-rentals .tl-footer-brand {
+  font-weight: 900;
+  font-size: 42px;
+  letter-spacing: -0.07em;
+}
+.tl-theme-equipment-rentals .tl-page-intro h1 {
+  font-size: clamp(43px, 6.5vw, 100px);
+  max-width: 16ch;
+}
+.tl-theme-equipment-rentals .yard-equipment-page {
+  padding-top: 45px;
+}
+.tl-theme-equipment-rentals .yard-job-fit {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr;
+  gap: 7%;
+}
+.tl-theme-equipment-rentals .yard-fit-symbol {
+  font-size: clamp(95px, 14vw, 210px);
+  line-height: 0.85;
+  color: #78814e;
+}
+.tl-theme-equipment-rentals .yard-job-fit h2 {
+  margin-top: 24px;
+}
+.tl-theme-equipment-rentals .yard-job-fit p:not(.tl-kicker) {
+  margin-top: 26px;
+  font-size: 14px;
+  color: var(--tl-muted);
+  max-width: 53ch;
+}
+.tl-theme-equipment-rentals .yard-guide-steps {
+  padding-block: 15px 75px;
+}
+.tl-theme-equipment-rentals .yard-guide-steps article {
+  display: grid;
+  grid-template-columns: 0.4fr 1.5fr 0.75fr;
+  align-items: start;
+  gap: 5%;
+  padding-block: 42px;
+  border-bottom: 1px solid var(--tl-line);
+}
+.tl-theme-equipment-rentals .yard-guide-number {
+  font-size: clamp(45px, 6vw, 92px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  color: #77834a;
+}
+.tl-theme-equipment-rentals .yard-guide-steps h2 {
+  font-size: clamp(30px, 3.4vw, 49px);
+}
+.tl-theme-equipment-rentals .yard-guide-steps p {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--tl-muted);
+  max-width: 49ch;
+}
+.tl-theme-equipment-rentals .yard-guide-checklist {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-top: 9px;
+}
+.tl-theme-equipment-rentals .yard-guide-faq > div > p:last-child {
+  font-size: 13px;
+  margin-top: 25px;
+  color: var(--tl-muted);
+  max-width: 36ch;
+}
+.tl-theme-equipment-rentals .yard-questions details {
+  border-top: 1px solid #a5ad8b;
+}
+.tl-theme-equipment-rentals .yard-questions details:last-child {
+  border-bottom: 1px solid #a5ad8b;
+}
+.tl-theme-equipment-rentals .yard-questions summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 72px;
+  padding-block: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+}
+.tl-theme-equipment-rentals .yard-questions summary::-webkit-details-marker {
+  display: none;
+}
+.tl-theme-equipment-rentals .yard-questions details[open] summary > span {
+  transform: rotate(45deg);
+}
+.tl-theme-equipment-rentals .yard-questions details > p {
+  font-size: 13px;
+  padding-bottom: 25px;
+  color: var(--tl-muted);
+}
+.tl-theme-equipment-rentals .yard-about-story {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 8%;
+  padding-block: 60px 20px;
+  align-items: center;
+}
+.tl-theme-equipment-rentals .yard-about-story figure {
+  position: relative;
+  min-height: 500px;
+}
+.tl-theme-equipment-rentals .yard-about-story img {
+  object-fit: cover;
+  object-position: center top;
+}
+.tl-theme-equipment-rentals .yard-about-story figcaption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #313922ed;
+  color: var(--tl-bg);
+  padding: 10px 16px;
+  font-size: 10px;
+}
+.tl-theme-equipment-rentals .yard-about-story h2 {
+  font-size: clamp(34px, 3.6vw, 56px);
+  margin-block: 20px 30px;
+}
+.tl-theme-equipment-rentals .yard-about-story p:not(.tl-kicker) {
+  font-size: 14px;
+  color: var(--tl-muted);
+  margin-top: 20px;
+}
+.tl-theme-equipment-rentals .yard-principles > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5%;
+  margin-top: 35px;
+}
+.tl-theme-equipment-rentals .yard-principles article {
+  border-top: 2px solid var(--tl-ink);
+  padding-top: 25px;
+}
+.tl-theme-equipment-rentals .yard-principles article > span {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.tl-theme-equipment-rentals .yard-principles h3 {
+  font-weight: 750;
+  font-size: 31px;
+  margin-top: 25px;
+  max-width: 13ch;
+}
+.tl-theme-equipment-rentals .yard-principles article > p {
+  font-size: 13px;
+  color: var(--tl-muted);
+  margin-top: 20px;
+}
+.tl-theme-equipment-rentals .yard-contact-note {
+  display: flex;
+  gap: 25px;
+  padding: 23px;
+  margin-top: 35px;
+  background: #dce0c8;
+  align-items: center;
+}
+.tl-theme-equipment-rentals .yard-contact-note > span {
+  font-size: 32px;
+  line-height: 1;
+}
+.tl-theme-equipment-rentals .yard-contact-note p {
+  font-size: 12px;
+  max-width: 80ch;
+}
+.tl-theme-equipment-rentals .tl-contact-panel {
+  background: #e2e4d2;
+  border: 0;
+}
+@media (min-width: 1700px) {
+  .tl-theme-equipment-rentals .yard-hero-image {
+    min-height: 420px;
+  }
+  .tl-theme-equipment-rentals .yard-hero {
+    padding-top: 75px;
+  }
+}
+@media (max-width: 1050px) {
+  .tl-theme-equipment-rentals .yard-hero-stamp {
+    width: 77px;
+    height: 77px;
+    right: 0;
+    top: 66px;
+  }
+  .tl-theme-equipment-rentals .yard-hero-stamp > span {
+    font-size: 47px;
+  }
+  .tl-theme-equipment-rentals .yard-hero-stamp small {
+    font-size: 7px;
+  }
+  .tl-theme-equipment-rentals .yard-hero h1 {
+    font-size: clamp(57px, 8vw, 84px);
+  }
+  .tl-theme-equipment-rentals .yard-filter-row button {
+    font-size: 11px;
+    padding-inline: 12px;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-item summary {
+    grid-template-columns: 90px 1.5fr 1fr 30px;
+    gap: 20px;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-detail {
+    padding-left: 110px;
+    padding-right: 40px;
+  }
+  .tl-theme-equipment-rentals .yard-guide-steps article {
+    grid-template-columns: 0.3fr 1.5fr 0.65fr;
+  }
+}
+@media (max-width: 760px) {
+  .tl-theme-equipment-rentals .tl-brand {
+    font-size: 30px;
+  }
+  .tl-theme-equipment-rentals .yard-hero {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding-block: 42px;
+  }
+  .tl-theme-equipment-rentals .yard-hero-heading {
+    grid-column: auto;
+  }
+  .tl-theme-equipment-rentals .yard-hero h1 {
+    font-size: clamp(42px, 9.3vw, 70px);
+    max-width: 16ch;
+  }
+  .tl-theme-equipment-rentals .yard-hero-stamp {
+    display: none;
+  }
+  .tl-theme-equipment-rentals .yard-hero-description {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-block: 0;
+  }
+  .tl-theme-equipment-rentals .yard-hero-description > p {
+    max-width: 48ch;
+    font-size: 14px;
+  }
+  .tl-theme-equipment-rentals .yard-hero-description .tl-button {
+    margin-top: 24px;
+  }
+  .tl-theme-equipment-rentals .yard-hero-caption {
+    display: none;
+  }
+  .tl-theme-equipment-rentals .yard-hero-image {
+    min-height: 310px;
+  }
+  .tl-theme-equipment-rentals .yard-category-band {
+    font-size: 11px;
+    gap: 12px;
+    padding-block: 18px;
+    flex-wrap: wrap;
+  }
+  .tl-theme-equipment-rentals .yard-section-heading {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .tl-theme-equipment-rentals .yard-section-heading > p {
+    max-width: 50ch;
+  }
+  .tl-theme-equipment-rentals .yard-filter-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tl-theme-equipment-rentals .yard-filter-row button {
+    font-size: 11px;
+    min-height: 55px;
+  }
+  .tl-theme-equipment-rentals .yard-filter-row button:nth-child(2) {
+    border-right: 0;
+  }
+  .tl-theme-equipment-rentals .yard-filter-row button:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--tl-ink);
+  }
+  .tl-theme-equipment-rentals .yard-catalogue-meta {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-item summary {
+    grid-template-columns: 74px 1fr 24px;
+    gap: 15px;
+    min-height: 114px;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-mark {
+    height: 67px;
+    padding: 3px;
+    grid-row: 1 / 3;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-title strong {
+    font-size: clamp(22px, 4.5vw, 31px);
+  }
+  .tl-theme-equipment-rentals .yard-equipment-use {
+    grid-column: 2;
+    font-size: 10px;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-expand {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    width: 24px;
+    height: 29px;
+    font-size: 19px;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-title small {
+    font-size: 8px;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-detail {
+    padding: 0 0 26px 89px;
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .tl-theme-equipment-rentals .yard-rental-primer > .tl-wrap {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .tl-theme-equipment-rentals .yard-next-step > .tl-wrap {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-block: 48px;
+  }
+  .tl-theme-equipment-rentals .yard-next-step .tl-kicker {
+    margin-bottom: 0;
+  }
+  .tl-theme-equipment-rentals .yard-next-step h2 {
+    font-size: clamp(66px, 13vw, 100px);
+  }
+  .tl-theme-equipment-rentals .yard-job-fit {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .tl-theme-equipment-rentals .yard-fit-symbol {
+    font-size: 80px;
+  }
+  .tl-theme-equipment-rentals .yard-guide-steps article {
+    grid-template-columns: 55px 1fr;
+    gap: 20px;
+    padding-block: 32px;
+  }
+  .tl-theme-equipment-rentals .yard-guide-checklist {
+    grid-column: 2;
+    padding: 0;
+  }
+  .tl-theme-equipment-rentals .yard-guide-steps h2 {
+    font-size: 30px;
+  }
+  .tl-theme-equipment-rentals .yard-guide-steps p {
+    font-size: 13px;
+  }
+  .tl-theme-equipment-rentals .yard-about-story {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding-top: 40px;
+  }
+  .tl-theme-equipment-rentals .yard-about-story figure {
+    min-height: 380px;
+  }
+  .tl-theme-equipment-rentals .yard-principles > div {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .tl-theme-equipment-rentals .yard-principles h3 {
+    max-width: none;
+    margin-top: 17px;
+  }
+}
+@media (max-width: 380px) {
+  .tl-theme-equipment-rentals .yard-hero h1 {
+    font-size: 39px;
+  }
+  .tl-theme-equipment-rentals .yard-hero-image {
+    min-height: 260px;
+  }
+  .tl-theme-equipment-rentals .yard-category-band > span:nth-last-child(-n + 2) {
+    display: none;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-item summary {
+    grid-template-columns: 52px 1fr 22px;
+    gap: 12px;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-mark {
+    height: 57px;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-detail {
+    padding-left: 0;
+  }
+  .tl-theme-equipment-rentals .yard-equipment-title strong {
+    font-size: 23px;
+  }
+  .tl-theme-equipment-rentals .yard-guide-steps article {
+    grid-template-columns: 41px 1fr;
+    gap: 15px;
+  }
+  .tl-theme-equipment-rentals .yard-guide-number {
+    font-size: 39px;
+  }
+}

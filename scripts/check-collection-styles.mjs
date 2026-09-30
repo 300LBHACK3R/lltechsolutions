@@ -6,6 +6,10 @@ import { pathToFileURL } from "node:url";
 // HTML-only checks missed a deployed bundle with all collection styles absent.
 // Check delivered CSS, including one dependency from each collection stylesheet.
 const routes = new Map([
+  [
+    "/website-collection/category/transport-logistics",
+    ["tl-cover", "tl-cover-body", "tl-cover-headline"],
+  ],
   ["/website-collection/category/home-property", ["hp-cover", "hp-headline", "hp-cover-header"]],
   [
     "/website-collection/category/legal-professional",
