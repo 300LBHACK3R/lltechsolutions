@@ -58,6 +58,13 @@ try {
     "/website-collection/artsy-nails",
     "/website-collection/hair-salon",
     "/website-collection/hair-one-page",
+    "/website-collection/consultant-one-page",
+    "/website-collection/bookkeeping",
+    "/website-collection/accounting",
+    "/website-collection/creative-consultancy",
+    "/website-collection/boutique-law",
+    "/website-collection/corporate-law",
+
     "/website-collection/start",
     "/website-collection/compare",
     "/website-collection/brief",
@@ -77,7 +84,6 @@ try {
     "/website-collection/start",
     "/website-collection/compare",
     "/website-collection/brief",
-    "/website-collection/category/legal-professional",
     "/website-collection/category/retail-automotive",
     "/website-collection/category/food-restaurants",
   ]);
@@ -194,6 +200,12 @@ try {
     ["artsy-nails", "artsy-nail"],
     ["hair-salon", "hair-salon"],
     ["hair-one-page", "hair-one-page"],
+    ["consultant-one-page", "consultant-one-page"],
+    ["bookkeeping", "bookkeeping"],
+    ["accounting", "accounting"],
+    ["creative-consultancy", "creative-consultancy"],
+    ["boutique-law", "boutique-law"],
+    ["corporate-law", "corporate-law"],
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     const media = JSON.parse(
@@ -503,7 +515,7 @@ try {
     checks++;
     const gallery = htmlByRoute.get(`/website-collection/category/${id}`);
     assert.ok(gallery.includes('"@type":"BreadcrumbList"'), `${id}: category breadcrumbs`);
-    if (["legal-professional", "retail-automotive", "food-restaurants"].includes(id)) {
+    if (["retail-automotive", "food-restaurants"].includes(id)) {
       assert.ok(
         gallery.includes("No templates have been added here yet."),
         `${id}: truthful empty state`,
@@ -512,6 +524,13 @@ try {
     }
   }
   const templatePrices = [
+    ["consultant-one-page", "legal-professional", 150],
+    ["bookkeeping", "legal-professional", 399],
+    ["accounting", "legal-professional", 499],
+    ["creative-consultancy", "legal-professional", 699],
+    ["boutique-law", "legal-professional", 699],
+    ["corporate-law", "legal-professional", 999],
+
     ["massage-one-page", "health-wellness", 150],
     ["hair-one-page", "health-wellness", 150],
     ["still", "health-wellness", 399],
@@ -545,6 +564,34 @@ try {
     const contactHtml = await contact.text();
     assert.ok(contactHtml.includes(`Launch pricing: ${label}`), `${id}: canonical enquiry price`);
     assert.ok(!contactHtml.includes("From $1 CAD"), `${id}: URL cannot change the price`);
+    checks++;
+  }
+  const legalGallery = htmlByRoute.get("/website-collection/category/legal-professional");
+  assert.equal(
+    (legalGallery.match(/data-professional-cover=/g) ?? []).length,
+    6,
+    "six visual professional templates",
+  );
+  assert.ok(
+    !legalGallery.includes('content="noindex'),
+    "populated professional gallery is indexable",
+  );
+  for (const [industry, expected] of [
+    ["legal", ["boutique-law", "corporate-law"]],
+    ["bookkeeping", ["bookkeeping"]],
+    ["accounting", ["accounting"]],
+    ["professional-services", ["consultant-one-page", "creative-consultancy"]],
+  ]) {
+    const res = await fetch(
+      `${origin}/website-collection/category/legal-professional?industry=${industry}`,
+    );
+    assert.equal(res.status, 200);
+    const html = await res.text();
+    assert.deepEqual(
+      [...html.matchAll(/<article[^>]*id="design-([^"]+)"/g)].map((match) => match[1]),
+      expected,
+      `${industry}: relevant professional templates`,
+    );
     checks++;
   }
   const wellnessGallery = htmlByRoute.get("/website-collection/category/health-wellness");
@@ -619,7 +666,12 @@ try {
     );
     checks++;
   }
-  for (const category of ["construction-trades", "health-wellness", "transport-logistics"]) {
+  for (const category of [
+    "construction-trades",
+    "health-wellness",
+    "transport-logistics",
+    "legal-professional",
+  ]) {
     const path = `/website-collection/category/${category}`;
     const expected = templatePrices
       .filter(([, id]) => id === category)

@@ -204,6 +204,7 @@ test("collection validates design status, scope and local preview assets", () =>
           "artsy-nails",
           "hair-salon",
           "hair-one-page",
+          "professional",
         ].includes(design.concept.theme),
       );
       assert.equal(design.concept.brands.length, 2);
@@ -510,7 +511,7 @@ test("business galleries retain all industry mappings and exclude unrelated or d
     ["one", "three"],
   );
   assert.equal(categoryForIndustry(["painting", "legal"]), undefined);
-  assert.equal(categoryDesigns(categoryForIndustry("legal")).length, 0);
+  assert.equal(categoryDesigns(categoryForIndustry("legal")).length, 6);
   for (const design of availableDesigns())
     assert.ok(categoryDesigns(categoryForIndustry(design.industry)).includes(design));
 });

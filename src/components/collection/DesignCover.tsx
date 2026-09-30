@@ -1,3 +1,4 @@
+import ProfessionalCover from "@/components/collection/ProfessionalCover";
 import Image from "next/image";
 import LawnCover from "@/components/collection/LawnCover";
 import EarthworksCover from "@/components/collection/EarthworksCover";
@@ -28,6 +29,7 @@ export default function DesignCover({ design }: { design: WebsiteDesign }) {
     );
   }
   if (!concept) return null;
+  if (concept.theme === "professional") return <ProfessionalCover design={design} />;
   if (concept.theme === "medical-spa") return <MedicalSpaCover design={design} />;
   if (concept.theme === "artsy-nails") return <ArtsyNailCover design={design} />;
   if (concept.theme === "hair-salon") return <HairSalonCover design={design} />;

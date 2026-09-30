@@ -11,10 +11,12 @@ export default function DemoEnquiryForm({
   idPrefix,
   services,
   className = "",
+  notice = "Demonstration form. Nothing is sent or saved. Use sample details only; please do not enter health information.",
 }: {
   idPrefix: string;
   services: readonly string[];
   className?: string;
+  notice?: string;
 }) {
   const ready = useSyncExternalStore(subscribe, browserReady, serverReady);
   const form = useRef<HTMLFormElement>(null);
@@ -38,8 +40,7 @@ export default function DemoEnquiryForm({
       onChange={() => complete && setComplete(false)}
     >
       <p id={noticeId} className="demo-enquiry-notice">
-        Demonstration form. Nothing is sent or saved. Use sample details only; please do not enter
-        health information.
+        {notice}
       </p>
       <fieldset disabled={!ready}>
         <legend>Your enquiry</legend>

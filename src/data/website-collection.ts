@@ -70,6 +70,8 @@ export const collectionIndustries = [
   { id: "hair-salon", name: "Hair Salons & Hairdressers" },
   { id: "dental", name: "Dental Practices" },
   { id: "legal", name: "Legal Services" },
+  { id: "bookkeeping", name: "Bookkeeping" },
+  { id: "accounting", name: "Accounting & Advisory" },
   { id: "cleaning", name: "Cleaning" },
   { id: "automotive", name: "Automotive & Detailing" },
   { id: "retail", name: "Retail & Shops" },
@@ -111,8 +113,8 @@ export const templateCategories: readonly TemplateCategory[] = [
   {
     id: "legal-professional",
     name: "Legal & Professional",
-    description: "Law firms, consultants and professional service businesses.",
-    industries: ["legal", "professional-services"],
+    description: "Law firms, bookkeepers, accountants and independent consultancies.",
+    industries: ["legal", "bookkeeping", "accounting", "professional-services"],
     image: "/images/template-categories/legal-professional.webp",
   },
   {
@@ -233,7 +235,8 @@ export type WebsiteDesign = {
       | "medical-spa"
       | "artsy-nails"
       | "hair-salon"
-      | "hair-one-page";
+      | "hair-one-page"
+      | "professional";
     brands: readonly [string, string];
     headlines: readonly [string, string];
     subcopy: string;
@@ -305,6 +308,285 @@ export const developerIntroduction: CollectionVideo | null = null;
 
 // Starting prices cover a new personalization and launch within the agreed scope.
 // Client examples demonstrate an approach; their identities and client-specific assets are not for resale.
+/** Fictional demo content and offer scope; the only source for the professional range. */
+export const professionalTemplates = [
+  {
+    id: "consultant-one-page",
+    name: "Independent Consultant",
+    brand: "AVERY",
+    subbrand: "INDEPENDENT CONSULTING",
+    price: 150,
+    tier: "essential",
+    industry: "professional-services",
+    pages: ["Home"],
+    theme: "avery",
+    headline: "A clearer view.",
+    emphasis: "A practical next step.",
+    intro:
+      "For independent businesses ready to step back, untangle the moving parts and decide what comes next.",
+    about:
+      "A small, focused practice for owners who want a thoughtful sounding board. We start with your priorities, work through the detail and leave you with a plan you can actually use.",
+    services: [
+      {
+        name: "Direction",
+        description: "Turn competing ideas into a clear priority.",
+        detail:
+          "A focused conversation to identify your immediate priorities and decide what deserves attention first.",
+      },
+      {
+        name: "Operations",
+        description: "Make the everyday work feel more manageable.",
+        detail: "Map the handoffs, routines and recurring problems that slow your team down.",
+      },
+      {
+        name: "Next steps",
+        description: "Give a good idea a practical place to start.",
+        detail:
+          "Bring actions, responsibilities and review points together in a concise working plan.",
+      },
+    ],
+    principles: ["Listen carefully", "Make it clear", "Keep it practical"],
+    image: "/images/collection/professional-boardroom.webp",
+    imageAlt: "Illustrative daylight meeting space with blue-grey chairs and city views",
+    form: false,
+    description:
+      "A focused one-page consultant website in soft lilac and ink, with an editorial introduction, expandable service notes and direct contact.",
+  },
+  {
+    id: "bookkeeping",
+    name: "Bookkeeping Studio",
+    brand: "TALLY & CO.",
+    subbrand: "BOOKKEEPING FOR SMALL BUSINESS",
+    price: 399,
+    tier: "signature",
+    industry: "bookkeeping",
+    pages: ["Home", "Services", "Contact"],
+    theme: "tally",
+    headline: "Less loose paper.",
+    emphasis: "More peace of mind.",
+    intro:
+      "A considered approach to everyday bookkeeping. Clear records, a steady routine and a little more room to run your business.",
+    about:
+      "We like things organised, explained and easy to hand over. Our sample studio is built around a consistent monthly rhythm, with support shaped around your existing tools.",
+    services: [
+      {
+        name: "Monthly bookkeeping",
+        description: "A regular rhythm for your business records.",
+        detail:
+          "Transaction organisation, reconciliations and an agreed reporting handoff, based on the records you provide.",
+      },
+      {
+        name: "Catch-up support",
+        description: "Find a way through the backlog.",
+        detail:
+          "Start with a review of the records, agree a manageable scope and work through the outstanding periods.",
+      },
+      {
+        name: "Year-end preparation",
+        description: "A clearer handoff to your accountant.",
+        detail:
+          "Organise the agreed records and supporting files for your accountant. Tax filing and assurance services are not implied.",
+      },
+    ],
+    principles: ["Collect", "Reconcile", "Review"],
+    image: "/images/collection/professional-boardroom.webp",
+    imageAlt: "Illustrative daylight meeting space with blue-grey chairs and city views",
+    form: false,
+    description:
+      "A warm three-page bookkeeping website in sage, cream and coral, with a month-end checklist, clear services and direct contact.",
+  },
+  {
+    id: "accounting",
+    name: "Corporate Accounting",
+    brand: "NORTHLINE",
+    subbrand: "ACCOUNTING & ADVISORY",
+    price: 499,
+    tier: "signature",
+    industry: "accounting",
+    pages: ["Home", "Services", "About", "Contact"],
+    theme: "northline",
+    headline: "Know where you stand.",
+    emphasis: "Plan your next move.",
+    intro:
+      "Accounting support with a clear view of your business. Thoughtful communication, organised information and a straightforward way forward.",
+    about:
+      "A professional practice with space for your real qualifications, people and service scope. This demonstration focuses on the client journey rather than invented credentials or financial results.",
+    services: [
+      {
+        name: "Business accounting",
+        description: "Bring structure to the financial picture.",
+        detail:
+          "Ongoing accounting and reporting needs are reviewed with the client and matched to an agreed engagement.",
+      },
+      {
+        name: "Planning conversations",
+        description: "Put your next decision in context.",
+        detail:
+          "A place to discuss upcoming changes, reporting priorities and what information your business needs.",
+      },
+      {
+        name: "Owner support",
+        description: "Make the detail easier to navigate.",
+        detail:
+          "A clear point of contact for owners, with a practical plan for documents, deadlines and follow-up.",
+      },
+    ],
+    principles: ["Understand the business", "Agree the scope", "Keep the conversation open"],
+    image: "/images/collection/professional-boardroom.webp",
+    imageAlt: "Illustrative daylight meeting space with blue-grey chairs and city views",
+    form: false,
+    description:
+      "A four-page accounting website in corporate blue, white and slate, with a service selector, practice story and direct contact.",
+  },
+  {
+    id: "creative-consultancy",
+    name: "Creative Business Consultancy",
+    brand: "OFFSCRIPT",
+    subbrand: "STRATEGY / POSITIONING / DIRECTION",
+    price: 699,
+    tier: "premier",
+    industry: "professional-services",
+    pages: ["Home", "Services", "Approach", "Contact"],
+    theme: "offscript",
+    headline: "Good ideas need",
+    emphasis: "somewhere to go.",
+    intro:
+      "For businesses with a lot of possibility and one question: what next? Let’s turn the big thinking into something you can put to work.",
+    about:
+      "We connect the way your business thinks with the way it shows up. A working session becomes a point of view, a clearer offer and a plan with somewhere to begin.",
+    services: [
+      {
+        name: "Find your focus",
+        description: "A sharper point of view.",
+        detail:
+          "Explore your audience, your offer and the reasons someone should choose your business. Leave with a focused direction.",
+      },
+      {
+        name: "Shape the story",
+        description: "A message that sounds like you.",
+        detail:
+          "Connect your positioning to the language, customer journey and creative brief that guide the next stage.",
+      },
+      {
+        name: "Make a plan",
+        description: "From possibility to priorities.",
+        detail:
+          "Build an achievable sequence of decisions and actions, with owners and review points agreed together.",
+      },
+    ],
+    principles: ["Question the obvious", "Connect the pieces", "Make the next move"],
+    image: "/images/collection/professional-boardroom.webp",
+    imageAlt: "Illustrative daylight meeting space with blue-grey chairs and city views",
+    form: true,
+    description:
+      "An expressive four-page consultancy website with oversized typography, acid yellow accents, a priority selector and enquiry-form setup.",
+  },
+  {
+    id: "boutique-law",
+    name: "Boutique Law Firm",
+    brand: "VALE & ROWE",
+    subbrand: "A CONSIDERED LEGAL PRACTICE",
+    price: 699,
+    tier: "premier",
+    industry: "legal",
+    pages: ["Home", "Practice", "Firm", "FAQs", "Contact"],
+    theme: "vale",
+    headline: "Clarity for the",
+    emphasis: "decisions that matter.",
+    intro:
+      "A calm, considered introduction to legal support for individuals and businesses. Start with a conversation about the right next step.",
+    about:
+      "A more personal presentation for an independent practice. Clear service information, an approachable introduction and a discreet enquiry journey help visitors understand how to begin.",
+    services: [
+      {
+        name: "Business matters",
+        description: "Support for the business you are building.",
+        detail:
+          "A space to explain the business services your licensed practice actually offers, and how an initial scope discussion works.",
+      },
+      {
+        name: "Property matters",
+        description: "A clear starting point for your next move.",
+        detail:
+          "Introduce the property services within your practice, the information needed to assess an enquiry and the next steps.",
+      },
+      {
+        name: "Personal planning",
+        description: "Room for a thoughtful conversation.",
+        detail:
+          "Explain relevant planning services in approachable terms, with the scope and professional requirements reviewed before publication.",
+      },
+    ],
+    principles: [
+      "An initial conversation",
+      "A clearly agreed engagement",
+      "Considered communication",
+    ],
+    image: "/images/collection/professional-law-office.webp",
+    imageAlt: "Illustrative stone and walnut reception for a fictional law practice",
+    form: true,
+    description:
+      "A five-page boutique law website in oxblood, parchment and bronze, with architectural imagery, practice information, FAQs and enquiry-form setup.",
+  },
+  {
+    id: "corporate-law",
+    name: "Full-service Law Firm",
+    brand: "AXIOM",
+    subbrand: "LEGAL / BUSINESS / PERSPECTIVE",
+    price: 999,
+    tier: "flagship",
+    industry: "legal",
+    pages: ["Home", "Practice", "Firm", "Approach", "Resources", "FAQs", "Contact"],
+    theme: "axiom",
+    headline: "Perspective for",
+    emphasis: "what comes next.",
+    intro:
+      "Clear thinking for complex business moments. Explore a practice built around careful understanding, practical communication and the right next conversation.",
+    about:
+      "An expansive design for a firm with several practice areas and a distinct point of view. Structured service information, a firm story and a useful resource library make the depth of the practice easy to explore.",
+    services: [
+      {
+        name: "Corporate & commercial",
+        description: "The business behind the decision.",
+        detail:
+          "Describe your commercial practice, the kinds of matters you handle and the process for an initial discussion.",
+      },
+      {
+        name: "Property & projects",
+        description: "A broader view of what is at stake.",
+        detail:
+          "Introduce the property and project work within your firm’s actual practice and jurisdiction.",
+      },
+      {
+        name: "Workplace matters",
+        description: "People, responsibilities and change.",
+        detail:
+          "Explain your workplace practice in plain language, without turning general site information into individual legal advice.",
+      },
+      {
+        name: "Dispute resolution",
+        description: "A considered way forward.",
+        detail:
+          "Present your approach to evaluating a matter, communication and next steps, without promising a particular result.",
+      },
+    ],
+    principles: ["Understand the context", "Define the engagement", "Work with perspective"],
+    image: "/images/collection/professional-law-office.webp",
+    imageAlt: "Illustrative stone and walnut reception for a fictional law practice",
+    form: true,
+    description:
+      "A seven-page law firm website in midnight blue and copper, with a practice explorer, resource library, firm story, approach, FAQs and enquiry-form setup.",
+  },
+] as const;
+export type ProfessionalTemplate = (typeof professionalTemplates)[number];
+export type ProfessionalTemplateId = ProfessionalTemplate["id"];
+export function professionalTemplate(id: string) {
+  return professionalTemplates.find((template) => template.id === id);
+}
+export function professionalPagePath(page: string) {
+  return page === "Home" ? "/" : `/${page.toLowerCase()}`;
+}
+
 export const websiteDesigns: readonly WebsiteDesign[] = [
   {
     id: "horizon",
@@ -1130,6 +1412,53 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
       "Optional ongoing maintenance and content updates under an agreed care plan",
     ],
   },
+  ...professionalTemplates.map((template): WebsiteDesign => ({
+    id: template.id,
+    status: "concept",
+    name: template.name,
+    tier: template.tier,
+    industry: template.industry,
+    description: template.description,
+    startingPriceCad: template.price,
+    pageCount: template.pages.length,
+    contactMode: template.form ? "enquiry-form" : "direct",
+    deliveryWindow: "Timing agreed after your content and scope are confirmed.",
+    demoUrl: `/website-collection/${template.id}#preview`,
+    included: [
+      template.pages.length === 1
+        ? "One page: introduction, up to three services, about and direct-contact sections"
+        : `${template.pages.length} pages: ${template.pages.join(", ")}`,
+      "Your supplied logo, colours, business information and images implemented in the code",
+      "Responsive layout, keyboard navigation and reduced-motion support",
+      "Page titles, descriptions, social metadata and launch security configuration",
+      ...(template.form
+        ? [
+            "Standard enquiry form setup: one inbox, Resend, sending-domain configuration, spam controls and an initial delivery test",
+          ]
+        : ["Direct phone and email contact; an existing external scheduling link can be added"]),
+      "Personalization and launch within this template’s agreed scope",
+    ],
+    customization: [
+      "Additional pages, custom functionality and third-party integrations quoted separately",
+      "Original copywriting, photography, videography and ongoing care scoped separately",
+      ...(template.industry === "legal" || template.industry === "accounting"
+        ? [
+            "Professional credentials, service descriptions and required practice disclosures supplied and approved by your business",
+          ]
+        : []),
+    ],
+    concept: {
+      theme: "professional",
+      brands: [template.brand, template.brand],
+      headlines: [`${template.headline} ${template.emphasis}`, template.headline],
+      subcopy: template.intro,
+      kicker: template.subbrand,
+      action: "Start a conversation",
+      photo: { src: template.image, alt: template.imageAlt, width: 1536, height: 1024 },
+      services: template.services,
+      approach: template.about,
+    },
+  })),
 ];
 
 export const collectionDescription =

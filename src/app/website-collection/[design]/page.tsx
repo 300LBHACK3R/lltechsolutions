@@ -1,3 +1,9 @@
+import averyDemo from "@/data/consultant-one-page-demo.json";
+import tallyDemo from "@/data/bookkeeping-demo.json";
+import northlineDemo from "@/data/accounting-demo.json";
+import offscriptDemo from "@/data/creative-consultancy-demo.json";
+import valeDemo from "@/data/boutique-law-demo.json";
+import axiomDemo from "@/data/corporate-law-demo.json";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -25,6 +31,8 @@ import { projects, projectPath } from "@/data/projects";
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl, liveDemoLabel } from "@/config/site";
 import {
+  professionalTemplate,
+  type ProfessionalTemplateId,
   availableDesigns,
   categoryForIndustry,
   categoryHref,
@@ -40,6 +48,15 @@ import {
   designContactLabel,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
+
+const professionalShowcases = {
+  "consultant-one-page": averyDemo,
+  bookkeeping: tallyDemo,
+  accounting: northlineDemo,
+  "creative-consultancy": offscriptDemo,
+  "boutique-law": valeDemo,
+  "corporate-law": axiomDemo,
+};
 
 type Props = { params: Promise<{ design: string }> };
 export function generateStaticParams() {
@@ -82,7 +99,12 @@ export default async function DesignPage({ params }: Props) {
                         ? readTemplateShowcase(hairSalonDemo, "hair-salon")
                         : design.id === "hair-one-page"
                           ? readTemplateShowcase(hairOnePageDemo, "hair-one-page")
-                          : null;
+                          : professionalTemplate(design.id)
+                            ? readTemplateShowcase(
+                                professionalShowcases[design.id as ProfessionalTemplateId],
+                                design.id as ProfessionalTemplateId,
+                              )
+                            : null;
   const category = categoryForIndustry(design.industry);
   const clientProject = design.clientProjectId
     ? projects.find(

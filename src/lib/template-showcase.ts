@@ -1,3 +1,4 @@
+import type { ProfessionalTemplateId } from "@/data/website-collection";
 export type TemplateScreenshot = {
   src: string;
   alt: string;
@@ -15,6 +16,7 @@ export type TemplateShowcase = {
 export function readTemplateShowcase(
   value: unknown,
   designId:
+    | ProfessionalTemplateId
     | "pigment"
     | "structure"
     | "earthworks"
