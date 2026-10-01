@@ -23,7 +23,6 @@
   }
   .service-detail p:not(.eyebrow),
   .capability-list li,
-  .investment-row p,
   .case-body dd {
     font-size: 16px;
   }
@@ -128,19 +127,6 @@
   .service-detail {
     grid-template-columns: 1fr;
     gap: 32px;
-  }
-  .investment-row {
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-  }
-  .investment-action {
-    grid-column: 1 / -1;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 18px;
   }
   .contact-layout {
     grid-template-columns: 1fr;
@@ -279,12 +265,6 @@
   }
   .case-description {
     font-size: 20px;
-  }
-  .investment-row {
-    grid-template-columns: 1fr;
-  }
-  .investment-price {
-    font-size: 30px !important;
   }
   .contact-form {
     padding: 22px;

@@ -157,26 +157,6 @@
 .collection-discovery-link a {
   color: var(--gold-light);
 }
-.collection-pricing-link {
-  border: 1px solid #675735;
-  background: var(--charcoal);
-  padding: 28px;
-  margin: 32px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 25px;
-}
-.collection-pricing-link h2 {
-  font-size: 26px;
-  margin-top: 10px;
-}
-.collection-pricing-link p:not(.eyebrow) {
-  font-size: 14px;
-  max-width: 720px;
-  color: var(--muted);
-  margin-top: 12px;
-}
 .collection-contact-context {
   font-size: 14px;
   border-left: 2px solid var(--gold);
@@ -307,10 +287,6 @@
   .collection-questions,
   .collection-design-grid {
     grid-template-columns: 1fr;
-  }
-  .collection-pricing-link {
-    flex-direction: column;
-    align-items: start;
   }
 }
 @media (prefers-reduced-motion: reduce) {

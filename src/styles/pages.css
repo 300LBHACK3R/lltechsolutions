@@ -192,46 +192,6 @@ dd {
   gap: 12px 24px;
   margin-top: 24px;
 }
-.investment-row {
-  padding: 38px 0;
-  border-top: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: 1.1fr 1.1fr 0.65fr;
-  gap: 50px;
-}
-.investment-row h2 {
-  font-size: 28px;
-  margin-top: 12px;
-}
-.investment-row p {
-  color: var(--muted);
-  font-size: 13px;
-}
-.investment-price {
-  font-size: 35px !important;
-  color: var(--gold-light) !important;
-  line-height: 1.2;
-  letter-spacing: -0.035em;
-}
-.investment-price small {
-  font-size: 14px;
-  letter-spacing: 0;
-}
-.investment-action {
-  text-align: right;
-}
-.investment-action .text-link + .text-link {
-  display: block;
-  margin-top: 12px;
-}
-.investment-note {
-  padding: 28px;
-  margin: 18px 0 40px;
-  background: var(--charcoal);
-  color: var(--muted);
-  font-size: 13px;
-  border-left: 2px solid var(--gold);
-}
 .contact-layout {
   display: grid;
   grid-template-columns: 1.5fr 1fr;

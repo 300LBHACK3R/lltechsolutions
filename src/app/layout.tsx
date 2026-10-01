@@ -40,6 +40,7 @@ import "@/styles/responsive.css";
 import "@/styles/home-premium-hero.css";
 import "@/styles/home-premium-work.css";
 import "@/styles/client-showcase.css";
+import "@/styles/pricing.css";
 import type { Metadata, Viewport } from "next";
 import { Geist, Cormorant_Garamond } from "next/font/google";
 import Header from "@/components/layout/Header";
