@@ -13,8 +13,8 @@ export default function Hero() {
         </h1>
         <p className="premium-hero-description">
           Custom websites, purpose-built software and social media management.
-          <br className="premium-hero-copy-break" />{" "}
-          Built around your business. Supported beyond launch.
+          <br className="premium-hero-copy-break" /> Built around your business. Supported beyond
+          launch.
         </p>
         <div className="premium-hero-actions">
           <Link href="/contact" className="premium-hero-primary">
