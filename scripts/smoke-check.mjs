@@ -1134,14 +1134,25 @@ try {
     "category choice reaches the editable inquiry",
   );
   checks += 2;
+  const tierOptions = categoryHtml.match(/<select\b[^>]*name="tier"[^>]*>(.*?)<\/select>/s)?.[1];
+  assert.ok(tierOptions, "category gallery offers a design-level filter");
   for (const tier of ["essential", "signature", "premier", "flagship"]) {
-    assert.ok(collection.includes(`id="collection-${tier}"`), `${tier}: public collection level`);
+    const tierName = tier.charAt(0).toUpperCase() + tier.slice(1);
+    assert.ok(
+      !collectionMain.includes(`id="collection-${tier}"`),
+      `${tier}: tier panels stay off the simplified landing page`,
+    );
+    assert.match(
+      tierOptions,
+      new RegExp(`<option\\b[^>]*value="${tier}"[^>]*>${tierName}</option>`),
+      `${tier}: available in the category gallery filter`,
+    );
     const response = await fetch(`${origin}/contact?collection=website&tier=${tier}&care=care`);
     assert.equal(response.status, 200);
     const html = await response.text();
     const textarea = html.match(/<textarea\b[^>]*name="message"[^>]*>(.*?)<\/textarea>/s)?.[1];
     assert.ok(
-      textarea?.includes(`Collection: ${tier.charAt(0).toUpperCase() + tier.slice(1)}`),
+      textarea?.includes(`Collection: ${tierName}`),
       `${tier}: selection reaches the editable message`,
     );
     assert.ok(textarea.includes("Website Care"), "monthly choice survives the inquiry link");
