@@ -8,13 +8,18 @@ export default function HomeProjectsPreview() {
     <section id="home-work" className="home-work" aria-labelledby="home-work-title">
       <div className="container">
         <div className="home-work-heading">
-          <h2 id="home-work-title">A closer look at our work.</h2>
+          <div>
+            <p className="home-work-eyebrow">The work speaks.</p>
+            <h2 id="home-work-title">
+              Different businesses. <em>Distinctive work.</em>
+            </h2>
+          </div>
           <Link className="text-link" href="/projects">
             Meet our clients <span aria-hidden="true">↗</span>
           </Link>
         </div>
         <div className="home-work-list">
-          {showcaseProjects.map((project, index) => (
+          {showcaseProjects.map((project) => (
             <Reveal key={project.id}>
               <article className="home-work-card">
                 <Link
@@ -29,7 +34,6 @@ export default function HomeProjectsPreview() {
                         alt={project.imageAlt ?? `${project.title} interface`}
                         fill
                         sizes="(min-width: 2560px) 864px, (min-width: 1900px) 744px, (min-width: 1440px) 624px, (min-width: 760px) calc((100vw - 112px) / 2), (min-width: 700px) calc(100vw - 80px), calc(100vw - 40px)"
-                        preload={index === 0}
                       />
                     ) : (
                       <span className="home-work-image-fallback">{project.title}</span>

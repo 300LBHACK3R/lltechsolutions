@@ -212,6 +212,23 @@ try {
     homeMain.includes('href="#home-work"') && homeMain.includes('id="home-work"'),
     "hero action leads to the project gallery on the same page",
   );
+  const pathways = homeMain.match(
+    /<nav\b[^>]*aria-label="Find your next step"[^>]*>(.*?)<\/nav>/s,
+  )?.[1];
+  assert.ok(pathways, "homepage offers a labelled choice of next steps");
+  assert.deepEqual(
+    [...pathways.matchAll(/href="([^"]+)"/g)].map((match) => match[1]),
+    ["/website-collection", "/services", "/projects"],
+    "homepage guides visitors to templates, services and client work",
+  );
+  const heroArtwork = homeMain.match(/class="studio-artboard"[^>]*>(.*?)<\/section>/s)?.[1];
+  assert.ok(heroArtwork, "real project artwork appears in the opening section");
+  assert.ok(
+    heroArtwork.includes('href="/projects/web-builds#tow-n-go"') &&
+      heroArtwork.includes('href="/projects/social-media-management#tow-n-go-digital"'),
+    "opening website and content previews lead to their matching case studies",
+  );
+  assert.ok(!homeMain.includes("<video"), "homepage has no automatic video download or playback");
   assert.ok(
     !/role="(?:tab|tablist|tabpanel)"/.test(homeMain),
     "homepage shows projects directly without the retired carousel",
