@@ -23,7 +23,7 @@ const routes = new Map([
     "/website-collection/category/legal-professional",
     ["professional-cover", "pro-hero", "pro-cover-header"],
   ],
-  ["/", ["home-premium", "premium-hero", "home-work-row"]],
+  ["/", ["home-premium", "premium-hero", "home-work-list", "home-work-card"]],
   [
     "/website-collection",
     [

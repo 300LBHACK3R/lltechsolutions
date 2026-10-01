@@ -5,85 +5,57 @@ import Reveal from "@/components/ui/Reveal";
 
 export default function HomeProjectsPreview() {
   return (
-    <section className="home-work home-work-editorial" aria-labelledby="home-work-title">
+    <section id="home-work" className="home-work" aria-labelledby="home-work-title">
       <div className="container">
-        <Reveal>
-          <div className="home-work-heading">
-            <div>
-              <p className="eyebrow">Our work / Websites & software</p>
-              <h2 id="home-work-title">
-                Different businesses.
-                <br />
-                <em>Distinctly their own.</em>
-              </h2>
-            </div>
-            <div className="home-work-introduction">
-              <p>
-                Explore the websites, ongoing partnerships and software we’ve brought to life. See
-                the work, then the thinking behind it.
-              </p>
-              <Link className="text-link" href="/projects">
-                Meet our clients <span aria-hidden="true">↗</span>
-              </Link>
-            </div>
-          </div>
-        </Reveal>
+        <div className="home-work-heading">
+          <h2 id="home-work-title">A closer look at our work.</h2>
+          <Link className="text-link" href="/projects">
+            Meet our clients <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
         <div className="home-work-list">
           {showcaseProjects.map((project, index) => (
             <Reveal key={project.id}>
-              <article className="home-work-row">
+              <article className="home-work-card">
                 <Link
                   href={projectPath(project)}
-                  className="home-work-visual"
-                  aria-label={`Explore ${project.title}`}
+                  className="home-work-project"
+                  aria-labelledby={`home-project-${project.id}`}
                 >
-                  <div className="home-work-browser" aria-hidden="true">
-                    <span className="home-work-browser-dots">
-                      <i />
-                      <i />
-                      <i />
-                    </span>
-                    <span>
-                      {project.ownership === "client" ? "Client website" : "Studio software"}
-                    </span>
-                    <span>↗</span>
-                  </div>
-                  {project.image ? (
-                    <Image
-                      src={project.image}
-                      alt={project.imageAlt ?? `${project.title} interface`}
-                      width={1800}
-                      height={1013}
-                      sizes="(min-width: 2200px) 1040px, (min-width: 1100px) 55vw, (min-width: 750px) 50vw, 100vw"
-                    />
-                  ) : (
-                    <div className="home-work-image-fallback">{project.title}</div>
-                  )}
-                </Link>
-                <div className="home-work-copy">
-                  <div className="home-work-index">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <span>{project.status}</span>
-                  </div>
-                  <p className="eyebrow">{project.relationship}</p>
-                  <h3>
-                    <Link href={projectPath(project)}>{project.title}</Link>
-                  </h3>
-                  <p className="home-work-description">{project.description}</p>
-                  <div className="home-work-links">
-                    <Link href={projectPath(project)} className="home-work-case-link">
-                      Explore the project <span aria-hidden="true">↗</span>
-                    </Link>
-                    {project.relatedWork && (
-                      <Link
-                        href={projectPath(getProject(project.relatedWork.projectId))}
-                        className="home-work-partnership"
-                      >
-                        {project.relatedWork.label} <span aria-hidden="true">↗</span>
-                      </Link>
+                  <div className="home-work-visual">
+                    {project.image ? (
+                      <Image
+                        src={project.image}
+                        alt={project.imageAlt ?? `${project.title} interface`}
+                        fill
+                        sizes="(min-width: 2560px) 864px, (min-width: 1900px) 744px, (min-width: 1440px) 624px, (min-width: 760px) calc((100vw - 112px) / 2), (min-width: 700px) calc(100vw - 80px), calc(100vw - 40px)"
+                        preload={index === 0}
+                      />
+                    ) : (
+                      <span className="home-work-image-fallback">{project.title}</span>
                     )}
                   </div>
-                </div>
+                  <div className="home-work-caption">
+                    <div>
+                      <p className="home-work-kind">
+                        {project.ownership === "client" ? "Client website" : "L&L software"}
+                      </p>
+                      <h3 id={`home-project-${project.id}`}>{project.title}</h3>
+                      <p className="home-work-relationship">{project.relationship}</p>
+                    </div>
+                    <span className="home-work-arrow" aria-hidden="true">
+                      ↗
+                    </span>
+                  </div>
+                </Link>
+                {project.relatedWork && (
+                  <Link
+                    href={projectPath(getProject(project.relatedWork.projectId))}
+                    className="home-work-partnership"
+                  >
+                    {project.relatedWork.label} <span aria-hidden="true">→</span>
+                  </Link>
+                )}
               </article>
             </Reveal>
           ))}
