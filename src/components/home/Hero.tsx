@@ -38,59 +38,53 @@ export default function Hero() {
                   <path d="M3 8C35 0 66 12 87 34M71 30l19 8-1-19" />
                 </svg>
               </div>
-              <Link
-                href={projectPath(website)}
-                className="studio-website"
-                aria-label={`Explore the ${website.title} website case study`}
-              >
-                <div className="studio-image">
+              <div className="studio-previews">
+                <Link
+                  href={projectPath(website)}
+                  className="studio-website"
+                  aria-label={`Explore the ${website.title} website case study`}
+                >
+                  <div className="studio-image">
+                    <Image
+                      src={website.image ?? website.video.poster}
+                      alt={website.imageAlt ?? website.title}
+                      width={1348}
+                      height={926}
+                      sizes="(min-width: 1900px) 710px, (min-width: 1000px) 46vw, (min-width: 700px) 620px, 88vw"
+                      preload
+                    />
+                  </div>
+                  <div className="studio-website-label">
+                    <span>
+                      Custom website <strong>{website.title}</strong>
+                    </span>
+                    <span aria-hidden="true">↗</span>
+                  </div>
+                </Link>
+                <Link
+                  href={projectPath(content)}
+                  className="studio-content"
+                  aria-label="Explore Tow-N-Go’s monthly social media and content partnership"
+                >
                   <Image
-                    src={website.image ?? website.video.poster}
-                    alt={website.imageAlt ?? website.title}
-                    width={1348}
-                    height={926}
-                    sizes="(min-width: 1900px) 710px, (min-width: 1000px) 46vw, (min-width: 700px) 620px, 88vw"
-                    preload
+                    src={content.video.poster}
+                    alt="Tow-N-Go trailer education Reel created for the monthly content partnership"
+                    width={content.video.width}
+                    height={content.video.height}
+                    sizes="(max-width: 479px) 110px, (min-width: 1900px) 220px, (min-width: 1000px) 16vw, 190px"
                   />
-                </div>
-                <div className="studio-website-label">
-                  <span>
-                    Custom website <strong>{website.title}</strong>
-                  </span>
-                  <span aria-hidden="true">↗</span>
-                </div>
-              </Link>
-              <Link
-                href={projectPath(content)}
-                className="studio-content"
-                aria-label="Explore Tow-N-Go’s monthly social media and content partnership"
-              >
-                <Image
-                  src={content.video.poster}
-                  alt="Tow-N-Go trailer education Reel created for the monthly content partnership"
-                  width={content.video.width}
-                  height={content.video.height}
-                  sizes="(min-width: 1900px) 220px, (min-width: 1000px) 16vw, (min-width: 700px) 180px, 32vw"
-                />
-                <div className="studio-content-label">
-                  <span>Beyond launch</span>
-                  <strong>
-                    Social. Content.
-                    <br />
-                    Continuity.
-                  </strong>
-                  <span className="studio-content-arrow" aria-hidden="true">
-                    ↗
-                  </span>
-                </div>
-              </Link>
-              <div className="studio-craft-mark" aria-hidden="true">
-                <span>&lt;/&gt;</span>
-                <p>
-                  Considered design.
-                  <br />
-                  Custom code.
-                </p>
+                  <div className="studio-content-label">
+                    <span>Beyond launch</span>
+                    <strong>
+                      Social. Content.
+                      <br />
+                      Continuity.
+                    </strong>
+                    <span className="studio-content-arrow" aria-hidden="true">
+                      ↗
+                    </span>
+                  </div>
+                </Link>
               </div>
             </div>
           </StudioMotion>
