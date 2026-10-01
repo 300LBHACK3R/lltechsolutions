@@ -1,5 +1,5 @@
 import { projectVideos, type ProjectVideo } from "@/data/project-videos";
-import { liveDemoLabel } from "@/config/site";
+import { liveSiteLabel } from "@/config/site";
 
 export type ProjectCategory = "web-builds" | "software-development" | "social-media-management";
 export type ProjectDesignOption = {
@@ -8,6 +8,13 @@ export type ProjectDesignOption = {
   description: string;
   image: string;
   alt: string;
+  width: number;
+  height: number;
+};
+export type ProjectScreenshot = {
+  src: string;
+  alt: string;
+  caption: string;
   width: number;
   height: number;
 };
@@ -37,11 +44,17 @@ export type Project = {
   relatedWork?: { projectId: string; label: string };
   links?: { label: string; href: string; kind?: string }[];
   designOptions?: ProjectDesignOption[];
+  gallery?: readonly ProjectScreenshot[];
+  templateOptions?: { category: string; designIds: string[] };
 };
 
 export const projects: Project[] = [
   {
     id: "tow-n-go",
+    templateOptions: {
+      category: "transport-logistics",
+      designIds: ["equipment-rentals", "auto-transport", "calgary-hot-shot"],
+    },
     ownership: "client",
     relatedWork: {
       projectId: "tow-n-go-digital",
@@ -71,11 +84,27 @@ export const projects: Project[] = [
     ],
     image: "/images/projects/tow-n-go.webp",
     video: projectVideos["tow-n-go"],
+    gallery: [
+      {
+        src: "/images/projects/tow-n-go/homepage.jpg",
+        alt: "Tow-N-Go’s black-and-gold homepage with its October seasonal design",
+        caption: "Homepage & seasonal details",
+        width: 1348,
+        height: 926,
+      },
+      {
+        src: "/images/projects/tow-n-go/fleet.jpg",
+        alt: "Tow-N-Go website showing enclosed, dump and dovetail trailer cards",
+        caption: "Fleet comparison",
+        width: 1348,
+        height: 926,
+      },
+    ],
     imageAlt: "Tow-N-Go Trailers custom rental website showcase",
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [
       {
-        label: liveDemoLabel,
+        label: liveSiteLabel,
         href: "https://www.towandgotrailers.ca/",
         kind: "website",
       },
@@ -126,6 +155,22 @@ export const projects: Project[] = [
     ],
     image: "/images/projects/crestline.webp",
     video: projectVideos["crestline"],
+    gallery: [
+      {
+        src: "/images/projects/crestline/homepage.jpg",
+        alt: "Crestline Painting homepage showing architecture imagery and four service areas",
+        caption: "Homepage & service navigation",
+        width: 1348,
+        height: 926,
+      },
+      {
+        src: "/images/projects/crestline/custom-homes.jpg",
+        alt: "Crestline Painting custom-home service page with project photography and painting scope",
+        caption: "Custom-home service page",
+        width: 1348,
+        height: 926,
+      },
+    ],
     imageAlt: "Crestline Painting custom business website showcase",
     designOptions: [
       {
@@ -161,7 +206,7 @@ export const projects: Project[] = [
     liveUrl: "https://www.crestlinepainting.ca/",
     links: [
       {
-        label: liveDemoLabel,
+        label: liveSiteLabel,
         href: "https://www.crestlinepainting.ca/",
         kind: "website",
       },
@@ -178,6 +223,10 @@ export const projects: Project[] = [
   },
   {
     id: "mckenzie-house",
+    templateOptions: {
+      category: "health-wellness",
+      designIds: ["massage-one-page", "still", "medical-spa"],
+    },
     ownership: "client",
     title: "McKenzie House Massage",
     category: "web-builds",
@@ -201,11 +250,34 @@ export const projects: Project[] = [
     ],
     image: "/images/projects/mckenzie-house.webp",
     video: projectVideos["mckenzie-house"],
+    gallery: [
+      {
+        src: "/images/projects/mckenzie-house/homepage.jpg",
+        alt: "McKenzie House Massage homepage with treatment-space photography and booking links",
+        caption: "Homepage & booking journey",
+        width: 1348,
+        height: 926,
+      },
+      {
+        src: "/images/projects/mckenzie-house/treatments.jpg",
+        alt: "McKenzie House Massage treatment page with service information, pricing and booking actions",
+        caption: "Treatment information & pricing",
+        width: 1348,
+        height: 926,
+      },
+      {
+        src: "/images/projects/mckenzie-house/reviews.jpg",
+        alt: "McKenzie House Massage reviews page with its client-story photography and navigation",
+        caption: "Client reviews & stories",
+        width: 1348,
+        height: 926,
+      },
+    ],
     imageAlt: "McKenzie House Massage premium website showcase",
     liveUrl: "https://mckenziehousemassage.ca/",
     links: [
       {
-        label: liveDemoLabel,
+        label: liveSiteLabel,
         href: "https://mckenziehousemassage.ca/",
         kind: "website",
       },
@@ -250,11 +322,27 @@ export const projects: Project[] = [
     ],
     image: "/images/projects/tates-tv.webp",
     video: projectVideos["tates-tv"],
+    gallery: [
+      {
+        src: "/images/projects/tates-tv.webp",
+        alt: "Tate’s TV application with playback, programme information and channel navigation",
+        caption: "Playback & channel navigation",
+        width: 2516,
+        height: 1315,
+      },
+      {
+        src: "/images/projects/tates-tv/programme-guide.webp",
+        alt: "Tate’s TV live guide showing channel rows, programme times and day controls",
+        caption: "Programme guide & scheduling",
+        width: 2552,
+        height: 1308,
+      },
+    ],
     imageAlt: "Tate's TV custom streaming web application showcase",
     liveUrl: "https://www.tatestv.ca/",
     links: [
       {
-        label: liveDemoLabel,
+        label: liveSiteLabel,
         href: "https://www.tatestv.ca/",
         kind: "website",
       },
@@ -297,7 +385,7 @@ export const projects: Project[] = [
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [
       {
-        label: liveDemoLabel,
+        label: liveSiteLabel,
         href: "https://www.towandgotrailers.ca/",
         kind: "website",
       },
@@ -350,7 +438,7 @@ export const projects: Project[] = [
     liveUrl: "https://mckenziehousemassage.ca/",
     links: [
       {
-        label: liveDemoLabel,
+        label: liveSiteLabel,
         href: "https://mckenziehousemassage.ca/",
         kind: "website",
       },
@@ -386,7 +474,7 @@ export const contentProjects = projects.filter(
 );
 
 export function projectPath(project: Pick<Project, "category" | "id">) {
-  return `/projects/${project.category}#${project.id}`;
+  return `/projects/${project.id}`;
 }
 
 export function getProject(id: string) {

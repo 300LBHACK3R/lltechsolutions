@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { ProjectDesignOption } from "@/data/projects";
 
@@ -33,7 +34,7 @@ export default function ProjectDesignOptions({
   return (
     <section className="design-options" aria-labelledby={headingId}>
       <div className="design-options-heading">
-        <h3 id={headingId}>Other Design Options</h3>
+        <h2 id={headingId}>Other design options</h2>
         <p>Alternative layouts and visual directions. Select an image for a closer look.</p>
       </div>
       <div className="design-options-grid">
@@ -60,12 +61,19 @@ export default function ProjectDesignOptions({
               <span>View layout +</span>
             </a>
             <figcaption>
-              <h4>{option.title}</h4>
+              <h3>{option.title}</h3>
               <p>{option.description}</p>
             </figcaption>
           </figure>
         ))}
       </div>
+      <Link
+        href="/website-collection/category/construction-trades"
+        className="text-link client-design-collection-link"
+      >
+        Explore other directions from our Website Templates collection.
+        <span aria-hidden="true">↗</span>
+      </Link>
       <dialog
         ref={dialogRef}
         className="design-preview"

@@ -1,0 +1,726 @@
+/* Client work has one directory, then a focused page for each real project. */
+.client-directory,
+.client-case-study.case-page {
+  --client-space: clamp(32px, 4vw, 60px);
+  --client-line: #48402c;
+}
+.client-directory .container,
+.client-case-study .container {
+  max-width: 1600px;
+}
+.client-directory-header,
+.client-case-header {
+  padding-block: 38px 32px;
+  background: linear-gradient(115deg, #171714, #0b0b0a 65%);
+  border-bottom: 1px solid var(--client-line);
+}
+.client-directory-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  align-items: end;
+  gap: 32px 70px;
+  margin-top: 12px;
+}
+.client-directory-intro h1,
+.client-case-heading h1 {
+  margin: 0;
+  font-size: clamp(34px, 4.15vw, 64px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+}
+.client-directory-intro h1 > span {
+  color: var(--gold-light);
+}
+.client-directory-intro > p {
+  max-width: 49ch;
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: clamp(15px, 1.1vw, 16px);
+  line-height: 1.75;
+}
+.client-category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 36px;
+  padding-block: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.client-category-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  gap: 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.client-category-nav a[aria-current="page"],
+.client-category-nav a:is(:hover, :focus-visible) {
+  color: var(--gold-light);
+}
+.client-back-link {
+  margin: -12px 0 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.client-category-directory .client-directory-intro h1 {
+  max-width: 22ch;
+  font-size: clamp(32px, 3.5vw, 54px);
+}
+.client-showcase-section,
+.client-content-section {
+  padding-block: var(--client-space);
+}
+.client-section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin-bottom: 24px;
+}
+.client-section-heading h2,
+.client-case-study .design-options-heading h2 {
+  margin: 0;
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+}
+.client-section-heading p,
+.client-section-heading .text-link {
+  color: var(--muted);
+  font-size: 14px;
+}
+.client-section-heading > div > p:not(.eyebrow) {
+  margin-top: 12px;
+}
+.client-section-heading > div > .eyebrow {
+  margin-bottom: 10px;
+  color: var(--gold-light);
+  font-size: 11px;
+}
+.client-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 42px 30px;
+}
+.client-directory .project-preview,
+.client-partnership {
+  scroll-margin-top: 130px;
+}
+.client-directory .project-frame {
+  padding: 0;
+  overflow: hidden;
+  border-color: var(--client-line);
+  border-radius: 4px;
+  background: #141413;
+}
+.client-directory .project-frame-label {
+  padding: 12px 16px;
+  color: #c8bea3;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.client-directory .project-image {
+  aspect-ratio: 16 / 10;
+  border: 0;
+  border-top: 1px solid var(--client-line);
+  border-radius: 0;
+}
+.client-directory .project-image img {
+  object-position: top;
+}
+.client-directory .project-preview-heading {
+  margin-top: 22px;
+  gap: 18px;
+}
+.client-directory .project-preview .eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.09em;
+}
+.client-directory .project-preview h3 {
+  margin-top: 8px;
+  font-size: clamp(22px, 2.1vw, 30px);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.client-directory .project-status {
+  flex-shrink: 0;
+  padding-top: 0;
+  font-size: 11px;
+}
+.client-directory .project-preview-copy > p {
+  max-width: 68ch;
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.75;
+}
+.client-directory .project-watch-link,
+.client-directory .project-related-link {
+  margin-top: 10px;
+  font-size: 14px;
+}
+.client-directory .project-related-link {
+  display: flex;
+  width: fit-content;
+  margin-top: 0;
+  color: var(--muted);
+}
+.client-content-section {
+  border-top: 1px solid var(--line);
+}
+.client-partnership {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px 60px;
+  padding-block: 28px;
+  border-top: 1px solid var(--client-line);
+}
+.client-partnership:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.client-partnership h3 {
+  max-width: 28ch;
+  margin-block: 10px;
+  font-size: clamp(22px, 2.1vw, 29px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+.client-partnership p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.75;
+}
+.client-partnership .client-partnership-relationship {
+  font-size: 11px;
+}
+.client-partnership .text-link {
+  margin-top: 12px;
+  color: var(--gold-light);
+  font-size: 14px;
+}
+.client-next-step {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px 60px;
+  margin-block: 8px 0;
+  padding-block: 36px 48px;
+  border-top: 1px solid var(--client-line);
+}
+.client-next-step h2 {
+  max-width: 34ch;
+  margin-block: 10px;
+  font-size: clamp(25px, 2.4vw, 36px);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+.client-next-step p:not(.eyebrow) {
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 15px;
+}
+.client-next-actions {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.client-next-actions .text-link {
+  color: var(--muted);
+  font-size: 14px;
+}
+.client-directory .button,
+.client-case-study .button {
+  min-height: 46px;
+  padding: 12px 20px;
+  gap: 22px;
+  font-size: 14px;
+  text-align: center;
+}
+.client-case-header {
+  padding-block: 14px 28px;
+}
+.client-case-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 15px;
+  margin-bottom: 19px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.client-case-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.client-case-breadcrumb > span {
+  color: #746644;
+}
+.client-case-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px 36px;
+}
+.client-case-heading > div:first-child {
+  min-width: 0;
+}
+.client-case-heading h1 {
+  max-width: 26ch;
+  margin-top: 10px;
+  font-size: clamp(34px, 3.6vw, 57px);
+}
+.client-case-status {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 9px;
+  padding-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.client-case-status .project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border: 1px solid #675633;
+  border-radius: 3px;
+  font-size: 11px;
+}
+.client-case-status .project-status::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.client-case-description {
+  max-width: 90ch;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.75;
+}
+.client-case-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 26px;
+  margin-top: 20px;
+}
+.client-case-actions .text-link {
+  font-size: 14px;
+}
+.client-case-related {
+  color: var(--gold-light);
+}
+.client-case-preview {
+  padding-block: 30px var(--client-space);
+}
+.client-case-preview > .client-section-heading {
+  margin-bottom: 18px;
+}
+.client-case-preview > .client-section-heading h2 {
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+.client-case-preview .template-screenshots {
+  max-width: 1280px;
+  margin-inline: auto;
+}
+.client-case-preview .template-screenshot-main {
+  border-radius: 4px;
+}
+.client-case-preview .template-screenshot-scroll {
+  max-height: min(730px, 76svh);
+}
+.client-case-preview .template-screenshot-main figcaption {
+  padding: 12px 20px;
+  font-size: 11px;
+}
+.client-case-preview .template-screenshot-choices {
+  padding-block: 16px 5px;
+}
+.client-case-preview .project-video {
+  max-width: 1180px;
+  margin-inline: auto;
+  border-color: var(--client-line);
+}
+.client-case-details {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.8fr);
+  gap: 40px clamp(32px, 6vw, 96px);
+  padding-block: var(--client-space);
+  border-top: 1px solid var(--line);
+}
+.client-case-story,
+.client-case-specifications {
+  min-width: 0;
+}
+.client-case-story section + section {
+  margin-top: 32px;
+}
+.client-case-story h2 {
+  margin-bottom: 13px;
+  color: var(--text);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+}
+.client-case-story p {
+  max-width: 77ch;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.85;
+}
+.client-case-specifications.case-implementation {
+  margin: 0;
+  padding: 0 0 0 30px;
+  border: 0;
+  border-left: 1px solid var(--client-line);
+}
+.client-case-specifications section + section {
+  margin-top: 28px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+.client-case-specifications h2 {
+  margin: 0 0 13px;
+  color: var(--gold-light);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+.client-case-specifications ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 15px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.client-case-specifications li::marker {
+  color: #927c43;
+}
+.client-case-specifications p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.client-case-specifications .client-case-tools {
+  margin-bottom: 12px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.client-template-options,
+.client-case-study .design-options {
+  margin: 0;
+  padding-block: var(--client-space);
+  border-top: 1px solid var(--line);
+}
+.client-template-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.client-template-option {
+  min-width: 0;
+}
+.client-template-image {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1.45;
+  border: 1px solid var(--client-line);
+  border-radius: 4px;
+  background: var(--charcoal);
+}
+.client-template-image .design-cover {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.client-template-option h3 {
+  margin-top: 12px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.client-template-option h3 a {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+}
+.client-template-option h3 span {
+  color: var(--gold-light);
+}
+.client-template-option > p {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+.client-case-study .design-options-heading p {
+  margin-top: 12px;
+  font-size: 14px;
+}
+.client-case-study .design-option figcaption p {
+  font-size: 14px;
+}
+.client-case-study .design-option h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.client-design-collection-link {
+  margin-top: 22px;
+  color: var(--gold-light);
+  font-size: 14px;
+}
+.client-directory a:is(:hover, :focus-visible):not(.button),
+.client-case-study a:is(:hover, :focus-visible):not(.button) {
+  color: var(--gold-light);
+}
+@media (max-width: 999px) {
+  .client-directory-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+    gap: 28px;
+  }
+  .client-case-details {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 32px;
+  }
+  .client-case-specifications.case-implementation {
+    padding-left: 24px;
+  }
+  .client-directory .project-preview-heading {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .client-directory .project-status {
+    text-align: left;
+  }
+  .client-next-step {
+    gap: 28px;
+  }
+}
+@media (max-width: 699px) {
+  .client-directory .container,
+  .client-case-study .container {
+    width: calc(100% - 36px);
+  }
+  .client-directory-header {
+    padding-block: 28px 25px;
+  }
+  .client-directory-intro,
+  .client-showcase-grid,
+  .client-partnership,
+  .client-case-details,
+  .client-template-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .client-directory-intro {
+    gap: 18px;
+  }
+  .client-directory-intro h1 {
+    font-size: clamp(33px, 8vw, 47px);
+  }
+  .client-directory-intro > p {
+    font-size: 15px;
+  }
+  .client-category-nav {
+    gap: 0 26px;
+  }
+  .client-category-nav a {
+    gap: 14px;
+    font-size: 13px;
+  }
+  .client-section-heading {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .client-section-heading p {
+    font-size: 14px;
+  }
+  .client-showcase-grid {
+    gap: 32px;
+  }
+  .client-directory .project-preview-heading {
+    margin-top: 18px;
+    flex-wrap: nowrap;
+  }
+  .client-directory .project-preview h3 {
+    font-size: 24px;
+  }
+  .client-directory .project-status {
+    min-width: 62px;
+    font-size: 11px;
+    text-align: right;
+  }
+  .client-partnership {
+    gap: 14px;
+    padding-block: 24px;
+  }
+  .client-partnership .eyebrow {
+    font-size: 11px;
+  }
+  .client-partnership h3 {
+    font-size: 24px;
+  }
+  .client-partnership .text-link {
+    margin-top: 8px;
+  }
+  .client-next-step {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+    padding-block: 28px 36px;
+  }
+  .client-next-step h2 {
+    font-size: 28px;
+  }
+  .client-next-actions {
+    width: 100%;
+    gap: 7px;
+  }
+  .client-case-header {
+    padding-block: 8px 24px;
+  }
+  .client-case-breadcrumb {
+    gap: 0 10px;
+    margin-bottom: 15px;
+    font-size: 11px;
+  }
+  .client-case-heading {
+    flex-direction: column;
+    gap: 17px;
+  }
+  .client-case-heading .eyebrow {
+    font-size: 11px;
+  }
+  .client-case-heading h1 {
+    font-size: clamp(33px, 8vw, 45px);
+    line-height: 1.08;
+  }
+  .client-case-status {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    padding: 0;
+    font-size: 11px;
+  }
+  .client-case-description {
+    margin-top: 17px;
+    font-size: 15px;
+  }
+  .client-case-actions {
+    gap: 7px 20px;
+    margin-top: 17px;
+  }
+  .client-case-actions .button {
+    min-width: 170px;
+  }
+  .client-case-related {
+    flex-basis: 100%;
+  }
+  .client-case-preview {
+    padding-top: 24px;
+  }
+  .client-case-preview .client-section-heading {
+    margin-bottom: 14px;
+  }
+  .client-case-preview .template-screenshot-main figcaption {
+    padding: 12px;
+  }
+  .client-case-preview .template-screenshot-window {
+    flex-wrap: wrap;
+    column-gap: 8px;
+  }
+  .client-case-preview .template-screenshot-choices {
+    gap: 10px;
+  }
+  .client-case-details {
+    gap: 30px;
+  }
+  .client-case-story h2 {
+    font-size: 22px;
+  }
+  .client-case-story p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .client-case-specifications.case-implementation {
+    padding: 26px 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--client-line);
+  }
+  .client-case-specifications section + section {
+    margin-top: 22px;
+    padding-top: 20px;
+  }
+  .client-template-grid {
+    gap: 26px;
+  }
+  .client-template-option h3 {
+    margin-top: 9px;
+  }
+}
+@media (min-width: 2200px) {
+  .client-directory .container,
+  .client-case-study .container {
+    max-width: 1720px;
+  }
+  .client-case-preview .template-screenshots {
+    max-width: 1380px;
+  }
+  .client-case-description,
+  .client-case-story p {
+    font-size: 16px;
+  }
+  .client-case-specifications p,
+  .client-case-specifications ul,
+  .client-directory .project-preview-copy > p {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .client-directory *,
+  .client-case-study * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .client-directory .project-image:hover img,
+  .client-directory .button:hover,
+  .client-case-study .button:hover {
+    transform: none;
+  }
+}
+@media (forced-colors: active) {
+  .client-directory-header,
+  .client-case-header,
+  .client-directory .project-frame,
+  .client-directory .project-image,
+  .client-case-status .project-status,
+  .client-template-image,
+  .client-case-specifications.case-implementation {
+    border-color: CanvasText;
+  }
+}

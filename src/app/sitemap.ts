@@ -1,3 +1,4 @@
+import { projects, projectPath } from "@/data/projects";
 import type { MetadataRoute } from "next";
 import { publicRoutes, absoluteUrl } from "@/config/site";
 import {
@@ -10,6 +11,7 @@ import {
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...publicRoutes,
+    ...projects.map(projectPath),
     ...availableDesigns().map(designHref),
     ...templateCategories
       .filter((category) => categoryDesigns(category).length > 0)

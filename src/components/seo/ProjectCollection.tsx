@@ -1,6 +1,6 @@
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl } from "@/config/site";
-import type { Project } from "@/data/projects";
+import { projectPath, type Project } from "@/data/projects";
 
 export default function ProjectCollection({
   title,
@@ -28,7 +28,7 @@ export default function ProjectCollection({
             item: {
               "@type": "CreativeWork",
               name: project.title,
-              url: absoluteUrl(`/projects/${project.category}#${project.id}`),
+              url: absoluteUrl(projectPath(project)),
               description: project.description,
               ...(project.image ? { image: absoluteUrl(project.image) } : {}),
               creator: { "@id": absoluteUrl("/#organization") },

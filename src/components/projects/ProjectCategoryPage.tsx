@@ -1,108 +1,80 @@
 import Link from "next/link";
-import ProjectVideo from "@/components/projects/ProjectVideo";
-import ProjectDesignOptions from "@/components/projects/ProjectDesignOptions";
-import {
-  projects,
-  projectCategories,
-  getProject,
-  projectPath,
-  type ProjectCategory,
-} from "@/data/projects";
-import PageIntro from "@/components/ui/PageIntro";
-import ProjectCTA from "@/components/ui/ProjectCTA";
+import ProjectPreview from "@/components/projects/ProjectPreview";
 import ProjectCollection from "@/components/seo/ProjectCollection";
+import { projects, projectCategories, projectPath, type ProjectCategory } from "@/data/projects";
+
 export default function ProjectCategoryPage({ category }: { category: ProjectCategory }) {
   const meta = projectCategories.find((item) => item.slug === category)!;
   const selected = projects.filter((project) => project.category === category);
+  const isContent = category === "social-media-management";
+
   return (
-    <>
-      <PageIntro eyebrow={meta.label} title={meta.title} description={meta.description} />
+    <div className="client-directory client-category-directory">
+      <header className="client-directory-header">
+        <div className="container">
+          <Link href="/projects" className="text-link client-back-link">
+            <span aria-hidden="true">←</span> All clients & projects
+          </Link>
+          <p className="eyebrow">{meta.label}</p>
+          <div className="client-directory-intro">
+            <h1>{meta.title}</h1>
+            <p>{meta.description}</p>
+          </div>
+        </div>
+      </header>
       <div className="container">
-        <nav className="category-nav" aria-label="Project categories">
-          <Link href="/projects">Our clients & projects</Link>
+        <nav className="client-category-nav" aria-label="Project categories">
           {projectCategories.map((item) => (
             <Link
               key={item.slug}
               href={`/projects/${item.slug}`}
               aria-current={item.slug === category ? "page" : undefined}
             >
-              {item.label}
+              {item.label} <span aria-hidden="true">↗</span>
             </Link>
           ))}
         </nav>
-        <div className="case-studies">
-          {selected.map((project) => (
-            <article key={project.id} id={project.id} className="case-study">
-              <div className="case-heading">
-                <div>
-                  <p className="eyebrow">{project.relationship}</p>
-                  <h2>{project.title}</h2>
-                </div>
-                <span className="project-status">{project.status}</span>
-              </div>
-              <ProjectVideo video={project.video} projectId={project.id} />
-              <div className="case-body">
-                <div>
-                  <p className="case-description">{project.description}</p>
-                  <dl>
-                    <dt>The brief</dt>
-                    <dd>{project.challenge}</dd>
-                    <dt>The work</dt>
-                    <dd>{project.solution}</dd>
-                    <dt>The delivery</dt>
-                    <dd>{project.result}</dd>
-                  </dl>
-                </div>
-                <aside className="case-sidebar">
-                  <h3>Project scope</h3>
-                  <ul className="capability-list">
-                    {project.services.map((service) => (
-                      <li key={service}>{service}</li>
-                    ))}
-                  </ul>
-                  <section
-                    className="case-implementation"
-                    aria-labelledby={`${project.id}-implementation`}
-                  >
-                    <h3 id={`${project.id}-implementation`}>{project.implementation.label}</h3>
-                    <p className="case-tools">{project.implementation.tools.join(" / ")}</p>
-                    <p>{project.implementation.summary}</p>
-                    <h3>{project.implementation.operationsLabel}</h3>
-                    <p>{project.implementation.operations}</p>
-                  </section>
-                  <div className="case-links">
-                    {project.relatedWork && (
-                      <Link
-                        href={projectPath(getProject(project.relatedWork.projectId))}
-                        className="text-link"
-                      >
-                        {project.relatedWork.label} ↗
-                      </Link>
-                    )}
-                    {project.links?.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-link"
-                      >
-                        {link.label}{" "}
-                        <span className="sr-only">for {project.title}, in a new tab</span>↗
-                      </a>
-                    ))}
+        <section className="client-showcase-section" aria-label={`${meta.label} projects`}>
+          <h2 className="sr-only">Explore the projects</h2>
+          {isContent ? (
+            <div className="client-partnerships">
+              {selected.map((project) => (
+                <article key={project.id} id={project.id} className="client-partnership">
+                  <div>
+                    <p className="eyebrow">Client project · {project.status}</p>
+                    <h3>
+                      <Link href={projectPath(project)}>{project.title}</Link>
+                    </h3>
+                    <p className="client-partnership-relationship">{project.relationship}</p>
                   </div>
-                </aside>
-              </div>
-              {project.designOptions && (
-                <ProjectDesignOptions projectId={project.id} options={project.designOptions} />
-              )}
-            </article>
-          ))}
-        </div>
+                  <div>
+                    <p>{project.description}</p>
+                    <Link href={projectPath(project)} className="text-link">
+                      Explore the content & partnership <span aria-hidden="true">↗</span>
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="client-showcase-grid">
+              {selected.map((project) => (
+                <ProjectPreview key={project.id} project={project} />
+              ))}
+            </div>
+          )}
+        </section>
+        <section className="client-next-step" aria-labelledby="category-next-title">
+          <div>
+            <p className="eyebrow">Have something in mind?</p>
+            <h2 id="category-next-title">Tell us about your project.</h2>
+          </div>
+          <Link href="/contact" className="button button-gold">
+            Start a conversation <span aria-hidden="true">↗</span>
+          </Link>
+        </section>
       </div>
       <ProjectCollection title={meta.title} path={`/projects/${category}`} projects={selected} />
-      <ProjectCTA />
-    </>
+    </div>
   );
 }

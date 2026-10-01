@@ -19,6 +19,7 @@ export const siteConfig = {
 } as const;
 
 export const liveDemoLabel = "View live demo";
+export const liveSiteLabel = "View live site";
 
 export const navigation = [
   { label: "Website Templates", href: "/website-collection" },

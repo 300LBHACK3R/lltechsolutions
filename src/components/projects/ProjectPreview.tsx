@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { getProject, projectPath, type Project } from "@/data/projects";
 export default function ProjectPreview({ project }: { project: Project }) {
+  const preview = project.gallery?.[0];
   return (
-    <article className="project-preview">
+    <article className="project-preview" id={project.id}>
       <div className="project-frame">
         <div className="project-frame-label" aria-hidden="true">
           <span>{project.ownership === "client" ? "Client project" : "Studio project"} / L&L</span>
@@ -14,13 +15,13 @@ export default function ProjectPreview({ project }: { project: Project }) {
           className="project-image"
           aria-label={`Explore ${project.title}`}
         >
-          {project.image ? (
+          {preview || project.image ? (
             <Image
-              src={project.image}
-              alt={project.imageAlt ?? `${project.title} website interface`}
-              width={1800}
-              height={1013}
-              sizes="(min-width: 2560px) 1120px, (min-width: 1900px) 950px, (min-width: 1440px) 780px, (min-width: 700px) 50vw, 94vw"
+              src={preview?.src ?? project.image!}
+              alt={preview?.alt ?? project.imageAlt ?? `${project.title} website interface`}
+              width={preview?.width ?? 1800}
+              height={preview?.height ?? 1013}
+              sizes="(min-width: 1800px) 800px, (min-width: 700px) 46vw, 94vw"
             />
           ) : (
             <div className="project-placeholder">
@@ -42,7 +43,7 @@ export default function ProjectPreview({ project }: { project: Project }) {
         </div>
         <p className="muted">{project.description}</p>
         <Link href={projectPath(project)} className="text-link project-watch-link">
-          Watch the project preview <span aria-hidden="true">↗</span>
+          Explore the project <span aria-hidden="true">↗</span>
         </Link>
         {project.relatedWork && (
           <Link

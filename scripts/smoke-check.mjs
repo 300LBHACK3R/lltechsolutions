@@ -11,6 +11,14 @@ const env = {
   VERCEL_ENV: "production",
   NEXT_TELEMETRY_DISABLED: "1",
 };
+const screenshotProjectIds = ["tow-n-go", "crestline", "mckenzie-house", "tates-tv"];
+const contentProjectIds = ["tow-n-go-digital", "mckenzie-digital-launch"];
+const projectIds = [...screenshotProjectIds, ...contentProjectIds];
+const categoryProjects = new Map([
+  ["web-builds", ["tow-n-go", "crestline", "mckenzie-house"]],
+  ["software-development", ["tates-tv"]],
+  ["social-media-management", contentProjectIds],
+]);
 const port = 3198;
 const origin = `http://127.0.0.1:${port}`;
 const server = spawn(
@@ -96,6 +104,7 @@ try {
     "/projects/web-builds",
     "/projects/software-development",
     "/projects/social-media-management",
+    ...projectIds.map((id) => `/projects/${id}`),
     "/reviews",
     "/packages",
     "/contact",
@@ -200,12 +209,12 @@ try {
   assert.ok(!homeMain.includes("<blockquote"), "full testimonials live on Reviews");
   for (const clientId of ["tow-n-go", "crestline", "mckenzie-house"]) {
     assert.ok(
-      homeMain.includes(`href="/projects/web-builds#${clientId}"`),
+      homeMain.includes(`href="/projects/${clientId}"`),
       `homepage links to the ${clientId} client project`,
     );
   }
   assert.ok(
-    homeMain.includes('href="/projects/social-media-management#tow-n-go-digital"'),
+    homeMain.includes('href="/projects/tow-n-go-digital"'),
     "homepage exposes Tow-N-Go’s monthly partnership",
   );
   assert.ok(
@@ -224,8 +233,8 @@ try {
   const heroArtwork = homeMain.match(/class="studio-artboard"[^>]*>(.*?)<\/section>/s)?.[1];
   assert.ok(heroArtwork, "real project artwork appears in the opening section");
   assert.ok(
-    heroArtwork.includes('href="/projects/web-builds#tow-n-go"') &&
-      heroArtwork.includes('href="/projects/social-media-management#tow-n-go-digital"'),
+    heroArtwork.includes('href="/projects/tow-n-go"') &&
+      heroArtwork.includes('href="/projects/tow-n-go-digital"'),
     "opening website and content previews lead to their matching case studies",
   );
   assert.ok(!homeMain.includes("<video"), "homepage has no automatic video download or playback");
@@ -237,15 +246,13 @@ try {
     ...homeMain.matchAll(/<article\b[^>]*class="home-work-card"[^>]*>(.*?)<\/article>/gs),
   ].map((match) => match[1]);
   assert.equal(homeCards.length, 4, "homepage presents four project cards");
-  for (const [id, category, ownership] of [
-    ["tow-n-go", "web-builds", "Client website"],
-    ["crestline", "web-builds", "Client website"],
-    ["mckenzie-house", "web-builds", "Client website"],
-    ["tates-tv", "software-development", "L&amp;L software"],
+  for (const [id, ownership] of [
+    ["tow-n-go", "Client website"],
+    ["crestline", "Client website"],
+    ["mckenzie-house", "Client website"],
+    ["tates-tv", "L&amp;L software"],
   ]) {
-    const matchingCards = homeCards.filter((card) =>
-      card.includes(`href="/projects/${category}#${id}"`),
-    );
+    const matchingCards = homeCards.filter((card) => card.includes(`href="/projects/${id}"`));
     assert.equal(matchingCards.length, 1, `${id}: one homepage project card`);
     const card = matchingCards[0];
     assert.ok(
@@ -255,6 +262,113 @@ try {
     );
     assert.ok(card.includes(ownership), `${id}: correct client or studio ownership`);
     assert.match(card, /<img\b[^>]*alt="[^"]+"/, `${id}: project image has descriptive text`);
+  }
+  const projectDirectory = htmlByRoute.get("/projects");
+  const directoryMain = projectDirectory.match(/<main\b[^>]*>(.*?)<\/main>/s)?.[1];
+  const directoryCards = [
+    ...directoryMain.matchAll(/<article\b[^>]*class="project-preview"[^>]*>(.*?)<\/article>/gs),
+  ].map((match) => match[1]);
+  assert.equal(directoryCards.length, 4, "Our Clients presents four screenshot-led project cards");
+  for (const id of screenshotProjectIds) {
+    const cards = directoryCards.filter((card) => card.includes(`href="/projects/${id}"`));
+    assert.equal(cards.length, 1, `${id}: one directory card opens its standalone case study`);
+    assert.match(cards[0], /<img\b[^>]*alt="[^"]+"/, `${id}: directory preview has image text`);
+  }
+  const directoryPartnerships = [
+    ...directoryMain.matchAll(/<article\b[^>]*class="client-partnership"[^>]*>(.*?)<\/article>/gs),
+  ].map((match) => match[1]);
+  assert.equal(
+    directoryPartnerships.length,
+    2,
+    "Our Clients retains two compact content partnerships",
+  );
+  for (const id of contentProjectIds) {
+    assert.equal(
+      directoryPartnerships.filter((row) => row.includes(`href="/projects/${id}"`)).length,
+      1,
+      `${id}: content partnership opens its standalone case study`,
+    );
+  }
+  for (const [category, ids] of categoryProjects) {
+    const page = htmlByRoute.get(`/projects/${category}`);
+    const main = page.match(/<main\b[^>]*>(.*?)<\/main>/s)?.[1];
+    const cardClass =
+      category === "social-media-management" ? "client-partnership" : "project-preview";
+    const cards = [...main.matchAll(/<article\b([^>]*)>([\s\S]*?)<\/article>/g)].filter(
+      ([, attributes]) => attributes.includes(`class="${cardClass}"`),
+    );
+    assert.equal(cards.length, ids.length, `${category}: compact project index count`);
+    for (const id of ids) {
+      const card = cards.find(([, attributes]) => attributes.includes(`id="${id}"`));
+      assert.ok(card, `${category}: preserves the public #${id} bookmark`);
+      assert.ok(card[2].includes(`href="/projects/${id}"`), `${id}: index card opens its own page`);
+    }
+  }
+  for (const route of [
+    "/projects",
+    ...[...categoryProjects.keys()].map((id) => `/projects/${id}`),
+  ]) {
+    const page = htmlByRoute.get(route);
+    assert.ok(page.includes("client-directory"), `${route}: shared client showcase layout`);
+    assert.ok(!/<video\b/.test(page), `${route}: index has no embedded video`);
+    assert.ok(
+      !/class="[^"]*\b(?:case-body|case-implementation|client-case-story|client-case-specifications)\b/.test(
+        page,
+      ),
+      `${route}: complete case-study content stays on individual project pages`,
+    );
+    assert.ok(
+      !page.includes("Watch the project preview"),
+      `${route}: screenshot card has accurate action wording`,
+    );
+  }
+  const projectDescriptions = new Set();
+  const projectScreenshotAssets = new Set();
+  for (const id of projectIds) {
+    const page = htmlByRoute.get(`/projects/${id}`);
+    assert.match(page, /class="[^"]*\bcase-page\b/, `${id}: standalone case-study layout`);
+    const description = page.match(/name="description" content="([^"]+)"/)?.[1];
+    assert.ok(
+      description && !projectDescriptions.has(description),
+      `${id}: case study has a unique search description`,
+    );
+    projectDescriptions.add(description);
+    if (!screenshotProjectIds.includes(id)) continue;
+    assert.ok(!/<video\b/.test(page), `${id}: website/software case study has no video player`);
+    assert.ok(page.includes('class="template-screenshots"'), `${id}: shared screenshot gallery`);
+    assert.match(page, /<img\b[^>]*alt="[^"]+"/, `${id}: descriptive screenshot text`);
+    const choices = page.match(/class="template-screenshot-choices"[^>]*>(.*?)<\/div>/s)?.[1];
+    assert.ok(choices, `${id}: gallery includes screenshot choices`);
+    const buttons = [...choices.matchAll(/<button\b[^>]*>/g)];
+    assert.ok(buttons.length >= 2, `${id}: at least two screenshot choices`);
+    for (const [button] of buttons) {
+      assert.ok(
+        button.includes('type="button"') && /aria-pressed="(?:true|false)"/.test(button),
+        `${id}: screenshot choices use accessible native buttons`,
+      );
+    }
+    const screenshotPaths = new Set(
+      [...choices.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map(([, src]) => {
+        const url = new URL(src.replaceAll("&amp;", "&"), origin);
+        return url.searchParams.get("url") ?? url.pathname;
+      }),
+    );
+    assert.ok(
+      screenshotPaths.size >= 2,
+      `${id}: gallery has at least two distinct screenshot assets`,
+    );
+    for (const path of screenshotPaths) {
+      assert.match(
+        path,
+        /^\/images\/.+\.(?:webp|png|jpe?g)$/,
+        `${id}: gallery uses screenshot imagery`,
+      );
+      projectScreenshotAssets.add(path);
+    }
+    assert.ok(
+      [...screenshotPaths].some((path) => page.includes(`href="${path}"`)),
+      `${id}: full-size screenshot opens without JavaScript`,
+    );
   }
   const painting = htmlByRoute.get("/website-collection/pigment");
   assert.ok(painting.includes("From $499 CAD"), "painting: agreed starting price");
@@ -377,7 +491,7 @@ try {
     "McKenzie: optional production and care are separately priced",
   );
   assert.ok(
-    wellness.includes('href="/projects/web-builds#mckenzie-house"'),
+    wellness.includes('href="/projects/mckenzie-house"'),
     "McKenzie: client story remains accessible",
   );
   assert.ok(
@@ -385,20 +499,17 @@ try {
       !wellness.includes("Evergreen Wellness"),
     "McKenzie: archived generic demo is not offered",
   );
-  for (const route of [
-    "/projects/web-builds",
-    "/projects/software-development",
-    "/projects/social-media-management",
-  ]) {
-    const page = htmlByRoute.get(route);
+  for (const id of projectIds) {
+    const page = htmlByRoute.get(`/projects/${id}`);
     const websiteLinks = [
       ...page.matchAll(
         /<a\b[^>]*href="https:\/\/(?:www\.)?(?:towandgotrailers\.ca|crestlinepainting\.ca|mckenziehousemassage\.ca|tatestv\.ca)\/"[^>]*>([\s\S]*?)<\/a>/g,
       ),
     ];
-    assert.ok(websiteLinks.length, `${route}: website demo actions are available`);
+    assert.equal(websiteLinks.length, 1, `${id}: one live website action`);
     for (const [, label] of websiteLinks)
-      assert.ok(label.startsWith("View live demo"), `${route}: consistent visible demo wording`);
+      assert.ok(label.startsWith("View live site"), `${id}: accurate live-site wording`);
+    assert.ok(!page.includes("View live demo"), `${id}: case study uses live-site wording`);
   }
   for (const id of ["tow-n-go", "crestline", "calgary-hot-shot"])
     assert.match(
@@ -935,27 +1046,14 @@ try {
       !transport.includes('id="design-pigment"'),
     "transport gallery shows its live demo and client example",
   );
-  for (const [id, name, category, liveUrl, videoSrc] of [
-    [
-      "tow-n-go",
-      "Tow-N-Go Trailers",
-      "transport-logistics",
-      "https://www.towandgotrailers.ca/",
-      "tow-n-go-website",
-    ],
-    [
-      "crestline",
-      "Crestline Painting",
-      "construction-trades",
-      "https://www.crestlinepainting.ca/",
-      "crestline-website",
-    ],
+  for (const [id, name, category, liveUrl] of [
+    ["tow-n-go", "Tow-N-Go Trailers", "transport-logistics", "https://www.towandgotrailers.ca/"],
+    ["crestline", "Crestline Painting", "construction-trades", "https://www.crestlinepainting.ca/"],
     [
       "mckenzie-house",
       "McKenzie House Massage",
       "health-wellness",
       "https://mckenziehousemassage.ca/",
-      "mckenzie-website",
     ],
   ]) {
     const gallery = htmlByRoute.get(`/website-collection/category/${category}`);
@@ -992,18 +1090,14 @@ try {
       !example.includes("placeholder business details") && !example.includes("Made yours."),
       `${id}: not labelled a placeholder template`,
     );
+    assert.ok(!/<video\b/.test(example), `${id}: client template has no walkthrough player`);
     if (id !== "mckenzie-house") {
       assert.ok(
-        example.includes(`src="/media/projects/${videoSrc}.mp4"`),
-        `${id}: correct canonical walkthrough`,
-      );
-    } else {
-      assert.ok(
-        htmlByRoute.get("/projects/web-builds").includes(`src="/media/projects/${videoSrc}.mp4"`),
-        "McKenzie: walkthrough remains available in the client case study",
+        example.includes('class="template-screenshots"'),
+        `${id}: client template uses the shared screenshot gallery`,
       );
     }
-    for (const href of [`/projects/web-builds#${id}`, liveUrl]) {
+    for (const href of [`/projects/${id}`, liveUrl]) {
       assert.ok(example.includes(`href="${href}"`), `${id}: links to ${href}`);
     }
     const inquiryHref = [...example.matchAll(/href="([^"]+)"/g)]
@@ -1023,12 +1117,12 @@ try {
     );
     checks++;
   }
-  assert.ok(
-    htmlByRoute
-      .get("/website-collection/tow-n-go")
-      .includes('href="/projects/social-media-management#tow-n-go-digital"'),
-    "Tow-N-Go keeps its monthly partnership link",
-  );
+  for (const route of ["/website-collection/tow-n-go", "/projects/tow-n-go"]) {
+    assert.ok(
+      htmlByRoute.get(route).includes('href="/projects/tow-n-go-digital"'),
+      `${route}: Tow-N-Go keeps its monthly partnership link`,
+    );
+  }
   const transportComparison = await fetch(
     `${origin}/website-collection/compare?design=tow-n-go&design=calgary-hot-shot`,
   );
@@ -1258,25 +1352,21 @@ try {
     !homeMain.replaceAll("&amp;", "&").includes(approvedChadQuote),
     "the full new review stays on its dedicated page",
   );
-  for (const [route, expected] of [
-    ["/projects/web-builds", 3],
-    ["/projects/software-development", 1],
-    ["/projects/social-media-management", 2],
-  ]) {
-    const page = htmlByRoute.get(route);
+  for (const id of projectIds) {
+    const page = htmlByRoute.get(`/projects/${id}`);
     assert.equal(
-      (page.match(/class="case-implementation"/g) || []).length,
-      expected,
-      "each project explains its implementation",
+      (page.match(/class="[^"]*\bcase-implementation\b[^"]*"/g) || []).length,
+      1,
+      `${id}: case study explains its implementation`,
     );
   }
   assert.ok(
-    htmlByRoute.get("/projects/web-builds").includes("ClinicSense"),
-    "booking platform is explained",
+    htmlByRoute.get("/projects/mckenzie-house").includes("ClinicSense"),
+    "McKenzie case study explains its booking platform",
   );
   assert.ok(
-    htmlByRoute.get("/projects/software-development").includes("Cloudflare R2"),
-    "software media architecture is explained",
+    htmlByRoute.get("/projects/tates-tv").includes("Cloudflare R2"),
+    "Tate’s TV case study explains its software media architecture",
   );
 
   const investment = htmlByRoute.get("/packages");
@@ -1293,6 +1383,12 @@ try {
     "search description agrees with visible pricing",
   );
   for (const [route, html] of htmlByRoute) {
+    assert.ok(
+      !/href="\/projects\/(?:web-builds|software-development|social-media-management)#[^"]+"/.test(
+        html,
+      ),
+      `${route}: internal project links use canonical case-study routes`,
+    );
     const logoLinks = [
       ...html.matchAll(/<a\b[^>]*aria-label="L&amp;L Tech Solutions home"[^>]*>/g),
     ];
@@ -1307,7 +1403,7 @@ try {
     ])
       assert.ok(html.includes(`href="${social}"`), `${route}: official social link ${social}`);
   }
-  const designImages = new Set();
+  const designImages = new Set(projectScreenshotAssets);
   for (const [source, html] of htmlByRoute) {
     for (const match of html.matchAll(/href="(\/[^"?]*)(?:\?[^"#]*)?"/g)) {
       const href = match[1];
@@ -1332,25 +1428,66 @@ try {
         );
     }
   }
-  const webProjects = htmlByRoute.get("/projects/web-builds");
-  assert.equal(
-    (webProjects.match(/class="design-options"/g) || []).length,
-    1,
-    "one compact design-options gallery in website case studies",
-  );
-  assert.ok(!homeMain.includes('class="design-options"'), "gallery stays off the homepage");
-  assert.ok(
-    webProjects.includes('aria-labelledby="crestline-design-options"'),
-    "gallery is labelled as part of the Crestline case study",
-  );
-  assert.equal(
-    new Set(
-      [...webProjects.matchAll(/href="(\/images\/[^"?#]+\.(?:jpe?g|png|webp))"/g)].map(
-        (match) => match[1],
+  const crestlineProject = htmlByRoute.get("/projects/crestline");
+  assert.ok(!homeMain.includes('class="design-options"'), "design options stay off the homepage");
+  for (const [id, category, designIds] of [
+    [
+      "tow-n-go",
+      "transport-logistics",
+      ["equipment-rentals", "auto-transport", "calgary-hot-shot"],
+    ],
+    ["crestline", "construction-trades", []],
+    ["mckenzie-house", "health-wellness", ["massage-one-page", "still", "medical-spa"]],
+  ]) {
+    const page = htmlByRoute.get(`/projects/${id}`);
+    const optionsClass = id === "crestline" ? "design-options" : "client-template-options";
+    const options = page.match(
+      new RegExp(`<section\\b[^>]*class="${optionsClass}"[^>]*>([\\s\\S]*?)<\\/section>`),
+    )?.[1];
+    assert.ok(options, `${id}: website case study offers other design options`);
+    assert.match(options, /Other [Dd]esign [Oo]ptions/, `${id}: accurate options heading`);
+    assert.ok(
+      options.includes(`href="/website-collection/category/${category}"`),
+      `${id}: related template category is linked`,
+    );
+    if (designIds.length) {
+      assert.equal(
+        (options.match(/class="client-template-option"/g) || []).length,
+        designIds.length,
+        `${id}: three distinct canonical template alternatives`,
+      );
+    }
+    for (const designId of designIds) {
+      assert.ok(
+        options.includes(`href="/website-collection/${designId}"`),
+        `${id}: links to the canonical ${designId} template`,
+      );
+    }
+    assert.ok(
+      !/(?:client|customer|Crestline|Tow-N-Go|Heather|McKenzie)[^<.]{0,70}(?:chose|selected|approved|rejected) (?:this|these|the|a) (?:design|option|layout|concept)/i.test(
+        options,
       ),
-    ).size,
-    3,
-    "three case-study image links remain usable without JavaScript",
+      `${id}: design options make no unsupported client-selection claim`,
+    );
+  }
+  assert.ok(
+    crestlineProject.includes('aria-labelledby="crestline-design-options"'),
+    "Crestline design options retain their accessible heading",
+  );
+  assert.deepEqual(
+    [
+      ...new Set(
+        [
+          ...crestlineProject.matchAll(/href="(\/images\/projects\/crestline-options\/[^"?#]+)"/g),
+        ].map((match) => match[1]),
+      ),
+    ].sort(),
+    [
+      "/images/projects/crestline-options/architectural-home.jpg",
+      "/images/projects/crestline-options/architectural-services.jpg",
+      "/images/projects/crestline-options/colour-and-craft.png",
+    ].sort(),
+    "Crestline preserves its three original design-option image links without JavaScript",
   );
   for (const asset of designImages) {
     const response = await fetch(origin + asset, { method: "HEAD" });
@@ -1360,16 +1497,10 @@ try {
     checks++;
   }
   const mediaAssets = new Set();
-  for (const [route, expectedVideos] of [
-    ["/projects/web-builds", 3],
-    ["/website-collection/tow-n-go", 1],
-    ["/website-collection/crestline", 1],
-    ["/projects/software-development", 1],
-    ["/projects/social-media-management", 2],
-  ]) {
+  for (const route of contentProjectIds.map((id) => `/projects/${id}`)) {
     const html = htmlByRoute.get(route);
     const videos = [...html.matchAll(/<video\b[^>]*>[\s\S]*?<\/video>/g)].map((match) => match[0]);
-    assert.equal(videos.length, expectedVideos, `${route}: every project has an inline preview`);
+    assert.equal(videos.length, 1, `${route}: content case study retains its native video`);
     for (const video of videos) {
       assert.ok(
         video.includes('preload="none"') && !/autoplay/i.test(video),
@@ -1388,7 +1519,10 @@ try {
     for (const match of html.matchAll(/(?:src|poster)="(\/media\/[^\"]+)"/g))
       mediaAssets.add(match[1]);
   }
-  assert.ok(mediaAssets.size >= 18, "six complete previews, with room for optional captions");
+  assert.ok(
+    mediaAssets.size >= 6,
+    "two complete content previews, with room for optional captions",
+  );
   for (const asset of mediaAssets) {
     const response = await fetch(origin + asset, { method: "HEAD" });
     assert.equal(response.status, 200, asset);
@@ -1404,6 +1538,7 @@ try {
   for (const [route, status] of [
     ["/projects/infrastructure", 308],
     ["/projects/tech-support", 308],
+    ["/projects/unknown-project", 404],
     ["/this-page-does-not-exist", 404],
   ]) {
     const res = await fetch(origin + route, { redirect: "manual" });

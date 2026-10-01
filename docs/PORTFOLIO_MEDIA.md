@@ -34,12 +34,12 @@ Use real approved footage. Replace the corresponding MP4, poster and description
 
 See [Replacing your portfolio videos](REPLACING_PROJECT_VIDEOS.md) for all six filenames, configuration instructions and suggested page-by-page recordings. The September 9 update retains the existing media: new interior-page captures could not be transferred for video export, so no fuller click-through recording is included.
 
-`npm run validate` checks local media references. `npm run smoke` checks all six players, no autoplay, native controls, equivalent descriptions, all 18 current media assets and MP4 range requests. It also checks any captions files added to the rendered players. Codec, duration, fast-start layout and representative frames were checked with FFmpeg/ffprobe during preparation. Actual browser playback on the new build still needs device review; local and protected preview browsing was unavailable in this environment.
+`npm run validate` checks local media references. `npm run smoke` now checks the two social/content players, no autoplay, native controls, equivalent descriptions, their media assets and MP4 range requests. It also checks any captions files added to the rendered players. Website and software case studies use the screenshot checks documented below. Codec, duration, fast-start layout and representative frames were checked with FFmpeg/ffprobe during preparation. Actual browser playback on the new build still needs device review; local and protected preview browsing was unavailable in this environment.
 
 # Crestline: Other Design Options
 
 The compact gallery appears only within the Crestline case study on
-`/projects/web-builds#crestline`. It supplements the completed live-site example.
+`/projects/crestline`. It supplements the completed live-site example; the old category/hash link still reaches the Crestline index card.
 Gallery labels describe visual options without claiming client approval or a
 sequence of client decisions.
 
@@ -56,3 +56,12 @@ alt text. Replace an image at its exact path and update its dimensions when need
 Images are lazy loaded in the gallery. Selecting one opens a native modal with
 Escape, a close button and focus restoration; without JavaScript, its link opens
 the original image. No third-party embed or gallery package is used.
+
+## Screenshot-led case studies — October 2026
+
+Website and software case studies now use screenshot galleries and a View live
+site action on individual `/projects/<id>` pages. The two social/content case
+studies retain their original media examples. See `CLIENT_SHOWCASE.md` for the new
+capture provenance and the canonical gallery-editing workflow. Previous website
+walkthrough files remain archival assets; their historical dimensions/durations
+in this document should not be used to describe the new screenshot interface.

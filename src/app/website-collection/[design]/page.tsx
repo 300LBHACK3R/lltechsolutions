@@ -49,7 +49,7 @@ import CollectionCustomization from "@/components/collection/CollectionCustomiza
 import { readTemplateShowcase } from "@/lib/template-showcase";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import CostSummary from "@/components/collection/CostSummary";
-import ProjectVideo from "@/components/projects/ProjectVideo";
+import TemplateScreenshotGallery from "@/components/collection/TemplateScreenshotGallery";
 import ProductionExample from "@/components/ui/ProductionExample";
 import { projects, projectPath } from "@/data/projects";
 import JsonLd from "@/components/seo/JsonLd";
@@ -279,7 +279,7 @@ export default async function DesignPage({ params }: Props) {
                 : clientProject
                   ? design.clientPreview === "image"
                     ? "The actual client website. Open the live demo to explore it."
-                    : "Watch the walkthrough or explore the client story."
+                    : "Browse the website screenshots or explore the client story."
                   : design.concept
                     ? "Explore the sample pages and try your business name."
                     : "A closer look at the website layout."}
@@ -316,10 +316,7 @@ export default async function DesignPage({ params }: Props) {
                   </figcaption>
                 </figure>
               ) : (
-                <ProjectVideo
-                  video={clientProject.video}
-                  projectId={`collection-${clientProject.id}`}
-                />
+                <TemplateScreenshotGallery images={clientProject.gallery ?? []} />
               )}
               <div className="button-row">
                 <Link className="text-link" href={projectPath(clientProject)}>
