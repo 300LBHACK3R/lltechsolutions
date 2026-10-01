@@ -3,6 +3,51 @@ import { once } from "node:events";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { checkCollectionStyles } from "./check-collection-styles.mjs";
+import { formatPriceCad, templatePrice, templateSale } from "../src/data/template-promotion.ts";
+
+const pricingNow = Date.now();
+
+function assertTemplatePrice(html, regularPrice, context) {
+  const quote = templatePrice(regularPrice, pricingNow);
+  const rendered = [
+    ...html.matchAll(
+      /(<span\b[^>]*\bdata-template-price="([^"]+)"[^>]*>)([\s\S]*?<span\b[^>]*class="template-price-current"[^>]*>([\s\S]*?)<\/span>)/g,
+    ),
+  ].filter((match) => Number(match[2]) === regularPrice);
+  assert.ok(rendered.length > 0, `${context}: regular price remains available for expiry`);
+  for (const [, tag, , markup, current] of rendered) {
+    assert.ok(tag.includes(`data-sale-end="${templateSale.endsAt}"`), `${context}: sale end`);
+    assert.equal(
+      current.replace(/<!--.*?-->/g, "").trim(),
+      `From ${formatPriceCad(quote.priceCad)}`,
+      `${context}: current price`,
+    );
+    const regular = markup.match(/<del\b[^>]*>(.*?)<\/del>/s)?.[1];
+    assert.equal(
+      regular,
+      quote.saleActive ? formatPriceCad(regularPrice) : undefined,
+      `${context}: regular price is struck through only during the sale`,
+    );
+  }
+}
+
+function assertSaleNotice(html, context) {
+  const notice = html.match(/<p\b[^>]*class="template-sale-notice"[^>]*>(.*?)<\/p>/s)?.[1];
+  assert.equal(
+    Boolean(notice),
+    templatePrice(150, pricingNow).saleActive,
+    `${context}: sale notice follows the promotion window`,
+  );
+  if (notice) {
+    const text = notice.replace(/<[^>]*>/g, "").replace(/\s+/g, " ");
+    assert.ok(text.includes("20% off every template."), `${context}: discount amount`);
+    assert.ok(
+      text.includes("January 1, 2027 at midnight Alberta time"),
+      `${context}: unambiguous sale deadline`,
+    );
+    assert.ok(text.includes("extras and ongoing plans are separate"), `${context}: sale scope`);
+  }
+}
 
 // The child process has no mail key: this test must never deliver external email.
 const env = {
@@ -371,7 +416,7 @@ try {
     );
   }
   const painting = htmlByRoute.get("/website-collection/pigment");
-  assert.ok(painting.includes("From $499 CAD"), "painting: agreed starting price");
+  assertTemplatePrice(painting, 399, "painting: agreed starting price");
   for (const [id, configName] of [
     ["pigment", "painting"],
     ["structure", "plumbing"],
@@ -448,8 +493,11 @@ try {
   const paintingGallery = htmlByRoute.get("/website-collection/category/construction-trades");
   const wellness = htmlByRoute.get("/website-collection/mckenzie-house");
   assert.ok(wellness.includes("McKenzie House Massage"), "McKenzie: real client identity");
-  assert.ok(wellness.includes("Quoted after a conversation"), "McKenzie: no assumed website price");
-  assert.ok(!wellness.includes("$999"), "McKenzie: original bundled fee is not a template price");
+  assertTemplatePrice(wellness, 399, "McKenzie: approved template starting price");
+  assert.ok(
+    !wellness.includes("From $1,000 CAD"),
+    "McKenzie: original bundled fee is not a template price",
+  );
   assert.ok(
     wellness.includes("on-site photography, videography, editing"),
     "McKenzie: original production scope is clear",
@@ -561,7 +609,7 @@ try {
       `${id}: labelled concept preview`,
     );
     assert.ok(
-      /From \$[1-9][0-9,]* CAD/.test(html) && !html.includes("$0"),
+      /From \$[1-9][0-9,]*(?:\.\d{2})? CAD/.test(html) && !html.includes("$0"),
       `${id}: scoped starting price is displayed`,
     );
     assert.ok(html.includes("No published performance measurements"), `${id}: no invented score`);
@@ -592,6 +640,11 @@ try {
       `${id}: existing enquiry form is retained across steps`,
     );
     assert.ok(journey.includes("Review &amp; enquire"), `${id}: a review step precedes enquiry`);
+    assertTemplatePrice(
+      journey,
+      Number(html.match(/data-template-price="([^"]+)"/)?.[1]),
+      `${id}: guided enquiry price agrees with its detail page`,
+    );
     checks++;
   }
   const comparison = await fetch(
@@ -600,6 +653,8 @@ try {
   assert.equal(comparison.status, 200);
   const comparisonHtml = await comparison.text();
   assert.ok(comparisonHtml.includes('class="design-comparison"'));
+  assertTemplatePrice(comparisonHtml, 399, "comparison: painting price");
+  assertTemplatePrice(comparisonHtml, 299, "comparison: nail studio price");
   assert.ok(!comparisonHtml.match(/<main\b[^>]*>(.*?)<\/main>/s)?.[1].includes("private-draft"));
   checks++;
   const unknownDesign = await fetch(`${origin}/website-collection/private-draft`);
@@ -612,6 +667,7 @@ try {
   );
   const reviews = htmlByRoute.get("/reviews");
   const collection = htmlByRoute.get("/website-collection");
+  assertSaleNotice(collection, "template landing page");
   assert.ok(
     collection.includes('"@type":"CollectionPage"'),
     "collection has descriptive structured data",
@@ -703,69 +759,87 @@ try {
   }
   const templatePrices = [
     ["mobile-detailing", "retail-automotive", 150],
-    ["flower-shop", "retail-automotive", 399],
-    ["auto-repair", "retail-automotive", 499],
-    ["streetwear-store", "retail-automotive", 699],
-    ["wheel-studio", "retail-automotive", 699],
-    ["jewellery-atelier", "retail-automotive", 999],
+    ["flower-shop", "retail-automotive", 299],
+    ["auto-repair", "retail-automotive", 399],
+    ["streetwear-store", "retail-automotive", 499],
+    ["wheel-studio", "retail-automotive", 499],
+    ["jewellery-atelier", "retail-automotive", 600],
     ["food-truck", "food-restaurants", 150],
-    ["neighbourhood-cafe", "food-restaurants", 399],
-    ["artisan-bakery", "food-restaurants", 499],
-    ["pizzeria", "food-restaurants", 699],
-    ["catering-events", "food-restaurants", 699],
-    ["fine-dining", "food-restaurants", 999],
+    ["neighbourhood-cafe", "food-restaurants", 299],
+    ["artisan-bakery", "food-restaurants", 399],
+    ["pizzeria", "food-restaurants", 499],
+    ["catering-events", "food-restaurants", 499],
+    ["fine-dining", "food-restaurants", 600],
 
-    ["calgary-hot-shot", "transport-logistics", 399],
+    ["calgary-hot-shot", "transport-logistics", 299],
     ["courier-one-page", "transport-logistics", 150],
-    ["moving-company", "transport-logistics", 399],
-    ["auto-transport", "transport-logistics", 499],
-    ["equipment-rentals", "transport-logistics", 699],
-    ["cold-chain", "transport-logistics", 699],
-    ["freight-logistics", "transport-logistics", 999],
+    ["moving-company", "transport-logistics", 299],
+    ["auto-transport", "transport-logistics", 399],
+    ["equipment-rentals", "transport-logistics", 499],
+    ["cold-chain", "transport-logistics", 499],
+    ["freight-logistics", "transport-logistics", 600],
     ["home-cleaning", "home-property", 150],
-    ["window-care", "home-property", 399],
-    ["home-organizing", "home-property", 499],
-    ["interior-studio", "home-property", 699],
-    ["property-management", "home-property", 699],
-    ["real-estate", "home-property", 999],
+    ["window-care", "home-property", 299],
+    ["home-organizing", "home-property", 399],
+    ["interior-studio", "home-property", 499],
+    ["property-management", "home-property", 499],
+    ["real-estate", "home-property", 600],
     ["consultant-one-page", "legal-professional", 150],
-    ["bookkeeping", "legal-professional", 399],
-    ["accounting", "legal-professional", 499],
-    ["creative-consultancy", "legal-professional", 699],
-    ["boutique-law", "legal-professional", 699],
-    ["corporate-law", "legal-professional", 999],
+    ["bookkeeping", "legal-professional", 299],
+    ["accounting", "legal-professional", 399],
+    ["creative-consultancy", "legal-professional", 499],
+    ["boutique-law", "legal-professional", 499],
+    ["corporate-law", "legal-professional", 600],
 
     ["massage-one-page", "health-wellness", 150],
     ["hair-one-page", "health-wellness", 150],
-    ["still", "health-wellness", 399],
-    ["hair-salon", "health-wellness", 499],
-    ["artsy-nails", "health-wellness", 699],
-    ["medical-spa", "health-wellness", 999],
-    ["horizon", "construction-trades", 499],
-    ["lawncare", "construction-trades", 499],
-    ["pigment", "construction-trades", 499],
-    ["structure", "construction-trades", 699],
-    ["earthworks", "construction-trades", 1000],
-    ["crestline", "construction-trades", 399],
-    ["tow-n-go", "transport-logistics", 899],
-    ["mckenzie-house", "health-wellness", null],
+    ["still", "health-wellness", 299],
+    ["hair-salon", "health-wellness", 399],
+    ["artsy-nails", "health-wellness", 499],
+    ["medical-spa", "health-wellness", 600],
+    ["horizon", "construction-trades", 399],
+    ["lawncare", "construction-trades", 399],
+    ["pigment", "construction-trades", 399],
+    ["structure", "construction-trades", 499],
+    ["earthworks", "construction-trades", 600],
+    ["crestline", "construction-trades", 299],
+    ["tow-n-go", "transport-logistics", 549],
+    ["mckenzie-house", "health-wellness", 399],
   ];
   for (const [id, category, price] of templatePrices) {
-    const label =
-      price === null ? "Quoted after a conversation" : `From $${price.toLocaleString("en-CA")} CAD`;
+    assert.ok(
+      Number.isInteger(price) && price >= 150 && price <= 600,
+      `${id}: public starting price stays within the approved range`,
+    );
+    const quote = templatePrice(price, pricingNow);
+    const label = `From ${formatPriceCad(quote.priceCad)}`;
     const detail = htmlByRoute.get(`/website-collection/${id}`);
-    assert.ok(detail.includes(label), `${id}: detail price`);
+    assertTemplatePrice(detail, price, `${id}: detail price`);
     assert.ok(detail.includes("Before applicable taxes."), `${id}: tax basis`);
     assert.ok(detail.includes("collection-contact-options"), `${id}: contact scope is explained`);
+    assert.ok(
+      detail.includes("$150–$399 CAD") && detail.includes("$499–$600 CAD"),
+      `${id}: contact-scope summary uses the approved price ranges`,
+    );
     const gallery = htmlByRoute.get(`/website-collection/category/${category}`);
     const card = gallery.match(
       new RegExp(`<article[^>]*id="design-${id}"[^>]*>[\\s\\S]*?</article>`),
     )?.[0];
-    assert.ok(card?.includes(label), `${id}: matching gallery price`);
+    assert.ok(card, `${id}: gallery card exists`);
+    assertTemplatePrice(card, price, `${id}: matching gallery price`);
     const contact = await fetch(`${origin}/contact?collection=website&design=${id}&price=1`);
     assert.equal(contact.status, 200);
     const contactHtml = await contact.text();
     assert.ok(contactHtml.includes(`Launch pricing: ${label}`), `${id}: canonical enquiry price`);
+    if (quote.saleActive) {
+      assert.ok(
+        contactHtml.includes(`Regular starting price: ${formatPriceCad(price)}`) &&
+          contactHtml.includes(`Offer ends ${templateSale.endsLabel}`),
+        `${id}: enquiry states the regular price and exact sale deadline`,
+      );
+    } else {
+      assert.ok(!contactHtml.includes("20% template sale"), `${id}: expired sale is absent`);
+    }
     assert.ok(!contactHtml.includes("From $1 CAD"), `${id}: URL cannot change the price`);
     checks++;
   }
@@ -1370,6 +1444,7 @@ try {
   );
 
   const investment = htmlByRoute.get("/packages");
+  assertSaleNotice(investment, "pricing page");
   assert.ok(investment.includes("$150+") && investment.includes("$149+"), "revised entry prices");
   assert.ok(
     investment.includes("one polished page") &&

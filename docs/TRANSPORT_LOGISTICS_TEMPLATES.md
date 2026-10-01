@@ -1,15 +1,17 @@
 # Transport & Logistics templates
 
-Six fictional business templates extend the existing Transport & Logistics category. Tow-N-Go and Calgary Hot Shot retain their original identities, content, prices and demo destinations.
+Prices and contact-scope ranges in this guide are regular base prices. Apply the temporary 20% template sale and automatic expiry in [Current template pricing](CURRENT_TEMPLATE_PRICING.md).
+
+Six fictional business templates extend the existing Transport & Logistics category. Tow-N-Go and Calgary Hot Shot retain their original identities, content and demo destinations. Their current starting prices are $549 and $299 CAD respectively; all offers follow [the approved catalogue pricing](CURRENT_TEMPLATE_PRICING.md).
 
 | ID                | Brand     | Starting CAD | Pages | Contact at customer launch                                  |
 | ----------------- | --------- | -----------: | ----: | ----------------------------------------------------------- |
 | courier-one-page  | ZIP       |          150 |     1 | Direct phone/email; optional existing external booking link |
-| moving-company    | GOOD MOVE |          399 |     3 | Direct contact                                              |
-| auto-transport    | OVERLAND  |          499 |     4 | Direct contact                                              |
-| equipment-rentals | YARD      |          699 |     5 | Standard protected enquiry form setup                       |
-| cold-chain        | POLARLINE |          699 |     5 | Standard protected enquiry form setup                       |
-| freight-logistics | MERIDIAN  |          999 |     7 | Standard protected enquiry form setup                       |
+| moving-company    | GOOD MOVE |          299 |     3 | Direct contact                                              |
+| auto-transport    | OVERLAND  |          399 |     4 | Direct contact                                              |
+| equipment-rentals | YARD      |          499 |     5 | Standard protected enquiry form setup                       |
+| cold-chain        | POLARLINE |          499 |     5 | Standard protected enquiry form setup                       |
+| freight-logistics | MERIDIAN  |          600 |     7 | Standard protected enquiry form setup                       |
 
 All prices are starting prices in CAD before applicable taxes. Personalization and launch use supplied content within the agreed scope. Extra pages, copywriting, photography/video production and ongoing care are separate. Hosting, domains and provider costs are identified in the proposal. A template does not establish operating credentials, service guarantees or a real business's capabilities.
 
@@ -40,9 +42,9 @@ Maintained standalone shells live in `templates/<id>-demo/`; generated output li
 
 ## Honest contact and transport scope
 
-$150–$499 offers include direct contact. Sample telephone/email text remains inert; actual customer phone, email and any existing external booking destination are supplied and configured at launch. The “Make this my website” action is a real enquiry with L&L.
+$150–$399 offers include direct contact. Sample telephone/email text remains inert; actual customer phone, email and any existing external booking destination are supplied and configured at launch. The “Make this my website” action is a real enquiry with L&L.
 
-$699+ offers include standard enquiry form setup to one inbox: Resend, sending-domain configuration, field validation, spam controls and an initial delivery test at the customer's launch. Static demo forms only preview local interaction. They have no transmission endpoint or storage, no named submission fields, no submit buttons and a disabled fieldset until JavaScript loads. Use sample details; do not enter real shipment addresses, cargo values or confidential information. Demo behavior is not evidence of email delivery.
+$499–$600 offers include standard enquiry form setup to one inbox: Resend, sending-domain configuration, field validation, spam controls and an initial delivery test at the customer's launch. Static demo forms only preview local interaction. They have no transmission endpoint or storage, no named submission fields, no submit buttons and a disabled fieldset until JavaScript loads. Use sample details; do not enter real shipment addresses, cargo values or confidential information. Demo behavior is not evidence of email delivery.
 
 Routes, coverage, vehicles, equipment and handling topics are illustrative static content. They do not show live availability, active shipments, confirmed routes, real-time temperatures or bookable services. Temperature-related examples do not establish product suitability, monitoring capabilities, compliance or a service guarantee; the live business supplies and approves its own handling requirements and claims.
 

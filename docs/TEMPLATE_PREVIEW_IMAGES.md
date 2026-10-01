@@ -2,7 +2,7 @@
 
 The three business concepts use generated illustrative imagery, not documented client projects. Sample identities and service copy demonstrate a design direction; they do not describe an actual business. Replace these images with approved business assets when personalizing a design.
 
-Calgary Hot Shot uses actual browser captures of the user-supplied public concept demo at https://calgary-hot-shot-corporate-live.vercel.app/. Captured September 15, 2026. The page labels itself a concept, and its contact information is placeholder content. It is listed as an unpriced live design demo, not a completed client project. No source-stack, performance or security certification is claimed for the external demo.
+Calgary Hot Shot uses actual browser captures of the user-supplied public concept demo at https://calgary-hot-shot-corporate-live.vercel.app/. Captured September 15, 2026. The page labels itself a concept, and its contact information is placeholder content. It is listed as a live concept demo with a current $299 CAD starting price for new personalization and launch, not a completed client project. No source-stack, performance or security certification is claimed for the external demo.
 
 - `public/images/collection/calgary-hot-shot-hero.webp`: homepage capture, 1348 × 926.
 - `public/images/collection/calgary-hot-shot-full.webp`: full-page capture, 1363 × 6753; delivered directly as an optimized WebP to retain readable detail without upscaling.

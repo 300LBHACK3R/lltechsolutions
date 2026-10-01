@@ -1,10 +1,12 @@
 import "@/styles/globals.css";
 import "@/styles/base.css";
+import "@/styles/template-pricing.css";
 import "@/styles/massage-one-page.css";
 import "./demo.css";
 import type { Metadata } from "next";
+import TemplatePrice from "@/components/collection/TemplatePrice";
 import { Cormorant_Garamond, Geist } from "next/font/google";
-import { collectionInquiryHref, designPrice, websiteDesigns } from "@/data/website-collection";
+import { collectionInquiryHref, websiteDesigns } from "@/data/website-collection";
 
 const sans = Geist({ variable: "--font-sans", subsets: ["latin"], display: "swap" });
 const editorial = Cormorant_Garamond({
@@ -35,7 +37,9 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
           <a href="https://lltechsolutions.ca/website-collection/massage-one-page">
             ← L&L / Template details
           </a>
-          <span>One-page website demo · {designPrice(design)}</span>
+          <span>
+            One-page website demo · <TemplatePrice price={design.startingPriceCad} compact />
+          </span>
           <a href={`https://lltechsolutions.ca${collectionInquiryHref({ design: design.id })}`}>
             Make this my website ↗
           </a>

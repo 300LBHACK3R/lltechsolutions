@@ -10,17 +10,21 @@ import {
   categoryDesigns,
   filterDesigns,
   collectionInquiry,
+  designPrice,
+  templateSale,
 } from "../src/data/website-collection.ts";
 import { readTemplateShowcase } from "../src/lib/template-showcase.ts";
 import { entryTemplateDemos } from "../scripts/lib/entry-template-config.mjs";
 
+const saleNow = Date.parse(templateSale.startsAt);
+
 const expected = [
-  ["mobile-detailing", 150, 1],
-  ["flower-shop", 399, 3],
-  ["auto-repair", 499, 4],
-  ["streetwear-store", 699, 5],
-  ["wheel-studio", 699, 5],
-  ["jewellery-atelier", 999, 7],
+  ["mobile-detailing", 150, 1, "direct"],
+  ["flower-shop", 299, 3, "direct"],
+  ["auto-repair", 399, 4, "direct"],
+  ["streetwear-store", 499, 5, "enquiry-form"],
+  ["wheel-studio", 499, 5, "enquiry-form"],
+  ["jewellery-atelier", 600, 7, "enquiry-form"],
 ];
 test("retail enquiries preserve approved prices, contact scope and stable gallery ordering", () => {
   const gallery = categoryDesigns(categoryForIndustry("retail"));
@@ -28,7 +32,7 @@ test("retail enquiries preserve approved prices, contact scope and stable galler
   assert.deepEqual(
     filterDesigns(gallery, {})
       .filter((d) => ids.has(d.id))
-      .map((d) => [d.id, d.startingPriceCad, d.pageCount]),
+      .map((d) => [d.id, d.startingPriceCad, d.pageCount, d.contactMode]),
     expected,
   );
   assert.equal(gallery.length, 6);
@@ -41,10 +45,10 @@ test("retail enquiries preserve approved prices, contact scope and stable galler
     ["mobile-detailing", "auto-repair", "wheel-studio"],
   );
   assert.equal(new Set(retailTemplates.map((t) => t.theme)).size, 6);
-  for (const [id, price, pages] of expected) {
+  for (const [id, price, pages, contactMode] of expected) {
     const t = retailTemplate(id),
       d = websiteDesigns.find((design) => design.id === id);
-    assert.equal(d.contactMode, price >= 699 ? "enquiry-form" : "direct");
+    assert.equal(d.contactMode, contactMode);
     assert.equal(t.pages.length, pages);
     assert.deepEqual(entryTemplateDemos[id].routes, t.pages.map(retailPagePath));
     assert.equal(entryTemplateDemos[id].contactMode, d.contactMode);
@@ -52,8 +56,14 @@ test("retail enquiries preserve approved prices, contact scope and stable galler
       filterDesigns(gallery, { industry: t.industry }).map((design) => design.id),
       [id],
     );
-    const enquiry = collectionInquiry({ collection: "website", design: id, price: "1" });
-    assert(enquiry.message.includes(`From $${price} CAD`));
+    const enquiry = collectionInquiry(
+      { collection: "website", design: id, price: "1" },
+      websiteDesigns,
+      saleNow,
+    );
+    assert(enquiry.message.includes(`Launch pricing: ${designPrice(d, saleNow)}.`));
+    assert(enquiry.message.includes(`Regular starting price: $${price} CAD.`));
+    assert(enquiry.message.includes("20% template sale."));
     assert(enquiry.message.includes(d.name));
     assert(!enquiry.message.includes("From $1 CAD"));
   }

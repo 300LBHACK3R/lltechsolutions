@@ -2,9 +2,12 @@ import assert from "node:assert/strict";
 import { readFile, access, cp } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { formatPriceCad, templateSale, websiteDesigns } from "../src/data/website-collection.ts";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "build/earthworks-demo/out");
+const design = websiteDesigns.find((item) => item.id === "earthworks");
+assert.ok(design, "The earthworks offer exists in the canonical catalogue");
 const routes = [
   ["index.html", "/"],
   ["services.html", "/services"],
@@ -17,10 +20,21 @@ const routes = [
 
 for (const [file, activePath] of routes) {
   const html = await readFile(resolve(output, file), "utf8");
+  assert.ok(
+    html.includes(`data-template-price="${design.startingPriceCad}"`),
+    `${file}: regular price metadata`,
+  );
+  assert.ok(
+    html.includes(`data-sale-end="${templateSale.endsAt}"`),
+    `${file}: automatic sale expiry metadata`,
+  );
   assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1, `${file}: one main heading`);
   assert.ok(html.includes('data-earthworks-demo="earthworks"'), `${file}: standalone marker`);
   assert.match(html, /name="robots" content="noindex, nofollow"/, `${file}: search exclusion`);
-  assert.ok(html.includes("From $1,000 CAD"), `${file}: approved starting price`);
+  assert.ok(
+    html.replace(/<!--[^]*?-->/g, "").includes(`From ${formatPriceCad(design.startingPriceCad)}`),
+    `${file}: approved starting price`,
+  );
   const nav = html.match(/<nav\b[^>]*class="[^"]*earth-nav[^\"]*"[\s\S]*?<\/nav>/)?.[0];
   assert.ok(nav, `${file}: earthworks navigation`);
   for (const [, pathname] of routes)

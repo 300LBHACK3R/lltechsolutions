@@ -9,6 +9,10 @@ await rm(target, { recursive: true, force: true });
 await mkdir(target, { recursive: true });
 await cp(resolve(root, "templates/lawncare-demo"), target, { recursive: true });
 const files = [
+  "src/components/collection/TemplatePrice.tsx",
+  "src/lib/use-template-sale.ts",
+  "src/data/template-promotion.ts",
+  "src/styles/template-pricing.css",
   "src/components/collection/LawnTemplate.tsx",
   "src/components/collection/LawnCover.tsx",
   "src/components/collection/LawnMarks.tsx",

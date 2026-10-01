@@ -1,3 +1,5 @@
+import TemplatePrice from "@/components/collection/TemplatePrice";
+import { isTemplateSaleActive } from "@/data/template-promotion";
 import {
   collectionCarePlans,
   collectionPricingNote,
@@ -5,7 +7,6 @@ import {
   contactScopeNotes,
   designContactDescription,
   designContactLabel,
-  designPrice,
   selectedExtras,
   type WebsiteDesign,
 } from "@/data/website-collection";
@@ -32,7 +33,12 @@ export default function CostSummary({
               ? "Similar design & launch"
               : "Personalization & launch"}
           </dt>
-          <dd>{designPrice(design)}</dd>
+          <dd>
+            <TemplatePrice
+              price={design.startingPriceCad}
+              initialSaleActive={isTemplateSaleActive()}
+            />
+          </dd>
         </div>
         <div>
           <dt>

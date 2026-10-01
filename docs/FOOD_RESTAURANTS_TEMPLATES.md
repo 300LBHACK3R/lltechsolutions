@@ -1,15 +1,17 @@
 # Food & Restaurants templates
 
-Six fictional business templates extend the existing Food & Restaurants category. Existing templates, client references, pricing and live destinations remain unchanged.
+Prices and contact-scope ranges in this guide are regular base prices. Apply the temporary 20% template sale and automatic expiry in [Current template pricing](CURRENT_TEMPLATE_PRICING.md).
+
+Six fictional business templates extend the existing Food & Restaurants category. Existing templates, client references and live destinations remain unchanged. Current prices follow [the approved catalogue pricing](CURRENT_TEMPLATE_PRICING.md).
 
 | ID                 | Brand          | Starting CAD | Pages | Contact at customer launch            |
 | ------------------ | -------------- | -----------: | ----: | ------------------------------------- |
 | food-truck         | SIDE STREET    |          150 |     1 | Direct contact                        |
-| neighbourhood-cafe | SUNDAY CLUB    |          399 |     3 | Direct contact                        |
-| artisan-bakery     | BUTTER & CRUMB |          499 |     4 | Direct contact                        |
-| pizzeria           | SLICE SOCIAL   |          699 |     5 | Standard protected enquiry form setup |
-| catering-events    | TABLE & FIELD  |          699 |     5 | Standard protected enquiry form setup |
-| fine-dining        | VESPER         |          999 |     7 | Standard protected enquiry form setup |
+| neighbourhood-cafe | SUNDAY CLUB    |          299 |     3 | Direct contact                        |
+| artisan-bakery     | BUTTER & CRUMB |          399 |     4 | Direct contact                        |
+| pizzeria           | SLICE SOCIAL   |          499 |     5 | Standard protected enquiry form setup |
+| catering-events    | TABLE & FIELD  |          499 |     5 | Standard protected enquiry form setup |
+| fine-dining        | VESPER         |          600 |     7 | Standard protected enquiry form setup |
 
 All prices are starting prices in CAD before applicable taxes. Personalization and launch use supplied content within the agreed scope. Extra pages, copywriting, photography, videography and ongoing care are separate. Hosting, domains and provider costs are identified in the proposal. A template does not establish a real business, food-service credentials, dietary suitability or available tables.
 
@@ -42,9 +44,9 @@ Maintained standalone shells live in `templates/<id>-demo/`; preparation writes 
 
 The initial website includes the customer's supplied and approved menu as static content within the agreed page scope. The business supplies menu names, descriptions, prices, tax wording, ingredient and allergen information, dietary descriptions, opening details and content rights. Sample item prices are illustrative CAD menu prices, separate from the L&L template purchase price. Sample hours, locations, dishes and event formats are not real service availability. Guests must confirm ingredients, allergens, dietary needs and current availability directly with the actual business.
 
-$150–$499 offers include direct contact. Actual customer phone/email details and an existing external booking or ordering destination can be configured at launch. The demo's “Make this my website” action is a real L&L enquiry, with the selected design preserved.
+$150–$399 offers include direct contact. Actual customer phone/email details and an existing external booking or ordering destination can be configured at launch. The demo's “Make this my website” action is a real L&L enquiry, with the selected design preserved.
 
-$699+ customer launch scope includes standard enquiry form setup for one inbox: Resend, sending-domain configuration, field validation, spam controls and an initial delivery test. Static demo forms only preview local interaction. They have no transmission endpoint or storage, no named submission fields, no submit button and a disabled fieldset until JavaScript loads. Use sample details. No preview sends an email, places an order, holds a table or confirms an event.
+$499–$600 customer launch scope includes standard enquiry form setup for one inbox: Resend, sending-domain configuration, field validation, spam controls and an initial delivery test. Static demo forms only preview local interaction. They have no transmission endpoint or storage, no named submission fields, no submit button and a disabled fieldset until JavaScript loads. Use sample details. No preview sends an email, places an order, holds a table or confirms an event.
 
 Online ordering, payments, reservations, POS, delivery-platform integrations, live menu feeds, accounts and connected workflows are separate scopes. An enquiry form is not a reservation engine. Extra forms, copywriting, original media, continuing menu updates and ongoing care are separately scoped. Real email delivery must be configured and verified at the customer launch.
 

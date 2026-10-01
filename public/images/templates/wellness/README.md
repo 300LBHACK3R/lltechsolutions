@@ -1,16 +1,16 @@
-# Wellness demo screenshots
+# Archived Wellness demo screenshots
 
-This folder is for actual captures of the separate Evergreen Wellness demo, not screenshots of Heather's McKenzie House Massage website.
+This folder preserves captures of the withdrawn Evergreen Wellness demo, not screenshots of Heather's McKenzie House Massage website. The demo is archived in `src/data/wellness-demo.json`; it is not an active catalogue offer.
 
-The publisher captures the verified `ll-wellness-template.vercel.app` demo on the user's computer and writes:
+The retained capture filenames are:
 
 - `home-desktop.png`
 - `treatments-desktop.png`
 - `contact-desktop.png`
 - `home-mobile.png`
 
-Their paths, descriptions, captions and actual pixel dimensions are stored in `src/data/wellness-demo.json`. The catalogue URL remains `/website-collection/mckenzie-house` to preserve existing bookmarks and enquiry selections. The public offer is named **Wellness & Massage**, starts at **$999 CAD**, and includes six pages.
+Their paths, descriptions, captions and actual pixel dimensions remain in `src/data/wellness-demo.json` as archive metadata. Do not run the former wellness preparation, capture or publishing workflow against the current catalogue, or reconnect this generic demo to `/website-collection/mckenzie-house`. That stable URL now identifies the real McKenzie House Massage client reference with its matching original website image, real website and client-story link.
 
-Until public captures are available, the site shows the code-based `WellnessCover` as a labelled design preview. Never relabel the original client's photos or screenshots as captures of this generic demo.
+McKenzie's approved regular starting price is $399 CAD for a similar new website using supplied content, with the temporary template sale defined in `docs/CURRENT_TEMPLATE_PRICING.md`. The archived demo's former identity, six-page scope and historical price do not define that offer. Never relabel the original client's photos or screenshots as captures of the generic demo.
 
-When replacing these captures, capture the actual current demo and retain accurate dimensions. The demo’s contact form and booking interaction must remain explicitly identified as demonstrations; they must not imply that messages or bookings were delivered.
+Keep the archived source and captures available for reference. Any future reactivation requires a separately approved identity, scope, price and destination. The archived demo's contact and booking interactions are demonstrations and do not establish that messages or bookings were delivered.

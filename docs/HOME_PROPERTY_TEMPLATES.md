@@ -1,15 +1,17 @@
 # Home & Property templates
 
+Prices and contact-scope ranges in this guide are regular base prices. Apply the temporary 20% template sale and automatic expiry in [Current template pricing](CURRENT_TEMPLATE_PRICING.md).
+
 Six new fictional businesses with separate visual identities, local illustrations and complete static demos. Existing Landscape Contracting and Earthworks entries remain in this category.
 
 | ID                  | Business             | Brand           | Starting CAD | Pages | Contact at customer launch                                  |
 | ------------------- | -------------------- | --------------- | -----------: | ----: | ----------------------------------------------------------- |
 | home-cleaning       | Home cleaning        | GOOD DAY        |          150 |     1 | Direct phone/email, optional existing external booking link |
-| window-care         | Window cleaning      | CLEARLINE       |          399 |     3 | Direct contact                                              |
-| home-organizing     | Home organization    | ROOM TO BREATHE |          499 |     4 | Direct contact                                              |
-| interior-studio     | Interior design      | FORME           |          699 |     5 | Standard protected enquiry form setup                       |
-| property-management | Property management  | COMMON GROUND   |          699 |     5 | Standard protected enquiry form setup                       |
-| real-estate         | Boutique real estate | ADDRESS         |          999 |     7 | Standard protected enquiry form setup                       |
+| window-care         | Window cleaning      | CLEARLINE       |          299 |     3 | Direct contact                                              |
+| home-organizing     | Home organization    | ROOM TO BREATHE |          399 |     4 | Direct contact                                              |
+| interior-studio     | Interior design      | FORME           |          499 |     5 | Standard protected enquiry form setup                       |
+| property-management | Property management  | COMMON GROUND   |          499 |     5 | Standard protected enquiry form setup                       |
+| real-estate         | Boutique real estate | ADDRESS         |          600 |     7 | Standard protected enquiry form setup                       |
 
 All prices are starting prices in CAD before applicable taxes. Personalization and launch use supplied content within the stated scope. Original copy, photography/video production, extra pages/features and ongoing care are separately scoped. Hosting, domain and provider costs are identified in the proposal. No scores or business outcomes are guaranteed.
 
@@ -32,9 +34,9 @@ Each maintained standalone shell is in `templates/<id>-demo/`. Each shell export
 
 ## Contact and property scope
 
-$150–$499 offers use direct contact. The sample phone and email text stays inert to prevent contacting invented businesses; the L&L enquiry handoff is real. Configure the customer's actual contact details at launch.
+$150–$399 offers use direct contact. The sample phone and email text stays inert to prevent contacting invented businesses; the L&L enquiry handoff is real. Configure the customer's actual contact details at launch.
 
-$699+ offers include one standard enquiry form: one inbox, Resend, verified sending-domain configuration, spam controls and an initial delivery test at customer launch. The sample form validates locally, displays a preview confirmation and clears its fields. It has no network endpoint or storage, no named submission fields, and is disabled until JavaScript loads. Do not claim actual email delivery from these static demos.
+$499–$600 offers include one standard enquiry form: one inbox, Resend, verified sending-domain configuration, spam controls and an initial delivery test at customer launch. The sample form validates locally, displays a preview confirmation and clears its fields. It has no network endpoint or storage, no named submission fields, and is disabled until JavaScript loads. Do not claim actual email delivery from these static demos.
 
 Property names, images and room counts are illustrative. They are not available listings, client work, MLS data or factual neighbourhood guides. Static property content is included only within agreed initial scope. MLS/IDX, live feeds, accounts, resident portals, maintenance systems, applications, payments and scheduling are separately scoped. Real businesses supply and approve their claims, credentials, property facts, disclosures and asset rights.
 

@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import "@/styles/base.css";
+import "@/styles/template-pricing.css";
 import "@/styles/transport.css";
 import "@/styles/transport-courier.css";
 import "@/styles/transport-moving.css";
@@ -8,11 +9,11 @@ import "@/styles/transport-equipment.css";
 import "@/styles/transport-cold.css";
 import "@/styles/transport-freight.css";
 import type { Metadata } from "next";
+import TemplatePrice from "@/components/collection/TemplatePrice";
 import { Geist, Cormorant_Garamond } from "next/font/google";
 import MotionControl from "@/components/ui/MotionControl";
 import {
   collectionInquiryHref,
-  designPrice,
   transportTemplate,
   websiteDesigns,
 } from "@/data/website-collection";
@@ -46,7 +47,9 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
           <a href={`https://lltechsolutions.ca/website-collection/${template.id}`}>
             ← L&L / Template details
           </a>
-          <span>Website demo · {designPrice(design)}</span>
+          <span>
+            Website demo · <TemplatePrice price={design.startingPriceCad} compact />
+          </span>
           <div>
             <MotionControl />
             <a href={`https://lltechsolutions.ca${collectionInquiryHref({ design: template.id })}`}>

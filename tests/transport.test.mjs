@@ -10,17 +10,21 @@ import {
   categoryDesigns,
   filterDesigns,
   collectionInquiry,
+  designPrice,
+  templateSale,
 } from "../src/data/website-collection.ts";
 import { readTemplateShowcase } from "../src/lib/template-showcase.ts";
 import { entryTemplateDemos } from "../scripts/lib/entry-template-config.mjs";
 
+const saleNow = Date.parse(templateSale.startsAt);
+
 const expected = [
-  ["courier-one-page", 150, 1],
-  ["moving-company", 399, 3],
-  ["auto-transport", 499, 4],
-  ["equipment-rentals", 699, 5],
-  ["cold-chain", 699, 5],
-  ["freight-logistics", 999, 7],
+  ["courier-one-page", 150, 1, "direct"],
+  ["moving-company", 299, 3, "direct"],
+  ["auto-transport", 399, 4, "direct"],
+  ["equipment-rentals", 499, 5, "enquiry-form"],
+  ["cold-chain", 499, 5, "enquiry-form"],
+  ["freight-logistics", 600, 7, "enquiry-form"],
 ];
 test("transport enquiries preserve approved prices, contact scope and stable gallery ordering", () => {
   const gallery = categoryDesigns(categoryForIndustry("courier"));
@@ -28,7 +32,7 @@ test("transport enquiries preserve approved prices, contact scope and stable gal
   assert.deepEqual(
     filterDesigns(gallery, {})
       .filter((d) => ids.has(d.id))
-      .map((d) => [d.id, d.startingPriceCad, d.pageCount]),
+      .map((d) => [d.id, d.startingPriceCad, d.pageCount, d.contactMode]),
     expected,
   );
   for (const id of ["tow-n-go", "calgary-hot-shot"])
@@ -37,10 +41,10 @@ test("transport enquiries preserve approved prices, contact scope and stable gal
       `${id}: existing example preserved`,
     );
   assert.equal(new Set(transportTemplates.map((t) => t.theme)).size, 6);
-  for (const [id, price, pages] of expected) {
+  for (const [id, price, pages, contactMode] of expected) {
     const t = transportTemplate(id),
       d = websiteDesigns.find((design) => design.id === id);
-    assert.equal(d.contactMode, price >= 699 ? "enquiry-form" : "direct");
+    assert.equal(d.contactMode, contactMode);
     assert.equal(t.pages.length, pages);
     assert.deepEqual(entryTemplateDemos[id].routes, t.pages.map(transportPagePath));
     assert.equal(entryTemplateDemos[id].contactMode, d.contactMode);
@@ -48,8 +52,14 @@ test("transport enquiries preserve approved prices, contact scope and stable gal
       filterDesigns(gallery, { industry: t.industry }).map((design) => design.id),
       [id],
     );
-    const enquiry = collectionInquiry({ collection: "website", design: id, price: "1" });
-    assert(enquiry.message.includes(`From $${price} CAD`));
+    const enquiry = collectionInquiry(
+      { collection: "website", design: id, price: "1" },
+      websiteDesigns,
+      saleNow,
+    );
+    assert(enquiry.message.includes(`Launch pricing: ${designPrice(d, saleNow)}.`));
+    assert(enquiry.message.includes(`Regular starting price: $${price} CAD.`));
+    assert(enquiry.message.includes("20% template sale."));
     assert(enquiry.message.includes(d.name));
     assert(!enquiry.message.includes("From $1 CAD"));
   }

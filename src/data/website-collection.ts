@@ -1,3 +1,11 @@
+import { formatPriceCad, templatePrice, templateSale } from "./template-promotion.ts";
+export {
+  formatPriceCad,
+  templatePrice,
+  templateSale,
+  isTemplateSaleActive,
+} from "./template-promotion.ts";
+
 /** The single source for collection levels, published designs and inquiry selections. */
 export const collectionTiers = [
   {
@@ -314,18 +322,18 @@ export type WebsiteDesign = {
 };
 
 export const contactScopeSummary =
-  "New website offers from $150–$499 CAD include direct contact. Offers from $699 CAD include a standard protected enquiry form.";
+  "At regular prices, website offers from $150–$399 CAD include direct contact. Offers from $499–$600 CAD include a standard protected enquiry form. Sale discounts keep the same included scope.";
 
 export const contactScopeDetails = {
   direct: {
     label: "Direct contact included",
-    priceLabel: "$150–$499 CAD",
+    priceLabel: "$150–$399 CAD regular",
     description:
       "A contact page or section with click-to-call and click-to-email links, plus your chosen external booking link where relevant.",
   },
   "enquiry-form": {
     label: "Protected enquiry form included",
-    priceLabel: "$699+ CAD",
+    priceLabel: "$499–$600 CAD regular",
     description:
       "A standard protected enquiry form to one business inbox, including Resend and sending-domain configuration, field validation, spam controls and an initial delivery test.",
   },
@@ -423,7 +431,7 @@ export const homePropertyTemplates = [
     name: "Window Cleaning",
     brand: "CLEARLINE",
     subbrand: "WINDOW & GLASS CARE",
-    price: 399,
+    price: 299,
     tier: "signature",
     industry: "window-cleaning",
     pages: ["Home", "Services", "Contact"],
@@ -467,7 +475,7 @@ export const homePropertyTemplates = [
     name: "Home Organization",
     brand: "ROOM TO BREATHE",
     subbrand: "HOME ORGANIZING",
-    price: 499,
+    price: 399,
     tier: "signature",
     industry: "home-organizing",
     pages: ["Home", "Spaces", "Our approach", "Contact"],
@@ -511,7 +519,7 @@ export const homePropertyTemplates = [
     name: "Interior Design Studio",
     brand: "FORME",
     subbrand: "INTERIORS & SPACES",
-    price: 699,
+    price: 499,
     tier: "premier",
     industry: "interior-design",
     pages: ["Home", "Projects", "Services", "Studio", "Contact"],
@@ -556,7 +564,7 @@ export const homePropertyTemplates = [
     name: "Property Management",
     brand: "COMMON GROUND",
     subbrand: "RESIDENTIAL PROPERTY CARE",
-    price: 699,
+    price: 499,
     tier: "premier",
     industry: "property-management",
     pages: ["Home", "Owners", "Residents", "Properties", "Contact"],
@@ -600,7 +608,7 @@ export const homePropertyTemplates = [
     name: "Boutique Real Estate",
     brand: "ADDRESS",
     subbrand: "HOMES WITH CHARACTER",
-    price: 999,
+    price: 600,
     tier: "flagship",
     industry: "real-estate",
     pages: ["Home", "Homes", "Neighbourhoods", "Services", "About", "FAQs", "Contact"],
@@ -719,7 +727,7 @@ export const retailTemplates = [
     name: "Flower Shop",
     brand: "STEM HOUSE",
     subbrand: "FLOWERS FOR THE EVERYDAY",
-    price: 399,
+    price: 299,
     tier: "signature",
     pages: ["Home", "Flowers", "Visit"],
     headline: "A little wild.",
@@ -789,7 +797,7 @@ export const retailTemplates = [
     name: "Auto Repair Workshop",
     brand: "BAY 03",
     subbrand: "THE WORKSHOP / SAMPLE CONCEPT",
-    price: 499,
+    price: 399,
     tier: "signature",
     pages: ["Home", "Services", "Workshop", "Contact"],
     headline: "Know the next step.",
@@ -853,7 +861,7 @@ export const retailTemplates = [
     name: "Streetwear Store",
     brand: "OFF/GRID",
     subbrand: "INDEPENDENT FORM / SAMPLE COLLECTION",
-    price: 699,
+    price: 499,
     tier: "premier",
     pages: ["Home", "Collection", "Lookbook", "Our story", "Contact"],
     headline: "Wear your own",
@@ -935,7 +943,7 @@ export const retailTemplates = [
     name: "Wheel & Tire Studio",
     brand: "AXIS WORKS",
     subbrand: "FORM / FINISH / PROPORTION",
-    price: 699,
+    price: 499,
     tier: "premier",
     pages: ["Home", "Wheels", "Services", "Fitment", "Contact"],
     headline: "Precision in",
@@ -1004,7 +1012,7 @@ export const retailTemplates = [
     name: "Jewellery Atelier",
     brand: "FORME",
     subbrand: "OBJECTS TO KEEP / SAMPLE ATELIER",
-    price: 999,
+    price: 600,
     tier: "flagship",
     pages: ["Home", "Collections", "The atelier", "Bespoke", "Materials", "Journal", "Contact"],
     headline: "Small forms.",
@@ -1159,7 +1167,7 @@ export const foodTemplates = [
     name: "Neighbourhood Café",
     brand: "SUNDAY CLUB",
     subbrand: "COFFEE & EVERYDAY PLEASURES",
-    price: 399,
+    price: 299,
     tier: "signature",
     pages: ["Home", "Menu", "Visit"],
     headline: "A little pause.",
@@ -1240,7 +1248,7 @@ export const foodTemplates = [
     name: "Artisan Bakery",
     brand: "BUTTER & CRUMB",
     subbrand: "BREAD, PASTRY & SMALL PLEASURES",
-    price: 499,
+    price: 399,
     tier: "signature",
     pages: ["Home", "Bakes", "Our kitchen", "Visit"],
     headline: "Good things",
@@ -1321,7 +1329,7 @@ export const foodTemplates = [
     name: "Pizzeria",
     brand: "SLICE SOCIAL",
     subbrand: "PIZZA & A FULL TABLE",
-    price: 699,
+    price: 499,
     tier: "premier",
     pages: ["Home", "Menu", "Our place", "Group tables", "Contact"],
     headline: "For the table.",
@@ -1402,7 +1410,7 @@ export const foodTemplates = [
     name: "Catering & Events",
     brand: "TABLE & FIELD",
     subbrand: "FOOD FOR GATHERING",
-    price: 699,
+    price: 499,
     tier: "premier",
     pages: ["Home", "Menus", "Events", "Our approach", "Contact"],
     headline: "The table is",
@@ -1466,7 +1474,7 @@ export const foodTemplates = [
     name: "Fine Dining",
     brand: "VESPER",
     subbrand: "AN EVENING, CONSIDERED",
-    price: 999,
+    price: 600,
     tier: "flagship",
     pages: ["Home", "The menu", "The room", "Private dining", "Our story", "Journal", "Contact"],
     headline: "An evening",
@@ -1590,7 +1598,7 @@ export const transportTemplates = [
     name: "Moving Company",
     brand: "GOOD MOVE",
     subbrand: "MOVING & PACKING",
-    price: 399,
+    price: 299,
     tier: "signature",
     industry: "moving",
     pages: ["Home", "Services", "Contact"],
@@ -1634,7 +1642,7 @@ export const transportTemplates = [
     name: "Auto Transport",
     brand: "OVERLAND",
     subbrand: "VEHICLE TRANSPORT",
-    price: 499,
+    price: 399,
     tier: "signature",
     industry: "vehicle-transport",
     pages: ["Home", "Transport", "How it works", "Contact"],
@@ -1677,7 +1685,7 @@ export const transportTemplates = [
     name: "Equipment Rentals",
     brand: "YARD",
     subbrand: "EQUIPMENT RENTALS",
-    price: 699,
+    price: 499,
     tier: "premier",
     industry: "equipment-rentals",
     pages: ["Home", "Equipment", "Rental guide", "About", "Contact"],
@@ -1721,7 +1729,7 @@ export const transportTemplates = [
     name: "Cold-chain Transport",
     brand: "POLARLINE",
     subbrand: "TEMPERATURE-CONTROLLED TRANSPORT",
-    price: 699,
+    price: 499,
     tier: "premier",
     industry: "cold-chain",
     pages: ["Home", "Services", "Handling", "Coverage", "Contact"],
@@ -1764,7 +1772,7 @@ export const transportTemplates = [
     name: "Freight & Logistics",
     brand: "MERIDIAN",
     subbrand: "FREIGHT & LOGISTICS",
-    price: 999,
+    price: 600,
     tier: "flagship",
     industry: "freight",
     pages: ["Home", "Services", "Industries", "Network", "Shipment guide", "About", "Contact"],
@@ -1861,7 +1869,7 @@ export const professionalTemplates = [
     name: "Bookkeeping Studio",
     brand: "TALLY & CO.",
     subbrand: "BOOKKEEPING FOR SMALL BUSINESS",
-    price: 399,
+    price: 299,
     tier: "signature",
     industry: "bookkeeping",
     pages: ["Home", "Services", "Contact"],
@@ -1904,7 +1912,7 @@ export const professionalTemplates = [
     name: "Corporate Accounting",
     brand: "NORTHLINE",
     subbrand: "ACCOUNTING & ADVISORY",
-    price: 499,
+    price: 399,
     tier: "signature",
     industry: "accounting",
     pages: ["Home", "Services", "About", "Contact"],
@@ -1947,7 +1955,7 @@ export const professionalTemplates = [
     name: "Creative Business Consultancy",
     brand: "OFFSCRIPT",
     subbrand: "STRATEGY / POSITIONING / DIRECTION",
-    price: 699,
+    price: 499,
     tier: "premier",
     industry: "professional-services",
     pages: ["Home", "Services", "Approach", "Contact"],
@@ -1990,7 +1998,7 @@ export const professionalTemplates = [
     name: "Boutique Law Firm",
     brand: "VALE & ROWE",
     subbrand: "A CONSIDERED LEGAL PRACTICE",
-    price: 699,
+    price: 499,
     tier: "premier",
     industry: "legal",
     pages: ["Home", "Practice", "Firm", "FAQs", "Contact"],
@@ -2037,7 +2045,7 @@ export const professionalTemplates = [
     name: "Full-service Law Firm",
     brand: "AXIOM",
     subbrand: "LEGAL / BUSINESS / PERSPECTIVE",
-    price: 999,
+    price: 600,
     tier: "flagship",
     industry: "legal",
     pages: ["Home", "Practice", "Firm", "Approach", "Resources", "FAQs", "Contact"],
@@ -2101,7 +2109,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["landscaping"],
     description:
       "A four-page landscape contracting website with a deep green and orange palette, visual services, an interactive project gallery, coverage information and a dedicated contact page.",
-    startingPriceCad: 499,
+    startingPriceCad: 399,
     pageCount: 4,
     contactMode: "direct",
     independentConcept: {
@@ -2164,7 +2172,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["landscaping", "construction"],
     description:
       "An immersive seven-page excavation and landscaping website with cinematic site imagery, interactive service, project and material views, helpful answers and a practical project planner.",
-    startingPriceCad: 1000,
+    startingPriceCad: 600,
     pageCount: 7,
     contactMode: "enquiry-form",
     deliveryWindow: "Delivery is agreed after content, page requirements and scope are confirmed.",
@@ -2233,7 +2241,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["landscaping"],
     description:
       "A fresh four-page lawn care website with illustrative garden imagery, clear services, a work showcase and an easy path to a call, email or booking.",
-    startingPriceCad: 499,
+    startingPriceCad: 399,
     pageCount: 4,
     contactMode: "direct",
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
@@ -2293,7 +2301,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "painting",
     description:
       "An editorial painting website with immersive room photography, brush-drawn navigation and a clear path from inspiration to an estimate.",
-    startingPriceCad: 499,
+    startingPriceCad: 399,
     pageCount: 4,
     contactMode: "direct",
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
@@ -2354,7 +2362,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "plumbing",
     description:
       "An immersive plumbing website with copper pipe navigation, rich architectural imagery and a clear journey from services to a project enquiry.",
-    startingPriceCad: 699,
+    startingPriceCad: 499,
     pageCount: 4,
     contactMode: "enquiry-form",
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
@@ -2415,7 +2423,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "beauty",
     description:
       "A polished three-page website for nail salons and esthetics studios, with an editorial welcome, a clear treatment menu and a dedicated booking and contact page.",
-    startingPriceCad: 399,
+    startingPriceCad: 299,
     pageCount: 3,
     contactMode: "direct",
     deliveryWindow: "Delivery is agreed after content and scope are confirmed.",
@@ -2536,7 +2544,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "medical-spa",
     description:
       "A six-page medical spa website in dark marble and champagne gold, with an interactive treatment explorer, consultation guidance and a complete enquiry page.",
-    startingPriceCad: 999,
+    startingPriceCad: 600,
     pageCount: 6,
     contactMode: "enquiry-form",
     deliveryWindow: "Delivery is agreed after clinic-approved content and scope are confirmed.",
@@ -2595,7 +2603,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "beauty",
     description:
       "A colourful four-page nail salon website with bold editorial layouts, an interactive polish palette, a clear service menu and a dedicated enquiry page.",
-    startingPriceCad: 699,
+    startingPriceCad: 499,
     pageCount: 4,
     contactMode: "enquiry-form",
     deliveryWindow: "Delivery is agreed after your service menu, imagery and wording are ready.",
@@ -2654,7 +2662,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "hair-salon",
     description:
       "A polished four-page hair salon website in blue, white and grey, with a filterable service menu, a salon introduction and a clear booking and contact page.",
-    startingPriceCad: 499,
+    startingPriceCad: 399,
     pageCount: 4,
     contactMode: "direct",
     deliveryWindow:
@@ -2773,7 +2781,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["trailer-rentals"],
     description:
       "A corporate transport demo with a bold first impression, distinct rental and delivery pathways, and a clear route to a quote.",
-    startingPriceCad: 399,
+    startingPriceCad: 299,
     pageCount: 1,
     contactMode: "direct",
     deliveryWindow:
@@ -2815,7 +2823,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["transport-logistics"],
     description:
       "A real black-and-gold client website with clear fleet categories, rental enquiries and delivery information, supported by an ongoing website and social content partnership.",
-    startingPriceCad: 899,
+    startingPriceCad: 549,
     pageCount: null,
     contactMode: "enquiry-form",
     deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
@@ -2850,7 +2858,7 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     additionalIndustries: ["construction"],
     description:
       "A real painting-company website with architectural imagery, dedicated services and project galleries for commercial, strata, multi-family and custom-home work.",
-    startingPriceCad: 399,
+    startingPriceCad: 299,
     pageCount: null,
     contactMode: "direct",
     deliveryWindow: "We agree on your pages, features, content and launch schedule before booking.",
@@ -2886,11 +2894,11 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
     industry: "massage-wellness",
     description:
       "A real massage practice website with a warm green-and-cream design, original treatment photography and video, clear service information and a straightforward path to ClinicSense booking.",
-    startingPriceCad: null,
+    startingPriceCad: 399,
     pageCount: null,
     contactMode: "direct",
     clientScopeNote:
-      "Your website is quoted for its own pages, supplied content and features. New photography, video production and ongoing care are priced separately.",
+      "The starting price covers a similar new website using your supplied content and direct contact. We agree on the pages and features before booking. New photography, video production and ongoing care are priced separately.",
     deliveryWindow:
       "Your website scope and price are agreed before booking. Content production is quoted separately.",
     preview: {
@@ -3156,8 +3164,14 @@ export const websiteDesigns: readonly WebsiteDesign[] = [
   })),
 ];
 
+const collectionStartingPrices = websiteDesigns
+  .filter((design) => design.status !== "draft")
+  .flatMap((design) => (design.startingPriceCad === null ? [] : [design.startingPriceCad]));
+
+export const collectionPriceRange = `$${Math.min(...collectionStartingPrices).toLocaleString("en-CA")}–$${Math.max(...collectionStartingPrices).toLocaleString("en-CA")} CAD`;
+
 export const collectionDescription =
-  "Browse custom-coded website templates by business type. Choose a design, then let L&L personalize your content, handle the launch and provide optional ongoing care across Canada.";
+  "Explore custom-coded website templates by business type, with clear pricing, your own content and a launch handled by L&L across Canada.";
 
 export const collectionStandards = [
   {
@@ -3240,7 +3254,7 @@ export const collectionCustomization = {
 } as const;
 
 export const collectionPricingNote =
-  "Starting prices are in CAD, before applicable taxes. Final scope is agreed before work begins. Optional extras, ongoing care, hosting, domains and provider fees are separate.";
+  "Starting prices are in CAD, before applicable taxes. Template promotions apply to the listed personalization and launch scope only. Final scope is agreed before work begins. Optional extras, ongoing care, hosting, domains and provider fees are separate.";
 
 export function designPriceContext(design: Pick<WebsiteDesign, "status">) {
   return design.status === "client-example"
@@ -3281,10 +3295,9 @@ export function designScopeLabel(design: Pick<WebsiteDesign, "pageCount">) {
     : `${design.pageCount} ${design.pageCount === 1 ? "page structure" : "page structures"}`;
 }
 
-export function designPrice(design: Pick<WebsiteDesign, "startingPriceCad">) {
-  return design.startingPriceCad === null
-    ? "Quoted after a conversation"
-    : `From $${design.startingPriceCad.toLocaleString("en-CA")} CAD`;
+export function designPrice(design: Pick<WebsiteDesign, "startingPriceCad">, now = Date.now()) {
+  const price = templatePrice(design.startingPriceCad, now).priceCad;
+  return price === null ? "Quoted after a conversation" : `From ${formatPriceCad(price)}`;
 }
 
 export function filterDesigns(designs: readonly WebsiteDesign[], query: CollectionQuery) {
@@ -3339,6 +3352,7 @@ export function collectionInquiryHref(
 export function collectionInquiry(
   query: CollectionQuery,
   designs: readonly WebsiteDesign[] = websiteDesigns,
+  now = Date.now(),
 ) {
   if (query.collection !== "website") return null;
   const design = availableDesigns(designs).find((item) => item.id === query.design);
@@ -3367,7 +3381,12 @@ export function collectionInquiry(
     ...(care ? [`Optional monthly support: ${care.name}`] : []),
     ...(design
       ? [
-          `Launch pricing: ${designPrice(design)}. ${designPriceContext(design)}; final scope, taxes and separate costs to be confirmed.`,
+          `Launch pricing: ${designPrice(design, now)}. ${designPriceContext(design)}; final scope, taxes and separate costs to be confirmed.`,
+          ...(templatePrice(design.startingPriceCad, now).saleActive
+            ? [
+                `20% template sale. Regular starting price: ${formatPriceCad(design.startingPriceCad!)}. Offer ends ${templateSale.endsLabel}; extras and ongoing plans are separate.`,
+              ]
+            : []),
           `New-build contact scope: ${designContactLabel(design)}. ${designContactDescription(design)}`,
         ]
       : []),
@@ -3433,9 +3452,18 @@ export function compareSelection(value: string | string[] | undefined) {
   return { designs: designs.slice(0, 3), tooMany: designs.length > 3 };
 }
 
-export function journeyInquiry(design: WebsiteDesign, extras: readonly string[], careId: string) {
+export function journeyInquiry(
+  design: WebsiteDesign,
+  extras: readonly string[],
+  careId: string,
+  now = Date.now(),
+) {
   const care = collectionCarePlans.find((item) => item.id === careId);
-  const base = collectionInquiry({ collection: "website", design: design.id, care: care?.id })!;
+  const base = collectionInquiry(
+    { collection: "website", design: design.id, care: care?.id },
+    websiteDesigns,
+    now,
+  )!;
   const extraNames = selectedExtras(extras).map((item) => item.name);
   return {
     ...base,

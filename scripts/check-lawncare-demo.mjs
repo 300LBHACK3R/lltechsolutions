@@ -2,9 +2,12 @@ import assert from "node:assert/strict";
 import { access, cp, readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { formatPriceCad, templateSale, websiteDesigns } from "../src/data/website-collection.ts";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "build/lawncare-demo/out");
+const design = websiteDesigns.find((item) => item.id === "lawncare");
+assert.ok(design, "The lawncare offer exists in the canonical catalogue");
 const routes = [
   ["index.html", "/"],
   ["services.html", "/services"],
@@ -17,12 +20,23 @@ const titles = new Set();
 
 for (const [file, activePath] of routes) {
   const html = await readFile(resolve(output, file), "utf8");
+  assert.ok(
+    html.includes(`data-template-price="${design.startingPriceCad}"`),
+    `${file}: regular price metadata`,
+  );
+  assert.ok(
+    html.includes(`data-sale-end="${templateSale.endsAt}"`),
+    `${file}: automatic sale expiry metadata`,
+  );
   assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1, `${file}: one main heading`);
   headings.add(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1]);
   titles.add(html.match(/<title>([^<]+)<\/title>/)?.[1]);
   assert.ok(html.includes('data-lawncare-demo="lawncare"'), `${file}: standalone marker`);
   assert.match(html, /name="robots" content="noindex, nofollow"/, `${file}: search exclusion`);
-  assert.ok(html.includes("From $499 CAD"), `${file}: approved starting price`);
+  assert.ok(
+    html.replace(/<!--[^]*?-->/g, "").includes(`From ${formatPriceCad(design.startingPriceCad)}`),
+    `${file}: approved starting price`,
+  );
   assert.ok(html.includes('class="motion-control"'), `${file}: motion control`);
   const nav = html.match(/<nav\b[^>]*class="[^"]*lawn-nav[^\"]*"[\s\S]*?<\/nav>/)?.[0];
   assert.ok(nav, `${file}: lawncare navigation`);

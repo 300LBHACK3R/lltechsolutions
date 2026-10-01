@@ -5,7 +5,8 @@ import { fileURLToPath } from "node:url";
 import { horizonPagePath, horizonPages } from "../src/data/horizon-pages.ts";
 import {
   collectionInquiryHref,
-  designPrice,
+  formatPriceCad,
+  templateSale,
   websiteDesigns,
 } from "../src/data/website-collection.ts";
 
@@ -34,6 +35,14 @@ const titles = new Set();
 const decodeHref = (href) => href.replaceAll("&amp;", "&");
 
 for (const [activePath, { file, html }] of pages) {
+  assert.ok(
+    html.includes(`data-template-price="${design.startingPriceCad}"`),
+    `${file}: regular price metadata`,
+  );
+  assert.ok(
+    html.includes(`data-sale-end="${templateSale.endsAt}"`),
+    `${file}: automatic sale expiry metadata`,
+  );
   assert.equal((html.match(/<main(?:\s|>)/g) ?? []).length, 1, `${file}: one main landmark`);
   assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1, `${file}: one main heading`);
   const heading = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1];
@@ -47,7 +56,10 @@ for (const [activePath, { file, html }] of pages) {
   const formatDetection = html.match(/name="format-detection" content="([^"]+)"/)?.[1];
   for (const setting of ["telephone=no", "email=no", "address=no"])
     assert.ok(formatDetection?.includes(setting), `${file}: disable sample contact auto-linking`);
-  assert.ok(html.includes(designPrice(design)), `${file}: canonical starting price`);
+  assert.ok(
+    html.replace(/<!--[^]*?-->/g, "").includes(`From ${formatPriceCad(design.startingPriceCad)}`),
+    `${file}: canonical starting price`,
+  );
   assert.ok(html.includes('class="motion-control"'), `${file}: shared motion control`);
   const nav = html.match(/<nav\b[^>]*class="[^"]*\bhorizon-nav\b[^\"]*"[\s\S]*?<\/nav>/)?.[0];
   assert.ok(nav, `${file}: landscape navigation is rendered before hydration`);

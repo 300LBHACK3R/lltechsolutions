@@ -1,3 +1,5 @@
+import TemplatePrice from "@/components/collection/TemplatePrice";
+import { isTemplateSaleActive } from "@/data/template-promotion";
 import detailingDemo from "@/data/mobile-detailing-demo.json";
 import floristDemo from "@/data/flower-shop-demo.json";
 import autoRepairDemo from "@/data/auto-repair-demo.json";
@@ -72,7 +74,6 @@ import {
   collectionIndustries,
   collectionTiers,
   designHref,
-  designPrice,
   designPriceContext,
   designStatusLabel,
   designInquiryLabel,
@@ -229,7 +230,12 @@ export default async function DesignPage({ params }: Props) {
               <p className="template-detail-description">{design.description}</p>
             </div>
             <div className="template-detail-purchase">
-              <p className="template-detail-price">{designPrice(design)}</p>
+              <p className="template-detail-price">
+                <TemplatePrice
+                  price={design.startingPriceCad}
+                  initialSaleActive={isTemplateSaleActive()}
+                />
+              </p>
               <p className="template-detail-price-context">
                 {designPriceContext(design)} · Before applicable taxes.
               </p>

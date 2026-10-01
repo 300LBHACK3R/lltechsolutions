@@ -24,9 +24,12 @@ import {
   filterDesigns,
   collectionInquiry,
   collectionInquiryHref,
+  templateSale,
 } from "../src/data/website-collection.ts";
 import { validateContact } from "../src/lib/contact-validation.ts";
 import { readTemplateShowcase } from "../src/lib/template-showcase.ts";
+
+const saleNow = Date.parse(templateSale.startsAt);
 
 // Test-only records: these are never imported into the site or offered for sale.
 const fixture = (id, tier, price, industry = "painting", status = "published") => ({
@@ -78,6 +81,7 @@ test("collection inquiry uses catalogue identity rather than untrusted query tex
       price: "1",
     },
     designs,
+    Date.parse(templateSale.endsAt),
   );
   assert.equal(
     selection.summary,
@@ -99,6 +103,34 @@ test("collection inquiry uses catalogue identity rather than untrusted query tex
   assert.equal(bad.summary, "Website Templates");
   assert.ok(!bad.message.includes("draft") && !bad.message.includes("<script>"));
   assert.equal(collectionInquiry({ collection: ["website", "website"], tier: "essential" }), null);
+});
+
+test("every public template has an approved $150–$600 base price that enquiry queries cannot change", () => {
+  const offers = availableDesigns();
+  assert.ok(offers.length > 0);
+  for (const design of offers) {
+    assert.ok(
+      Number.isInteger(design.startingPriceCad) &&
+        design.startingPriceCad >= 150 &&
+        design.startingPriceCad <= 600,
+      `${design.id}: public starting price stays within the approved range`,
+    );
+    for (const now of [saleNow, Date.parse(templateSale.endsAt)])
+      for (const price of ["1", "99999"]) {
+        const inquiry = collectionInquiry(
+          { collection: "website", design: design.id, price },
+          websiteDesigns,
+          now,
+        );
+        assert.deepEqual(
+          [...inquiry.message.matchAll(/^Launch pricing: (From \$[\d,]+(?:\.\d{2})? CAD)\./gm)].map(
+            (match) => match[1],
+          ),
+          [designPrice(design, now)],
+          `${design.id}: enquiry uses the catalogue price despite price=${price}`,
+        );
+      }
+  }
 });
 
 test("collection choice travels through the existing validated inquiry payload", () => {
@@ -255,7 +287,7 @@ test("entry offers keep their approved prices, separate business types and direc
   const massage = websiteDesigns.find((item) => item.id === "massage-one-page");
   assert.ok(beauty && massage);
   assert.equal(beauty.industry, "beauty");
-  assert.equal(beauty.startingPriceCad, 399);
+  assert.equal(beauty.startingPriceCad, 299);
   assert.equal(beauty.pageCount, 3);
   assert.equal(massage.industry, "massage-wellness");
   assert.equal(massage.startingPriceCad, 150);
@@ -271,17 +303,17 @@ test("entry offers keep their approved prices, separate business types and direc
       price: "100",
       contactMode: "enquiry-form",
     };
-    const inquiry = collectionInquiry(query);
-    assert.ok(inquiry.message.includes(`From $${design.startingPriceCad} CAD`));
+    const inquiry = collectionInquiry(query, websiteDesigns, saleNow);
+    assert.ok(inquiry.message.includes(designPrice(design, saleNow)));
     assert.ok(inquiry.message.includes("Direct contact included"));
     assert.ok(!inquiry.message.includes("Protected enquiry form included"));
   }
 });
 
 const wellnessOffers = [
-  ["medical-spa", "medical-spa", "flagship", "medical-spa", 999, 6, "enquiry-form"],
-  ["artsy-nails", "artsy-nail", "premier", "beauty", 699, 4, "enquiry-form"],
-  ["hair-salon", "hair-salon", "signature", "hair-salon", 499, 4, "direct"],
+  ["medical-spa", "medical-spa", "flagship", "medical-spa", 600, 6, "enquiry-form"],
+  ["artsy-nails", "artsy-nail", "premier", "beauty", 499, 4, "enquiry-form"],
+  ["hair-salon", "hair-salon", "signature", "hair-salon", 399, 4, "direct"],
   ["hair-one-page", "hair-one-page", "essential", "hair-salon", 150, 1, "direct"],
 ];
 
@@ -306,16 +338,20 @@ for (const [id, , tier, industry, price, pages, contactMode] of wellnessOffers) 
     assert.ok(compareSelection([id, "still"]).designs.includes(design));
     const url = new URL(collectionInquiryHref({ design: id }), "https://example.test");
     assert.equal(url.pathname, "/contact");
-    const inquiry = collectionInquiry({
-      ...Object.fromEntries(url.searchParams),
-      tier: "forged-tier",
-      industry: "forged-industry",
-      price: "1",
-      contactMode: contactMode === "direct" ? "enquiry-form" : "direct",
-    });
-    for (const message of [inquiry.message, journeyInquiry(design, [], "none").message]) {
+    const inquiry = collectionInquiry(
+      {
+        ...Object.fromEntries(url.searchParams),
+        tier: "forged-tier",
+        industry: "forged-industry",
+        price: "1",
+        contactMode: contactMode === "direct" ? "enquiry-form" : "direct",
+      },
+      websiteDesigns,
+      saleNow,
+    );
+    for (const message of [inquiry.message, journeyInquiry(design, [], "none", saleNow).message]) {
       assert.ok(message.includes(`Design: ${design.name}`));
-      assert.ok(message.includes(`Launch pricing: From $${price} CAD`));
+      assert.ok(message.includes(`Launch pricing: ${designPrice(design, saleNow)}`));
       assert.ok(message.includes(designContactLabel(design)));
       assert.ok(
         message.includes(`Collection: ${collectionTiers.find((item) => item.id === tier).name}`),
@@ -352,18 +388,18 @@ test("Health & Wellness keeps seven distinct offers in numeric order and filters
     "hair-one-page",
     "still",
     "hair-salon",
+    "mckenzie-house",
     "artsy-nails",
     "medical-spa",
-    "mckenzie-house",
   ]);
   assert.deepEqual(ids(filterDesigns(entries, { sort: "price-high" })), [
     "medical-spa",
     "artsy-nails",
     "hair-salon",
+    "mckenzie-house",
     "still",
     "massage-one-page",
     "hair-one-page",
-    "mckenzie-house",
   ]);
   assert.deepEqual(ids(filterDesigns(entries, { industry: "medical-spa" })), ["medical-spa"]);
   assert.deepEqual(ids(filterDesigns(entries, { industry: "hair-salon" })), [
@@ -422,25 +458,25 @@ test("wellness demo screenshots remain isolated and empty media never creates a 
   }
 });
 
-test("the wellness expansion preserves existing prices, page scopes and McKenzie's original image", () => {
+test("catalogue repricing preserves page scopes and McKenzie's original image", () => {
   for (const [id, price, pages] of [
     ["massage-one-page", 150, 1],
-    ["still", 399, 3],
-    ["calgary-hot-shot", 399, 1],
-    ["crestline", 399, null],
-    ["horizon", 499, 4],
-    ["lawncare", 499, 4],
-    ["pigment", 499, 4],
-    ["structure", 699, 4],
-    ["tow-n-go", 899, null],
-    ["earthworks", 1000, 7],
+    ["still", 299, 3],
+    ["calgary-hot-shot", 299, 1],
+    ["crestline", 299, null],
+    ["horizon", 399, 4],
+    ["lawncare", 399, 4],
+    ["pigment", 399, 4],
+    ["structure", 499, 4],
+    ["tow-n-go", 549, null],
+    ["earthworks", 600, 7],
   ]) {
     const design = websiteDesigns.find((item) => item.id === id);
-    assert.equal(design.startingPriceCad, price, `${id}: price preserved`);
+    assert.equal(design.startingPriceCad, price, `${id}: approved starting price`);
     assert.equal(design.pageCount, pages, `${id}: page scope preserved`);
   }
   const mckenzie = websiteDesigns.find((item) => item.id === "mckenzie-house");
-  assert.equal(mckenzie.startingPriceCad, null);
+  assert.equal(mckenzie.startingPriceCad, 399);
   assert.equal(mckenzie.status, "client-example");
   assert.equal(mckenzie.clientProjectId, "mckenzie-house");
   assert.equal(mckenzie.clientPreview, "image");
@@ -465,14 +501,19 @@ test("unpriced concepts are never treated as free or as a match for a price ceil
 
 test("guided preferences retain their canonical labels through the validated enquiry", () => {
   const design = websiteDesigns.find((item) => item.id === "pigment");
-  const inquiry = journeyInquiry(design, ["copy", "booking", "forged-extra", "copy"], "social");
+  const inquiry = journeyInquiry(
+    design,
+    ["copy", "booking", "forged-extra", "copy"],
+    "social",
+    saleNow,
+  );
   assert.ok(
     inquiry.message.includes("Website + Social") &&
       inquiry.message.includes("Help with website wording"),
   );
   assert.ok(!inquiry.message.includes("forged-extra"));
   assert.equal((inquiry.message.match(/Help with website wording/g) ?? []).length, 1);
-  assert.ok(inquiry.message.includes(designPrice(design)));
+  assert.ok(inquiry.message.includes(designPrice(design, saleNow)));
   assert.equal((inquiry.message.match(/Launch pricing:/g) ?? []).length, 1);
   assert.equal(
     validateContact({
@@ -618,9 +659,9 @@ test("price sorting is numeric, stable and keeps unquoted options last in either
   );
 });
 
-test("earthworks is a seven-page $1000 starting scope discoverable in trades and property", () => {
+test("earthworks is a seven-page $600 starting scope discoverable in trades and property", () => {
   const design = availableDesigns().find((item) => item.id === "earthworks");
-  assert.equal(design.startingPriceCad, 1000);
+  assert.equal(design.startingPriceCad, 600);
   assert.equal(design.pageCount, 7);
   assert.equal(designScopeLabel(design), "7 page structures");
   for (const category of ["construction-trades", "home-property"])
@@ -629,8 +670,8 @@ test("earthworks is a seven-page $1000 starting scope discoverable in trades and
         (item) => item.id === design.id,
       ),
     );
-  const selection = journeyInquiry(design, ["pages", "customization"], "none");
-  assert.ok(selection.message.includes("From $1,000 CAD"));
+  const selection = journeyInquiry(design, ["pages", "customization"], "none", saleNow);
+  assert.ok(selection.message.includes(designPrice(design, saleNow)));
   assert.ok(selection.message.includes("Layout or feature changes"));
   assert.equal(
     validateContact({
@@ -644,12 +685,12 @@ test("earthworks is a seven-page $1000 starting scope discoverable in trades and
   );
 });
 
-test("horizon is an independent $499 four-page template with canonical enquiry pricing", () => {
+test("horizon is an independent $399 four-page template with canonical enquiry pricing", () => {
   const design = availableDesigns().find((item) => item.id === "horizon");
   assert.equal(design.name, "Landscape Contracting");
   assert.equal(design.status, "concept");
   assert.equal(design.tier, "signature");
-  assert.equal(design.startingPriceCad, 499);
+  assert.equal(design.startingPriceCad, 399);
   assert.equal(design.pageCount, 4);
   assert.equal(designScopeLabel(design), "4 page structures");
   assert.equal(design.contactMode, "direct");
@@ -662,15 +703,19 @@ test("horizon is an independent $499 four-page template with canonical enquiry p
   assert.equal(design.preview, undefined);
   for (const id of ["construction-trades", "home-property"])
     assert.ok(categoryDesigns(templateCategories.find((item) => item.id === id)).includes(design));
-  const inquiry = collectionInquiry({
-    collection: "website",
-    design: "horizon",
-    price: "1",
-    contactMode: "enquiry-form",
-    tier: "flagship",
-  });
+  const inquiry = collectionInquiry(
+    {
+      collection: "website",
+      design: "horizon",
+      price: "1",
+      contactMode: "enquiry-form",
+      tier: "flagship",
+    },
+    websiteDesigns,
+    saleNow,
+  );
   assert.ok(inquiry.message.includes("Design: Landscape Contracting"));
-  assert.ok(inquiry.message.includes("Launch pricing: From $499 CAD"));
+  assert.ok(inquiry.message.includes(`Launch pricing: ${designPrice(design, saleNow)}`));
   assert.ok(inquiry.message.includes("Collection: Signature"));
   assert.ok(inquiry.message.includes("Direct contact included"));
   assert.ok(!inquiry.message.includes("From $1 CAD"));

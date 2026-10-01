@@ -6,7 +6,8 @@ import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import {
   collectionInquiryHref,
-  designPrice,
+  formatPriceCad,
+  templateSale,
   websiteDesigns,
 } from "../../src/data/website-collection.ts";
 import { entryTemplateDemo } from "./entry-template-config.mjs";
@@ -88,7 +89,18 @@ function validatePages(pages, demo, design) {
       /name="robots" content="noindex, nofollow"/,
       `${activePath}: excluded from search`,
     );
-    assert(html.includes(designPrice(design)), `${activePath}: canonical ${demo.price} CAD price`);
+    assert(
+      html.replace(/<!--[^]*?-->/g, "").includes(`From ${formatPriceCad(design.startingPriceCad)}`),
+      `${activePath}: canonical ${demo.price} CAD price`,
+    );
+    assert(
+      html.includes(`data-template-price="${design.startingPriceCad}"`),
+      `${activePath}: regular price metadata`,
+    );
+    assert(
+      html.includes(`data-sale-end="${templateSale.endsAt}"`),
+      `${activePath}: automatic sale expiry metadata`,
+    );
     for (const setting of ["telephone=no", "email=no", "address=no"]) {
       assert(
         html.match(/name="format-detection" content="([^"]+)"/)?.[1]?.includes(setting),

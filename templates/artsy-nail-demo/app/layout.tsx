@@ -1,11 +1,13 @@
 import "@/styles/globals.css";
 import "@/styles/base.css";
+import "@/styles/template-pricing.css";
 import "@/styles/artsy-nail.css";
 import "./demo.css";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import MotionControl from "@/components/ui/MotionControl";
-import { collectionInquiryHref, designPrice, websiteDesigns } from "@/data/website-collection";
+import TemplatePrice from "@/components/collection/TemplatePrice";
+import { collectionInquiryHref, websiteDesigns } from "@/data/website-collection";
 
 const sans = Geist({ variable: "--font-sans", subsets: ["latin"], display: "swap" });
 const design = websiteDesigns.find((item) => item.id === "artsy-nails")!;
@@ -32,7 +34,9 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
           <a href="https://lltechsolutions.ca/website-collection/artsy-nails">
             ← L&L / Template details
           </a>
-          <span>Website demo · {designPrice(design)}</span>
+          <span>
+            Website demo · <TemplatePrice price={design.startingPriceCad} compact />
+          </span>
           <div>
             <MotionControl />
             <a href={`https://lltechsolutions.ca${collectionInquiryHref({ design: design.id })}`}>

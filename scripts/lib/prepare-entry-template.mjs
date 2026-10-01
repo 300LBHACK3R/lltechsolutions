@@ -13,6 +13,10 @@ export async function prepareEntryTemplate(kind) {
   await mkdir(target, { recursive: true });
   await cp(resolve(root, "templates", demo.folder), target, { recursive: true });
   const files = [
+    "src/components/collection/TemplatePrice.tsx",
+    "src/lib/use-template-sale.ts",
+    "src/data/template-promotion.ts",
+    "src/styles/template-pricing.css",
     "scripts/normalize-entry-template-segments.mjs",
     "scripts/lib/entry-template-config.mjs",
     "scripts/lib/static-export-segments.mjs",

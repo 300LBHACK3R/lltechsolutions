@@ -1,3 +1,5 @@
+import TemplatePrice from "@/components/collection/TemplatePrice";
+import { isTemplateSaleActive } from "@/data/template-promotion";
 import Link from "next/link";
 import DesignCover from "@/components/collection/DesignCover";
 import CollectionContactOptions from "@/components/collection/CollectionContactOptions";
@@ -10,7 +12,6 @@ import {
   collectionTiers,
   designHref,
   designContactLabel,
-  designPrice,
   designPriceContext,
   designStatusLabel,
   designInquiryLabel,
@@ -164,7 +165,10 @@ export default function CollectionCatalog({
                 </h3>
                 <p>{design.description}</p>
                 <p className="collection-design-price">
-                  {designPrice(design)}
+                  <TemplatePrice
+                    price={design.startingPriceCad}
+                    initialSaleActive={isTemplateSaleActive()}
+                  />
                   <span>{designPriceContext(design)}</span>
                   <span>{designScopeLabel(design)} · Personalized with L&L</span>
                 </p>

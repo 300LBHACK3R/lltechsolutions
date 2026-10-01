@@ -9,6 +9,10 @@ await rm(target, { recursive: true, force: true });
 await mkdir(target, { recursive: true });
 await cp(resolve(root, "templates/earthworks-demo"), target, { recursive: true });
 const files = [
+  "src/components/collection/TemplatePrice.tsx",
+  "src/lib/use-template-sale.ts",
+  "src/data/template-promotion.ts",
+  "src/styles/template-pricing.css",
   "src/components/collection/EarthworksTemplate.tsx",
   "src/components/collection/EarthworksAction.tsx",
   "src/components/collection/EarthworksMarks.tsx",

@@ -2,17 +2,31 @@ import assert from "node:assert/strict";
 import { readFile, access, cp } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { formatPriceCad, templateSale, websiteDesigns } from "../src/data/website-collection.ts";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(root, "build/painting-demo/out");
+const design = websiteDesigns.find((item) => item.id === "pigment");
+assert.ok(design, "The painting offer exists in the canonical catalogue");
 const files = ["index.html", "services.html", "projects.html", "contact.html"];
 let checks = 0;
 for (const file of files) {
   const html = await readFile(resolve(output, file), "utf8");
+  assert.ok(
+    html.includes(`data-template-price="${design.startingPriceCad}"`),
+    `${file}: regular price metadata`,
+  );
+  assert.ok(
+    html.includes(`data-sale-end="${templateSale.endsAt}"`),
+    `${file}: automatic sale expiry metadata`,
+  );
   assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1, `${file}: one main heading`);
   assert.ok(html.includes('data-painting-demo="pigment"'), `${file}: standalone demo marker`);
   assert.match(html, /name="robots" content="noindex, nofollow"/, `${file}: demo is not indexed`);
-  assert.ok(html.includes("From $499 CAD"), `${file}: agreed price`);
+  assert.ok(
+    html.replace(/<!--[^]*?-->/g, "").includes(`From ${formatPriceCad(design.startingPriceCad)}`),
+    `${file}: agreed price`,
+  );
   const nav = html.match(/<nav class="paint-nav"[\s\S]*?<\/nav>/)?.[0];
   assert.ok(nav, `${file}: painting navigation`);
   for (const route of ["/", "/services", "/projects", "/contact"])

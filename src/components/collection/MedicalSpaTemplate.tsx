@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { designPrice, type WebsiteDesign } from "@/data/website-collection";
+import type { WebsiteDesign } from "@/data/website-collection";
+import TemplatePrice from "@/components/collection/TemplatePrice";
 import { medicalSpaContent } from "@/data/medical-spa-content";
 import { medicalSpaPages, medicalSpaPagePath, type MedicalSpaPage } from "@/data/medical-spa-pages";
 import DemoEnquiryForm from "@/components/collection/DemoEnquiryForm";
@@ -547,7 +548,9 @@ function Contact({ design, enquiryHref }: { design: WebsiteDesign; enquiryHref: 
           </p>
         </div>
         <div>
-          <p className="medical-spa-website-price">{designPrice(design)}</p>
+          <p className="medical-spa-website-price">
+            <TemplatePrice price={design.startingPriceCad} />
+          </p>
           <a className="medical-spa-button" href={enquiryHref}>
             Make this my website <Arrow />
           </a>

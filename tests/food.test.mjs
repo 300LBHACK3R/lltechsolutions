@@ -10,17 +10,21 @@ import {
   categoryDesigns,
   filterDesigns,
   collectionInquiry,
+  designPrice,
+  templateSale,
 } from "../src/data/website-collection.ts";
 import { readTemplateShowcase } from "../src/lib/template-showcase.ts";
 import { entryTemplateDemos } from "../scripts/lib/entry-template-config.mjs";
 
+const saleNow = Date.parse(templateSale.startsAt);
+
 const expected = [
-  ["food-truck", 150, 1],
-  ["neighbourhood-cafe", 399, 3],
-  ["artisan-bakery", 499, 4],
-  ["pizzeria", 699, 5],
-  ["catering-events", 699, 5],
-  ["fine-dining", 999, 7],
+  ["food-truck", 150, 1, "direct"],
+  ["neighbourhood-cafe", 299, 3, "direct"],
+  ["artisan-bakery", 399, 4, "direct"],
+  ["pizzeria", 499, 5, "enquiry-form"],
+  ["catering-events", 499, 5, "enquiry-form"],
+  ["fine-dining", 600, 7, "enquiry-form"],
 ];
 test("food enquiries preserve approved prices, contact scope and stable gallery ordering", () => {
   const gallery = categoryDesigns(categoryForIndustry("food-hospitality"));
@@ -28,15 +32,15 @@ test("food enquiries preserve approved prices, contact scope and stable gallery 
   assert.deepEqual(
     filterDesigns(gallery, {})
       .filter((d) => ids.has(d.id))
-      .map((d) => [d.id, d.startingPriceCad, d.pageCount]),
+      .map((d) => [d.id, d.startingPriceCad, d.pageCount, d.contactMode]),
     expected,
   );
   assert.equal(gallery.length, 6);
   assert.equal(new Set(foodTemplates.map((t) => t.theme)).size, 6);
-  for (const [id, price, pages] of expected) {
+  for (const [id, price, pages, contactMode] of expected) {
     const t = foodTemplate(id),
       d = websiteDesigns.find((design) => design.id === id);
-    assert.equal(d.contactMode, price >= 699 ? "enquiry-form" : "direct");
+    assert.equal(d.contactMode, contactMode);
     assert.equal(t.pages.length, pages);
     assert.deepEqual(entryTemplateDemos[id].routes, t.pages.map(foodPagePath));
     assert.equal(entryTemplateDemos[id].contactMode, d.contactMode);
@@ -44,8 +48,14 @@ test("food enquiries preserve approved prices, contact scope and stable gallery 
       filterDesigns(gallery, { industry: t.industry }).map((design) => design.id),
       [id],
     );
-    const enquiry = collectionInquiry({ collection: "website", design: id, price: "1" });
-    assert(enquiry.message.includes(`From $${price} CAD`));
+    const enquiry = collectionInquiry(
+      { collection: "website", design: id, price: "1" },
+      websiteDesigns,
+      saleNow,
+    );
+    assert(enquiry.message.includes(`Launch pricing: ${designPrice(d, saleNow)}.`));
+    assert(enquiry.message.includes(`Regular starting price: $${price} CAD.`));
+    assert(enquiry.message.includes("20% template sale."));
     assert(enquiry.message.includes(d.name));
     assert(!enquiry.message.includes("From $1 CAD"));
   }

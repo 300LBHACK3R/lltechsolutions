@@ -1,15 +1,17 @@
 # Retail & Automotive templates
 
-Six fictional designs extend the existing Retail & Automotive category. Existing templates, client references, prices and live destinations remain unchanged.
+Prices and contact-scope ranges in this guide are regular base prices. Apply the temporary 20% template sale and automatic expiry in [Current template pricing](CURRENT_TEMPLATE_PRICING.md).
+
+Six fictional designs extend the existing Retail & Automotive category. Existing templates, client references and live destinations remain unchanged. Current prices follow [the approved catalogue pricing](CURRENT_TEMPLATE_PRICING.md).
 
 | ID                | Brand      | Starting CAD | Tier      | Pages | Contact at customer launch            |
 | ----------------- | ---------- | -----------: | --------- | ----: | ------------------------------------- |
 | mobile-detailing  | CURBSIDE   |          150 | Essential |     1 | Direct contact                        |
-| flower-shop       | STEM HOUSE |          399 | Signature |     3 | Direct contact                        |
-| auto-repair       | BAY 03     |          499 | Signature |     4 | Direct contact                        |
-| streetwear-store  | OFF/GRID   |          699 | Premier   |     5 | Standard protected enquiry form setup |
-| wheel-studio      | AXIS WORKS |          699 | Premier   |     5 | Standard protected enquiry form setup |
-| jewellery-atelier | FORME      |          999 | Flagship  |     7 | Standard protected enquiry form setup |
+| flower-shop       | STEM HOUSE |          299 | Signature |     3 | Direct contact                        |
+| auto-repair       | BAY 03     |          399 | Signature |     4 | Direct contact                        |
+| streetwear-store  | OFF/GRID   |          499 | Premier   |     5 | Standard protected enquiry form setup |
+| wheel-studio      | AXIS WORKS |          499 | Premier   |     5 | Standard protected enquiry form setup |
+| jewellery-atelier | FORME      |          600 | Flagship  |     7 | Standard protected enquiry form setup |
 
 Prices are website starting prices in CAD before applicable taxes. Sample product and service prices are illustrative content, separate from the website price. Personalization and launch include supplied, approved initial products, services, text and images within the agreed page scope. Extra pages, copywriting, original photography, videography, continuing content updates and ongoing care are separate. Hosting, domains and provider costs are identified in the proposal.
 
@@ -40,9 +42,9 @@ Maintained shells live in `templates/<id>-demo/`; preparation writes disposable 
 
 ## Contact and store scope
 
-$150–$499 offers include direct contact. The customer's real phone and email links and an existing external booking or store destination can be configured at launch. Fictional contact details in these demos remain inert. “Make this my website” is a real L&L enquiry action retaining the selected design.
+$150–$399 offers include direct contact. The customer's real phone and email links and an existing external booking or store destination can be configured at launch. Fictional contact details in these demos remain inert. “Make this my website” is a real L&L enquiry action retaining the selected design.
 
-$699+ customer launch scope includes standard enquiry form setup for one inbox: Resend, verified sending-domain configuration, field validation, spam controls and an initial delivery test. Static demo forms only preview local interaction. They have no transmission endpoint, storage, named submission fields or submit button, and their fieldsets remain disabled before JavaScript loads. Use sample details. No preview sends an email or creates a booking, commission, quote, order or stock hold.
+$499–$600 customer launch scope includes standard enquiry form setup for one inbox: Resend, verified sending-domain configuration, field validation, spam controls and an initial delivery test. Static demo forms only preview local interaction. They have no transmission endpoint, storage, named submission fields or submit button, and their fieldsets remain disabled before JavaScript loads. Use sample details. No preview sends an email or creates a booking, commission, quote, order or stock hold.
 
 E-commerce checkout, stock or inventory systems, payment processing, booking engines, POS, customer accounts, live catalogues, vehicle fitment databases, compatibility tools and other integrations are separately scoped. These showcase prices do not include a working online store. A wheel finish choice is visual exploration, not fitment validation. A product shortlist is a local preview, not a cart. Extra forms, workflows and ongoing care remain separate. Actual email delivery is configured and verified at the customer launch.
 

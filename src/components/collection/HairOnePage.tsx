@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { designPrice, type WebsiteDesign } from "@/data/website-collection";
+import type { WebsiteDesign } from "@/data/website-collection";
+import TemplatePrice from "@/components/collection/TemplatePrice";
 import { hairOnePage as content } from "@/data/hair-one-page-content";
 
 export default function HairOnePage({
@@ -154,9 +155,9 @@ export default function HairOnePage({
         <div>
           <strong>A simple website. A place for your salon.</strong>
           <p>
-            {designPrice(design)} · One page with your supplied content, up to three services and
-            direct contact or your external booking link. Extra pages, forms, original content and
-            ongoing care are quoted separately.
+            <TemplatePrice price={design.startingPriceCad} /> · One page with your supplied content,
+            up to three services and direct contact or your external booking link. Extra pages,
+            forms, original content and ongoing care are quoted separately.
           </p>
         </div>
         <a href={enquiryHref}>

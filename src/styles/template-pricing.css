@@ -1,0 +1,74 @@
+.template-price {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3em 0.65em;
+  max-width: 100%;
+  color: inherit;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.45;
+}
+.template-price .template-price-regular {
+  display: inline;
+  margin: 0;
+  font-size: 0.78em;
+  font-weight: 400;
+  opacity: 0.75;
+  text-decoration-thickness: 1px;
+}
+.template-price .template-price-current {
+  display: inline;
+  margin: 0;
+  font-size: inherit;
+  font-weight: 600;
+  color: inherit;
+}
+.template-price .template-price-badge {
+  display: inline-block;
+  margin: 0;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  padding: 0.15em 0.45em;
+  font-size: 0.6em;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.035em;
+  white-space: nowrap;
+}
+.template-price .template-price-note {
+  display: block;
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.65em;
+  font-weight: 400;
+  line-height: 1.55;
+}
+.template-price--compact {
+  gap: 0.2em 0.45em;
+  font-size: inherit;
+}
+.template-price--compact .template-price-badge {
+  font-size: 1em;
+}
+.template-sale-notice {
+  max-width: 44rem;
+  margin-block: 1.25rem;
+  color: var(--gold, #e6c15a);
+  font-size: clamp(0.9rem, 1vw, 1.05rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+.template-sale-notice strong {
+  font-weight: 600;
+}
+.collection-intro .template-sale-notice {
+  margin-inline: auto;
+}
+@media (forced-colors: active) {
+  .template-price .template-price-regular {
+    opacity: 1;
+  }
+  .template-sale-notice {
+    color: CanvasText;
+  }
+}

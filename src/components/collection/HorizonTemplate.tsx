@@ -6,6 +6,7 @@ import { horizonPages, horizonPagePath, type HorizonPage } from "@/data/horizon-
 import { horizonProjects, horizonQuestions, horizonServices } from "@/data/horizon-content";
 import { HorizonArrow, HorizonContours, HorizonMark } from "@/components/collection/HorizonMarks";
 import { HorizonProjectGallery } from "@/components/collection/HorizonInteractions";
+import TemplatePrice from "@/components/collection/TemplatePrice";
 
 function HorizonButton({
   page = "Contact",
@@ -132,14 +133,6 @@ export default function HorizonTemplate({
   enquiryHref: string;
 }) {
   const brand = design.concept?.brands[0] ?? "LANDSCAPE STUDIO";
-  const price =
-    design.startingPriceCad === null
-      ? null
-      : new Intl.NumberFormat("en-CA", {
-          style: "currency",
-          currency: "CAD",
-          maximumFractionDigits: 0,
-        }).format(design.startingPriceCad);
   return (
     <div
       className="horizon-site"
@@ -720,9 +713,9 @@ export default function HorizonTemplate({
                 </p>
               </div>
               <div className="horizon-own-site-action">
-                {price ? (
+                {design.startingPriceCad !== null ? (
                   <p>
-                    From <strong>{price}</strong> CAD
+                    <TemplatePrice price={design.startingPriceCad} />
                   </p>
                 ) : null}
                 <span>4 pages · Direct phone & email contact</span>

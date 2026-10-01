@@ -1,3 +1,5 @@
+import TemplateSaleNotice from "@/components/collection/TemplateSaleNotice";
+import { isTemplateSaleActive } from "@/data/template-promotion";
 import { redirect } from "next/navigation";
 import TemplateCategories from "@/components/collection/TemplateCategories";
 import JsonLd from "@/components/seo/JsonLd";
@@ -7,6 +9,7 @@ import {
   categoryHref,
   templateCategories,
   collectionDescription,
+  collectionPriceRange,
   type CollectionQuery,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
@@ -43,8 +46,10 @@ export default async function WebsiteCollectionPage({
             Start with a design that feels right for your business. We tailor the code, bring your
             brand into it, and handle the launch.
           </p>
+          <TemplateSaleNotice initialSaleActive={isTemplateSaleActive()} />
           <p className="collection-intro-note">
-            Custom-coded. Personally handled. <span>Calgary-based · Canada-wide</span>
+            Custom-coded. Personally handled.
+            <span>Regular starting prices {collectionPriceRange}.</span>
           </p>
         </div>
       </section>

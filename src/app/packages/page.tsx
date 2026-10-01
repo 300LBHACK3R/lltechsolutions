@@ -1,10 +1,15 @@
+import TemplateSaleNotice from "@/components/collection/TemplateSaleNotice";
+import { isTemplateSaleActive } from "@/data/template-promotion";
 import Image from "next/image";
 import Link from "next/link";
 import ProductionExample from "@/components/ui/ProductionExample";
 import { investments, investmentDescription, pricingQuestions } from "@/data/investments";
 import { getProject, projectPath } from "@/data/projects";
 import { contentProduction } from "@/data/services";
+import { collectionPriceRange } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = pageMetadata(
   "Pricing & Project Options",
@@ -99,10 +104,12 @@ export default function PricingPage() {
         <section className="pricing-template-route" aria-labelledby="pricing-templates-title">
           <div className="pricing-template-copy">
             <p className="eyebrow">Find a look you love</p>
+            <TemplateSaleNotice initialSaleActive={isTemplateSaleActive()} />
             <h2 id="pricing-templates-title">Start with a design. Make it yours.</h2>
             <p>
-              Explore our website templates by business type. We personalize your chosen design with
-              your information and handle the agreed launch work.
+              Explore our website templates with regular starting prices of {collectionPriceRange}.
+              We personalize your chosen design with your information and handle the agreed launch
+              work. Extra features, original content and ongoing care are quoted separately.
             </p>
           </div>
           <div className="pricing-template-actions">

@@ -1,3 +1,5 @@
+import TemplatePrice from "@/components/collection/TemplatePrice";
+import { isTemplateSaleActive } from "@/data/template-promotion";
 import Link from "next/link";
 import DesignCover from "@/components/collection/DesignCover";
 import CollectionContactOptions from "@/components/collection/CollectionContactOptions";
@@ -9,7 +11,6 @@ import {
   designHref,
   designContactDescription,
   designContactLabel,
-  designPrice,
   designPriceContext,
   designScopeLabel,
   designStatusLabel,
@@ -84,7 +85,12 @@ export default async function ComparePage({
                   <dt>Starting scope</dt>
                   <dd>{designScopeLabel(design)}</dd>
                   <dt>{designPriceContext(design)}</dt>
-                  <dd>{designPrice(design)}</dd>
+                  <dd>
+                    <TemplatePrice
+                      price={design.startingPriceCad}
+                      initialSaleActive={isTemplateSaleActive()}
+                    />
+                  </dd>
                   <dt>Contact setup for your new build</dt>
                   <dd>
                     <strong>{designContactLabel(design)}.</strong>{" "}

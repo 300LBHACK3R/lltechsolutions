@@ -10,17 +10,21 @@ import {
   categoryDesigns,
   filterDesigns,
   collectionInquiry,
+  designPrice,
+  templateSale,
 } from "../src/data/website-collection.ts";
 import { readTemplateShowcase } from "../src/lib/template-showcase.ts";
 import { entryTemplateDemos } from "../scripts/lib/entry-template-config.mjs";
 
+const saleNow = Date.parse(templateSale.startsAt);
+
 const expected = [
-  ["home-cleaning", 150, 1],
-  ["window-care", 399, 3],
-  ["home-organizing", 499, 4],
-  ["interior-studio", 699, 5],
-  ["property-management", 699, 5],
-  ["real-estate", 999, 7],
+  ["home-cleaning", 150, 1, "direct"],
+  ["window-care", 299, 3, "direct"],
+  ["home-organizing", 399, 4, "direct"],
+  ["interior-studio", 499, 5, "enquiry-form"],
+  ["property-management", 499, 5, "enquiry-form"],
+  ["real-estate", 600, 7, "enquiry-form"],
 ];
 test("Home & Property adds six distinct offers without losing existing landscaping examples", () => {
   const gallery = categoryDesigns(categoryForIndustry("cleaning"));
@@ -28,7 +32,7 @@ test("Home & Property adds six distinct offers without losing existing landscapi
   assert.deepEqual(
     filterDesigns(gallery, {})
       .filter((d) => ids.has(d.id))
-      .map((d) => [d.id, d.startingPriceCad, d.pageCount]),
+      .map((d) => [d.id, d.startingPriceCad, d.pageCount, d.contactMode]),
     expected,
   );
   for (const id of ["earthworks", "horizon"])
@@ -37,10 +41,10 @@ test("Home & Property adds six distinct offers without losing existing landscapi
       `${id}: existing reference preserved`,
     );
   assert.equal(new Set(homePropertyTemplates.map((t) => t.theme)).size, 6);
-  for (const [id, price, pages] of expected) {
+  for (const [id, price, pages, contactMode] of expected) {
     const template = homePropertyTemplate(id);
     const design = websiteDesigns.find((d) => d.id === id);
-    assert.equal(design.contactMode, price >= 699 ? "enquiry-form" : "direct");
+    assert.equal(design.contactMode, contactMode);
     assert.deepEqual(
       filterDesigns(gallery, { industry: template.industry }).map((d) => d.id),
       [id],
@@ -49,8 +53,14 @@ test("Home & Property adds six distinct offers without losing existing landscapi
     assert.equal(template.pages.length, pages);
     assert.deepEqual(entryTemplateDemos[id].routes, template.pages.map(homePropertyPagePath));
     assert.equal(entryTemplateDemos[id].contactMode, design.contactMode);
-    const inquiry = collectionInquiry({ collection: "website", design: id, price: "1" });
-    assert(inquiry.message.includes(`From $${price} CAD`));
+    const inquiry = collectionInquiry(
+      { collection: "website", design: id, price: "1" },
+      websiteDesigns,
+      saleNow,
+    );
+    assert(inquiry.message.includes(`Launch pricing: ${designPrice(design, saleNow)}.`));
+    assert(inquiry.message.includes(`Regular starting price: $${price} CAD.`));
+    assert(inquiry.message.includes("20% template sale."));
     assert(inquiry.message.includes(design.name));
   }
   assert.deepEqual(

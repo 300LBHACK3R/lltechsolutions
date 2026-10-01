@@ -1,11 +1,13 @@
 import "@/styles/globals.css";
 import "@/styles/base.css";
+import "@/styles/template-pricing.css";
 import "@/styles/hair-salon.css";
 import "./demo.css";
 import type { Metadata } from "next";
+import TemplatePrice from "@/components/collection/TemplatePrice";
 import { Geist } from "next/font/google";
 import MotionControl from "@/components/ui/MotionControl";
-import { collectionInquiryHref, designPrice, websiteDesigns } from "@/data/website-collection";
+import { collectionInquiryHref, websiteDesigns } from "@/data/website-collection";
 
 const sans = Geist({ variable: "--font-sans", subsets: ["latin"], display: "swap" });
 const hairSalon = websiteDesigns.find((design) => design.id === "hair-salon")!;
@@ -32,7 +34,9 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
           <a href="https://lltechsolutions.ca/website-collection/hair-salon">
             ← L&L / Template details
           </a>
-          <span>Website demo · {designPrice(hairSalon)}</span>
+          <span>
+            Website demo · <TemplatePrice price={hairSalon.startingPriceCad} compact />
+          </span>
           <div>
             <MotionControl />
             <a

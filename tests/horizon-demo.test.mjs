@@ -5,6 +5,7 @@ import { horizonPageFromPath, horizonPagePath, horizonPages } from "../src/data/
 import {
   collectionInquiry,
   collectionInquiryHref,
+  templateSale,
   websiteDesigns,
 } from "../src/data/website-collection.ts";
 
@@ -36,19 +37,24 @@ test("landscape routing rejects unknown, nested and differently cased paths", ()
     assert.equal(horizonPageFromPath(segments), null, segments.join("/"));
 });
 
-test("the four-page $499 landscape offer hands its exact design to the real enquiry", () => {
+test("the four-page $399 landscape offer hands its exact design to the real enquiry", () => {
   const design = websiteDesigns.find((item) => item.id === "horizon");
   assert.ok(design);
-  assert.equal(design.startingPriceCad, 499);
+  assert.equal(design.startingPriceCad, 399);
   assert.equal(design.pageCount, horizonPages.length);
   assert.equal(design.contactMode, "direct");
   const href = new URL(collectionInquiryHref({ design: design.id }), "https://lltechsolutions.ca");
   assert.equal(href.pathname, "/contact");
   assert.equal(href.searchParams.get("collection"), "website");
   assert.equal(href.searchParams.get("design"), "horizon");
-  const inquiry = collectionInquiry(Object.fromEntries(href.searchParams));
+  const inquiry = collectionInquiry(
+    Object.fromEntries(href.searchParams),
+    websiteDesigns,
+    Date.parse(templateSale.startsAt),
+  );
   assert.ok(inquiry.message.includes(design.name));
-  assert.ok(inquiry.message.includes("$499"));
+  assert.ok(inquiry.message.includes("Launch pricing: From $319.20 CAD"));
+  assert.ok(inquiry.message.includes("Regular starting price: $399 CAD"));
 });
 
 test("the static landscape deployment keeps the maintained security and noindex policy", async () => {

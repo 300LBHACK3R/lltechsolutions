@@ -1,6 +1,8 @@
 # Verification and release status
 
-## Current prepared scope — September 26, 2026
+The dated scope and verification records below preserve their original prices and results. For the current approved $150–$600 catalogue and McKenzie’s $399 starting offer, use [Current template pricing](CURRENT_TEMPLATE_PRICING.md). These historical checks do not verify the repriced revision.
+
+## Historical prepared scope — September 26, 2026
 
 Four distinct Health & Wellness offers are added with dedicated demo source: `medical-spa` ($999 CAD, six pages, Flagship), `artsy-nails` ($699 CAD, four pages, Premier), `hair-salon` ($499 CAD, four pages, Signature), and `hair-one-page` ($150 CAD, one page, Essential). The new Medical Spa and Hair Salon business types belong to Health & Wellness; the nail offer uses Beauty & Personal Care. Existing prices, stable URLs, client media, main navigation and compact homepage scope are preserved.
 

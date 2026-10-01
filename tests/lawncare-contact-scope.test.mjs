@@ -6,6 +6,8 @@ import {
   availableDesigns,
   categoryDesigns,
   collectionInquiry,
+  contactScopeDetails,
+  contactScopeSummary,
   designContactLabel,
   filterDesigns,
   templateCategories,
@@ -14,12 +16,38 @@ import { lawnPages, lawnPagePath, lawnPageFromPath } from "../src/data/lawn-page
 import { readTemplateShowcase } from "../src/lib/template-showcase.ts";
 
 test("contact scope belongs to the selected offer and cannot be changed by an enquiry URL", () => {
+  const formOffers = [
+    "structure",
+    "earthworks",
+    "medical-spa",
+    "artsy-nails",
+    "tow-n-go",
+    "creative-consultancy",
+    "boutique-law",
+    "corporate-law",
+    "interior-studio",
+    "property-management",
+    "real-estate",
+    "equipment-rentals",
+    "cold-chain",
+    "freight-logistics",
+    "pizzeria",
+    "catering-events",
+    "fine-dining",
+    "streetwear-store",
+    "wheel-studio",
+    "jewellery-atelier",
+  ];
+  assert.deepEqual(
+    availableDesigns()
+      .filter((design) => design.contactMode === "enquiry-form")
+      .map((design) => design.id)
+      .sort(),
+    formOffers.sort(),
+    "repricing keeps each offer's agreed form scope",
+  );
   for (const design of availableDesigns()) {
     assert.ok(["direct", "enquiry-form"].includes(design.contactMode));
-    if (design.startingPriceCad !== null && design.startingPriceCad <= 499)
-      assert.equal(design.contactMode, "direct", design.id);
-    if (design.startingPriceCad !== null && design.startingPriceCad >= 699)
-      assert.equal(design.contactMode, "enquiry-form", design.id);
     const inquiry = collectionInquiry({
       collection: "website",
       design: design.id,
@@ -29,9 +57,16 @@ test("contact scope belongs to the selected offer and cannot be changed by an en
   }
 });
 
-test("lawn care is a four-page $499 direct-contact option sorted between $399 and $699", () => {
+test("public contact-scope summaries match the repriced offers", () => {
+  assert.equal(contactScopeDetails.direct.priceLabel, "$150–$399 CAD regular");
+  assert.equal(contactScopeDetails["enquiry-form"].priceLabel, "$499–$600 CAD regular");
+  assert.ok(contactScopeSummary.includes("$150–$399 CAD"));
+  assert.ok(contactScopeSummary.includes("$499–$600 CAD"));
+});
+
+test("lawn care is a four-page $399 direct-contact option sorted between $299 and $499", () => {
   const lawn = availableDesigns().find((design) => design.id === "lawncare");
-  assert.equal(lawn.startingPriceCad, 499);
+  assert.equal(lawn.startingPriceCad, 399);
   assert.equal(lawn.pageCount, 4);
   assert.equal(lawn.contactMode, "direct");
   for (const id of ["construction-trades", "home-property"]) {

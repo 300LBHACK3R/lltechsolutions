@@ -9,6 +9,10 @@ await rm(target, { recursive: true, force: true });
 await mkdir(target, { recursive: true });
 await cp(resolve(root, "templates/painting-demo"), target, { recursive: true });
 const files = [
+  "src/components/collection/TemplatePrice.tsx",
+  "src/lib/use-template-sale.ts",
+  "src/data/template-promotion.ts",
+  "src/styles/template-pricing.css",
   "src/components/collection/PaintingTemplate.tsx",
   "src/components/collection/PaintingAction.tsx",
   "src/components/collection/PaintMarks.tsx",

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { designPrice, type WebsiteDesign } from "@/data/website-collection";
+import type { WebsiteDesign } from "@/data/website-collection";
+import TemplatePrice from "@/components/collection/TemplatePrice";
 import { massageOnePage as content } from "@/data/massage-one-page-content";
 
 export default function MassageOnePage({
@@ -166,9 +167,9 @@ export default function MassageOnePage({
         <div>
           <strong>Your practice. This simple starting point.</strong>
           <p>
-            {designPrice(design)} · One page, personalized with your supplied copy and images.
-            Direct contact links and launch included. Forms, extra pages, new photography and
-            ongoing care are quoted separately.
+            <TemplatePrice price={design.startingPriceCad} /> · One page, personalized with your
+            supplied copy and images. Direct contact links and launch included. Forms, extra pages,
+            new photography and ongoing care are quoted separately.
           </p>
         </div>
         <a href={enquiryHref}>

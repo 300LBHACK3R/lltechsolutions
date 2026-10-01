@@ -1,5 +1,7 @@
 # Website Templates
 
+Prices and contact-scope ranges in this guide are regular base prices. Apply the temporary 20% template sale and automatic expiry in [Current template pricing](CURRENT_TEMPLATE_PRICING.md).
+
 This is a prepared source update, not a claim of a GitHub push or live Vercel deployment. It preserves L&L’s black, gold and charcoal identity and its three public disciplines.
 
 ## The visitor journey
@@ -133,7 +135,7 @@ Historical Tow-N-Go verification: this addition passed formatting, import/asset 
 
 ## Crestline and McKenzie client references
 
-Construction & Trades includes **Crestline Painting**, also available through the Painting and Construction industry filters, using the actual portfolio screenshot, canonical walkthrough, live website and full client story. **Health & Wellness** shows **McKenzie House Massage** with its actual website image, live website and client story. Its template page has no video player; the canonical walkthrough remains in the client case study. Its website-only scope is quoted; Heather’s original combined website and production work is not used to set a template price. No client media files are copied or replaced.
+Construction & Trades includes **Crestline Painting**, also available through the Painting and Construction industry filters, using the actual portfolio screenshot, canonical walkthrough, live website and full client story. **Health & Wellness** shows **McKenzie House Massage** with its actual website image, live website and client story. Its template page has no video player; the canonical walkthrough remains in the client case study. Its approved $399 CAD starting price covers a similar new website using supplied content; Heather’s original combined website and production work is not used to set a template price. No client media files are copied or replaced.
 
 Crestline’s proposed starting scope focuses on service pages, project categories, photography and quote enquiries. McKenzie’s focuses on treatment information, pricing, practice details and a booking pathway using the new business’s chosen provider. The examples demonstrate completed work; a new website uses the prospect’s own approved branding, content and imagery. Page count, launch price, additional production and care plans are scoped separately. No historical client fees or performance claims are used as an offer.
 
@@ -143,29 +145,29 @@ Historical client-reference verification: formatting, local import/asset validat
 
 ## Template starting prices and sorting
 
-The following starting-price schedule reflects the current catalogue. These figures are commercial starting points, not inferred past client fees or externally benchmarked market rates. They exclude applicable taxes. The Custom Business Website entry is $150+ CAD for a focused one-page build using supplied content. Social Management Partner remains $149/month+. Extra scope, ongoing care and provider costs are separate.
+All 45 catalogue offers now have numeric starting prices from $150–$600 CAD. [Current template pricing](CURRENT_TEMPLATE_PRICING.md) records the approved repricing and links the full set of category price tables. The following schedule covers the original 15 offers and client references. These figures are commercial starting points, not inferred past client fees or externally benchmarked market rates. They exclude applicable taxes. The Custom Business Website entry is $150+ CAD for a focused one-page build using supplied content. Social Management Partner remains $149/month+. Extra scope, ongoing care and provider costs are separate.
 
-| Design                       | Starting price (CAD) | Price applies to                                       |
-| ---------------------------- | -------------------: | ------------------------------------------------------ |
-| One-page Massage Website     |                 $150 | Supplied content; one page and direct contact          |
-| One-page Hairdresser Website |                 $150 | Supplied content; one page and direct contact          |
-| Nail & Esthetics Studio      |                 $399 | New personalization and launch; three pages            |
-| Calgary Hot Shot             |                 $399 | New personalization and launch                         |
-| Lawn Care                    |                 $499 | New personalization and launch; four demo pages        |
-| Painting Company             |                 $499 | New personalization and launch                         |
-| Landscape Contracting        |                 $499 | New personalization and launch; four pages             |
-| Professional Hair Salon      |                 $499 | Four pages; direct contact or external booking link    |
-| Plumbing Company             |                 $699 | New personalization and launch                         |
-| Creative Nail Studio         |                 $699 | Four pages; standard enquiry form setup at launch      |
-| Crestline Painting reference |                 $399 | A similar new website with the prospect’s own content  |
-| Tow-N-Go Trailers reference  |                 $899 | A similar new website with the prospect’s own content  |
-| McKenzie House Massage       |               Quoted | Website scope agreed; new photo/video production extra |
-| Luxury Medical Spa           |                 $999 | Six pages; standard enquiry form setup at launch       |
-| Excavation & Landscaping     |               $1,000 | New personalization and launch; seven demo pages       |
+| Design                       | Starting price (CAD) | Price applies to                                        |
+| ---------------------------- | -------------------: | ------------------------------------------------------- |
+| One-page Massage Website     |                 $150 | Supplied content; one page and direct contact           |
+| One-page Hairdresser Website |                 $150 | Supplied content; one page and direct contact           |
+| Nail & Esthetics Studio      |                 $299 | New personalization and launch; three pages             |
+| Calgary Hot Shot             |                 $299 | New personalization and launch                          |
+| Lawn Care                    |                 $399 | New personalization and launch; four demo pages         |
+| Painting Company             |                 $399 | New personalization and launch                          |
+| Landscape Contracting        |                 $399 | New personalization and launch; four pages              |
+| Professional Hair Salon      |                 $399 | Four pages; direct contact or external booking link     |
+| Plumbing Company             |                 $499 | New personalization and launch                          |
+| Creative Nail Studio         |                 $499 | Four pages; standard enquiry form setup at launch       |
+| Crestline Painting reference |                 $299 | A similar new website with the prospect’s own content   |
+| Tow-N-Go Trailers reference  |                 $549 | A similar new website with the prospect’s own content   |
+| McKenzie House Massage       |                 $399 | Similar new website using supplied content; media extra |
+| Luxury Medical Spa           |                 $600 | Six pages; standard enquiry form setup at launch        |
+| Excavation & Landscaping     |                 $600 | New personalization and launch; seven demo pages        |
 
 The sole editable price field is `startingPriceCad` in `src/data/website-collection.ts`. Cards, design pages, comparison, the guided proposal summary and prefilled enquiries use that value. Prices remain starting points: final scope, optional extras, ongoing care, hosting, domains and provider charges are agreed separately. The client examples keep their real-client labels and original media; their brands, reviews and client-specific assets are not sold.
 
-Each populated business gallery has a labelled native **Sort by price** control. Low to high is the default; high to low is available. Press **Apply filters** to apply it together with business type and design level. The GET URL preserves the selection and works without JavaScript. Invalid or repeated sort parameters fall back to low to high. Unpriced future additions stay last in either order. Sorting does not mutate the catalogue; equal prices preserve their source order in both directions. Put a new entry before an existing entry at the same price when it should lead that price group. Lawn Care is immediately before Painting Company at $499. The landing page retains category browsing.
+Each populated business gallery has a labelled native **Sort by price** control. Low to high is the default; high to low is available. Press **Apply filters** to apply it together with business type and design level. The GET URL preserves the selection and works without JavaScript. Invalid or repeated sort parameters fall back to low to high. Unpriced future additions stay last in either order. Sorting does not mutate the catalogue; equal prices preserve their source order in both directions. Put a new entry before an existing entry at the same price when it should lead that price group. Lawn Care is immediately before Painting Company at $399. The landing page retains category browsing.
 
 Category metadata keeps the clean category canonical URL. ItemList structured data follows the displayed order. No Product/Offer markup or ranking claims have been added. Enquiry prices come from catalogue data; arbitrary URL prices are ignored. Contact requests remain ordinary editable enquiries, not binding orders or payment submissions.
 
@@ -183,7 +185,7 @@ The production smoke checks verify the retained headline and introduction, categ
 
 ## Painting Company / Pigment demo
 
-The $499 CAD starting point and four page structures remain unchanged. The painting preview now has its own scoped components and stylesheet: `PaintingTemplate`, `PaintingCover`, `PaintMarks` and `painting-template.css`. The cover represents the sample demo. Plumbing, earthworks, beauty and one-page massage have their own dedicated components; the generic inline `DesignPreview` flow is retired.
+The Painting Company starting price is $399 CAD; its four page structures remain unchanged. The painting preview now has its own scoped components and stylesheet: `PaintingTemplate`, `PaintingCover`, `PaintMarks` and `painting-template.css`. The cover represents the sample demo. Plumbing, earthworks, beauty and one-page massage have their own dedicated components; the generic inline `DesignPreview` flow is retired.
 
 Home, Services, Projects and Contact are real routes in the standalone painting demo. Visitors can try three accent colours without storage or requests. The brush draws a navigation underline once on selection, keyboard focus or pointer hover. OS reduced motion and the existing L&L motion switch disable animation while preserving a static selected underline.
 
@@ -214,17 +216,17 @@ Historical September 21 verification: root formatting, import validation, lint, 
 
 ## Plumbing template — current showcase behaviour
 
-The `structure` slug now presents the $699 CAD Plumbing Company example. Its own navy/teal, ivory and copper palette is scoped to the template; L&L stays black and gold. The dedicated catalogue cover and separate four-page static demo share the plumbing design language. The copper pipe navigation supports keyboard use, and motion respects the visitor’s reduced-motion choice and L&L motion control. Images are illustrative, not claimed completed client work.
+The `structure` slug now presents the $499 CAD Plumbing Company example. Its own navy/teal, ivory and copper palette is scoped to the template; L&L stays black and gold. The dedicated catalogue cover and separate four-page static demo share the plumbing design language. The copper pipe navigation supports keyboard use, and motion respects the visitor’s reduced-motion choice and L&L motion control. Images are illustrative, not claimed completed client work.
 
 `src/data/plumbing-demo.json` holds only the verified public demo URL and screenshot metadata. Upload captures to `public/images/templates/structure/`; see its README. Build the independent demo with `node scripts/prepare-plumbing-demo.mjs`, install and build within `build/plumbing-demo`, then run `node scripts/check-plumbing-demo.mjs` from the main repository. Deploy only its exported `out/` contents to the separate `ll-plumbing-template` Vercel project.
 
-The latest approved showcase removes the duplicate “Try this design here” dialog from painting, plumbing and earthworks. Each detail page keeps screenshots or a labelled cover, the verified **View live demo** button, pricing, scope and its L&L enquiry handoff. Nail & Esthetics Studio and One-page Massage Website now use the same dedicated cover/screenshots and verified external live-demo flow. The Crestline example starts at $399 CAD; this is the starting price for a similar new website with the prospect’s own content.
+The latest approved showcase removes the duplicate “Try this design here” dialog from painting, plumbing and earthworks. Each detail page keeps screenshots or a labelled cover, the verified **View live demo** button, pricing, scope and its L&L enquiry handoff. Nail & Esthetics Studio and One-page Massage Website now use the same dedicated cover/screenshots and verified external live-demo flow. The Crestline example starts at $299 CAD; this is the starting price for a similar new website with the prospect’s own content.
 
 ## Excavation & Landscaping / Earthworks demo
 
-The `earthworks` design starts at **$1,000 CAD** and has seven sample pages: **Home, Services, Projects, Materials, Process, FAQ and Contact**. Its excavation industry places it in **Construction & Trades**; the additional landscaping industry also includes it in **Home & Property**. These placements come from the canonical catalogue tags, not duplicated design records.
+The `earthworks` design starts at **$600 CAD** and has seven sample pages: **Home, Services, Projects, Materials, Process, FAQ and Contact**. Its excavation industry places it in **Construction & Trades**; the additional landscaping industry also includes it in **Home & Property**. These placements come from the canonical catalogue tags, not duplicated design records.
 
-The example uses a dedicated earthworks design and illustrative imagery. Photographic service exploration, a materials selector and expandable FAQ answers add useful depth without adding dependencies. The two new demo pages are Materials and FAQ; the starting price remains $1,000 CAD. Sample sites, scenes and identities do not establish real client projects, completed excavation work, team credentials or business claims. A customer's finished site uses approved details and appropriately licensed imagery. The starting price covers the agreed template personalization and launch scope; additional pages, custom layout changes and features are quoted by scope and agreed before work starts, for this template and every other template. There is no blanket per-page fee.
+The example uses a dedicated earthworks design and illustrative imagery. Photographic service exploration, a materials selector and expandable FAQ answers add useful depth without adding dependencies. The two new demo pages are Materials and FAQ; the current starting price is $600 CAD. Sample sites, scenes and identities do not establish real client projects, completed excavation work, team credentials or business claims. A customer's finished site uses approved details and appropriately licensed imagery. The starting price covers the agreed template personalization and launch scope; additional pages, custom layout changes and features are quoted by scope and agreed before work starts, for this template and every other template. There is no blanket per-page fee.
 
 Use `src/data/earthworks-demo.json` for the verified public demo URL and screenshot metadata. Store actual captures in `public/images/templates/earthworks/`; its README includes the entry format. The detail page displays the screenshot gallery or a labelled cover and shows **View live demo** only when a public URL is configured. No duplicate embedded try-design dialog is offered.
 
@@ -241,13 +243,13 @@ The generator replaces only the ignored `build/earthworks-demo` directory. Publi
 
 The Windows publisher reads Vercel's production alias and checks all seven pages publicly before saving the URL. It preserves existing screenshot entries. A protected deployment URL is not a public demo link, and a completed Git push does not by itself confirm the main-site Vercel deployment. Verification counts above describe their named historical updates; they are not evidence of checks run for this earthworks release.
 
-## Latest premium refinement verification
+## Historical premium refinement verification
 
 The homepage repetition and main-site Process route were removed, navigation was reordered, and Earthworks expanded to seven demo pages while retaining its $1,000 CAD starting scope and verified URL. Formatting, validation across 111 source files, zero-warning ESLint, TypeScript, 32 tests, the main production build, delivered CSS checks and 142 HTTP/link checks passed. The separate seven-page Earthworks build and export checks passed, including distinct Materials and FAQ content. The dependency audit reported zero vulnerabilities. No external email was sent. Browser rendering was not verified because the preview browser blocked local access; live deployment and device review remain separate checks.
 
-## Lawn Care — $499 template and contact scopes
+## Lawn Care — $399 template and contact scopes
 
-Lawn Care (`lawncare`) is the four-page option for lawn mowing, edging and seasonal cleanup. It is listed under Construction & Trades and Home & Property. The trades gallery has six designs. Default sorting is low to high: Crestline reference $399, Landscape Contracting $499, Lawn Care $499, Painting Company $499, Plumbing Company $699, Excavation & Landscaping $1,000. Equal-price designs retain their source order in both sort directions, with the newest Landscape Contracting entry first in the $499 group.
+Lawn Care (`lawncare`) is the four-page option for lawn mowing, edging and seasonal cleanup. It is listed under Construction & Trades and Home & Property. The trades gallery has six designs. Default sorting is low to high: Crestline reference $299, Landscape Contracting $399, Lawn Care $399, Painting Company $399, Plumbing Company $499, Excavation & Landscaping $600. Equal-price designs retain their source order in both sort directions, with the newest Landscape Contracting entry first in the $399 group.
 
 The sample identity is LAWN STUDIO. Forest green, ivory and fresh green are scoped to this demo; L&L keeps its black-and-gold brand. The decorative navigation grass is cut by a small periodic mower animation, gated by the existing motion setting and prefers-reduced-motion. The four routes are `/`, `/services`, `/our-work` and `/contact`. The imagery is generated illustration for a sample business, not completed client work or before/after evidence. The reserved sample email is clearly labelled and does not send mail; the real L&L enquiry action retains the selected design.
 
@@ -255,7 +257,7 @@ Build with `node scripts/prepare-lawncare-demo.mjs`, install/build inside `build
 
 ### Contact setup for new builds
 
-`contactMode` in the canonical catalogue defines each offer; a query string cannot change it. New offers from $150–$499 include a contact page or section with call/email links and an appropriate external booking link. Current $699-and-up offers include a standard enquiry form to one business inbox, Resend/sending-domain configuration, validation, spam controls and an initial delivery test as launch work. These are scope definitions for future customer builds, not claims that the static demonstrations deliver contractor enquiries. Existing client case-study facts and signed scopes are not changed.
+`contactMode` in the canonical catalogue defines each offer; a query string cannot change it. New offers from $150–$399 include a contact page or section with call/email links and an appropriate external booking link. Current $499–$600 offers include a standard enquiry form to one business inbox, Resend/sending-domain configuration, validation, spam controls and an initial delivery test as launch work. These are scope definitions for future customer builds, not claims that the static demonstrations deliver contractor enquiries. Existing client case-study facts and signed scopes are not changed.
 
 A form can be added to a direct-contact offer by quote. Advanced fields, uploads, CRM routing, automation and other integrations require their own scope at any price. Ongoing maintenance and delivery checks are optional, separately scoped care work. No unlimited support, response SLA or new monthly fee has been invented. Domain and provider fees are separate; a provider free allowance is not free setup or ongoing management. Baseline responsive design, metadata, SEO and security checks apply across all prices. Form-specific controls apply where a form exists.
 
@@ -265,7 +267,7 @@ Resend implementation reference: [verified sending domains](https://resend.com/d
 
 ## Landscape Contracting — Horizon independent concept
 
-Landscape Contracting (`horizon`) is a **$499 CAD** starting offer for four pages: Home, Services, Projects and Contact. It includes service details, a filterable project gallery, coverage information and direct contact. The construction industry places it in Construction & Trades; its additional landscaping tag also includes it in Home & Property. Responsive implementation, core SEO and security standards, metadata and launch checks are included. Additional pages, enquiry forms and custom features are quoted separately. The previous $500 one-page listing is superseded.
+Landscape Contracting (`horizon`) is a **$399 CAD** starting offer for four pages: Home, Services, Projects and Contact. It includes service details, a filterable project gallery, coverage information and direct contact. The construction industry places it in Construction & Trades; its additional landscaping tag also includes it in Home & Property. Responsive implementation, core SEO and security standards, metadata and launch checks are included. Additional pages, enquiry forms and custom features are quoted separately. The previous $500 one-page listing is superseded.
 
 The design direction began with an independent L&L redesign concept for **Horizon Contracting Group**. Its three supplied screenshots remain archived under `public/images/templates/horizon/` with metadata in `original-reference.json`. The working demo uses the sample name **Landscape Studio** and illustrative images, not Horizon's identity. The catalogue's `independentConcept` field records that distinction. Do not add Horizon to client or project records.
 
@@ -277,7 +279,7 @@ Run `node scripts/prepare-horizon-demo.mjs`, install and build in `build/horizon
 
 McKenzie House Massage is a live client reference under the unchanged `mckenzie-house` catalogue identifier. The template entry uses its real website image and actual website under **View live demo**, with a link to the client case study. `clientPreview: "image"` keeps its template page free of video players while preserving the canonical walkthrough on the case study. Bookmarks and enquiries continue to select McKenzie House. Its source branding and media are examples, not assets included with a new customer's website.
 
-`startingPriceCad` is `null`: **Quoted after a conversation**. No replacement price was supplied, so do not infer one from Heather's original project charge. That original scope combined website development, on-site photography, filming, editing and integrating the media into the site. New website pages and features are agreed separately; new photography/video, enquiry-form setup and ongoing care are optional quoted work. Direct contact and an external booking link describe the baseline enquiry scope, not a claim of an existing Resend form on Heather's site.
+`startingPriceCad` is `399`: **From $399 CAD** for a similar new website using the prospect's supplied content. This approved website starting price is separate from Heather's original project charge. That original scope combined website development, on-site photography, filming, editing and integrating the media into the site. The new website's pages and features are agreed before booking; new photography/video, enquiry-form setup and ongoing care are optional quoted work. Direct contact and an external booking link describe the baseline enquiry scope, not a claim of an existing Resend form on Heather's site.
 
 The shared `contentProduction.projectExample` in `src/data/services.ts` explains the original combined project as approximately **$1,000 CAD** on the McKenzie template and Pricing pages. This is historical project context, not a guaranteed package or a numeric template price. Photography and videography are visibly offered under the existing Social & Content service, with website use cases and standalone business-content work. Enquiries use the existing `Photo / Video / Short-Form Content` contact option; the collection extra keeps its stable `photos` ID. No new contact form, email provider or fourth pillar is introduced.
 
@@ -285,7 +287,7 @@ The generic Evergreen Wellness demo has been withdrawn from the catalogue. Its s
 
 The former Windows static-export normalization and public hash-check utilities remain available with the archived demo source. They are not used by the restored McKenzie client reference. Future reactivation requires a separately approved identity, scope and price.
 
-## Nail & Esthetics Studio — $399 CAD
+## Nail & Esthetics Studio — $299 CAD
 
 The stable `still` catalogue ID now describes **Nail & Esthetics Studio**, an approved three-page offer in Beauty & Personal Care under Health & Wellness. Its `beauty` theme uses the sample identity FORMA and dedicated Home, Services and Contact pages. The starting scope includes supplied branding, approved wording and imagery, a treatment menu, appointment lengths and rates, studio details, direct call/email contact and an external booking link. Responsive implementation, core SEO, metadata, security headers and agreed launch checks remain included.
 
@@ -323,18 +325,18 @@ Both offers are included in `LL_Beauty_Massage_Templates_Release.zip`. `Run-Land
 
 ## Health & Wellness expansion — four distinct completed demos
 
-The September 26 prepared update adds four published catalogue offers with dedicated demo source. All four belong to Health & Wellness; `medical-spa` and `hair-salon` are new business-type filters, while `artsy-nails` uses Beauty & Personal Care. The existing `still` and `massage-one-page` URLs and their $399/$150 scopes remain unchanged. McKenzie House Massage remains a separately quoted real client reference with its original website image, live link and client story.
+The September 26 expansion added four published catalogue offers with dedicated demo source; the table below records their current approved prices. All four belong to Health & Wellness; `medical-spa` and `hair-salon` are new business-type filters, while `artsy-nails` uses Beauty & Personal Care. The existing `still` and `massage-one-page` URLs retain their three-page and one-page scopes at $299/$150 respectively. McKenzie House Massage remains a real client reference at an approved $399 starting price for a similar new website using supplied content, with its original website image, live link and client story.
 
 | Catalogue ID    | Level     | Starting price (CAD) | Included page structures | Contact scope                              |
 | --------------- | --------- | -------------------: | -----------------------: | ------------------------------------------ |
-| `medical-spa`   | Flagship  |                 $999 |                        6 | Standard protected enquiry form setup      |
-| `artsy-nails`   | Premier   |                 $699 |                        4 | Standard protected enquiry form setup      |
-| `hair-salon`    | Signature |                 $499 |                        4 | Direct contact or an external booking link |
+| `medical-spa`   | Flagship  |                 $600 |                        6 | Standard protected enquiry form setup      |
+| `artsy-nails`   | Premier   |                 $499 |                        4 | Standard protected enquiry form setup      |
+| `hair-salon`    | Signature |                 $399 |                        4 | Direct contact or an external booking link |
 | `hair-one-page` | Essential |                 $150 |                        1 | Direct contact or an external booking link |
 
 The clinic, nail and hair identities, stories, service examples and imagery are fictional or illustrative. They are not client endorsements, clinical credentials, performance evidence or real business contact details. The medical-spa presentation is a design example; actual treatment claims, qualifications, pricing and consent requirements need customer approval for a real launch. The one-page hair offer uses supplied content and section anchors, not multiple included pages. Additional pages, custom features, original content, integrations and ongoing care are separately quoted.
 
-The $699 and $999 demos demonstrate enquiry forms locally: validation and the confirmation state do not send email, create a booking or save a customer enquiry on a server. Their included customer launch scope covers a standard form to one business inbox, Resend and sending-domain configuration, validation, spam controls and an initial delivery test. Actual delivery is configured and checked at that customer's launch; no connected salon or clinic inbox is claimed for a static demo. The $150 and $499 hair offers include direct-contact or external-booking links; an enquiry form upgrade is separately scoped. All four retain a separate working L&L enquiry handoff with the correct catalogue selection.
+The $499 and $600 demos demonstrate enquiry forms locally: validation and the confirmation state do not send email, create a booking or save a customer enquiry on a server. Their included customer launch scope covers a standard form to one business inbox, Resend and sending-domain configuration, validation, spam controls and an initial delivery test. Actual delivery is configured and checked at that customer's launch; no connected salon or clinic inbox is claimed for a static demo. The $150 and $399 hair offers include direct-contact or external-booking links; an enquiry form upgrade is separately scoped. All four retain a separate working L&L enquiry handoff with the correct catalogue selection.
 
 | Demo source/config stem | Catalogue ID and screenshot folder | Separate project            |
 | ----------------------- | ---------------------------------- | --------------------------- |
@@ -345,6 +347,6 @@ The $699 and $999 demos demonstrate enquiry forms locally: validation and the co
 
 Each stem has `scripts/prepare-<stem>-demo.mjs`, `scripts/check-<stem>-demo.mjs`, maintained hosting files under `templates/<stem>-demo/`, and `src/data/<stem>-demo.json`. Prepare the demo, install its locked dependencies and build under `build/<stem>-demo`, then run the matching export checker. Deploy only that demo's normalized static export to its separate project with noindex and the maintained security headers. Screenshot files use `public/images/templates/<catalogue-id>/`; the parser rejects another template's images, remote image URLs and path traversal. Covers use the matching dedicated design while screenshots are empty. The JSON URL remains null until the actual public production URL is verified, so the catalogue does not display an unverified View live demo action.
 
-Price sorting remains numeric. Health & Wellness defaults to the two $150 one-page offers in source order, then $399, $499, $699, $999 and the separately quoted McKenzie reference. Reversing the sort keeps equal-price source order and McKenzie last. Detail pages, comparison, the guided enquiry and Contact use the canonical scope and price even when query parameters are altered. The main L&L navigation and compact homepage remain unchanged; this expansion is discovered through the category gallery.
+Price sorting remains numeric. Health & Wellness defaults to `massage-one-page` and `hair-one-page` at $150 in source order, `still` at $299, `hair-salon` then `mckenzie-house` at $399, `artsy-nails` at $499 and `medical-spa` at $600. Reversing the sort reverses price groups and preserves source order within both the $150 and $399 pairs. Detail pages, comparison, the guided enquiry and Contact use the canonical scope and price even when query parameters are altered. The main L&L navigation and compact homepage remain unchanged; this expansion is discovered through the category gallery.
 
 The updated unit, production HTTP and delivered-CSS gates cover these catalogue records, filters, prices, scope, selected-design enquiries, metadata, matching covers and media isolation. Passing source or HTTP checks does not establish rendered mobile/browser behavior, real inbox delivery, a push or a deployment; record those outcomes separately for the exact release revision.

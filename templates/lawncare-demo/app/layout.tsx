@@ -1,11 +1,13 @@
 import "@/styles/globals.css";
 import "@/styles/base.css";
+import "@/styles/template-pricing.css";
 import "@/styles/lawn-template.css";
 import "./demo.css";
 import type { Metadata } from "next";
+import TemplatePrice from "@/components/collection/TemplatePrice";
 import { Cormorant_Garamond, Geist } from "next/font/google";
 import MotionControl from "@/components/ui/MotionControl";
-import { collectionInquiryHref, designPrice, websiteDesigns } from "@/data/website-collection";
+import { collectionInquiryHref, websiteDesigns } from "@/data/website-collection";
 
 const sans = Geist({ variable: "--font-sans", subsets: ["latin"], display: "swap" });
 const editorial = Cormorant_Garamond({
@@ -38,7 +40,9 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
           <a href="https://lltechsolutions.ca/website-collection/lawncare">
             ← L&L / Template details
           </a>
-          <span>Website demo · {designPrice(lawncare)}</span>
+          <span>
+            Website demo · <TemplatePrice price={lawncare.startingPriceCad} compact />
+          </span>
           <div>
             <MotionControl />
             <a href={`https://lltechsolutions.ca${collectionInquiryHref({ design: lawncare.id })}`}>

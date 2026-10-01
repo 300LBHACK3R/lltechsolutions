@@ -1,11 +1,13 @@
 import "@/styles/globals.css";
 import "@/styles/base.css";
+import "@/styles/template-pricing.css";
 import "@/styles/beauty-template.css";
 import "./demo.css";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Geist } from "next/font/google";
 import MotionControl from "@/components/ui/MotionControl";
-import { collectionInquiryHref, designPrice, websiteDesigns } from "@/data/website-collection";
+import TemplatePrice from "@/components/collection/TemplatePrice";
+import { collectionInquiryHref, websiteDesigns } from "@/data/website-collection";
 
 const sans = Geist({ variable: "--font-sans", subsets: ["latin"], display: "swap" });
 const editorial = Cormorant_Garamond({
@@ -37,7 +39,9 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
         </a>
         <div className="beauty-demo-bar">
           <a href="https://lltechsolutions.ca/website-collection/still">← L&L / Template details</a>
-          <span>Website demo · {designPrice(beauty)}</span>
+          <span>
+            Website demo · <TemplatePrice price={beauty.startingPriceCad} compact />
+          </span>
           <div>
             <MotionControl />
             <a href={`https://lltechsolutions.ca${collectionInquiryHref({ design: beauty.id })}`}>

@@ -12,6 +12,12 @@ import {
 } from "../src/data/website-collection.ts";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const demo = JSON.parse(await readFile(resolve(root, "src/data/wellness-demo.json"), "utf8"));
+if (demo.archived) {
+  throw new Error(
+    "The generic wellness demo is archived. McKenzie House is the current client template reference. Do not rerun the former wellness publisher.",
+  );
+}
 const output = resolve(root, "build/wellness-demo/out");
 const segmentManifest = JSON.parse(
   await readFile(resolve(output, "wellness-segments.json"), "utf8"),
