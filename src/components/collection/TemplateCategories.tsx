@@ -11,9 +11,6 @@ export default function TemplateCategories() {
     >
       <div className="template-category-heading">
         <h2 id="template-categories-title">Browse by business type</h2>
-        <a href="#how-it-works" className="text-link">
-          How it works <span aria-hidden="true">↓</span>
-        </a>
       </div>
       <div className="template-category-list">
         {templateCategories.map((category, index) => {
@@ -49,10 +46,6 @@ export default function TemplateCategories() {
           );
         })}
       </div>
-      <p className="collection-fineprint">
-        More templates will be added over time. Every design can be discussed and personalized with
-        L&L.
-      </p>
     </section>
   );
 }

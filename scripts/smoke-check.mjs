@@ -493,17 +493,21 @@ try {
   )?.[1];
   assert.ok(
     categorySection?.includes("Browse by business type") &&
-      categorySection.includes('href="#how-it-works"'),
-    "business browsing provides the process link",
+      !categorySection.includes('href="#how-it-works"'),
+    "business browsing has no link to the removed process section",
   );
   assert.ok(
-    collection.indexOf('class="collection-intro"') < collection.indexOf('id="designs"') &&
-      collection.indexOf('id="designs"') < collection.indexOf('id="how-it-works"'),
-    "business categories follow the introduction and precede the process explanation",
+    collection.indexOf('class="collection-intro"') < collection.indexOf('id="designs"'),
+    "business categories follow the centred introduction",
   );
+  const collectionMain = collection.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
+  assert.ok(collectionMain, "collection page has its main landmark");
   assert.ok(
-    collection.includes('class="collection-process-strip collection-roadmap" id="how-it-works"'),
-    "compact process strip retains its working anchor",
+    !/id="(?:how-it-works|collections|included|ongoing-care|questions)"/.test(collectionMain) &&
+      !/class="[^"]*\bcollection-(?:roadmap|contact-options|customization|developer|questions|end)\b/.test(
+        collectionMain,
+      ),
+    "collection landing remains focused on the introduction and category cards",
   );
   for (const id of [
     "construction-trades",

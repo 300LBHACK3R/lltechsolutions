@@ -4,7 +4,7 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 
 ## The visitor journey
 
-1. Open Website Templates in the main navigation. A compact introduction preserves “A design you love. The details, handled.” and the existing launch explanation. Wide photographic business-category links appear immediately below, under “Browse by business type”. The nearby **How it works** link jumps to the compact process strip after the categories.
+1. Open Website Templates in the main navigation. A compact introduction preserves “A design you love. The details, handled.” and the existing launch explanation. Wide photographic business-category links appear immediately below, under “Browse by business type”. The shared footer follows the cards; there are no further sales or process sections on the landing page.
 2. Each category opens `/website-collection/category/[category]`, with a compact visual gallery. The templates use plain business-facing names. Health & Wellness includes separate medical-spa, artistic nail, corporate hair and one-page hair offers alongside Nail & Esthetics Studio, One-page Massage Website and the McKenzie House Massage client reference. Category filtering stays on the gallery page, not the landing page.
 3. Open a template to view its screenshots or labelled design cover, scope and starting price. Dedicated template demos use a **View live demo** button only when a verified public URL is configured. The former inline “Try this design here” flow and generic business-name editor are removed; the beauty and one-page massage offers follow the same cover/screenshots-to-live-demo journey. “Make this my website” opens the existing contact form with that exact template selected. Checkboxes on a gallery allow a comparison of up to three templates; they are a page-local selection, not a persistent saved list.
 4. Additional pages, custom layouts and features are available for every template and are quoted by the agreed scope before work begins; no fixed per-page fee is implied. Optional extras and monthly support remain available from the template detail page through the existing guided enquiry. The content guide remains available after booking. No payment is collected and no monthly plan is preselected.
@@ -72,7 +72,7 @@ Use these suggested file locations (create each folder when adding the actual fi
 
 Set a design’s `walkthrough` object, or the `developerIntroduction` export, with `src`, `poster`, `captions` and a real `transcript`. Public URLs omit `public`, for example `/media/collection/pigment/walkthrough.mp4`. Do not set the object until all three files exist. Use H.264 MP4 with a web-friendly encoding and captions matching the recording. Keep a tour focused: home, services, one useful detail and the contact journey. Check playback and seeking on the actual deployed site.
 
-Without a recording, the design cover, supplied screenshots and any configured live-demo link remain available. A walkthrough is optional; the template does not need an embedded video or a duplicate interactive preview. Meet Tate uses the written introduction. Existing client videos elsewhere on the site are untouched.
+Without a recording, the design cover, supplied screenshots and any configured live-demo link remain available. A walkthrough is optional; the template does not need an embedded video or a duplicate interactive preview. The landing page no longer renders the Meet Tate introduction or its optional video. Existing client videos elsewhere on the site are untouched.
 
 ## Performance evidence
 
@@ -173,13 +173,13 @@ Historical pricing/sorting verification: formatting, source/asset validation, ze
 
 ## Compact collection opening
 
-The landing page opens with the approved “A design you love. The details, handled.” headline, its original introduction and a short personal-service note. The large client preview selector and oversized hero spacing have been removed. The seven business-category photo strips follow immediately, with a small “Browse by business type” heading and a **How it works** anchor. Client examples remain available through their category galleries and existing detail pages.
+The landing page opens with the approved “A design you love. The details, handled.” headline, its original introduction and a short personal-service note. The large client preview selector and oversized hero spacing have been removed. The seven business-category photo strips follow immediately, with a small “Browse by business type” heading. The shared footer follows; the process anchor and category footnote have been removed. Client examples remain available through their category galleries and existing detail pages.
 
 The opening and category links remain server-rendered and work without JavaScript. The first category image loads eagerly because it now appears near the top of the page; the remaining category images load lazily. Decorative image descriptions remain empty because each link contains its category name and description. Keyboard focus, the mobile panorama layout, reduced-motion styles and forced-colour text remain available.
 
-The three-step explanation is a compact charcoal strip after the categories, followed by the existing customization, scope, developer, care and other service details. The process row remains horizontal on desktop and stacks on a phone. Intro, category and process styles live in `collection.css`; the retired `CollectionShowcase.tsx` and `collection-showcase.css` are removed. Category galleries, prices, sorting and enquiry routes remain intact.
+The landing page contains only the centred introduction and business-category cards. Process, contact options, customization, design levels, the developer introduction, technical standards, monthly support, FAQs and the final sales CTA are removed from this route. Individual template pages retain their scope, contact setup, customization, costs and support details. Intro and category styles live in `collection.css`. Category galleries, prices, sorting and enquiry routes remain intact.
 
-The production smoke checks verify the retained headline and introduction, absence of the old selector, category-before-process order, working anchor, category links, optimized image responses and loading priorities. Delivered-CSS validation covers the compact introduction, category heading and process strip. Rendered responsive review remains necessary to verify the spacing and layout; HTTP checks alone do not establish browser/device behavior.
+The production smoke checks verify the retained headline and introduction, category order and links, absence of removed sections, optimized image responses and loading priorities. Delivered-CSS validation covers the introduction and category cards. Rendered responsive review remains necessary to verify the spacing and layout; HTTP checks alone do not establish browser/device behavior.
 
 ## Painting Company / Pigment demo
 

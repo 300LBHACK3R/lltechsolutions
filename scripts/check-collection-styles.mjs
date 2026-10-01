@@ -31,12 +31,8 @@ const routes = new Map([
       "collection-intro-copy",
       "template-category-section",
       "template-category-heading",
-      "collection-process-strip",
-      "collection-roadmap",
       "template-category-list",
       "template-category-photo",
-      "collection-customization",
-      "collection-contact-options",
     ],
   ],
   [
