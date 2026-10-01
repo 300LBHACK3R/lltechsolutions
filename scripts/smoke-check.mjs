@@ -208,6 +208,37 @@ try {
     homeMain.includes('href="/projects/social-media-management#tow-n-go-digital"'),
     "homepage exposes Tow-N-Go’s monthly partnership",
   );
+  assert.ok(
+    homeMain.includes('href="#home-work"') && homeMain.includes('id="home-work"'),
+    "hero action leads to the project gallery on the same page",
+  );
+  assert.ok(
+    !/role="(?:tab|tablist|tabpanel)"/.test(homeMain),
+    "homepage shows projects directly without the retired carousel",
+  );
+  const homeCards = [
+    ...homeMain.matchAll(/<article\b[^>]*class="home-work-card"[^>]*>(.*?)<\/article>/gs),
+  ].map((match) => match[1]);
+  assert.equal(homeCards.length, 4, "homepage presents four project cards");
+  for (const [id, category, ownership] of [
+    ["tow-n-go", "web-builds", "Client website"],
+    ["crestline", "web-builds", "Client website"],
+    ["mckenzie-house", "web-builds", "Client website"],
+    ["tates-tv", "software-development", "L&amp;L software"],
+  ]) {
+    const matchingCards = homeCards.filter((card) =>
+      card.includes(`href="/projects/${category}#${id}"`),
+    );
+    assert.equal(matchingCards.length, 1, `${id}: one homepage project card`);
+    const card = matchingCards[0];
+    assert.ok(
+      card.includes(`aria-labelledby="home-project-${id}"`) &&
+        card.includes(`id="home-project-${id}"`),
+      `${id}: project link has its visible title as an accessible name`,
+    );
+    assert.ok(card.includes(ownership), `${id}: correct client or studio ownership`);
+    assert.match(card, /<img\b[^>]*alt="[^"]+"/, `${id}: project image has descriptive text`);
+  }
   const painting = htmlByRoute.get("/website-collection/pigment");
   assert.ok(painting.includes("From $499 CAD"), "painting: agreed starting price");
   for (const [id, configName] of [
@@ -1259,21 +1290,6 @@ try {
     ])
       assert.ok(html.includes(`href="${social}"`), `${route}: official social link ${social}`);
   }
-  const tabTags = [...home.matchAll(/<button\b[^>]*role="tab"[^>]*>/g)].map((match) => match[0]);
-  assert.equal(tabTags.length, 3, "project showcase tabs are present in server HTML");
-  for (const tag of tabTags) {
-    const id = tag.match(/\bid="([^"]+)"/)?.[1];
-    const panel = tag.match(/aria-controls="([^"]+)"/)?.[1];
-    assert.ok(
-      id && panel && home.includes(`id="${panel}"`) && home.includes(`aria-labelledby="${id}"`),
-      "tabs identify their labelled panels",
-    );
-  }
-  assert.equal(
-    tabTags.filter((tag) => tag.includes('aria-selected="true"')).length,
-    1,
-    "one selected project showcase tab",
-  );
   const designImages = new Set();
   for (const [source, html] of htmlByRoute) {
     for (const match of html.matchAll(/href="(\/[^"?]*)(?:\?[^"#]*)?"/g)) {
