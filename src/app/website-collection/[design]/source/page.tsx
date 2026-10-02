@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 import {
   templateManagedOffer,
@@ -49,7 +50,8 @@ export default async function SourcePage({ params, searchParams }: Props) {
         <Link className="text-link source-back" href={`/website-collection/${id}`}>
           ← Back to {product.name}
         </Link>
-        <header className="source-heading">
+        <header className="source-heading signal-surface signal-surface-quiet">
+          <SignalArtwork className="surface-signals" />
           <p className="eyebrow">The design. Your development.</p>
           <h1>
             {product.name}

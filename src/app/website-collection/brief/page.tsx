@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 import ContentBrief from "@/components/collection/ContentBrief";
 import { pageMetadata } from "@/lib/metadata";
@@ -11,7 +12,8 @@ export const metadata = {
 };
 export default function BriefPage() {
   return (
-    <div className="website-collection container journey-page">
+    <div className="website-collection container journey-page signal-surface signal-surface-bounded signal-surface-quiet">
+      <SignalArtwork className="surface-signals" />
       <Link href="/website-collection" className="text-link">
         ← Website Templates
       </Link>

@@ -204,9 +204,9 @@ export default function ManagedTemplateCheckout({
           </label>
         </div>
         <p id="managed-brief-help" className="managed-checkout-note">
-          Keep this to general business information. We’ll arrange a way to share your photos and
-          content after purchase. Please don’t include passwords, payment information or private
-          customer records.
+          Keep this to general business information. After payment, reply to your confirmation email
+          to share your photos and final content, or ask for a file-sharing option. Please don’t
+          include passwords, payment information or private customer records.
         </p>
         <label className="managed-check">
           <input type="checkbox" name="mediaHelp" value="yes" />

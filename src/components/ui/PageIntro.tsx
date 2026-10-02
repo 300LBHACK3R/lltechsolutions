@@ -10,8 +10,8 @@ export default function PageIntro({
   description: string;
 }) {
   return (
-    <section className="page-intro">
-      <SignalArtwork className="intro-signals" />
+    <section className="page-intro signal-surface">
+      <SignalArtwork className="surface-signals" />
       <div className="container">
         <p className="eyebrow">{eyebrow}</p>
         <h1>{title}</h1>

@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import TemplatePrice from "@/components/collection/TemplatePrice";
 import TemplatePurchaseOptions from "@/components/collection/TemplatePurchaseOptions";
 import { isTemplateSaleActive } from "@/data/template-promotion";
@@ -19,6 +20,8 @@ import {
   type CollectionQuery,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
+import { liveDemoLabel } from "@/config/site";
+import { templateLiveDemoUrl } from "@/lib/template-media";
 export const metadata = {
   ...pageMetadata(
     "Compare Website Designs",
@@ -35,7 +38,8 @@ export default async function ComparePage({
   const selection = compareSelection((await searchParams).design);
   const valid = !selection.tooMany && selection.designs.length >= 2;
   return (
-    <div className="website-collection container journey-page">
+    <div className="website-collection container journey-page signal-surface signal-surface-bounded signal-surface-quiet">
+      <SignalArtwork className="surface-signals" />
       <Link className="text-link" href="/website-collection#designs">
         ← All business categories
       </Link>
@@ -76,52 +80,69 @@ export default async function ComparePage({
       </details>
       {valid && (
         <div className="design-comparison">
-          {selection.designs.map((design) => (
-            <article key={design.id}>
-              <DesignCover design={design} />
-              <div>
-                <p className="eyebrow">{designStatusLabel(design)}</p>
-                <h2>{design.name}</h2>
-                <dl>
-                  <dt>Design direction</dt>
-                  <dd>{design.description}</dd>
-                  <dt>Collection</dt>
-                  <dd>{collectionTiers.find((tier) => tier.id === design.tier)?.name}</dd>
-                  <dt>Starting scope</dt>
-                  <dd>{designScopeLabel(design)}</dd>
-                  <dt>{designPriceContext(design)}</dt>
-                  <dd>
-                    <TemplatePrice
-                      price={design.startingPriceCad}
-                      initialSaleActive={isTemplateSaleActive()}
-                    />
-                  </dd>
-                  <dt>Contact setup for your new build</dt>
-                  <dd>
-                    <strong>{designContactLabel(design)}.</strong>{" "}
-                    {designContactDescription(design)}
-                  </dd>
-                  <dt>Key inclusions</dt>
-                  <dd>
-                    <ul>
-                      {design.included.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </dd>
-                  <dt>Timing</dt>
-                  <dd>{design.deliveryWindow}</dd>
-                </dl>
-                <Link href={designHref(design)} className="button button-outline">
-                  Explore {design.name} ↗
-                </Link>
-                <Link href={managedPurchaseHref(design.id)} className="text-link">
-                  Personalize &amp; launch ↗
-                </Link>
-                <TemplatePurchaseOptions designId={design.id} compact />
-              </div>
-            </article>
-          ))}
+          {selection.designs.map((design) => {
+            const liveDemoUrl = templateLiveDemoUrl(design);
+            return (
+              <article key={design.id}>
+                <DesignCover design={design} />
+                <div>
+                  <p className="eyebrow">{designStatusLabel(design)}</p>
+                  <h2>
+                    <Link href={designHref(design)}>{design.name}</Link>
+                  </h2>
+                  <dl>
+                    <dt>Design direction</dt>
+                    <dd>{design.description}</dd>
+                    <dt>Collection</dt>
+                    <dd>{collectionTiers.find((tier) => tier.id === design.tier)?.name}</dd>
+                    <dt>Starting scope</dt>
+                    <dd>{designScopeLabel(design)}</dd>
+                    <dt>{designPriceContext(design)}</dt>
+                    <dd>
+                      <TemplatePrice
+                        price={design.startingPriceCad}
+                        initialSaleActive={isTemplateSaleActive()}
+                      />
+                    </dd>
+                    <dt>Contact setup for your new build</dt>
+                    <dd>
+                      <strong>{designContactLabel(design)}.</strong>{" "}
+                      {designContactDescription(design)}
+                    </dd>
+                    <dt>Key inclusions</dt>
+                    <dd>
+                      <ul>
+                        {design.included.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </dd>
+                    <dt>Timing</dt>
+                    <dd>{design.deliveryWindow}</dd>
+                  </dl>
+                  {liveDemoUrl ? (
+                    <a
+                      href={liveDemoUrl}
+                      className="button button-outline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {liveDemoLabel} <span aria-hidden="true">↗</span>
+                      <span className="sr-only"> for {design.name}, in a new tab</span>
+                    </a>
+                  ) : (
+                    <Link href={designHref(design)} className="button button-outline">
+                      View template ↗
+                    </Link>
+                  )}
+                  <Link href={managedPurchaseHref(design.id)} className="button button-gold">
+                    Personalize &amp; launch ↗
+                  </Link>
+                  <TemplatePurchaseOptions designId={design.id} compact />
+                </div>
+              </article>
+            );
+          })}
         </div>
       )}
     </div>

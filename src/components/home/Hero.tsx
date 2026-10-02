@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 import Image from "next/image";
 import { getProject, projectPath } from "@/data/projects";
@@ -7,7 +8,8 @@ export default function Hero() {
   const website = getProject("tow-n-go");
   const content = getProject("tow-n-go-digital");
   return (
-    <section className="premium-hero" aria-labelledby="hero-title">
+    <section className="premium-hero signal-surface" aria-labelledby="hero-title">
+      <SignalArtwork className="surface-signals" />
       <div className="container">
         <div className="studio-opening">
           <div className="studio-introduction">

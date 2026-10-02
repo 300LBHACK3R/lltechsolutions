@@ -52,7 +52,7 @@ test("managed promotion expires without altering code-only prices or existing sc
   assert.equal(websiteDesigns.find((item) => item.id === "earthworks").pageCount, 7);
 });
 
-test("every visible template offers a download or an accurate scoped code-version request", () => {
+test("reference enquiry bookmarks remain scoped without creating downloadable products", () => {
   for (const design of websiteDesigns.filter((item) => item.status !== "draft")) {
     const product = sourceProduct(design.id);
     const request = sourceVersionRequest(design.id);

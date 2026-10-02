@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 import CollectionJourney from "@/components/collection/CollectionJourney";
 import { availableDesigns, type CollectionQuery } from "@/data/website-collection";
@@ -19,7 +20,8 @@ export default async function StartPage({
   const query = await searchParams;
   const design = availableDesigns().find((item) => item.id === query.design);
   return (
-    <div className="website-collection container journey-page">
+    <div className="website-collection container journey-page signal-surface signal-surface-bounded signal-surface-quiet">
+      <SignalArtwork className="surface-signals" />
       <p className="eyebrow">Website Templates / Your next step</p>
       <h1>Let’s make this easy.</h1>
       {design ? (

@@ -10,10 +10,75 @@ import {
   sourceProduct,
   sourceHref,
   sourceInquiryHref,
-  sourceVersionRequest,
 } from "../src/data/source-products.ts";
 
 const pricingNow = Date.now();
+
+function assertTemplateActions(html, design, context) {
+  const links = [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)].map((match) => ({
+    href: match[1].match(/\bhref="([^"]+)"/)?.[1],
+    attributes: match[1],
+    markup: match[2],
+    label: match[2]
+      .replace(/<[^>]+>/g, "")
+      .replaceAll("&amp;", "&")
+      .trim(),
+  }));
+  const managedIndex = links.findIndex(
+    (link) =>
+      link.href === `/website-collection/${design.id}/purchase` &&
+      link.label.startsWith("Personalize & launch"),
+  );
+  assert.ok(managedIndex >= 0, `${context}: managed launch action`);
+  const previewIndex = links.findIndex((link) =>
+    /^(?:View live demo|View the design|View template|Explore )/.test(link.label),
+  );
+  assert.ok(
+    previewIndex >= 0 && previewIndex < managedIndex,
+    `${context}: live demo or accurate preview precedes personalization`,
+  );
+  const liveIndex = links.findIndex((link) => link.label.startsWith("View live demo"));
+  if (liveIndex >= 0)
+    assert.ok(liveIndex < managedIndex, `${context}: live demo is before managed launch`);
+
+  const product = sourceProduct(design.id);
+  if (product) {
+    const codeIndex = links.findIndex((link) => link.href === sourceHref(design.id));
+    assert.ok(codeIndex > managedIndex, `${context}: code purchase follows managed launch`);
+    const code = links[codeIndex];
+    assert.ok(code.label.startsWith("Buy code only"), `${context}: clear code-only action`);
+    assert.ok(code.attributes.includes("template-code-button"), `${context}: outlined code button`);
+    assert.ok(
+      code.markup.includes(formatPriceCad(product.priceCad)),
+      `${context}: lower code-only price appears on its button`,
+    );
+  } else {
+    assert.ok(
+      html.includes("Code download not available for this reference design."),
+      `${context}: reference availability is stated`,
+    );
+    assert.ok(
+      !links.some(
+        (link) =>
+          /source-version=/.test(link.href ?? "") ||
+          link.href === sourceHref(design.id) ||
+          link.label.startsWith("Buy code only"),
+      ),
+      `${context}: reference has no code purchase or request action`,
+    );
+  }
+}
+
+function assertComparisonActions(html, context) {
+  const cards = [...html.matchAll(/<article\b[^>]*>([\s\S]*?)<\/article>/g)];
+  assert.ok(cards.length >= 2, `${context}: comparison cards exist`);
+  for (const [, card] of cards) {
+    const id = card.match(/href="\/website-collection\/([^"/]+)\/purchase"/)?.[1];
+    const design = websiteDesigns.find((item) => item.id === id);
+    assert.ok(design, `${context}: comparison card links its selected offer`);
+    assertTemplateActions(card, design, `${context}: ${id}`);
+  }
+}
 
 function assertTemplatePrice(html, regularPrice, context) {
   const quote = templatePrice(regularPrice, pricingNow);
@@ -271,6 +336,18 @@ try {
     checks++;
   }
   checks += await checkCollectionStyles(origin);
+  for (const [route, html] of htmlByRoute) {
+    if (!route.startsWith("/website-collection/category/")) continue;
+    const cards = [
+      ...html.matchAll(/<article\b[^>]*class="collection-design"[^>]*>([\s\S]*?)<\/article>/g),
+    ];
+    for (const [, card] of cards) {
+      const id = card.match(/href="\/website-collection\/([^"/]+)\/purchase"/)?.[1];
+      const design = websiteDesigns.find((item) => item.id === id);
+      assert.ok(design, `${route}: category card links its selected offer`);
+      assertTemplateActions(card, design, `${route}: ${id}`);
+    }
+  }
   const home = htmlByRoute.get("/");
   const homeMain = home.match(/<main\b[^>]*>(.*?)<\/main>/s)?.[1];
   assert.ok(homeMain, "homepage content is present");
@@ -675,6 +752,7 @@ try {
   );
   assert.equal(comparison.status, 200);
   const comparisonHtml = await comparison.text();
+  assertComparisonActions(comparisonHtml, "template comparison");
   assert.ok(comparisonHtml.includes('class="design-comparison"'));
   assertTemplatePrice(comparisonHtml, 399, "comparison: painting price");
   assertTemplatePrice(comparisonHtml, 299, "comparison: nail studio price");
@@ -703,9 +781,10 @@ try {
     !collection.includes('class="collection-design"'),
     "individual template cards live in category galleries",
   );
-  const intro = collection.match(
-    /<section[^>]*class="collection-intro"[^>]*>([\s\S]*?)<\/section>/,
-  )?.[1];
+  const introMatch = collection.match(
+    /<section\b[^>]*class="(?:[^"]*\s)?collection-intro(?:\s[^"]*)?"[^>]*>([\s\S]*?)<\/section>/,
+  );
+  const intro = introMatch?.[1];
   assert.ok(intro, "collection opens with a compact introduction");
   assert.equal(
     intro
@@ -735,7 +814,7 @@ try {
     "business browsing has no link to the removed process section",
   );
   assert.ok(
-    collection.indexOf('class="collection-intro"') < collection.indexOf('id="designs"'),
+    introMatch.index < collection.indexOf('id="designs"'),
     "business categories follow the centred introduction",
   );
   const collectionMain = collection.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
@@ -1233,6 +1312,7 @@ try {
   );
   assert.equal(transportComparison.status, 200);
   const transportComparisonHtml = await transportComparison.text();
+  assertComparisonActions(transportComparisonHtml, "reference comparison");
   assert.ok(
     transportComparisonHtml.includes("Live client example") &&
       transportComparisonHtml.includes("Live design demo") &&
@@ -1779,12 +1859,7 @@ try {
       detail.includes("/services#photography-videography"),
       `${design.id}: original media service linked`,
     );
-    assert.ok(
-      detail.includes(
-        sourceProduct(design.id) ? sourceHref(design.id) : sourceVersionRequest(design.id).href,
-      ),
-      `${design.id}: secondary purchase option`,
-    );
+    assertTemplateActions(detail, design, `${design.id}: detail purchase actions`);
     assert.ok(
       detail.includes(`/website-collection/${design.id}/purchase`),
       `${design.id}: managed checkout entry`,
@@ -1823,7 +1898,7 @@ try {
   ).text();
   assert.ok(
     referenceEnquiry.includes("Tow-N-Go"),
-    "code-version request preserves selected reference",
+    "legacy code-version enquiry preserves selected reference",
   );
   assert.ok(
     referenceEnquiry.includes("request a reusable code-only version; quoted separately"),
@@ -1843,7 +1918,7 @@ try {
       html.includes("Ask about this download"),
       "unconfigured checkout has an honest enquiry fallback",
     );
-    assert.ok(!html.includes("Buy source code ·"), "unconfigured checkout does not take payment");
+    assert.ok(!html.includes("Buy code only ·"), "unconfigured checkout does not take payment");
     assert.ok(html.includes("Single-business website licence"), "source licence is visible");
     assert.ok(html.includes("Personalize &amp; launch"), "managed alternative remains available");
     checks++;

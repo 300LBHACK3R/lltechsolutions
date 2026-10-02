@@ -1,3 +1,5 @@
+import { liveDemoLabel } from "@/config/site";
+import { templateLiveDemoUrl } from "@/lib/template-media";
 import TemplatePrice from "@/components/collection/TemplatePrice";
 import TemplatePurchaseOptions from "@/components/collection/TemplatePurchaseOptions";
 import {
@@ -146,65 +148,80 @@ export default function CollectionCatalog({
         </div>
       ) : (
         <div className="collection-design-grid">
-          {filtered.map((design) => (
-            <article className="collection-design" id={`design-${design.id}`} key={design.id}>
-              <Link
-                className="template-preview-link"
-                href={designHref(design)}
-                aria-label={`Preview ${design.name} website ${design.status === "client-example" ? "example" : "template"}`}
-              >
-                <DesignCover design={design} />
-                <span className="template-preview-caption">
-                  {design.status === "client-example" ? "View client example" : "View template"}{" "}
-                  <span aria-hidden="true">↗</span>
-                </span>
-              </Link>
-              <div className="collection-design-copy">
-                <p className="eyebrow">
-                  {collectionTiers.find((item) => item.id === design.tier)?.name}
-                  {" · "}
-                  {designStatusLabel(design)}
-                </p>
-                <h3>
-                  <Link href={designHref(design)}>{design.name}</Link>
-                </h3>
-                <p>{design.description}</p>
-                <p className="template-purchase-label">{templateManagedOffer.label}</p>
-                <p className="collection-design-price">
-                  <TemplatePrice
-                    price={design.startingPriceCad}
-                    initialSaleActive={isTemplateSaleActive()}
-                  />
-                  <span>{designPriceContext(design)}</span>
-                  <span>{designScopeLabel(design)} · Personalized with L&L</span>
-                </p>
-                <p className="template-managed-summary">{templateManagedOffer.compact}</p>
-                <p className="collection-contact-summary">
-                  New build · {designContactLabel(design)}
-                </p>
-                <div className="template-card-actions">
-                  <Link className="button button-outline" href={designHref(design)}>
-                    {design.status === "client-example" ? "View client example" : "View template"} ↗
-                  </Link>
-                  <Link className="text-link" href={managedPurchaseHref(design.id)}>
-                    Personalize & launch ↗
-                  </Link>
+          {filtered.map((design) => {
+            const liveDemoUrl = templateLiveDemoUrl(design);
+            return (
+              <article className="collection-design" id={`design-${design.id}`} key={design.id}>
+                <Link
+                  className="template-preview-link"
+                  href={designHref(design)}
+                  aria-label={`Preview ${design.name} website ${design.status === "client-example" ? "example" : "template"}`}
+                >
+                  <DesignCover design={design} />
+                  <span className="template-preview-caption">
+                    {design.status === "client-example" ? "View client example" : "View template"}{" "}
+                    <span aria-hidden="true">↗</span>
+                  </span>
+                </Link>
+                <div className="collection-design-copy">
+                  <p className="eyebrow">
+                    {collectionTiers.find((item) => item.id === design.tier)?.name}
+                    {" · "}
+                    {designStatusLabel(design)}
+                  </p>
+                  <h3>
+                    <Link href={designHref(design)}>{design.name}</Link>
+                  </h3>
+                  <p>{design.description}</p>
+                  <p className="template-purchase-label">{templateManagedOffer.label}</p>
+                  <p className="collection-design-price">
+                    <TemplatePrice
+                      price={design.startingPriceCad}
+                      initialSaleActive={isTemplateSaleActive()}
+                    />
+                    <span>{designPriceContext(design)}</span>
+                    <span>{designScopeLabel(design)} · Personalized with L&L</span>
+                  </p>
+                  <p className="template-managed-summary">{templateManagedOffer.compact}</p>
+                  <p className="collection-contact-summary">
+                    New build · {designContactLabel(design)}
+                  </p>
+                  <div className="template-card-actions">
+                    {liveDemoUrl ? (
+                      <a
+                        className="button button-outline"
+                        href={liveDemoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {liveDemoLabel} <span aria-hidden="true">↗</span>
+                        <span className="sr-only"> for {design.name}, in a new tab</span>
+                      </a>
+                    ) : (
+                      <Link className="button button-outline" href={designHref(design)}>
+                        View template <span aria-hidden="true">↗</span>
+                      </Link>
+                    )}
+                    <Link className="button button-gold" href={managedPurchaseHref(design.id)}>
+                      Personalize & launch ↗
+                    </Link>
+                  </div>
+                  <TemplatePurchaseOptions designId={design.id} compact />
+                  {designs.length >= 2 && (
+                    <label className="template-shortlist-choice">
+                      <input
+                        form="template-shortlist"
+                        type="checkbox"
+                        name="design"
+                        value={design.id}
+                      />{" "}
+                      Compare this design
+                    </label>
+                  )}
                 </div>
-                <TemplatePurchaseOptions designId={design.id} compact />
-                {designs.length >= 2 && (
-                  <label className="template-shortlist-choice">
-                    <input
-                      form="template-shortlist"
-                      type="checkbox"
-                      name="design"
-                      value={design.id}
-                    />{" "}
-                    Compare this design
-                  </label>
-                )}
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       )}
       {designs.length >= 2 && filtered.length > 0 && (

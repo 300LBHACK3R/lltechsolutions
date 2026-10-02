@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 import TemplateScreenshotGallery from "@/components/collection/TemplateScreenshotGallery";
 import ProjectDesignOptions from "@/components/projects/ProjectDesignOptions";
@@ -40,7 +41,8 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
 
   return (
     <article className="client-case-study case-page">
-      <header className="client-case-header">
+      <header className="client-case-header signal-surface">
+        <SignalArtwork className="surface-signals" />
         <div className="container">
           <nav className="client-case-breadcrumb" aria-label="Breadcrumb">
             <Link href="/projects">Our clients & projects</Link>
@@ -153,7 +155,11 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
           <ProjectDesignOptions projectId={project.id} options={project.designOptions} />
         )}
         {project.templateOptions && <ProjectTemplateOptions project={project} />}
-        <section className="client-next-step" aria-labelledby="project-next-title">
+        <section
+          className="client-next-step signal-surface signal-surface-quiet"
+          aria-labelledby="project-next-title"
+        >
+          <SignalArtwork className="surface-signals" />
           <div>
             <p className="eyebrow">Your next project</p>
             <h2 id="project-next-title">{nextTitle}</h2>

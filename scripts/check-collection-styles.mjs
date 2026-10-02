@@ -6,6 +6,7 @@ import { pathToFileURL } from "node:url";
 // HTML-only checks missed a deployed bundle with all collection styles absent.
 // Check delivered CSS, including one dependency from each collection stylesheet.
 const routes = new Map([
+  ["/services", ["services-page", "services-intro", "services-chapter-layout", "signal-surface"]],
   [
     "/website-collection/pigment/purchase",
     ["managed-purchase-layout", "managed-checkout-form", "managed-fields"],
@@ -13,7 +14,7 @@ const routes = new Map([
   ["/template-purchase/success", ["managed-purchase-success", "managed-order-details"]],
   [
     "/website-collection/pigment/source",
-    ["source-layout", "source-order", "source-license", "template-source-link"],
+    ["source-layout", "source-order", "source-license", "template-code-button"],
   ],
   ["/source-purchase/success", ["source-success", "source-purchase-status"]],
   ["/packages", ["pricing-page", "pricing-grid", "pricing-answers", "template-sale-notice"]],

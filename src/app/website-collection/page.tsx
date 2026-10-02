@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import TemplateSaleNotice from "@/components/collection/TemplateSaleNotice";
 import { isTemplateSaleActive } from "@/data/template-promotion";
 import { redirect } from "next/navigation";
@@ -36,7 +37,8 @@ export default async function WebsiteCollectionPage({
   }
   return (
     <div className="website-collection">
-      <section className="collection-intro" aria-labelledby="collection-title">
+      <section className="collection-intro signal-surface" aria-labelledby="collection-title">
+        <SignalArtwork className="surface-signals" />
         <div className="container">
           <p className="eyebrow">L&L / Website Templates</p>
           <h1 id="collection-title">

@@ -42,6 +42,8 @@ import "@/styles/home-premium-work.css";
 import "@/styles/client-showcase.css";
 import "@/styles/pricing.css";
 import "@/styles/template-pricing.css";
+import "@/styles/services.css";
+import "@/styles/signals.css";
 import type { Metadata, Viewport } from "next";
 import { Geist, Cormorant_Garamond } from "next/font/google";
 import Header from "@/components/layout/Header";

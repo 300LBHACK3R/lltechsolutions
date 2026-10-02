@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import TemplateSaleNotice from "@/components/collection/TemplateSaleNotice";
 import { isTemplateSaleActive } from "@/data/template-promotion";
 import { templateManagedOffer, templateMediaOffer } from "@/data/template-purchase";
@@ -24,7 +25,8 @@ export default function PricingPage() {
 
   return (
     <div className="pricing-page">
-      <header className="pricing-intro">
+      <header className="pricing-intro signal-surface">
+        <SignalArtwork className="surface-signals" />
         <div className="container">
           <p className="eyebrow">L&L / Pricing</p>
           <div className="pricing-intro-layout">
@@ -102,7 +104,11 @@ export default function PricingPage() {
             the deliverables, timeline, applicable taxes and any separate costs.
           </p>
         </section>
-        <section className="pricing-template-route" aria-labelledby="pricing-templates-title">
+        <section
+          className="pricing-template-route signal-surface signal-surface-quiet"
+          aria-labelledby="pricing-templates-title"
+        >
+          <SignalArtwork className="surface-signals" />
           <div className="pricing-template-copy">
             <p className="eyebrow">Find a look you love</p>
             <TemplateSaleNotice initialSaleActive={isTemplateSaleActive()} />
@@ -112,9 +118,9 @@ export default function PricingPage() {
               {templateManagedOffer.summary}
             </p>
             <p>
-              The lower “Download source code” price is for DIY files and editing/setup
-              instructions. You handle personalization, testing, hosting and launch. L&L’s
-              implementation service and ongoing support are separate.
+              The lower “Buy code only” price is for DIY files and editing/setup instructions. You
+              handle personalization, testing, hosting and launch. L&L’s implementation service and
+              ongoing support are separate.
             </p>
             <p>
               {templateMediaOffer.summary}{" "}

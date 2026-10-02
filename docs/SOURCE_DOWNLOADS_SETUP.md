@@ -1,10 +1,10 @@
 # Source downloads: owner setup
 
-The storefront offers **Personalize & launch** first and **Download source code** as a separate DIY purchase. This release does not charge a card, create provider accounts or make a storage bucket public. Until the private packages and payment settings are ready, customers can enquire about purchasing; checkout stays unavailable.
+Template cards, details and comparisons show **View live demo** first when a verified URL exists, then **Personalize & launch**, then an outlined **Buy code only** button with the lower DIY price for eligible designs. Missing live URLs retain an accurate template/preview action. This release does not charge a card, create provider accounts or make a storage bucket public. Until the private packages and payment settings are ready, customers can enquire about purchasing; checkout stays unavailable.
 
 ## What is sold
 
-Every visible template has two paths: L&L personalization and launch, or a code-only option. The five reference examples use **Request a code-only version**, with availability, reusable scope and price confirmed first. They do not expose or sell original client files.
+The 40 eligible designs offer L&L personalization and launch or a separate code-only purchase. The five reference examples show **Code download not available for this reference design.** as a noninteractive note. They do not expose or sell original client files, display a code price or offer a request button. Existing `source-version` enquiry URLs remain valid for previously shared links; they are not advertised as a current downloadable product.
 
 `src/data/source-products.ts` is the explicit list of 40 reusable fictional designs. Tow-N-Go, Crestline, McKenzie House, Calgary Hot Shot and Horizon are excluded. Never add a real client's code, identity or private media to the downloadable catalogue without separately resolving the rights and product scope.
 

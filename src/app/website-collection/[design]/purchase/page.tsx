@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ManagedTemplateCheckout from "@/components/collection/ManagedTemplateCheckout";
@@ -48,7 +49,8 @@ export default async function ManagedPurchasePage({ params, searchParams }: Prop
         <Link className="text-link managed-back" href={`/website-collection/${id}`}>
           ← Back to {design.name}
         </Link>
-        <header className="managed-purchase-heading">
+        <header className="managed-purchase-heading signal-surface signal-surface-quiet">
+          <SignalArtwork className="surface-signals" />
           <p className="eyebrow">Your design. Brought to life by L&L.</p>
           <h1>
             {design.name}

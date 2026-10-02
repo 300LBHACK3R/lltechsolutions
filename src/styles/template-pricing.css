@@ -64,11 +64,50 @@
 .collection-intro .template-sale-notice {
   margin-inline: auto;
 }
+.template-source-option .template-code-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  min-height: 48px;
+  width: 100%;
+  margin-block: 7px 11px;
+  padding: 12px 16px;
+  border: 1px solid #655c43;
+  border-radius: 4px;
+  background: #1a1a17;
+  color: var(--gold-light);
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.5;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease;
+}
+.template-source-option .template-code-button strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.template-source-option .template-code-button:is(:hover, :focus-visible) {
+  border-color: var(--gold-light);
+  background: #27261f;
+}
+.template-source-unavailable > p {
+  padding-block: 6px;
+}
 @media (forced-colors: active) {
   .template-price .template-price-regular {
     opacity: 1;
   }
   .template-sale-notice {
     color: CanvasText;
+  }
+  .template-source-option .template-code-button {
+    border-color: ButtonText;
+    color: LinkText;
   }
 }

@@ -489,7 +489,7 @@ export function managedEmailContent(
           `Thank you, ${brief.name}. Your payment for ${quote.name} has been received.`,
           ...purchase,
           `Business: ${brief.businessName}`,
-          "L&L will follow up to confirm your content, timeline and any extras before work starts. Your photos, logo and final copy can be supplied through the agreed handoff; do not email passwords or sensitive customer/patient information.",
+          "L&L will follow up to confirm your content, timeline and any extras before work starts. Reply to this email with your photos, logo and final copy when you are ready, or ask us for a file-sharing option; do not email passwords or sensitive customer/patient information.",
           `This purchase is for L&L to personalize and launch the selected template. It is not the code-only download option. Reply to ${ownerEmail} with your order reference if you need help.`,
         ].join("\n\n"),
       };

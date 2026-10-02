@@ -124,12 +124,12 @@
   border-radius: 50%;
   background: var(--gold-light);
 }
-.template-detail-purchase .template-source-link {
+.template-detail-purchase .template-code-button {
   align-items: flex-start;
   gap: 3px 12px;
   font-size: 13px;
 }
-.template-detail-purchase .template-source-link strong {
+.template-detail-purchase .template-code-button strong {
   font-size: 12px;
 }
 .template-detail-purchase .template-source-option > p {
@@ -471,7 +471,7 @@
   .template-detail-actions {
     grid-template-columns: minmax(0, 1fr);
   }
-  .template-detail-purchase .template-source-link {
+  .template-detail-purchase .template-code-button {
     flex-direction: column;
   }
 }

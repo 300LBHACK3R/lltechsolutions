@@ -1,7 +1,9 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 export default function ProjectCTA() {
   return (
-    <section className="final-cta">
+    <section className="final-cta signal-surface signal-surface-quiet">
+      <SignalArtwork className="surface-signals" />
       <div className="container">
         <div className="cta-inner">
           <div>

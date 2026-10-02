@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 import ProjectPreview from "@/components/projects/ProjectPreview";
 import ProjectCollection from "@/components/seo/ProjectCollection";
@@ -19,7 +20,8 @@ export const metadata = pageMetadata(
 export default function ProjectsPage() {
   return (
     <div className="client-directory">
-      <header className="client-directory-header">
+      <header className="client-directory-header signal-surface">
+        <SignalArtwork className="surface-signals" />
         <div className="container">
           <p className="eyebrow">Our clients & studio projects</p>
           <div className="client-directory-intro">
@@ -79,7 +81,11 @@ export default function ProjectsPage() {
             ))}
           </div>
         </section>
-        <section className="client-next-step" aria-labelledby="client-next-step-title">
+        <section
+          className="client-next-step signal-surface signal-surface-quiet"
+          aria-labelledby="client-next-step-title"
+        >
+          <SignalArtwork className="surface-signals" />
           <div>
             <p className="eyebrow">Your next project</p>
             <h2 id="client-next-step-title">Let’s give your business a place here.</h2>

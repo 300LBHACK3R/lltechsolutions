@@ -64,7 +64,7 @@ export default function SourceCheckout({
         </span>
       </label>
       <button className="button button-gold" type="submit" disabled={pending}>
-        {pending ? "Opening secure checkout…" : `Buy source code · ${formatPriceCad(priceCad)}`}{" "}
+        {pending ? "Opening secure checkout…" : `Buy code only · ${formatPriceCad(priceCad)}`}{" "}
         <span aria-hidden="true">↗</span>
       </button>
       <p className="source-small">

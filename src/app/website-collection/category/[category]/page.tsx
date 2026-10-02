@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CollectionCatalog from "@/components/collection/CollectionCatalog";
@@ -41,7 +42,8 @@ export default async function TemplateCategoryPage({ params, searchParams }: Pro
   const listed = filterDesigns(designs, query);
   return (
     <div className="website-collection">
-      <section className="template-gallery-hero">
+      <section className="template-gallery-hero signal-surface">
+        <SignalArtwork className="surface-signals" />
         <div className="container">
           <Link className="text-link" href="/website-collection#designs">
             ← All business categories

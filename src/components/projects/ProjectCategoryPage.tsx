@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 import ProjectPreview from "@/components/projects/ProjectPreview";
 import ProjectCollection from "@/components/seo/ProjectCollection";
@@ -10,7 +11,8 @@ export default function ProjectCategoryPage({ category }: { category: ProjectCat
 
   return (
     <div className="client-directory client-category-directory">
-      <header className="client-directory-header">
+      <header className="client-directory-header signal-surface">
+        <SignalArtwork className="surface-signals" />
         <div className="container">
           <Link href="/projects" className="text-link client-back-link">
             <span aria-hidden="true">←</span> All clients & projects

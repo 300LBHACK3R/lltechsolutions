@@ -1,0 +1,66 @@
+/* One quiet circuit treatment for L&L pages. Template demos keep their own identity. */
+.signal-surface {
+  position: relative;
+  isolation: isolate;
+}
+.signal-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 78% 30%, #728a9920, transparent 58%),
+    radial-gradient(ellipse at 25% 75%, #ae925011, transparent 62%);
+}
+.signal-surface > .surface-signals {
+  inset: 0 0 auto auto;
+  z-index: -1;
+  width: min(76%, 940px);
+  height: 100%;
+  max-height: 640px;
+  opacity: 0.65;
+}
+.signal-surface-quiet::before {
+  opacity: 0.6;
+}
+.signal-surface-quiet > .surface-signals {
+  width: min(60%, 720px);
+  opacity: 0.4;
+}
+/* Long detail and enquiry pages get a hero accent, never a full-page pattern. */
+.signal-surface-bounded::before {
+  bottom: auto;
+  height: min(100%, 540px);
+}
+.signal-surface-bounded > .surface-signals {
+  max-height: 540px;
+}
+.signal-surface .signal-lines {
+  stroke: #cbbb902e;
+}
+.signal-surface .signal-pulse {
+  opacity: 0.5;
+}
+@media (max-width: 699px) {
+  .signal-surface > .surface-signals {
+    width: 100%;
+    max-height: 480px;
+    opacity: 0.36;
+  }
+  .signal-surface-quiet > .surface-signals {
+    opacity: 0.24;
+  }
+}
+@media (forced-colors: active) {
+  .signal-surface::before,
+  .signal-surface > .surface-signals {
+    display: none;
+  }
+}
+@media print {
+  .signal-surface::before,
+  .signal-surface > .surface-signals {
+    display: none;
+  }
+}

@@ -1,8 +1,13 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
 
 export default function HomeProjectCTA() {
   return (
-    <section className="home-project-invitation" aria-labelledby="home-project-invitation-title">
+    <section
+      className="home-project-invitation signal-surface signal-surface-quiet"
+      aria-labelledby="home-project-invitation-title"
+    >
+      <SignalArtwork className="surface-signals" />
       <div className="container">
         <div className="home-project-invitation-inner">
           <h2 id="home-project-invitation-title">

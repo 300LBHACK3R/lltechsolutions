@@ -1,3 +1,4 @@
+import SignalArtwork from "@/components/ui/SignalArtwork";
 import TemplatePrice from "@/components/collection/TemplatePrice";
 import TemplatePurchaseOptions from "@/components/collection/TemplatePurchaseOptions";
 import {
@@ -6,55 +7,14 @@ import {
   managedPurchaseHref,
 } from "@/data/template-purchase";
 import { isTemplateSaleActive } from "@/data/template-promotion";
-import detailingDemo from "@/data/mobile-detailing-demo.json";
-import floristDemo from "@/data/flower-shop-demo.json";
-import autoRepairDemo from "@/data/auto-repair-demo.json";
-import streetwearDemo from "@/data/streetwear-store-demo.json";
-import wheelStudioDemo from "@/data/wheel-studio-demo.json";
-import jewelleryDemo from "@/data/jewellery-atelier-demo.json";
-import foodTruckDemo from "@/data/food-truck-demo.json";
-import neighbourhoodCafeDemo from "@/data/neighbourhood-cafe-demo.json";
-import artisanBakeryDemo from "@/data/artisan-bakery-demo.json";
-import pizzeriaDemo from "@/data/pizzeria-demo.json";
-import cateringEventsDemo from "@/data/catering-events-demo.json";
-import fineDiningDemo from "@/data/fine-dining-demo.json";
-import homeCleaningDemo from "@/data/home-cleaning-demo.json";
-import windowCareDemo from "@/data/window-care-demo.json";
-import homeOrganizingDemo from "@/data/home-organizing-demo.json";
-import interiorStudioDemo from "@/data/interior-studio-demo.json";
-import propertyManagementDemo from "@/data/property-management-demo.json";
-import realEstateDemo from "@/data/real-estate-demo.json";
-import courierDemo from "@/data/courier-one-page-demo.json";
-import movingDemo from "@/data/moving-company-demo.json";
-import autoTransportDemo from "@/data/auto-transport-demo.json";
-import equipmentRentalsDemo from "@/data/equipment-rentals-demo.json";
-import coldChainDemo from "@/data/cold-chain-demo.json";
-import freightDemo from "@/data/freight-logistics-demo.json";
-import averyDemo from "@/data/consultant-one-page-demo.json";
-import tallyDemo from "@/data/bookkeeping-demo.json";
-import northlineDemo from "@/data/accounting-demo.json";
-import offscriptDemo from "@/data/creative-consultancy-demo.json";
-import valeDemo from "@/data/boutique-law-demo.json";
-import axiomDemo from "@/data/corporate-law-demo.json";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import DesignPreview from "@/components/collection/DesignPreview";
 import TemplateShowcase from "@/components/collection/TemplateShowcase";
-import paintingDemo from "@/data/painting-demo.json";
-import plumbingDemo from "@/data/plumbing-demo.json";
-import earthworksDemo from "@/data/earthworks-demo.json";
-import lawncareDemo from "@/data/lawncare-demo.json";
-import horizonDemo from "@/data/horizon-demo.json";
-import beautyDemo from "@/data/beauty-demo.json";
-import massageOnePageDemo from "@/data/massage-one-page-demo.json";
-import medicalSpaDemo from "@/data/medical-spa-demo.json";
-import artsyNailDemo from "@/data/artsy-nail-demo.json";
-import hairSalonDemo from "@/data/hair-salon-demo.json";
-import hairOnePageDemo from "@/data/hair-one-page-demo.json";
 import CollectionContactOptions from "@/components/collection/CollectionContactOptions";
 import CollectionCustomization from "@/components/collection/CollectionCustomization";
-import { readTemplateShowcase } from "@/lib/template-showcase";
+import { templateShowcaseFor, templateLiveDemoUrl } from "@/lib/template-media";
 import CollectionMedia from "@/components/collection/CollectionMedia";
 import CostSummary from "@/components/collection/CostSummary";
 import TemplateScreenshotGallery from "@/components/collection/TemplateScreenshotGallery";
@@ -63,16 +23,6 @@ import { projects, projectPath } from "@/data/projects";
 import JsonLd from "@/components/seo/JsonLd";
 import { absoluteUrl, liveDemoLabel } from "@/config/site";
 import {
-  retailTemplate,
-  type RetailTemplateId,
-  foodTemplate,
-  type FoodTemplateId,
-  homePropertyTemplate,
-  type HomePropertyTemplateId,
-  transportTemplate,
-  type TransportTemplateId,
-  professionalTemplate,
-  type ProfessionalTemplateId,
   availableDesigns,
   categoryForIndustry,
   categoryHref,
@@ -86,51 +36,6 @@ import {
   designContactLabel,
 } from "@/data/website-collection";
 import { pageMetadata } from "@/lib/metadata";
-
-const retailShowcases = {
-  "mobile-detailing": detailingDemo,
-  "flower-shop": floristDemo,
-  "auto-repair": autoRepairDemo,
-  "streetwear-store": streetwearDemo,
-  "wheel-studio": wheelStudioDemo,
-  "jewellery-atelier": jewelleryDemo,
-};
-
-const foodShowcases = {
-  "food-truck": foodTruckDemo,
-  "neighbourhood-cafe": neighbourhoodCafeDemo,
-  "artisan-bakery": artisanBakeryDemo,
-  pizzeria: pizzeriaDemo,
-  "catering-events": cateringEventsDemo,
-  "fine-dining": fineDiningDemo,
-};
-
-const homePropertyShowcases = {
-  "home-cleaning": homeCleaningDemo,
-  "window-care": windowCareDemo,
-  "home-organizing": homeOrganizingDemo,
-  "interior-studio": interiorStudioDemo,
-  "property-management": propertyManagementDemo,
-  "real-estate": realEstateDemo,
-};
-
-const transportShowcases = {
-  "courier-one-page": courierDemo,
-  "moving-company": movingDemo,
-  "auto-transport": autoTransportDemo,
-  "equipment-rentals": equipmentRentalsDemo,
-  "cold-chain": coldChainDemo,
-  "freight-logistics": freightDemo,
-};
-
-const professionalShowcases = {
-  "consultant-one-page": averyDemo,
-  bookkeeping: tallyDemo,
-  accounting: northlineDemo,
-  "creative-consultancy": offscriptDemo,
-  "boutique-law": valeDemo,
-  "corporate-law": axiomDemo,
-};
 
 type Props = { params: Promise<{ design: string }> };
 export function generateStaticParams() {
@@ -150,54 +55,7 @@ export default async function DesignPage({ params }: Props) {
   const { design: id } = await params;
   const design = availableDesigns().find((item) => item.id === id);
   if (!design) notFound();
-  const media = retailTemplate(design.id)
-    ? readTemplateShowcase(
-        retailShowcases[design.id as RetailTemplateId],
-        design.id as RetailTemplateId,
-      )
-    : foodTemplate(design.id)
-      ? readTemplateShowcase(
-          foodShowcases[design.id as FoodTemplateId],
-          design.id as FoodTemplateId,
-        )
-      : transportTemplate(design.id)
-        ? readTemplateShowcase(
-            transportShowcases[design.id as TransportTemplateId],
-            design.id as TransportTemplateId,
-          )
-        : homePropertyTemplate(design.id)
-          ? readTemplateShowcase(
-              homePropertyShowcases[design.id as HomePropertyTemplateId],
-              design.id as HomePropertyTemplateId,
-            )
-          : design.id === "pigment"
-            ? readTemplateShowcase(paintingDemo)
-            : design.id === "structure"
-              ? readTemplateShowcase(plumbingDemo, "structure")
-              : design.id === "earthworks"
-                ? readTemplateShowcase(earthworksDemo, "earthworks")
-                : design.id === "lawncare"
-                  ? readTemplateShowcase(lawncareDemo, "lawncare")
-                  : design.id === "horizon"
-                    ? readTemplateShowcase(horizonDemo, "horizon")
-                    : design.id === "still"
-                      ? readTemplateShowcase(beautyDemo, "still")
-                      : design.id === "massage-one-page"
-                        ? readTemplateShowcase(massageOnePageDemo, "massage-one-page")
-                        : design.id === "medical-spa"
-                          ? readTemplateShowcase(medicalSpaDemo, "medical-spa")
-                          : design.id === "artsy-nails"
-                            ? readTemplateShowcase(artsyNailDemo, "artsy-nails")
-                            : design.id === "hair-salon"
-                              ? readTemplateShowcase(hairSalonDemo, "hair-salon")
-                              : design.id === "hair-one-page"
-                                ? readTemplateShowcase(hairOnePageDemo, "hair-one-page")
-                                : professionalTemplate(design.id)
-                                  ? readTemplateShowcase(
-                                      professionalShowcases[design.id as ProfessionalTemplateId],
-                                      design.id as ProfessionalTemplateId,
-                                    )
-                                  : null;
+  const media = templateShowcaseFor(design.id);
   const category = categoryForIndustry(design.industry);
   const clientProject = design.clientProjectId
     ? projects.find(
@@ -208,13 +66,11 @@ export default async function DesignPage({ params }: Props) {
   const relatedProject = clientProject?.relatedWork
     ? projects.find((project) => project.id === clientProject.relatedWork?.projectId)
     : undefined;
-  const liveDemoUrl =
-    media?.url ??
-    clientProject?.liveUrl ??
-    (!design.concept && design.demoUrl.startsWith("https://") ? design.demoUrl : null);
+  const liveDemoUrl = templateLiveDemoUrl(design);
   return (
     <div className="website-collection template-detail">
-      <div className="template-detail-header">
+      <div className="template-detail-header signal-surface signal-surface-bounded">
+        <SignalArtwork className="surface-signals" />
         <div className="container">
           <div className="template-detail-breadcrumb">
             <Link
@@ -352,9 +208,6 @@ export default async function DesignPage({ params }: Props) {
                 <li>Responsive and security checks, plus launch within scope</li>
               </ul>
               <div className="template-detail-actions">
-                <Link className="button button-gold" href={managedPurchaseHref(design.id)}>
-                  Personalize & launch ↗
-                </Link>
                 {liveDemoUrl ? (
                   <a
                     className="button button-outline"
@@ -369,6 +222,9 @@ export default async function DesignPage({ params }: Props) {
                     View the design ↓
                   </a>
                 )}
+                <Link className="button button-gold" href={managedPurchaseHref(design.id)}>
+                  Personalize & launch ↗
+                </Link>
               </div>
               <TemplatePurchaseOptions designId={design.id} compact />
               <a className="template-scope-link text-link" href="#scope-title">
