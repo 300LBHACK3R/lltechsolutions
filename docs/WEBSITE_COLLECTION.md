@@ -350,3 +350,11 @@ Each stem has `scripts/prepare-<stem>-demo.mjs`, `scripts/check-<stem>-demo.mjs`
 Price sorting remains numeric. Health & Wellness defaults to `massage-one-page` and `hair-one-page` at $150 in source order, `still` at $299, `hair-salon` then `mckenzie-house` at $399, `artsy-nails` at $499 and `medical-spa` at $600. Reversing the sort reverses price groups and preserves source order within both the $150 and $399 pairs. Detail pages, comparison, the guided enquiry and Contact use the canonical scope and price even when query parameters are altered. The main L&L navigation and compact homepage remain unchanged; this expansion is discovered through the category gallery.
 
 The updated unit, production HTTP and delivered-CSS gates cover these catalogue records, filters, prices, scope, selected-design enquiries, metadata, matching covers and media isolation. Passing source or HTTP checks does not establish rendered mobile/browser behavior, real inbox delivery, a push or a deployment; record those outcomes separately for the exact release revision.
+
+## Purchase choices and project checkout
+
+The main template price includes L&L implementing the buyer’s supplied content and branding, page-speed optimization, technical SEO/metadata, responsive/security checks and launch within the listed scope. Original photography, videography and editing are separately quoted; supplied-media implementation is part of setup. Keep this distinction visible beside the price, with the code-only choice secondary.
+
+All 45 designs have both paths. Forty fictional demos have fixed-price code downloads with editing/setup instructions. The other five offer a scoped reusable-code enquiry; original client files and identity are not for sale. Managed checkout is available for 42 offers with defined page scope once configured. Tow-N-Go, Crestline and McKenzie House remain enquiry-first with scope and final price agreed before booking.
+
+Managed checkout collects a brief before hosted Stripe payment. Only verified paid orders send the project brief to the configured L&L inbox and a separate buyer confirmation. See `docs/MANAGED_TEMPLATE_CHECKOUT.md` for configuration, testing and email reconciliation. Source archives are independent; see `docs/SOURCE_DOWNLOADS_SETUP.md`.

@@ -82,3 +82,17 @@ export { sourceLicense, sourceLicenseVersion } from "./source-license.ts";
 export function sourceInquiryHref(designId: string) {
   return `/contact?source=${encodeURIComponent(designId)}`;
 }
+
+/** A clean reusable version can be discussed without selling a reference website's files. */
+export function sourceVersionRequest(designId: string) {
+  const design = websiteDesigns.find((item) => item.id === designId && item.status !== "draft");
+  if (!design || sourceProduct(designId)) return null;
+  return {
+    designId: design.id,
+    name: design.name,
+    href: `/contact?source-version=${encodeURIComponent(design.id)}`,
+    service: "Website Design & Development",
+    summary: `${design.name} — request a reusable code-only version; quoted separately.`,
+    message: `I’m interested in a reusable code-only version inspired by ${design.name}, with editable source and editing/setup instructions. I will handle personalization, testing, hosting and launch. Please confirm availability, scope and price. I understand the original business identity, client content and private files are not included.`,
+  };
+}

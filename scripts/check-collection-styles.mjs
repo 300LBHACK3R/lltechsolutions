@@ -7,6 +7,11 @@ import { pathToFileURL } from "node:url";
 // Check delivered CSS, including one dependency from each collection stylesheet.
 const routes = new Map([
   [
+    "/website-collection/pigment/purchase",
+    ["managed-purchase-layout", "managed-checkout-form", "managed-fields"],
+  ],
+  ["/template-purchase/success", ["managed-purchase-success", "managed-order-details"]],
+  [
     "/website-collection/pigment/source",
     ["source-layout", "source-order", "source-license", "template-source-link"],
   ],

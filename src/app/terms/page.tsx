@@ -40,6 +40,33 @@ export default function Page() {
             independently.
           </p>
         </section>
+        <section id="managed-template-purchases">
+          <h2>Personalized template purchases</h2>
+          <p>
+            Managed checkout purchases the selected template’s listed pages and contact setup,
+            personalized with your supplied business information, branding and content. The review
+            page shows the included scope, CAD price and any active template promotion; applicable
+            taxes are shown in Stripe before payment. Page-speed optimization, technical SEO and
+            metadata setup, responsive and security checks, and launch are included within this
+            scope. No specific score or search ranking is guaranteed.
+          </p>
+          <p>
+            Extra pages, custom features, original photography or videography, new content creation,
+            domains, hosting, provider charges and ongoing care are separate. Indicating interest in
+            an extra does not purchase it. Request a tailored quote before paying if the listed
+            scope does not meet your needs. A client website is a design reference; its original
+            branding, media and private files are not transferred to you.
+          </p>
+          <p>
+            After verified payment, your order and business brief are recorded and confirmations are
+            sent to you and L&amp;L. Tate will contact you to arrange content handover and timing;
+            payment does not promise an immediate or automatic website launch. We agree on any
+            additional work and cost before proceeding. If you need to cancel, change the scope or
+            resolve an issue, contact L&amp;L with your order reference so we can review work
+            already performed and arrange an appropriate resolution. Applicable consumer rights
+            remain. Purchase terms version: 2026-10-02.
+          </p>
+        </section>
         <section id="source-downloads">
           <h2>Source-code downloads</h2>
           <p>

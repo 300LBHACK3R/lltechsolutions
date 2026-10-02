@@ -1,5 +1,7 @@
 import TemplatePrice from "@/components/collection/TemplatePrice";
+import TemplatePurchaseOptions from "@/components/collection/TemplatePurchaseOptions";
 import { isTemplateSaleActive } from "@/data/template-promotion";
+import { templateManagedOffer, managedPurchaseHref } from "@/data/template-purchase";
 import Link from "next/link";
 import DesignCover from "@/components/collection/DesignCover";
 import CollectionContactOptions from "@/components/collection/CollectionContactOptions";
@@ -39,7 +41,10 @@ export default async function ComparePage({
       </Link>
       <p className="eyebrow">A little clarity</p>
       <h1>Find your fit.</h1>
-      <p>Compare two or three designs. Every level includes the same core launch checks.</p>
+      <p>
+        Compare two or three designs with L&L personalization and launch included in the listed
+        scope. {templateManagedOffer.compact}
+      </p>
       <p className="collection-fineprint">{collectionPricingNote}</p>
       <CollectionContactOptions />
       <details className="compare-picker" open={!valid}>
@@ -110,6 +115,10 @@ export default async function ComparePage({
                 <Link href={designHref(design)} className="button button-outline">
                   Explore {design.name} ↗
                 </Link>
+                <Link href={managedPurchaseHref(design.id)} className="text-link">
+                  Personalize &amp; launch ↗
+                </Link>
+                <TemplatePurchaseOptions designId={design.id} compact />
               </div>
             </article>
           ))}

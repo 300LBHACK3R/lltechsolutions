@@ -1,6 +1,10 @@
 import TemplatePrice from "@/components/collection/TemplatePrice";
 import TemplatePurchaseOptions from "@/components/collection/TemplatePurchaseOptions";
-import { sourceProduct } from "@/data/source-products";
+import {
+  templateManagedOffer,
+  templateMediaOffer,
+  managedPurchaseHref,
+} from "@/data/template-purchase";
 import { isTemplateSaleActive } from "@/data/template-promotion";
 import Link from "next/link";
 import DesignCover from "@/components/collection/DesignCover";
@@ -16,7 +20,6 @@ import {
   designContactLabel,
   designPriceContext,
   designStatusLabel,
-  designInquiryLabel,
   designScopeLabel,
   filterDesigns,
   type CollectionQuery,
@@ -166,6 +169,7 @@ export default function CollectionCatalog({
                   <Link href={designHref(design)}>{design.name}</Link>
                 </h3>
                 <p>{design.description}</p>
+                <p className="template-purchase-label">{templateManagedOffer.label}</p>
                 <p className="collection-design-price">
                   <TemplatePrice
                     price={design.startingPriceCad}
@@ -174,6 +178,7 @@ export default function CollectionCatalog({
                   <span>{designPriceContext(design)}</span>
                   <span>{designScopeLabel(design)} · Personalized with L&L</span>
                 </p>
+                <p className="template-managed-summary">{templateManagedOffer.compact}</p>
                 <p className="collection-contact-summary">
                   New build · {designContactLabel(design)}
                 </p>
@@ -181,9 +186,8 @@ export default function CollectionCatalog({
                   <Link className="button button-outline" href={designHref(design)}>
                     {design.status === "client-example" ? "View client example" : "View template"} ↗
                   </Link>
-                  <Link className="text-link" href={collectionInquiryHref({ design: design.id })}>
-                    {sourceProduct(design.id) ? "Personalize & launch" : designInquiryLabel(design)}{" "}
-                    ↗
+                  <Link className="text-link" href={managedPurchaseHref(design.id)}>
+                    Personalize & launch ↗
                   </Link>
                 </div>
                 <TemplatePurchaseOptions designId={design.id} compact />
@@ -217,8 +221,11 @@ export default function CollectionCatalog({
         </form>
       )}
       <p className="collection-fineprint">
-        Your business details, branding and agreed features are added by L&L. Scope and pricing are
-        confirmed before booking.{" "}
+        {templateMediaOffer.summary}{" "}
+        <Link className="text-link" href={templateMediaOffer.href}>
+          Explore photo & video services ↗
+        </Link>{" "}
+        Scope and pricing are confirmed before booking.{" "}
         <Link className="text-link" href={inquiryHref}>
           Ask about your website ↗
         </Link>

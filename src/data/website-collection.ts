@@ -1,3 +1,4 @@
+import { templateManagedOffer } from "./template-purchase.ts";
 import { formatPriceCad, templatePrice, templateSale } from "./template-promotion.ts";
 export {
   formatPriceCad,
@@ -3381,6 +3382,8 @@ export function collectionInquiry(
     ...(care ? [`Optional monthly support: ${care.name}`] : []),
     ...(design
       ? [
+          "Purchase option: L&L personalization & launch.",
+          templateManagedOffer.summary,
           `Launch pricing: ${designPrice(design, now)}. ${designPriceContext(design)}; final scope, taxes and separate costs to be confirmed.`,
           ...(templatePrice(design.startingPriceCad, now).saleActive
             ? [

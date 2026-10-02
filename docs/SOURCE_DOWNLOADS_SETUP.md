@@ -4,6 +4,8 @@ The storefront offers **Personalize & launch** first and **Download source code*
 
 ## What is sold
 
+Every visible template has two paths: L&L personalization and launch, or a code-only option. The five reference examples use **Request a code-only version**, with availability, reusable scope and price confirmed first. They do not expose or sell original client files.
+
 `src/data/source-products.ts` is the explicit list of 40 reusable fictional designs. Tow-N-Go, Crestline, McKenzie House, Calgary Hot Shot and Horizon are excluded. Never add a real client's code, identity or private media to the downloadable catalogue without separately resolving the rights and product scope.
 
 | Managed offer regular price | Separate source-only price |

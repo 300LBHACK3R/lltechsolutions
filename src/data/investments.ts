@@ -6,12 +6,14 @@ export const investments = [
     label: "Starting at",
     amount: 150,
     period: "",
-    description: "Start with one polished page from an L&L design, personalized for your business.",
+    description:
+      "One polished page from an L&L design, personalized and launched for your business.",
     scopeLabel: "Your starting scope",
     scope: [
-      "Your supplied branding, wording and images",
+      "L&L implements your supplied branding, business details, wording and images",
       "Direct contact or an external booking link",
-      "Personalization and launch within the agreed scope",
+      "Page-speed optimization, technical SEO and metadata setup",
+      "Responsive and security checks, personalization and launch within the agreed scope",
     ],
     note: "More pages, custom features, enquiry forms, original photography, video and ongoing care are quoted separately.",
     action: "Discuss your website",

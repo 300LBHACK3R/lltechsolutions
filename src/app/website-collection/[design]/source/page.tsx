@@ -1,4 +1,9 @@
 import Link from "next/link";
+import {
+  templateManagedOffer,
+  templateMediaOffer,
+  managedPurchaseHref,
+} from "@/data/template-purchase";
 import { notFound } from "next/navigation";
 import DesignCover from "@/components/collection/DesignCover";
 import SourceCheckout from "@/components/collection/SourceCheckout";
@@ -10,12 +15,7 @@ import {
   sourceLicense,
   sourceLicenseVersion,
 } from "@/data/source-products";
-import {
-  websiteDesigns,
-  collectionInquiryHref,
-  formatPriceCad,
-  isTemplateSaleActive,
-} from "@/data/website-collection";
+import { websiteDesigns, formatPriceCad, isTemplateSaleActive } from "@/data/website-collection";
 import { isSourceCheckoutConfigured } from "@/lib/source-commerce";
 import packageManifest from "@/data/source-package-manifest.json";
 import { pageMetadata } from "@/lib/metadata";
@@ -76,7 +76,10 @@ export default async function SourcePage({ params, searchParams }: Props) {
                   {design.pageCount === 1 ? "one-page website" : `${design.pageCount}-page layout`}.
                 </li>
                 <li>Sample content, styles, interactions and included sample imagery.</li>
-                <li>Setup instructions, a contact configuration guide and a launch checklist.</li>
+                <li>
+                  Editing and setup instructions, a contact configuration guide and a launch
+                  checklist.
+                </li>
                 <li>A licence for one business website, with development and staging copies.</li>
               </ul>
               {assetNote && <p className="source-asset-note">{assetNote}</p>}
@@ -114,17 +117,20 @@ export default async function SourcePage({ params, searchParams }: Props) {
             )}
             <div className="source-managed">
               <h3>Prefer us to handle it?</h3>
-              <p>
-                Choose personalization and launch for your branding, supplied content and the setup
-                included in the agreed scope.
-              </p>
+              <p>{templateManagedOffer.summary}</p>
               <TemplatePrice
                 price={design.startingPriceCad}
                 initialSaleActive={isTemplateSaleActive()}
               />
-              <Link className="button button-outline" href={collectionInquiryHref({ design: id })}>
+              <Link className="button button-outline" href={managedPurchaseHref(id)}>
                 Personalize & launch ↗
               </Link>
+              <p>
+                {templateMediaOffer.summary}{" "}
+                <Link className="text-link" href={templateMediaOffer.href}>
+                  Explore photo & video services ↗
+                </Link>
+              </p>
             </div>
           </aside>
         </div>

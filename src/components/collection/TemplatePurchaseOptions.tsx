@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { sourceHref, sourceProduct } from "@/data/source-products";
+import { sourceHref, sourceProduct, sourceVersionRequest } from "@/data/source-products";
 import { formatPriceCad } from "@/data/template-promotion";
 
 export default function TemplatePurchaseOptions({
@@ -10,31 +10,39 @@ export default function TemplatePurchaseOptions({
   compact?: boolean;
 }) {
   const product = sourceProduct(designId);
-  if (!product) return null;
+  const request = product ? null : sourceVersionRequest(designId);
+  if (!product && !request) return null;
+  const label = product ? "Download source code" : "Request a code-only version";
+  const name = product?.name ?? request!.name;
+  const href = product ? sourceHref(designId) : request!.href;
+  const price = product ? formatPriceCad(product.priceCad) : "Quoted separately";
 
   return (
     <div className={`template-source-option${compact ? " template-source-option--compact" : ""}`}>
       <Link
         className="template-source-link"
-        href={sourceHref(designId)}
-        aria-label={`Download source code for ${product.name} — ${formatPriceCad(product.priceCad)}`}
+        href={href}
+        aria-label={`${label} for ${name} — ${price}`}
       >
         <span>
-          Download source code <span aria-hidden="true">↗</span>
+          {label} <span aria-hidden="true">↗</span>
         </span>
-        <strong>{formatPriceCad(product.priceCad)}</strong>
+        <strong>{price}</strong>
       </Link>
       {compact ? (
-        <p>DIY files · One-time purchase</p>
+        <p>Code + editing/setup instructions. You customize and launch.</p>
       ) : (
         <>
-          <p>Prefer to build it yourself? Get the template files and setup guide.</p>
+          <p>
+            Source code only: editable files and editing/setup instructions. You customize, test and
+            launch.
+          </p>
           <details className="template-source-disclosure">
             <summary>What’s different about code only?</summary>
             <p>
-              A license for one business website. You handle the content, customization, hosting and
-              launch. Personalization, email setup and ongoing maintenance are not included. The
-              download price is separate from the personalization and launch offer above.
+              {product
+                ? "The lower price covers the template files and a licence for one business website. L&L personalization, launch checks, hosting, email setup and ongoing maintenance are not included."
+                : "Ask about a clean reusable version with sample content. Availability and price are confirmed first; the original business branding, photos and private client files are not part of this request."}
             </p>
           </details>
         </>

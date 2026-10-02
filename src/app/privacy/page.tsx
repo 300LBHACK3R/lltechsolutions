@@ -53,6 +53,15 @@ export default function Page() {
             Canada.
           </p>
           <p>
+            For personalized template purchases, the business brief you submit is saved with the
+            Stripe order so it can be recovered if an email is delayed. It includes your contact
+            information, business name and location, supplied website address, service description,
+            general project notes and optional photography/video interest. Resend sends the order
+            brief to our business inbox and a confirmation to your checkout address. We use this
+            information to fulfil the purchased work; do not submit passwords, card details or
+            sensitive customer records.
+          </p>
+          <p>
             An essential, secure checkout cookie connects the returning browser to its order for up
             to 24 hours. The emailed download link also grants access, so keep it private. Order
             records are retained as needed for delivery, support and applicable business

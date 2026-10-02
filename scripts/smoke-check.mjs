@@ -3,8 +3,15 @@ import { once } from "node:events";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { checkCollectionStyles } from "./check-collection-styles.mjs";
+import { websiteDesigns } from "../src/data/website-collection.ts";
 import { formatPriceCad, templatePrice, templateSale } from "../src/data/template-promotion.ts";
-import { sourceProducts, sourceHref, sourceInquiryHref } from "../src/data/source-products.ts";
+import {
+  sourceProducts,
+  sourceProduct,
+  sourceHref,
+  sourceInquiryHref,
+  sourceVersionRequest,
+} from "../src/data/source-products.ts";
 
 const pricingNow = Date.now();
 
@@ -60,6 +67,8 @@ const env = {
   STRIPE_SECRET_KEY: "",
   STRIPE_WEBHOOK_SECRET: "",
   SOURCE_DOWNLOADS_ENABLED: "false",
+  MANAGED_TEMPLATE_PURCHASES_ENABLED: "false",
+  MANAGED_STRIPE_WEBHOOK_SECRET: "",
   VERCEL_ENV: "production",
   NEXT_TELEMETRY_DISABLED: "1",
 };
@@ -94,6 +103,9 @@ try {
   });
   const routes = [
     ...sourceProducts.map((product) => sourceHref(product.designId)),
+    ...websiteDesigns
+      .filter((design) => design.status !== "draft")
+      .map((design) => `/website-collection/${design.id}/purchase`),
     "/",
     "/services",
     "/website-collection",
@@ -170,6 +182,9 @@ try {
     "/website-collection/start",
     "/website-collection/compare",
     "/website-collection/brief",
+    ...websiteDesigns
+      .filter((design) => design.status !== "draft")
+      .map((design) => `/website-collection/${design.id}/purchase`),
   ]);
   const htmlByRoute = new Map();
   const titles = new Set();
@@ -1165,8 +1180,16 @@ try {
     checks++;
     const example = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(
-      example.includes("Live client example") && example.includes("Build something like this"),
-      `${id}: real-client status and distinct CTA`,
+      example.includes("Live client example") &&
+        example.includes(`href="/website-collection/${id}/purchase"`),
+      `${id}: real-client status and purchase-scope link`,
+    );
+    const purchaseScope = htmlByRoute.get(`/website-collection/${id}/purchase`);
+    assert.ok(
+      purchaseScope.includes("Confirm your project scope") &&
+        purchaseScope.includes("before booking") &&
+        !purchaseScope.includes('class="managed-checkout-form"'),
+      `${id}: scope and final price must be agreed before payment`,
     );
     assert.ok(
       !example.includes("placeholder business details") && !example.includes("Made yours."),
@@ -1274,8 +1297,7 @@ try {
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(
-      detail.includes(name) &&
-        detail.includes(id === "horizon" ? "Make this my website" : "Personalize &amp; launch"),
+      detail.includes(name) && detail.includes("Personalize &amp; launch"),
       `${id}: plain template name and direct enquiry`,
     );
     const contactHref = [...detail.matchAll(/href="([^\"]+)"/g)]
@@ -1499,7 +1521,7 @@ try {
   assertSaleNotice(investment, "pricing page");
   assert.ok(investment.includes("$150+") && investment.includes("$149+"), "revised entry prices");
   assert.ok(
-    investment.includes("one polished page") &&
+    /one polished page/i.test(investment) &&
       investment.includes('href="/website-collection/massage-one-page"'),
     "entry offer explains its one-page scope and links to the example",
   );
@@ -1695,6 +1717,11 @@ try {
           `sitemap includes ${path}`,
         );
       }
+      for (const path of privateUtilityRoutes)
+        assert.ok(
+          !sitemap.includes(`<loc>${new URL(path, "https://lltechsolutions.ca").href}</loc>`),
+          `${path}: purchase and utility pages stay out of the sitemap`,
+        );
     }
     checks++;
   }
@@ -1734,6 +1761,79 @@ try {
     { "content-type": "application/json" },
     503,
   );
+  for (const design of websiteDesigns.filter((item) => item.status !== "draft")) {
+    const detail = await (await fetch(origin + `/website-collection/${design.id}`)).text();
+    assert.ok(
+      detail.includes("Personalization &amp; launch included"),
+      `${design.id}: managed inclusions beside price`,
+    );
+    assert.ok(
+      detail.includes("page-speed optimization"),
+      `${design.id}: performance work included`,
+    );
+    assert.ok(
+      detail.includes("technical SEO and metadata setup"),
+      `${design.id}: SEO implementation included`,
+    );
+    assert.ok(
+      detail.includes("/services#photography-videography"),
+      `${design.id}: original media service linked`,
+    );
+    assert.ok(
+      detail.includes(
+        sourceProduct(design.id) ? sourceHref(design.id) : sourceVersionRequest(design.id).href,
+      ),
+      `${design.id}: secondary purchase option`,
+    );
+    assert.ok(
+      detail.includes(`/website-collection/${design.id}/purchase`),
+      `${design.id}: managed checkout entry`,
+    );
+    const purchase = await fetch(origin + `/website-collection/${design.id}/purchase`);
+    assert.equal(purchase.status, 200, `${design.id}: managed purchase page`);
+    const purchaseHtml = await purchase.text();
+    assertTemplatePrice(
+      purchaseHtml,
+      design.startingPriceCad,
+      `${design.id}: managed checkout price`,
+    );
+    assert.ok(
+      purchaseHtml.includes("/contact?"),
+      `${design.id}: unconfigured checkout retains enquiry alternative`,
+    );
+    checks += 2;
+  }
+  assert.equal((await fetch(origin + "/website-collection/unlisted/purchase")).status, 404);
+  checks++;
+  const disabledManagedCheckout = await fetch(origin + "/api/template-purchases/checkout", {
+    method: "POST",
+    headers: { origin, "Content-Type": "application/json" },
+    body: JSON.stringify({ designId: "pigment", scopeAccepted: true }),
+  });
+  assert.equal(disabledManagedCheckout.status, 503, "unconfigured managed checkout cannot charge");
+  assert.ok(disabledManagedCheckout.headers.get("cache-control")?.includes("no-store"));
+  assert.ok(!(await disabledManagedCheckout.text()).includes("checkout.stripe.com"));
+  const managedSuccess = await fetch(origin + "/template-purchase/success");
+  assert.equal(managedSuccess.status, 200);
+  assert.ok(managedSuccess.headers.get("x-robots-tag")?.includes("noindex"));
+  assert.ok(managedSuccess.headers.get("cache-control")?.includes("no-store"));
+  checks += 2;
+  const referenceEnquiry = await (
+    await fetch(origin + "/contact?source-version=tow-n-go&price=1&design=pigment")
+  ).text();
+  assert.ok(
+    referenceEnquiry.includes("Tow-N-Go"),
+    "code-version request preserves selected reference",
+  );
+  assert.ok(
+    referenceEnquiry.includes("request a reusable code-only version; quoted separately"),
+    "reference files are not promised as a download",
+  );
+  assert.ok(
+    !referenceEnquiry.includes("source-code download, $1 CAD"),
+    "reference query cannot invent a checkout price",
+  );
+  checks++;
   for (const product of sourceProducts) {
     const res = await fetch(origin + sourceHref(product.designId));
     assert.equal(res.status, 200, `${product.designId}: source page`);

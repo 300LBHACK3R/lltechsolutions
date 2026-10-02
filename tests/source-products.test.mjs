@@ -5,6 +5,7 @@ import {
   sourceProduct,
   sourceHref,
   sourceInquiryHref,
+  sourceVersionRequest,
 } from "../src/data/source-products.ts";
 import { websiteDesigns } from "../src/data/website-collection.ts";
 import { templatePrice } from "../src/data/template-promotion.ts";
@@ -49,4 +50,25 @@ test("managed promotion expires without altering code-only prices or existing sc
   assert.equal(templatePrice(150, Date.parse("2027-01-01T07:00:00Z")).priceCad, 150);
   assert.equal(sourceProduct("massage-one-page").priceCad, 49);
   assert.equal(websiteDesigns.find((item) => item.id === "earthworks").pageCount, 7);
+});
+
+test("every visible template offers a download or an accurate scoped code-version request", () => {
+  for (const design of websiteDesigns.filter((item) => item.status !== "draft")) {
+    const product = sourceProduct(design.id);
+    const request = sourceVersionRequest(design.id);
+    assert.notEqual(Boolean(product), Boolean(request));
+    if (request) {
+      assert.equal(request.name, design.name);
+      assert.equal(
+        new URL(request.href, "https://example.test").searchParams.get("source-version"),
+        design.id,
+      );
+      assert.match(request.message, /confirm availability, scope and price/);
+      assert.match(request.message, /private files are not included/);
+      assert.match(request.summary, /quoted separately/);
+    }
+  }
+  for (const id of ["unknown", "../../terms", "__proto__", "pigment"]) {
+    assert.equal(sourceVersionRequest(id), null);
+  }
 });

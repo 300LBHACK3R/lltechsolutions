@@ -1,5 +1,7 @@
 import TemplatePrice from "@/components/collection/TemplatePrice";
+import Link from "next/link";
 import { isTemplateSaleActive } from "@/data/template-promotion";
+import { templateManagedOffer, templateMediaOffer } from "@/data/template-purchase";
 import {
   collectionCarePlans,
   collectionPricingNote,
@@ -31,7 +33,8 @@ export default function CostSummary({
             {design.name} ·{" "}
             {design.status === "client-example"
               ? "Similar design & launch"
-              : "Personalization & launch"}
+              : "L&L personalization & launch"}
+            <small>Included within the listed scope. {templateManagedOffer.compact}</small>
           </dt>
           <dd>
             <TemplatePrice
@@ -78,6 +81,10 @@ export default function CostSummary({
         before work begins.
       </p>
       <p>{collectionCustomization.pricing}</p>
+      <p>
+        {templateMediaOffer.summary}{" "}
+        <Link href={templateMediaOffer.href}>Explore photography &amp; video ↗</Link>
+      </p>
       <p>{contactScopeNotes.upgrades}</p>
       <p>{contactScopeNotes.care}</p>
       <p>{collectionPricingNote}</p>

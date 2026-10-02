@@ -1,5 +1,6 @@
 import TemplateSaleNotice from "@/components/collection/TemplateSaleNotice";
 import { isTemplateSaleActive } from "@/data/template-promotion";
+import { templateManagedOffer, templateMediaOffer } from "@/data/template-purchase";
 import Image from "next/image";
 import Link from "next/link";
 import ProductionExample from "@/components/ui/ProductionExample";
@@ -107,14 +108,17 @@ export default function PricingPage() {
             <TemplateSaleNotice initialSaleActive={isTemplateSaleActive()} />
             <h2 id="pricing-templates-title">Start with a design. Make it yours.</h2>
             <p>
-              Explore our website templates with regular starting prices of {collectionPriceRange}.
-              We personalize your chosen design with your information and handle the agreed launch
-              work. Extra features, original content and ongoing care are quoted separately.
+              Explore our website templates with regular starting prices of {collectionPriceRange}.{" "}
+              {templateManagedOffer.summary}
             </p>
             <p>
-              Prefer to do it yourself? Selected templates also offer a source-code download with
-              its own price and setup guide. You handle personalization, hosting and launch; ongoing
-              support is separate. Look for “Download source code” on a template.
+              The lower “Download source code” price is for DIY files and editing/setup
+              instructions. You handle personalization, testing, hosting and launch. L&L’s
+              implementation service and ongoing support are separate.
+            </p>
+            <p>
+              {templateMediaOffer.summary}{" "}
+              <Link href={templateMediaOffer.href}>Explore photography &amp; video ↗</Link>
             </p>
           </div>
           <div className="pricing-template-actions">

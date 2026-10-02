@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import ContactForm from "@/components/contact/ContactForm";
 import CostSummary from "@/components/collection/CostSummary";
+import { templateManagedOffer } from "@/data/template-purchase";
 import {
   collectionCarePlans,
   collectionExtras,
@@ -56,9 +57,10 @@ export default function CollectionJourney({ design }: { design: WebsiteDesign })
       </h2>
       {step === 0 && (
         <>
+          <p>{templateManagedOffer.summary}</p>
           <p>
-            Your branding, supplied content and agreed launch work are part of the proposal. Choose
-            any extra help you’d like to discuss, or continue with nothing selected.
+            Choose any separately quoted extra help you’d like to discuss, or continue with nothing
+            selected.
           </p>
           <fieldset className="journey-options">
             <legend className="sr-only">Optional additional help</legend>

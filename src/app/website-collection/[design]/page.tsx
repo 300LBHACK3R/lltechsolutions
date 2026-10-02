@@ -1,6 +1,10 @@
 import TemplatePrice from "@/components/collection/TemplatePrice";
 import TemplatePurchaseOptions from "@/components/collection/TemplatePurchaseOptions";
-import { sourceProduct } from "@/data/source-products";
+import {
+  templateManagedOffer,
+  templateMediaOffer,
+  managedPurchaseHref,
+} from "@/data/template-purchase";
 import { isTemplateSaleActive } from "@/data/template-promotion";
 import detailingDemo from "@/data/mobile-detailing-demo.json";
 import floristDemo from "@/data/flower-shop-demo.json";
@@ -78,7 +82,6 @@ import {
   designHref,
   designPriceContext,
   designStatusLabel,
-  designInquiryLabel,
   designScopeLabel,
   designContactLabel,
 } from "@/data/website-collection";
@@ -147,7 +150,6 @@ export default async function DesignPage({ params }: Props) {
   const { design: id } = await params;
   const design = availableDesigns().find((item) => item.id === id);
   if (!design) notFound();
-  const downloadable = sourceProduct(design.id);
   const media = retailTemplate(design.id)
     ? readTemplateShowcase(
         retailShowcases[design.id as RetailTemplateId],
@@ -233,7 +235,7 @@ export default async function DesignPage({ params }: Props) {
               <p className="template-detail-description">{design.description}</p>
             </div>
             <div className="template-detail-purchase">
-              {downloadable && <p className="template-purchase-label">Personalize & launch</p>}
+              <p className="template-purchase-label">{templateManagedOffer.label}</p>
               <p className="template-detail-price">
                 <TemplatePrice
                   price={design.startingPriceCad}
@@ -243,15 +245,13 @@ export default async function DesignPage({ params }: Props) {
               <p className="template-detail-price-context">
                 {designPriceContext(design)} · Before applicable taxes.
               </p>
+              <p className="template-managed-summary">{templateManagedOffer.summary}</p>
               <p className="template-detail-scope-note">
                 {designScopeLabel(design)} · {designContactLabel(design)}
               </p>
               <div className="template-detail-actions">
-                <Link
-                  className="button button-gold"
-                  href={collectionInquiryHref({ design: design.id })}
-                >
-                  {downloadable ? "Personalize & launch" : designInquiryLabel(design)} ↗
+                <Link className="button button-gold" href={managedPurchaseHref(design.id)}>
+                  Personalize & launch ↗
                 </Link>
                 {liveDemoUrl ? (
                   <a
@@ -268,8 +268,18 @@ export default async function DesignPage({ params }: Props) {
                   </a>
                 )}
               </div>
+              <p className="template-detail-price-context">
+                Need extra pages or custom features?{" "}
+                <Link className="text-link" href={collectionInquiryHref({ design: design.id })}>
+                  Request a tailored quote ↗
+                </Link>
+              </p>
               <p className="template-detail-delivery">{design.deliveryWindow}</p>
               <TemplatePurchaseOptions designId={design.id} />
+              <p className="template-media-note">
+                {templateMediaOffer.summary}{" "}
+                <Link href={templateMediaOffer.href}>Explore photo & video services ↗</Link>
+              </p>
             </div>
           </div>
         </div>
@@ -374,11 +384,7 @@ export default async function DesignPage({ params }: Props) {
         {design.id === "mckenzie-house" && <ProductionExample />}
         <section className="collection-section design-detail-scope" aria-labelledby="scope-title">
           <div>
-            <p className="eyebrow">
-              {downloadable
-                ? "Included with personalization & launch"
-                : "Included in the starting scope"}
-            </p>
+            <p className="eyebrow">Included with personalization & launch</p>
             <h2 id="scope-title">Your website, built with you.</h2>
             <p>
               {designScopeLabel(design)}. {design.deliveryWindow}
@@ -495,8 +501,8 @@ export default async function DesignPage({ params }: Props) {
             <h2>Make this your starting point.</h2>
             <p>Tell us about your business. We’ll confirm the scope and price together.</p>
           </div>
-          <Link className="button button-gold" href={collectionInquiryHref({ design: design.id })}>
-            {downloadable ? "Personalize & launch" : designInquiryLabel(design)} ↗
+          <Link className="button button-gold" href={managedPurchaseHref(design.id)}>
+            Personalize & launch ↗
           </Link>
         </section>
       </div>
