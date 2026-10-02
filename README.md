@@ -23,7 +23,7 @@ Open `http://localhost:3000`. For enquiry delivery, copy `.env.example` to `.env
 | `src/data/`       | Canonical content, prices, demo metadata and source-product records        |
 | `src/lib/`        | Shared validation, security, checkout and media logic                      |
 | `src/styles/`     | Main website and template styles                                           |
-| `public/`         | Public brand assets, images and the two social/content video examples      |
+| `public/`         | Public brand assets, images and social/content video examples              |
 | `templates/`      | Standalone demo app shells and sanitized customer reference editions       |
 | `scripts/`        | Validation, demo preparation/export and private source-package tools       |
 | `tests/`          | Catalogue, contact, checkout, packaging and demo regression checks         |

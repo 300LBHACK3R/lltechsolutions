@@ -1719,7 +1719,30 @@ try {
   for (const route of contentProjectIds.map((id) => `/projects/${id}`)) {
     const html = htmlByRoute.get(route);
     const videos = [...html.matchAll(/<video\b[^>]*>[\s\S]*?<\/video>/g)].map((match) => match[0]);
-    assert.equal(videos.length, 1, `${route}: content case study retains its native video`);
+    if (route === "/projects/tow-n-go-digital") {
+      assert.equal(videos.length, 3, `${route}: all three approved promotional examples render`);
+      for (const path of [
+        "/media/projects/tow-n-go-halloween-2026.mp4",
+        "/media/projects/tow-n-go-ready-for-whats-next.mp4",
+        "/media/projects/tow-n-go-content.mp4",
+      ]) {
+        assert.ok(
+          videos.some((video) => video.includes(`src="${path}"`)),
+          `${route}: ${path}`,
+        );
+      }
+      for (const href of [
+        "https://www.facebook.com/profile.php?id=61581311484780",
+        "https://www.tiktok.com/@towngotrailers",
+      ])
+        assert.ok(html.includes(`href="${href}"`), `${route}: keeps the live social channel`);
+      const captionIds = videos.map((video) => video.match(/aria-describedby="([^"]+)"/)?.[1]);
+      assert.equal(new Set(captionIds).size, videos.length, `${route}: unique video descriptions`);
+      for (const id of captionIds)
+        assert.ok(id && html.includes(`id="${id}"`), `${route}: description target exists`);
+    } else {
+      assert.equal(videos.length, 1, `${route}: existing launch video is preserved`);
+    }
     for (const video of videos) {
       assert.ok(
         video.includes('preload="none"') && !/autoplay/i.test(video),
@@ -1739,8 +1762,8 @@ try {
       mediaAssets.add(match[1]);
   }
   assert.ok(
-    mediaAssets.size >= 6,
-    "two complete content previews, with room for optional captions",
+    mediaAssets.size >= 12,
+    "four complete content previews, with room for optional captions",
   );
   for (const asset of mediaAssets) {
     const response = await fetch(origin + asset, { method: "HEAD" });

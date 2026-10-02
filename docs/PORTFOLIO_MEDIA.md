@@ -1,6 +1,6 @@
 # Portfolio preview media
 
-Website and software case studies use real screenshot galleries. Only Tow-N-Go social content and the McKenzie launch retain video examples, each with a local MP4, WebP poster and WebVTT visual-description track in `public/media/projects/`. `src/data/project-videos.ts` owns those two video records; `src/data/projects.ts` owns case-study screenshots. See [Client showcase](CLIENT_SHOWCASE.md) for capture provenance and gallery editing. No third-party player, iframe, tracker or API key is required.
+Website and software case studies use real screenshot galleries. Only Tow-N-Go social content and the McKenzie launch retain video examples, with local MP4s, matching image posters and WebVTT visual-description tracks in `public/media/projects/`. `src/data/project-videos.ts` owns the video records; `src/data/projects.ts` owns case-study screenshots. See [Client showcase](CLIENT_SHOWCASE.md) for capture provenance and gallery editing. No third-party player, iframe, tracker or API key is required.
 
 ## Historical media provenance — September 8, 2026
 
@@ -13,7 +13,18 @@ Website and software case studies use real screenshot galleries. Only Tow-N-Go s
 | Tow-N-Go social content | Tate-supplied `Tow-N-Go-Trailers-Advert-TikTok(1).mp4`           | Original fleet education creative, converted from HEVC to H.264. Silent portfolio copy; original unchanged.                                                                    |
 | McKenzie launch         | Tate-supplied `1000021184.mp4`                                   | Original before-and-after showcase, converted from HEVC to H.264. Silent portfolio copy; original unchanged. The earlier website is explicitly identified as the before state. |
 
-The four website/software video sets in this historical record have been removed from the build after screenshot galleries replaced them. The two Tate-supplied social/content sets remain. The former scroll previews were rendered from real captured page images, not continuous interaction recordings or evidence of transactions/application performance. No people, logos, business facts, reviews or client screens were generated for those previews. The source record is retained for provenance.
+The four website/software video sets in this historical record have been removed from the build after screenshot galleries replaced them. The two original Tate-supplied social/content sets remain, alongside the two newer Tow-N-Go promotional Reels listed below. The former scroll previews were rendered from real captured page images, not continuous interaction recordings or evidence of transactions/application performance. No people, logos, business facts, reviews or client screens were generated for those previews. The source record is retained for provenance.
+
+## Tow-N-Go gallery additions — October 2, 2026
+
+| Gallery example       | Supplied original                                    | Web copy                                                                  |
+| --------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- |
+| Halloween campaign    | `TikTok-Advert-Halloween-Chads-Tow-N-Go).mp4`        | 720 × 1280 H.264/AAC, 51.502 seconds; `tow-n-go-halloween-2026.mp4`       |
+| Ready for what’s next | `0921Chad's-Tik-Tok-Advert-FACEBOOK-Tiktok-Reel.mp4` | 720 × 1280 H.264/AAC, 32.740 seconds; `tow-n-go-ready-for-whats-next.mp4` |
+
+These are Tate-supplied promotional edits, shown as campaign creative. Posters are frames extracted from those actual videos; no footage, logo or campaign result was invented. Both source uploads remain unchanged. The web versions preserve audio, use yuv420p and move the MP4 index before the media for progressive playback. Visual descriptions reflect the footage and on-screen text; they are not a transcript of unverified audio. Original video/audio rights remain with their respective owners.
+
+The campaign gallery includes these two pieces plus the existing fleet education Reel. The screenshot-only website case study and live social links remain separate. File placement, adding another clip and current playback behavior are documented in [Adding and replacing videos](REPLACING_PROJECT_VIDEOS.md).
 
 ## Current social/content playback
 
@@ -32,9 +43,9 @@ During the September 8 public Tate’s TV capture, the browser showed a video-fo
 
 Use real approved footage. Replace the corresponding MP4, poster and description track together, update the typed dimensions, duration and copy in `src/data/project-videos.ts`, and rerun the quality gates. Keep paths stable only when the content is intended to replace that exact preview. Narrated replacements can set `hasAudio: true` and provide an accurate `captionsTrack`.
 
-See [Replacing social/content videos](REPLACING_PROJECT_VIDEOS.md) for the two active file sets and configuration instructions. Website/software examples should be updated through their screenshot galleries instead.
+See [Replacing social/content videos](REPLACING_PROJECT_VIDEOS.md) for the active file sets and configuration instructions. Website/software examples should be updated through their screenshot galleries instead.
 
-`npm run validate` checks local media references. `npm run smoke` now checks the two social/content players, no autoplay, native controls, equivalent descriptions, their media assets and MP4 range requests. It also checks any captions files added to the rendered players. Website and software case studies use the screenshot checks documented below. Codec, duration, fast-start layout and representative frames were checked with FFmpeg/ffprobe during preparation. Actual browser playback on the new build still needs device review; local and protected preview browsing was unavailable in this environment.
+`npm run validate` checks local media references. `npm run smoke` now checks every player in both social/content case studies, no autoplay, native controls, equivalent descriptions, their media assets and MP4 range requests. It also checks any captions files added to the rendered players. Website and software case studies use the screenshot checks documented below. Codec, duration, fast-start layout and representative frames were checked with FFmpeg/ffprobe during preparation. Actual browser playback on the new build still needs device review; local and protected preview browsing was unavailable in this environment.
 
 ## Crestline: Other Design Options
 

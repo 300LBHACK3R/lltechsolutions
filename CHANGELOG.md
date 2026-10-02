@@ -1,5 +1,11 @@
 # Changelog
 
+## October 2, 2026 — Tow-N-Go promotional gallery
+
+- Expanded the monthly partnership into a responsive campaign gallery with the supplied Halloween and service-promotion Reels alongside fleet education.
+- Preserved native inline playback, click-to-load media, one-video-at-a-time behavior and live Facebook/TikTok links.
+- Added web-ready H.264/AAC copies, real-frame posters, visual-description tracks and a single documented path for adding more approved work.
+
 ## Project cleanup — October 2, 2026
 
 - Remove the retired Evergreen demo, its capture tooling and unused website walkthrough videos; retain current client screenshots and both social-content videos.

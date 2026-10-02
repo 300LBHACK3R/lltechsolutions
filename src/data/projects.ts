@@ -67,6 +67,7 @@ export type Project = {
   | {
       category: "social-media-management";
       video: ProjectVideo;
+      contentVideos?: readonly ProjectVideo[];
       gallery?: never;
     }
 );
@@ -452,6 +453,11 @@ export const projects: Project[] = [
     ],
     image: "/images/projects/tow-n-go.webp",
     video: projectVideos["tow-n-go-digital"],
+    contentVideos: [
+      projectVideos["tow-n-go-halloween"],
+      projectVideos["tow-n-go-ready"],
+      projectVideos["tow-n-go-digital"],
+    ],
     imageAlt: "Tow-N-Go Trailers custom rental website showcase",
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [

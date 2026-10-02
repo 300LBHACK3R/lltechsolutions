@@ -5,12 +5,15 @@ import ProjectDesignOptions from "@/components/projects/ProjectDesignOptions";
 import ProjectPageSpeed from "@/components/projects/ProjectPageSpeed";
 import ProjectTemplateOptions from "@/components/projects/ProjectTemplateOptions";
 import ProjectVideo from "@/components/projects/ProjectVideo";
+import ProjectVideoGallery from "@/components/projects/ProjectVideoGallery";
 import { liveSiteLabel } from "@/config/site";
 import { getProject, projectCategories, projectPath, type Project } from "@/data/projects";
 
 export default function ProjectCaseStudy({ project }: { project: Project }) {
   const category = projectCategories.find((item) => item.slug === project.category)!;
   const isContent = project.category === "social-media-management";
+  const contentVideos = isContent ? project.contentVideos : undefined;
+  const hasContentGallery = Boolean(contentVideos?.length);
   const isSoftware = project.category === "software-development";
   const screenshots = project.gallery?.length
     ? project.gallery
@@ -98,15 +101,25 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
         <section className="client-case-preview" aria-labelledby="project-preview-title">
           <div className="client-section-heading">
             <h2 id="project-preview-title">
-              {isContent ? "The content" : isSoftware ? "The application" : "The website"}
+              {hasContentGallery
+                ? "Campaigns & creative"
+                : isContent
+                  ? "The content"
+                  : isSoftware
+                    ? "The application"
+                    : "The website"}
             </h2>
             <p>
-              {isContent
-                ? "An example from the project."
-                : "Explore the screenshots, then visit the live site."}
+              {hasContentGallery
+                ? "Original short-form content for seasonal promotions and fleet education."
+                : isContent
+                  ? "An example from the project."
+                  : "Explore the screenshots, then visit the live site."}
             </p>
           </div>
-          {isContent ? (
+          {hasContentGallery && contentVideos ? (
+            <ProjectVideoGallery videos={contentVideos} projectId={project.id} />
+          ) : isContent ? (
             <ProjectVideo video={project.video} projectId={project.id} />
           ) : (
             <TemplateScreenshotGallery images={screenshots} />
