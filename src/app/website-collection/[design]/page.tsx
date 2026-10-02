@@ -214,7 +214,7 @@ export default async function DesignPage({ params }: Props) {
     (!design.concept && design.demoUrl.startsWith("https://") ? design.demoUrl : null);
   return (
     <div className="website-collection template-detail">
-      <header className="template-detail-header">
+      <div className="template-detail-header">
         <div className="container">
           <div className="template-detail-breadcrumb">
             <Link
@@ -226,15 +226,113 @@ export default async function DesignPage({ params }: Props) {
             <span>{designStatusLabel(design)}</span>
           </div>
           <div className="template-detail-intro">
-            <div className="template-detail-title">
-              <p className="eyebrow">
-                {collectionTiers.find((tier) => tier.id === design.tier)?.name} /{" "}
-                {collectionIndustries.find((industry) => industry.id === design.industry)?.name}
-              </p>
-              <h1>{design.name}</h1>
-              <p className="template-detail-description">{design.description}</p>
+            <div className="template-detail-visual">
+              <header className="template-detail-title">
+                <p className="eyebrow">
+                  {collectionTiers.find((tier) => tier.id === design.tier)?.name} /{" "}
+                  {collectionIndustries.find((industry) => industry.id === design.industry)?.name}
+                </p>
+                <h1>{design.name}</h1>
+                <p className="template-detail-description">{design.description}</p>
+              </header>
+              <section
+                id="preview"
+                className="collection-section template-detail-preview"
+                aria-labelledby="preview-title"
+              >
+                <div className="template-detail-preview-heading">
+                  <h2 id="preview-title">{clientProject ? "Client website" : "Design preview"}</h2>
+                  <p>
+                    {media
+                      ? media.screenshots.length
+                        ? "Browse the screenshots for a closer look."
+                        : "Your branding, content and imagery make it yours."
+                      : clientProject
+                        ? design.clientPreview === "image"
+                          ? "The actual client website. Open the live demo to explore it."
+                          : "Browse the website screenshots or explore the client story."
+                        : design.concept
+                          ? "Explore the sample pages and try your business name."
+                          : "A closer look at the website layout."}
+                  </p>
+                </div>
+                {media ? (
+                  <TemplateShowcase design={design} media={media} />
+                ) : clientProject ? (
+                  <>
+                    {design.clientPreview === "image" && design.preview ? (
+                      <figure className="template-design-overview template-client-image">
+                        <Image
+                          src={design.preview.src}
+                          alt={design.preview.alt}
+                          width={design.preview.width}
+                          height={design.preview.height}
+                          sizes="(max-width: 767px) 92vw, (max-width: 1280px) 90vw, 1180px"
+                        />
+                        <figcaption>
+                          {clientProject.title} · Actual website example. Your version uses your own
+                          brand and content.
+                        </figcaption>
+                      </figure>
+                    ) : (
+                      <TemplateScreenshotGallery images={clientProject.gallery ?? []} />
+                    )}
+                    <p className="collection-fineprint">
+                      Built for {clientProject.title} · {clientProject.status}. This is a real
+                      client example. We can create a similar direction using your own branding,
+                      imagery and business content. The client’s logo, photos and client-specific
+                      materials stay with their business.
+                    </p>
+                    {design.clientScopeNote && (
+                      <p className="template-client-scope">{design.clientScopeNote}</p>
+                    )}
+                    <div className="button-row">
+                      <Link className="text-link" href={projectPath(clientProject)}>
+                        Explore the client story ↗
+                      </Link>
+                      {relatedProject && (
+                        <Link className="text-link" href={projectPath(relatedProject)}>
+                          {clientProject.relatedWork?.label} ↗
+                        </Link>
+                      )}
+                    </div>
+                  </>
+                ) : design.concept ? (
+                  <DesignPreview design={design} />
+                ) : (
+                  <div>
+                    {design.pagePreview && (
+                      <>
+                        <p className="collection-fineprint" id="live-demo-note">
+                          Live concept demo with placeholder business details. This is a captured
+                          page preview; open the demo to interact. Your own services, content and
+                          contact workflow are confirmed before launch.
+                        </p>
+                        <div
+                          className="live-demo-scroll"
+                          role="region"
+                          aria-label={`${design.name} scrollable page preview`}
+                          aria-describedby="live-demo-note"
+                          tabIndex={0}
+                        >
+                          <Image {...design.pagePreview} alt={design.pagePreview.alt} unoptimized />
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+                {design.independentConcept && (
+                  <p className="collection-fineprint">{design.independentConcept.note}</p>
+                )}
+                {design.walkthrough && (
+                  <CollectionMedia
+                    video={design.walkthrough}
+                    title={`${design.name} website walkthrough`}
+                  />
+                )}
+              </section>
             </div>
-            <div className="template-detail-purchase">
+            <aside className="template-detail-purchase" aria-label="Template purchase options">
               <p className="template-purchase-label">{templateManagedOffer.label}</p>
               <p className="template-detail-price">
                 <TemplatePrice
@@ -245,10 +343,14 @@ export default async function DesignPage({ params }: Props) {
               <p className="template-detail-price-context">
                 {designPriceContext(design)} · Before applicable taxes.
               </p>
-              <p className="template-managed-summary">{templateManagedOffer.summary}</p>
               <p className="template-detail-scope-note">
                 {designScopeLabel(design)} · {designContactLabel(design)}
               </p>
+              <ul className="template-purchase-inclusions" aria-label="Included launch work">
+                <li>Your supplied content, photos and branding added</li>
+                <li>Page-speed optimization, technical SEO and metadata</li>
+                <li>Responsive and security checks, plus launch within scope</li>
+              </ul>
               <div className="template-detail-actions">
                 <Link className="button button-gold" href={managedPurchaseHref(design.id)}>
                   Personalize & launch ↗
@@ -268,124 +370,21 @@ export default async function DesignPage({ params }: Props) {
                   </a>
                 )}
               </div>
-              <p className="template-detail-price-context">
-                Need extra pages or custom features?{" "}
-                <Link className="text-link" href={collectionInquiryHref({ design: design.id })}>
-                  Request a tailored quote ↗
-                </Link>
-              </p>
-              <p className="template-detail-delivery">{design.deliveryWindow}</p>
-              <TemplatePurchaseOptions designId={design.id} />
-              <p className="template-media-note">
-                {templateMediaOffer.summary}{" "}
-                <Link href={templateMediaOffer.href}>Explore photo & video services ↗</Link>
-              </p>
-            </div>
+              <TemplatePurchaseOptions designId={design.id} compact />
+              <a className="template-scope-link text-link" href="#scope-title">
+                What’s included & optional extras ↓
+              </a>
+            </aside>
           </div>
         </div>
-      </header>
+      </div>
       <div className="container">
-        <section
-          id="preview"
-          className="collection-section template-detail-preview"
-          aria-labelledby="preview-title"
-        >
-          <div className="template-detail-preview-heading">
-            <h2 id="preview-title">{clientProject ? "Client website" : "Design preview"}</h2>
-            <p>
-              {media
-                ? media.screenshots.length
-                  ? "Browse the screenshots for a closer look."
-                  : "Your branding, content and imagery make it yours."
-                : clientProject
-                  ? design.clientPreview === "image"
-                    ? "The actual client website. Open the live demo to explore it."
-                    : "Browse the website screenshots or explore the client story."
-                  : design.concept
-                    ? "Explore the sample pages and try your business name."
-                    : "A closer look at the website layout."}
-            </p>
-          </div>
-          {design.independentConcept && (
-            <p className="collection-fineprint">{design.independentConcept.note}</p>
-          )}
-          {media ? (
-            <TemplateShowcase design={design} media={media} />
-          ) : clientProject ? (
-            <>
-              <p className="collection-fineprint">
-                Built for {clientProject.title} · {clientProject.status}. This is a real client
-                example. We can create a similar direction using your own branding, imagery and
-                business content. The client’s logo, photos and client-specific materials stay with
-                their business.
-              </p>
-              {design.clientScopeNote && (
-                <p className="template-client-scope">{design.clientScopeNote}</p>
-              )}
-              {design.clientPreview === "image" && design.preview ? (
-                <figure className="template-design-overview template-client-image">
-                  <Image
-                    src={design.preview.src}
-                    alt={design.preview.alt}
-                    width={design.preview.width}
-                    height={design.preview.height}
-                    sizes="(max-width: 767px) 92vw, (max-width: 1280px) 90vw, 1180px"
-                  />
-                  <figcaption>
-                    {clientProject.title} · Actual website example. Your version uses your own brand
-                    and content.
-                  </figcaption>
-                </figure>
-              ) : (
-                <TemplateScreenshotGallery images={clientProject.gallery ?? []} />
-              )}
-              <div className="button-row">
-                <Link className="text-link" href={projectPath(clientProject)}>
-                  Explore the client story ↗
-                </Link>
-                {relatedProject && (
-                  <Link className="text-link" href={projectPath(relatedProject)}>
-                    {clientProject.relatedWork?.label} ↗
-                  </Link>
-                )}
-              </div>
-            </>
-          ) : design.concept ? (
-            <DesignPreview design={design} />
-          ) : (
-            <div>
-              {design.pagePreview && (
-                <>
-                  <p className="collection-fineprint" id="live-demo-note">
-                    Live concept demo with placeholder business details. This is a captured page
-                    preview; open the demo to interact. Your own services, content and contact
-                    workflow are confirmed before launch.
-                  </p>
-                  <div
-                    className="live-demo-scroll"
-                    role="region"
-                    aria-label={`${design.name} scrollable page preview`}
-                    aria-describedby="live-demo-note"
-                    tabIndex={0}
-                  >
-                    <Image {...design.pagePreview} alt={design.pagePreview.alt} unoptimized />
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-          {design.walkthrough && (
-            <CollectionMedia
-              video={design.walkthrough}
-              title={`${design.name} website walkthrough`}
-            />
-          )}
-        </section>
         {design.id === "mckenzie-house" && <ProductionExample />}
         <section className="collection-section design-detail-scope" aria-labelledby="scope-title">
           <div>
             <p className="eyebrow">Included with personalization & launch</p>
             <h2 id="scope-title">Your website, built with you.</h2>
+            <p>{templateManagedOffer.summary}</p>
             <p>
               {designScopeLabel(design)}. {design.deliveryWindow}
             </p>
@@ -397,6 +396,12 @@ export default async function DesignPage({ params }: Props) {
           </div>
           <div>
             <h3>Make it your own</h3>
+            <p>
+              Need extra pages or custom features?{" "}
+              <Link className="text-link" href={collectionInquiryHref({ design: design.id })}>
+                Request a tailored quote ↗
+              </Link>
+            </p>
             <ul>
               {design.customization?.map((item) => (
                 <li key={item}>{item}</li>
@@ -414,6 +419,10 @@ export default async function DesignPage({ params }: Props) {
             </p>
           </div>
         </section>
+        <p className="template-media-note template-detail-media">
+          {templateMediaOffer.summary}{" "}
+          <Link href={templateMediaOffer.href}>Explore photo & video services ↗</Link>
+        </p>
         <CollectionContactOptions design={design} />
         <CollectionCustomization designId={design.id} />
         <section
