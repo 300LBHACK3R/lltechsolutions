@@ -1,6 +1,6 @@
-# Verification and release status
+# Historical verification records
 
-The dated scope and verification records below preserve their original prices and results. For the current approved $150–$600 catalogue and McKenzie’s $399 starting offer, use [Current template pricing](CURRENT_TEMPLATE_PRICING.md). These historical checks do not verify the repriced revision.
+These records preserve evidence from earlier revisions, including retired layouts, media and release tooling. They do not describe the current interface or provide a publication procedure. Use the [README](../README.md) and [Release checklist](RELEASE_CHECKLIST.md) for the maintained workflow. The dated scope and verification records below preserve their original prices and results. For the current approved $150–$600 catalogue and McKenzie’s $399 starting offer, use [Current template pricing](CURRENT_TEMPLATE_PRICING.md). These historical checks do not verify the repriced revision.
 
 ## Historical prepared scope — September 26, 2026
 
@@ -40,7 +40,7 @@ This section records the prepared scope, not completed test counts, Windows exec
 
 Release: Client Showcase, Reviews & Investment.
 
-## Source and scope
+### Source and scope
 
 - Production main was verified at `5304cc16ede9e1e4d95806f0427a82faeb64f21a`. The interactive redesign `9968e5ba665a229eaf0bb6002eb0bfbfa83b314a` is pushed to a separate review branch and remains unmerged.
 - This revision carries that interactive design forward. Complete pre-change Git history is preserved in a backup bundle; changes are isolated on `refactor/client-proof-and-reviews`.
@@ -49,7 +49,7 @@ Release: Client Showcase, Reviews & Investment.
 - At that historical release, website starting prices were $399+ CAD and social management started at $149+ CAD/month. The current website entry is $150+ CAD as described above; software remains scoped and existing client agreements are unaffected.
 - Retains the layered project stage, interactive service study, fine-pointer tilt, gold circuit motion, crossfades, visitor motion controls and real client captures from September 6. No client images, reviews or performance figures were invented.
 
-## Verified automatically
+### Verified automatically
 
 - Imports and local asset references validate across 61 source files.
 - TypeScript, ESLint with zero-warning enforcement, and eight focused contact tests pass.
@@ -58,16 +58,36 @@ Release: Client Showcase, Reviews & Investment.
 - Dependency audit reports zero known vulnerabilities. This is not a security guarantee or penetration test.
 - Contact checks remove the mail key and never send external email. Missing configuration returns 503 instead of claiming delivery.
 
-## Responsive implementation and verification limits
+### Responsive implementation and verification limits
 
 Responsive rules cover narrow phones, tablets, laptops, desktops, ultrawide displays and 4K layouts. They include fluid containers/type, touch controls, a scrollable small-screen menu, single-column forms, 16 px form inputs, short-landscape handling, reduced motion, keyboard operation and forced-color fallbacks. These are implementation facts, not browser-test results.
 
 The browser inspected the deployed L&L site and the public client homepages. On September 8, the live header logo was tested from Services back to Home and worked. Access to the new local preview is blocked in this environment; an earlier protected Vercel preview also lacked authorized browser access. This revision has not been visually verified across browsers or physical devices. No new Lighthouse score, universal device compatibility, actual email delivery or production deployment is claimed.
 
-GitHub write access remains unavailable to this session. The included PowerShell workflow uses the user's authenticated Git installation to create and optionally push a separate review branch after local checks. Visual review and a green check for that exact commit must precede the next production merge.
+GitHub write access was unavailable in the September 8 session. The earlier interactive review had passed the user's Windows installation/push workflow at `9968e5ba`; that result did not establish Windows or browser verification of later revisions. The old bundle-specific PowerShell publisher and startup tests have since been retired because their release assumptions and media checks no longer match the site.
 
-## Windows review workflow
+## Historical production release and detail update — September 8–9, 2026
 
-The package contains the source, a baseline-bound Git bundle and a PowerShell review helper. It preserves the original checkout and uncommitted work, requires Node 22+, verifies the repository and bundle checksum, checks the current remote baseline, creates a separate worktree and runs the documented quality gates. `-Push` publishes only its new review branch. It never merges production main or copies secrets.
+The original corporate cleanup started at `55b9d7bd` and reached production at `5304cc16`. The client showcase carried forward `9968e5ba`, rather than importing the earlier navy/white premium release ZIP. Uncommitted work on Tate's Windows computer was not accessed or altered. The September 8 review `d4c4544` had successful Quality/Vercel status checks but was unmerged at preparation time. Tate's later Windows log confirmed production at `0a2d672`; the September 9 detail update built on that revision.
 
-The earlier interactive review passed the user's Windows installation and push workflow at commit `9968e5ba`. That result does not establish Windows or browser verification of the new revision. Complete the browser/device checklist in `docs/RELEASE_CHECKLIST.md` using the local build and Vercel preview before approving the design for production. This package's validation is documented separately in `PACKAGE-VERIFICATION.txt`.
+The historical release introduced the compact footer, Our Clients navigation and six controlled media previews. The September 9 update added project brief/work/delivery and implementation details, and Chad Muxlow's complete three-paragraph supplied review. Heather's testimonial remained verbatim. Website/software previews have since been replaced by screenshot galleries; only the two social/content videos remain in the current build.
+
+### Evidence used for implementation descriptions
+
+| Project              | Evidence recorded in the September 9 review                                                                                                                                                                                   |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tow-N-Go             | Repository: Next.js, React, TypeScript, Tailwind CSS and Resend; project history: Vercel/GitHub. Public browsing checked rental categories, trailer galleries, services and the prefilled enquiry link without submitting it. |
+| Crestline            | Repository: Next.js, React, TypeScript and Tailwind CSS; public headers: Vercel. Public browsing checked service and portfolio categories, Custom Homes and real project galleries.                                           |
+| McKenzie House       | Repository: Next.js, React, TypeScript and Tailwind CSS; project history: Vercel/GitHub. Public browsing checked treatments, before-GST pricing, treatment video, client photo reviews and ClinicSense links without booking. |
+| Tate's TV            | Repository/README: Next.js, React, TypeScript, Tailwind CSS, Zustand, Supabase programming data, Cloudflare R2 media and Vercel/GitHub. Streaming operation was not established.                                              |
+| Content partnerships | Tate's supplied scope, existing media and approved history established the monthly Tow-N-Go partnership and completed McKenzie launch. Private commercial terms and unverified results were excluded from public copy.        |
+
+These implementation descriptions did not audit each client application's dependency versions or operational controls. Fuller interior-page video captures could not be transferred for export in that session, so the September 9 update retained its then-existing recordings.
+
+### Checks and limits
+
+- September 8 recorded Next.js 16.3.4, React 19.2.8 and a zero-finding dependency audit. The September 30 update subsequently moved Next.js and eslint-config-next to 16.3.8. These dated audit findings are not a current vulnerability assessment.
+- Live Contact, robots and sitemap responses returned 200 with canonical metadata and the documented browser protections. Required-field UI validation and an incomplete-submission 400 response were checked. Resend inbox delivery remained unconfirmed.
+- September 9 passed formatting, import/asset validation across 63 source files, zero-warning lint, TypeScript, eight contact-security tests, the dependency audit, build and 48 production HTTP checks. The HTTP checks included routes, metadata, links, headers, contact rejection, exact review content, implementation sections and the then-active preview assets.
+- The retired publisher's path repair passed eleven isolated startup cases and eight publication guard checks in PowerShell 7.4.7 on Linux, with Git/Node mocked and no network requests or pushes. Windows PowerShell 5.1 was not executed in that session. This is historical test evidence, not a supported current publishing command.
+- Local/protected preview browsing was unavailable for that update. New visual/device QA, actual inbox delivery and deployment of the new detail-update commit were not established by those checks. See [Contact setup](CONTACT_SETUP.md) for the maintained delivery workflow.

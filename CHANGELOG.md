@@ -1,5 +1,12 @@
 # Changelog
 
+## Project cleanup — October 2, 2026
+
+- Remove the retired Evergreen demo, its capture tooling and unused website walkthrough videos; retain current client screenshots and both social-content videos.
+- Remove unused styles/data and obsolete release scripts, and consolidate outdated documentation into the current project guide.
+- Add an allowlisted generated-cache cleanup command that preserves source, private settings and downloadable source packages.
+- Keep the existing 45 offers, 44 package builders, prices and purchase activation requirements.
+
 ## Prepared update — Health & Wellness expansion
 
 - Add four distinct published template offers and completed dedicated demo source: Luxury Medical Spa (`medical-spa`), $999 CAD/six pages; Creative Nail Studio (`artsy-nails`), $699 CAD/four pages; Professional Hair Salon (`hair-salon`), $499 CAD/four pages; and One-page Hairdresser Website (`hair-one-page`), $150 CAD/one page.

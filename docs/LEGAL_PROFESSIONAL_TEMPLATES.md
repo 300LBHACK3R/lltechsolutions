@@ -27,7 +27,7 @@ Prices are before applicable taxes and cover supplied content, personalization a
 
 ## Live links and screenshots
 
-Each `src/data/<id>-demo.json` begins with `url: null` and `screenshots: []`. Never guess that an intended production alias is assigned or public. The publisher verifies actual pages, images, styles, scripts, security headers, price, enquiry destinations and page-data hashes before connecting the alias. Main-site actions consistently use **View live demo**.
+Each `src/data/<id>-demo.json` begins with `url: null` and `screenshots: []`. Never guess that an intended production alias is assigned or public. Verify actual pages, images, styles, scripts, security headers, price, enquiry destinations and page-data hashes before connecting the alias. Main-site actions consistently use **View live demo**.
 
 To add actual screenshots, place them in `public/images/templates/<id>/` and add entries to that template's JSON, for example:
 
@@ -60,9 +60,9 @@ cd ../..
 node scripts/check-consultant-one-page-demo.mjs
 ```
 
-Replace the ID for each demo. Publish only the exported `out/` to its separate `ll-<id>-template` Vercel project, with Framework Other and no remote build/install command. The release publisher supplies and checks that configuration; it rejects the main L&L Vercel project. After a successful deployment it verifies the stable public alias, not a protected per-deployment URL. Never disable deployment protection globally to make a catalogue button work.
+Replace the ID for each demo. Publish only the exported `out/` to its separate `ll-<id>-template` Vercel project, with Framework Other and no remote build/install command. Check that configuration and the exact separate project/team before uploading; never use the main L&L Vercel project as a demo destination. After deployment, verify the stable public alias; a protected per-deployment URL cannot serve as a public demo link. Never disable deployment protection globally to make a catalogue button work.
 
-The Windows release runner installs the checked source, then publishes and verifies the six demos sequentially. A stopped publisher can be resumed individually; completed source pushes and deployments remain intact. `-DemoUrl` resumes using its verified public alias and current remote manifest; it does not attest to an earlier local build. There is no reset, forced update, stash or unrelated-file cleanup.
+Prepare, build, check and deploy each demo independently from this repository. Verify its public routes and assets before connecting its URL. Use the [release checklist](RELEASE_CHECKLIST.md) for the main website; earlier bundle-specific Windows runners are not the maintained workflow.
 
 Automated static and HTTP checks do not replace browser testing. Before advertising, inspect desktop and mobile in Chrome, Firefox and Safari: navigation open/close/Escape, service selectors, checklist, FAQs, resource filters, contact preview, motion controls, 200% zoom and keyboard focus. Check real iOS/Android devices when available. Browser rendering and email delivery are not claimed by these checks.
 

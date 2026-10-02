@@ -21,11 +21,6 @@
     font-size: 19px;
     max-width: 860px;
   }
-  .service-detail p:not(.eyebrow),
-  .capability-list li,
-  .case-body dd {
-    font-size: 16px;
-  }
 }
 @media (min-width: 2560px) {
   :root {
@@ -101,10 +96,6 @@
   .mobile-nav nav a[aria-current="page"] {
     color: var(--gold-light);
   }
-  .service-detail,
-  .case-body {
-    gap: 50px;
-  }
   .contact-layout {
     gap: 45px;
   }
@@ -124,10 +115,6 @@
     flex-direction: column;
     gap: 28px;
   }
-  .service-detail {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
   .contact-layout {
     grid-template-columns: 1fr;
   }
@@ -143,19 +130,6 @@
   }
   .section-heading > p {
     max-width: 100%;
-  }
-  .project-grid {
-    grid-template-columns: 1fr;
-    gap: 42px;
-  }
-  .case-body {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  .case-heading {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 16px;
   }
 }
 @media (max-width: 599px) {
@@ -249,22 +223,6 @@
   }
   .intro-description {
     font-size: 14px;
-  }
-  .intro-signals {
-    width: 100%;
-    opacity: 0.25;
-  }
-  .service-detail {
-    padding: 40px 0;
-  }
-  .service-detail h2 {
-    font-size: 31px;
-  }
-  .case-study {
-    padding: 40px 0;
-  }
-  .case-description {
-    font-size: 20px;
   }
   .contact-form {
     padding: 22px;

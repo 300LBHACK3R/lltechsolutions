@@ -1,8 +1,8 @@
 # Portfolio preview media
 
-Media prepared September 8, 2026; replacement workflow updated September 9. Every project entry points to one local MP4, one WebP poster and one WebVTT visual-description track in `public/media/projects`. `src/data/project-videos.ts` is the canonical media mapping. No third-party player, iframe, tracker or API key is required.
+Website and software case studies use real screenshot galleries. Only Tow-N-Go social content and the McKenzie launch retain video examples, each with a local MP4, WebP poster and WebVTT visual-description track in `public/media/projects/`. `src/data/project-videos.ts` owns those two video records; `src/data/projects.ts` owns case-study screenshots. See [Client showcase](CLIENT_SHOWCASE.md) for capture provenance and gallery editing. No third-party player, iframe, tracker or API key is required.
 
-## Sources and editorial treatment
+## Historical media provenance — September 8, 2026
 
 | Preview                 | Source                                                           | Treatment                                                                                                                                                                      |
 | ----------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -13,9 +13,9 @@ Media prepared September 8, 2026; replacement workflow updated September 9. Ever
 | Tow-N-Go social content | Tate-supplied `Tow-N-Go-Trailers-Advert-TikTok(1).mp4`           | Original fleet education creative, converted from HEVC to H.264. Silent portfolio copy; original unchanged.                                                                    |
 | McKenzie launch         | Tate-supplied `1000021184.mp4`                                   | Original before-and-after showcase, converted from HEVC to H.264. Silent portfolio copy; original unchanged. The earlier website is explicitly identified as the before state. |
 
-The website scroll previews are rendered from real captured page images. They are not continuous recordings of pointer interactions, transactions, or application performance. No people, logos, business facts, reviews or client screens were generated for these previews. Visuals already supplied by Tate or published on the client websites remain as supplied.
+The four website/software video sets in this historical record have been removed from the build after screenshot galleries replaced them. The two Tate-supplied social/content sets remain. The former scroll previews were rendered from real captured page images, not continuous interaction recordings or evidence of transactions/application performance. No people, logos, business facts, reviews or client screens were generated for those previews. The source record is retained for provenance.
 
-## Playback and performance
+## Current social/content playback
 
 - H.264 Main, yuv420p, MP4, 30 fps, fast-start metadata, two-second keyframes and bounded bitrate. No HEVC-only web delivery.
 - Native play/pause, seeking and full-screen controls. Inline playback on supported mobile browsers, no autoplay or looping, and `preload="none"`.
@@ -26,17 +26,17 @@ The website scroll previews are rendered from real captured page images. They ar
 
 ## Capture limitation requiring follow-up
 
-During the public Tate’s TV capture, the browser showed a video-format playback error and a programming-load error. The guide and remote UI could be inspected, but streaming was not verified. The interface preview must not be used as evidence that the live media engine works in every browser. Investigate the separate Tate’s TV project before making that claim. The advertisement retrieved for Tate’s TV contained entertainment footage rather than an application walkthrough and was not added to this website.
+During the September 8 public Tate’s TV capture, the browser showed a video-format playback error and a programming-load error. The guide and remote UI could be inspected, but streaming was not verified. The interface preview must not be used as evidence that the live media engine works in every browser. Investigate the separate Tate’s TV project before making that claim. The advertisement retrieved for Tate’s TV contained entertainment footage rather than an application walkthrough and was not added to this website.
 
 ## Updating a preview
 
 Use real approved footage. Replace the corresponding MP4, poster and description track together, update the typed dimensions, duration and copy in `src/data/project-videos.ts`, and rerun the quality gates. Keep paths stable only when the content is intended to replace that exact preview. Narrated replacements can set `hasAudio: true` and provide an accurate `captionsTrack`.
 
-See [Replacing your portfolio videos](REPLACING_PROJECT_VIDEOS.md) for all six filenames, configuration instructions and suggested page-by-page recordings. The September 9 update retains the existing media: new interior-page captures could not be transferred for video export, so no fuller click-through recording is included.
+See [Replacing social/content videos](REPLACING_PROJECT_VIDEOS.md) for the two active file sets and configuration instructions. Website/software examples should be updated through their screenshot galleries instead.
 
 `npm run validate` checks local media references. `npm run smoke` now checks the two social/content players, no autoplay, native controls, equivalent descriptions, their media assets and MP4 range requests. It also checks any captions files added to the rendered players. Website and software case studies use the screenshot checks documented below. Codec, duration, fast-start layout and representative frames were checked with FFmpeg/ffprobe during preparation. Actual browser playback on the new build still needs device review; local and protected preview browsing was unavailable in this environment.
 
-# Crestline: Other Design Options
+## Crestline: Other Design Options
 
 The compact gallery appears only within the Crestline case study on
 `/projects/crestline`. It supplements the completed live-site example; the old category/hash link still reaches the Crestline index card.
@@ -56,12 +56,3 @@ alt text. Replace an image at its exact path and update its dimensions when need
 Images are lazy loaded in the gallery. Selecting one opens a native modal with
 Escape, a close button and focus restoration; without JavaScript, its link opens
 the original image. No third-party embed or gallery package is used.
-
-## Screenshot-led case studies — October 2026
-
-Website and software case studies now use screenshot galleries and a View live
-site action on individual `/projects/<id>` pages. The two social/content case
-studies retain their original media examples. See `CLIENT_SHOWCASE.md` for the new
-capture provenance and the canonical gallery-editing workflow. Previous website
-walkthrough files remain archival assets; their historical dimensions/durations
-in this document should not be used to describe the new screenshot interface.

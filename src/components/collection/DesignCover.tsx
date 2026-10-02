@@ -10,7 +10,6 @@ import type { WebsiteDesign } from "@/data/website-collection";
 import PlumbingCover from "@/components/collection/PlumbingCover";
 import PaintingCover from "@/components/collection/PaintingCover";
 import HorizonCover from "@/components/collection/HorizonCover";
-import WellnessCover from "@/components/collection/WellnessCover";
 import BeautyCover from "@/components/collection/BeautyCover";
 import MassageOnePageCover from "@/components/collection/MassageOnePageCover";
 import MedicalSpaCover from "@/components/collection/MedicalSpaCover";
@@ -50,7 +49,6 @@ export default function DesignCover({
   if (concept.theme === "hair-one-page") return <HairOnePageCover design={design} />;
   if (concept.theme === "beauty") return <BeautyCover design={design} />;
   if (concept.theme === "massage-one-page") return <MassageOnePageCover design={design} />;
-  if (concept.theme === "wellness") return <WellnessCover design={design} />;
   if (concept.theme === "horizon") return <HorizonCover design={design} />;
   if (concept.theme === "lawncare") return <LawnCover design={design} />;
   if (concept.theme === "earthworks") return <EarthworksCover design={design} />;

@@ -58,10 +58,11 @@ captured version; client websites may continue to change.
 
 Tate's TV retains its supplied 2516 × 1315 playback/interface screenshot. Its
 2552 × 1308 `tates-tv/programme-guide.webp` is an unaltered frame at 29 seconds from
-the existing `public/media/projects/tates-tv-interface.mp4`, encoded as WebP for
-web delivery. That recording shows a September 11 guide; it is not represented as
-a new October capture. The superseded website walkthrough videos remain archived
-assets, not embedded website/software case-study previews.
+the historical `public/media/projects/tates-tv-interface.mp4` recording, now retained
+only in Git history. The frame was encoded as WebP for web delivery. That recording shows a September 11 guide; it is not represented as
+a new October capture. The superseded website/software walkthrough files were removed during cleanup;
+the derived screenshot is retained. Only the two social/content video sets remain
+in `public/media/projects/`.
 
 ## Verification boundaries
 

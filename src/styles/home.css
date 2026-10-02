@@ -2,9 +2,6 @@
 .section {
   padding: 110px 0;
 }
-.section-charcoal {
-  background: var(--charcoal);
-}
 .section-heading {
   display: flex;
   justify-content: space-between;
@@ -25,21 +22,6 @@ h2 {
   max-width: 360px;
   font-size: 14px;
   color: var(--muted);
-}
-.row-number {
-  font-size: 11px;
-  color: var(--gold-light);
-  font-variant-numeric: tabular-nums;
-}
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 64px 38px;
-}
-/* Client project previews; collapse to one column on phones. */
-.client-project-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 42px;
 }
 .project-related-link {
   color: var(--gold-light);

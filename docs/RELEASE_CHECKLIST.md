@@ -3,8 +3,8 @@
 ## Before review
 
 - Use an isolated worktree or branch and preserve existing local work.
-- Fetch the current main before applying a release. Match the installer manifest to the release being applied; reconcile later upstream work without overwriting it.
-- When retiring routes, stop the local development server before installation. The release installer preserves stale `.next/dev/types` under its private backup so deleted routes cannot block typechecking; other caches and source files stay untouched.
+- Fetch the current main before applying a release; reconcile later upstream work without overwriting it. Review and verify the exact commit intended for release.
+- When retiring routes, stop the local development server before regenerating route types. If removed routes leave stale type errors, clear the generated `.next/` cache and rerun the typecheck/build; preserve source files and local work.
 - Run `npm ci`, formatting, `npm run check`, dependency audit, production build and `npm run smoke`.
 - Review the diff, including deleted files. Originals are recoverable from Git history.
 
@@ -81,7 +81,7 @@
 - Confirm six Construction & Trades entries, with Landscape Contracting first in the $399 group, followed by Lawn Care and Painting Company. It also appears in Home & Property. Its detail and comparison show four pages; its enquiry preserves the canonical price and direct-contact selection.
 - Build the standalone Landscape Studio export and run its checker. Review Home, Services, Projects and Contact at narrow and wide widths. Check navigation, project filters, service details, coverage anchors, keyboard focus, motion preferences and the real L&L enquiry handoff. Sample contractor contacts stay clearly labelled and inert.
 - Keep the original Horizon captures as reference files. The catalogue's maintained cover and any new screenshots should represent the new Landscape Studio demo. Preserve the independent-concept label; Horizon is not a client record.
-- Keep `src/data/horizon-demo.json`'s URL null until the publisher verifies the separate demo's public alias and all four routes. Check the live demo button after the main L&L deployment is Ready.
+- Keep `src/data/horizon-demo.json`'s URL null until the separate demo's public alias and all four routes are verified. Check the live demo button after the main L&L deployment is Ready.
 
 ## Individual client and studio case studies
 
@@ -98,7 +98,7 @@
 - Confirm `/website-collection/mckenzie-house` presents McKenzie House Massage as live client work with its matching original image, actual website and client-story link. Its template page must not contain a video player. The standalone `/projects/mckenzie-house` case study has a real screenshot gallery; the launch-content video belongs on `/projects/mckenzie-digital-launch`. Health & Wellness must show the same identity and matching image.
 - Confirm the catalogue, comparison, guided enquiry and Contact use McKenzie’s $399 CAD regular starting price ($319.20 during the sale) for a similar new website using supplied content. McKenzie sorts with the $399 group and retains direct contact; do not reuse the historical approximately $1,000 combined website/photo/video fee as its template price.
 - Explain the original website, on-site photography, filming, editing and media implementation scope. New production, forms and ongoing care require their own agreed scope and price; do not publish a client's historical invoice as a new offer.
-- The generic wellness demo is archived. Its preparation and capture scripts must stop before modifying output; old publishers must not reconnect it to McKenzie's catalogue URL. Keep archived source and captures available for reference. This update does not delete the separate Vercel deployment.
+- The retired Evergreen Wellness demo and its local tooling/assets have been removed. McKenzie remains the real client reference at its existing catalogue URL. Do not reconnect the old generic demo. Local cleanup does not delete or verify any separate Vercel deployment.
 
 ## Nail & Esthetics and One-page Massage offers
 

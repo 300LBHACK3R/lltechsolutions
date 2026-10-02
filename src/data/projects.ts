@@ -31,7 +31,6 @@ export type ProjectPageSpeedReport = {
 export type Project = {
   id: string;
   title: string;
-  category: ProjectCategory;
   ownership: "client" | "studio";
   relationship?: string;
   status: string;
@@ -47,21 +46,30 @@ export type Project = {
     operationsLabel: string;
     operations: string;
   };
-  video: ProjectVideo;
-  image?: string;
+  image: string;
   imageAlt?: string;
   liveUrl?: string;
   relatedWork?: { projectId: string; label: string };
   links?: { label: string; href: string; kind?: string }[];
   designOptions?: ProjectDesignOption[];
-  gallery?: readonly ProjectScreenshot[];
   pageSpeed?: {
     testedUrl: string;
     date: string;
     reports: readonly ProjectPageSpeedReport[];
   };
   templateOptions?: { category: string; designIds: string[] };
-};
+} & (
+  | {
+      category: "web-builds" | "software-development";
+      gallery: readonly ProjectScreenshot[];
+      video?: never;
+    }
+  | {
+      category: "social-media-management";
+      video: ProjectVideo;
+      gallery?: never;
+    }
+);
 
 export const projects: Project[] = [
   {
@@ -124,7 +132,6 @@ export const projects: Project[] = [
       "Website maintenance and ongoing growth",
     ],
     image: "/images/projects/tow-n-go.webp",
-    video: projectVideos["tow-n-go"],
     gallery: [
       {
         src: "/images/projects/tow-n-go/homepage.jpg",
@@ -195,7 +202,6 @@ export const projects: Project[] = [
       "Brand positioning",
     ],
     image: "/images/projects/crestline.webp",
-    video: projectVideos["crestline"],
     gallery: [
       {
         src: "/images/projects/crestline/homepage.jpg",
@@ -316,7 +322,6 @@ export const projects: Project[] = [
       "Google Business launch support",
     ],
     image: "/images/projects/mckenzie-house.webp",
-    video: projectVideos["mckenzie-house"],
     gallery: [
       {
         src: "/images/projects/mckenzie-house/homepage.jpg",
@@ -388,7 +393,6 @@ export const projects: Project[] = [
       "Ongoing development",
     ],
     image: "/images/projects/tates-tv.webp",
-    video: projectVideos["tates-tv"],
     gallery: [
       {
         src: "/images/projects/tates-tv.webp",
@@ -526,10 +530,6 @@ export const projects: Project[] = [
     },
   },
 ];
-
-export const clientWebsiteProjects = projects.filter(
-  (project) => project.ownership === "client" && project.category === "web-builds",
-);
 
 /** Website and software examples share the main showcase; ownership stays explicit on each preview. */
 export const showcaseProjects = projects.filter(

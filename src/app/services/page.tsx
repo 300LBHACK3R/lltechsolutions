@@ -22,7 +22,14 @@ const serviceExamples = {
 function ServiceExample({ serviceId }: { serviceId: keyof typeof serviceExamples }) {
   const project = getProject(serviceExamples[serviceId]);
   const isContent = project.category === "social-media-management";
-  const screenshot = project.gallery?.[serviceId === "software-development" ? 1 : 0];
+  const preview = isContent
+    ? {
+        src: project.video.poster,
+        alt: `Still from ${project.video.title}`,
+        width: project.video.width,
+        height: project.video.height,
+      }
+    : project.gallery[serviceId === "software-development" ? 1 : 0];
 
   return (
     <figure className={`services-example${isContent ? " services-example-content" : ""}`}>
@@ -32,10 +39,10 @@ function ServiceExample({ serviceId }: { serviceId: keyof typeof serviceExamples
         aria-label={`Explore ${project.title}`}
       >
         <Image
-          src={screenshot?.src ?? project.video.poster}
-          alt={screenshot?.alt ?? `Still from ${project.video.title}`}
-          width={screenshot?.width ?? project.video.width}
-          height={screenshot?.height ?? project.video.height}
+          src={preview.src}
+          alt={preview.alt}
+          width={preview.width}
+          height={preview.height}
           sizes={
             isContent
               ? "(max-width: 799px) 230px, 280px"

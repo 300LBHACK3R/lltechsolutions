@@ -74,9 +74,9 @@ cd ../..
 node scripts/check-home-cleaning-demo.mjs
 ```
 
-Repeat with the corresponding ID. Preparation replaces only that generated `build/<id>-demo` output. The Windows release runner installs the Git bundle, validates and pushes source if requested, then publishes six separate static projects and verifies stable public domains before connecting their URLs. Do not select the main L&L project for demo deployment.
+Repeat with the corresponding ID. Preparation replaces only that generated `build/<id>-demo` output. Run the [release checklist](RELEASE_CHECKLIST.md) for the maintained source and verify each separate static deployment before connecting its public URL. Do not select the main L&L project for demo deployment.
 
-Public aliases follow `https://ll-<id>-template.vercel.app/`. These are expected addresses, not evidence of a completed deployment. The publisher checks the exact project/team identity before upload, public page/asset responses, required headers, prices, navigation, L&L enquiry destinations and hashed route-data manifests before changing the catalogue link.
+Public aliases follow `https://ll-<id>-template.vercel.app/`. These are expected addresses, not evidence of a completed deployment. Check the exact project/team identity before upload. Verify public page/asset responses, required headers, prices, navigation, L&L enquiry destinations and hashed route-data manifests before changing the catalogue link.
 
 ## Review before promotion
 

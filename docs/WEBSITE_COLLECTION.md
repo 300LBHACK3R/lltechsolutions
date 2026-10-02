@@ -14,7 +14,7 @@ This is a prepared source update, not a claim of a GitHub push or live Vercel de
 
 The browsing and enquiry journey requires no customer account, extra analytics, tracking pixels or public upload service. Checkout uses the separately documented payment, email and private-storage dependencies. The contact form stays mounted while visitors move back through the guided steps, preserving their typed information. Selection context is appended to the final submitted message using the existing length limits and server validation. A normal enquiry link and direct contact details remain available.
 
-## Current designs and truthfulness
+## Demo content and truthfulness
 
 The category banners are generated industry illustrations, not photographs of client premises or completed projects. Their sources are documented in `docs/TEMPLATE_CATEGORY_IMAGES.md`. They load from local optimized WebP files through Next Image. Desktop strips use a shaded text area and a small hover zoom for a fine pointer; on mobile the panorama sits above the copy, preserving the range of subjects. Reduced-motion and forced-colour preferences are respected. The images are decorative because the adjacent heading and description provide the category's meaning.
 
@@ -38,7 +38,7 @@ The starting-price schedule below applies to new template-based builds. Addition
 
 `src/data/website-collection.ts` is the catalogue and selection source. It holds tiers, industry tags grouped into seven browsing categories, care choices, extras, design records and canonical inquiry helpers. `additionalIndustries` lets a design fit more than one relevant category. `src/data/collection-brief.ts` defines the content guide, bounded recovery format and text export.
 
-- `/website-collection`: business category selection and service explanations. Legacy `?industry=` links redirect to the corresponding gallery, preserving filter context.
+- `/website-collection`: compact introduction and business category selection. Legacy `?industry=` links redirect to the corresponding gallery, preserving filter context.
 - `/website-collection/category/[category]`: category-specific gallery, optional business/level filters, template previews, direct enquiry links and comparison selections.
 - `/website-collection/[design]`: individual detail page, screenshots or a labelled cover, verified live-demo link where configured, scope, optional supplied media, pricing explanation and performance evidence. The beauty and one-page massage designs use the same dedicated showcase flow as the other templates.
 - `/website-collection/start?design=pigment`: three-step guided enquiry.
@@ -46,6 +46,8 @@ The starting-price schedule below applies to new template-based builds. Addition
 - `/website-collection/brief`: optional client content guide, after booking.
 
 Design pages use server-generated metadata, canonical URLs and CreativeWork structured data. The landing page lists category links in its CollectionPage/ItemList schema. Category pages have unique metadata, breadcrumbs and an ItemList matching their displayed templates. Only categories with available templates enter the sitemap; empty categories are noindex and say that no templates have been added yet. Design pages are added to the sitemap from the same catalogue. Start, Compare and Brief are noindex utilities and are not in the sitemap. Draft designs are excluded from cards, details, inquiries and comparisons. Reserve the slugs `start`, `compare`, `brief` and `category`. Internal template IDs and existing URLs remain stable even when display names change.
+
+The other category guides provide current six-offer tables, scope, asset provenance and matching demo commands: [Legal & Professional](LEGAL_PROFESSIONAL_TEMPLATES.md), [Home & Property](HOME_PROPERTY_TEMPLATES.md), [Transport & Logistics](TRANSPORT_LOGISTICS_TEMPLATES.md), [Food & Restaurants](FOOD_RESTAURANTS_TEMPLATES.md) and [Retail & Automotive](RETAIL_AUTOMOTIVE_TEMPLATES.md).
 
 ## Adding and publishing designs
 
@@ -60,7 +62,7 @@ Nail & Esthetics Studio and One-page Massage Website use dedicated covers and sc
 
 Confirm scope, revision allowance, content responsibilities, completion timing, usage/handover terms, taxes and provider fees before accepting a deposit. Monthly care remains optional and separately scoped.
 
-## Adding walkthrough videos and Tate’s introduction
+## Optional template walkthroughs
 
 The UI renders videos only after real files and their data are supplied. It uses native controls, inline playback, no autoplay, no preloading, captions and a readable transcript. No stock person, synthetic Tate recording, broken video placeholder or invented performance clip is included.
 
@@ -71,11 +73,10 @@ Use these suggested file locations (create each folder when adding the actual fi
 | Pigment tour   | `public/media/collection/pigment/walkthrough.mp4`, `poster.webp`, `captions.vtt`   |
 | Structure tour | `public/media/collection/structure/walkthrough.mp4`, `poster.webp`, `captions.vtt` |
 | Beauty tour    | `public/media/collection/still/walkthrough.mp4`, `poster.webp`, `captions.vtt`     |
-| Meet Tate      | `public/media/collection/tate/introduction.mp4`, `poster.webp`, `captions.vtt`     |
 
-Set a design’s `walkthrough` object, or the `developerIntroduction` export, with `src`, `poster`, `captions` and a real `transcript`. Public URLs omit `public`, for example `/media/collection/pigment/walkthrough.mp4`. Do not set the object until all three files exist. Use H.264 MP4 with a web-friendly encoding and captions matching the recording. Keep a tour focused: home, services, one useful detail and the contact journey. Check playback and seeking on the actual deployed site.
+Set the design’s `walkthrough` object, with `src`, `poster`, `captions` and a real `transcript`. Public URLs omit `public`, for example `/media/collection/pigment/walkthrough.mp4`. Do not set the object until all three files exist. Use H.264 MP4 with a web-friendly encoding and captions matching the recording. Keep a tour focused: home, services, one useful detail and the contact journey. Check playback and seeking on the actual deployed site.
 
-Without a recording, the design cover, supplied screenshots and any configured live-demo link remain available. A walkthrough is optional; the template does not need an embedded video or a duplicate interactive preview. The landing page no longer renders the Meet Tate introduction or its optional video. Existing client videos elsewhere on the site are untouched.
+Without a recording, the design cover, supplied screenshots and any configured live-demo link remain available. A walkthrough is optional; the template does not need an embedded video or a duplicate interactive preview. The landing page does not render a developer-introduction section. These optional template tours are separate from the two social/content case-study videos.
 
 ## Performance evidence
 
@@ -106,7 +107,7 @@ Historical verification: the subsequent category-photo update passed the same ch
 
 Rendered review of this update remains outstanding: the supported browser cannot access the local server. After applying it, check category rows and galleries on phone, tablet and desktop, including keyboard selection, template previews and contact links. A successful main push is not a verified Vercel deployment.
 
-The current Windows installer preserves a local Git-history backup, verifies the release bundle and fast-forwards compatible history before running the quality gates. It stops for uncommitted changes or divergent commits. With `-Push`, it uses the owner’s authenticated Git for a normal main push only after validation. No force push, stash operation or environment-file copy is used.
+Use the maintained repository and its [release checklist](RELEASE_CHECKLIST.md). Earlier bundle-specific Windows installers and publishers are not part of the current workflow; prepare and check each demo with the scripts documented below, then verify its separate deployment before saving a public URL.
 
 ## Realistic previews and live examples
 
@@ -114,7 +115,7 @@ Painting Company, Plumbing Company, Excavation & Landscaping, Nail & Esthetics S
 
 Transport & Logistics includes Calgary Hot Shot, the user-supplied live concept demo. Its card and scrollable detail preview use actual screenshots; the external link opens the interactive demo. It remains explicitly labelled as a concept with placeholder business details; its starting price applies to a new personalization and launch. Do not represent it as an approved client or a production launch.
 
-Food & Restaurants has its own illustrated category and an honest empty state until a template is ready. Retail & Automotive is separate; the old retail-hospitality route redirects permanently. Food industry filters now resolve to Food & Restaurants. Empty categories remain noindex and outside the sitemap.
+Food & Restaurants and Retail & Automotive each have six dedicated offers. The old retail-hospitality route redirects permanently to Retail & Automotive; food industry filters resolve to Food & Restaurants. Any future empty category remains noindex and outside the sitemap.
 
 To add a real example, extend `websiteDesigns` with its approved category, name, scope, `preview`, optional `pagePreview` and actual HTTPS `demoUrl`. Images live in `public/images/collection/`; provenance is documented in `TEMPLATE_PREVIEW_IMAGES.md`. Do not mark a concept as published until its price and finished scope are approved.
 
@@ -126,17 +127,17 @@ The public Calgary Hot Shot demo was visually inspected and captured with its re
 
 ## Tow-N-Go client reference
 
-Transport & Logistics now includes Tow-N-Go Trailers as a **Live client example** alongside the Calgary Hot Shot concept demo. The catalogue uses its existing real website screenshot; the detail page resolves the original project and video from the canonical portfolio data. No media files or client records are duplicated. It links to the live website, full website case study and ongoing monthly digital partnership.
+Transport & Logistics now includes Tow-N-Go Trailers as a **Live client example** alongside the Calgary Hot Shot concept demo. The catalogue uses its real website screenshot; the detail page resolves the shared screenshot gallery from the canonical portfolio data. No media files or client records are duplicated. It links to the live website, full website case study and ongoing monthly digital partnership.
 
 The enquiry says “Build something like this” and carries a request for a similar website with the prospect’s own branding, content and business details. Tow-N-Go’s logo, fleet photography, reviews and client-specific materials are not offered for reuse. The original site remains a managed client project, not a generic template for sale. Page count and price are scoped for the new business; no Chad contract price is exposed or reused.
 
-The existing 26-second portfolio walkthrough is reused, with native controls, no autoplay and a visual-description track. Replacing its canonical project media updates the collection example too. The client site continues to evolve; the live link remains available for its current state.
+The template reference and website case study use real screenshot galleries. The monthly content case study retains its own video. The client site continues to evolve; the live link remains available for its current state.
 
 Historical Tow-N-Go verification: this addition passed formatting, import/asset validation, ESLint, TypeScript, 21 unit tests, the production build and 106 production HTTP checks. The checks cover the client-reference enquiry, category comparison, existing video controls and media responses, metadata and the unchanged contact protections. Dependency audit reported zero vulnerabilities. No external email was sent; browser/device review and deployment confirmation remain separate.
 
 ## Crestline and McKenzie client references
 
-Construction & Trades includes **Crestline Painting**, also available through the Painting and Construction industry filters, using the actual portfolio screenshot, canonical walkthrough, live website and full client story. **Health & Wellness** shows **McKenzie House Massage** with its actual website image, live website and client story. Its template page has no video player; the canonical walkthrough remains in the client case study. Its approved $399 CAD starting price covers a similar new website using supplied content; Heather’s original combined website and production work is not used to set a template price. No client media files are copied or replaced.
+Construction & Trades includes **Crestline Painting**, also available through the Painting and Construction industry filters, using the actual portfolio screenshot gallery, live website and full client story. **Health & Wellness** shows **McKenzie House Massage** with its actual website image, live website and client story. Its template page has no video player, and its website case study uses a real screenshot gallery. Its approved $399 CAD starting price covers a similar new website using supplied content; Heather’s original combined website and production work is not used to set a template price. No client media files are copied or replaced.
 
 Crestline’s proposed starting scope focuses on service pages, project categories, photography and quote enquiries. McKenzie’s focuses on treatment information, pricing, practice details and a booking pathway using the new business’s chosen provider. The examples demonstrate completed work; a new website uses the prospect’s own approved branding, content and imagery. Page count, launch price, additional production and care plans are scoped separately. No historical client fees or performance claims are used as an offer.
 
@@ -211,7 +212,7 @@ npm --prefix build/painting-demo run build
 node scripts/check-painting-demo.mjs
 ```
 
-The generator replaces only `build/painting-demo`, which is ignored by Git. Deploy its `out` folder as a separate static Vercel project, with the copied `vercel.json` headers. Do not deploy the parent L&L app as the demo. The supplied publisher verifies the actual public URL before recording it in the gallery config. It never invents a Vercel address. A successful L&L Git push still requires a Ready Vercel production deployment before the link appears on the live catalogue.
+The generator replaces only `build/painting-demo`, which is ignored by Git. Deploy its `out` folder as a separate static Vercel project, with the copied `vercel.json` headers. Do not deploy the parent L&L app as the demo. Verify the actual public routes, assets and headers before recording the public URL in the gallery config. Preserve existing screenshot entries and never invent a Vercel address. A successful L&L Git push still requires a Ready Vercel production deployment before the link appears on the live catalogue.
 
 Historical September 21 verification: root formatting, import validation, lint, TypeScript, 27 unit tests, production build and 133 HTTP checks passed. The static demo exported all four pages with checked navigation, asset references, noindex and headers. Browser rendering and real device behaviour remain unverified because the supported browser could not open the local preview; repeat the release checklist on the deployed demo.
 
@@ -242,7 +243,7 @@ node scripts/check-earthworks-demo.mjs
 
 The generator replaces only the ignored `build/earthworks-demo` directory. Publish its exported `out/` contents, with the maintained deployment headers, to the separate **ll-earthworks-template** Vercel project. Its real routes are `/`, `/services`, `/projects`, `/materials`, `/process`, `/faq` and `/contact`. The demo is noindex and the sample contact view does not send a contractor enquiry. The L&L demo strip carries the canonical price, a return-to-details link, motion control and the real template enquiry handoff.
 
-The Windows publisher reads Vercel's production alias and checks all seven pages publicly before saving the URL. It preserves existing screenshot entries. A protected deployment URL is not a public demo link, and a completed Git push does not by itself confirm the main-site Vercel deployment. Verification counts above describe their named historical updates; they are not evidence of checks run for this earthworks release.
+Check the actual production alias and all seven public routes before saving the URL, preserving existing screenshot entries. A protected deployment URL is not a public demo link, and a completed Git push does not by itself confirm the main-site Vercel deployment. Verification counts above describe their named historical updates; they are not evidence of checks run for this earthworks release.
 
 ## Historical premium refinement verification
 
@@ -254,7 +255,7 @@ Lawn Care (`lawncare`) is the four-page option for lawn mowing, edging and seaso
 
 The sample identity is LAWN STUDIO. Forest green, ivory and fresh green are scoped to this demo; L&L keeps its black-and-gold brand. The decorative navigation grass is cut by a small periodic mower animation, gated by the existing motion setting and prefers-reduced-motion. The four routes are `/`, `/services`, `/our-work` and `/contact`. The imagery is generated illustration for a sample business, not completed client work or before/after evidence. The reserved sample email is clearly labelled and does not send mail; the real L&L enquiry action retains the selected design.
 
-Build with `node scripts/prepare-lawncare-demo.mjs`, install/build inside `build/lawncare-demo`, and run `node scripts/check-lawncare-demo.mjs` from the main repository. Publish only the exported `out/` contents to the separate `ll-lawncare-template` Vercel project. The static demo carries noindex and security headers. `src/data/lawncare-demo.json` starts with a null URL and no screenshots. The main site shows a labelled cover until captures are supplied; it only displays **View live demo** after a public URL is configured. The Windows publisher checks the four public routes and headers before saving the URL, preserving screenshot entries. Put real captures in `public/images/templates/lawncare/` using its README.
+Build with `node scripts/prepare-lawncare-demo.mjs`, install/build inside `build/lawncare-demo`, and run `node scripts/check-lawncare-demo.mjs` from the main repository. Publish only the exported `out/` contents to the separate `ll-lawncare-template` Vercel project. The static demo carries noindex and security headers. `src/data/lawncare-demo.json` starts with a null URL and no screenshots. The main site shows a labelled cover until captures are supplied; it only displays **View live demo** after a public URL is configured. Check all four public routes and their headers before saving the URL, preserving existing screenshot entries. Put real captures in `public/images/templates/lawncare/` using its README.
 
 ### Contact setup for new builds
 
@@ -272,21 +273,19 @@ Landscape Contracting (`horizon`) is a **$399 CAD** starting offer for four page
 
 The design direction began with an independent L&L redesign concept for **Horizon Contracting Group**. Its three supplied screenshots remain archived under `public/images/templates/horizon/` with metadata in `original-reference.json`. The working demo uses the sample name **Landscape Studio** and illustrative images, not Horizon's identity. The catalogue's `independentConcept` field records that distinction. Do not add Horizon to client or project records.
 
-`HorizonCover` is the maintained visual overview on the catalogue and detail page. `src/data/horizon-demo.json` holds the live URL and optional screenshots of the new demo. Its screenshot list is empty until actual captures are added; original reference screenshots are not presented as captures of the new implementation. The live URL stays null until the publisher verifies it. The detail page retains **Independent design concept**, pricing, scope and the existing L&L enquiry handoff.
+`HorizonCover` is the maintained visual overview on the catalogue and detail page. `src/data/horizon-demo.json` holds the live URL and optional screenshots of the new demo. Its screenshot list is empty until actual captures are added; original reference screenshots are not presented as captures of the new implementation. The live URL stays null until the separate public deployment is verified. The detail page retains **Independent design concept**, pricing, scope and the existing L&L enquiry handoff.
 
 Run `node scripts/prepare-horizon-demo.mjs`, install and build in `build/horizon-demo`, then run `node scripts/check-horizon-demo.mjs` from the main repository. The maintained scaffold is `templates/horizon-demo/`; generated output is replaceable. Deploy only its `out/` export to the separate `ll-landscape-template` project. The demo includes the L&L details/price/motion/enquiry strip, real page links, sample contact details, noindex and static security headers. No contractor messages are sent. Configure a buyer's real contact details during personalization; forms remain a separately scoped upgrade.
 
 ## McKenzie House restored — current decision
 
-McKenzie House Massage is a live client reference under the unchanged `mckenzie-house` catalogue identifier. The template entry uses its real website image and actual website under **View live demo**, with a link to the client case study. `clientPreview: "image"` keeps its template page free of video players while preserving the canonical walkthrough on the case study. Bookmarks and enquiries continue to select McKenzie House. Its source branding and media are examples, not assets included with a new customer's website.
+McKenzie House Massage is a live client reference under the unchanged `mckenzie-house` catalogue identifier. The template entry uses its real website image and actual website under **View live demo**, with a link to the client case study. The template page keeps its original matching website image; the canonical website case study uses a screenshot gallery. The separate launch-content case study retains its video. Bookmarks and enquiries continue to select McKenzie House. Its source branding and media are examples, not assets included with a new customer's website.
 
 `startingPriceCad` is `399`: **From $399 CAD** for a similar new website using the prospect's supplied content. This approved website starting price is separate from Heather's original project charge. That original scope combined website development, on-site photography, filming, editing and integrating the media into the site. The new website's pages and features are agreed before booking; new photography/video, enquiry-form setup and ongoing care are optional quoted work. Direct contact and an external booking link describe the baseline enquiry scope, not a claim of an existing Resend form on Heather's site.
 
 The shared `contentProduction.projectExample` in `src/data/services.ts` explains the original combined project as approximately **$1,000 CAD** on the McKenzie template and Pricing pages. This is historical project context, not a guaranteed package or a numeric template price. Photography and videography are visibly offered under the existing Social & Content service, with website use cases and standalone business-content work. Enquiries use the existing `Photo / Video / Short-Form Content` contact option; the collection extra keeps its stable `photos` ID. No new contact form, email provider or fourth pillar is introduced.
 
-The generic Evergreen Wellness demo has been withdrawn from the catalogue. Its source and captured assets are retained for reference, with `archived: true` in `src/data/wellness-demo.json`. The preparation and capture scripts stop before modifying generated output or reconnecting it. Do not run the former wellness release/publisher against this current source. The existing separate Vercel deployment is not deleted by this catalogue update.
-
-The former Windows static-export normalization and public hash-check utilities remain available with the archived demo source. They are not used by the restored McKenzie client reference. Future reactivation requires a separately approved identity, scope and price.
+The retired generic Evergreen Wellness demo, its source, captured assets and dedicated tooling have been removed from this build. McKenzie House remains the real client reference at its existing URL. Local cleanup does not delete or verify the former separate Vercel deployment. Do not reconnect that old generic identity to the catalogue.
 
 ## Nail & Esthetics Studio — $299 CAD
 
@@ -322,7 +321,7 @@ node scripts/check-massage-one-page-demo.mjs
 
 Deploy only its normalized static export to the separate **ll-massage-one-page** project, retaining noindex and security headers. Record the actual publicly verified URL and real screenshots in `src/data/massage-one-page-demo.json`; captures belong under `public/images/templates/massage-one-page/`. The demo’s sample contact/booking display does not send a practice enquiry; its real L&L handoff selects this $150 offer.
 
-Both offers are included in `LL_Beauty_Massage_Templates_Release.zip`. `Run-LandL-Beauty-Massage.ps1` validates and applies the source update, publishes the two separate demos and records their verified public links. Source validation, Windows execution, browser/device rendering, actual demo access and the main L&L production deployment are separate verification steps. This documentation records intended release scope and does not itself claim that any of those checks has passed.
+Both offers are maintained in this repository. Use their preparation/export checks above and the [release checklist](RELEASE_CHECKLIST.md). Source validation, browser/device rendering, actual public demo access and the main L&L production deployment are separate verification steps.
 
 ## Health & Wellness expansion — four distinct completed demos
 

@@ -62,69 +62,6 @@
   margin-top: 15px;
   font-size: 12px;
 }
-.portfolio-section {
-  padding: 65px 0;
-}
-.portfolio-section + .portfolio-section {
-  border-top: 1px solid var(--line);
-}
-.portfolio-partnerships {
-  padding-bottom: 70px;
-}
-.partnership-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 65px;
-  padding: 30px 0;
-  border-top: 1px solid #514932;
-}
-.partnership-row:last-child {
-  border-bottom: 1px solid var(--line);
-}
-.partnership-row h3 {
-  font-size: clamp(23px, 2.4vw, 34px);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.035em;
-  margin: 13px 0;
-}
-.partnership-row h3 a:hover {
-  color: var(--gold-light);
-}
-.partnership-row > div > p:not(.eyebrow) {
-  color: var(--muted);
-  font-size: 15px;
-}
-.partnership-row .text-link {
-  margin-top: 12px;
-  color: var(--gold-light);
-}
-.partnership-status {
-  font-size: 11px;
-  color: #c8bea3;
-}
-.portfolio-review-link {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 25px;
-  padding: 27px 0;
-  border-block: 1px solid var(--line);
-}
-.portfolio-review-link p {
-  color: var(--muted);
-  font-size: 15px;
-}
-.portfolio-review-link .text-link {
-  color: var(--gold-light);
-}
-.case-body > *,
-.case-sidebar {
-  min-width: 0;
-}
-.case-body dd {
-  max-width: 70ch;
-}
 .case-implementation {
   margin-top: 32px;
   padding-top: 26px;
@@ -142,10 +79,6 @@
   font-size: 14px;
   line-height: 1.8;
   overflow-wrap: anywhere;
-}
-.case-implementation .case-tools {
-  color: var(--gold-light);
-  font-size: 13px;
 }
 
 .design-options {
@@ -307,13 +240,6 @@
   .case-implementation p {
     font-size: 16px;
   }
-  .case-implementation .case-tools {
-    font-size: 15px;
-  }
-  .partnership-row > div > p:not(.eyebrow) {
-    font-size: 19px;
-    max-width: 650px;
-  }
   .project-related-link {
     font-size: 15px;
   }
@@ -326,20 +252,5 @@
   .project-video-heading,
   .project-video figcaption {
     padding: 14px;
-  }
-  .client-project-grid {
-    grid-template-columns: 1fr;
-  }
-  .partnership-row {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .portfolio-section {
-    padding: 45px 0;
-  }
-  .portfolio-review-link {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 9px;
   }
 }

@@ -1,58 +1,26 @@
-# Replacing your portfolio videos
+# Replacing social/content videos
 
-Each example already has a working video. Replace its files when your own recording is ready. The video paths and display details are now collected in **`src/data/project-videos.ts`**; project descriptions stay in `src/data/projects.ts`.
+Only the Tow-N-Go monthly content and McKenzie launch case studies use video. Website/software examples use screenshot galleries; update those through [Client showcase](CLIENT_SHOWCASE.md). The four retired website/software video sets are no longer in this build.
 
-## Open the correct project folder
+Work in the current `landl-tech/` checkout on your review branch. All paths below are relative to that project folder. Video paths and display details live in `src/data/project-videos.ts`; project descriptions stay in `src/data/projects.ts`.
 
-Use a current checkout of production `main`, or the **Release worktree** printed by the publication script. The script preserves the original `C:\Users\techn\landl-tech` checkout, so that folder may still contain an earlier version. All paths below are relative to the current project folder you open in VS Code.
+## Active file sets
 
-## Drop-in file map
+| Example                  | MP4 in `public/media/projects/` | Matching poster         | Visual-description track |
+| ------------------------ | ------------------------------- | ----------------------- | ------------------------ |
+| Tow-N-Go monthly content | `tow-n-go-content.mp4`          | `tow-n-go-content.webp` | `tow-n-go-content.vtt`   |
+| McKenzie launch content  | `mckenzie-launch.mp4`           | `mckenzie-launch.webp`  | `mckenzie-launch.vtt`    |
 
-| Example                 | Replace this MP4 inside `public/media/projects/` | Matching poster           | Visual-description track |
-| ----------------------- | ------------------------------------------------ | ------------------------- | ------------------------ |
-| Tow-N-Go website        | `tow-n-go-website.mp4`                           | `tow-n-go-website.webp`   | `tow-n-go-website.vtt`   |
-| Crestline website       | `crestline-website.mp4`                          | `crestline-website.webp`  | `crestline-website.vtt`  |
-| McKenzie House website  | `mckenzie-website.mp4`                           | `mckenzie-website.webp`   | `mckenzie-website.vtt`   |
-| Tate’s TV interface     | `tates-tv-interface.mp4`                         | `tates-tv-interface.webp` | `tates-tv-interface.vtt` |
-| Tow-N-Go content        | `tow-n-go-content.mp4`                           | `tow-n-go-content.webp`   | `tow-n-go-content.vtt`   |
-| McKenzie launch content | `mckenzie-launch.mp4`                            | `mckenzie-launch.webp`    | `mckenzie-launch.vtt`    |
+1. Preserve the current files in Git history before replacing them. Export approved footage as MP4 with H.264 video and AAC if it has audio. MP4 is a container; an HEVC-only export is not equivalent to H.264.
+2. Replace the matching MP4 and poster. Keep the existing paths when replacing that exact example, or update the mapping to the new local paths.
+3. In `src/data/project-videos.ts`, update the title, description, `durationLabel`, `width` and `height` to match the actual export. Set `portrait: true` for vertical footage and `hasAudio: true` when audio is present.
+4. Update the WebVTT visual-description track to match the scenes/timing and the visible description to summarize the clip. For narration, add accurate English WebVTT captions and set `captionsTrack` to that file's public path after the file exists.
+5. Run the [quality gates](../README.md#commands), then check playback, sound, captions, seeking and the fallback media link on desktop and phone. Publish through the normal branch/review/deployment workflow; local file changes do not update the live website.
 
-1. Keep a copy of the existing three files before replacing them. Export a real screen recording as **MP4 with H.264 video**; use AAC if it has audio. A 1080p landscape recording is a useful website-tour master. MP4 is a container: an HEVC-only export is not the same as H.264.
-2. Replace the matching MP4. Update the poster from the new recording, retaining its existing filename, or point `poster` at your own local image file.
-3. In `src/data/project-videos.ts`, update that example’s title, description, `durationLabel`, `width` and `height`. Use `portrait: true` for vertical footage and omit it for landscape footage. Set `hasAudio: true` for a narrated or music-backed recording.
-4. Update the matching `.vtt` visual-description track so it describes the new scenes and timing. The visible `description` should summarize what the viewer will see.
-5. For narration, add an accurate English WebVTT captions file in the same folder and set `captionsTrack` to its public path. The native player displays a captions control when a track is provided.
-6. Run the quality checks, play the video with sound/captions on desktop and phone, then commit the changed files. Publish through the repository’s normal branch/Quality/production workflow. A file saved locally does not update the live website until it is deployed.
+For example, a narrated replacement for McKenzie's launch might add `hasAudio: true` and `captionsTrack: "/media/projects/mckenzie-launch-captions.vtt"`. That captions path is illustrative and must not be added to the mapping until the real matching file exists. Always use the actual duration and dimensions.
 
-Example additions for a narrated McKenzie replacement:
+## Content and playback
 
-```ts
-hasAudio: true,
-captionsTrack: "/media/projects/mckenzie-website-captions.vtt",
-durationLabel: "45 sec",
-width: 1920,
-height: 1080,
-```
+Use a real approved Reel or campaign example for Tow-N-Go, preserving the distinction between customer loading and Tow-N-Go hauling. For McKenzie, use the approved before-and-after creative or an edit of the actual on-site photography/treatment footage. Do not expose administrative screens, customer/booking data, notifications or private inboxes.
 
-These lines are an example, not an active captions reference. Create the captions file before adding its path to the live mapping. No empty placeholder files are shipped.
-
-## Suggested recordings
-
-Aim for about **40–50 seconds**, with a few seconds to read each important view. These are editorial suggestions, not a claimed conversion benchmark. Start at the homepage, move deliberately and show two useful interactions. End on a clear next step without submitting a form or making a booking.
-
-| Project                  | Suggested sequence                                                                                                                    |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Tow-N-Go                 | Homepage → Trailer Rentals → Enclosed Trailers → gallery photo → Request This Trailer, showing the prefilled enquiry                  |
-| Crestline                | Homepage → Custom Homes service → Projects → Custom Homes gallery → a complete real project entry                                     |
-| McKenzie House           | Homepage → Sensory Massage → treatment preview and pricing → Reviews → one or two client photo stories                                |
-| Tate’s TV                | Channel guide → on-screen remote → an interaction you have verified works; keep programming availability and playback claims accurate |
-| Tow-N-Go monthly content | A real approved Reel or short campaign example; preserve the distinction between customer loading and Tow-N-Go hauling                |
-| McKenzie launch          | The existing before-and-after creative or a short edit of the actual on-site photography and treatment footage                        |
-
-Close unrelated tabs, notifications and personal information before recording. Use the real site and supplied assets. Avoid exposing administrative screens, booking/customer data or private inboxes in a public portfolio clip.
-
-## Playback behaviour
-
-The player retains native controls, inline mobile playback, an accessible description, no autoplay and `preload="none"`. Starting one preview pauses the other examples on that page. Local media requires no new API key, embed provider or third-party tracking.
-
-The September 9 update keeps the six approved media files unchanged. Interior pages were inspected, but the fuller browser captures could not be transferred for video export. No longer tour or continuous click recording is claimed as delivered in this update.
+The player keeps native controls, inline mobile playback, an accessible description, no autoplay and `preload="none"`. Starting a preview pauses other project videos on the page. Local media requires no API key, embed provider or tracking script. See [Portfolio media](PORTFOLIO_MEDIA.md) for original sources and historical verification limits.

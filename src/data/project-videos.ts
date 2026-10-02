@@ -15,54 +15,6 @@ export type ProjectVideo = {
   portrait?: boolean;
 };
 export const projectVideos = {
-  "tow-n-go": {
-    src: "/media/projects/tow-n-go-website.mp4",
-    poster: "/media/projects/tow-n-go-website.webp",
-    title: "Tow-N-Go website walkthrough",
-    description:
-      "A scroll preview of the homepage, fleet presentation, services and rental inquiry pathway, captured from the public website. Explore the monthly partnership below for an example of our social content.",
-    descriptionTrack: "/media/projects/tow-n-go-website.vtt",
-    durationLabel: "26 sec",
-    width: 1280,
-    height: 880,
-    hasAudio: false,
-  },
-  crestline: {
-    src: "/media/projects/crestline-website.mp4",
-    poster: "/media/projects/crestline-website.webp",
-    title: "Crestline website walkthrough",
-    description:
-      "A scroll preview of Crestline’s service presentation, company introduction, real project gallery and quote pathway, captured from the public website.",
-    descriptionTrack: "/media/projects/crestline-website.vtt",
-    durationLabel: "26 sec",
-    width: 1280,
-    height: 880,
-    hasAudio: false,
-  },
-  "mckenzie-house": {
-    src: "/media/projects/mckenzie-website.mp4",
-    poster: "/media/projects/mckenzie-website.webp",
-    title: "McKenzie House website walkthrough",
-    description:
-      "A scroll preview of the treatment-space imagery, service presentation, client information and ClinicSense booking pathway, captured from the public website.",
-    descriptionTrack: "/media/projects/mckenzie-website.vtt",
-    durationLabel: "26 sec",
-    width: 1280,
-    height: 880,
-    hasAudio: false,
-  },
-  "tates-tv": {
-    src: "/media/projects/tates-tv-interface.mp4",
-    poster: "/media/projects/tates-tv-interface.webp",
-    title: "Tate’s TV guide & controls",
-    description:
-      "A visual tour of the programme guide and on-screen remote, using captured application screens. This preview focuses on interface design; programme availability changes on the live application.",
-    descriptionTrack: "/media/projects/tates-tv-interface.vtt",
-    durationLabel: "16 sec",
-    width: 1280,
-    height: 880,
-    hasAudio: false,
-  },
   "tow-n-go-digital": {
     src: "/media/projects/tow-n-go-content.mp4",
     poster: "/media/projects/tow-n-go-content.webp",

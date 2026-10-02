@@ -73,7 +73,7 @@ For real page captures, add files to `public/images/templates/<id>/` and entries
 
 Use the correct template ID, actual screenshot dimensions and a useful description. Capture the implemented page after its assets load; do not replace it with an unrelated image or a generated browser mockup. Paths from another template folder, unsafe filenames and incomplete entries are rejected. Screenshots stay separate from the generated hero imagery.
 
-Keep each `url` unset until its separate production demo is publicly verified. The shared visible label remains “View live demo”. The publisher preserves screenshot entries when it connects a verified link. This expansion does not add a video player or in-page Try This Design overlay.
+Keep each `url` unset until its separate production demo is publicly verified. The shared visible label remains “View live demo”. Preserve screenshot entries when connecting a verified link. This expansion does not add a video player or in-page Try This Design overlay.
 
 ## Local checks and publishing
 
@@ -97,7 +97,7 @@ node scripts/check-courier-one-page-demo.mjs
 
 Repeat the prepare/build/check steps for the other five IDs. Preparation replaces only the selected generated build directory. The shared static checker verifies canonical price and contact scope, route count, one main/h1, distinct titles/headings, complete navigation, local assets, sample disclosures, safe forms, real L&L handoffs, noindex/header policy and hashed page-data files.
 
-The Windows release package includes `Run-LandL-Transport-Logistics.ps1`, `Install-LandL-Transport-Logistics.ps1`, `Publish-LandL-Transport-Demo.ps1` and shared tools. Its installer requires clean, compatible history, makes a private Git-history backup, verifies bundle identity/checksum and uses fast-forward-only installation and pushes. The publisher audits each demo before Vercel upload, checks the exact separate project/team, and verifies the stable alias before committing the matching JSON URL. It never selects the main L&L project as a demo destination.
+Use the maintained preparation/check scripts above and the [release checklist](RELEASE_CHECKLIST.md). Before uploading each static export, verify the separate Vercel project/team, then check its stable public alias before recording the matching JSON URL. Never select the main L&L project as a demo destination. Earlier bundle-specific Windows release scripts are not part of this repository workflow.
 
 Expected aliases follow `https://ll-<id>-template.vercel.app/`. These are configuration targets, not evidence of completed deployment. A successful source push does not establish that the main-site Vercel deployment is Ready. Final release evidence belongs in `VERIFICATION.md` and must describe checks actually performed.
 

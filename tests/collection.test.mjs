@@ -31,6 +31,26 @@ import { readTemplateShowcase } from "../src/lib/template-showcase.ts";
 
 const saleNow = Date.parse(templateSale.startsAt);
 
+test("the McKenzie client example uses its approved $399 template price in enquiries", () => {
+  const design = websiteDesigns.find((item) => item.id === "mckenzie-house");
+  assert.ok(design);
+  assert.equal(design.name, "McKenzie House Massage");
+  assert.equal(design.status, "client-example");
+  assert.equal(design.clientProjectId, "mckenzie-house");
+  assert.equal(design.startingPriceCad, 399);
+  assert.equal(design.pageCount, null);
+  assert.equal(design.contactMode, "direct");
+  const href = new URL(collectionInquiryHref({ design: design.id }), "https://lltechsolutions.ca");
+  assert.equal(href.pathname, "/contact");
+  assert.equal(href.searchParams.get("collection"), "website");
+  assert.equal(href.searchParams.get("design"), "mckenzie-house");
+  const inquiry = collectionInquiry(Object.fromEntries(href.searchParams), websiteDesigns, saleNow);
+  assert.ok(inquiry.message.includes(design.name));
+  assert.ok(inquiry.message.includes("Launch pricing: From $319.20 CAD"));
+  assert.ok(inquiry.message.includes("Regular starting price: $399 CAD"));
+  assert.ok(!inquiry.message.includes("$1,000"), "historical bundled project fee stays separate");
+});
+
 // Test-only records: these are never imported into the site or offered for sale.
 const fixture = (id, tier, price, industry = "painting", status = "published") => ({
   id,

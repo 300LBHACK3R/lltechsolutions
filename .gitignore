@@ -13,9 +13,9 @@
 /out
 /build
 /coverage
-/templates/source-editions/*/.next/
-/templates/source-editions/*/out/
-/templates/source-editions/*/node_modules/
+/templates/**/.next/
+/templates/**/out/
+/templates/**/node_modules/
 
 # Environment files
 .env*

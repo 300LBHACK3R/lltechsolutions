@@ -297,7 +297,6 @@ export type WebsiteDesign = {
       | "earthworks"
       | "lawncare"
       | "horizon"
-      | "wellness"
       | "beauty"
       | "massage-one-page"
       | "medical-spa"
@@ -3173,76 +3172,6 @@ export const collectionPriceRange = `$${Math.min(...collectionStartingPrices).to
 
 export const collectionDescription =
   "Explore custom-coded website templates by business type, with clear pricing, your own content and a launch handled by L&L across Canada.";
-
-export const collectionStandards = [
-  {
-    title: "Personalized in the code",
-    description:
-      "Your branding, supplied content, services and contact details are integrated into the chosen design. Extra copywriting, photography and features are scoped separately.",
-  },
-  {
-    title: "Search-ready foundations",
-    description:
-      "Page titles, descriptions, canonical URLs, sitemap, social sharing metadata and relevant structured data are configured around the business and its real content.",
-  },
-  {
-    title: "Security considered at launch",
-    description:
-      "Every offer includes HTTPS, appropriate security headers, protected credentials and dependency checks. Field validation and spam controls apply when a form is included. Ongoing updates are optional and separately scoped.",
-  },
-  {
-    title: "Performance checked",
-    description:
-      "We optimize images, loading behaviour and code, then check representative pages. Performance measurements describe the tested page and conditions; they are never a blanket score guarantee.",
-  },
-  {
-    title: "Built for everyday devices",
-    description:
-      "Responsive layouts, keyboard access, touch controls and reduced-motion behaviour are checked across representative screen sizes and supported browsers.",
-  },
-  {
-    title: "Launch handled for you",
-    description:
-      "L&L coordinates deployment through Vercel, domain connection and launch checks. Hosting, domain and third-party charges are identified in your proposal.",
-  },
-] as const;
-
-export const collectionQuestions = [
-  {
-    question: "What am I purchasing?",
-    answer:
-      "A service that personalizes and launches an existing L&L website design for your business. The design foundation can be reused for other businesses; your supplied brand assets and content remain yours. Your proposal explains the scope, code handover and usage terms.",
-  },
-  {
-    question: "How is this different from setting up Shopify or an AI website builder myself?",
-    answer:
-      "With L&L, a developer takes responsibility for the agreed customization, configuration, testing and launch. You can also choose an ongoing care plan. You do not need to learn the tools to manage the build. Platform tools can be useful; the difference here is the personal service and implementation included with your website.",
-  },
-  {
-    question: "Can I change the layout or add features?",
-    answer:
-      "Yes. Every template can be personalized and expanded. The listed package defines the starting scope. Extra pages, layout changes, new features and integrations are quoted separately based on the content and complexity, with your approval before work begins. We can also discuss a fully bespoke build.",
-  },
-  {
-    question: "How will pricing work?",
-    answer:
-      "Each design shows its starting price in CAD for personalization and launch, before applicable taxes. For a client example, this is the starting point for a similar new website with your own branding and content. Extra features, content production, monthly care and third-party fees are separate. We confirm the scope, revisions, timeline and full quote before a deposit. Unpriced additions are marked “Quoted after a conversation”.",
-  },
-  {
-    question: "What contact setup is included?",
-    answer: `${contactScopeSummary} ${contactScopeNotes.upgrades} ${contactScopeNotes.care} ${contactScopeNotes.standards}`,
-  },
-  {
-    question: "Do I need a monthly plan?",
-    answer:
-      "Monthly care is optional unless your agreed proposal states otherwise. We explain the services, fees and cancellation or handover arrangements before you commit. Without a care plan, ongoing updates and changes remain your responsibility or can be quoted separately.",
-  },
-  {
-    question: "What do I need to provide?",
-    answer:
-      "Your business details, logo, service information, contact information and any photos or copy you want to use. We guide you through the checklist. If you need help creating content, we can include that in the scope.",
-  },
-] as const;
 
 export const collectionCustomization = {
   title: "A starting point. Room to make it yours.",

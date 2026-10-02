@@ -20,7 +20,7 @@ After adding or changing Vercel environment variables, redeploy. Existing deploy
 
 ## Local preview
 
-Create `.env.local` in the actual review worktree, using the names in `.env.example`, then restart Next.js. The review/publish installers intentionally do not copy credentials from another checkout. Never commit `.env.local` or share the API key in a screenshot or chat.
+Create `.env.local` in the current project checkout, using the names in `.env.example`, then restart Next.js. Configure each checkout's credentials explicitly. Never commit `.env.local` or share the API key in a screenshot or chat.
 
 ## Confirm delivery
 

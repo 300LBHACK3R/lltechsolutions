@@ -31,5 +31,12 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "build", "templates/source-editions"]
+  "exclude": [
+    "node_modules",
+    "build",
+    "templates/source-editions",
+    "templates/**/.next",
+    "templates/**/out",
+    "templates/**/node_modules"
+  ]
 }

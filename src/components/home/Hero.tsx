@@ -7,6 +7,9 @@ import StudioMotion from "@/components/home/StudioMotion";
 export default function Hero() {
   const website = getProject("tow-n-go");
   const content = getProject("tow-n-go-digital");
+  if (content.category !== "social-media-management") {
+    throw new Error("The studio content preview requires a content partnership.");
+  }
   return (
     <section className="premium-hero signal-surface" aria-labelledby="hero-title">
       <SignalArtwork className="surface-signals" />
@@ -48,7 +51,7 @@ export default function Hero() {
                 >
                   <div className="studio-image">
                     <Image
-                      src={website.image ?? website.video.poster}
+                      src={website.image}
                       alt={website.imageAlt ?? website.title}
                       width={1348}
                       height={926}

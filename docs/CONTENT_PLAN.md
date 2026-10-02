@@ -9,10 +9,10 @@ Publish the studio launch only after the reviewed site is actually live. Link po
 | Order | Content                                | Evidence to show                                                                        | Destination                                             |
 | ----- | -------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | 1     | Studio direction / pinned introduction | Actual new homepage and the three services                                              | `/services`                                             |
-| 2     | McKenzie House Massage case study      | Website, ClinicSense journey, real treatment-space photography and approved testimonial | `/projects/web-builds#mckenzie-house`                   |
+| 2     | McKenzie House Massage case study      | Website, ClinicSense journey, real treatment-space photography and approved testimonial | `/projects/mckenzie-house`                              |
 | 3     | 30–45 second website walkthrough       | Screen recording of the actual mobile booking journey                                   | `/contact?service=Website%20Design%20%26%20Development` |
-| 4     | Tow-N-Go ongoing partnership           | Real fleet content, website and published social examples                               | `/projects/social-media-management#tow-n-go-digital`    |
-| 5     | Tate's TV software demonstration       | Actual guide, channel navigation and interface controls                                 | `/projects/software-development#tates-tv`               |
+| 4     | Tow-N-Go ongoing partnership           | Real fleet content, website and published social examples                               | `/projects/tow-n-go-digital`                            |
+| 5     | Tate's TV software demonstration       | Actual guide, channel navigation and interface controls                                 | `/projects/tates-tv`                                    |
 | 6     | Free digital audit invitation          | One specific, demonstrable issue and how you would assess it                            | `/free-tech-audit`                                      |
 
 A manageable starting cadence is three substantive posts and one short walkthrough per week, adapting a core idea to each channel. This is a proposed internal plan, not a client deliverable commitment.
