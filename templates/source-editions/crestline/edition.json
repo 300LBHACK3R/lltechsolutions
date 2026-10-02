@@ -1,0 +1,31 @@
+{
+  "title": "Summit Painting Studio \u2014 Crestline source edition",
+  "sourceRepo": "https://github.com/300LBHACK3R/Crestline-Painting",
+  "sourceCommit": "e10ba187d78efd9b89277aba7e3ab27fc29bd6bf",
+  "routes": [
+    "/",
+    "/about",
+    "/services",
+    "/services/multi-family",
+    "/services/custom-homes",
+    "/services/strata",
+    "/services/commercial",
+    "/projects",
+    "/projects/custom-homes",
+    "/projects/multi-family",
+    "/projects/strata",
+    "/projects/commercial",
+    "/contact"
+  ],
+  "assetNote": "Preserves the Crestline design layouts and 13 public routes with a fictional Summit Painting Studio identity. Original client logos, project names, photography, video and contact details are excluded. Portfolio and service image slots use two generated illustrative samples (painting-interior.webp and construction-home.webp), repeated where needed, so included imagery differs from the live reference. The enquiry form is a local-only demo without email delivery.",
+  "assets": [
+    {
+      "path": "public/images/painting-interior.webp",
+      "sourceAsset": "public/images/collection/painting-interior.webp"
+    },
+    {
+      "path": "public/images/construction-home.webp",
+      "sourceAsset": "public/images/collection/construction-home.webp"
+    }
+  ]
+}

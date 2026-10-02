@@ -63,13 +63,17 @@ export default function SourceCheckout({
           source-code download that I configure and launch myself.
         </span>
       </label>
+      <p className="source-small">Code only · {formatPriceCad(priceCad)}</p>
       <button className="button button-gold" type="submit" disabled={pending}>
-        {pending ? "Opening secure checkout…" : `Buy code only · ${formatPriceCad(priceCad)}`}{" "}
-        <span aria-hidden="true">↗</span>
+        {pending ? "Opening secure checkout…" : "Purchase"}
       </button>
       <p className="source-small">
         One payment. Applicable taxes are shown at checkout. Secure payment through Stripe; we do
         not collect your card details on this page.
+      </p>
+      <p className="source-small">
+        After verified payment, we email your secure ZIP download link. Editing and setup
+        instructions are included.
       </p>
       <p role="status" aria-live="polite" className="source-status">
         {message}

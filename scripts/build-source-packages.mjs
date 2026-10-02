@@ -8,6 +8,8 @@ import { sourceLicense, sourceLicenseVersion } from "../src/data/source-license.
 import { paintingPages, paintingPagePath } from "../src/data/painting-pages.ts";
 import { plumbingPages, plumbingPagePath } from "../src/data/plumbing-pages.ts";
 import { earthworksPages, earthworksPagePath } from "../src/data/earthworks-pages.ts";
+import { horizonPages, horizonPagePath } from "../src/data/horizon-pages.ts";
+import { sourceProducts } from "../src/data/source-products.ts";
 import { lawnPages, lawnPagePath } from "../src/data/lawn-pages.ts";
 import { entryTemplateDemos } from "./lib/entry-template-config.mjs";
 import { sourceFontLicenses } from "./lib/source-font-licenses.mjs";
@@ -24,7 +26,13 @@ import {
 } from "./lib/source-package-tools.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const referenceEditions = {
+  "tow-n-go": { folder: "source-editions/tow-n-go", reference: true },
+  crestline: { folder: "source-editions/crestline", reference: true },
+  "mckenzie-house": { folder: "source-editions/mckenzie-house", reference: true },
+};
 const customDemos = {
+  horizon: { folder: "horizon-demo", routes: horizonPages.map(horizonPagePath) },
   pigment: { folder: "painting-demo", routes: paintingPages.map(paintingPagePath) },
   structure: { folder: "plumbing-demo", routes: plumbingPages.map(plumbingPagePath) },
   earthworks: {
@@ -38,6 +46,7 @@ export const packageDemos = {
     Object.entries(entryTemplateDemos).map(([kind, demo]) => [demo.id, { ...demo, kind }]),
   ),
   ...customDemos,
+  ...referenceEditions,
 };
 
 const familyNames = ["homeProperty", "retail", "food", "transport", "professional"];
@@ -179,7 +188,7 @@ function stripSalesSource(source, filename) {
         const className =
           attr?.initializer && ts.isStringLiteral(attr.initializer) ? attr.initializer.text : "";
         if (
-          /(?:real-enquiry|website-enquiry|website-note|contact-launch|pro-purchase|property-purchase|lawn-website-cta)/u.test(
+          /(?:real-enquiry|website-enquiry|website-note|contact-launch|pro-purchase|property-purchase|lawn-website-cta|horizon-own-site)/u.test(
             className,
           )
         )
@@ -385,6 +394,8 @@ export async function assembleSourcePackage(
   const demo = packageDemos[designId];
   if (!demo || sourcePackageBlockedIds.has(designId))
     throw new Error(`No source package is offered for ${designId}.`);
+  if (demo.reference)
+    return assembleReferenceEdition(designId, { repository, sourceCommit, sourceDirty });
   const catalogue = await import(
     pathToFileURL(resolve(repository, "src/data/website-collection.ts"))
   );
@@ -392,7 +403,7 @@ export async function assembleSourcePackage(
   if (
     !design ||
     design.clientProjectId ||
-    design.independentConcept ||
+    (design.independentConcept && designId !== "horizon") ||
     design.status === "client-example"
   )
     throw new Error(`Client/reference resale is blocked for ${designId}.`);
@@ -660,6 +671,237 @@ export function assertSourceBuildState({ repository = root, expectedCommit, gitO
   return commit;
 }
 
+/** Package only a separately maintained customer edition, never a client checkout. */
+async function assembleReferenceEdition(designId, { repository, sourceCommit, sourceDirty }) {
+  const demo = referenceEditions[designId];
+  const directory = resolve(repository, "templates", demo.folder);
+  const edition = JSON.parse(await readFile(resolve(directory, "edition.json"), "utf8"));
+  if (
+    !Array.isArray(edition.routes) ||
+    !edition.routes.includes("/") ||
+    edition.routes.some(
+      (route) => typeof route !== "string" || !/^\/(?:[a-z0-9-]+\/?)*$/u.test(route),
+    ) ||
+    new Set(edition.routes).size !== edition.routes.length ||
+    typeof edition.assetNote !== "string" ||
+    !edition.assetNote.trim() ||
+    edition.assetNote.length > 1000 ||
+    !Array.isArray(edition.assets)
+  )
+    throw new Error(`Incomplete customer edition metadata: ${designId}`);
+  const files = new Map();
+  const put = (name, value) => files.set(assertPackagePath(name), textBytes(value));
+  const permittedRootFiles = new Set([
+    "README.md",
+    "EDITING.md",
+    "SOURCE-GUIDE.md",
+    "postcss.config.mjs",
+    "tsconfig.json",
+  ]);
+  const ignored = new Set([
+    "edition.json",
+    "package.json",
+    "package-lock.json",
+    "next.config.ts",
+    "vercel.json",
+    ".gitignore",
+    ".env.example",
+    "next-env.d.ts",
+    "tsconfig.tsbuildinfo",
+  ]);
+  // Local verification outputs never enter an edition archive. All remaining
+  // files still pass the explicit source allowlist and the final archive audit.
+  const excludedDirectories = new Set([".next", "out", "node_modules"]);
+  for (const name of await regularFiles(directory, "", excludedDirectories)) {
+    if (ignored.has(name)) continue;
+    assertPackagePath(name);
+    if (
+      !/^(?:src|app|public|components|data|lib|utils)\//u.test(name) &&
+      !permittedRootFiles.has(name)
+    )
+      throw new Error(`Unreviewed reference-edition file: ${name}`);
+    if (/^(?:src\/)?app\/api\//u.test(name))
+      throw new Error(`Live API route is not part of this static edition: ${name}`);
+    const destination = ["README.md", "SOURCE-GUIDE.md"].includes(name) ? "EDITING.md" : name;
+    if (files.has(destination)) throw new Error(`Conflicting edition guide: ${name}`);
+    files.set(destination, await sourceFile(directory, name));
+  }
+  if (!files.has("EDITING.md")) throw new Error(`Missing customer editing guide: ${designId}`);
+  if (
+    sourceProducts.find((item) => item.designId === designId)?.pageCount !== edition.routes.length
+  )
+    throw new Error(`Storefront page count differs from source edition: ${designId}`);
+  const assets = [];
+  const declared = new Set();
+  for (const item of edition.assets) {
+    assertPackagePath(item.path);
+    assertPackagePath(item.sourceAsset);
+    if (
+      declared.has(item.path) ||
+      !item.path.startsWith("public/") ||
+      !/^public\/images\/collection\/[a-z0-9-]+\.webp$/u.test(item.sourceAsset)
+    )
+      throw new Error(`Invalid edition asset: ${item.path}`);
+    declared.add(item.path);
+    const provenance = assetProvenance(item.sourceAsset.split("/").pop());
+    if (!provenance) throw new Error(`Unverified edition imagery: ${item.sourceAsset}`);
+    await stat(resolve(repository, provenance));
+    const original = await sourceFile(repository, item.sourceAsset);
+    const included = files.get(item.path);
+    if (!included || sha256(original) !== sha256(included))
+      throw new Error(`Edition asset differs from its approved sample: ${item.path}`);
+    assets.push({
+      path: item.path,
+      sha256: sha256(included),
+      kind: "generated-illustrative",
+      sourceAsset: item.sourceAsset,
+      provenance,
+    });
+  }
+  for (const name of files.keys()) {
+    if (/\.(?:png|webp|jpg|jpeg|ico|woff2?|mp4|mov)$/iu.test(name) && !declared.has(name))
+      throw new Error(`Undeclared reference-edition binary: ${name}`);
+  }
+  const { websiteDesigns } = await import(
+    pathToFileURL(resolve(repository, "src/data/website-collection.ts"))
+  );
+  const design = websiteDesigns.find((item) => item.id === designId);
+  if (!design) throw new Error(`Unknown reference edition: ${designId}`);
+  const { pkg, lock } = customerPackage(
+    JSON.parse(await readFile(resolve(repository, "package.json"), "utf8")),
+    JSON.parse(await readFile(resolve(repository, "package-lock.json"), "utf8")),
+    designId,
+  );
+  put("package.json", JSON.stringify(pkg, null, 2));
+  put("package-lock.json", JSON.stringify(lock, null, 2));
+  put(
+    "README.md",
+    `# ${design.name} — editable source edition
+
+This download contains ${edition.routes.length} website pages: ${edition.routes.join(", ")}.
+${edition.assetNote}
+
+## Start locally
+
+Install Node.js 22 or newer, then run these commands inside the extracted folder:
+
+\`\`\`sh
+npm ci
+npm run typecheck
+npm run build
+npm run dev
+\`\`\`
+
+Open the localhost address printed by the development server. The production static website is generated in \`out/\`.
+
+## Make it yours
+
+Follow \`EDITING.md\` for the exact branding, content, image and styling files. The source retains the reference design's layout with fictional sample information. Replace that information with your own business content. Included generated images are identified in \`ASSET-LICENSES.json\`; no original client photographs or logos are included.
+
+Contact forms and booking examples are demonstrations. They do not send email, reserve appointments or connect to the original business. Set up your own contact details or form/booking provider before launch. API/email integration and ongoing support are outside this code-only purchase. Keep secret keys server-side and out of version control.
+
+## Launch
+
+Create a separate Vercel project for your business, framework Other, install command \`npm ci\`, build command \`npm run build\`, output directory \`out\`. The supplied vercel.json and static export normalizer support that setup, including Windows builds. Other static hosts can serve the same output with equivalent route handling and response headers.
+
+Sample editions start with noindex. When your domain, real content, contact methods and privacy information are ready, update robots metadata in the app layout and remove the noindex header from vercel.json. Set your own metadata, canonical URLs and sharing images. Review all pages on mobile and desktop, keyboard access, reduced motion and actual contact delivery before making the site public.
+
+## Licence and help
+
+Read LICENSE.txt and THIRD-PARTY-NOTICES.md. One purchase covers one business website and staging copies. This is a non-exclusive source licence, not a transfer of the reference company's identity or media. Hosting, domains, personalization, provider fees and ongoing care are separate. Keep a private backup and your purchase receipt. Contact L&L with your order reference for file-delivery problems; do not send passwords or API keys.
+`,
+  );
+  put("LICENSE.txt", license);
+  put(
+    ".env.example",
+    "# Static sample website. No credentials are included or required.\n# Configure your own contact/booking provider separately before enabling real delivery.\n",
+  );
+  put(
+    ".gitignore",
+    "node_modules/\n.next/\nout/\n.vercel/\n.env*\n!.env.example\n*.tsbuildinfo\nnext-env.d.ts\n",
+  );
+  put(
+    "ASSET-LICENSES.json",
+    JSON.stringify({ schemaVersion: 1, designId, assetNote: edition.assetNote, assets }, null, 2),
+  );
+  for (const [name, font] of Object.entries(sourceFontLicenses))
+    put(`licenses/${name}-OFL.txt`, font.text);
+  put(
+    "THIRD-PARTY-NOTICES.md",
+    "# Third-party notices\n\nNext.js, React, Tailwind CSS, TypeScript and their dependencies retain their upstream licences. Preserve the notices delivered by npm. Geist and Cormorant Garamond OFL notices are included for any applicable fonts. This source edition excludes the reference business's logos, original photographs, videos, testimonials and live integrations.\n",
+  );
+  put(
+    "next.config.ts",
+    'import type { NextConfig } from "next";\nconst config: NextConfig = { output: "export", images: { unoptimized: true }, poweredByHeader: false, turbopack: { root: process.cwd() } };\nexport default config;\n',
+  );
+  files.set(
+    "scripts/lib/static-export-segments.mjs",
+    await sourceFile(repository, "scripts/lib/static-export-segments.mjs"),
+  );
+  put(
+    "scripts/normalize-export.mjs",
+    `import { rename } from "node:fs/promises";\nimport { resolve } from "node:path";\nimport { normalizeStaticExportSegments } from "./lib/static-export-segments.mjs";\nawait normalizeStaticExportSegments({ projectDirectory: process.cwd(), routes: ${JSON.stringify([...edition.routes, "/_not-found"])} });\nawait rename(resolve("out/wellness-segments.json"), resolve("out/static-segments.json"));\n`,
+  );
+  const headers = JSON.parse(
+    await readFile(resolve(repository, "templates/horizon-demo/vercel.json"), "utf8"),
+  );
+  put(
+    "vercel.json",
+    JSON.stringify(
+      {
+        ...headers,
+        framework: null,
+        installCommand: "npm ci",
+        buildCommand: "npm run build",
+        outputDirectory: "out",
+      },
+      null,
+      2,
+    ),
+  );
+  const version = sha256(
+    Buffer.concat(
+      [...files.entries()]
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([name, bytes]) => Buffer.concat([Buffer.from(name + "\0"), Buffer.from(bytes)])),
+    ),
+  );
+  put(
+    "TEMPLATE-PACKAGE.json",
+    JSON.stringify(
+      {
+        schemaVersion: 1,
+        designId,
+        version,
+        sourceCommit: sourceCommit ?? "unrecorded",
+        sourceDirty,
+        routes: edition.routes,
+        contactMode: "local-demo-only",
+        assetNote: edition.assetNote,
+      },
+      null,
+      2,
+    ),
+  );
+  const archive = createSourceArchive(files);
+  const digest = sha256(archive);
+  return {
+    files,
+    archive,
+    manifest: {
+      designId,
+      version,
+      filename: `${designId}.zip`,
+      sha256: digest,
+      bytes: archive.length,
+      sourceCommit: sourceCommit ?? "unrecorded",
+      sourceDirty,
+      key: `source-packages/${designId}/${digest}/${designId}.zip`,
+      assetNote: edition.assetNote,
+    },
+  };
+}
+
 async function main() {
   const { values } = parseArgs({
     options: {
@@ -704,6 +946,12 @@ async function main() {
     resolve(output, "manifest.json"),
     JSON.stringify({ schemaVersion: 1, packages }, null, 2) + "\n",
   );
+  for (const product of sourceProducts) {
+    if (!packageDemos[product.designId])
+      console.log(
+        `SOURCE STILL NEEDED: ${product.designId}. No archive or checkout availability was fabricated.`,
+      );
+  }
   console.log(
     `Private source manifest: ${resolve(output, "manifest.json")}. No objects uploaded; no storefront availability changed.`,
   );

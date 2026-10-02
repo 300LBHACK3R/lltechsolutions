@@ -1,0 +1,25 @@
+{
+  "title": "Trail & Co Rentals \u2014 Tow-N-Go design source edition",
+  "sourceRepo": "https://github.com/300LBHACK3R/tow-and-go-trailers",
+  "sourceCommit": "479fbd42e01f7968918816dab6f677d5ba92da67",
+  "routes": [
+    "/",
+    "/rentals",
+    "/rentals/enclosed-trailers",
+    "/rentals/dump-trailers",
+    "/rentals/flatdeck-equipment-trailers",
+    "/services",
+    "/recent-jobs",
+    "/about",
+    "/reviews",
+    "/faq",
+    "/contact"
+  ],
+  "assetNote": "Original design layout and interactions adapted from the referenced source. All original client logos, photography, personal biography, reviews, contacts, tracking and delivery services removed. One documented generated image reused as illustrative sample artwork throughout.",
+  "assets": [
+    {
+      "path": "public/images/sample-rentals.webp",
+      "sourceAsset": "public/images/collection/transport-equipment-rentals.webp"
+    }
+  ]
+}

@@ -11,6 +11,11 @@ const eslintConfig = defineConfig([
     files: ["src/app/opengraph-image.tsx"],
     rules: { "@next/next/no-img-element": "off" },
   },
+  {
+    // Customer editions are static exports with local, precompressed sample images.
+    files: ["templates/source-editions/**/*.tsx"],
+    rules: { "@next/next/no-img-element": "off" },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
@@ -18,6 +23,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "templates/source-editions/**/.next/**",
+    "templates/source-editions/**/out/**",
+    "templates/source-editions/**/next-env.d.ts",
   ]),
 ]);
 

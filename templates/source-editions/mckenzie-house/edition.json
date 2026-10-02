@@ -1,0 +1,29 @@
+{
+  "id": "mckenzie-house",
+  "title": "Cedar House Wellness \u2014 McKenzie Design Source Edition",
+  "sourceRepo": "https://github.com/300LBHACK3R/mckenzie-house-massage-site",
+  "sourceCommit": "dd272760ae907699f6a1393ab34e5be997e7e28e",
+  "routes": [
+    "/",
+    "/about",
+    "/contact",
+    "/faq",
+    "/pricing",
+    "/reviews",
+    "/services/massage",
+    "/services/sensory-massage",
+    "/services/seasonal-body-renewal",
+    "/services/cup-and-buff"
+  ],
+  "assetNote": "The original client logo, photographs, client portraits, treatment videos and ambient audio are excluded. Two existing generated illustrative interiors replace them. The Cedar House wordmark and cedar motif are new code-authored SVG samples. Service video areas retain the original layout as static photo panels. Review cards contain editorial placeholders, not testimonials. No original business identity or media rights are transferred.",
+  "assets": [
+    {
+      "path": "public/images/massage-room.webp",
+      "sourceAsset": "public/images/collection/massage-room.webp"
+    },
+    {
+      "path": "public/images/medical-spa-interior.webp",
+      "sourceAsset": "public/images/collection/medical-spa-interior.webp"
+    }
+  ]
+}

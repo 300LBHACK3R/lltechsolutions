@@ -14,6 +14,7 @@ import {
   textBytes,
 } from "../scripts/lib/source-package-tools.mjs";
 import { sourceLicense } from "../src/data/source-license.ts";
+import { sourceProduct } from "../src/data/source-products.ts";
 
 const commit = "a".repeat(40);
 const fixture = () =>
@@ -103,21 +104,13 @@ test("deterministic ZIPs round-trip the exact audited file bytes", () => {
   for (const [name, bytes] of files) assert.deepEqual(decoded[name], bytes);
 });
 
-test("only 40 fictional maintained standalone demos are source-package candidates", () => {
-  assert.equal(Object.keys(packageDemos).length, 40);
-  for (const id of ["horizon", "tow-n-go", "mckenzie-house", "crestline", "calgary-hot-shot"])
-    assert.equal(packageDemos[id], undefined);
+test("44 maintained customer editions are package candidates; missing source is not substituted", () => {
+  assert.equal(Object.keys(packageDemos).length, 44);
+  for (const id of ["calgary-hot-shot", "unknown"]) assert.equal(packageDemos[id], undefined);
 });
 
-test("external client and independent-reference source requests are rejected", async () => {
-  for (const id of [
-    "horizon",
-    "tow-n-go",
-    "mckenzie-house",
-    "crestline",
-    "calgary-hot-shot",
-    "../../public",
-  ]) {
+test("missing reference source and unsafe selections are rejected", async () => {
+  for (const id of ["calgary-hot-shot", "../../public"]) {
     await assert.rejects(assembleSourcePackage(id, { sourceCommit: commit }), /No source package/u);
   }
 });
@@ -209,7 +202,7 @@ test("transport packaging omits sibling website components and client content", 
   }
 });
 
-test("all 40 archives enforce path, content and metadata invariants", async () => {
+test("all 44 archives enforce path, content and metadata invariants", async () => {
   for (const id of Object.keys(packageDemos)) {
     const result = await assembleSourcePackage(id, { sourceCommit: commit });
     auditSourceFiles(result.files);
@@ -217,6 +210,27 @@ test("all 40 archives enforce path, content and metadata invariants", async () =
     assert.equal(decoded["TEMPLATE-PACKAGE.json"] !== undefined, true, id);
     assert.equal(JSON.parse(Buffer.from(decoded["TEMPLATE-PACKAGE.json"])).designId, id);
     assert.equal(result.manifest.bytes, result.archive.length, id);
-    assert.ok(result.files.size < 70, `${id} must not contain the studio source tree`);
+    if (packageDemos[id].reference) {
+      const metadata = JSON.parse(Buffer.from(decoded["TEMPLATE-PACKAGE.json"]));
+      assert.equal(metadata.routes.length, sourceProduct(id).pageCount, id);
+      assert.equal(metadata.contactMode, "local-demo-only", id);
+      assert.ok(decoded["EDITING.md"], `${id} needs its own editing instructions`);
+      assert.match(Buffer.from(decoded["README.md"]).toString(), /do not send email/u);
+      assert.ok(result.manifest.assetNote.length > 40, id);
+      for (const [name, bytes] of result.files) {
+        assert.doesNotMatch(name, /^(?:src\/)?app\/api\//u, id);
+        if (/^(?:app|src|components|data|lib|utils)\/.*\.(?:ts|tsx|css)$/u.test(name)) {
+          assert.doesNotMatch(
+            Buffer.from(bytes).toString(),
+            /Tow-N-Go|McKenzie House|Crestline Painting|Chad Muxlow|Heather Saunders|api\/contact|resend\.com/u,
+            `${id}/${name}`,
+          );
+        }
+      }
+    }
+    assert.ok(
+      result.files.size < (packageDemos[id].reference ? 180 : 70),
+      `${id} must not contain the studio source tree`,
+    );
   }
 });

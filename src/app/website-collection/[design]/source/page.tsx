@@ -12,7 +12,6 @@ import TemplatePrice from "@/components/collection/TemplatePrice";
 import {
   sourceProduct,
   sourceHref,
-  sourceInquiryHref,
   sourceLicense,
   sourceLicenseVersion,
 } from "@/data/source-products";
@@ -41,6 +40,14 @@ export default async function SourcePage({ params, searchParams }: Props) {
   if (!product || !design) notFound();
   const { checkout } = await searchParams;
   const enabled = isSourceCheckoutConfigured(id);
+  const isReferenceEdition = product.kind === "reference-edition";
+  const pageCount = product.pageCount ?? (isReferenceEdition ? null : design.pageCount);
+  const layoutDescription =
+    pageCount === 1
+      ? "one-page website"
+      : typeof pageCount === "number" && pageCount > 1
+        ? `${pageCount}-page website`
+        : "complete editable website";
   const records = packageManifest.packages as { designId: string; assetNote?: string }[];
   const assetNote = records.filter((item) => item.designId === id).at(-1)?.assetNote;
 
@@ -64,19 +71,18 @@ export default async function SourcePage({ params, searchParams }: Props) {
           <div className="source-preview">
             <DesignCover design={design} />
             <p className="source-small">
-              Design preview. Business names and content are examples. Replace them with your own
-              before launch.
+              {isReferenceEdition
+                ? "Reference design shown. Your download is a reusable edition with sample content. Original client logos, photography, private configuration and business content are not included."
+                : "Design preview. Business names and content are examples. Replace them with your own before launch."}
             </p>
+            {product.editionNote && <p className="source-asset-note">{product.editionNote}</p>}
             <Link className="text-link" href={`/website-collection/${id}#preview`}>
               Explore screenshots & live demo ↗
             </Link>
             <section className="source-included" aria-labelledby="source-included-title">
               <h2 id="source-included-title">Inside your download</h2>
               <ul>
-                <li>
-                  Editable React, Next.js and TypeScript source for this template’s{" "}
-                  {design.pageCount === 1 ? "one-page website" : `${design.pageCount}-page layout`}.
-                </li>
+                <li>Editable React, Next.js and TypeScript source for the {layoutDescription}.</li>
                 <li>Sample content, styles, interactions and included sample imagery.</li>
                 <li>
                   Editing and setup instructions, a contact configuration guide and a launch
@@ -109,12 +115,18 @@ export default async function SourcePage({ params, searchParams }: Props) {
               <SourceCheckout designId={id} priceCad={product.priceCad} />
             ) : (
               <div className="source-checkout">
-                <p>
-                  Online checkout isn’t open for this download yet. Ask us to arrange your purchase.
+                <p id="source-checkout-not-ready">
+                  Secure online checkout is being prepared for this download. Purchasing opens once
+                  payment and file delivery are ready.
                 </p>
-                <Link className="button button-gold" href={sourceInquiryHref(id)}>
-                  Ask about this download ↗
-                </Link>
+                <button
+                  className="button button-gold"
+                  type="button"
+                  disabled
+                  aria-describedby="source-checkout-not-ready"
+                >
+                  Purchase
+                </button>
               </div>
             )}
             <div className="source-managed">

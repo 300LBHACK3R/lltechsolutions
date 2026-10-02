@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test from "node:test";
 import { createSourceArchive, textBytes } from "../scripts/lib/source-package-tools.mjs";
+import { sourceProducts } from "../src/data/source-products.ts";
 import {
   assertUploadSource,
   ensureRemotePackage,
@@ -107,12 +108,10 @@ async function localFixture(t, entries = [fixture()], current = manifest()) {
   return { directory, packageDirectory, manifestPath, log() {} };
 }
 
-test("upload manifest excludes client work, paths, malformed hashes and metadata", () => {
+test("upload manifest rejects unknown offers, paths, malformed hashes and metadata", () => {
   const { item } = fixture();
   assert.equal(validateManifest(manifest(item), { pending: true }).packages.length, 1);
   for (const change of [
-    { designId: "tow-n-go" },
-    { designId: "horizon" },
     { designId: "unknown" },
     { filename: "../pigment.zip" },
     { key: "public/pigment.zip" },
@@ -129,6 +128,21 @@ test("upload manifest excludes client work, paths, malformed hashes and metadata
     assert.throws(() => validateManifest(manifest({ ...item, ...change }), { pending: true }));
   assert.throws(() => validateManifest(manifest(), { pending: true }));
   assert.throws(() => validateManifest(manifest(item, item), { pending: true }));
+});
+
+test("all source-offer IDs accept only matching private archive identities", () => {
+  for (const product of sourceProducts) {
+    const { item, archive } = fixture(product.designId);
+    assert.doesNotThrow(() => validateManifest(manifest(item), { pending: true }));
+    assert.doesNotThrow(() => verifyArchive(archive, item));
+    assert.throws(() =>
+      validateManifest(manifest({ ...item, key: "public/template.zip" }), { pending: true }),
+    );
+    assert.throws(
+      () => verifyArchive(Buffer.concat([archive, Buffer.from("changed")]), item),
+      /integrity/,
+    );
+  }
 });
 
 test("archive verification binds ZIP bytes and its internal identity to the manifest", () => {

@@ -1,7 +1,12 @@
 import { websiteDesigns } from "./website-collection.ts";
 
-/** Explicit resale catalogue. Client work and independent brand references are not downloads. */
+/** Purchasable catalogue. Reference editions are separately prepared customer source packages. */
 const eligibleIds = [
+  "horizon",
+  "crestline",
+  "tow-n-go",
+  "mckenzie-house",
+  "calgary-hot-shot",
   "pigment",
   "structure",
   "earthworks",
@@ -54,19 +59,50 @@ const codePriceByLaunchPrice: Readonly<Record<number, number>> = {
   600: 199,
 };
 
-export type SourceProduct = { designId: string; name: string; priceCad: number };
+const referenceIds = new Set([
+  "horizon",
+  "crestline",
+  "tow-n-go",
+  "mckenzie-house",
+  "calgary-hot-shot",
+]);
+
+const referencePageCounts: Readonly<Record<string, number>> = {
+  "tow-n-go": 11,
+  crestline: 13,
+  "mckenzie-house": 10,
+};
+
+export type SourceProduct = {
+  designId: string;
+  name: string;
+  priceCad: number;
+  kind: "template" | "reference-edition";
+  pageCount?: number;
+  editionNote?: string;
+};
 export const sourceProducts: readonly SourceProduct[] = eligibleIds.map((designId) => {
   const design = websiteDesigns.find((item) => item.id === designId);
-  if (
-    !design ||
-    design.clientProjectId ||
-    design.independentConcept ||
-    design.startingPriceCad === null
-  )
+  if (!design || design.status === "draft" || design.startingPriceCad === null)
     throw new Error(`Invalid source-code offer: ${designId}`);
   const priceCad = codePriceByLaunchPrice[design.startingPriceCad];
   if (!priceCad) throw new Error(`Set an explicit code-only price for ${designId}`);
-  return { designId, name: design.name, priceCad };
+  const reference = referenceIds.has(designId);
+  return {
+    designId,
+    name: design.name,
+    priceCad,
+    kind: reference ? "reference-edition" : "template",
+    ...((referencePageCounts[designId] ?? design.pageCount) !== null
+      ? { pageCount: referencePageCounts[designId] ?? design.pageCount! }
+      : {}),
+    ...(reference
+      ? {
+          editionNote:
+            "An editable edition of this design, prepared with sample business content and illustrative images. The reference business’s identity, original photos/video, testimonials and connected services are not included.",
+        }
+      : {}),
+  };
 });
 
 export function sourceProduct(designId: string): SourceProduct | null {
@@ -86,7 +122,7 @@ export function sourceInquiryHref(designId: string) {
 /** A clean reusable version can be discussed without selling a reference website's files. */
 export function sourceVersionRequest(designId: string) {
   const design = websiteDesigns.find((item) => item.id === designId && item.status !== "draft");
-  if (!design || sourceProduct(designId)) return null;
+  if (!design || !referenceIds.has(designId)) return null;
   return {
     designId: design.id,
     name: design.name,

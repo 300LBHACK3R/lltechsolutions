@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import { HeadObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { unzipSync } from "fflate";
-import { sourceProduct } from "../src/data/source-products.ts";
+import { sourceProduct, sourceProducts } from "../src/data/source-products.ts";
 import { auditSourceFiles } from "./lib/source-package-tools.mjs";
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -34,7 +34,7 @@ export function validateManifest(value, { pending = false } = {}) {
     value.schemaVersion !== 1 ||
     Object.keys(value).some((key) => !["schemaVersion", "packages"].includes(key)) ||
     !Array.isArray(value.packages) ||
-    value.packages.length > (pending ? 40 : 10000) ||
+    value.packages.length > (pending ? sourceProducts.length : 10000) ||
     (pending && value.packages.length === 0)
   ) {
     throw new Error("Invalid source-package manifest.");

@@ -3,14 +3,9 @@ import { lstat, readFile, readdir } from "node:fs/promises";
 import { posix, resolve } from "node:path";
 import { strToU8, zipSync } from "fflate";
 
-export const sourcePackageBlockedIds = new Set([
-  "horizon",
-  "crestline",
-  "crestline-painting",
-  "tow-n-go",
-  "mckenzie-house",
-  "calgary-hot-shot",
-]);
+// No maintained customer edition exists for this offer yet. It must never be
+// substituted with another template or sold without a verified private archive.
+export const sourcePackageBlockedIds = new Set(["calgary-hot-shot", "crestline-painting"]);
 
 export function sha256(bytes) {
   return createHash("sha256").update(bytes).digest("hex");
@@ -98,13 +93,14 @@ export function createSourceArchive(files) {
   return Buffer.from(zipSync(entries));
 }
 
-export async function regularFiles(directory, prefix = "") {
+export async function regularFiles(directory, prefix = "", excludedDirectories = new Set()) {
   const files = [];
   for (const item of await readdir(directory, { withFileTypes: true })) {
     const path = prefix ? `${prefix}/${item.name}` : item.name;
     const full = resolve(directory, item.name);
     if ((await lstat(full)).isSymbolicLink()) throw new Error(`Symlink refused: ${path}`);
-    if (item.isDirectory()) files.push(...(await regularFiles(full, path)));
+    if (item.isDirectory() && excludedDirectories.has(path)) continue;
+    if (item.isDirectory()) files.push(...(await regularFiles(full, path, excludedDirectories)));
     else if (item.isFile()) files.push(path);
     else throw new Error(`Special filesystem entry refused: ${path}`);
   }

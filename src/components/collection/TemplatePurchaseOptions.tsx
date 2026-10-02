@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { sourceHref, sourceProduct } from "@/data/source-products";
 import { formatPriceCad } from "@/data/template-promotion";
-import { websiteDesigns } from "@/data/website-collection";
 
 export default function TemplatePurchaseOptions({
   designId,
@@ -11,33 +10,25 @@ export default function TemplatePurchaseOptions({
   compact?: boolean;
 }) {
   const product = sourceProduct(designId);
-  if (!product) {
-    const design = websiteDesigns.find((item) => item.id === designId && item.status !== "draft");
-    if (!design) return null;
-    return (
-      <div className="template-source-option template-source-unavailable">
-        <p>Code download not available for this reference design.</p>
-      </div>
-    );
-  }
+  if (!product) return null;
   const price = formatPriceCad(product.priceCad);
 
   return (
     <div className={`template-source-option${compact ? " template-source-option--compact" : ""}`}>
+      <p className="template-purchase-label">Code only</p>
       <Link
         className="template-code-button"
         href={sourceHref(designId)}
-        aria-label={`Buy code only for ${product.name} — ${price}`}
+        aria-label={`Purchase ${product.name} source code — ${price}`}
       >
-        <span>
-          Buy code only <span aria-hidden="true">↗</span>
-        </span>
+        <span>Purchase</span>
         <strong>{price}</strong>
       </Link>
       <p>
-        Code + editing/setup instructions. Automatic download access after verified payment. You
-        customize and launch.
+        Editable code + setup instructions. A secure ZIP download link is emailed automatically
+        after verified payment. You customize and launch.
       </p>
+      {product.editionNote && <p>{product.editionNote}</p>}
       {!compact && (
         <details className="template-source-disclosure">
           <summary>What’s different about code only?</summary>

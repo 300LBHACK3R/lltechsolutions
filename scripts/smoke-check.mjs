@@ -42,31 +42,21 @@ function assertTemplateActions(html, design, context) {
     assert.ok(liveIndex < managedIndex, `${context}: live demo is before managed launch`);
 
   const product = sourceProduct(design.id);
-  if (product) {
-    const codeIndex = links.findIndex((link) => link.href === sourceHref(design.id));
-    assert.ok(codeIndex > managedIndex, `${context}: code purchase follows managed launch`);
-    const code = links[codeIndex];
-    assert.ok(code.label.startsWith("Buy code only"), `${context}: clear code-only action`);
-    assert.ok(code.attributes.includes("template-code-button"), `${context}: outlined code button`);
-    assert.ok(
-      code.markup.includes(formatPriceCad(product.priceCad)),
-      `${context}: lower code-only price appears on its button`,
-    );
-  } else {
-    assert.ok(
-      html.includes("Code download not available for this reference design."),
-      `${context}: reference availability is stated`,
-    );
-    assert.ok(
-      !links.some(
-        (link) =>
-          /source-version=/.test(link.href ?? "") ||
-          link.href === sourceHref(design.id) ||
-          link.label.startsWith("Buy code only"),
-      ),
-      `${context}: reference has no code purchase or request action`,
-    );
-  }
+  assert.ok(product, `${context}: every catalogue design offers a source edition`);
+  const codeIndex = links.findIndex((link) => link.href === sourceHref(design.id));
+  assert.ok(codeIndex > managedIndex, `${context}: code purchase follows managed launch`);
+  const code = links[codeIndex];
+  assert.match(code.markup, /<span>Purchase<\/span>/, `${context}: literal Purchase action`);
+  assert.ok(html.includes("Code only"), `${context}: purchase is identified as code only`);
+  assert.ok(code.attributes.includes("template-code-button"), `${context}: outlined code button`);
+  assert.ok(
+    code.markup.includes(formatPriceCad(product.priceCad)),
+    `${context}: lower source price is on the button`,
+  );
+  assert.ok(
+    !links.some((link) => /source-version=/.test(link.href ?? "")),
+    `${context}: legacy enquiry is not the purchase action`,
+  );
 }
 
 function assertComparisonActions(html, context) {
@@ -1915,23 +1905,39 @@ try {
     const html = await res.text();
     assert.ok(html.includes(formatPriceCad(product.priceCad)), `${product.designId}: source price`);
     assert.ok(
-      html.includes("Ask about this download"),
-      "unconfigured checkout has an honest enquiry fallback",
+      html.includes('id="source-checkout-not-ready"') &&
+        html.includes("Secure online checkout is being prepared for this download."),
+      "unconfigured checkout explains payment and delivery readiness",
     );
-    assert.ok(!html.includes("Buy code only ·"), "unconfigured checkout does not take payment");
+    const disabledPurchase = [...html.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/g)].find(
+      ([, attributes, contents]) =>
+        /\bdisabled(?:="[^"]*")?(?:\s|$)/.test(attributes) &&
+        attributes.includes('aria-describedby="source-checkout-not-ready"') &&
+        contents.replace(/<[^>]+>/g, "").trim() === "Purchase",
+    );
+    assert.ok(disabledPurchase, "unconfigured checkout keeps Purchase visibly disabled");
+    assert.ok(
+      !html.includes('class="source-license-check"'),
+      "unconfigured checkout does not take payment",
+    );
     assert.ok(html.includes("Single-business website licence"), "source licence is visible");
     assert.ok(html.includes("Personalize &amp; launch"), "managed alternative remains available");
+    if (product.kind === "reference-edition") {
+      assert.ok(
+        html.includes("sample business content and illustrative images"),
+        `${product.designId}: source edition differences are disclosed`,
+      );
+      assert.ok(
+        html.includes(
+          "original photos/video, testimonials and connected services are not included",
+        ),
+        `${product.designId}: original reference content is excluded`,
+      );
+    }
     checks++;
   }
-  for (const id of [
-    "horizon",
-    "tow-n-go",
-    "crestline",
-    "mckenzie-house",
-    "calgary-hot-shot",
-    "unlisted",
-  ]) {
-    assert.equal((await fetch(origin + sourceHref(id))).status, 404, `${id}: no resale offer`);
+  for (const id of ["unlisted", "private-draft"]) {
+    assert.equal((await fetch(origin + sourceHref(id))).status, 404, `${id}: no source offer`);
     checks++;
   }
   const sourceInquiry = await fetch(

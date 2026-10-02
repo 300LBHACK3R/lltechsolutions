@@ -1,12 +1,12 @@
 # Source downloads: owner setup
 
-Template cards, details and comparisons show **View live demo** first when a verified URL exists, then **Personalize & launch**, then an outlined **Buy code only** button with the lower DIY price for eligible designs. Missing live URLs retain an accurate template/preview action. This release does not charge a card, create provider accounts or make a storage bucket public. Until the private packages and payment settings are ready, customers can enquire about purchasing; checkout stays unavailable.
+Template cards, details and comparisons show **View live demo** first when a verified URL exists, then **Personalize & launch**, then an outlined **Purchase** button with the lower source price and adjacent **Code only** context for all 45 designs. Missing live URLs retain an accurate template/preview action. A Purchase link opens the product page; it does not bypass package or checkout readiness. This release does not charge a card, create provider accounts or make a storage bucket public. Until the private packages and payment settings are ready, the product page explains what is pending and shows a disabled Purchase button. It does not substitute an enquiry submission for a purchase or take payment without delivery readiness.
 
 ## What is sold
 
-The 40 eligible designs offer L&L personalization and launch or a separate code-only purchase. The five reference examples show **Code download not available for this reference design.** as a noninteractive note. They do not expose or sell original client files, display a code price or offer a request button. Existing `source-version` enquiry URLs remain valid for previously shared links; they are not advertised as a current downloadable product.
+All 45 designs offer L&L personalization and launch or a separate code-only edition. The five reference editions use sample business content and illustrative images with their differences disclosed before checkout; original business identities, private client files, original photos/video, testimonials and connected services are not included. Existing `source-version` enquiry URLs remain valid for previously shared links but do not replace the Purchase action.
 
-`src/data/source-products.ts` is the explicit list of 40 reusable fictional designs. Tow-N-Go, Crestline, McKenzie House, Calgary Hot Shot and Horizon are excluded. Never add a real client's code, identity or private media to the downloadable catalogue without separately resolving the rights and product scope.
+`src/data/source-products.ts` is the explicit list of 45 source offers: 40 fictional templates and five reference editions. The package preparation target is 44 designs: the existing 40 plus clean Tow-N-Go, Crestline, McKenzie House and Landscape Contracting editions. Build and verify those sources before treating any archive as ready. Calgary Hot Shot remains pending because its matching application source is not present in this repository; its Purchase page stays unpayable until that actual source is prepared, reviewed, packaged and uploaded. Do not substitute screenshots or another template for missing source. An offer or local archive is never proof of a private uploaded package.
 
 | Managed offer regular price | Separate source-only price |
 | --------------------------- | -------------------------- |
@@ -17,7 +17,7 @@ The 40 eligible designs offer L&L personalization and launch or a separate code-
 | $549 CAD                    | $179 CAD                   |
 | $600 CAD                    | $199 CAD                   |
 
-The existing managed-launch 20% promotion does **not** discount these download prices. Each archive includes editable source, a lockfile, setup instructions, sample content and a single-business licence. Personalization, hosting, domains, email/API configuration, extra features and maintenance are separate. Structure, Earthworks and Lawn Care use neutral sample images in the ZIP; their purchase page discloses this difference from the live preview. These archives must not include third-party stock assets without redistribution rights.
+The existing managed-launch 20% promotion does **not** discount these download prices. Each archive includes editable source, a lockfile, setup instructions, sample content and a single-business licence. Personalization, hosting, domains, email/API configuration, extra features and maintenance are separate. Structure, Earthworks, Lawn Care and Landscape Contracting use neutral sample images in the ZIP; their purchase page discloses this difference from the live preview. These archives must not include third-party stock assets without redistribution rights.
 
 ## 1. Review and build the private archives
 
