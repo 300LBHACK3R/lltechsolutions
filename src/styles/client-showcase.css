@@ -427,6 +427,94 @@
   font-size: 14px;
   line-height: 1.8;
 }
+.client-pagespeed {
+  padding-block: var(--client-space);
+  border-top: 1px solid var(--line);
+}
+.client-pagespeed-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 24px;
+}
+.client-pagespeed-report {
+  min-width: 0;
+  padding: clamp(18px, 2vw, 28px);
+  border: 1px solid var(--client-line);
+  border-radius: 4px;
+  background: #141413;
+}
+.client-pagespeed-report h3 {
+  margin: 0 0 20px;
+  font-size: 17px;
+  font-weight: 500;
+}
+.client-pagespeed-scores {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px 12px;
+  margin: 0 0 20px;
+}
+.client-pagespeed-scores dt {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.client-pagespeed-scores dd {
+  margin: 7px 0 0;
+  color: var(--gold-light);
+  font-size: clamp(25px, 2.2vw, 32px);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.client-pagespeed-scores dd span {
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.client-pagespeed-original {
+  border-top: 1px solid var(--client-line);
+}
+.client-pagespeed-original summary {
+  min-height: 44px;
+  padding-block: 14px;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+}
+.client-pagespeed-original summary:is(:hover, :focus-visible) {
+  color: var(--gold-light);
+}
+.client-pagespeed-original summary:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 4px;
+}
+.client-pagespeed-original figure {
+  margin: 4px 0 0;
+}
+.client-pagespeed-original img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+.client-pagespeed-original figcaption a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding-block: 10px;
+  color: var(--gold-light);
+  font-size: 12px;
+}
+.client-pagespeed-note {
+  max-width: 105ch;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
 .client-template-options,
 .client-case-study .design-options {
   margin: 0;
@@ -498,6 +586,9 @@
   color: var(--gold-light);
 }
 @media (max-width: 999px) {
+  .client-pagespeed-scores {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .client-directory-intro {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
     gap: 28px;
@@ -532,6 +623,7 @@
   .client-showcase-grid,
   .client-partnership,
   .client-case-details,
+  .client-pagespeed-grid,
   .client-template-grid {
     grid-template-columns: minmax(0, 1fr);
   }

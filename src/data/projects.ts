@@ -18,6 +18,16 @@ export type ProjectScreenshot = {
   width: number;
   height: number;
 };
+export type ProjectPageSpeedReport = {
+  device: "Mobile" | "Desktop";
+  image: string;
+  width: number;
+  height: number;
+  performance: number;
+  accessibility: number;
+  bestPractices: number;
+  seo: number;
+};
 export type Project = {
   id: string;
   title: string;
@@ -45,12 +55,43 @@ export type Project = {
   links?: { label: string; href: string; kind?: string }[];
   designOptions?: ProjectDesignOption[];
   gallery?: readonly ProjectScreenshot[];
+  pageSpeed?: {
+    testedUrl: string;
+    date: string;
+    reports: readonly ProjectPageSpeedReport[];
+  };
   templateOptions?: { category: string; designIds: string[] };
 };
 
 export const projects: Project[] = [
   {
     id: "tow-n-go",
+    pageSpeed: {
+      testedUrl: "https://www.towandgotrailers.ca/",
+      date: "2026-10-01",
+      reports: [
+        {
+          device: "Mobile",
+          image: "/images/projects/tow-n-go/pagespeed-mobile-2026-10-01.png",
+          width: 1538,
+          height: 1205,
+          performance: 91,
+          accessibility: 96,
+          bestPractices: 100,
+          seo: 100,
+        },
+        {
+          device: "Desktop",
+          image: "/images/projects/tow-n-go/pagespeed-desktop-2026-10-01.png",
+          width: 1573,
+          height: 1193,
+          performance: 93,
+          accessibility: 96,
+          bestPractices: 100,
+          seo: 100,
+        },
+      ],
+    },
     templateOptions: {
       category: "transport-logistics",
       designIds: ["equipment-rentals", "auto-transport", "calgary-hot-shot"],
@@ -223,6 +264,32 @@ export const projects: Project[] = [
   },
   {
     id: "mckenzie-house",
+    pageSpeed: {
+      testedUrl: "https://mckenziehousemassage.ca/",
+      date: "2026-10-01",
+      reports: [
+        {
+          device: "Mobile",
+          image: "/images/projects/mckenzie-house/pagespeed-mobile-2026-10-01.png",
+          width: 1665,
+          height: 1186,
+          performance: 92,
+          accessibility: 100,
+          bestPractices: 100,
+          seo: 100,
+        },
+        {
+          device: "Desktop",
+          image: "/images/projects/mckenzie-house/pagespeed-desktop-2026-10-01.png",
+          width: 1551,
+          height: 1186,
+          performance: 100,
+          accessibility: 100,
+          bestPractices: 88,
+          seo: 100,
+        },
+      ],
+    },
     templateOptions: {
       category: "health-wellness",
       designIds: ["massage-one-page", "still", "medical-spa"],

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import TemplateScreenshotGallery from "@/components/collection/TemplateScreenshotGallery";
 import ProjectDesignOptions from "@/components/projects/ProjectDesignOptions";
+import ProjectPageSpeed from "@/components/projects/ProjectPageSpeed";
 import ProjectTemplateOptions from "@/components/projects/ProjectTemplateOptions";
 import ProjectVideo from "@/components/projects/ProjectVideo";
 import { liveSiteLabel } from "@/config/site";
@@ -147,6 +148,7 @@ export default function ProjectCaseStudy({ project }: { project: Project }) {
             </section>
           </aside>
         </div>
+        <ProjectPageSpeed project={project} />
         {project.designOptions && (
           <ProjectDesignOptions projectId={project.id} options={project.designOptions} />
         )}

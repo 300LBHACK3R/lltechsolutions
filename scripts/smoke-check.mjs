@@ -1443,6 +1443,49 @@ try {
     "Tate’s TV case study explains its software media architecture",
   );
 
+  // Independent fixtures transcribed from the four supplied October 1 reports.
+  // These are historical homepage lab tests, never promised site-wide results.
+  const pageSpeedSnapshots = [
+    ["tow-n-go", "Mobile", [91, 96, 100, 100]],
+    ["tow-n-go", "Desktop", [93, 96, 100, 100]],
+    ["mckenzie-house", "Mobile", [92, 100, 100, 100]],
+    ["mckenzie-house", "Desktop", [100, 100, 88, 100]],
+  ];
+  for (const [id, device, scores] of pageSpeedSnapshots) {
+    const page = htmlByRoute.get(`/projects/${id}`);
+    const report = [
+      ...page.matchAll(/<article class="client-pagespeed-report">([\s\S]*?)<\/article>/g),
+    ]
+      .map((match) => match[1])
+      .find((markup) => markup.includes(`<h3>${device}</h3>`));
+    assert.ok(report, `${id}: ${device} report belongs to the correct case study`);
+    assert.deepEqual(
+      [...report.matchAll(/<dd>(\d+)/g)].map((match) => Number(match[1])),
+      scores,
+      `${id}: ${device} scores match the supplied screenshot, including the 88`,
+    );
+    const image = `/images/projects/${id}/pagespeed-${device.toLowerCase()}-2026-10-01.png`;
+    assert.ok(report.includes(`href="${image}"`), `${id}: original ${device} image opens directly`);
+    assert.match(report, /<details class="client-pagespeed-original">/, "reports start collapsed");
+    assert.match(page, /<time\s+datetime="2026-10-01">/i, `${id}: dated report`);
+    assert.ok(page.includes("individual lab tests"), `${id}: lab results are qualified`);
+    const response = await fetch(`${origin}${image}`);
+    assert.equal(response.status, 200, `${id}: ${device} report image loads`);
+    assert.match(response.headers.get("content-type") || "", /^image\/png/);
+    assert.deepEqual(
+      Buffer.from(await response.arrayBuffer()),
+      await readFile(`public${image}`),
+      `${id}: original PNG bytes are served intact`,
+    );
+    checks++;
+  }
+  for (const id of ["crestline", "tates-tv", ...contentProjectIds]) {
+    assert.ok(
+      !htmlByRoute.get(`/projects/${id}`).includes('class="client-pagespeed"'),
+      `${id}: no unrelated or fabricated PageSpeed report`,
+    );
+  }
+
   const investment = htmlByRoute.get("/packages");
   assertSaleNotice(investment, "pricing page");
   assert.ok(investment.includes("$150+") && investment.includes("$149+"), "revised entry prices");
