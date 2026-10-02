@@ -13,7 +13,8 @@ export default function TemplateSaleNotice({
   return (
     <p className="template-sale-notice">
       <strong>{templateSale.percent}% off every template.</strong> Ends January 1, 2027 at midnight
-      Alberta time. Personalization & launch included; extras and ongoing plans are separate.
+      Alberta time. Applies to personalization & launch; code-only downloads, extras and ongoing
+      plans are separate.
     </p>
   );
 }

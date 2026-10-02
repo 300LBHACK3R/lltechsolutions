@@ -43,6 +43,23 @@ export default function Page() {
           </p>
         </section>
         <section>
+          <h2>Template purchases and downloads</h2>
+          <p>
+            When online checkout is available, Stripe processes payment and checkout details. L&L
+            receives the order reference, purchased template, payment status and contact details
+            needed to fulfil your order and provide support. Full card details are handled by
+            Stripe. Resend delivers your download email. Private file storage provides a short-lived
+            link after the website verifies the purchase. These providers may process data outside
+            Canada.
+          </p>
+          <p>
+            An essential, secure checkout cookie connects the returning browser to its order for up
+            to 24 hours. The emailed download link also grants access, so keep it private. Order
+            records are retained as needed for delivery, support and applicable business
+            recordkeeping.
+          </p>
+        </section>
+        <section>
           <h2>Your optional content brief</h2>
           <p>
             The Website Templates content guide does not submit or upload your entries. If you

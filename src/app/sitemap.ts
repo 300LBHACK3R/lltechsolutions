@@ -1,6 +1,7 @@
 import { projects, projectPath } from "@/data/projects";
 import type { MetadataRoute } from "next";
 import { publicRoutes, absoluteUrl } from "@/config/site";
+import { sourceProducts, sourceHref } from "@/data/source-products";
 import {
   availableDesigns,
   designHref,
@@ -13,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...publicRoutes,
     ...projects.map(projectPath),
     ...availableDesigns().map(designHref),
+    ...sourceProducts.map((product) => sourceHref(product.designId)),
     ...templateCategories
       .filter((category) => categoryDesigns(category).length > 0)
       .map(categoryHref),

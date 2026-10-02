@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { checkCollectionStyles } from "./check-collection-styles.mjs";
 import { formatPriceCad, templatePrice, templateSale } from "../src/data/template-promotion.ts";
+import { sourceProducts, sourceHref, sourceInquiryHref } from "../src/data/source-products.ts";
 
 const pricingNow = Date.now();
 
@@ -45,7 +46,10 @@ function assertSaleNotice(html, context) {
       text.includes("January 1, 2027 at midnight Alberta time"),
       `${context}: unambiguous sale deadline`,
     );
-    assert.ok(text.includes("extras and ongoing plans are separate"), `${context}: sale scope`);
+    assert.ok(
+      text.includes("code-only downloads, extras and ongoing plans are separate"),
+      `${context}: sale scope`,
+    );
   }
 }
 
@@ -53,6 +57,9 @@ function assertSaleNotice(html, context) {
 const env = {
   ...process.env,
   RESEND_API_KEY: "",
+  STRIPE_SECRET_KEY: "",
+  STRIPE_WEBHOOK_SECRET: "",
+  SOURCE_DOWNLOADS_ENABLED: "false",
   VERCEL_ENV: "production",
   NEXT_TELEMETRY_DISABLED: "1",
 };
@@ -86,6 +93,7 @@ try {
     server.once("exit", (code) => reject(new Error(`Server exited (${code}): ${serverOutput}`)));
   });
   const routes = [
+    ...sourceProducts.map((product) => sourceHref(product.designId)),
     "/",
     "/services",
     "/website-collection",
@@ -986,7 +994,7 @@ try {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     const name = detail.match(/<h1\b[^>]*>(.*?)<\/h1>/s)?.[1];
     assert.ok(name, `${id}: visible template name`);
-    assert.ok(detail.includes("Make this my website"), `${id}: direct enquiry action`);
+    assert.ok(detail.includes("Personalize &amp; launch"), `${id}: managed enquiry action`);
     assert.ok(
       detail.includes(`${pages} ${pages === 1 ? "page structure" : "page structures"}`),
       `${id}: exact page scope`,
@@ -1266,7 +1274,8 @@ try {
   ]) {
     const detail = htmlByRoute.get(`/website-collection/${id}`);
     assert.ok(
-      detail.includes(name) && detail.includes("Make this my website"),
+      detail.includes(name) &&
+        detail.includes(id === "horizon" ? "Make this my website" : "Personalize &amp; launch"),
       `${id}: plain template name and direct enquiry`,
     );
     const contactHref = [...detail.matchAll(/href="([^\"]+)"/g)]
@@ -1725,6 +1734,73 @@ try {
     { "content-type": "application/json" },
     503,
   );
+  for (const product of sourceProducts) {
+    const res = await fetch(origin + sourceHref(product.designId));
+    assert.equal(res.status, 200, `${product.designId}: source page`);
+    const html = await res.text();
+    assert.ok(html.includes(formatPriceCad(product.priceCad)), `${product.designId}: source price`);
+    assert.ok(
+      html.includes("Ask about this download"),
+      "unconfigured checkout has an honest enquiry fallback",
+    );
+    assert.ok(!html.includes("Buy source code ·"), "unconfigured checkout does not take payment");
+    assert.ok(html.includes("Single-business website licence"), "source licence is visible");
+    assert.ok(html.includes("Personalize &amp; launch"), "managed alternative remains available");
+    checks++;
+  }
+  for (const id of [
+    "horizon",
+    "tow-n-go",
+    "crestline",
+    "mckenzie-house",
+    "calgary-hot-shot",
+    "unlisted",
+  ]) {
+    assert.equal((await fetch(origin + sourceHref(id))).status, 404, `${id}: no resale offer`);
+    checks++;
+  }
+  const sourceInquiry = await fetch(
+    origin + sourceInquiryHref("massage-one-page") + "&price=1&design=earthworks",
+  );
+  const sourceInquiryHtml = await sourceInquiry.text();
+  assert.ok(
+    sourceInquiryHtml.includes("source-code download, $49 CAD"),
+    "download enquiry keeps server-owned price and selected template",
+  );
+  assert.ok(!sourceInquiryHtml.includes("source-code download, $1 CAD"), "query price is ignored");
+  checks++;
+  const offlineCheckout = await fetch(origin + "/api/source-purchases/checkout", {
+    method: "POST",
+    headers: { origin, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      designId: "pigment",
+      licenseAccepted: true,
+      licenseVersion: "2026-10-02",
+    }),
+  });
+  assert.equal(offlineCheckout.status, 503, "unconfigured checkout fails closed");
+  assert.ok(offlineCheckout.headers.get("cache-control")?.includes("no-store"));
+  assert.ok(!(await offlineCheckout.text()).includes("checkout.stripe.com"));
+  checks++;
+  for (const path of [
+    "/api/source-purchases/download?token=forged",
+    "/api/source-purchases/status?session_id=cs_test_notanorder",
+  ]) {
+    const res = await fetch(origin + path, { redirect: "manual" });
+    assert.equal(res.status, 403, "unverified purchase is denied");
+    assert.equal(res.headers.get("location"), null, "no archive location is leaked");
+    assert.ok(res.headers.get("cache-control")?.includes("no-store"));
+    checks++;
+  }
+  const successPage = await fetch(origin + "/source-purchase/success");
+  assert.equal(successPage.status, 200);
+  assert.equal(successPage.headers.get("referrer-policy"), "no-referrer");
+  assert.ok(successPage.headers.get("x-robots-tag")?.includes("noindex"));
+  assert.ok(
+    !(await successPage.text()).includes("Your source files are ready"),
+    "landing URL alone never claims payment",
+  );
+  checks++;
   console.log(
     `PASS: ${checks} production HTTP checks, internal links and anchors; no external email sent.`,
   );

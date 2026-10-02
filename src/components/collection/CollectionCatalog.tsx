@@ -1,4 +1,6 @@
 import TemplatePrice from "@/components/collection/TemplatePrice";
+import TemplatePurchaseOptions from "@/components/collection/TemplatePurchaseOptions";
+import { sourceProduct } from "@/data/source-products";
 import { isTemplateSaleActive } from "@/data/template-promotion";
 import Link from "next/link";
 import DesignCover from "@/components/collection/DesignCover";
@@ -180,9 +182,11 @@ export default function CollectionCatalog({
                     {design.status === "client-example" ? "View client example" : "View template"} ↗
                   </Link>
                   <Link className="text-link" href={collectionInquiryHref({ design: design.id })}>
-                    {designInquiryLabel(design)} ↗
+                    {sourceProduct(design.id) ? "Personalize & launch" : designInquiryLabel(design)}{" "}
+                    ↗
                   </Link>
                 </div>
+                <TemplatePurchaseOptions designId={design.id} compact />
                 {designs.length >= 2 && (
                   <label className="template-shortlist-choice">
                     <input

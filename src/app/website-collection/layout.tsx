@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import "@/styles/template-purchase.css";
 
 // Prices are evaluated per request; the client clock also expires an open page.
 export const dynamic = "force-dynamic";

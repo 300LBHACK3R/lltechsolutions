@@ -1,0 +1,288 @@
+/* Source files remain a quiet secondary choice beside the managed launch service. */
+.template-purchase-label {
+  margin-bottom: 9px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 550;
+}
+.template-source-option {
+  margin-top: 18px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+}
+.template-source-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 18px;
+  min-height: 44px;
+  padding-block: 7px;
+  color: var(--gold-light);
+  font-size: 12px;
+  line-height: 1.5;
+  text-underline-offset: 4px;
+}
+.template-source-link > span {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+}
+.template-source-link strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.template-source-link:hover > span,
+.template-source-link:focus-visible > span {
+  text-decoration-color: currentColor;
+}
+.template-source-link:focus-visible,
+.template-source-disclosure > summary:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 4px;
+}
+.template-source-option > p,
+.template-source-disclosure p,
+.collection-design .template-source-option > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.65;
+}
+.template-source-disclosure > summary {
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  padding-block: 12px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+  cursor: pointer;
+}
+.template-source-disclosure p {
+  max-width: 65ch;
+  padding-bottom: 6px;
+}
+
+.source-page {
+  padding-block: clamp(28px, 5vw, 72px) clamp(56px, 8vw, 120px);
+}
+.source-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.source-heading {
+  max-width: 850px;
+  margin-block: 32px 48px;
+}
+.source-heading h1 {
+  font-size: clamp(36px, 5vw, 76px);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  margin-block: 18px 24px;
+}
+.source-heading h1 span {
+  color: var(--gold-light);
+}
+.source-heading > p:last-child {
+  max-width: 54ch;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+.source-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+}
+.source-preview {
+  min-width: 0;
+}
+.source-preview .design-cover {
+  width: 100%;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.source-small {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.source-preview > .source-small {
+  margin-block: 16px;
+}
+.source-included {
+  border-top: 1px solid var(--line);
+  margin-top: 32px;
+  padding-top: 28px;
+}
+.source-included h2,
+.source-license h2 {
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.source-included ul,
+.source-license ul {
+  padding-left: 20px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.source-included li + li,
+.source-license li + li {
+  margin-top: 12px;
+}
+.source-order {
+  background: #141411;
+  border-top: 2px solid var(--gold-light);
+  padding: clamp(22px, 3vw, 40px);
+}
+.source-order h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.15;
+  margin-block: 20px;
+}
+.source-order p {
+  line-height: 1.75;
+}
+.source-order > p:not(.eyebrow):not(.source-price) {
+  color: var(--muted);
+}
+.source-order .source-price {
+  font-size: clamp(34px, 4vw, 48px);
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.source-order > .source-small {
+  margin-bottom: 20px;
+}
+.source-order .button {
+  width: 100%;
+  text-align: center;
+  white-space: normal;
+  min-height: 48px;
+}
+.source-checkout {
+  margin-top: 28px;
+}
+.source-checkout > p,
+.source-checkout > .button {
+  margin-top: 16px;
+}
+.source-license-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  padding-block: 8px;
+}
+.source-license-check input {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  accent-color: #e7c96b;
+}
+.source-license-check a {
+  color: var(--gold-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.source-status:not(:empty) {
+  margin-block: 16px;
+  padding: 16px;
+  border-left: 2px solid var(--gold-light);
+  background: #1d1d17;
+  line-height: 1.7;
+}
+.source-managed {
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+  margin-top: 32px;
+}
+.source-managed h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+.source-managed > p {
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 15px;
+}
+.source-managed .button {
+  margin-top: 20px;
+}
+.source-license {
+  max-width: 900px;
+  padding-top: 48px;
+  margin-top: 60px;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 110px;
+}
+.source-license .eyebrow {
+  margin-bottom: 18px;
+}
+.source-license > .source-small {
+  margin-top: 22px;
+}
+.source-asset-note {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.source-success {
+  max-width: 900px;
+  padding-block: clamp(48px, 8vw, 96px);
+}
+.source-success h1 {
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.1;
+  margin-block: 20px 32px;
+}
+.source-purchase-status p,
+.source-success > p {
+  line-height: 1.8;
+  margin-block: 16px;
+}
+.source-purchase-status h2 {
+  font-size: 28px;
+}
+.source-purchase-status .button {
+  margin-block: 18px;
+}
+@media (max-width: 800px) {
+  .source-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .source-heading {
+    margin-bottom: 30px;
+  }
+  .source-license {
+    margin-top: 40px;
+    padding-top: 32px;
+  }
+}
+.template-source-option--compact {
+  margin-top: 18px;
+  padding-top: 7px;
+}
+@media (forced-colors: active) {
+  .template-source-option {
+    border-color: CanvasText;
+  }
+  .template-source-link,
+  .template-source-link strong {
+    color: LinkText;
+  }
+  .template-source-link > span {
+    text-decoration-color: currentColor;
+  }
+}

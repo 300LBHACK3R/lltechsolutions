@@ -1,4 +1,6 @@
 import TemplatePrice from "@/components/collection/TemplatePrice";
+import TemplatePurchaseOptions from "@/components/collection/TemplatePurchaseOptions";
+import { sourceProduct } from "@/data/source-products";
 import { isTemplateSaleActive } from "@/data/template-promotion";
 import detailingDemo from "@/data/mobile-detailing-demo.json";
 import floristDemo from "@/data/flower-shop-demo.json";
@@ -145,6 +147,7 @@ export default async function DesignPage({ params }: Props) {
   const { design: id } = await params;
   const design = availableDesigns().find((item) => item.id === id);
   if (!design) notFound();
+  const downloadable = sourceProduct(design.id);
   const media = retailTemplate(design.id)
     ? readTemplateShowcase(
         retailShowcases[design.id as RetailTemplateId],
@@ -230,6 +233,7 @@ export default async function DesignPage({ params }: Props) {
               <p className="template-detail-description">{design.description}</p>
             </div>
             <div className="template-detail-purchase">
+              {downloadable && <p className="template-purchase-label">Personalize & launch</p>}
               <p className="template-detail-price">
                 <TemplatePrice
                   price={design.startingPriceCad}
@@ -247,7 +251,7 @@ export default async function DesignPage({ params }: Props) {
                   className="button button-gold"
                   href={collectionInquiryHref({ design: design.id })}
                 >
-                  {designInquiryLabel(design)} ↗
+                  {downloadable ? "Personalize & launch" : designInquiryLabel(design)} ↗
                 </Link>
                 {liveDemoUrl ? (
                   <a
@@ -265,6 +269,7 @@ export default async function DesignPage({ params }: Props) {
                 )}
               </div>
               <p className="template-detail-delivery">{design.deliveryWindow}</p>
+              <TemplatePurchaseOptions designId={design.id} />
             </div>
           </div>
         </div>
@@ -369,7 +374,11 @@ export default async function DesignPage({ params }: Props) {
         {design.id === "mckenzie-house" && <ProductionExample />}
         <section className="collection-section design-detail-scope" aria-labelledby="scope-title">
           <div>
-            <p className="eyebrow">Included in the starting scope</p>
+            <p className="eyebrow">
+              {downloadable
+                ? "Included with personalization & launch"
+                : "Included in the starting scope"}
+            </p>
             <h2 id="scope-title">Your website, built with you.</h2>
             <p>
               {designScopeLabel(design)}. {design.deliveryWindow}
@@ -487,7 +496,7 @@ export default async function DesignPage({ params }: Props) {
             <p>Tell us about your business. We’ll confirm the scope and price together.</p>
           </div>
           <Link className="button button-gold" href={collectionInquiryHref({ design: design.id })}>
-            {designInquiryLabel(design)} ↗
+            {downloadable ? "Personalize & launch" : designInquiryLabel(design)} ↗
           </Link>
         </section>
       </div>

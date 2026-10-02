@@ -4,6 +4,8 @@ import { siteConfig } from "@/config/site";
 import { serviceOptions } from "@/lib/contact-validation";
 import { pageMetadata } from "@/lib/metadata";
 import { collectionInquiry, type CollectionQuery } from "@/data/website-collection";
+import { sourceProduct } from "@/data/source-products";
+import { formatPriceCad } from "@/data/template-promotion";
 export const metadata = pageMetadata(
   "Start A Project",
   "Talk with L&L Tech Solutions about a custom website, software application, content production or ongoing social media partnership.",
@@ -15,7 +17,14 @@ export default async function ContactPage({
   searchParams: Promise<CollectionQuery>;
 }) {
   const query = await searchParams;
-  const collection = collectionInquiry(query);
+  const source = typeof query.source === "string" ? sourceProduct(query.source) : null;
+  const collection = source
+    ? {
+        service: serviceOptions[0],
+        summary: `${source.name} — source-code download, ${formatPriceCad(source.priceCad)} before applicable taxes.`,
+        message: `I’m interested in the ${source.name} source-code download at ${formatPriceCad(source.priceCad)} before applicable taxes. I understand this is the template source and setup guide for one business website. Personalization, hosting, launch and ongoing care are separate. Please let me know how to arrange the purchase.`,
+      }
+    : collectionInquiry(query);
   const selected =
     collection?.service ?? serviceOptions.find((option) => option === query.service) ?? "";
   return (

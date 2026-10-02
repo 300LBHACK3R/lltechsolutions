@@ -111,6 +111,11 @@ export default function PricingPage() {
               We personalize your chosen design with your information and handle the agreed launch
               work. Extra features, original content and ongoing care are quoted separately.
             </p>
+            <p>
+              Prefer to do it yourself? Selected templates also offer a source-code download with
+              its own price and setup guide. You handle personalization, hosting and launch; ongoing
+              support is separate. Look for “Download source code” on a template.
+            </p>
           </div>
           <div className="pricing-template-actions">
             <Link href="/website-collection" className="button button-outline">
