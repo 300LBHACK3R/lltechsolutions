@@ -83,15 +83,31 @@ export default function Page() {
           </p>
         </section>
         <section>
+          <h2>Website analytics and performance</h2>
+          <p>
+            We use Vercel Web Analytics to understand visits to our public website and Speed
+            Insights to measure page loading and responsiveness. These services do not use analytics
+            cookies. They process technical information such as visited pages, browser and device
+            characteristics, approximate location and performance measurements. Vercel may process
+            this information outside Canada.
+          </p>
+          <p>
+            Our integration removes query strings and fragments from reported page URLs and excludes
+            payment-confirmation and download routes. We do not add form entries, business briefs or
+            payment details to analytics events. Local development, preview deployments and
+            standalone template demos do not run this integration.
+          </p>
+        </section>
+        <section>
           <h2>Cookies and external links</h2>
           <p>
             Your animation preference is stored locally in your browser so the website can remember
             whether you paused motion. This preference is not sent to us or used for advertising.
           </p>
           <p>
-            This release does not add advertising pixels or optional analytics scripts. Hosting and
-            security services may process essential technical information. Client projects, social
-            profiles and booking platforms linked from this site have their own privacy practices.
+            This website does not add advertising pixels. Hosting and security services may process
+            essential technical information. Client projects, social profiles and booking platforms
+            linked from this site have their own privacy practices.
           </p>
         </section>
         <p>

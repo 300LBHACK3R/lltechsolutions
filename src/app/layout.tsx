@@ -48,6 +48,7 @@ import { Geist, Cormorant_Garamond } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import JsonLd from "@/components/seo/JsonLd";
+import SiteAnalytics from "@/components/analytics/SiteAnalytics";
 import { absoluteUrl, siteConfig } from "@/config/site";
 
 const sans = Geist({ variable: "--font-sans", subsets: ["latin"], display: "swap" });
@@ -89,6 +90,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
         </main>
         <Footer />
+        {process.env.VERCEL_ENV === "production" && <SiteAnalytics />}
         <JsonLd
           data={{
             "@context": "https://schema.org",

@@ -1,5 +1,11 @@
 # Changelog
 
+## October 3, 2026 — Visitor and performance reporting
+
+- Connect Vercel Web Analytics and Speed Insights to the production main-site layout.
+- Remove query strings and fragments from reported URLs and exclude private payment/download routes.
+- Update the privacy disclosure and document dashboard activation and production verification. Keep demo layouts and payment activation unchanged.
+
 ## October 2, 2026 — Tow-N-Go channel links
 
 - Keep Explore the monthly partnership and its existing URL; simplify the destination to a short introduction and Facebook, Google and TikTok links.
