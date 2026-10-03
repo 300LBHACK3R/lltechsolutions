@@ -5,7 +5,7 @@
 - Use an isolated worktree or branch and preserve existing local work.
 - Fetch the current main before applying a release; reconcile later upstream work without overwriting it. Review and verify the exact commit intended for release.
 - When retiring routes, stop the local development server before regenerating route types. If removed routes leave stale type errors, clear the generated `.next/` cache and rerun the typecheck/build; preserve source files and local work.
-- Run `npm ci`, formatting, `npm run check`, dependency audit, production build and `npm run smoke`.
+- Run `npm ci`, formatting, `npm run check`, `npm run audit:check`, production build and `npm run smoke`. The audit applies only the time-limited, approved development-tool exception documented in `DEPENDENCY_AUDIT.md`; other high/critical findings still block.
 - Review the diff, including deleted files. Originals are recoverable from Git history.
 
 ## Browser review required

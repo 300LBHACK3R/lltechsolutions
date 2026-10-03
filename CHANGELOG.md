@@ -5,6 +5,7 @@
 - Connect Vercel Web Analytics and Speed Insights to the production main-site layout.
 - Remove query strings and fragments from reported URLs and exclude private payment/download routes.
 - Update the privacy disclosure and document dashboard activation and production verification. Keep demo layouts and payment activation unchanged.
+- Apply Tate's approved temporary exception for the existing development-only braces advisory through the dedicated audit gate; expire it at the start of November 1, 2026 in Alberta and keep other high/critical findings blocking.
 
 ## October 2, 2026 — Tow-N-Go channel links
 

@@ -8,10 +8,10 @@ the production environment and collection routes.
 ## Release status — October 3, 2026
 
 The integration passed formatting, import/asset validation, lint, TypeScript,
-146 tests, the production build/CSS check and 541 HTTP/link checks. No browser
+the test suite, the production build/CSS check and 541 HTTP/link checks. No browser
 event receipt, dashboard data, remote push or deployment is confirmed.
 
-The required full dependency audit remains blocked by
+The raw dependency audit reports
 [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm).
 It affects the existing development-only chain `eslint-config-next` →
 `@next/eslint-plugin-next` → `fast-glob` → `micromatch` → `braces@3.0.3`.
@@ -20,10 +20,11 @@ no patched version. The separate production dependency audit reports zero
 vulnerabilities; this does not make the full audit pass. Do not use npm's
 suggested forced downgrade to the Next.js 14 ESLint configuration.
 
-The quality workflow and audit gate have been left unchanged. Before release,
-resolve the advisory or explicitly approve a temporary exception limited to this
-advisory and its verified development-only dependency chain. Any exception must
-keep other high/critical findings blocking and have an expiry/review date.
+Tate approved a temporary exception on October 3, 2026. `npm run audit:check`
+applies it only to that verified development-only chain and advisory, until
+`2026-11-01T06:00:00Z` (the start of November 1 in Alberta). CI and the installer
+use the same gate. Other high/critical findings, runtime exposure, invalid audit
+results and expired exceptions still block. See `DEPENDENCY_AUDIT.md`.
 
 ## Activate and verify
 
