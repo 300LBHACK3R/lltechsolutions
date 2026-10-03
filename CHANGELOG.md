@@ -1,5 +1,11 @@
 # Changelog
 
+## October 2, 2026 — Tow-N-Go channel links
+
+- Keep Explore the monthly partnership and its existing URL; simplify the destination to a short introduction and Facebook, Google and TikTok links.
+- Remove the promotional gallery, its dedicated player styles and the two added local video sets. Preserve client website screenshots and McKenzie’s launch preview.
+- Use the Google destination already published on Tow-N-Go’s own reviews page.
+
 ## October 2, 2026 — Tow-N-Go promotional gallery
 
 - Expanded the monthly partnership into a responsive campaign gallery with the supplied Halloween and service-promotion Reels alongside fleet education.

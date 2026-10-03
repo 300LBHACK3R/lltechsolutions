@@ -461,7 +461,11 @@ try {
   const projectScreenshotAssets = new Set();
   for (const id of projectIds) {
     const page = htmlByRoute.get(`/projects/${id}`);
-    assert.match(page, /class="[^"]*\bcase-page\b/, `${id}: standalone case-study layout`);
+    assert.match(
+      page,
+      id === "tow-n-go-digital" ? /class="[^"]*\bproject-channels\b/ : /class="[^"]*\bcase-page\b/,
+      `${id}: correct standalone project layout`,
+    );
     const description = page.match(/name="description" content="([^"]+)"/)?.[1];
     assert.ok(
       description && !projectDescriptions.has(description),
@@ -644,7 +648,11 @@ try {
         /<a\b[^>]*href="https:\/\/(?:www\.)?(?:towandgotrailers\.ca|crestlinepainting\.ca|mckenziehousemassage\.ca|tatestv\.ca)\/"[^>]*>([\s\S]*?)<\/a>/g,
       ),
     ];
-    assert.equal(websiteLinks.length, 1, `${id}: one live website action`);
+    assert.equal(
+      websiteLinks.length,
+      id === "tow-n-go-digital" ? 0 : 1,
+      `${id}: live website action matches the page scope`,
+    );
     for (const [, label] of websiteLinks)
       assert.ok(label.startsWith("View live site"), `${id}: accurate live-site wording`);
     assert.ok(!page.includes("View live demo"), `${id}: case study uses live-site wording`);
@@ -1531,8 +1539,8 @@ try {
     const page = htmlByRoute.get(`/projects/${id}`);
     assert.equal(
       (page.match(/class="[^"]*\bcase-implementation\b[^"]*"/g) || []).length,
-      1,
-      `${id}: case study explains its implementation`,
+      id === "tow-n-go-digital" ? 0 : 1,
+      `${id}: implementation details match the page scope`,
     );
   }
   assert.ok(
@@ -1720,26 +1728,23 @@ try {
     const html = htmlByRoute.get(route);
     const videos = [...html.matchAll(/<video\b[^>]*>[\s\S]*?<\/video>/g)].map((match) => match[0]);
     if (route === "/projects/tow-n-go-digital") {
-      assert.equal(videos.length, 3, `${route}: all three approved promotional examples render`);
-      for (const path of [
-        "/media/projects/tow-n-go-halloween-2026.mp4",
-        "/media/projects/tow-n-go-ready-for-whats-next.mp4",
-        "/media/projects/tow-n-go-content.mp4",
-      ]) {
-        assert.ok(
-          videos.some((video) => video.includes(`src="${path}"`)),
-          `${route}: ${path}`,
-        );
-      }
+      assert.equal(videos.length, 0, `${route}: links replace the video gallery`);
+      assert.ok(!/<iframe\b/i.test(html), `${route}: no embedded social players`);
+      const channels = html.match(/<ul class="project-channel-list"[^>]*>([\s\S]*?)<\/ul>/)?.[1];
+      assert.ok(channels, `${route}: dedicated public channel links`);
+      assert.equal((channels.match(/<a\b/g) || []).length, 3, `${route}: exactly three channels`);
       for (const href of [
         "https://www.facebook.com/profile.php?id=61581311484780",
+        "https://www.google.com/search?q=Tow-N-Go+Trailers+Kelowna+reviews",
         "https://www.tiktok.com/@towngotrailers",
-      ])
-        assert.ok(html.includes(`href="${href}"`), `${route}: keeps the live social channel`);
-      const captionIds = videos.map((video) => video.match(/aria-describedby="([^"]+)"/)?.[1]);
-      assert.equal(new Set(captionIds).size, videos.length, `${route}: unique video descriptions`);
-      for (const id of captionIds)
-        assert.ok(id && html.includes(`id="${id}"`), `${route}: description target exists`);
+      ]) {
+        assert.ok(channels.includes(`href="${href}"`), `${route}: verified public channel`);
+      }
+      assert.ok(html.includes('href="/projects/tow-n-go"'), `${route}: return to website project`);
+      assert.ok(
+        !html.includes('class="client-case-details"'),
+        `${route}: no long case-study sections`,
+      );
     } else {
       assert.equal(videos.length, 1, `${route}: existing launch video is preserved`);
     }
@@ -1761,10 +1766,7 @@ try {
     for (const match of html.matchAll(/(?:src|poster)="(\/media\/[^\"]+)"/g))
       mediaAssets.add(match[1]);
   }
-  assert.ok(
-    mediaAssets.size >= 12,
-    "four complete content previews, with room for optional captions",
-  );
+  assert.ok(mediaAssets.size >= 3, "McKenzie launch retains its complete content preview");
   for (const asset of mediaAssets) {
     const response = await fetch(origin + asset, { method: "HEAD" });
     assert.equal(response.status, 200, asset);

@@ -160,7 +160,10 @@ const routes = new Map([
     ["case-page", "template-screenshots", "template-screenshot-choices", "client-template-options"],
   ],
   ["/projects/tates-tv", ["case-page", "template-screenshots", "template-screenshot-choices"]],
-  ["/projects/tow-n-go-digital", ["case-page", "project-video"]],
+  [
+    "/projects/tow-n-go-digital",
+    ["project-channels", "project-channel-list", "project-channel-description"],
+  ],
   ["/projects/mckenzie-digital-launch", ["case-page", "project-video"]],
   ["/website-collection/start?design=pigment", ["journey-progress", "journey-options"]],
   ["/website-collection/compare?design=pigment&design=still", ["design-comparison"]],

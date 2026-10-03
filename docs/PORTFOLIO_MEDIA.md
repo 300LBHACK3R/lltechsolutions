@@ -1,6 +1,6 @@
 # Portfolio preview media
 
-Website and software case studies use real screenshot galleries. Only Tow-N-Go social content and the McKenzie launch retain video examples, with local MP4s, matching image posters and WebVTT visual-description tracks in `public/media/projects/`. `src/data/project-videos.ts` owns the video records; `src/data/projects.ts` owns case-study screenshots. See [Client showcase](CLIENT_SHOWCASE.md) for capture provenance and gallery editing. No third-party player, iframe, tracker or API key is required.
+Website and software case studies use real screenshot galleries. McKenzie’s launch page retains its local MP4, poster and WebVTT visual-description track. Tow-N-Go’s monthly page contains a short introduction and Facebook, Google and TikTok links, with no local video or campaign gallery. Its original social-content media record and poster remain for homepage/services previews. `src/data/project-videos.ts` owns retained media records; `src/data/projects.ts` owns case-study screenshots. See [Client showcase](CLIENT_SHOWCASE.md) for capture provenance and gallery editing. No third-party player, iframe, tracker or API key is required.
 
 ## Historical media provenance — September 8, 2026
 
@@ -13,25 +13,25 @@ Website and software case studies use real screenshot galleries. Only Tow-N-Go s
 | Tow-N-Go social content | Tate-supplied `Tow-N-Go-Trailers-Advert-TikTok(1).mp4`           | Original fleet education creative, converted from HEVC to H.264. Silent portfolio copy; original unchanged.                                                                    |
 | McKenzie launch         | Tate-supplied `1000021184.mp4`                                   | Original before-and-after showcase, converted from HEVC to H.264. Silent portfolio copy; original unchanged. The earlier website is explicitly identified as the before state. |
 
-The four website/software video sets in this historical record have been removed from the build after screenshot galleries replaced them. The two original Tate-supplied social/content sets remain, alongside the two newer Tow-N-Go promotional Reels listed below. The former scroll previews were rendered from real captured page images, not continuous interaction recordings or evidence of transactions/application performance. No people, logos, business facts, reviews or client screens were generated for those previews. The source record is retained for provenance.
+The four website/software video sets in this historical record have been removed from the build after screenshot galleries replaced them. The two original Tate-supplied social/content sets remain; only McKenzie’s launch has a player on its case-study page. The former scroll previews were rendered from real captured page images, not continuous interaction recordings or evidence of transactions/application performance. No people, logos, business facts, reviews or client screens were generated for those previews. The source record is retained for provenance.
 
-## Tow-N-Go gallery additions — October 2, 2026
+## Retired Tow-N-Go gallery additions — October 2, 2026
 
 | Gallery example       | Supplied original                                    | Web copy                                                                  |
 | --------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- |
 | Halloween campaign    | `TikTok-Advert-Halloween-Chads-Tow-N-Go).mp4`        | 720 × 1280 H.264/AAC, 51.502 seconds; `tow-n-go-halloween-2026.mp4`       |
 | Ready for what’s next | `0921Chad's-Tik-Tok-Advert-FACEBOOK-Tiktok-Reel.mp4` | 720 × 1280 H.264/AAC, 32.740 seconds; `tow-n-go-ready-for-whats-next.mp4` |
 
-These are Tate-supplied promotional edits, shown as campaign creative. Posters are frames extracted from those actual videos; no footage, logo or campaign result was invented. Both source uploads remain unchanged. The web versions preserve audio, use yuv420p and move the MP4 index before the media for progressive playback. Visual descriptions reflect the footage and on-screen text; they are not a transcript of unverified audio. Original video/audio rights remain with their respective owners.
+These Tate-supplied promotional edits were prepared as campaign creative. Posters were frames extracted from those actual videos; no footage, logo or campaign result was invented. Both source uploads were unchanged. The web versions preserved audio, used yuv420p and moved the MP4 index before the media for progressive playback. Visual descriptions reflected the footage and on-screen text; they were not a transcript of unverified audio. Original video/audio rights remain with their respective owners.
 
-The campaign gallery includes these two pieces plus the existing fleet education Reel. The screenshot-only website case study and live social links remain separate. File placement, adding another clip and current playback behavior are documented in [Adding and replacing videos](REPLACING_PROJECT_VIDEOS.md).
+The campaign gallery and both promotional file sets were removed when the monthly page was simplified to its introduction and channel links. The table above is a historical provenance record, not an active asset list. Tow-N-Go’s website case study remains screenshot-only, and monthly partnership entry links remain. Current media replacement instructions are in [Replacing social/content media](REPLACING_PROJECT_VIDEOS.md).
 
-## Current social/content playback
+## Current McKenzie launch playback
 
 - H.264 Main, yuv420p, MP4, 30 fps, fast-start metadata, two-second keyframes and bounded bitrate. No HEVC-only web delivery.
 - Native play/pause, seeking and full-screen controls. Inline playback on supported mobile browsers, no autoplay or looping, and `preload="none"`.
 - Starting an example pauses other project videos on that page. Posters and written project content remain available without client JavaScript.
-- Each preview has a visible equivalent description and a WebVTT description track. These silent copies have no spoken audio requiring captions. Future narrated replacements must include accurate captions.
+- The preview has a visible equivalent description and a WebVTT description track. The silent copy has no spoken audio requiring captions. Future narrated replacements must include accurate captions.
 - Portrait content keeps its aspect ratio; landscape content is contained without cropping. The media link remains available if embedded playback fails.
 - The existing same-origin media CSP is retained. No new third-party hosts are allowed.
 
@@ -45,7 +45,7 @@ Use real approved footage. Replace the corresponding MP4, poster and description
 
 See [Replacing social/content videos](REPLACING_PROJECT_VIDEOS.md) for the active file sets and configuration instructions. Website/software examples should be updated through their screenshot galleries instead.
 
-`npm run validate` checks local media references. `npm run smoke` now checks every player in both social/content case studies, no autoplay, native controls, equivalent descriptions, their media assets and MP4 range requests. It also checks any captions files added to the rendered players. Website and software case studies use the screenshot checks documented below. Codec, duration, fast-start layout and representative frames were checked with FFmpeg/ffprobe during preparation. Actual browser playback on the new build still needs device review; local and protected preview browsing was unavailable in this environment.
+`npm run validate` checks local media references. `npm run smoke` checks McKenzie’s launch player, no autoplay, native controls, equivalent descriptions, media assets and MP4 range requests, plus any supplied captions. Tow-N-Go’s monthly-page checks cover the channel links and absence of a local player or detailed case-study sections. Website and software case studies use screenshot checks. Codec, duration, fast-start layout and representative frames were checked with FFmpeg/ffprobe during preparation. Browser and device playback still require separate review; source and HTTP checks do not establish that result.
 
 ## Crestline: Other Design Options
 

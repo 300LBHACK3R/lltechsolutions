@@ -5,12 +5,20 @@
 Our Clients and its category indexes lead to one dedicated page per project at
 `/projects/<project-id>`. Website and software examples open with screenshots and
 **View live site**. The brief, delivery, implementation and hosting details follow.
-Social media projects retain their actual content examples on their own pages.
+Tow-N-Go’s monthly partnership page keeps a short introduction and Facebook,
+Google and TikTok links. McKenzie’s launch page retains its content video.
 The template collection continues to use **View live demo** for template actions.
 
 The category routes remain available. Their project cards retain the original IDs
 so previously shared category/hash links still lead to the matching project card.
 All new internal links use the canonical individual project route.
+
+Keep links into `/projects/tow-n-go-digital`, including **Explore the monthly
+partnership**. That page has no local video player, campaign gallery or detailed
+case-study sections. Its Google link uses the client’s own **View Google Reviews**
+destination from `https://www.towandgotrailers.ca/reviews`, verified October 2, 2026:
+`https://www.google.com/search?q=Tow-N-Go+Trailers+Kelowna+reviews`. This is a search
+URL, not a verified direct Maps profile.
 
 ## Images
 
@@ -61,14 +69,16 @@ Tate's TV retains its supplied 2516 × 1315 playback/interface screenshot. Its
 the historical `public/media/projects/tates-tv-interface.mp4` recording, now retained
 only in Git history. The frame was encoded as WebP for web delivery. That recording shows a September 11 guide; it is not represented as
 a new October capture. The superseded website/software walkthrough files were removed during cleanup;
-the derived screenshot is retained. Only the two social/content video sets remain
-in `public/media/projects/`.
+the derived screenshot is retained. The original Tow-N-Go social-content media
+record and poster remain for homepage/services previews; the monthly page does
+not play that video. McKenzie’s launch media remains in use. The two later
+Tow-N-Go promotional gallery sets have been retired.
 
 ## Verification boundaries
 
 The release checks cover page responses, canonical metadata, screenshot assets,
-internal links, old category anchors, template recommendations, the two social
-video examples and enquiry handoffs. A production build and source review do not
+internal links, old category anchors, template recommendations, Tow-N-Go’s three
+channel links, McKenzie’s launch video and enquiry handoffs. A production build and source review do not
 establish rendered browser compatibility. Review the new directory, each gallery,
 keyboard image selection, small screens and enlarged text in actual browsers
 before treating visual review as complete.

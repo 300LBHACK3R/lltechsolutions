@@ -50,7 +50,7 @@ export type Project = {
   imageAlt?: string;
   liveUrl?: string;
   relatedWork?: { projectId: string; label: string };
-  links?: { label: string; href: string; kind?: string }[];
+  links?: { label: string; href: string; kind?: string; description?: string }[];
   designOptions?: ProjectDesignOption[];
   pageSpeed?: {
     testedUrl: string;
@@ -67,7 +67,7 @@ export type Project = {
   | {
       category: "social-media-management";
       video: ProjectVideo;
-      contentVideos?: readonly ProjectVideo[];
+      presentation?: "channels";
       gallery?: never;
     }
 );
@@ -434,10 +434,11 @@ export const projects: Project[] = [
     ownership: "client",
     title: "Tow-N-Go Digital Management",
     category: "social-media-management",
+    presentation: "channels",
     relationship: "Monthly Social Media & Content Partner",
     status: "Live + Managed",
     description:
-      "An ongoing monthly partnership connecting Facebook management, TikTok and short-form video, Google Business content and website maintenance.",
+      "We manage Tow-N-Go’s social content and ongoing website updates. Explore the videos, campaigns and business presence on their channels below.",
     challenge:
       "Tow-N-Go needed a consistent presence between rental enquiries, not just a website at launch. Customers discovering the business through a Reel, a Facebook post or Google needed to see the same fleet, service options and contact information. Content also needed to explain practical uses for the equipment in a recognizable local voice.",
     solution:
@@ -453,11 +454,6 @@ export const projects: Project[] = [
     ],
     image: "/images/projects/tow-n-go.webp",
     video: projectVideos["tow-n-go-digital"],
-    contentVideos: [
-      projectVideos["tow-n-go-halloween"],
-      projectVideos["tow-n-go-ready"],
-      projectVideos["tow-n-go-digital"],
-    ],
     imageAlt: "Tow-N-Go Trailers custom rental website showcase",
     liveUrl: "https://www.towandgotrailers.ca/",
     links: [
@@ -470,11 +466,19 @@ export const projects: Project[] = [
         label: "Facebook",
         href: "https://www.facebook.com/profile.php?id=61581311484780",
         kind: "facebook",
+        description: "Promotional videos, campaigns and business updates.",
+      },
+      {
+        label: "Google",
+        href: "https://www.google.com/search?q=Tow-N-Go+Trailers+Kelowna+reviews",
+        kind: "google",
+        description: "Find Tow-N-Go’s business information and reviews.",
       },
       {
         label: "TikTok",
         href: "https://www.tiktok.com/@towngotrailers",
         kind: "tiktok",
+        description: "Original short-form videos and creative content.",
       },
     ],
     implementation: {

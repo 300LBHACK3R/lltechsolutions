@@ -76,7 +76,7 @@ Use these suggested file locations (create each folder when adding the actual fi
 
 Set the design’s `walkthrough` object, with `src`, `poster`, `captions` and a real `transcript`. Public URLs omit `public`, for example `/media/collection/pigment/walkthrough.mp4`. Do not set the object until all three files exist. Use H.264 MP4 with a web-friendly encoding and captions matching the recording. Keep a tour focused: home, services, one useful detail and the contact journey. Check playback and seeking on the actual deployed site.
 
-Without a recording, the design cover, supplied screenshots and any configured live-demo link remain available. A walkthrough is optional; the template does not need an embedded video or a duplicate interactive preview. The landing page does not render a developer-introduction section. These optional template tours are separate from the two social/content case-study videos.
+Without a recording, the design cover, supplied screenshots and any configured live-demo link remain available. A walkthrough is optional; the template does not need an embedded video or a duplicate interactive preview. The landing page does not render a developer-introduction section. These optional template tours are separate from McKenzie’s launch-content video.
 
 ## Performance evidence
 

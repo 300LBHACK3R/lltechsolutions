@@ -70,7 +70,7 @@ GitHub write access was unavailable in the September 8 session. The earlier inte
 
 The original corporate cleanup started at `55b9d7bd` and reached production at `5304cc16`. The client showcase carried forward `9968e5ba`, rather than importing the earlier navy/white premium release ZIP. Uncommitted work on Tate's Windows computer was not accessed or altered. The September 8 review `d4c4544` had successful Quality/Vercel status checks but was unmerged at preparation time. Tate's later Windows log confirmed production at `0a2d672`; the September 9 detail update built on that revision.
 
-The historical release introduced the compact footer, Our Clients navigation and six controlled media previews. The September 9 update added project brief/work/delivery and implementation details, and Chad Muxlow's complete three-paragraph supplied review. Heather's testimonial remained verbatim. Website/software previews have since been replaced by screenshot galleries; only the two social/content videos remain in the current build.
+The historical release introduced the compact footer, Our Clients navigation and six controlled media previews. The September 9 update added project brief/work/delivery and implementation details, and Chad Muxlow's complete three-paragraph supplied review. Heather's testimonial remained verbatim. Website/software previews have since been replaced by screenshot galleries. The original two social/content media sets remain, but only McKenzie’s launch page renders a player; Tow-N-Go’s monthly page now has a short introduction and channel links.
 
 ### Evidence used for implementation descriptions
 
