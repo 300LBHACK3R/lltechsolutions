@@ -21,6 +21,7 @@ import {
   validSourceSessionId,
   processSourceWebhookEvent,
   sourceEnvironmentAllowed,
+  stripeKeyMode,
   type SourceGrant,
   type SourcePackage,
 } from "./source-commerce-core.ts";
@@ -54,7 +55,7 @@ function setting(name: string) {
 function accessSettings(): SourceSettings {
   const origin = process.env.SOURCE_CHECKOUT_ORIGIN?.trim() || "https://lltechsolutions.ca";
   const stripeKey = setting("STRIPE_SECRET_KEY");
-  const live = stripeKey.startsWith("sk_live_");
+  const live = stripeKeyMode(stripeKey) === "live";
   if (
     !sourceEnvironmentAllowed({
       origin,

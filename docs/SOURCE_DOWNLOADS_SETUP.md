@@ -96,7 +96,7 @@ Run test checkout locally with `npm run dev` and a private, ignored `.env.local`
 | Variable                         | Value / purpose                                                                                                          |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `SOURCE_DOWNLOADS_ENABLED`       | Keep `false` until package and provider checks pass; `true` permits new checkout sessions.                               |
-| `STRIPE_SECRET_KEY`              | Stripe **test-mode** key first; live key only when ready.                                                                |
+| `STRIPE_SECRET_KEY`              | Stripe **test-mode** `rk_test_` or `sk_test_` key locally; `rk_live_` or `sk_live_` in Production only when ready.       |
 | `STRIPE_WEBHOOK_SECRET`          | Signing secret for this exact environment's webhook endpoint.                                                            |
 | `SOURCE_DOWNLOAD_SIGNING_SECRET` | At least 32 bytes from a cryptographically secure generator, held privately.                                             |
 | `SOURCE_CHECKOUT_ORIGIN`         | `https://lltechsolutions.ca`; local development can use `http://localhost:3000`. Arbitrary preview domains are rejected. |
@@ -120,6 +120,8 @@ Check these outcomes before switching on live sales:
 - A clean ZIP extraction builds successfully; representative mobile and desktop screens, keyboard navigation and reduced-motion behavior have been reviewed. Automated build checks are not a guarantee of every browser/device combination.
 
 Use the documented tax collection configuration intentionally before live activation. The app adds only the taxes returned by your Stripe setup; it does not decide registration obligations or configure tax registrations for you. Customer download links expire 30 days after checkout creation, and storage URLs last five minutes.
+
+Restricted keys use the same environment and payment verification rules as standard keys. Verify their permissions in the actual local sandbox checkout before enabling sales; see [PURCHASE_ACTIVATION.md](PURCHASE_ACTIVATION.md#restricted-key-permissions). Keep private archives and the source-download flag independent of managed checkout.
 
 ## 4. Enable live sales
 

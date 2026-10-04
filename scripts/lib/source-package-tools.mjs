@@ -53,7 +53,7 @@ export function auditSourceFiles(files) {
     if (!/\.(?:png|webp|jpg|jpeg|ico|woff2?)$/iu.test(name)) {
       const text = Buffer.from(data).toString("utf8");
       if (
-        /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|\b(?:sk_live_|sk_test_|rk_live_|re_[A-Za-z0-9]{24}|ghp_|github_pat_|AKIA[A-Z0-9]{16})/u.test(
+        /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|\b(?:(?:sk|rk)_(?:live|test)_|re_[A-Za-z0-9]{24}|ghp_|github_pat_|AKIA[A-Z0-9]{16})/u.test(
           text,
         ) ||
         /(?:VERCEL_OIDC_TOKEN|RESEND_API_KEY|STRIPE_SECRET_KEY|AWS_SECRET_ACCESS_KEY)\s*[:=]\s*["']?[A-Za-z0-9_\-+/]{12,}/u.test(

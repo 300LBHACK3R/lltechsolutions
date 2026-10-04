@@ -60,6 +60,15 @@ export function validSourceSessionId(id: unknown): id is string {
   return typeof id === "string" && SESSION_ID.test(id);
 }
 
+/** Shared parsing keeps restricted and standard keys on the same payment-mode rules. */
+export function stripeKeyMode(key: string): "live" | "test" | null {
+  if (key !== key.trim()) return null;
+  const match = /^(?:sk|rk)_(live|test)_[A-Za-z0-9]+$/.exec(key);
+  if (match?.[1] === "live") return "live";
+  if (match?.[1] === "test") return "test";
+  return null;
+}
+
 /** Test-card purchases must never unlock real files on a public production domain. */
 export function sourceEnvironmentAllowed(options: {
   origin: string;
@@ -69,13 +78,14 @@ export function sourceEnvironmentAllowed(options: {
 }) {
   try {
     const url = new URL(options.origin);
-    if (url.origin !== options.origin || !/^sk_(live|test)_[A-Za-z0-9]+$/.test(options.stripeKey))
-      return false;
+    const mode = stripeKeyMode(options.stripeKey);
+    if (url.origin !== options.origin || mode === null) return false;
     const local =
       options.nodeEnv !== "production" &&
+      !options.vercelEnv &&
       ["localhost", "127.0.0.1"].includes(url.hostname) &&
       url.protocol === "http:";
-    if (options.stripeKey.startsWith("sk_test_")) return local;
+    if (mode === "test") return local;
     return options.origin === "https://lltechsolutions.ca" && options.vercelEnv === "production";
   } catch {
     return false;

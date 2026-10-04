@@ -15,6 +15,7 @@ import {
   verifySourceOwnership,
   validSourceSessionId,
   sourceEnvironmentAllowed,
+  stripeKeyMode,
 } from "./source-commerce-core.ts";
 import {
   ManagedCommerceError,
@@ -57,7 +58,7 @@ function accessSettings(): ManagedSettings {
     Buffer.byteLength(secret) < 32
   )
     throw new ManagedCommerceError("managed_unavailable", 503);
-  return { origin, stripeKey, secret, live: stripeKey.startsWith("sk_live_") };
+  return { origin, stripeKey, secret, live: stripeKeyMode(stripeKey) === "live" };
 }
 function emailSettings() {
   const from = process.env.CONTACT_FROM_EMAIL?.trim() || process.env.SOURCE_FROM_EMAIL?.trim();

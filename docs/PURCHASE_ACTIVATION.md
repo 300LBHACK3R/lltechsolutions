@@ -16,7 +16,7 @@ The source manifest is currently empty. Building the site alone does not publish
 ## 1. Set up Stripe
 
 1. Create or use the L&L Stripe account. Complete its business verification and activation requirements, including the requested business/payout information. Review the customer-visible business name, support details and statement descriptor. [Stripe account setup](https://docs.stripe.com/get-started/account/set-up)
-2. Use a Stripe sandbox/test environment for the local checks below. Obtain its `sk_test_...` secret key. Later, obtain the activated account's `sk_live_...` key for Vercel Production. This implementation accepts `sk_` keys, not `rk_` restricted keys. It does not need a publishable key, Payment Link, or manually entered Stripe product/price IDs: the server creates the hosted Checkout line item from the catalogue. [Stripe keys](https://docs.stripe.com/keys)
+2. Use a Stripe sandbox/test environment for the local checks below. Obtain its `rk_test_...` restricted key (or `sk_test_...` secret key). Later, use the activated account's corresponding `rk_live_...` or `sk_live_...` key in Vercel Production. Both purchase flows accept restricted and standard server keys and derive the payment mode from the same shared parser. It does not need a publishable key, Payment Link, or manually entered Stripe product/price IDs: the server creates the hosted Checkout line item from the catalogue. [Stripe keys](https://docs.stripe.com/keys)
 3. Decide the business's tax treatment before activation. `SOURCE_STRIPE_AUTOMATIC_TAX` must explicitly be `true` or `false`; blank blocks checkout. With `true`, configure Stripe Tax, the applicable registrations and appropriate product classification first. The app sets prices as tax-exclusive; it does not decide the business's registration obligations. [Stripe Tax setup](https://docs.stripe.com/tax/set-up)
 4. In the **live account**, open **Workbench → Webhooks → Create an event destination**. Choose **Your account**, the snapshot events below, and **Webhook endpoint**. Create the two destinations separately, then copy each endpoint's `whsec_...` signing secret into its matching Production variable. [Stripe webhooks](https://docs.stripe.com/webhooks)
 
@@ -26,6 +26,20 @@ The source manifest is currently empty. Building the site alone does not publish
 | `https://lltechsolutions.ca/api/template-purchases/webhook` | `MANAGED_STRIPE_WEBHOOK_SECRET` |
 
 Both subscribe to `checkout.session.completed` and `checkout.session.async_payment_succeeded`. Local CLI signing secrets are separate from live endpoint secrets. The server verifies Stripe's signature and retrieves the current payment; reaching the success page alone never grants fulfilment.
+
+### Restricted-key permissions
+
+Use individual resource rows rather than enabling the whole Core group. Based on the current server calls, start with:
+
+| Resource            | Permission | Purpose                                                                           |
+| ------------------- | ---------- | --------------------------------------------------------------------------------- |
+| Checkout Sessions   | Write      | Create checkout, retrieve purchased line items and update email delivery markers. |
+| Payment Intents     | Read       | Verify the current payment.                                                       |
+| Charges and Refunds | Read       | Read the expanded latest charge and its captured/refunded/disputed state.         |
+
+Leave other resources at None initially. This is a starting scope, not a claim that live provider testing has passed. The checkout creates inline product/price data and can enable automatic tax; confirm any additional permission dependencies with the actual sandbox checkout and Stripe request logs. Add only the specific permissions required by a verified permission error, then reproduce the tested configuration for the live key. Do not grant broad account access just to bypass an error. The app verifies incoming webhook signatures locally; the key does not need Webhook Endpoints Write to receive events configured in the Dashboard.
+
+Store either key family under the existing server-only `STRIPE_SECRET_KEY` variable. Never paste the value in chat, commit it, or put it in a `NEXT_PUBLIC_` variable. Restricted-key support does not enable sales, configure webhooks, send emails or publish source archives. Keep both sales flags false until their activation checks pass. Local tests require HTTP localhost or 127.0.0.1, a non-production build and no hosted `VERCEL_ENV`; production accepts live keys only at the canonical HTTPS origin in Vercel Production. [Stripe restricted keys](https://docs.stripe.com/keys/restricted-api-keys)
 
 ## 2. Set up Resend and the owner inbox
 
@@ -88,26 +102,26 @@ Review and commit the updated manifest through the normal release process, then 
 
 Keep real values in private `.env.local` for local development and in the correct Vercel project's **Environment Variables**, scoped to **Production**, for the live site. No secret gets a `NEXT_PUBLIC_` prefix. Do not paste secrets, signed links or customer records into chat, screenshots, Git or this guide.
 
-| Variable                             | Local test value                              | Production value                           |
-| ------------------------------------ | --------------------------------------------- | ------------------------------------------ |
-| `STRIPE_SECRET_KEY`                  | Same sandbox's `sk_test_...`                  | Activated account's `sk_live_...`          |
-| `SOURCE_CHECKOUT_ORIGIN`             | `http://localhost:3000`                       | Exactly `https://lltechsolutions.ca`       |
-| `SOURCE_STRIPE_AUTOMATIC_TAX`        | Explicit `true` or `false` for the test setup | Explicit reviewed `true` or `false`        |
-| `RESEND_API_KEY`                     | Authorized `re_...` sending key               | Authorized `re_...` sending key            |
-| `CONTACT_FROM_EMAIL`                 | Verified sender                               | Verified sender for managed/contact emails |
-| `CONTACT_TO_EMAIL`                   | Controlled owner test inbox                   | Tate's monitored inbox                     |
-| `SOURCE_FROM_EMAIL`                  | Verified sender                               | Verified sender for source emails          |
-| `MANAGED_TEMPLATE_PURCHASES_ENABLED` | `true` when testing managed flow              | Start `false`; enable after checks         |
-| `MANAGED_STRIPE_WEBHOOK_SECRET`      | Managed CLI listener's `whsec_...`            | Live managed endpoint's `whsec_...`        |
-| `MANAGED_PURCHASE_SIGNING_SECRET`    | Separate random local secret                  | Persistent, separately generated secret    |
-| `SOURCE_DOWNLOADS_ENABLED`           | `true` when testing source flow               | Start `false`; enable after checks/upload  |
-| `STRIPE_WEBHOOK_SECRET`              | Source CLI listener's `whsec_...`             | Live source endpoint's `whsec_...`         |
-| `SOURCE_DOWNLOAD_SIGNING_SECRET`     | Separate random local secret                  | Persistent, separately generated secret    |
-| `SOURCE_S3_REGION`                   | `auto`                                        | `auto`                                     |
-| `SOURCE_S3_BUCKET`                   | Bucket holding manifest's ZIPs                | Same published private bucket              |
-| `SOURCE_S3_ENDPOINT`                 | Bucket's HTTPS S3 endpoint                    | Bucket's HTTPS S3 endpoint                 |
-| `SOURCE_S3_ACCESS_KEY_ID`            | **Read-only** application key ID              | **Read-only** application key ID           |
-| `SOURCE_S3_SECRET_ACCESS_KEY`        | Matching read-only secret                     | Matching read-only secret                  |
+| Variable                             | Local test value                              | Production value                                   |
+| ------------------------------------ | --------------------------------------------- | -------------------------------------------------- |
+| `STRIPE_SECRET_KEY`                  | Same sandbox's `rk_test_...` or `sk_test_...` | Activated account's `rk_live_...` or `sk_live_...` |
+| `SOURCE_CHECKOUT_ORIGIN`             | `http://localhost:3000`                       | Exactly `https://lltechsolutions.ca`               |
+| `SOURCE_STRIPE_AUTOMATIC_TAX`        | Explicit `true` or `false` for the test setup | Explicit reviewed `true` or `false`                |
+| `RESEND_API_KEY`                     | Authorized `re_...` sending key               | Authorized `re_...` sending key                    |
+| `CONTACT_FROM_EMAIL`                 | Verified sender                               | Verified sender for managed/contact emails         |
+| `CONTACT_TO_EMAIL`                   | Controlled owner test inbox                   | Tate's monitored inbox                             |
+| `SOURCE_FROM_EMAIL`                  | Verified sender                               | Verified sender for source emails                  |
+| `MANAGED_TEMPLATE_PURCHASES_ENABLED` | `true` when testing managed flow              | Start `false`; enable after checks                 |
+| `MANAGED_STRIPE_WEBHOOK_SECRET`      | Managed CLI listener's `whsec_...`            | Live managed endpoint's `whsec_...`                |
+| `MANAGED_PURCHASE_SIGNING_SECRET`    | Separate random local secret                  | Persistent, separately generated secret            |
+| `SOURCE_DOWNLOADS_ENABLED`           | `true` when testing source flow               | Start `false`; enable after checks/upload          |
+| `STRIPE_WEBHOOK_SECRET`              | Source CLI listener's `whsec_...`             | Live source endpoint's `whsec_...`                 |
+| `SOURCE_DOWNLOAD_SIGNING_SECRET`     | Separate random local secret                  | Persistent, separately generated secret            |
+| `SOURCE_S3_REGION`                   | `auto`                                        | `auto`                                             |
+| `SOURCE_S3_BUCKET`                   | Bucket holding manifest's ZIPs                | Same published private bucket                      |
+| `SOURCE_S3_ENDPOINT`                 | Bucket's HTTPS S3 endpoint                    | Bucket's HTTPS S3 endpoint                         |
+| `SOURCE_S3_ACCESS_KEY_ID`            | **Read-only** application key ID              | **Read-only** application key ID                   |
+| `SOURCE_S3_SECRET_ACCESS_KEY`        | Matching read-only secret                     | Matching read-only secret                          |
 
 `SOURCE_FROM_EMAIL`, source signing/webhook variables and `SOURCE_S3_*` are needed for source sales, not managed-only activation. Managed can use `SOURCE_FROM_EMAIL` as a fallback for `CONTACT_FROM_EMAIL`.
 

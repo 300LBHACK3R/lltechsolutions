@@ -8,18 +8,18 @@ The managed price includes the selected template's listed scope, supplied conten
 
 Managed checkout fails closed until all required settings are present. It does **not** require source ZIPs, a source manifest or S3. Keep secrets in server environment settings; never use a `NEXT_PUBLIC_` name or include them in an archive.
 
-| Variable                             | Required value or purpose                                                                                            |
-| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| `MANAGED_TEMPLATE_PURCHASES_ENABLED` | `false` until activation checks are complete; then `true`.                                                           |
-| `STRIPE_SECRET_KEY`                  | The selected account's secret key. Only `sk_live_` is accepted on the public production site.                        |
-| `SOURCE_CHECKOUT_ORIGIN`             | Shared canonical checkout origin: `https://lltechsolutions.ca`.                                                      |
-| `MANAGED_STRIPE_WEBHOOK_SECRET`      | The `whsec_` signing secret for `/api/template-purchases/webhook`, separate from the source-download webhook secret. |
-| `MANAGED_PURCHASE_SIGNING_SECRET`    | A separate random secret of at least 32 bytes; retain it for existing paid orders.                                   |
-| `SOURCE_STRIPE_AUTOMATIC_TAX`        | Shared explicit `true` or `false` choice. If enabled, configure Stripe Tax for the business before selling.          |
-| `RESEND_API_KEY`                     | Key permitted to send from the verified business domain.                                                             |
-| `CONTACT_FROM_EMAIL`                 | Verified sending address; `SOURCE_FROM_EMAIL` is a fallback.                                                         |
-| `CONTACT_TO_EMAIL`                   | Owner notification inbox. If absent, the canonical site email is used. A buyer cannot set this recipient.            |
-| `VERCEL_ENV`                         | Set by Vercel; live checkout requires `production`.                                                                  |
+| Variable                             | Required value or purpose                                                                                                            |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `MANAGED_TEMPLATE_PURCHASES_ENABLED` | `false` until activation checks are complete; then `true`.                                                                           |
+| `STRIPE_SECRET_KEY`                  | The selected account's server key: `rk_live_` (restricted) or `sk_live_` in Production; test counterparts only in local development. |
+| `SOURCE_CHECKOUT_ORIGIN`             | Shared canonical checkout origin: `https://lltechsolutions.ca`.                                                                      |
+| `MANAGED_STRIPE_WEBHOOK_SECRET`      | The `whsec_` signing secret for `/api/template-purchases/webhook`, separate from the source-download webhook secret.                 |
+| `MANAGED_PURCHASE_SIGNING_SECRET`    | A separate random secret of at least 32 bytes; retain it for existing paid orders.                                                   |
+| `SOURCE_STRIPE_AUTOMATIC_TAX`        | Shared explicit `true` or `false` choice. If enabled, configure Stripe Tax for the business before selling.                          |
+| `RESEND_API_KEY`                     | Key permitted to send from the verified business domain.                                                                             |
+| `CONTACT_FROM_EMAIL`                 | Verified sending address; `SOURCE_FROM_EMAIL` is a fallback.                                                                         |
+| `CONTACT_TO_EMAIL`                   | Owner notification inbox. If absent, the canonical site email is used. A buyer cannot set this recipient.                            |
+| `VERCEL_ENV`                         | Set by Vercel; live checkout requires `production`.                                                                                  |
 
 Generate the managed signing secret locally, then enter it directly in the server environment settings:
 
@@ -28,6 +28,8 @@ node -e "console.log(require('node:crypto').randomBytes(48).toString('hex'))"
 ```
 
 Do not paste the generated secret into chat, commit it or put it in public files. Changing or losing it can prevent verification of already-created orders.
+
+Restricted keys follow the same origin and live/test checks as standard keys. Configure and verify the least-privilege permissions described in [PURCHASE_ACTIVATION.md](PURCHASE_ACTIVATION.md#restricted-key-permissions). A valid key prefix alone does not establish permissions or payment readiness.
 
 ## Stripe webhook
 
