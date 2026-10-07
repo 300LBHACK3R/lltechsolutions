@@ -26,6 +26,12 @@ import {
   type SourcePackage,
 } from "./source-commerce-core.ts";
 import { verifySourceWebhookSignature } from "./source-commerce-webhook.ts";
+import {
+  SourceConfigurationError,
+  reportSourceReadiness,
+  sourceEnvironmentFailureField,
+  type SourceConfigurationField,
+} from "./source-readiness-diagnostic.ts";
 
 const PRIVATE_HEADERS = {
   "Cache-Control": "private, no-store, max-age=0",
@@ -46,9 +52,9 @@ type SourceSettings = {
   secretKey: string;
 };
 
-function setting(name: string) {
+function setting(name: SourceConfigurationField) {
   const value = process.env[name]?.trim();
-  if (!value) throw new SourceCommerceError("source_unavailable", 503);
+  if (!value) throw new SourceConfigurationError(name, "missing");
   return value;
 }
 
@@ -64,18 +70,26 @@ function accessSettings(): SourceSettings {
       vercelEnv: process.env.VERCEL_ENV,
     })
   )
-    throw new SourceCommerceError("source_unavailable", 503);
+    throw new SourceConfigurationError(
+      sourceEnvironmentFailureField({ origin, stripeKey }),
+      "invalid",
+    );
   const secret = setting("SOURCE_DOWNLOAD_SIGNING_SECRET");
-  if (Buffer.byteLength(secret) < 32) throw new SourceCommerceError("source_unavailable", 503);
+  if (Buffer.byteLength(secret) < 32)
+    throw new SourceConfigurationError("SOURCE_DOWNLOAD_SIGNING_SECRET", "invalid");
   const endpoint = process.env.SOURCE_S3_ENDPOINT?.trim() || undefined;
   if (endpoint) {
-    const url = new URL(endpoint);
-    if (url.protocol !== "https:" || url.username || url.password || url.search || url.hash)
-      throw new SourceCommerceError("source_unavailable", 503);
+    try {
+      const url = new URL(endpoint);
+      if (url.protocol !== "https:" || url.username || url.password || url.search || url.hash)
+        throw new SourceConfigurationError("SOURCE_S3_ENDPOINT", "invalid");
+    } catch {
+      throw new SourceConfigurationError("SOURCE_S3_ENDPOINT", "invalid");
+    }
   }
   const bucket = setting("SOURCE_S3_BUCKET");
   if (!/^[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]$/.test(bucket))
-    throw new SourceCommerceError("source_unavailable", 503);
+    throw new SourceConfigurationError("SOURCE_S3_BUCKET", "invalid");
   return {
     origin,
     live,
@@ -92,14 +106,15 @@ function accessSettings(): SourceSettings {
 function checkoutSettings() {
   const settings = accessSettings();
   if (process.env.SOURCE_DOWNLOADS_ENABLED !== "true")
-    throw new SourceCommerceError("source_unavailable", 503);
-  if (
-    !setting("STRIPE_WEBHOOK_SECRET").startsWith("whsec_") ||
-    !setting("RESEND_API_KEY").startsWith("re_") ||
-    /[\r\n]/.test(setting("SOURCE_FROM_EMAIL")) ||
-    !["true", "false"].includes(process.env.SOURCE_STRIPE_AUTOMATIC_TAX ?? "")
-  )
-    throw new SourceCommerceError("source_unavailable", 503);
+    throw new SourceConfigurationError("SOURCE_DOWNLOADS_ENABLED", "disabled");
+  if (!setting("STRIPE_WEBHOOK_SECRET").startsWith("whsec_"))
+    throw new SourceConfigurationError("STRIPE_WEBHOOK_SECRET", "invalid");
+  if (!setting("RESEND_API_KEY").startsWith("re_"))
+    throw new SourceConfigurationError("RESEND_API_KEY", "invalid");
+  if (/[\r\n]/.test(setting("SOURCE_FROM_EMAIL")))
+    throw new SourceConfigurationError("SOURCE_FROM_EMAIL", "invalid");
+  if (!["true", "false"].includes(process.env.SOURCE_STRIPE_AUTOMATIC_TAX ?? ""))
+    throw new SourceConfigurationError("SOURCE_STRIPE_AUTOMATIC_TAX", "invalid");
   return settings;
 }
 
@@ -121,7 +136,11 @@ export function isSourceCheckoutConfigured(designId?: string) {
     return designId
       ? Boolean(sourceProduct(designId) && currentPackage(designId))
       : packages().length > 0;
-  } catch {
+  } catch (error) {
+    reportSourceReadiness(error, {
+      nodeEnv: process.env.NODE_ENV,
+      vercelEnv: process.env.VERCEL_ENV,
+    });
     return false;
   }
 }

@@ -11,7 +11,7 @@ Provider instructions checked against official documentation on October 2, 2026.
 
 Managed checkout covers 42 fixed-scope offers. Tow-N-Go, Crestline and McKenzie remain enquiry-first for managed work. All 45 designs have source purchase pages, with separate $49–$199 CAD prices. Reference editions use prepared sample content; the reference business's identity, original media, testimonials and connected services are excluded. The managed sale does not discount source files.
 
-The published manifest contains the first 44 verified private source packages (commit `8b66062`). Tate completed a local Painting Company sandbox purchase, received its source email and confirmed that the ZIP downloaded and opened on October 6, 2026 (Alberta time). That proves the local source flow for those test settings, not Production configuration or the managed-order emails. Building the site alone does not publish new ZIP versions. Calgary Hot Shot still needs its source project and cannot accept a code payment until its ZIP is prepared, uploaded and recorded. The two purchase flows have independent readiness checks and activation flags.
+The published manifest preserves the first 44 verified private source packages and adds 44 refreshed versions in commit `212406a`. Tate completed a local Painting Company sandbox purchase, received its source email and confirmed that the ZIP downloaded and opened on October 6, 2026 (Alberta time). His live Stripe check also confirmed an account enabled for charges and both enabled live webhook destinations with the required events. Neither check proves the effective Vercel credentials or live paid delivery; managed-order inbox delivery is still unconfirmed. Building the site alone does not publish new ZIP versions. Calgary Hot Shot still needs its source project and cannot accept a code payment until its ZIP is prepared, uploaded and recorded. The two purchase flows have independent readiness checks and activation flags.
 
 ## 1. Set up Stripe
 
@@ -159,3 +159,13 @@ Before activation, verify:
 Finally, enter the live values in Vercel Production, enable only the desired feature flag(s), and make a new Production deployment containing the published manifest if selling code. Environment edits do not change existing deployments. Check the intended deployment is Ready at the canonical domain. [Vercel environment settings](https://vercel.com/docs/environment-variables/managing-environment-variables), [redeploying](https://vercel.com/docs/deployments/managing-deployments)
 
 Monitor Stripe webhook delivery and Resend delivery events for the first genuine customer order. If necessary, set the relevant purchase flag to `false` and redeploy to pause new sales; keep payment verification, storage and signing settings available for existing buyers. Do not repeatedly clear email retry markers: uncertain attempts older than 23 hours need the reconciliation procedure in the detailed setup docs.
+
+## 7. Diagnose a disabled source Purchase button
+
+The server checks configuration and the package manifest before rendering the checkout form. This stage makes no Stripe, Resend or R2 request. A disabled button therefore does not by itself establish a provider authentication failure.
+
+After the diagnostic release is deployed, open the canonical source purchase page, then open the project's private Vercel **Logs** view and search for `source-readiness`. A blocked configuration emits a bounded message containing only an allowlisted setting name and generic reason. Values, lengths, key prefixes, email addresses, download tokens and raw error details are never included. Identical failures are throttled within each server process; open the previous matching log entry rather than repeatedly refreshing. Public pages and API responses retain their generic messages.
+
+Use the named field to correct only that Production setting, then redeploy. A `VERCEL_ENV` failure means the app could not establish the required Vercel Production context. Check the deployment target and Vercel's **Automatically expose System Environment Variables** setting; do not hard-code `VERCEL_ENV` to bypass the guard. A missing or invalid signing secret must be reconciled with the existing private value, not replaced with a new value that would invalidate paid orders.
+
+The diagnostic does not activate checkout, test provider authentication, alter prices, publish archives or grant downloads. There is no public readiness endpoint.
