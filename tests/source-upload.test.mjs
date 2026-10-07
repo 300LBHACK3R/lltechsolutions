@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdtemp, mkdir, readFile, readdir, rm, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -17,8 +18,12 @@ import {
   verifyArchive,
 } from "../scripts/upload-source-packages.mjs";
 
-function fixture(designId = "pigment", version = "a".repeat(64), sourceDirty = false) {
-  const sourceCommit = "c".repeat(40);
+function fixture(
+  designId = "pigment",
+  version = "a".repeat(64),
+  sourceDirty = false,
+  sourceCommit = "c".repeat(40),
+) {
   const files = new Map(
     Object.entries({
       "package.json": JSON.stringify({
@@ -106,6 +111,63 @@ async function localFixture(t, entries = [fixture()], current = manifest()) {
     await writeFile(archivePath, archive);
   }
   return { directory, packageDirectory, manifestPath, log() {} };
+}
+
+async function gitUploadFixture(t) {
+  const directory = await mkdtemp(join(tmpdir(), "landl-source-upload-git-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const git = (args) =>
+    execFileSync("git", args, {
+      cwd: directory,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+  const manifestPath = join(directory, "src/data/source-package-manifest.json");
+  const sourcePath = join(directory, "src/template.ts");
+  await mkdir(dirname(manifestPath), { recursive: true });
+  await writeFile(
+    join(directory, ".gitignore"),
+    await readFile(new URL("../.gitignore", import.meta.url)),
+  );
+  await writeFile(manifestPath, `${JSON.stringify(manifest(), null, 2)}\n`);
+  await writeFile(sourcePath, "export const title = 'Reviewed template';\n");
+  git(["init", "--quiet"]);
+  git(["add", ".gitignore", "src"]);
+  git([
+    "-c",
+    "user.name=Source upload test",
+    "-c",
+    "user.email=source-upload-test@example.invalid",
+    "-c",
+    "commit.gpgsign=false",
+    "-c",
+    `core.hooksPath=${join(directory, "disabled-hooks")}`,
+    "commit",
+    "--quiet",
+    "-m",
+    "Reviewed source fixture",
+  ]);
+  const { item, archive } = fixture(
+    "pigment",
+    "a".repeat(64),
+    false,
+    git(["rev-parse", "HEAD"]).trim(),
+  );
+  const packageDirectory = join(directory, "build/source-packages-ready");
+  const archivePath = join(packageDirectory, item.designId, item.sha256, item.filename);
+  await mkdir(dirname(archivePath), { recursive: true });
+  await writeFile(archivePath, archive);
+  await writeFile(join(packageDirectory, "manifest.json"), JSON.stringify(manifest(item)));
+  return {
+    directory,
+    packageDirectory,
+    manifestPath,
+    sourcePath,
+    item,
+    git,
+    verifySource: (pending) => assertUploadSource(pending, git),
+    log() {},
+  };
 }
 
 test("upload manifest rejects unknown offers, paths, malformed hashes and metadata", () => {
@@ -232,6 +294,74 @@ test("real upload requires committed source and exact build provenance while all
     () => assertUploadSource(manifest(item), git("", "", "d".repeat(40))),
     /different source commit/,
   );
+});
+
+test("real Git provenance permits the uploader's own exact ignored lock while publishing", async (t) => {
+  const local = await gitUploadFixture(t);
+  const storage = storageMock();
+  const send = storage.send.bind(storage);
+  let lockChecks = 0;
+  let provenanceChecks = 0;
+  storage.send = async (command) => {
+    await readFile(`${local.manifestPath}.upload-lock`);
+    lockChecks += 1;
+    return send(command);
+  };
+  const result = await publishPackages({
+    ...local,
+    upload: true,
+    client: storage,
+    bucket: "private-source",
+    verifySource(pending) {
+      local.verifySource(pending);
+      provenanceChecks += 1;
+      if (provenanceChecks === 2)
+        assert.equal(
+          local
+            .git(["check-ignore", "--", "src/data/source-package-manifest.json.upload-lock"])
+            .trim(),
+          "src/data/source-package-manifest.json.upload-lock",
+        );
+    },
+  });
+  assert.equal(result.uploaded, true);
+  assert.equal(lockChecks, 3);
+  assert.equal(provenanceChecks, 2);
+  assert.deepEqual(JSON.parse(await readFile(local.manifestPath, "utf8")), manifest(local.item));
+  assert.equal(local.git(["ls-files", "--others", "--exclude-standard"]), "");
+  await assert.rejects(readFile(`${local.manifestPath}.upload-lock`), { code: "ENOENT" });
+});
+
+test("real Git provenance still rejects unrelated tracked or untracked changes made during upload", async (t) => {
+  for (const change of ["tracked", "untracked", "unrelated-lock"]) {
+    await t.test(change, async (t) => {
+      const local = await gitUploadFixture(t);
+      const before = await readFile(local.manifestPath);
+      const storage = storageMock();
+      const send = storage.send.bind(storage);
+      storage.send = async (command) => {
+        const response = await send(command);
+        if (command.constructor.name === "PutObjectCommand") {
+          const changedPath =
+            change === "tracked"
+              ? local.sourcePath
+              : join(
+                  local.directory,
+                  change === "untracked" ? "src/unreviewed.ts" : "src/template.ts.upload-lock",
+                );
+          await writeFile(changedPath, "export const title = 'Unreviewed change';\n");
+        }
+        return response;
+      };
+      await assert.rejects(
+        publishPackages({ ...local, upload: true, client: storage, bucket: "private-source" }),
+        /Commit your reviewed source changes/,
+      );
+      assert.equal(storage.writes.length, 1);
+      assert.deepEqual(await readFile(local.manifestPath), before);
+      await assert.rejects(readFile(`${local.manifestPath}.upload-lock`), { code: "ENOENT" });
+    });
+  }
 });
 
 test("local package paths reject traversal and symlinks, including directory ancestors", async (t) => {

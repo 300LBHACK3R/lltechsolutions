@@ -17,6 +17,9 @@
 /templates/**/out/
 /templates/**/node_modules/
 
+# Ephemeral source uploader lock; keep unrelated untracked files visible.
+/src/data/source-package-manifest.json.upload-lock
+
 # Environment files
 .env*
 
