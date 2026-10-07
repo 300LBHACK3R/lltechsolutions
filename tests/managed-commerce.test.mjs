@@ -378,6 +378,64 @@ test("owner notification contains signed business/project details and optional m
   assert.ok(!buyer.text.includes(order.sessionId));
 });
 
+test("managed HTML preserves order scope, recipient separation and multiline business briefs", () => {
+  const order = grant({ mediaHelp: true });
+  // Exercise renderer input directly: checkout currently normalizes brief whitespace.
+  order.brief.message = 'First line\nSecond line with <b>untrusted HTML</b> & "quotes".';
+  const owner = managedEmailContent(order, "owner", "owner@example.invalid");
+  const buyer = managedEmailContent(order, "buyer", "owner@example.invalid");
+  assert.ok(
+    owner.html.includes(
+      "First line<br>Second line with &lt;b&gt;untrusted HTML&lt;/b&gt; &amp; &quot;quotes&quot;.",
+    ),
+  );
+  assert.ok(owner.html.includes(order.sessionId));
+  assert.ok(!buyer.html.includes(order.sessionId));
+  assert.ok(!buyer.html.includes("First line"));
+  assert.ok(owner.html.includes("mailto:business%40example.invalid?subject="));
+  assert.ok(buyer.html.includes("mailto:owner%40example.invalid?subject="));
+  for (const message of [owner, buyer]) {
+    for (const value of [
+      order.reference,
+      "$319.20 CAD",
+      "$399.00 CAD",
+      "$15.96 CAD",
+      "$335.16 CAD",
+      "Home, Services, Projects and Contact<br>Supplied images and branding",
+      "discuss and quote separately; not included in this payment",
+    ])
+      assert.ok(message.html.includes(value), value);
+    assert.doesNotMatch(message.html, /<(?:img|script|iframe|form)\b/i);
+    assert.ok(Buffer.byteLength(message.html) < 50_000);
+  }
+});
+
+test("every dynamic managed HTML field is escaped while plain-text contents remain literal", () => {
+  const order = grant();
+  const hostile = "<svg onload=\"alert(1)\"> & 'not markup'";
+  for (const key of [
+    "name",
+    "businessName",
+    "location",
+    "website",
+    "services",
+    "message",
+    "phone",
+    "termsVersion",
+  ])
+    order.brief[key] = hostile;
+  for (const key of ["name", "contactScope", "inclusions", "exclusions", "included"])
+    order.quote[key] = hostile;
+  for (const role of ["owner", "buyer"]) {
+    const message = managedEmailContent(order, role, "owner@example.invalid");
+    assert.ok(
+      message.html.includes("&lt;svg onload=&quot;alert(1)&quot;&gt; &amp; &#39;not markup&#39;"),
+    );
+    assert.doesNotMatch(message.html, /<svg\b/i);
+    assert.ok(message.text.includes(hostile));
+  }
+});
+
 test("independent email markers allow buyer confirmation despite owner failure and then retry owner only", async () => {
   const order = grant();
   const sent = [];

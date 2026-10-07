@@ -32,9 +32,12 @@ The manifest is `{ schemaVersion: 1, packages: [...] }`. Each entry contains `de
 - Only the selected template or clean reference-edition content, plus shared template type definitions and helpers where needed. The whole L&L application, original client pages/files and customer source store are excluded.
 - Generated sample imagery with an explicit provenance allowlist and per-file hashes.
 - `README.md`, `.env.example` without credentials, `LICENSE.txt`, `THIRD-PARTY-NOTICES.md`, `ASSET-LICENSES.json` and `TEMPLATE-PACKAGE.json`.
+- An `EDITING.md` file map and `.editorconfig` for every customer edition. Final TypeScript, JSX, CSS, JavaScript and JSON files are formatted consistently before their version and archive hashes are calculated. Reference guides use the same `npm ci` and Node.js 22.18+ setup baseline as their packaged README.
 - A neutral icon, editable `src/config/site.ts`, documented sample behaviour and an export normalizer for Windows Next.js page-data filenames.
 
 The builder removes the L&L sales strip and template-price calls to action. Remaining generic contact actions use an editable sample email link, never the studio's enquiry endpoint. Existing business-specific placeholder phone/email displays are deliberately identified in the setup guide rather than silently represented as configured. Demo forms remain local demonstrations; actual email/API delivery is not part of a code-only purchase.
+
+After selecting a Transport & Logistics design, the builder retains its own stylesheet and recomputes the import graph to exclude unreachable sibling components and interactions. Shared family helpers and conditional layouts in other categories remain readable source, not a claim of complete dead-code elimination. The reference editions retain their established styling cascades; formatting does not prove browser equivalence or replace a reviewed visual refactor.
 
 The licence text reuses the exact storefront licence points from `src/data/source-license.ts`, including one-client handoff. Open-source dependencies retain their own licences. The license is non-exclusive and permits one business website plus staging; redistribution as a downloadable template product is excluded.
 
@@ -51,3 +54,5 @@ Paths are validated before packaging: no parent traversal, absolute paths, Windo
 Run `node --test --experimental-strip-types tests/source-packages.test.mjs`. The package gate must exercise malicious paths, secret leakage, Windows filename collisions, exact ZIP round trips, missing-source rejection, slim runtime dependencies, licence consistency, form disclosures, substituted assets, source-edition isolation and each prepared package manifest. Run `tests/source-products.test.mjs` and `tests/source-upload.test.mjs` to check all 45 commercial IDs, exact source prices, immutable private archive identity and upload provenance. Test fixtures do not publish an archive or prove Calgary Hot Shot source is available.
 
 For a release, extract representative archives into clean folders, run `npm ci`, `npm run typecheck`, and `npm run build`. Check the exported routes and images, then review browser rendering before claiming device or browser QA. Source delivery does not promise universal compatibility, perfect security or a particular performance/search score. The generated buyer README covers configuration, the noindex defaults and the separate work needed for live contact delivery and deployment.
+
+Publish source improvements as a newly built, verified batch with new content hashes. Never overwrite or delete earlier private objects: existing paid orders retain their immutable package identity. Updating the generator alone does not update a customer's published download.

@@ -238,25 +238,262 @@
   color: var(--muted);
   line-height: 1.7;
 }
-.source-success {
+/* The two verified purchase flows share one restrained delivery layout. */
+.source-success,
+.managed-purchase-success {
+  max-width: 1240px;
+  padding-block: clamp(36px, 6vw, 76px) clamp(56px, 7vw, 104px);
+}
+.purchase-delivery-heading {
+  margin-bottom: clamp(28px, 4vw, 48px);
+  padding-block: 12px 24px;
+}
+.purchase-delivery-heading h1 {
   max-width: 900px;
-  padding-block: clamp(48px, 8vw, 96px);
+  margin-block: 20px;
+  font-size: clamp(38px, 5vw, 68px);
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
 }
-.source-success h1 {
-  font-size: clamp(36px, 5vw, 64px);
-  line-height: 1.1;
-  margin-block: 20px 32px;
+.purchase-delivery-heading h1 span {
+  display: block;
+  color: var(--gold-light);
+  font-family: var(--font-editorial), Georgia, serif;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: -0.025em;
 }
-.source-purchase-status p,
-.source-success > p {
-  line-height: 1.8;
-  margin-block: 16px;
+.purchase-delivery-heading > p:last-child {
+  max-width: 60ch;
+  color: var(--muted);
+  font-size: clamp(16px, 1.6vw, 18px);
+  line-height: 1.7;
 }
-.source-purchase-status h2 {
-  font-size: 28px;
+.source-purchase-status,
+.managed-purchase-status {
+  min-width: 0;
 }
-.source-purchase-status .button {
-  margin-block: 18px;
+.purchase-delivery-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--gold-light);
+  background: #121311;
+}
+.purchase-delivery-order,
+.purchase-delivery-guide,
+.purchase-delivery-message {
+  min-width: 0;
+  padding: clamp(24px, 3.4vw, 44px);
+}
+.purchase-delivery-message {
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--gold-light);
+  background: #121311;
+}
+.purchase-delivery-message > .purchase-delivery-order {
+  padding: 0;
+}
+.purchase-delivery h2 {
+  margin-block: 20px 26px;
+  font-size: clamp(27px, 3vw, 38px);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.purchase-delivery-order p,
+.purchase-delivery-message > p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.75;
+}
+.purchase-delivery-order p + p {
+  margin-top: 16px;
+}
+.purchase-delivery-order .purchase-delivery-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--gold-light);
+  font-size: 12px;
+  font-weight: 550;
+  letter-spacing: 0.09em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+.purchase-delivery-state > span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  place-items: center;
+  border: 1px solid #ddc38569;
+  border-radius: 50%;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+.purchase-delivery-details,
+.managed-order-details {
+  margin: 0 0 24px;
+  padding-block: 8px;
+  border-block: 1px solid var(--line);
+}
+.purchase-delivery-details > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 20px;
+  padding-block: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.purchase-delivery-details dt {
+  color: var(--muted);
+}
+.purchase-delivery-details dd {
+  margin: 0;
+  color: var(--text);
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+.purchase-delivery .button {
+  min-height: 48px;
+  margin-block: 18px 0;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.5;
+}
+.purchase-delivery .purchase-delivery-primary {
+  width: 100%;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 0;
+}
+.purchase-delivery-order .purchase-delivery-fineprint {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.purchase-delivery-order .purchase-delivery-email {
+  margin-top: 24px;
+}
+.purchase-delivery-guide {
+  border-left: 1px solid var(--line);
+  background: #191b18;
+}
+.purchase-delivery-guide .eyebrow {
+  font-size: 11px;
+}
+.purchase-delivery-guide h3 {
+  margin-block: 16px 28px;
+  font-size: clamp(22px, 2.3vw, 29px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+.purchase-delivery-steps {
+  list-style: none;
+  counter-reset: delivery-step;
+  padding: 0;
+  margin: 0;
+}
+.purchase-delivery-steps li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 16px;
+  counter-increment: delivery-step;
+}
+.purchase-delivery-steps li + li {
+  margin-top: 24px;
+}
+.purchase-delivery-steps li::before {
+  content: counter(delivery-step, decimal-leading-zero);
+  padding-top: 3px;
+  color: var(--gold-light);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.purchase-delivery-steps h4 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 550;
+  line-height: 1.5;
+}
+.purchase-delivery-steps p,
+.purchase-delivery-scope {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+.purchase-delivery-scope {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+.purchase-delivery-support {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+  padding-top: 28px;
+}
+.purchase-delivery-support h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.purchase-delivery-support p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.purchase-delivery-support nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+}
+.purchase-delivery-support a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.purchase-delivery a:focus-visible,
+.purchase-delivery button:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 4px;
+}
+@media (max-width: 800px) {
+  .purchase-delivery-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .purchase-delivery-guide {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+@media (max-width: 420px) {
+  .purchase-delivery-order,
+  .purchase-delivery-guide,
+  .purchase-delivery-message {
+    padding: 20px;
+  }
+  .purchase-delivery-details > div {
+    display: block;
+  }
+  .purchase-delivery-details dd {
+    margin-top: 5px;
+  }
 }
 @media (max-width: 800px) {
   .source-layout {

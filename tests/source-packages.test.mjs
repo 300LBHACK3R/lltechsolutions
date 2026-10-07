@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { unzipSync } from "fflate";
+import ts from "typescript";
+import { check as checkFormatting } from "prettier";
 import {
   assembleSourcePackage,
   assertSourceBuildState,
@@ -192,6 +194,19 @@ test("transport packaging omits sibling website components and client content", 
   ]) {
     assert.equal(result.files.has(`src/components/collection/${component}.tsx`), false);
   }
+  for (const component of [
+    "ColdChainInteractions",
+    "FreightInteractions",
+    "TransportEquipmentInteractions",
+  ]) {
+    assert.equal(result.files.has(`src/components/collection/${component}.tsx`), false);
+  }
+  const layout = Buffer.from(result.files.get("app/layout.tsx")).toString();
+  assert.match(layout, /transport-moving\.css/u);
+  for (const style of ["courier", "auto", "equipment", "cold", "freight"]) {
+    assert.equal(result.files.has(`src/styles/transport-${style}.css`), false);
+    assert.doesNotMatch(layout, new RegExp(`transport-${style}\\.css`, "u"));
+  }
   for (const [path, bytes] of result.files) {
     assert.doesNotMatch(path, /public\/(?:brand|media|images\/projects)/u);
     if (/\.(?:tsx?|json)$/u.test(path))
@@ -202,11 +217,56 @@ test("transport packaging omits sibling website components and client content", 
   }
 });
 
+test("customer code is formatted, documented and carries neutral sample contact copy", async () => {
+  for (const id of ["home-cleaning", "catering-events", "fine-dining", "horizon"]) {
+    const result = await assembleSourcePackage(id, { sourceCommit: commit });
+    assert.ok(result.files.has("EDITING.md"), id);
+    assert.ok(result.files.has(".editorconfig"), id);
+    for (const [name, bytes] of result.files) {
+      if (!/\.(?:tsx?|css|mjs|json)$/u.test(name)) continue;
+      const source = Buffer.from(bytes).toString();
+      assert.equal(
+        await checkFormatting(source, {
+          filepath: name,
+          printWidth: 100,
+          tabWidth: 2,
+          trailingComma: "all",
+          endOfLine: "lf",
+        }),
+        true,
+        `${id}/${name}`,
+      );
+      if (/\.(?:tsx?|mjs)$/u.test(name)) {
+        assert.doesNotMatch(source, /<>\s*<\/>/u, `${id}/${name}`);
+        assert.doesNotMatch(
+          source,
+          /L&L website demonstration|follow the L&L|use the L&L enquiry link/u,
+          `${id}/${name}`,
+        );
+      }
+    }
+  }
+});
+
 test("all 44 archives enforce path, content and metadata invariants", async () => {
   for (const id of Object.keys(packageDemos)) {
     const result = await assembleSourcePackage(id, { sourceCommit: commit });
     auditSourceFiles(result.files);
     const decoded = unzipSync(result.archive);
+    for (const [name, bytes] of result.files) {
+      if (!/\.(?:tsx?|mjs)$/u.test(name)) continue;
+      const parsed = ts.createSourceFile(
+        name,
+        Buffer.from(bytes).toString(),
+        ts.ScriptTarget.Latest,
+        true,
+      );
+      assert.equal(
+        parsed.parseDiagnostics.length,
+        0,
+        `${id}/${name} must remain valid after cleanup`,
+      );
+    }
     assert.equal(decoded["TEMPLATE-PACKAGE.json"] !== undefined, true, id);
     assert.equal(JSON.parse(Buffer.from(decoded["TEMPLATE-PACKAGE.json"])).designId, id);
     assert.equal(result.manifest.bytes, result.archive.length, id);

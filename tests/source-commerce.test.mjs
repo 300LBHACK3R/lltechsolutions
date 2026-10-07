@@ -375,6 +375,41 @@ function emailHarness(purchase = grant()) {
   return { purchase, dependencies, marks, emails, deliveries: () => deliveries };
 }
 
+test("source HTML delivers the exact signed link and expiry from its plain-text fallback", async () => {
+  for (const origin of ["https://lltechsolutions.ca", "http://localhost:3000"]) {
+    const h = emailHarness();
+    await fulfillSourceEmail(h.purchase, { ...h.dependencies, origin });
+    const message = JSON.parse([...h.emails.values()][0]);
+    const textUrl = message.text.match(/Download your ZIP: (\S+)/)[1];
+    const htmlUrl = message.html.match(/<a href="([^"]+)"/)[1].replaceAll("&amp;", "&");
+    assert.equal(htmlUrl, textUrl);
+    const url = new URL(htmlUrl);
+    assert.equal(url.origin, origin);
+    const token = readSourceDownloadToken(url.searchParams.get("token"), secret, now);
+    assertSourceTokenMatches(token, h.purchase);
+    assert.ok(
+      message.html.includes(new Date(h.purchase.expiresAt * 1000).toISOString().slice(0, 10)),
+    );
+    assert.ok(message.html.includes(h.purchase.package.sha256));
+    assert.ok(message.text.includes("hosting, paid providers and maintenance are separate"));
+    // Private grants stay on the button, never as a long visible URL or remote image.
+    assert.ok(!message.html.replace(/<[^>]+>/g, "").includes(url.searchParams.get("token")));
+    assert.doesNotMatch(message.html, /<(?:img|script|iframe|form)\b/i);
+    assert.ok(Buffer.byteLength(message.html) < 30_000);
+  }
+});
+
+test("source HTML treats design and package labels as text without altering the grant", async () => {
+  const purchase = grant();
+  purchase.name = 'Paint <img src=x onerror="alert(1)"> & Co';
+  const h = emailHarness(purchase);
+  await fulfillSourceEmail(purchase, h.dependencies);
+  const message = JSON.parse([...h.emails.values()][0]);
+  assert.ok(message.html.includes("Paint &lt;img src=x onerror=&quot;alert(1)&quot;&gt; &amp; Co"));
+  assert.doesNotMatch(message.html, /<img\b/i);
+  assert.ok(message.text.includes(purchase.name));
+});
+
 test("duplicate and concurrent fulfilment use a stable idempotency key and durable sent marker", async () => {
   const h = emailHarness();
   await Promise.all([

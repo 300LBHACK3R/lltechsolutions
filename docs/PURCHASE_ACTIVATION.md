@@ -11,7 +11,7 @@ Provider instructions checked against official documentation on October 2, 2026.
 
 Managed checkout covers 42 fixed-scope offers. Tow-N-Go, Crestline and McKenzie remain enquiry-first for managed work. All 45 designs have source purchase pages, with separate $49–$199 CAD prices. Reference editions use prepared sample content; the reference business's identity, original media, testimonials and connected services are excluded. The managed sale does not discount source files.
 
-The source manifest is currently empty. Building the site alone does not publish ZIPs. There are 44 source-package candidates; Calgary Hot Shot still needs its source project and cannot accept a code payment until its ZIP is prepared, uploaded and recorded. Managed purchases can be enabled before source downloads because their readiness checks are independent. Provider activation and real delivery are not established by the repository checks.
+The published manifest contains the first 44 verified private source packages (commit `8b66062`). Tate completed a local Painting Company sandbox purchase, received its source email and confirmed that the ZIP downloaded and opened on October 6, 2026 (Alberta time). That proves the local source flow for those test settings, not Production configuration or the managed-order emails. Building the site alone does not publish new ZIP versions. Calgary Hot Shot still needs its source project and cannot accept a code payment until its ZIP is prepared, uploaded and recorded. The two purchase flows have independent readiness checks and activation flags.
 
 ## 1. Set up Stripe
 

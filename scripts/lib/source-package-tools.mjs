@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { lstat, readFile, readdir } from "node:fs/promises";
 import { posix, resolve } from "node:path";
 import { strToU8, zipSync } from "fflate";
+import { format } from "prettier";
 
 // No maintained customer edition exists for this offer yet. It must never be
 // substituted with another template or sold without a verified private archive.
@@ -201,6 +202,30 @@ export async function sourceFile(root, relative) {
 
 export function textBytes(text) {
   return strToU8(text.endsWith("\n") ? text : `${text}\n`);
+}
+
+const formattedSourceCache = new Map();
+
+// Buyer source is intended to be read and edited. Format the final transformed
+// files before hashing them; never rewrite an already published archive.
+export async function formatSourceFiles(files) {
+  for (const [name, bytes] of files) {
+    if (!/\.(?:tsx?|mjs|css|json)$/u.test(name)) continue;
+    const source = Buffer.from(bytes).toString("utf8");
+    const key = `${name.slice(name.lastIndexOf("."))}:${sha256(bytes)}`;
+    let formatted = formattedSourceCache.get(key);
+    if (formatted === undefined) {
+      formatted = await format(source, {
+        filepath: name,
+        printWidth: 100,
+        tabWidth: 2,
+        trailingComma: "all",
+        endOfLine: "lf",
+      });
+      formattedSourceCache.set(key, formatted);
+    }
+    files.set(name, textBytes(formatted));
+  }
 }
 
 export function localImportPath(source, specifier) {

@@ -17,6 +17,7 @@ import {
   assertPackagePath,
   createSourceArchive,
   customerPackage,
+  formatSourceFiles,
   localImportPath,
   regularFiles,
   sha256,
@@ -50,6 +51,14 @@ export const packageDemos = {
 };
 
 const familyNames = ["homeProperty", "retail", "food", "transport", "professional"];
+const transportStyles = {
+  "courier-one-page": "transport-courier.css",
+  "moving-company": "transport-moving.css",
+  "auto-transport": "transport-auto.css",
+  "equipment-rentals": "transport-equipment.css",
+  "cold-chain": "transport-cold.css",
+  "freight-logistics": "transport-freight.css",
+};
 const replacements = {
   "plumbing-interior.webp": "painting-interior.webp",
   "plumbing-detail.webp": "construction-home.webp",
@@ -174,6 +183,10 @@ function stripSalesSource(source, filename) {
     filename.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS,
   );
   const transform = (context) => {
+    const emptyRendering = (node) =>
+      ts.isJsxElement(node.parent) || ts.isJsxFragment(node.parent)
+        ? undefined
+        : ts.factory.createNull();
     function visit(node) {
       if (
         ts.isImportDeclaration(node) &&
@@ -192,27 +205,15 @@ function stripSalesSource(source, filename) {
             className,
           )
         )
-          return ts.factory.createJsxFragment(
-            ts.factory.createJsxOpeningFragment(),
-            [],
-            ts.factory.createJsxJsxClosingFragment(),
-          );
+          return emptyRendering(node);
         if (
           ["a", "Link"].includes(node.openingElement.tagName.getText()) &&
           /Template details/u.test(node.getText())
         )
-          return ts.factory.createJsxFragment(
-            ts.factory.createJsxOpeningFragment(),
-            [],
-            ts.factory.createJsxJsxClosingFragment(),
-          );
+          return emptyRendering(node);
       }
       if (ts.isJsxSelfClosingElement(node) && node.tagName.getText() === "TemplatePrice")
-        return ts.factory.createJsxFragment(
-          ts.factory.createJsxOpeningFragment(),
-          [],
-          ts.factory.createJsxJsxClosingFragment(),
-        );
+        return emptyRendering(node);
       if (ts.isJsxSelfClosingElement(node) && node.tagName.getText() === "Image") {
         const src = node.attributes.properties.find(
           (item) => ts.isJsxAttribute(item) && item.name.text === "src",
@@ -272,6 +273,22 @@ function stripSalesSource(source, filename) {
     .replaceAll("A website by L&L", "Email this business")
     .replaceAll("Original L&L demo", "Sample website")
     .replaceAll(
+      "Fictional business · L&L website demonstration",
+      "Sample business · Replace before launch",
+    )
+    .replaceAll(
+      "Try the demonstration enquiry with sample details, or follow the L&L link to discuss this website for your own business.",
+      "Try the enquiry layout with sample details. This demonstration does not send or save messages.",
+    )
+    .replaceAll(
+      "Explore the sample enquiry form below. For a real conversation about this website, follow the L&L enquiry link.",
+      "Explore the enquiry layout with sample details. Connect your own form service before accepting real enquiries.",
+    )
+    .replaceAll(
+      "This is an illustrative website demo, so it does not accept landscape bookings or contractor enquiries. If you would like a website like this for your business, use the L&L enquiry link on the Contact page.",
+      "This sample website does not accept landscape bookings or contractor enquiries. Replace the sample contact details and connect your chosen enquiry service before launch.",
+    )
+    .replaceAll(
       "An original L&L sample design · Your business, made personal.",
       "Sample website · Replace with your business details.",
     )
@@ -301,7 +318,12 @@ function packageLayout(original, design) {
         ts.isStringLiteral(node.moduleSpecifier) &&
         (node.moduleSpecifier.text.endsWith(".css") ||
           node.moduleSpecifier.text === "next/font/google") &&
-        !node.moduleSpecifier.text.includes("template-pricing"),
+        !node.moduleSpecifier.text.includes("template-pricing") &&
+        (!transportStyles[design.id] ||
+          !Object.values(transportStyles).some((style) =>
+            node.moduleSpecifier.text.endsWith(style),
+          ) ||
+          node.moduleSpecifier.text.endsWith(transportStyles[design.id])),
     )
     .map((node) => node.getText());
   const fonts = parsed.statements
@@ -348,6 +370,7 @@ ${assetNote || "Included imagery is generated sample imagery for this fictional 
 - Replace or keep the licensed illustrative files in \`public/images/collection/\`. Update their descriptive alt text when changing images. Each asset is listed in \`ASSET-LICENSES.json\` with its provenance.
 - Adjust colours, spacing and effects in \`src/styles/\`. Reduced motion and keyboard controls remain part of the template.
 - Replace the neutral \`app/icon.svg\` with your own icon. No L&L or client logos are licensed as your business branding.
+- Use \`EDITING.md\` as a file map for this download. Source files use consistent two-space formatting; \`.editorconfig\` records the whitespace conventions.
 
 ## Contact and interactive behaviour
 
@@ -374,6 +397,114 @@ If the downloaded archive is damaged or its supplied build fails unchanged in th
 Included illustrative asset count: ${assets.length}.
 `;
 }
+
+// Recalculate reachability after selecting the transport entry component. The
+// initial dependency walk also saw its five sibling imports; those modules must
+// not remain in a customer's download merely because they existed before pruning.
+function pruneUnreachableTemplateSource(files) {
+  const pending = [...files.keys()].filter((name) => /^app\/.*\.(?:tsx?|mjs)$/u.test(name));
+  const reached = new Set();
+  while (pending.length) {
+    const name = pending.pop();
+    if (reached.has(name)) continue;
+    reached.add(name);
+    const text = Buffer.from(files.get(name)).toString("utf8");
+    const specifiers = [];
+    if (name.endsWith(".css")) {
+      for (const match of text.matchAll(/@import\s+["']([^"']+)["']/gu)) specifiers.push(match[1]);
+    } else {
+      const parsed = ts.createSourceFile(name, text, ts.ScriptTarget.Latest, true);
+      const visit = (node) => {
+        if (
+          (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
+          node.moduleSpecifier &&
+          ts.isStringLiteral(node.moduleSpecifier)
+        ) {
+          specifiers.push(node.moduleSpecifier.text);
+        }
+        if (
+          ts.isCallExpression(node) &&
+          node.expression.kind === ts.SyntaxKind.ImportKeyword &&
+          node.arguments.length === 1 &&
+          ts.isStringLiteral(node.arguments[0])
+        ) {
+          specifiers.push(node.arguments[0].text);
+        }
+        ts.forEachChild(node, visit);
+      };
+      visit(parsed);
+    }
+    for (const specifier of specifiers) {
+      const path = localImportPath(name, specifier);
+      if (!path) continue;
+      const candidates = extname(path)
+        ? [path]
+        : [".ts", ".tsx", ".mjs", ".css", "/index.ts", "/index.tsx"].map((suffix) => path + suffix);
+      const target = candidates.find((candidate) => files.has(candidate));
+      if (!target) throw new Error(`Unresolved customer import ${specifier} in ${name}.`);
+      pending.push(target);
+    }
+  }
+  for (const name of files.keys()) {
+    if (
+      /^src\/(?:components|data|lib|styles)\/.*\.(?:tsx?|mjs|css)$/u.test(name) &&
+      !reached.has(name)
+    ) {
+      files.delete(name);
+    }
+  }
+}
+
+function packageEditingGuide(design, files) {
+  const group = (prefix) =>
+    [...files.keys()]
+      .filter((name) => name.startsWith(prefix))
+      .sort()
+      .map((name) => `- \`${name}\``)
+      .join("\n");
+  return `# Editing ${design.name}
+
+Start with \`README.md\` for installation and deployment. Edit one area at a time, then run \`npm run typecheck\` and \`npm run build\`.
+
+## Identity and page content
+
+\`src/config/site.ts\` owns the metadata name, description and generic email destination. It does not automatically replace every visible sample name or phone number. Update those values in the content and component files listed below, then search for the sample business name, \`example.com\`, sample locations and demonstration text before launch.
+
+${group("src/data/")}
+
+## Page layout and interactions
+
+\`app/[[...view]]/page.tsx\` selects this website's pages; \`app/layout.tsx\` owns shared metadata, fonts and the sample notice. The components below supply the page sections and local interactions. Shared family components may retain conditional layouts and types for related styles; the selected content and routes determine this website.
+
+${group("src/components/collection/")}
+
+## Appearance
+
+${group("src/styles/")}
+
+Keep keyboard focus styles, reduced-motion handling and small-screen rules when changing the design. The supplied \`.editorconfig\` uses two spaces and LF line endings. The code is formatted for editing, not minified.
+
+## Images and contact
+
+Replace images under \`public/images/collection/\` and update matching paths and alternative text. \`ASSET-LICENSES.json\` records the supplied illustrative files and their hashes.
+
+Sample contact forms remain local demonstrations. Changing an email setting does not connect form delivery. Replace direct-contact links with your own destinations or implement a protected backend/hosted form service, then test delivery. Keep the sample notice and noindex settings until the real content and behaviour are ready.
+`;
+}
+
+const editorConfig = `root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
+`;
 
 const license = `${sourceLicense.title} — L&L Tech Solutions
 Version ${sourceLicenseVersion}
@@ -523,6 +654,7 @@ export async function assembleSourcePackage(
     for (const component of Object.values(transportComponents))
       if (component !== selected) files.delete(`src/components/collection/${component}.tsx`);
   }
+  pruneUnreachableTemplateSource(files);
 
   const assets = [];
   const requestedAssets = new Set();
@@ -559,6 +691,8 @@ export async function assembleSourcePackage(
     JSON.stringify({ schemaVersion: 1, designId, assetNote, assets }, null, 2),
   );
   put("README.md", packageReadme(design, demo, assets, assetNote));
+  put("EDITING.md", packageEditingGuide(design, files));
+  put(".editorconfig", editorConfig);
   put("LICENSE.txt", license);
   for (const [name, font] of Object.entries(sourceFontLicenses)) {
     put(`licenses/${name}-OFL.txt`, font.text);
@@ -588,6 +722,9 @@ export async function assembleSourcePackage(
     "scripts/lib/static-export-segments.mjs",
   ])
     files.set(file, await sourceFile(repository, file));
+  const customerTsconfig = JSON.parse(Buffer.from(files.get("tsconfig.json")).toString("utf8"));
+  customerTsconfig.exclude = ["node_modules"];
+  put("tsconfig.json", JSON.stringify(customerTsconfig, null, 2));
   put(
     "next.config.ts",
     'import type { NextConfig } from "next";\nconst config: NextConfig = { output: "export", images: { unoptimized: true }, poweredByHeader: false, turbopack: { root: process.cwd() } };\nexport default config;',
@@ -613,6 +750,7 @@ export async function assembleSourcePackage(
       2,
     ),
   );
+  await formatSourceFiles(files);
   const version = sha256(
     Buffer.concat(
       [...files.entries()]
@@ -637,6 +775,7 @@ export async function assembleSourcePackage(
       2,
     ),
   );
+  await formatSourceFiles(files);
   const archive = createSourceArchive(files);
   const digest = sha256(archive);
   return {
@@ -724,7 +863,18 @@ async function assembleReferenceEdition(designId, { repository, sourceCommit, so
       throw new Error(`Live API route is not part of this static edition: ${name}`);
     const destination = ["README.md", "SOURCE-GUIDE.md"].includes(name) ? "EDITING.md" : name;
     if (files.has(destination)) throw new Error(`Conflicting edition guide: ${name}`);
-    files.set(destination, await sourceFile(directory, name));
+    const contents = await sourceFile(directory, name);
+    if (destination === "EDITING.md") {
+      put(
+        destination,
+        Buffer.from(contents)
+          .toString("utf8")
+          .replaceAll("Node.js 22 or newer", "Node.js 22.18 or newer")
+          .replaceAll("npm install", "npm ci"),
+      );
+    } else {
+      files.set(destination, contents);
+    }
   }
   if (!files.has("EDITING.md")) throw new Error(`Missing customer editing guide: ${designId}`);
   if (
@@ -783,7 +933,7 @@ ${edition.assetNote}
 
 ## Start locally
 
-Install Node.js 22 or newer, then run these commands inside the extracted folder:
+Install Node.js 22.18 or newer, then run these commands inside the extracted folder:
 
 \`\`\`sh
 npm ci
@@ -812,6 +962,7 @@ Read LICENSE.txt and THIRD-PARTY-NOTICES.md. One purchase covers one business we
 `,
   );
   put("LICENSE.txt", license);
+  put(".editorconfig", editorConfig);
   put(
     ".env.example",
     "# Static sample website. No credentials are included or required.\n# Configure your own contact/booking provider separately before enabling real delivery.\n",
@@ -859,6 +1010,7 @@ Read LICENSE.txt and THIRD-PARTY-NOTICES.md. One purchase covers one business we
       2,
     ),
   );
+  await formatSourceFiles(files);
   const version = sha256(
     Buffer.concat(
       [...files.entries()]
@@ -883,6 +1035,7 @@ Read LICENSE.txt and THIRD-PARTY-NOTICES.md. One purchase covers one business we
       2,
     ),
   );
+  await formatSourceFiles(files);
   const archive = createSourceArchive(files);
   const digest = sha256(archive);
   return {

@@ -2,6 +2,7 @@ import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import Stripe from "stripe";
 import { managedTermsVersion, managedFieldLimits } from "../data/managed-purchase.ts";
 import { validSourceSessionId } from "./source-commerce-core.ts";
+import { renderPurchaseEmail } from "./purchase-email.ts";
 
 export const MANAGED_PURCHASE_KIND = "landl-managed-v1";
 export const managedScopeExclusions =
@@ -466,6 +467,110 @@ export function managedEmailContent(
     `Services/products: ${brief.services}`,
     `Project notes: ${brief.message || "Not supplied"}`,
   ];
+  const isOwner = role === "owner";
+  const html = renderPurchaseEmail({
+    preview: isOwner
+      ? `Paid website project: ${brief.businessName} · ${quote.name} · ${grant.reference}`
+      : `Your ${quote.name} project is confirmed. Here is what happens next.`,
+    eyebrow: isOwner ? "New paid project" : "Personalize & launch",
+    title: isOwner
+      ? "A new project.\nReady for your next step."
+      : "Thank you.\nLet’s make it yours.",
+    design: quote.name,
+    introduction: isOwner
+      ? `${brief.businessName} has purchased website personalization and launch. Payment is verified. Their brief and the scope accepted at checkout are below.`
+      : `Thank you, ${brief.name}. Your payment has been received. L&L will follow up to confirm your content, timeline and any extras before work starts.`,
+    action: {
+      label: isOwner ? "Contact the buyer" : "Discuss your project",
+      url: `mailto:${encodeURIComponent(isOwner ? brief.email : ownerEmail)}?subject=${encodeURIComponent(`L&L website project — ${grant.reference}`)}`,
+    },
+    actionNote: `Order reference: ${grant.reference} · ${brief.businessName}`,
+    sections: [
+      {
+        title: isOwner ? "Project handoff" : "What happens next",
+        steps: isOwner
+          ? [
+              {
+                title: "Review the brief",
+                text: "Check the customer’s business, content needs and the scope accepted with their payment.",
+              },
+              {
+                title: "Confirm the plan",
+                text: "Contact the buyer to agree on content, timing and any separately quoted extras.",
+              },
+              {
+                title: "Collect project assets",
+                text: "Arrange a secure way to collect the logo, photos and final copy. Never request passwords or private customer/patient records by email.",
+              },
+            ]
+          : [
+              {
+                title: "We connect",
+                text: "L&L will follow up about your brief, content and delivery schedule.",
+              },
+              {
+                title: "You share your content",
+                text: "Reply with your logo, photos and final copy, or ask us for a file-sharing option. Do not email passwords or sensitive customer/patient information.",
+              },
+              {
+                title: "We personalize and launch",
+                text: "Once the details are agreed, L&L implements your supplied content and completes the launch work within your purchased scope.",
+              },
+            ],
+      },
+      {
+        title: "Your order",
+        details: [
+          { label: "Order reference", value: grant.reference },
+          { label: "Template", value: `${quote.name} (${quote.designId})` },
+          { label: "Website personalization and launch", value: money(quote.priceCents) },
+          { label: "Regular template price", value: money(quote.regularCents) },
+          { label: "Tax", value: money(grant.taxCents) },
+          { label: "Total paid", value: money(grant.totalCents) },
+        ],
+      },
+      {
+        title: "Agreed template scope",
+        details: [
+          { label: "Included page count", value: String(quote.pages) },
+          { label: "Contact setup", value: quote.contactScope },
+          { label: "Listed template scope", value: quote.included },
+          { label: "Personalization and launch work", value: quote.inclusions },
+          { label: "Separate costs and scope", value: quote.exclusions },
+          {
+            label: "Photography / videography",
+            value: brief.mediaHelp
+              ? "Interested — discuss and quote separately; not included in this payment."
+              : "Not requested in this brief.",
+          },
+        ],
+      },
+      ...(isOwner
+        ? [
+            {
+              title: "Customer brief",
+              details: [
+                { label: "Business", value: brief.businessName },
+                { label: "Contact", value: brief.name },
+                { label: "Business email", value: brief.email },
+                { label: "Phone", value: brief.phone || "Not supplied" },
+                { label: "Location / service area", value: brief.location },
+                { label: "Current website", value: brief.website || "Not supplied" },
+                { label: "Services / products", value: brief.services },
+                { label: "Project notes", value: brief.message || "Not supplied" },
+                { label: "Payment contact email", value: grant.email },
+                { label: "Accepted scope / terms version", value: brief.termsVersion },
+                { label: "Stripe Checkout session", value: grant.sessionId, monospace: true },
+              ],
+            },
+          ]
+        : []),
+    ],
+    supportEmail: ownerEmail,
+    footer: isOwner
+      ? "Replying to this notification contacts the buyer at their business email. Keep their brief and order information private."
+      : "This purchase is for L&L to personalize and launch your selected template. Code-only downloads are a separate offer. Include your order reference when contacting us.",
+  });
   return role === "owner"
     ? {
         to: ownerEmail,
@@ -480,6 +585,7 @@ export function managedEmailContent(
           `Scope/terms version accepted: ${brief.termsVersion}`,
           "Next step: contact the buyer to confirm the agreed content, delivery schedule and any separately quoted extras. Collect images, logo and final copy securely; never request passwords or private customer/patient records by email.",
         ].join("\n\n"),
+        html,
       }
     : {
         to: grant.email,
@@ -492,6 +598,7 @@ export function managedEmailContent(
           "L&L will follow up to confirm your content, timeline and any extras before work starts. Reply to this email with your photos, logo and final copy when you are ready, or ask us for a file-sharing option; do not email passwords or sensitive customer/patient information.",
           `This purchase is for L&L to personalize and launch the selected template. It is not the code-only download option. Reply to ${ownerEmail} with your order reference if you need help.`,
         ].join("\n\n"),
+        html,
       };
 }
 export type ManagedEmailDependencies = {
@@ -499,7 +606,7 @@ export type ManagedEmailDependencies = {
   now?: number;
   mark: (sessionId: string, metadata: Record<string, string>) => Promise<void>;
   send: (
-    message: { to: string; replyTo: string; subject: string; text: string },
+    message: { to: string; replyTo: string; subject: string; text: string; html: string },
     idempotencyKey: string,
   ) => Promise<string>;
 };

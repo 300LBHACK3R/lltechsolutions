@@ -290,7 +290,7 @@ async function deliverEmails(grant: ManagedGrant, stripe: Stripe, requireAll: bo
       await stripe.checkout.sessions.update(sessionId, { metadata });
     },
     send: async (
-      message: { to: string; replyTo: string; subject: string; text: string },
+      message: { to: string; replyTo: string; subject: string; text: string; html: string },
       idempotencyKey: string,
     ) => {
       const result = await resend.emails.send(

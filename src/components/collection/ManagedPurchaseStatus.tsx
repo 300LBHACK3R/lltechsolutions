@@ -59,76 +59,147 @@ export default function ManagedPurchaseStatus({ sessionId }: { sessionId: string
     };
   }, [attempt, sessionId]);
 
-  const paid = purchase?.status === "paid" && !message;
+  const paid = !loading && purchase?.status === "paid" && !message;
   const needsRefresh =
     !paid || purchase?.ownerEmailStatus !== "sent" || purchase?.buyerEmailStatus !== "sent";
 
   return (
     <div className="managed-purchase-status" aria-busy={loading}>
-      <div role="status" aria-live="polite">
-        {loading ? (
-          <p>Checking your payment and project handover…</p>
-        ) : message ? (
-          <p>{message} Please don’t pay again while we check your existing order.</p>
-        ) : paid ? (
-          <>
-            <h2>Your payment is confirmed.</h2>
-            <dl className="managed-order-details">
-              <div>
-                <dt>Your website</dt>
-                <dd>{purchase.name}</dd>
-              </div>
-              <div>
-                <dt>Order reference</dt>
-                <dd>{purchase.reference}</dd>
-              </div>
-              {typeof purchase.totalCad === "number" && Number.isFinite(purchase.totalCad) && (
+      <div className={paid ? "purchase-delivery-panel" : "purchase-delivery-message"}>
+        <section className="purchase-delivery-order">
+          <div role="status" aria-live="polite" aria-atomic="true">
+            {loading ? (
+              <>
+                <p className="purchase-delivery-state">Verifying your order</p>
+                <h2>One moment, please.</h2>
+                <p>Checking your payment and project handover…</p>
+              </>
+            ) : message ? (
+              <>
+                <p className="purchase-delivery-state">Order assistance</p>
+                <h2>Let’s check your purchase.</h2>
+                <p>{message} Please don’t pay again while we check your existing order.</p>
+              </>
+            ) : paid ? (
+              <>
+                <p className="purchase-delivery-state">
+                  <span aria-hidden="true">✓</span> Payment confirmed
+                </p>
+                <h2>
+                  Thank you.
+                  <br />
+                  Let’s build your website.
+                </h2>
+              </>
+            ) : (
+              <>
+                <p className="purchase-delivery-state">Awaiting confirmation</p>
+                <h2>Your order is being checked.</h2>
+                <p>
+                  Your payment has not been confirmed yet. Check again shortly; please don’t make a
+                  second payment.
+                </p>
+              </>
+            )}
+          </div>
+          {paid && (
+            <>
+              <dl className="managed-order-details purchase-delivery-details">
                 <div>
-                  <dt>Paid, including applicable tax</dt>
-                  <dd>{formatPriceCad(purchase.totalCad)}</dd>
+                  <dt>Your website</dt>
+                  <dd>{purchase.name}</dd>
                 </div>
-              )}
-            </dl>
-            <p>
-              {purchase.ownerEmailStatus === "sent"
-                ? "Your project details have been emailed to L&L. Tate will follow up to arrange your content handover and confirm the delivery plan."
-                : "Your paid order and project details are saved. The notification to L&L is still pending; you can check again or contact us with your order reference."}
+                <div>
+                  <dt>Your purchase</dt>
+                  <dd>Personalize &amp; launch</dd>
+                </div>
+                <div>
+                  <dt>Order reference</dt>
+                  <dd>{purchase.reference}</dd>
+                </div>
+                {typeof purchase.totalCad === "number" && Number.isFinite(purchase.totalCad) && (
+                  <div>
+                    <dt>Paid, including applicable tax</dt>
+                    <dd>{formatPriceCad(purchase.totalCad)}</dd>
+                  </div>
+                )}
+              </dl>
+              <p className="purchase-delivery-email">
+                {purchase.ownerEmailStatus === "sent"
+                  ? "Your project details have been emailed to L&L. Tate will follow up to arrange your content handover and confirm the delivery plan."
+                  : "Your paid order and project details are saved. The notification to L&L is still pending; check again or contact us with your order reference."}
+              </p>
+              <p className="purchase-delivery-fineprint">
+                {purchase.buyerEmailStatus === "sent"
+                  ? "Your confirmation has also been sent to the email address you supplied. Keep it for your records, and check your junk folder if it hasn’t appeared."
+                  : "Your confirmation email is still pending. Save your order reference here so we can help if it doesn’t arrive."}
+              </p>
+            </>
+          )}
+          {!loading && needsRefresh && (
+            <button
+              type="button"
+              className="button button-outline"
+              onClick={() => setAttempt((value) => value + 1)}
+            >
+              Check again
+            </button>
+          )}
+        </section>
+        {paid && (
+          <aside className="purchase-delivery-guide" aria-labelledby="managed-start-heading">
+            <p className="eyebrow">From your design to launch</p>
+            <h3 id="managed-start-heading">Here’s what comes next.</h3>
+            <ol className="purchase-delivery-steps">
+              <li>
+                <div>
+                  <h4>We connect</h4>
+                  <p>
+                    Tate reviews your brief with you and confirms the content handover, agreed scope
+                    and delivery plan.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h4>We make it yours</h4>
+                  <p>
+                    Gather your logo, approved text and chosen photos or videos. We’ll arrange how
+                    to share them and personalize your website.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h4>We review &amp; launch</h4>
+                  <p>
+                    We check the agreed pages, mobile layout, performance and technical SEO, then
+                    coordinate your review and launch.
+                  </p>
+                </div>
+              </li>
+            </ol>
+            <p className="purchase-delivery-scope">
+              Extra pages, original photography or video, integrations and ongoing care are
+              discussed and quoted separately before additional work begins.
             </p>
-            <p>
-              {purchase.buyerEmailStatus === "sent"
-                ? "Your confirmation has also been sent to the email address you supplied. Keep it for your records, and check your junk folder if it hasn’t appeared."
-                : "Your confirmation email is still pending. Save your order reference here so we can help if it doesn’t arrive."}
-            </p>
-            <p>
-              Gather your logo, approved website text and the photos or videos you want us to use.
-              We’ll arrange how to share them. Extra pages, original media production and other
-              additions are discussed and quoted separately before any extra work begins.
-            </p>
-          </>
-        ) : (
-          <p>
-            Your payment has not been confirmed yet. Check again shortly; please don’t make a second
-            payment.
-          </p>
+          </aside>
         )}
       </div>
-      {!loading && needsRefresh && (
-        <button
-          type="button"
-          className="button button-outline"
-          onClick={() => setAttempt((value) => value + 1)}
-        >
-          Check again
-        </button>
-      )}
-      <div className="managed-success-actions">
-        <Link href="/contact" className="button button-gold">
-          Contact L&L ↗
-        </Link>
-        <Link href="/website-collection" className="text-link">
-          Back to the templates ↗
-        </Link>
-      </div>
+      <footer className="purchase-delivery-support">
+        <div>
+          <h3>Your project, with a person behind it.</h3>
+          <p>Reach Tate at L&L with your order reference whenever you need help.</p>
+        </div>
+        <nav aria-label="Order support">
+          <Link href="/contact" className="text-link">
+            Contact L&L <span aria-hidden="true">↗</span>
+          </Link>
+          <Link href="/website-collection" className="text-link">
+            Back to the templates <span aria-hidden="true">↗</span>
+          </Link>
+        </nav>
+      </footer>
     </div>
   );
 }

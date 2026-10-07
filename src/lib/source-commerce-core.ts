@@ -1,6 +1,7 @@
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import type Stripe from "stripe";
 import { sourceLicenseVersion } from "../data/source-license.ts";
+import { renderPurchaseEmail } from "./purchase-email.ts";
 
 export const SOURCE_LICENSE_VERSION = sourceLicenseVersion;
 export const SOURCE_ACCESS_SECONDS = 30 * 24 * 60 * 60;
@@ -402,7 +403,7 @@ export function verifySourceOwnership(
 export type SourceEmailDependencies = {
   mark: (sessionId: string, metadata: Record<string, string>) => Promise<void>;
   send: (
-    message: { to: string; subject: string; text: string },
+    message: { to: string; subject: string; text: string; html: string },
     idempotencyKey: string,
   ) => Promise<string>;
   secret: string;
@@ -442,6 +443,57 @@ export async function fulfillSourceEmail(
         "Start with README.md inside the ZIP. This is source code with setup instructions, not a hosted or personalized website. You handle content, configuration and deployment; hosting, paid providers and maintenance are separate.",
         "Your single-business licence and included-asset notes are in the ZIP. Need help? Reply to L&L at LandLTechSolutions@protonmail.com.",
       ].join("\n\n"),
+      html: renderPurchaseEmail({
+        preview: `Your ${grant.name} source files and setup instructions are ready.`,
+        eyebrow: "Your source purchase",
+        title: "Thank you.\nYour files are ready.",
+        design: grant.name,
+        introduction:
+          "Your source ZIP includes the template code, setup instructions, single-business licence and included-asset notes. Here is everything you need to get started.",
+        action: { label: "Download your source ZIP", url },
+        actionNote: `Private download · Link expires ${date} (UTC). Keep this email and link private.`,
+        sections: [
+          {
+            title: "Your next three steps",
+            steps: [
+              {
+                title: "Download and extract",
+                text: "Save the ZIP on your computer, then extract it into its own project folder.",
+              },
+              {
+                title: "Start with README.md",
+                text: "Follow the included setup instructions and review the licence and asset notes before making changes.",
+              },
+              {
+                title: "Make it yours",
+                text: "Add your content, configure the required services and follow the deployment instructions when you are ready to launch.",
+              },
+            ],
+          },
+          {
+            title: "What this purchase includes",
+            paragraphs: [
+              "This is source code with setup instructions, not a hosted or personalized website. You handle content, configuration and deployment; hosting, paid providers and maintenance are separate.",
+              "Every download verifies payment. Refunded or disputed purchases lose access.",
+            ],
+          },
+          {
+            title: "Package details",
+            details: [
+              { label: "ZIP filename", value: grant.package.filename },
+              { label: "Package version", value: grant.package.version },
+              {
+                label: "SHA-256 · archive integrity",
+                value: grant.package.sha256,
+                monospace: true,
+              },
+            ],
+          },
+        ],
+        supportEmail: "LandLTechSolutions@protonmail.com",
+        footer:
+          "Keep the downloaded archive and this email with your project records. If you need help getting started, contact L&L.",
+      }),
     },
     `source-delivery-v1/${grant.sessionId}`,
   );
