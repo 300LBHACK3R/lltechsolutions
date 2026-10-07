@@ -169,3 +169,17 @@ After the diagnostic release is deployed, open the canonical source purchase pag
 Use the named field to correct only that Production setting, then redeploy. A `VERCEL_ENV` failure means the app could not establish the required Vercel Production context. Check the deployment target and Vercel's **Automatically expose System Environment Variables** setting; do not hard-code `VERCEL_ENV` to bypass the guard. A missing or invalid signing secret must be reconciled with the existing private value, not replaced with a new value that would invalidate paid orders.
 
 The diagnostic does not activate checkout, test provider authentication, alter prices, publish archives or grant downloads. There is no public readiness endpoint.
+
+## 8. Diagnose an enabled Purchase button that returns an error
+
+An enabled form confirms configuration and a manifest entry, not provider access. Source checkout verifies the private ZIP with R2 before it requests a Stripe Checkout session. An empty Stripe request log therefore does not establish that the Stripe key works or fails.
+
+After deploying the provider diagnostic, submit the source purchase form once, then search private Vercel project Logs for `source-provider`. This does not require entering card details. The diagnostic contains only a static stage, allowlisted category and optional HTTP status. It never logs credentials, customer data, object paths, download links or raw provider errors. Repeated stage/category pairs are limited to once per minute per server process. Storage diagnostics also cover the existing fulfillment and download checks.
+
+| Stage              | Meaning and next check                                                                                                                                                                                                                        |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `storage_head`     | R2 could not return the archive headers. Check the category/status, then the Production read-only credential pair, bucket scope and endpoint. A 404 concerns the exact manifest object; upload success for another version is not sufficient. |
+| `archive_metadata` | R2 responded, but size, SHA-256 metadata or ZIP content type does not match. Reconcile the private object with its published manifest; preserve immutable history and do not remove the verification.                                         |
+| `stripe_checkout`  | R2 verification passed, but Stripe rejected or could not complete session creation. Check the matching Stripe request log and the live key's permissions.                                                                                     |
+
+Unknown provider errors remain `unexpected`; only an allowlisted category is emitted. Public responses remain generic. The diagnostic changes no prices, packages, activation flags, payment checks or download permissions. Correct only the identified configuration or provider problem, redeploy when settings change, then verify the checkout handoff again. Reaching Stripe does not prove payment fulfillment, email arrival or download delivery.

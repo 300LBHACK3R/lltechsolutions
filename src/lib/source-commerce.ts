@@ -26,6 +26,7 @@ import {
   type SourcePackage,
 } from "./source-commerce-core.ts";
 import { verifySourceWebhookSignature } from "./source-commerce-webhook.ts";
+import { reportSourceProvider } from "./source-provider-diagnostic.ts";
 import {
   SourceConfigurationError,
   reportSourceReadiness,
@@ -158,15 +159,27 @@ function providers(settings: SourceSettings) {
 }
 
 async function verifyStoredPackage(archive: SourcePackage, settings: SourceSettings, s3: S3Client) {
-  const head = await s3.send(new HeadObjectCommand({ Bucket: settings.bucket, Key: archive.key }), {
-    abortSignal: AbortSignal.timeout(10_000),
-  });
-  if (
-    head.ContentLength !== archive.bytes ||
-    head.Metadata?.sha256 !== archive.sha256 ||
-    head.ContentType !== "application/zip"
-  )
+  const environment = { nodeEnv: process.env.NODE_ENV, vercelEnv: process.env.VERCEL_ENV };
+  const head = await s3
+    .send(new HeadObjectCommand({ Bucket: settings.bucket, Key: archive.key }), {
+      abortSignal: AbortSignal.timeout(10_000),
+    })
+    .catch((error: unknown) => {
+      reportSourceProvider("storage_head", error, environment);
+      throw error;
+    });
+  const mismatch =
+    head.ContentLength !== archive.bytes
+      ? "size_mismatch"
+      : head.Metadata?.sha256 !== archive.sha256
+        ? "checksum_mismatch"
+        : head.ContentType !== "application/zip"
+          ? "content_type_mismatch"
+          : undefined;
+  if (mismatch) {
+    reportSourceProvider("archive_metadata", { name: mismatch }, environment);
     throw new SourceCommerceError("archive_unavailable", 503);
+  }
 }
 
 export function sourceRequestOriginAllowed(request: Request) {
@@ -251,37 +264,45 @@ export async function createSourceCheckout(designId: string) {
     nonce: randomBytes(32).toString("hex"),
   });
   const automaticTax = process.env.SOURCE_STRIPE_AUTOMATIC_TAX === "true";
-  const session = await stripe.checkout.sessions.create(
-    {
-      mode: "payment",
-      ui_mode: "hosted_page",
-      allowed_payment_method_types: ["card"],
-      line_items: [
-        {
-          quantity: 1,
-          price_data: {
-            currency: "cad",
-            unit_amount: Math.round(product.priceCad * 100),
-            tax_behavior: "exclusive",
-            product_data: {
-              name: `${product.name} — source code`,
-              description:
-                "Downloadable source ZIP. Single-business licence. Personalization, hosting and launch are not included.",
+  const session = await stripe.checkout.sessions
+    .create(
+      {
+        mode: "payment",
+        ui_mode: "hosted_page",
+        allowed_payment_method_types: ["card"],
+        line_items: [
+          {
+            quantity: 1,
+            price_data: {
+              currency: "cad",
+              unit_amount: Math.round(product.priceCad * 100),
+              tax_behavior: "exclusive",
+              product_data: {
+                name: `${product.name} — source code`,
+                description:
+                  "Downloadable source ZIP. Single-business licence. Personalization, hosting and launch are not included.",
+              },
             },
           },
-        },
-      ],
-      metadata,
-      payment_intent_data: { metadata },
-      allow_promotion_codes: false,
-      automatic_tax: { enabled: automaticTax },
-      billing_address_collection: automaticTax ? "required" : "auto",
-      success_url: `${settings.origin}/source-purchase/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${settings.origin}${sourceHref(designId)}?checkout=cancelled`,
-      expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
-    },
-    { idempotencyKey: `source-checkout/${metadata.source_nonce}` },
-  );
+        ],
+        metadata,
+        payment_intent_data: { metadata },
+        allow_promotion_codes: false,
+        automatic_tax: { enabled: automaticTax },
+        billing_address_collection: automaticTax ? "required" : "auto",
+        success_url: `${settings.origin}/source-purchase/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${settings.origin}${sourceHref(designId)}?checkout=cancelled`,
+        expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
+      },
+      { idempotencyKey: `source-checkout/${metadata.source_nonce}` },
+    )
+    .catch((error: unknown) => {
+      reportSourceProvider("stripe_checkout", error, {
+        nodeEnv: process.env.NODE_ENV,
+        vercelEnv: process.env.VERCEL_ENV,
+      });
+      throw error;
+    });
   if (!session.url || new URL(session.url).origin !== "https://checkout.stripe.com")
     throw new SourceCommerceError("checkout_unavailable", 503);
   const ownership = createSourceOwnership(session.id, settings.secret);
