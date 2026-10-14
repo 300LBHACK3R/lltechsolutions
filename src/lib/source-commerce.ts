@@ -1,6 +1,11 @@
 import Stripe from "stripe";
 import { Resend } from "resend";
-import { S3Client, HeadObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  HeadObjectCommand,
+  GetObjectCommand,
+  ListObjectsV2Command,
+} from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { randomBytes, createHash } from "node:crypto";
 import { sourceProduct, sourceHref } from "@/data/source-products";
@@ -26,7 +31,7 @@ import {
   type SourcePackage,
 } from "./source-commerce-core.ts";
 import { verifySourceWebhookSignature } from "./source-commerce-webhook.ts";
-import { reportSourceProvider } from "./source-provider-diagnostic.ts";
+import { reportSourceProvider, probeSourceStorageFailure } from "./source-provider-diagnostic.ts";
 import {
   SourceConfigurationError,
   reportSourceReadiness,
@@ -164,8 +169,26 @@ async function verifyStoredPackage(archive: SourcePackage, settings: SourceSetti
     .send(new HeadObjectCommand({ Bucket: settings.bucket, Key: archive.key }), {
       abortSignal: AbortSignal.timeout(10_000),
     })
-    .catch((error: unknown) => {
+    .catch(async (error: unknown) => {
       reportSourceProvider("storage_head", error, environment);
+      await probeSourceStorageFailure({
+        error,
+        settings,
+        environment,
+        read: async (abortSignal) => {
+          const result = await s3.send(
+            new ListObjectsV2Command({
+              Bucket: settings.bucket,
+              Prefix: archive.key,
+              MaxKeys: 1,
+            }),
+            { abortSignal },
+          );
+          return result.Contents?.some((item) => item.Key === archive.key)
+            ? "object_found"
+            : "object_missing";
+        },
+      });
       throw error;
     });
   const mismatch =

@@ -1,5 +1,20 @@
-const stages = ["storage_head", "archive_metadata", "stripe_checkout"] as const;
+const stages = [
+  "storage_head",
+  "storage_config",
+  "storage_probe",
+  "archive_metadata",
+  "stripe_checkout",
+] as const;
 const categories = [
+  "BadRequest",
+  "InvalidRequest",
+  "Unauthorized",
+  "InvalidBucketName",
+  "InvalidObjectName",
+  "ExpiredRequest",
+  "RequestTimeTooSkewed",
+  "NotEntitled",
+  "NotImplemented",
   "AccessDenied",
   "InvalidAccessKeyId",
   "SignatureDoesNotMatch",
@@ -23,6 +38,13 @@ const categories = [
   "size_mismatch",
   "checksum_mismatch",
   "content_type_mismatch",
+  "endpoint_format",
+  "region_format",
+  "access_key_format",
+  "secret_key_format",
+  "format_valid",
+  "object_found",
+  "object_missing",
 ] as const;
 
 type Stage = (typeof stages)[number];
@@ -67,3 +89,76 @@ export function createSourceProviderReporter({
 }
 
 export const reportSourceProvider = createSourceProviderReporter();
+
+type StorageSettings = {
+  endpoint?: string;
+  region: string;
+  accessKey: string;
+  secretKey: string;
+};
+
+/** HEAD errors have no response body. A narrow list can reveal R2's error code.
+ * This diagnostic never authorizes a purchase or replaces archive verification.
+ */
+export function createSourceStorageProbe({ report = reportSourceProvider, now = Date.now } = {}) {
+  let nextProbeAt = 0;
+  return async ({
+    error,
+    settings,
+    environment,
+    read,
+  }: {
+    error: unknown;
+    settings: StorageSettings;
+    environment: Environment;
+    read: (signal: AbortSignal) => Promise<"object_found" | "object_missing">;
+  }) => {
+    try {
+      if (
+        environment.vercelEnv !== "production" ||
+        record(record(error).$metadata).httpStatusCode !== 400 ||
+        !settings.endpoint
+      )
+        return;
+      const endpoint = new URL(settings.endpoint);
+      // Do not add R2-specific requests or credential assumptions for other S3 providers.
+      if (!endpoint.hostname.endsWith(".r2.cloudflarestorage.com")) return;
+      const timestamp = now();
+      if (timestamp < nextProbeAt) return;
+      // Reserve before awaiting: concurrent failures cannot start concurrent probes.
+      nextProbeAt = timestamp + 60_000;
+      const checks = [
+        [
+          "endpoint_format",
+          endpoint.protocol === "https:" &&
+            /^[a-f0-9]{32}(?:\.(?:eu|us|fedramp))?\.r2\.cloudflarestorage\.com$/.test(
+              endpoint.hostname,
+            ) &&
+            endpoint.pathname === "/" &&
+            !endpoint.username &&
+            !endpoint.password &&
+            !endpoint.port &&
+            !endpoint.search &&
+            !endpoint.hash,
+        ],
+        ["region_format", ["auto", "us-east-1"].includes(settings.region)],
+        ["access_key_format", /^[a-f0-9]{32}$/i.test(settings.accessKey)],
+        ["secret_key_format", /^[a-f0-9]{64}$/i.test(settings.secretKey)],
+      ] as const;
+      const failures = checks.filter(([, valid]) => !valid);
+      for (const [name] of failures) report("storage_config", { name }, environment);
+      if (failures.length) return;
+      report("storage_config", { name: "format_valid" }, environment);
+      try {
+        const name = await read(AbortSignal.timeout(5000));
+        report("storage_probe", { name, statusCode: 200 }, environment);
+      } catch (detail) {
+        report("storage_probe", detail, environment);
+      }
+    } catch {
+      // Diagnostics must preserve the original failure even if a getter/logger throws.
+    }
+  };
+}
+
+export const probeSourceStorageFailure = createSourceStorageProbe();

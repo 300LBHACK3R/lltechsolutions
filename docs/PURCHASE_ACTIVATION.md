@@ -183,3 +183,13 @@ After deploying the provider diagnostic, submit the source purchase form once, t
 | `stripe_checkout`  | R2 verification passed, but Stripe rejected or could not complete session creation. Check the matching Stripe request log and the live key's permissions.                                                                                     |
 
 Unknown provider errors remain `unexpected`; only an allowlisted category is emitted. Public responses remain generic. The diagnostic changes no prices, packages, activation flags, payment checks or download permissions. Correct only the identified configuration or provider problem, redeploy when settings change, then verify the checkout handoff again. Reaching Stripe does not prove payment fulfillment, email arrival or download delivery.
+
+### R2 HEAD returns HTTP 400 after settings changes
+
+S3 HEAD responses have no error body, so a generic `BadRequest` cannot identify the cause. In Vercel Production only, the application now follows an R2 HEAD 400 with a bounded diagnostic at most once per minute per server process. First it checks the runtime endpoint, region and S3 credential formats; it logs only static categories such as `access_key_format`, never values or lengths. Format checks do not prove that credentials are authorized.
+
+If the formats are valid, one `ListObjectsV2` operation uses the exact archive key as its prefix, `MaxKeys: 1`, the existing retry policy, and a five-second abort deadline. Object Read only R2 credentials support listing. The `storage_probe` line records only an allowlisted provider error code/status, or `object_found`/`object_missing`. It never logs object names, metadata, credentials, raw error messages or signed links. No bucket permission increase or public access is required.
+
+The original HEAD failure still blocks checkout, fulfillment and download access, even when the diagnostic finds the object. The probe cannot replace metadata verification or enable payment. There is no extra request on successful reads, other failure statuses, preview/local environments or non-R2 endpoints. A normal failed checkout is enough to produce the private diagnostic; no card details are needed.
+
+Use `storage_config` format failures to correct the named field. Use `storage_probe` authentication/bucket errors to correct that specific provider setting. `object_found` with a HEAD failure means credentials can list the exact archive; investigate the HEAD request/transport next rather than rotating keys again. `object_missing` means the exact current manifest archive was not returned; verify its upload and prefix-scoped permissions without replacing sold archive history.

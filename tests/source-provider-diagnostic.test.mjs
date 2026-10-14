@@ -97,7 +97,14 @@ test("provider diagnostics are production-only, throttle by stage/category, and 
 
 // Replace every external provider with an in-process stub before importing commerce.
 // No fixture credentials can reach a real SDK or network transport.
-const fixture = { head: null, storageError: null, stripeError: null, calls: [] };
+const fixture = {
+  head: null,
+  storageError: null,
+  probeError: null,
+  stripeError: null,
+  calls: [],
+  probeInput: null,
+};
 const stateKey = Symbol.for("landl.source-provider-diagnostic.test");
 globalThis[stateKey] = fixture;
 const manifestUrl = new URL("../src/data/source-package-manifest.json", import.meta.url);
@@ -118,7 +125,14 @@ const stubs = {
   "@aws-sdk/client-s3": `
     const state = globalThis[Symbol.for("landl.source-provider-diagnostic.test")];
     export class S3Client {
-      async send() {
+      async send(command, options) {
+        if (command instanceof ListObjectsV2Command) {
+          state.calls.push("probe");
+          state.probeInput = command.input;
+          if (!options.abortSignal) throw new Error("Probe must have a deadline");
+          if (state.probeError) throw state.probeError;
+          return { Contents: [{ Key: command.input.Prefix }] };
+        }
         state.calls.push("storage");
         if (state.storageError) throw state.storageError;
         return state.head;
@@ -126,6 +140,7 @@ const stubs = {
     }
     export class HeadObjectCommand {}
     export class GetObjectCommand {}
+    export class ListObjectsV2Command { constructor(input) { this.input = input; } }
   `,
   "@aws-sdk/s3-request-presigner": `export function getSignedUrl() { throw new Error("Unexpected signing call"); }`,
   resend: `export class Resend { constructor() { throw new Error("Unexpected email call"); } }`,
@@ -190,6 +205,8 @@ test("actual checkout keeps provider failures private and verifies the archive b
   const reset = () => {
     fixture.calls.length = 0;
     fixture.storageError = null;
+    fixture.probeError = null;
+    fixture.probeInput = null;
     fixture.stripeError = null;
     fixture.head = {
       ContentLength: archive.bytes,
@@ -224,6 +241,44 @@ test("actual checkout keeps provider failures private and verifies the archive b
       status: 403,
     });
     await assertPrivate503(fixture.storageError);
+
+    reset();
+    Object.assign(process.env, {
+      SOURCE_S3_ENDPOINT: `https://${"a".repeat(32)}.r2.cloudflarestorage.com`,
+      SOURCE_S3_ACCESS_KEY_ID: "b".repeat(32),
+      SOURCE_S3_SECRET_ACCESS_KEY: "c".repeat(64),
+    });
+    fixture.storageError = Object.assign(new Error(canary), {
+      name: "BadRequest",
+      $metadata: { httpStatusCode: 400 },
+    });
+    await assert.rejects(
+      commerce.createSourceCheckout("pigment"),
+      (error) => error === fixture.storageError,
+    );
+    assert.deepEqual(fixture.calls, ["storage", "probe"]);
+    assert.deepEqual(fixture.probeInput, {
+      Bucket: validEnvironment.SOURCE_S3_BUCKET,
+      Prefix: archive.key,
+      MaxKeys: 1,
+    });
+    assert.deepEqual(parseLine(lines.at(-1)), {
+      stage: "storage_probe",
+      category: "object_found",
+      status: 200,
+    });
+    await assertPrivate503(fixture.storageError);
+    fixture.calls.length = 0;
+    await assert.rejects(
+      commerce.createSourceCheckout("pigment"),
+      (error) => error === fixture.storageError,
+    );
+    assert.deepEqual(
+      fixture.calls,
+      ["storage"],
+      "another failure does not immediately repeat the probe or reach Stripe",
+    );
+    Object.assign(process.env, validEnvironment);
 
     for (const [field, value, category] of [
       ["ContentLength", archive.bytes + 1, "size_mismatch"],
