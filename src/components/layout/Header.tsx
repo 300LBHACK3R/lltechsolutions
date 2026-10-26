@@ -3,10 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { navigation, siteConfig } from "@/config/site";
 
-export default function Header() {
+export default function Header({ children }: { children?: ReactNode }) {
   const pathname = usePathname();
   const menu = useRef<HTMLDetailsElement>(null);
   const close = () => {
@@ -65,6 +65,7 @@ export default function Header() {
           </nav>
         </details>
       </div>
+      {children}
     </header>
   );
 }

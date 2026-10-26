@@ -1,4 +1,5 @@
 import ContactForm from "@/components/contact/ContactForm";
+import ScriptureNote from "@/components/seasonal/ScriptureNote";
 import PageIntro from "@/components/ui/PageIntro";
 import { siteConfig } from "@/config/site";
 import { serviceOptions } from "@/lib/contact-validation";
@@ -62,6 +63,7 @@ export default async function ContactPage({
             <li>Include your timeline and any essential features.</li>
             <li>We’ll review the details and discuss scope and pricing.</li>
           </ul>
+          <ScriptureNote verse="path" />
         </aside>
       </div>
     </>

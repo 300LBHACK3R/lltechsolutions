@@ -1,5 +1,6 @@
 import SignalArtwork from "@/components/ui/SignalArtwork";
 import Link from "next/link";
+import ScriptureNote from "@/components/seasonal/ScriptureNote";
 
 export default function HomeProjectCTA() {
   return (
@@ -24,6 +25,7 @@ export default function HomeProjectCTA() {
               Start with a free digital audit <span aria-hidden="true">→</span>
             </Link>
           </div>
+          <ScriptureNote verse="work" />
         </div>
       </div>
     </section>

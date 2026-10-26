@@ -7,6 +7,21 @@ visible but do not fail the existing high-severity threshold.
 
 ## Temporary approved exception
 
+### 26 October 2026 update
+
+The Christmas release check identified newly reported Next.js and Zod advisories. Next.js and
+its ESLint configuration are now pinned to **16.4.3**, and the development dependency graph
+resolves Zod **4.6.7**. `npm run audit:check` reports zero findings after this update.
+
+The historical exception below is unchanged and does not cover this new dependency graph.
+No new findings were waived or thresholds relaxed. Relevant advisories:
+[Next.js image optimization](https://github.com/advisories/GHSA-2464-fhr4-w9xw),
+[Next.js server actions](https://github.com/advisories/GHSA-p3m5-59mp-jv5r),
+[Next.js cached typed arrays](https://github.com/advisories/GHSA-673q-mjm6-r5xr), and
+[Zod collection validation](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5).
+
+### Original approved scope
+
 On October 3, 2026, the owner approved a temporary exception for
 [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm), a stack-exhaustion denial of
 service in `braces` when processing deeply nested patterns. At review, the official advisory

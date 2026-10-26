@@ -43,6 +43,7 @@ import "@/styles/pricing.css";
 import "@/styles/template-pricing.css";
 import "@/styles/services.css";
 import "@/styles/signals.css";
+import "@/styles/christmas.css";
 import type { Metadata, Viewport } from "next";
 import { Geist, Cormorant_Garamond } from "next/font/google";
 import Header from "@/components/layout/Header";
@@ -50,6 +51,12 @@ import Footer from "@/components/layout/Footer";
 import JsonLd from "@/components/seo/JsonLd";
 import SiteAnalytics from "@/components/analytics/SiteAnalytics";
 import { absoluteUrl, siteConfig } from "@/config/site";
+import { christmasThemeEnabled } from "@/config/seasonal";
+import {
+  ChristmasLights,
+  ChristmasMasthead,
+  WinterSnow,
+} from "@/components/seasonal/ChristmasArtwork";
 
 const sans = Geist({ variable: "--font-sans", subsets: ["latin"], display: "swap" });
 const editorial = Cormorant_Garamond({
@@ -81,11 +88,18 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-CA" data-motion="paused">
-      <body className={`${sans.variable} ${editorial.variable}`}>
+      <body
+        className={`${sans.variable} ${editorial.variable}`}
+        data-season={christmasThemeEnabled ? "christmas" : undefined}
+      >
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
-        <Header />
+        <ChristmasMasthead />
+        <Header>
+          <ChristmasLights />
+        </Header>
+        <WinterSnow />
         <main id="main-content" tabIndex={-1}>
           {children}
         </main>

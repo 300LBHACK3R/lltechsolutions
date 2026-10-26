@@ -2,11 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { navigation, siteConfig } from "@/config/site";
 import MotionControl from "@/components/ui/MotionControl";
+import { ChristmasNativity } from "@/components/seasonal/ChristmasArtwork";
 
 export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="container">
+        <ChristmasNativity />
         <div className="footer-main">
           <div className="footer-identity">
             <Link href="/" aria-label="L&L Tech Solutions home" className="footer-brand">

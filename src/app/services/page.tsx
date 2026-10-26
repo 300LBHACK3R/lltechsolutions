@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import JsonLd from "@/components/seo/JsonLd";
 import SignalArtwork from "@/components/ui/SignalArtwork";
+import ScriptureNote from "@/components/seasonal/ScriptureNote";
 import { getProject, projectPath } from "@/data/projects";
 import { contentProduction, servicePillars } from "@/data/services";
 import { absoluteUrl } from "@/config/site";
@@ -101,6 +102,7 @@ export default function ServicesPage() {
               <Link href="/contact" className="text-link">
                 Tell us what you have in mind <span aria-hidden="true">↗</span>
               </Link>
+              <ScriptureNote verse="work" />
             </div>
           </div>
         </div>

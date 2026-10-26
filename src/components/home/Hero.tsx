@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { getProject, projectPath } from "@/data/projects";
 import StudioMotion from "@/components/home/StudioMotion";
+import ScriptureNote from "@/components/seasonal/ScriptureNote";
+import { ChristmasOrnament } from "@/components/seasonal/ChristmasArtwork";
 
 export default function Hero() {
   const website = getProject("tow-n-go");
@@ -32,9 +34,11 @@ export default function Hero() {
                 Explore our work <span aria-hidden="true">↓</span>
               </Link>
             </div>
+            <ScriptureNote verse="light" />
           </div>
           <StudioMotion>
             <div className="studio-artboard">
+              <ChristmasOrnament />
               <div className="studio-grid" aria-hidden="true" />
               <p className="studio-artboard-caption">From first impression. To lasting presence.</p>
               <div className="studio-design-note" aria-hidden="true">
