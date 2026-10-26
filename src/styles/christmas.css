@@ -335,6 +335,14 @@ html[data-motion="running"] .christmas-lights i {
     margin-inline: auto;
   }
 }
+@media (max-width: 359px) {
+  .christmas-garland-left {
+    left: -184px;
+  }
+  .christmas-garland-right {
+    right: -184px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .winter-snow {
     display: none;
