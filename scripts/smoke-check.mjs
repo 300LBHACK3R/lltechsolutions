@@ -341,7 +341,11 @@ try {
   const home = htmlByRoute.get("/");
   const homeMain = home.match(/<main\b[^>]*>(.*?)<\/main>/s)?.[1];
   assert.ok(homeMain, "homepage content is present");
-  assert.ok(!homeMain.includes("<blockquote"), "full testimonials live on Reviews");
+  const homeWithoutScripture = homeMain.replace(
+    /<details class="scripture-note">[\s\S]*?<\/details>/g,
+    "",
+  );
+  assert.ok(!homeWithoutScripture.includes("<blockquote"), "full testimonials live on Reviews");
   for (const clientId of ["tow-n-go", "crestline", "mckenzie-house"]) {
     assert.ok(
       homeMain.includes(`href="/projects/${clientId}"`),
