@@ -124,7 +124,7 @@ html[data-motion="running"] .christmas-lights i {
 .christmas-ornament {
   position: absolute;
   top: -42px;
-  right: 13%;
+  right: 14px;
   width: 65px;
   color: var(--winter-gold);
   pointer-events: none;
@@ -139,6 +139,9 @@ html[data-motion="running"] .christmas-lights i {
 }
 .christmas-ornament-thread {
   opacity: 0.4;
+}
+[data-season="christmas"] .studio-artboard-caption {
+  padding-right: 82px;
 }
 .scripture-note {
   width: fit-content;
@@ -269,7 +272,6 @@ html[data-motion="running"] .christmas-lights i {
     right: -85px;
   }
   .christmas-ornament {
-    right: 5%;
     width: 50px;
   }
 }
@@ -308,8 +310,11 @@ html[data-motion="running"] .christmas-lights i {
   }
   .christmas-ornament {
     top: -40px;
-    right: 3%;
+    right: 0;
     width: 45px;
+  }
+  [data-season="christmas"] .studio-artboard-caption {
+    padding-right: 56px;
   }
   .scripture-note {
     margin-top: 12px;
