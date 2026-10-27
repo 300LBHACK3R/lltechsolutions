@@ -2,6 +2,8 @@
 import { useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { fieldLimits, serviceOptions, timelineOptions } from "@/lib/contact-validation";
+import { useFormReady } from "@/lib/use-form-ready";
+import { siteConfig } from "@/config/site";
 
 export default function ContactForm({
   initialService = "",
@@ -14,12 +16,13 @@ export default function ContactForm({
   collectionSummary?: string;
   messagePrefix?: string;
 }) {
+  const ready = useFormReady();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [message, setMessage] = useState("");
   const pending = useRef(false);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (pending.current) return;
+    if (!ready || pending.current) return;
     pending.current = true;
     const form = event.currentTarget;
     const payload = Object.fromEntries(new FormData(form).entries());
@@ -53,7 +56,13 @@ export default function ContactForm({
     }
   }
   return (
-    <form className="contact-form" onSubmit={submit} aria-busy={status === "sending"}>
+    <form
+      className="contact-form"
+      method="post"
+      action="/api/contact"
+      onSubmit={submit}
+      aria-busy={status === "sending"}
+    >
       <h2>Tell us about your project.</h2>
       <p className="form-intro">
         A few details are enough to get started. Fields marked * are required.
@@ -68,92 +77,99 @@ export default function ContactForm({
           </span>
         </p>
       )}
-      <div hidden aria-hidden="true">
-        <label>
-          Leave this field empty
-          <input
-            name="companyWebsite"
-            tabIndex={-1}
-            autoComplete="off"
-            maxLength={fieldLimits.companyWebsite}
-          />
-        </label>
-      </div>
-      <div className="form-fields">
-        <label>
-          Your name *<input name="name" required autoComplete="name" maxLength={fieldLimits.name} />
-        </label>
-        <label>
-          Business name
-          <input name="business" autoComplete="organization" maxLength={fieldLimits.business} />
-        </label>
-        <label>
-          Email *
-          <input
-            name="email"
-            type="email"
-            required
-            autoComplete="email"
-            maxLength={fieldLimits.email}
-          />
-        </label>
-        <label>
-          Phone
-          <input name="phone" type="tel" autoComplete="tel" maxLength={fieldLimits.phone} />
-        </label>
-        <label className="field-full">
-          Current website
-          <input
-            name="website"
-            inputMode="url"
-            autoComplete="url"
-            placeholder="example.ca"
-            maxLength={fieldLimits.website}
-          />
-        </label>
-        <label>
-          What do you need? *
-          <select name="service" defaultValue={initialService} required>
-            <option value="" disabled>
-              Select a service
-            </option>
-            {serviceOptions.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Timeline *
-          <select name="timeline" defaultValue="Flexible / planning ahead" required>
-            {timelineOptions.map((option) => (
-              <option key={option}>{option}</option>
-            ))}
-          </select>
-        </label>
-        <label className="field-full">
-          Project details *
-          <textarea
-            name="message"
-            defaultValue={initialMessage}
-            required
-            maxLength={Math.max(
-              1,
-              fieldLimits.message - (messagePrefix ? messagePrefix.length + 2 : 0),
-            )}
-            placeholder="What does your business need, and what would a successful project help you do?"
-          />
-        </label>
-      </div>
-      <div className="form-footer">
-        <p>
-          We use these details to respond to your inquiry.{" "}
-          <Link href="/privacy">Privacy policy</Link>
-        </p>
-        <button type="submit" className="button button-gold" disabled={status === "sending"}>
-          {status === "sending" ? "Sending…" : "Send Inquiry"}
-          <span aria-hidden="true">↗</span>
-        </button>
-      </div>
+      <fieldset
+        className="contact-form-fields"
+        aria-label="Your project details"
+        disabled={!ready || status === "sending"}
+      >
+        <div hidden aria-hidden="true">
+          <label>
+            Leave this field empty
+            <input
+              name="companyWebsite"
+              tabIndex={-1}
+              autoComplete="off"
+              maxLength={fieldLimits.companyWebsite}
+            />
+          </label>
+        </div>
+        <div className="form-fields">
+          <label>
+            Your name *
+            <input name="name" required autoComplete="name" maxLength={fieldLimits.name} />
+          </label>
+          <label>
+            Business name
+            <input name="business" autoComplete="organization" maxLength={fieldLimits.business} />
+          </label>
+          <label>
+            Email *
+            <input
+              name="email"
+              type="email"
+              required
+              autoComplete="email"
+              maxLength={fieldLimits.email}
+            />
+          </label>
+          <label>
+            Phone
+            <input name="phone" type="tel" autoComplete="tel" maxLength={fieldLimits.phone} />
+          </label>
+          <label className="field-full">
+            Current website
+            <input
+              name="website"
+              inputMode="url"
+              autoComplete="url"
+              placeholder="example.ca"
+              maxLength={fieldLimits.website}
+            />
+          </label>
+          <label>
+            What do you need? *
+            <select name="service" defaultValue={initialService} required>
+              <option value="" disabled>
+                Select a service
+              </option>
+              {serviceOptions.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Timeline *
+            <select name="timeline" defaultValue="Flexible / planning ahead" required>
+              {timelineOptions.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+            </select>
+          </label>
+          <label className="field-full">
+            Project details *
+            <textarea
+              name="message"
+              defaultValue={initialMessage}
+              required
+              maxLength={Math.max(
+                1,
+                fieldLimits.message - (messagePrefix ? messagePrefix.length + 2 : 0),
+              )}
+              placeholder="What does your business need, and what would a successful project help you do?"
+            />
+          </label>
+        </div>
+        <div className="form-footer">
+          <p>
+            We use these details to respond to your inquiry.{" "}
+            <Link href="/privacy">Privacy policy</Link>
+          </p>
+          <button type="submit" className="button button-gold" disabled={status === "sending"}>
+            {status === "sending" ? "Sending…" : "Send Inquiry"}
+            <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </fieldset>
       <p
         className={`form-message ${status === "error" ? "error" : ""}`}
         role="status"
@@ -162,6 +178,13 @@ export default function ContactForm({
       >
         {message}
       </p>
+      {!ready && (
+        <p className="form-message">
+          This form needs JavaScript. If it does not become available,{" "}
+          <a href={`mailto:${siteConfig.email}`}>email L&amp;L</a> or{" "}
+          <a href={siteConfig.telephone}>call {siteConfig.phone}</a>.
+        </p>
+      )}
     </form>
   );
 }

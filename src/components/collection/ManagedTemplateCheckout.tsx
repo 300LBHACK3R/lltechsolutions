@@ -6,6 +6,8 @@ import TemplatePrice from "@/components/collection/TemplatePrice";
 import { managedFieldLimits, managedTermsVersion } from "@/data/managed-purchase";
 import { formatPriceCad, templatePrice, templateSale } from "@/data/template-promotion";
 import { useTemplateSale } from "@/lib/use-template-sale";
+import { useFormReady } from "@/lib/use-form-ready";
+import { siteConfig } from "@/config/site";
 
 function requestIdentifier() {
   if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
@@ -29,6 +31,7 @@ export default function ManagedTemplateCheckout({
   initialSaleActive: boolean;
   inquiryHref: string;
 }) {
+  const ready = useFormReady();
   const saleActive = useTemplateSale(initialSaleActive);
   const endsAt = Date.parse(templateSale.endsAt);
   const priceCad = templatePrice(regularPriceCad, saleActive ? endsAt - 1 : endsAt).priceCad!;
@@ -41,7 +44,7 @@ export default function ManagedTemplateCheckout({
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (inFlight.current || priceChanged) return;
+    if (!ready || inFlight.current || priceChanged) return;
     const form = new FormData(event.currentTarget);
     if (form.get("scope") !== "accepted") return;
     const values = Object.fromEntries(
@@ -105,8 +108,14 @@ export default function ManagedTemplateCheckout({
   }
 
   return (
-    <form className="managed-checkout-form" onSubmit={submit} aria-busy={pending}>
-      <fieldset disabled={pending}>
+    <form
+      className="managed-checkout-form"
+      method="post"
+      action="/api/template-purchases/checkout"
+      onSubmit={submit}
+      aria-busy={pending}
+    >
+      <fieldset disabled={!ready || pending}>
         <legend>Your business, in a few details.</legend>
         <p className="managed-checkout-note">
           Tell Tate who the website is for. After verified payment, your order and these details are
@@ -269,9 +278,12 @@ export default function ManagedTemplateCheckout({
         Need more than the listed scope?{" "}
         <Link href={inquiryHref}>Talk it through before purchasing.</Link>
       </p>
-      <noscript>
-        <p>Enable JavaScript for secure checkout, or contact L&L to arrange your project.</p>
-      </noscript>
+      {!ready && (
+        <p className="managed-checkout-note">
+          Secure checkout needs JavaScript. If it does not become available,{" "}
+          <a href={`mailto:${siteConfig.email}`}>email L&amp;L</a> to arrange your project.
+        </p>
+      )}
     </form>
   );
 }

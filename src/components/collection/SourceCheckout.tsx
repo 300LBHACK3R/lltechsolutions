@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useRef, useState, type FormEvent } from "react";
 import { sourceLicenseVersion } from "@/data/source-license";
 import { formatPriceCad } from "@/data/template-promotion";
+import { useFormReady } from "@/lib/use-form-ready";
+import { siteConfig } from "@/config/site";
 
 export default function SourceCheckout({
   designId,
@@ -12,13 +14,14 @@ export default function SourceCheckout({
   designId: string;
   priceCad: number;
 }) {
+  const ready = useFormReady();
   const [message, setMessage] = useState("");
   const [pending, setPending] = useState(false);
   const inFlight = useRef(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (inFlight.current) return;
+    if (!ready || inFlight.current) return;
     const form = new FormData(event.currentTarget);
     if (form.get("licence") !== "accepted") return;
     inFlight.current = true;
@@ -54,9 +57,21 @@ export default function SourceCheckout({
   }
 
   return (
-    <form className="source-checkout" onSubmit={submit} aria-busy={pending}>
+    <form
+      className="source-checkout"
+      method="post"
+      action="/api/source-purchases/checkout"
+      onSubmit={submit}
+      aria-busy={pending}
+    >
       <label className="source-license-check">
-        <input type="checkbox" name="licence" value="accepted" required />
+        <input
+          type="checkbox"
+          name="licence"
+          value="accepted"
+          required
+          disabled={!ready || pending}
+        />
         <span>
           I agree to the <a href="#source-license">single-business licence</a> and{" "}
           <Link href="/terms#source-downloads">download terms</Link>. I understand this is a
@@ -64,7 +79,7 @@ export default function SourceCheckout({
         </span>
       </label>
       <p className="source-small">Code only · {formatPriceCad(priceCad)}</p>
-      <button className="button button-gold" type="submit" disabled={pending}>
+      <button className="button button-gold" type="submit" disabled={!ready || pending}>
         {pending ? "Opening secure checkout…" : "Purchase"}
       </button>
       <p className="source-small">
@@ -78,9 +93,12 @@ export default function SourceCheckout({
       <p role="status" aria-live="polite" className="source-status">
         {message}
       </p>
-      <noscript>
-        <p>Enable JavaScript to open secure checkout, or contact L&L to arrange your purchase.</p>
-      </noscript>
+      {!ready && (
+        <p>
+          Secure checkout needs JavaScript. If it does not become available,{" "}
+          <a href={`mailto:${siteConfig.email}`}>email L&amp;L</a> to arrange your purchase.
+        </p>
+      )}
     </form>
   );
 }

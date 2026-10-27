@@ -55,7 +55,7 @@ export async function POST(request: Request) {
   const { value } = parsed;
   try {
     const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from,
       to,
       replyTo: value.email,
@@ -65,7 +65,7 @@ export async function POST(request: Request) {
         .map(([key, text]) => `${key}: ${text || "Not provided"}`)
         .join("\n\n"),
     });
-    if (error) throw new Error("Email provider rejected request");
+    if (error || !data?.id) throw new Error("Email provider did not confirm acceptance");
     return respond("Your inquiry has been sent. Thank you — we’ll reply with the next step.");
   } catch {
     console.error("contact_delivery_failed", { requestId });

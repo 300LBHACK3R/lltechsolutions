@@ -96,6 +96,12 @@ dd {
 .contact-form h2 {
   font-size: 25px;
 }
+.contact-form-fields {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
 .contact-form .form-intro {
   margin-top: 12px;
   color: var(--muted);

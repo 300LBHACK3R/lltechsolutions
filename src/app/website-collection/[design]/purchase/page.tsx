@@ -125,8 +125,8 @@ export default async function ManagedPurchasePage({ params, searchParams }: Prop
               <h3>Prefer a code-only option?</h3>
               <p>
                 Work with editable files and setup instructions. You handle personalization,
-                integrations, hosting and launch. Reference designs need a separately quoted
-                reusable version; their original client files are not for sale.
+                integrations, hosting and launch. Reference editions use sample business content and
+                illustrative media; original client identities and private files are not included.
               </p>
               <TemplatePurchaseOptions designId={id} compact />
             </div>
