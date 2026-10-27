@@ -54,7 +54,8 @@ import { absoluteUrl, siteConfig } from "@/config/site";
 import { christmasThemeEnabled } from "@/config/seasonal";
 import {
   ChristmasLights,
-  ChristmasMasthead,
+  ChristmasGarland,
+  ChristmasGreeting,
   WinterSnow,
 } from "@/components/seasonal/ChristmasArtwork";
 
@@ -95,8 +96,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
-        <ChristmasMasthead />
-        <Header>
+        <Header seasonalGreeting={<ChristmasGreeting />}>
+          <ChristmasGarland />
           <ChristmasLights />
         </Header>
         <WinterSnow />

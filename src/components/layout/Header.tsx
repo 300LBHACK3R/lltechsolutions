@@ -6,7 +6,13 @@ import { usePathname } from "next/navigation";
 import { useRef, type ReactNode } from "react";
 import { navigation, siteConfig } from "@/config/site";
 
-export default function Header({ children }: { children?: ReactNode }) {
+export default function Header({
+  children,
+  seasonalGreeting,
+}: {
+  children?: ReactNode;
+  seasonalGreeting?: ReactNode;
+}) {
   const pathname = usePathname();
   const menu = useRef<HTMLDetailsElement>(null);
   const close = () => {
@@ -26,6 +32,7 @@ export default function Header({ children }: { children?: ReactNode }) {
             sizes="230px"
           />
         </Link>
+        {seasonalGreeting}
         <nav className="desktop-nav" aria-label="Main navigation">
           {navigation.map(({ href, label }) => (
             <Link key={href} href={href} aria-current={active(href) ? "page" : undefined}>

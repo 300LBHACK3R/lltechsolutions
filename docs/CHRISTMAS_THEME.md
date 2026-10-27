@@ -8,14 +8,16 @@ Set `christmasThemeEnabled` to `false` in `src/config/seasonal.ts` to remove the
 
 ## Design and motion
 
-- Continuous overlapping evergreen garland spans the full masthead. A matching oval wreath frames the centre greeting. Both keep soft white fairy lights with gentle staggered twinkles.
-- A separate strand of glossy vintage multicolour C7/C9-style bulbs hangs below navigation. Most bulbs stay steady; selected bulbs dim irregularly at different intervals.
+- The garland, greeting wreath, brand and navigation share one sticky header. The separate Christmas masthead is removed. Continuous evergreen trim runs across the header top; the wreath sits beside the logo and desktop links, and beneath the logo/menu row on narrow phones. Both keep soft white fairy lights with gentle staggered twinkles.
+- A strand of glossy vintage multicolour C7/C9-style bulbs hangs from the same header’s lower edge. Most bulbs stay steady; selected bulbs dim irregularly at different intervals.
 - A six-point Star of David ornament hangs over the homepage artboard. The nativity illustration separately depicts the Star of Bethlehem, Mary, Joseph, baby Jesus in the manger and a lamb.
 - The nativity and Christmas greeting live inside the shared footer. The template collection still leads directly from its category strips into the footer.
 - Snow uses 72 decorative CSS particles (36 on phones) with different sizes, speeds, opacity and drift. A shallow layered snowbank sits along the viewport bottom beside a snowman whose separate twig arm waves with pauses. No canvas, timers or animation library are added.
 - All effects obey the existing visitor motion switch and global OS reduced-motion handling. Snow is omitted under OS reduced motion; the snowman, snowbank and lights remain static. Decorations never receive clicks or keyboard focus. Extra footer padding keeps the final links above the bank.
 - The nativity uses more natural faces, fabric and timber, with restrained star and manger glows.
 - Scripture details use native keyboard/touch-accessible disclosure controls, work without JavaScript, and expand in normal document flow. No Scripture is available only on hover.
+
+The greeting and garland remain server-rendered components passed into the interactive header through ReactNode slots. The existing menu behavior is unchanged; no scroll listeners or new client-side animation code are added. Header-aware anchor offsets keep target content below the decorations.
 
 ## Artwork
 

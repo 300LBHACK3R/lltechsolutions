@@ -3,32 +3,34 @@ import type { CSSProperties } from "react";
 import { christmasThemeEnabled } from "@/config/seasonal";
 import ScriptureNote from "@/components/seasonal/ScriptureNote";
 
-export function ChristmasMasthead() {
+export function ChristmasGarland() {
+  if (!christmasThemeEnabled) return null;
+  return <div className="christmas-garland" aria-hidden="true" />;
+}
+
+export function ChristmasGreeting() {
   if (!christmasThemeEnabled) return null;
   return (
-    <div className="christmas-masthead">
-      <div className="christmas-garland" aria-hidden="true" />
-      <div className="christmas-masthead-message">
-        <Image
-          className="christmas-wreath"
-          src="/images/seasonal/christmas-2026/wreath.webp"
-          alt=""
-          width={880}
-          height={440}
-          sizes="(max-width: 699px) 310px, 440px"
-        />
-        <div className="christmas-wreath-glints" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-          <i />
-        </div>
-        <div className="christmas-masthead-copy">
-          <span>Christmas at L&amp;L</span>
-          <p>
-            A season of <em>light.</em>
-          </p>
-        </div>
+    <div className="christmas-header-greeting">
+      <Image
+        className="christmas-wreath"
+        src="/images/seasonal/christmas-2026/wreath.webp"
+        alt=""
+        width={880}
+        height={440}
+        sizes="(max-width: 599px) 220px, 260px"
+      />
+      <div className="christmas-wreath-glints" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className="christmas-greeting-copy">
+        <span>Christmas at L&amp;L</span>
+        <p>
+          A season of <em>light.</em>
+        </p>
       </div>
     </div>
   );
