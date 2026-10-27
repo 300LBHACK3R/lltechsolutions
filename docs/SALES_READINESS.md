@@ -6,6 +6,10 @@ All three live sales forms now stay inert until hydration, declare POST as a sec
 defence, and provide a direct email fallback. Contact delivery also requires a provider
 message ID before claiming acceptance. Acceptance still does not establish inbox arrival.
 
+The separately sanitized trailer-rental and painting reference editions receive the same
+pre-hydration protection for their sample forms. They remain local demonstrations with no
+email or booking integration; original client websites are not modified by these changes.
+
 The managed purchase page now describes the available sample-content reference editions
 consistently with the source product pages.
 

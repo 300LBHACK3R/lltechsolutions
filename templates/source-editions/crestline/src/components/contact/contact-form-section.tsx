@@ -1,6 +1,10 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useState, useSyncExternalStore } from "react";
+
+const subscribe = () => () => {};
+const browserReady = () => true;
+const serverReady = () => false;
 
 const serviceOptions = [
   "Multi-Family",
@@ -12,10 +16,12 @@ const serviceOptions = [
 ];
 
 export default function ContactFormSection() {
+  const ready = useSyncExternalStore(subscribe, browserReady, serverReady);
   const [message, setMessage] = useState("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!ready) return;
     // Browser validation runs first. No fetch, API, storage, or email integration.
     setMessage(
       "Demo complete — nothing was sent or stored. Connect your own enquiry service before publishing.",
@@ -58,6 +64,7 @@ export default function ContactFormSection() {
           </aside>
 
           <form
+            method="post"
             className="form-panel form-panel--form"
             onSubmit={handleSubmit}
             aria-describedby="sample-enquiry-note"
@@ -70,30 +77,30 @@ export default function ContactFormSection() {
             <div className="form-grid__two">
               <label className="field">
                 <span>Name</span>
-                <input type="text" name="name" autoComplete="name" required />
+                <input disabled={!ready} type="text" name="name" autoComplete="name" required />
               </label>
 
               <label className="field">
                 <span>Email</span>
-                <input type="email" name="email" autoComplete="email" required />
+                <input disabled={!ready} type="email" name="email" autoComplete="email" required />
               </label>
             </div>
 
             <div className="form-grid__two">
               <label className="field">
                 <span>Phone</span>
-                <input type="tel" name="phone" autoComplete="tel" />
+                <input disabled={!ready} type="tel" name="phone" autoComplete="tel" />
               </label>
 
               <label className="field">
                 <span>Company</span>
-                <input type="text" name="company" autoComplete="organization" />
+                <input disabled={!ready} type="text" name="company" autoComplete="organization" />
               </label>
             </div>
 
             <label className="field">
               <span>Service Type</span>
-              <select name="service" defaultValue="">
+              <select disabled={!ready} name="service" defaultValue="">
                 <option value="" disabled>
                   Select a service
                 </option>
@@ -109,6 +116,7 @@ export default function ContactFormSection() {
             <label className="field">
               <span>Project Details</span>
               <textarea
+                disabled={!ready}
                 name="details"
                 rows={7}
                 placeholder="Tell us about the project, location, timeline, and any important details."
@@ -116,10 +124,13 @@ export default function ContactFormSection() {
               />
             </label>
 
-            <button type="submit" className="button button--primary form-submit">
+            <button disabled={!ready} type="submit" className="button button--primary form-submit">
               Try Sample Enquiry
             </button>
 
+            {!ready && (
+              <p>This local demonstration needs JavaScript. No enquiry can be sent here.</p>
+            )}
             {message ? (
               <p className="form-status form-status--success" role="status" aria-live="polite">
                 {message}

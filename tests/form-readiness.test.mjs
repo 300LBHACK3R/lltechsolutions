@@ -9,19 +9,34 @@ import ts from "typescript";
 
 // Render the real components, including their actual server hydration snapshot.
 const sourceRoot = new URL("../src/", import.meta.url);
+const referenceRoot = new URL("../templates/source-editions/", import.meta.url);
 const hooks = registerHooks({
   resolve(specifier, context, nextResolve) {
     if (specifier === "next/link") return nextResolve("next/link.js", context);
+    if (specifier === "next/navigation")
+      return { url: "form-readiness:navigation", shortCircuit: true };
     if (specifier.startsWith("@/")) {
+      const root = context.parentURL?.startsWith(referenceRoot.href)
+        ? new URL("tow-n-go/", referenceRoot)
+        : sourceRoot;
       for (const extension of [".ts", ".tsx"]) {
-        const url = new URL(`${specifier.slice(2)}${extension}`, sourceRoot);
+        const url = new URL(`${specifier.slice(2)}${extension}`, root);
         if (existsSync(url)) return nextResolve(url.href, context);
       }
     }
     return nextResolve(specifier, context);
   },
   load(url, context, nextLoad) {
-    if (url.startsWith(sourceRoot.href) && /\.tsx?$/u.test(url)) {
+    if (url === "form-readiness:navigation")
+      return {
+        format: "module",
+        source: "export const useSearchParams = () => new URLSearchParams();",
+        shortCircuit: true,
+      };
+    if (
+      (url.startsWith(sourceRoot.href) || url.startsWith(referenceRoot.href)) &&
+      /\.tsx?$/u.test(url)
+    ) {
       const { outputText } = ts.transpileModule(readFileSync(new URL(url), "utf8"), {
         fileName: fileURLToPath(url),
         compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.ESNext },
@@ -32,14 +47,34 @@ const hooks = registerHooks({
   },
 });
 
-let ContactForm, ManagedCheckout, SourceCheckout;
+let ContactForm, ManagedCheckout, SourceCheckout, TrailerSample, PaintingSample;
 try {
   ContactForm = (await import("../src/components/contact/ContactForm.tsx")).default;
   ManagedCheckout = (await import("../src/components/collection/ManagedTemplateCheckout.tsx"))
     .default;
   SourceCheckout = (await import("../src/components/collection/SourceCheckout.tsx")).default;
+  TrailerSample = (
+    await import("../templates/source-editions/tow-n-go/components/contact/ContactForm.tsx")
+  ).ContactForm;
+  PaintingSample = (
+    await import("../templates/source-editions/crestline/src/components/contact/contact-form-section.tsx")
+  ).default;
 } finally {
   hooks.deregister();
+}
+
+for (const [name, Component] of [
+  ["trailer reference", TrailerSample],
+  ["painting reference", PaintingSample],
+]) {
+  test(`${name} demo fields stay inert without JavaScript`, () => {
+    const html = renderToStaticMarkup(createElement(Component));
+    assert.match(html, /<form\b[^>]*method="post"/u);
+    assert.match(html, /local demonstration needs JavaScript/u);
+    const controls = html.match(/<(?:input|select|textarea|button)\b[^>]*>/gu) ?? [];
+    assert.ok(controls.length > 5, "actual sample fields were rendered");
+    for (const control of controls) assert.match(control, /\bdisabled=""/u);
+  });
 }
 
 for (const [name, Component, props, endpoint, fields] of [

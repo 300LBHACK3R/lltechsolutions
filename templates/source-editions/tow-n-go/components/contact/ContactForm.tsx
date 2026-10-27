@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useState, useSyncExternalStore } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   parseServiceType,
@@ -9,6 +9,10 @@ import {
   type ServiceType,
 } from "@/data/servicePathways";
 import { siteConfig } from "@/lib/site";
+
+const subscribe = () => () => {};
+const browserReady = () => true;
+const serverReady = () => false;
 
 type RentalType =
   "" | "Enclosed trailer" | "Dump trailer" | "Dovetail / equipment trailer" | "Not sure yet";
@@ -98,6 +102,7 @@ function ContactFormFields({
   prefilledTrailer: string;
   prefilledService: ServiceType | "";
 }) {
+  const ready = useSyncExternalStore(subscribe, browserReady, serverReady);
   const [form, setForm] = useState<ContactFormState>(() =>
     createInitialFormState(prefilledTrailer, prefilledService),
   );
@@ -144,6 +149,7 @@ function ContactFormFields({
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!ready) return;
     setSubmitStatus("success");
     setSubmitMessage(
       "Demo preview complete. Nothing was sent or saved, no email was delivered, and no booking was made. Connect your own form service before launch.",
@@ -152,6 +158,7 @@ function ContactFormFields({
 
   return (
     <form
+      method="post"
       onSubmit={handleSubmit}
       className="relative h-fit min-w-0 overflow-hidden rounded-[1.5rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.055),rgba(255,255,255,0.018))] p-5 shadow-[0_25px_90px_rgba(0,0,0,0.42)] backdrop-blur sm:p-7 md:p-8"
     >
@@ -168,6 +175,7 @@ function ContactFormFields({
       <input
         type="text"
         name="website"
+        disabled={!ready}
         value={form.website}
         onChange={(event) => updateField("website", event.target.value)}
         className="absolute -left-[9999px] h-px w-px overflow-hidden"
@@ -176,6 +184,7 @@ function ContactFormFields({
         aria-hidden="true"
       />
 
+      {!ready && <p>This local demonstration needs JavaScript. No enquiry can be sent here.</p>}
       <div className="relative">
         <div className="mb-7">
           <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#d4af37]">
@@ -201,7 +210,7 @@ function ContactFormFields({
               onChange={(event) => updateField("serviceType", parseServiceType(event.target.value))}
               aria-describedby="service-description"
               className={fieldClassName}
-              disabled={isSubmitting}
+              disabled={!ready || isSubmitting}
             >
               <option value="">Help me choose</option>
               {servicePathways.map((service) => (
@@ -234,7 +243,7 @@ function ContactFormFields({
               placeholder="Your name"
               autoComplete="name"
               maxLength={120}
-              disabled={isSubmitting}
+              disabled={!ready || isSubmitting}
             />
           </label>
 
@@ -251,7 +260,7 @@ function ContactFormFields({
               autoComplete="email"
               inputMode="email"
               maxLength={320}
-              disabled={isSubmitting}
+              disabled={!ready || isSubmitting}
             />
           </label>
 
@@ -267,7 +276,7 @@ function ContactFormFields({
               autoComplete="tel"
               inputMode="tel"
               maxLength={80}
-              disabled={isSubmitting}
+              disabled={!ready || isSubmitting}
             />
           </label>
 
@@ -282,7 +291,7 @@ function ContactFormFields({
               placeholder="Sampletown, Westfield, Southfield..."
               autoComplete="address-level2"
               maxLength={120}
-              disabled={isSubmitting}
+              disabled={!ready || isSubmitting}
             />
           </label>
 
@@ -296,7 +305,7 @@ function ContactFormFields({
               className={fieldClassName}
               placeholder="Trailer name if you know it"
               maxLength={180}
-              disabled={isSubmitting}
+              disabled={!ready || isSubmitting}
             />
           </label>
 
@@ -307,7 +316,7 @@ function ContactFormFields({
               value={form.rentalType}
               onChange={(event) => updateField("rentalType", event.target.value as RentalType)}
               className={fieldClassName}
-              disabled={isSubmitting}
+              disabled={!ready || isSubmitting}
             >
               <option value="">Select trailer type</option>
               <option value="Enclosed trailer">Enclosed trailer</option>
@@ -325,7 +334,7 @@ function ContactFormFields({
               value={form.rentalDate}
               onChange={(event) => updateField("rentalDate", event.target.value)}
               className={fieldClassName}
-              disabled={isSubmitting}
+              disabled={!ready || isSubmitting}
             />
           </label>
 
@@ -338,7 +347,7 @@ function ContactFormFields({
                 value={form.returnDate}
                 onChange={(event) => updateField("returnDate", event.target.value)}
                 className={fieldClassName}
-                disabled={isSubmitting}
+                disabled={!ready || isSubmitting}
               />
             </label>
           )}
@@ -352,7 +361,7 @@ function ContactFormFields({
                 updateField("paymentPreference", event.target.value as PaymentPreference)
               }
               className={fieldClassName}
-              disabled={isSubmitting}
+              disabled={!ready || isSubmitting}
             >
               <option value="">Select payment method</option>
               <option value="Cash">Cash</option>
@@ -385,7 +394,7 @@ function ContactFormFields({
                       : "City or general pickup area"
                   }
                   maxLength={240}
-                  disabled={isSubmitting}
+                  disabled={!ready || isSubmitting}
                 />
               </label>
               {form.serviceType === "transport" && (
@@ -399,7 +408,7 @@ function ContactFormFields({
                     className={fieldClassName}
                     placeholder="City or general delivery area"
                     maxLength={240}
-                    disabled={isSubmitting}
+                    disabled={!ready || isSubmitting}
                   />
                 </label>
               )}
@@ -427,7 +436,7 @@ function ContactFormFields({
                   checked={form.addOns.includes(option)}
                   onChange={() => toggleAddOn(option)}
                   className="h-4 w-4 shrink-0 accent-[#d4af37]"
-                  disabled={isSubmitting}
+                  disabled={!ready || isSubmitting}
                 />
 
                 <span>{option}</span>
@@ -445,7 +454,7 @@ function ContactFormFields({
             className={`${textareaClassName} min-h-28`}
             placeholder="Furniture, branches, equipment, boxes, debris, landscaping material..."
             maxLength={3000}
-            disabled={isSubmitting}
+            disabled={!ready || isSubmitting}
           />
         </label>
 
@@ -459,7 +468,7 @@ function ContactFormFields({
             className={`${textareaClassName} min-h-32`}
             placeholder="Tell us about your job, access, timing and any other requirements."
             maxLength={3000}
-            disabled={isSubmitting}
+            disabled={!ready || isSubmitting}
           />
         </label>
 
@@ -484,7 +493,7 @@ function ContactFormFields({
         <div className="mt-8 grid gap-3 sm:grid-cols-2">
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={!ready || isSubmitting}
             aria-busy={isSubmitting}
             className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#d4af37] px-6 py-3.5 text-center text-sm font-bold text-black shadow-[0_18px_55px_rgba(212,175,55,0.22)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#f0c94a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f0c94a] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0b0b0b] disabled:cursor-not-allowed disabled:transform-none disabled:opacity-65"
           >
