@@ -8,18 +8,26 @@ Set `christmasThemeEnabled` to `false` in `src/config/seasonal.ts` to remove the
 
 ## Design and motion
 
-- A shallow evergreen garland masthead and warm gold lights frame the existing navigation.
+- Continuous overlapping evergreen garland spans the full masthead. A matching oval wreath frames the centre greeting. Both keep soft white fairy lights with gentle staggered twinkles.
+- A separate strand of glossy vintage multicolour C7/C9-style bulbs hangs below navigation. Most bulbs stay steady; selected bulbs dim irregularly at different intervals.
 - A six-point Star of David ornament hangs over the homepage artboard. The nativity illustration separately depicts the Star of Bethlehem, Mary, Joseph, baby Jesus in the manger and a lamb.
 - The nativity and Christmas greeting live inside the shared footer. The template collection still leads directly from its category strips into the footer.
-- Snow uses 24 decorative CSS particles (12 on phones), no canvas, timers or animation library. Snow and lights obey the existing visitor motion switch; snow is omitted and lights are static with OS reduced motion. Decoration does not receive clicks or keyboard focus.
+- Snow uses 72 decorative CSS particles (36 on phones) with different sizes, speeds, opacity and drift. A shallow layered snowbank sits along the viewport bottom beside a snowman whose separate twig arm waves with pauses. No canvas, timers or animation library are added.
+- All effects obey the existing visitor motion switch and global OS reduced-motion handling. Snow is omitted under OS reduced motion; the snowman, snowbank and lights remain static. Decorations never receive clicks or keyboard focus. Extra footer padding keeps the final links above the bank.
+- The nativity uses more natural faces, fabric and timber, with restrained star and manger glows.
 - Scripture details use native keyboard/touch-accessible disclosure controls, work without JavaScript, and expand in normal document flow. No Scripture is available only on hover.
 
 ## Artwork
 
-The garland and nativity were generated specifically for this request with the image-generation tool on 26 October 2026, then resized and encoded to transparent WebP. No stock licence or external image request is required. Original business/client logos and screenshots were not altered.
+The garland, wreath, snowman layers and nativity were generated specifically for this request with the built-in image-generation tool on 26 October 2026 (Alberta), then resized and encoded to transparent WebP. The snowman sprite sheet was split into separate body and twig-arm assets for CSS animation. No stock licence or external image request is required. Original business/client logos and screenshots were not altered.
 
 - `public/images/seasonal/christmas-2026/garland.webp`: 1200 × 400, 177 kB.
-- `public/images/seasonal/christmas-2026/nativity.webp`: 900 × 600, 119 kB; loaded lazily in the footer.
+- `public/images/seasonal/christmas-2026/nativity-lifelike.webp`: 900 × 600; loaded lazily in the footer.
+- `public/images/seasonal/christmas-2026/wreath.webp`: 880 × 440.
+- `public/images/seasonal/christmas-2026/snowman-body.webp`: 380 × 627.
+- `public/images/seasonal/christmas-2026/snowman-arm.webp`: 215 × 275.
+
+Final artwork direction: match the existing realistic evergreen garland with a wide oval wreath, gold baubles, small burgundy ribbons and soft white lights, leaving a generous transparent centre for live text. Create a friendly textured snowman with a black hat/gold band and tartan scarf, then separate its raised twig arm while preserving its face and materials. Reinterpret the original nativity with natural human faces and woven fabric, preserving Mary, Joseph, the swaddled baby in the manger, lamb, rustic roof and Star of Bethlehem; use warm manger lighting and transparent surroundings. No text or logos are baked into any generated artwork.
 
 ## Scripture sources
 

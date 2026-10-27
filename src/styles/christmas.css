@@ -9,33 +9,38 @@
   isolation: isolate;
   display: grid;
   place-items: center;
-  min-height: 104px;
+  min-height: 236px;
   overflow: hidden;
   background: radial-gradient(ellipse at 50% 110%, #343021 0, #101610 48%, #080c09 85%);
   border-bottom: 1px solid #b99a5133;
 }
 .christmas-garland {
   position: absolute;
-  top: -28px;
-  width: min(36vw, 540px);
-  height: auto;
+  inset: 0 0 auto;
+  height: 135px;
+  background-image:
+    url("/images/seasonal/christmas-2026/garland.webp"),
+    url("/images/seasonal/christmas-2026/garland.webp");
+  background-repeat: repeat-x;
+  background-size: 480px 160px;
+  background-position:
+    center -25px,
+    calc(50% + 240px) -60px;
   pointer-events: none;
   z-index: -1;
 }
-.christmas-garland-left {
-  left: -24px;
-  transform: rotate(7deg);
-}
-.christmas-garland-right {
-  right: -24px;
-  transform: rotate(-7deg);
-}
 .christmas-masthead-message {
-  padding: 14px 20px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 440px;
+  height: 220px;
+  margin: 8px 0;
+  background: radial-gradient(ellipse, #101610 0 47%, #101610e6 54%, transparent 65%);
   text-align: center;
   color: var(--winter-ivory);
 }
-.christmas-masthead-message > span {
+.christmas-masthead-copy > span {
   color: var(--winter-gold);
   font-size: 9px;
   font-weight: 500;
@@ -52,28 +57,147 @@
 .christmas-masthead-message em {
   color: var(--winter-gold);
 }
+
+.christmas-wreath {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.christmas-masthead-copy {
+  position: relative;
+  padding-top: 6px;
+}
+.christmas-garland::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 38px 41px, #fffef5cc 0 1px, #ffe7ac55 3px, transparent 10px),
+    radial-gradient(circle at 205px 89px, #fffef5cc 0 1px, #ffe7ac55 3px, transparent 10px),
+    radial-gradient(circle at 378px 50px, #fffef5cc 0 1px, #ffe7ac55 3px, transparent 10px);
+  background-repeat: repeat-x;
+  background-size: 480px 160px;
+  background-position: center -25px;
+  animation: fairy-twinkle 5.8s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.christmas-wreath-glints {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.christmas-wreath-glints i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff9e8;
+  box-shadow:
+    0 0 6px 2px #ffdf9c99,
+    0 0 18px 4px #ffe1a644;
+  animation: fairy-twinkle 6s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.christmas-wreath-glints i:nth-child(1) {
+  left: 23%;
+  top: 71%;
+}
+.christmas-wreath-glints i:nth-child(2) {
+  left: 52%;
+  top: 10%;
+  animation-delay: -3s;
+}
+.christmas-wreath-glints i:nth-child(3) {
+  left: 84%;
+  top: 40%;
+  animation-delay: -1.7s;
+}
+.christmas-wreath-glints i:nth-child(4) {
+  left: 65%;
+  top: 80%;
+  animation-delay: -4.2s;
+}
+@keyframes fairy-twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  40% {
+    opacity: 0.95;
+  }
+  65% {
+    opacity: 0.6;
+  }
+}
+
 [data-season="christmas"] .site-header {
   border-bottom-color: #9b7d393d;
 }
 .christmas-lights {
   position: absolute;
-  inset: auto 0 -8px;
-  height: 8px;
+  inset: auto 0 -29px;
+  height: 29px;
   display: flex;
   justify-content: space-around;
   pointer-events: none;
-  border-top: 1px solid #8c79423d;
+  border-top: 2px solid #25432c;
 }
 .christmas-lights i {
-  width: 4px;
-  height: 6px;
-  border-radius: 2px 2px 50% 50%;
-  background: #ffe3a0;
+  --bulb-colour: #ff3c42;
+  --bulb-halo: #ff263e88;
+  position: relative;
+  flex: 0 0 12px;
+  height: 23px;
+  margin-top: 5px;
+  color: var(--bulb-colour);
+  border-radius: 35% 35% 50% 50% / 25% 25% 75% 75%;
+  background:
+    radial-gradient(ellipse at 32% 28%, #fffef8 0 4%, #ffffff99 8%, transparent 30%),
+    linear-gradient(90deg, #00000040, transparent 45%, #ffffff55 55%, #00000030), var(--bulb-colour);
   box-shadow:
-    0 0 5px 1px #e8ad5266,
-    0 0 14px 3px #e8ad5222;
-  opacity: 0.8;
-  animation: christmas-glow 5s ease-in-out var(--bulb-delay) infinite alternate;
+    inset 0 0 3px #fff6,
+    0 0 10px 2px var(--bulb-halo),
+    0 4px 24px 4px var(--bulb-halo);
+  transform: rotate(-9deg);
+}
+.christmas-lights i::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 2px;
+  width: 8px;
+  height: 7px;
+  border-radius: 2px 2px 0 0;
+  background: repeating-linear-gradient(0deg, #173a25 0 2px, #35563d 2px 3px);
+}
+.christmas-lights i:nth-child(5n + 2) {
+  --bulb-colour: #ffc339;
+  --bulb-halo: #ffb82577;
+}
+.christmas-lights i:nth-child(5n + 3) {
+  --bulb-colour: #22d564;
+  --bulb-halo: #13c45c77;
+}
+.christmas-lights i:nth-child(5n + 4) {
+  --bulb-colour: #3786ff;
+  --bulb-halo: #2b71ff88;
+}
+.christmas-lights i:nth-child(5n) {
+  --bulb-colour: #ee6cde;
+  --bulb-halo: #df55d477;
+}
+.christmas-lights i:nth-child(even) {
+  transform: rotate(10deg);
+}
+/* A few imperfect old-fashioned bulbs; the rest remain steadily lit. */
+.christmas-lights i:nth-child(7n + 3) {
+  animation: christmas-flicker 11.7s linear var(--bulb-delay) infinite;
+  animation-play-state: paused;
+}
+.christmas-lights i:nth-child(11n + 6) {
+  animation: christmas-flicker 17.3s linear calc(var(--bulb-delay) - 4s) infinite reverse;
   animation-play-state: paused;
 }
 .winter-snow {
@@ -91,13 +215,59 @@
   width: var(--snow-size);
   height: var(--snow-size);
   border-radius: 50%;
-  background: #fff7e7;
-  opacity: 0.3;
+  background: #f7fbff;
+  box-shadow: 0 0 3px #ffffff55;
+  opacity: var(--snow-opacity);
   animation: winter-fall var(--snow-duration) linear var(--snow-delay) infinite;
   animation-play-state: paused;
 }
+.winter-ground {
+  position: fixed;
+  inset: auto 0 0;
+  height: 190px;
+  z-index: 91;
+  pointer-events: none;
+}
+.winter-snowbank {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 38px;
+  filter: drop-shadow(0 -2px 6px #cee3f31a);
+}
+.winter-snowman {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 100px;
+  height: auto;
+}
+.winter-snowman-body {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+.winter-snowman-arm {
+  position: absolute;
+  left: -13%;
+  top: 26%;
+  width: 31%;
+  height: auto;
+  transform-origin: 90% 92%;
+  animation: snowman-wave 9s ease-in-out infinite;
+  animation-play-state: paused;
+}
+/* Leave the final links above the decorative bank, including on short screens. */
+[data-season="christmas"] .site-footer {
+  padding-bottom: 145px;
+}
 html[data-motion="running"] .winter-snow i,
-html[data-motion="running"] .christmas-lights i {
+html[data-motion="running"] .christmas-lights i,
+html[data-motion="running"] .winter-snowman-arm,
+html[data-motion="running"] .christmas-garland::after,
+html[data-motion="running"] .christmas-wreath-glints i,
+html[data-motion="running"] .nativity-star-glow,
+html[data-motion="running"] .nativity-manger-glow {
   animation-play-state: running;
 }
 @keyframes winter-fall {
@@ -108,12 +278,57 @@ html[data-motion="running"] .christmas-lights i {
     transform: translate3d(var(--snow-drift), calc(100vh + 24px), 0);
   }
 }
-@keyframes christmas-glow {
-  from {
-    opacity: 0.65;
+@keyframes christmas-flicker {
+  0%,
+  28%,
+  36%,
+  61%,
+  69%,
+  100% {
+    opacity: 1;
   }
-  to {
-    opacity: 0.95;
+  30%,
+  33% {
+    opacity: 0.4;
+  }
+  32%,
+  35% {
+    opacity: 0.88;
+  }
+  64%,
+  66% {
+    opacity: 0.58;
+  }
+}
+@keyframes snowman-wave {
+  0%,
+  8%,
+  45%,
+  100% {
+    transform: rotate(0deg);
+  }
+  15%,
+  31% {
+    transform: rotate(15deg);
+  }
+  23%,
+  38% {
+    transform: rotate(-13deg);
+  }
+}
+@keyframes nativity-shimmer {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+  45% {
+    opacity: 0.8;
+    transform: scale(1.08);
+  }
+  70% {
+    opacity: 0.52;
+    transform: scale(1);
   }
 }
 [data-season="christmas"] .premium-hero {
@@ -224,10 +439,40 @@ html[data-motion="running"] .christmas-lights i {
   padding: 32px 0 26px;
   border-bottom: 1px solid #b99a5126;
 }
-.christmas-nativity > img {
+.christmas-nativity-art {
+  position: relative;
   width: min(35%, 360px);
-  height: auto;
   flex-shrink: 0;
+}
+.christmas-nativity-art > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.nativity-star-glow,
+.nativity-manger-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(ellipse, #fff8dc88 0, #ffd77844 24%, transparent 70%);
+  opacity: 0.4;
+  animation: nativity-shimmer 7s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.nativity-star-glow {
+  left: 42%;
+  top: 4%;
+  width: 16%;
+  height: 23%;
+}
+.nativity-manger-glow {
+  left: 37%;
+  top: 55%;
+  width: 26%;
+  height: 22%;
+  background: radial-gradient(ellipse, #ffd17422 0, transparent 70%);
+  animation-duration: 9s;
+  animation-delay: -3s;
 }
 .christmas-nativity-copy {
   max-width: 430px;
@@ -261,49 +506,48 @@ html[data-motion="running"] .christmas-lights i {
   margin-top: 8px;
 }
 @media (max-width: 999px) {
-  .christmas-garland {
-    width: 310px;
-    top: -2px;
-  }
-  .christmas-garland-left {
-    left: -85px;
-  }
-  .christmas-garland-right {
-    right: -85px;
-  }
   .christmas-ornament {
     width: 50px;
   }
 }
 @media (max-width: 699px) {
   .christmas-masthead {
-    min-height: 82px;
+    min-height: 171px;
   }
   .christmas-masthead-message {
-    padding: 13px 10px;
+    width: min(310px, 100%);
+    height: 155px;
   }
-  .christmas-masthead-message > span {
-    font-size: 8px;
-    letter-spacing: 0.19em;
+  .christmas-masthead-copy > span {
+    font-size: 7px;
+    letter-spacing: 0.14em;
   }
   .christmas-masthead-message p {
-    font-size: 27px;
+    font-size: 24px;
   }
   .christmas-garland {
-    width: 240px;
-    top: 0;
-    opacity: 0.9;
+    height: 120px;
   }
-  .christmas-garland-left {
-    left: -156px;
-    transform: rotate(20deg);
-  }
-  .christmas-garland-right {
-    right: -156px;
-    transform: rotate(-20deg);
-  }
-  .christmas-lights i:nth-child(2n) {
+  .christmas-lights i:nth-child(n + 13) {
     display: none;
+  }
+  .christmas-lights i {
+    flex-basis: 10px;
+    height: 19px;
+  }
+  .christmas-lights i::before {
+    width: 6px;
+  }
+  .winter-snowman {
+    width: 60px;
+    right: 5px;
+    bottom: 6px;
+  }
+  .winter-snowbank {
+    height: 26px;
+  }
+  [data-season="christmas"] .site-footer {
+    padding-bottom: 110px;
   }
   .winter-snow i:nth-child(2n) {
     display: none;
@@ -325,7 +569,7 @@ html[data-motion="running"] .christmas-lights i {
     padding: 30px 0 24px;
     text-align: center;
   }
-  .christmas-nativity > img {
+  .christmas-nativity-art {
     width: min(100%, 280px);
   }
   .christmas-nativity-copy h2 {
@@ -333,14 +577,6 @@ html[data-motion="running"] .christmas-lights i {
   }
   .christmas-nativity .scripture-note {
     margin-inline: auto;
-  }
-}
-@media (max-width: 359px) {
-  .christmas-garland-left {
-    left: -184px;
-  }
-  .christmas-garland-right {
-    right: -184px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -356,9 +592,14 @@ html[data-motion="running"] .christmas-lights i {
 }
 @media (forced-colors: active), print {
   .winter-snow,
+  .winter-ground,
   .christmas-lights,
   .christmas-garland,
-  .christmas-ornament {
+  .christmas-wreath,
+  .christmas-wreath-glints,
+  .christmas-ornament,
+  .nativity-star-glow,
+  .nativity-manger-glow {
     display: none;
   }
   .christmas-masthead,
