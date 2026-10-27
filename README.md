@@ -2,6 +2,10 @@
 
 The Next.js website, template demos and customer source-package tooling for L&L's Calgary studio. Keep this entire repository in one `landl-tech/` folder; run commands from that folder. The main website and standalone demos share maintained source inside it.
 
+For the complete project download, start with [Project handoff](docs/PROJECT_HANDOFF.md).
+The current provider and publishing checklist is [Sales readiness](docs/SALES_READINESS.md);
+successful local checks alone do not establish paid delivery.
+
 ## Start locally
 
 Use Node 22 or newer; CI uses Node 22.
@@ -53,7 +57,7 @@ Before release, run these gates in order:
 ```sh
 npm run format:check
 npm run check
-npm audit --audit-level=high
+npm run audit:check
 npm run build
 npm run smoke
 ```

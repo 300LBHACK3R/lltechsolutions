@@ -41,6 +41,24 @@ consistently with the source product pages.
 The current code changes do not alter payment amounts, tax settings, consent terms,
 signing secrets, feature flags, private object permissions or existing paid entitlements.
 
+### Follow-up cleanup and connection check
+
+On 26 October (Alberta), GitHub branch creation still returned 403, "Resource not
+accessible by integration," and Stripe still exposed only Tate's TV sandbox. Vercel's
+storage keys are protected application credentials; the documented deployment role has
+read/signing permissions, not the operator's upload permission. No secrets were retrieved
+and no permission boundary was bypassed.
+
+One clearly labelled contact test was prepared in the live form. Automatic approval
+review rejected submission because specific authorization for that message and recipient
+was required. It was not sent; inbox receipt and paid fulfillment remain unverified.
+
+The maintained source has no unused local declarations or parameters under TypeScript's
+additional unused-code checks. A reference audit found no confirmed orphaned source
+modules or unused public media to delete. Generated extraction/build copies are disposable;
+the complete handoff retains maintained source, private ZIPs, licences and Git recovery
+information. See [Project handoff](PROJECT_HANDOFF.md).
+
 ## Publish refreshed customer downloads
 
 Use the same clean source commit for build and upload. Review the release bundle's exact
